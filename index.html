@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Royal Blue • Black • Green</title>
+    <style>
+      :root {
+        --royal-blue: #4169e1;
+        --black: #0b0f14;
+        --green: #18c37e;
+        --text: #eef3ff;
+        --muted: rgba(238, 243, 255, 0.72);
+        --card: rgba(11, 15, 20, 0.55);
+        --border: rgba(238, 243, 255, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        height: 100%;
+      }
+
+      body {
+        margin: 0;
+        color: var(--text);
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial,
+          "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+        background: linear-gradient(
+          135deg,
+          var(--royal-blue) 0%,
+          var(--black) 45%,
+          var(--green) 100%
+        );
+        display: grid;
+        place-items: center;
+        padding: 32px 18px;
+      }
+
+      .wrap {
+        width: min(980px, 100%);
+      }
+
+      .hero {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 26px 22px;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        box-shadow: 0 18px 55px rgba(0, 0, 0, 0.35);
+      }
+
+      h1 {
+        margin: 0 0 10px;
+        font-size: clamp(28px, 3.5vw, 44px);
+        letter-spacing: 0.2px;
+        line-height: 1.08;
+      }
+
+      p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 15.5px;
+        line-height: 1.55;
+      }
+
+      .swatches {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 18px;
+      }
+
+      .swatch {
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.03);
+      }
+
+      .chip {
+        height: 64px;
+      }
+
+      .label {
+        padding: 10px 12px 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 10px;
+        font-size: 13.5px;
+      }
+
+      .label span {
+        color: var(--muted);
+        font-variant-numeric: tabular-nums;
+      }
+
+      @media (max-width: 700px) {
+        .swatches {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <section class="hero" aria-label="Blue Black Green Background">
+        <h1>Royal Blue, Black &amp; Green</h1>
+        <p>
+          A clean landing page with a royal blue → black → green gradient background.
+          Edit colors in <code>:root</code> to match your exact shade.
+        </p>
+
+        <div class="swatches" aria-label="Color Swatches">
+          <div class="swatch">
+            <div class="chip" style="background: #4169e1"></div>
+            <div class="label">
+              <strong>Royal Blue</strong>
+              <span>#4169E1</span>
+            </div>
+          </div>
+          <div class="swatch">
+            <div class="chip" style="background: #0b0f14"></div>
+            <div class="label">
+              <strong>Black</strong>
+              <span>#0B0F14</span>
+            </div>
+          </div>
+          <div class="swatch">
+            <div class="chip" style="background: #18c37e"></div>
+            <div class="label">
+              <strong>Green</strong>
+              <span>#18C37E</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
