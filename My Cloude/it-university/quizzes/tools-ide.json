@@ -1,0 +1,256 @@
+{
+  "title": "Online IDE & Dev Tools Quiz",
+  "description": "Test your knowledge of Git, the command line, regex, keyboard shortcuts, and developer tooling.",
+  "questions": [
+    {
+      "question": "What does 'git stash' do?",
+      "options": [
+        "A. Saves uncommitted changes temporarily and clears the working directory",
+        "B. Deletes uncommitted changes",
+        "C. Commits changes to a branch",
+        "D. Merges two branches"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "Which Git command shows the difference between the working directory and the last commit?",
+      "options": [
+        "A. git log",
+        "B. git diff",
+        "C. git status",
+        "D. git show"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "What regex pattern matches one or more digits?",
+      "options": [
+        "A. \\d*",
+        "B. \\d?",
+        "C. \\d+",
+        "D. \\D+"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Which keyboard shortcut typically opens the terminal in VS Code?",
+      "options": [
+        "A. Ctrl+T",
+        "B. Ctrl+Shift+T",
+        "C. Alt+F4",
+        "D. Ctrl+`"
+      ],
+      "correct": 3
+    },
+    {
+      "question": "What does 'git rebase -i HEAD~3' allow you to do?",
+      "options": [
+        "A. Interactively rewrite the last 3 commits",
+        "B. Delete the last 3 branches",
+        "C. Reset to 3 commits ago",
+        "D. Merge 3 branches"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "In Linux, which command finds files by name recursively?",
+      "options": [
+        "A. grep -r",
+        "B. find . -name",
+        "C. locate",
+        "D. ls -R"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "What does the regex anchor '^' mean?",
+      "options": [
+        "A. End of string",
+        "B. Any character",
+        "C. Start of string",
+        "D. Word boundary"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Which file permission allows execute for the owner only (numeric)?",
+      "options": [
+        "A. 644",
+        "B. 755",
+        "C. 777",
+        "D. 700"
+      ],
+      "correct": 3
+    },
+    {
+      "question": "What does 'git cherry-pick <commit-hash>' do?",
+      "options": [
+        "A. Applies a specific commit from another branch to the current branch",
+        "B. Deletes a commit",
+        "C. Tags a commit",
+        "D. Squashes commits"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "What is the purpose of a .gitignore file?",
+      "options": [
+        "A. Lists merged branches",
+        "B. Specifies files Git should not track",
+        "C. Stores commit messages",
+        "D. Defines branch policies"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Which Bash shortcut moves the cursor to the beginning of the line?",
+      "options": [
+        "A. Ctrl+E",
+        "B. Ctrl+U",
+        "C. Ctrl+A",
+        "D. Ctrl+K"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "In VS Code, what shortcut opens the Command Palette?",
+      "options": [
+        "A. Ctrl+P",
+        "B. Ctrl+F",
+        "C. Ctrl+G",
+        "D. Ctrl+Shift+P"
+      ],
+      "correct": 3
+    },
+    {
+      "question": "What does the regex quantifier '{3,6}' mean?",
+      "options": [
+        "A. Between 3 and 6 repetitions",
+        "B. Exactly 3 or 6 characters",
+        "C. 3 or more repetitions",
+        "D. Up to 6 repetitions"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "What does 'chmod 755 script.sh' set?",
+      "options": [
+        "A. Owner: rwx, Group: rwx, Others: rwx",
+        "B. Owner: rwx, Group: r-x, Others: r-x",
+        "C. Owner: r-x, Group: r-x, Others: r-x",
+        "D. Owner: rw-, Group: r--, Others: r--"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Which Git workflow uses feature branches that merge into 'develop' before 'main'?",
+      "options": [
+        "A. Trunk-based development",
+        "B. Forking workflow",
+        "C. Gitflow",
+        "D. Ship/show/ask"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "What command shows who last modified each line of a file in Git?",
+      "options": [
+        "A. git log --all",
+        "B. git annotate --verbose",
+        "C. git show-ref",
+        "D. git blame"
+      ],
+      "correct": 3
+    },
+    {
+      "question": "What does the Piston API (emkc.org) enable in a browser-based IDE?",
+      "options": [
+        "A. Server-side multi-language code execution",
+        "B. Client-side JS execution",
+        "C. Database queries",
+        "D. File system access"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "Which regex character class matches any whitespace?",
+      "options": [
+        "A. \\w",
+        "B. \\s",
+        "C. \\b",
+        "D. \\W"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "What does 'git fetch' do compared to 'git pull'?",
+      "options": [
+        "A. They are identical",
+        "B. fetch merges and pull does not",
+        "C. fetch downloads changes but does not merge; pull fetches and merges",
+        "D. fetch only works with remote branches"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "In Bash, what does 'Ctrl+R' do?",
+      "options": [
+        "A. Runs the last command",
+        "B. Clears the screen",
+        "C. Repeats the current line",
+        "D. Searches command history"
+      ],
+      "correct": 3
+    },
+    {
+      "question": "What does the regex '(?:...)' create?",
+      "options": [
+        "A. A non-capturing group",
+        "B. A named capture group",
+        "C. A lookahead",
+        "D. A backreference"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "Which Git command undoes the last commit but keeps the changes staged?",
+      "options": [
+        "A. git reset --hard HEAD~1",
+        "B. git reset --soft HEAD~1",
+        "C. git revert HEAD",
+        "D. git checkout HEAD~1"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "What is the purpose of an SSH config file (~/.ssh/config)?",
+      "options": [
+        "A. Stores SSH passwords",
+        "B. Logs SSH connections",
+        "C. Defines per-host SSH settings like user, port, and identity file",
+        "D. Generates SSH keys"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Which shortcut in most terminals pastes from the clipboard on Linux?",
+      "options": [
+        "A. Ctrl+V",
+        "B. Ctrl+Insert",
+        "C. Shift+Insert",
+        "D. Ctrl+Shift+V"
+      ],
+      "correct": 3
+    },
+    {
+      "question": "What does 'git tag -a v1.0 -m \"Release\"' do?",
+      "options": [
+        "A. Creates an annotated tag with a message",
+        "B. Creates a lightweight tag",
+        "C. Pushes a tag to remote",
+        "D. Lists all tags matching v1.0"
+      ],
+      "correct": 0
+    }
+  ]
+}

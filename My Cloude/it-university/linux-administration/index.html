@@ -1,0 +1,1749 @@
+<!doctype html>
+<html lang="en" data-portal="linux-administration" data-depth="2">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Linux Administration — IT University</title>
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/reset.css">
+  <link rel="stylesheet" href="../assets/css/portal-themes.css">
+  <link rel="stylesheet" href="../assets/css/layout.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/quiz.css">
+</head>
+<body class="page-body">
+<div id="header-placeholder"></div>
+
+<div class="portal-layout">
+  <aside class="sidebar">
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Foundations</div>
+      <a href="#boot" class="sidebar__link">🚀 Boot Process</a>
+      <a href="#basics" class="sidebar__link">📟 100+ Commands</a>
+      <a href="#filesystem" class="sidebar__link">📁 Filesystem</a>
+      <a href="#bash" class="sidebar__link">⚡ Bash Scripting</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Administration</div>
+      <a href="#users" class="sidebar__link">👤 User Management</a>
+      <a href="#permissions" class="sidebar__link">🔐 Permissions & ACL</a>
+      <a href="#storage" class="sidebar__link">💾 LVM & RAID</a>
+      <a href="#networking" class="sidebar__link">🌐 Networking</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Services</div>
+      <a href="#systemd" class="sidebar__link">⚙️ systemd</a>
+      <a href="#nginx" class="sidebar__link">🌍 Nginx Deep Dive</a>
+      <a href="#mysql" class="sidebar__link">🗄️ MySQL / Replication</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Security</div>
+      <a href="#selinux" class="sidebar__link">🔒 SELinux</a>
+      <a href="#hardening" class="sidebar__link">🛡️ SSH Hardening</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Deep Internals</div>
+      <a href="#containers-linux" class="sidebar__link">🐳 Containers (ns+cgroups)</a>
+      <a href="#ebpf" class="sidebar__link">🔬 eBPF Deep Dive</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Operations</div>
+      <a href="#performance" class="sidebar__link">📊 Performance Tuning</a>
+      <a href="#troubleshooting" class="sidebar__link">🔧 10 Scenarios</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Practice</div>
+      <a href="#labs" class="sidebar__link">🧪 200+ Labs</a>
+      <a href="#interview" class="sidebar__link">🎯 Interview Q&A</a>
+      <a href="#certs" class="sidebar__link">🏆 Certifications</a>
+      <a href="#quiz-section" class="sidebar__link">🧠 Quiz</a>
+    </div>
+  </aside>
+
+  <main class="content">
+    <h1>🐧 Linux Administration Mastery</h1>
+    <p style="color:var(--text-dim);font-size:var(--text-lg);margin-bottom:var(--gap-xl)">Master Linux from boot to enterprise-grade administration. RHCSA/RHCE level content with 200+ hands-on labs.</p>
+
+    <!-- ===== BOOT PROCESS ===== -->
+    <section id="boot">
+      <h2>🚀 Linux Boot Process</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">BIOS/UEFI → GRUB2 → Kernel → systemd</div>
+          <button class="btn btn--outline btn--sm" data-lesson="linux-administration:boot">Mark Complete</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Stage</th><th>Component</th><th>Action</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td>BIOS / UEFI</td><td>POST (Power-On Self Test), finds bootable device via MBR/GPT</td></tr>
+              <tr><td>2</td><td>GRUB2</td><td>Bootloader loads kernel image (vmlinuz) + initramfs into RAM</td></tr>
+              <tr><td>3</td><td>Kernel</td><td>Initializes hardware, mounts initramfs as temporary root (/)</td></tr>
+              <tr><td>4</td><td>initramfs</td><td>Loads drivers, finds real root filesystem, hands off to systemd</td></tr>
+              <tr><td>5</td><td>systemd (PID 1)</td><td>Reads target units, starts services in parallel, reaches default.target</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <h3>GRUB2 Essentials</h3>
+        <pre><code># GRUB2 config file (DO NOT edit directly)
+/boot/grub2/grub.cfg          # auto-generated
+/etc/grub.d/                  # scripts that build grub.cfg
+/etc/default/grub             # user settings
+
+# Update GRUB after changes
+grub2-mkconfig -o /boot/grub2/grub.cfg   # BIOS
+grub2-mkconfig -o /boot/efi/EFI/redhat/grub.cfg  # UEFI
+
+# Key parameters in /etc/default/grub
+GRUB_TIMEOUT=5
+GRUB_CMDLINE_LINUX="quiet splash rhgb"  # kernel args
+GRUB_DEFAULT=saved                       # remember last selection
+
+# Boot into rescue mode from GRUB: append 'rescue' to kernel line
+# Reset root password: append 'rd.break' → chroot /sysroot → passwd root</code></pre>
+
+        <h3>systemd Targets (Runlevels)</h3>
+        <pre><code># List targets
+systemctl list-units --type=target
+
+# Common targets
+poweroff.target       # runlevel 0
+rescue.target         # runlevel 1 (single-user)
+multi-user.target     # runlevel 3 (no GUI)
+graphical.target      # runlevel 5
+reboot.target         # runlevel 6
+
+# Change default target
+systemctl set-default multi-user.target
+
+# Switch target temporarily
+systemctl isolate rescue.target</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== COMMANDS ===== -->
+    <section id="basics">
+      <h2>📟 100+ Essential Commands</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Navigation & Files</div>
+          <button class="btn btn--outline btn--sm" data-lesson="linux-administration:basics">Mark Complete</button>
+        </div>
+        <pre><code># Navigation
+pwd && ls -la && cd /etc
+ls -lhSr           # sort by size, human readable, reverse
+ls -lt             # sort by modification time
+tree -L 3 /etc     # directory tree depth 3
+
+# File operations
+cp -r --preserve=all /src /dest   # preserve permissions/timestamps
+mv old new
+rm -rf /tmp/cache
+ln -s /etc/nginx/nginx.conf ~/nginx.conf   # symlink
+ln /file /hardlink                          # hard link (same inode)
+
+# Find files
+find /var -name "*.log" -mtime +30 -delete        # delete old logs
+find / -perm -4000 -type f 2>/dev/null             # find SUID files
+find /home -user alice -size +100M                  # large files by user
+find /etc -newer /etc/passwd                        # modified after passwd
+
+# Fast locate (uses updatedb index)
+locate nginx.conf
+updatedb               # refresh index</code></pre>
+
+        <h3>Text Processing (Advanced)</h3>
+        <pre><code># grep deep
+grep -r "ERROR" /var/log/              # recursive
+grep -P "^\d{1,3}\.\d{1,3}" access.log # Perl regex
+grep -v "GET /health" access.log        # exclude pattern
+grep -c "404" access.log                # count matches
+grep -B2 -A5 "FATAL" app.log           # context lines
+grep -E "error|warn|crit" syslog       # extended regex
+
+# awk — field processing
+awk '{print $1, $7}' /var/log/nginx/access.log         # print fields 1 and 7
+awk -F: '{print $1, $3}' /etc/passwd                   # custom delimiter
+awk '$3 > 1000 {print $1}' /etc/passwd                 # conditional print
+awk '{sum += $5} END {print "Total:", sum}' sales.csv  # sum column
+awk 'NR==5,NR==10 {print}' file                        # print lines 5-10
+
+# sed — stream editor
+sed -i 's/localhost/127.0.0.1/g' app.conf        # in-place replace all
+sed -n '10,20p' file                              # print lines 10-20
+sed '/^#/d' config.conf                           # delete comment lines
+sed -i '/^$/d' file                               # delete empty lines
+sed -i '5i\# New line' file                       # insert before line 5
+
+# sort, uniq, cut, tr
+sort -k2 -n file                     # sort by 2nd field numerically
+sort access.log | uniq -c | sort -rn | head -20  # top IPs
+cut -d: -f1,3 /etc/passwd            # cut fields
+tr 'a-z' 'A-Z' < file               # lowercase to uppercase
+wc -l /etc/passwd                    # count lines</code></pre>
+
+        <h3>Process Management</h3>
+        <pre><code># View processes
+ps aux --sort=-%cpu | head -10      # top CPU consumers
+ps aux --sort=-%mem | head -10      # top memory consumers
+ps -ef --forest                     # process tree
+pstree -p                           # tree with PIDs
+
+# Signals
+kill -9 PID                         # SIGKILL — force kill
+kill -15 PID                        # SIGTERM — graceful stop
+kill -HUP PID                       # SIGHUP — reload config
+killall nginx                        # kill by name
+pkill -u alice                       # kill all of user alice's processes
+
+# Background jobs
+command &                            # run in background
+jobs                                 # list background jobs
+fg %1                               # bring job 1 to foreground
+bg %2                               # resume job 2 in background
+nohup command &                     # immune to hangup signals
+disown -h %1                        # remove from job table
+
+# Priority
+nice -n 10 command                  # start with lower priority (10)
+renice -n -5 -p PID                 # raise priority of running process
+ionice -c 3 -p PID                  # set idle I/O class</code></pre>
+
+        <h3>System Information</h3>
+        <pre><code>uname -a                     # kernel version + arch
+cat /etc/os-release          # distro info
+hostnamectl                  # hostname, OS, kernel
+lscpu                        # CPU architecture details
+lsmem                        # memory ranges
+lsblk -f                     # block devices + filesystem
+lspci                        # PCI devices
+lsusb                        # USB devices
+dmidecode -t memory          # RAM slots (needs root)
+cat /proc/cpuinfo            # CPU details
+cat /proc/meminfo            # memory details
+cat /proc/net/dev            # network interface stats</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== FILESYSTEM ===== -->
+    <section id="filesystem">
+      <h2>📁 Linux Filesystem Hierarchy</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">FHS Standard Directories</div>
+          <button class="btn btn--outline btn--sm" data-lesson="linux-administration:filesystem">Mark Complete</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Directory</th><th>Purpose</th><th>Key Contents</th></tr></thead>
+            <tbody>
+              <tr><td>/</td><td>Root of filesystem</td><td>Everything lives here</td></tr>
+              <tr><td>/bin</td><td>Essential user binaries</td><td>ls, cp, mv, bash (symlink to /usr/bin on modern distros)</td></tr>
+              <tr><td>/sbin</td><td>System binaries</td><td>fdisk, mkfs, ip (symlink to /usr/sbin)</td></tr>
+              <tr><td>/etc</td><td>Configuration files</td><td>passwd, fstab, nginx/, ssh/, systemd/</td></tr>
+              <tr><td>/home</td><td>User home directories</td><td>/home/alice, /home/bob</td></tr>
+              <tr><td>/root</td><td>Root user's home</td><td>Root's dotfiles, scripts</td></tr>
+              <tr><td>/var</td><td>Variable data</td><td>log/, spool/, cache/, lib/</td></tr>
+              <tr><td>/tmp</td><td>Temporary files</td><td>Cleared on reboot (tmpfs)</td></tr>
+              <tr><td>/proc</td><td>Kernel/process virtual FS</td><td>cpuinfo, meminfo, PID dirs</td></tr>
+              <tr><td>/sys</td><td>Kernel device virtual FS</td><td>Hardware driver interfaces</td></tr>
+              <tr><td>/dev</td><td>Device files</td><td>sda, tty, null, random</td></tr>
+              <tr><td>/usr</td><td>User programs</td><td>bin/, lib/, share/, include/</td></tr>
+              <tr><td>/opt</td><td>Optional software</td><td>3rd-party apps installed here</td></tr>
+              <tr><td>/boot</td><td>Boot files</td><td>vmlinuz, initramfs, grub/</td></tr>
+              <tr><td>/mnt, /media</td><td>Mount points</td><td>Temporary and removable mounts</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Filesystem Types</h3>
+        <pre><code># Common filesystems
+ext4    — default Linux FS. Journaling, 1EiB max volume, 16TiB max file
+xfs     — high performance. Great for large files. Default on RHEL 7+
+btrfs   — copy-on-write, snapshots, checksums. Modern choice
+tmpfs   — RAM-backed. Used for /tmp, /run
+proc    — virtual FS exposing kernel data
+nfs     — Network File System (client mounts remote share)
+ceph    — distributed storage
+
+# Mount operations
+mount /dev/sdb1 /mnt/data               # mount manually
+mount -t nfs 192.168.1.10:/share /mnt   # mount NFS
+mount -o remount,ro /                    # remount root read-only
+umount /mnt/data                         # unmount
+
+# /etc/fstab fields: device mountpoint fstype options dump pass
+UUID=abc123 /data ext4 defaults,noatime 0 2
+
+# Get UUIDs
+blkid /dev/sdb1
+lsblk -f</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== BASH SCRIPTING ===== -->
+    <section id="bash">
+      <h2>⚡ Bash Scripting — Production Patterns</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Safe Scripting Patterns</div>
+          <button class="btn btn--outline btn--sm" data-lesson="linux-administration:bash">Mark Complete</button>
+        </div>
+        <pre><code>#!/usr/bin/env bash
+set -euo pipefail      # exit on error, undefined var, pipe failure
+IFS=$'\n\t'            # safer word splitting
+
+# Variables and constants
+readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+readonly LOG_FILE="/var/log/deploy.log"
+ENVIRONMENT="${1:-production}"   # default value
+
+# Logging function
+log() { echo "[$(date '+%Y-%m-%dT%H:%M:%S')] $*" | tee -a "$LOG_FILE"; }
+
+# Error handling
+cleanup() {
+  local exit_code=$?
+  log "Script exiting with code: $exit_code"
+  # cleanup temp files, release locks, etc.
+}
+trap cleanup EXIT
+trap 'log "ERROR: line $LINENO"' ERR</code></pre>
+
+        <h3>Arrays and Loops</h3>
+        <pre><code>#!/usr/bin/env bash
+set -euo pipefail
+
+# Indexed array
+servers=("web01" "web02" "db01" "cache01")
+for server in "${servers[@]}"; do
+  echo "Pinging: $server"
+  ping -c1 "$server" &>/dev/null && echo "UP" || echo "DOWN"
+done
+
+# Associative array (Bash 4+)
+declare -A config=(
+  [host]="db.example.com"
+  [port]="5432"
+  [name]="myapp_prod"
+)
+echo "Connecting to ${config[host]}:${config[port]}"
+
+# while loop with read (process file line by line safely)
+while IFS= read -r line; do
+  [[ -z "$line" || "$line" == \#* ]] && continue   # skip blanks/comments
+  echo "Processing: $line"
+done < /etc/servers.txt</code></pre>
+
+        <h3>Functions with getopts</h3>
+        <pre><code>#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+  cat <<EOF
+Usage: $(basename "$0") [OPTIONS] COMMAND
+
+Options:
+  -e ENV      Environment (default: staging)
+  -v          Verbose output
+  -h          Show this help
+
+Commands:
+  deploy      Deploy the application
+  rollback    Rollback last deployment
+EOF
+  exit 1
+}
+
+VERBOSE=false
+ENV="staging"
+
+while getopts "e:vh" opt; do
+  case $opt in
+    e) ENV="$OPTARG" ;;
+    v) VERBOSE=true ;;
+    h) usage ;;
+    *) usage ;;
+  esac
+done
+shift $((OPTIND - 1))
+
+[[ $# -eq 0 ]] && usage
+COMMAND="$1"</code></pre>
+
+        <h3>Retry Pattern</h3>
+        <pre><code>retry() {
+  local max_attempts=3
+  local delay=5
+  local attempt=1
+  local cmd=("$@")
+
+  while (( attempt <= max_attempts )); do
+    if "${cmd[@]}"; then
+      return 0
+    fi
+    log "Attempt $attempt/$max_attempts failed. Retrying in ${delay}s..."
+    sleep "$delay"
+    (( attempt++ ))
+    (( delay *= 2 ))  # exponential backoff
+  done
+
+  log "ERROR: Command failed after $max_attempts attempts: ${cmd[*]}"
+  return 1
+}
+
+# Usage
+retry curl -sf https://api.example.com/health</code></pre>
+
+        <h3>Lock File Pattern</h3>
+        <pre><code>LOCK_FILE="/var/run/deploy.lock"
+
+acquire_lock() {
+  exec 200>"$LOCK_FILE"
+  if ! flock -n 200; then
+    echo "Another instance is running. PID: $(cat $LOCK_FILE)"
+    exit 1
+  fi
+  echo $$ > "$LOCK_FILE"
+  log "Lock acquired (PID: $$)"
+}
+
+release_lock() {
+  flock -u 200
+  rm -f "$LOCK_FILE"
+}
+
+trap release_lock EXIT
+acquire_lock</code></pre>
+
+        <h3>Complete Deployment Script</h3>
+        <pre><code>#!/usr/bin/env bash
+set -euo pipefail
+IFS=$'\n\t'
+
+readonly APP_DIR="/var/www/myapp"
+readonly BACKUP_DIR="/var/backups/myapp"
+readonly SERVICE="myapp"
+readonly REPO="git@github.com:company/myapp.git"
+
+log() { echo "[$(date '+%Y-%m-%dT%H:%M:%S')] $*" | tee -a /var/log/deploy.log; }
+
+backup_current() {
+  local ts; ts=$(date +%Y%m%d_%H%M%S)
+  if [[ -d "$APP_DIR" ]]; then
+    tar -czf "$BACKUP_DIR/app_${ts}.tar.gz" "$APP_DIR"
+    log "Backup created: app_${ts}.tar.gz"
+  fi
+}
+
+deploy_code() {
+  if [[ -d "$APP_DIR/.git" ]]; then
+    git -C "$APP_DIR" pull origin main
+  else
+    git clone "$REPO" "$APP_DIR"
+  fi
+  log "Code deployed from $REPO"
+}
+
+install_deps() {
+  cd "$APP_DIR"
+  npm ci --only=production
+  log "Dependencies installed"
+}
+
+restart_service() {
+  systemctl restart "$SERVICE"
+  sleep 3
+  if systemctl is-active --quiet "$SERVICE"; then
+    log "Service $SERVICE started successfully"
+  else
+    log "ERROR: Service failed to start"
+    return 1
+  fi
+}
+
+main() {
+  log "=== Deployment started ==="
+  backup_current
+  deploy_code
+  install_deps
+  restart_service
+  log "=== Deployment complete ==="
+}
+
+main "$@"</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== USER MANAGEMENT ===== -->
+    <section id="users">
+      <h2>👤 User Management</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Users, Groups & PAM</div>
+          <button class="btn btn--outline btn--sm" data-lesson="linux-administration:users">Mark Complete</button>
+        </div>
+        <pre><code># Create user with all options
+useradd -m -s /bin/bash -G sudo,docker,www-data \
+        -c "Alice Smith" -e 2026-12-31 alice
+
+passwd alice                          # set password interactively
+echo "alice:SecurePass123!" | chpasswd  # set password non-interactively
+passwd -l alice                        # lock account
+passwd -u alice                        # unlock
+passwd -e alice                        # force password change at next login
+chage -l alice                         # show password aging info
+chage -M 90 -W 7 alice                 # max 90 days, 7-day warning
+
+# User modification
+usermod -aG docker alice               # add to group (keep existing groups)
+usermod -s /bin/zsh alice              # change shell
+usermod -d /new/home -m alice          # move home directory
+usermod -L alice                       # lock (same as passwd -l)
+
+# Delete user
+userdel alice                          # keep home dir
+userdel -r alice                       # remove home + mail spool
+
+# Group management
+groupadd -g 1500 devops
+gpasswd -a alice devops                # add user to group
+gpasswd -d alice devops                # remove user from group
+newgrp devops                          # switch primary group in session
+
+# Sudoers (ALWAYS use visudo)
+# /etc/sudoers.d/alice
+alice ALL=(ALL:ALL) ALL                        # full sudo
+alice ALL=(ALL) NOPASSWD: /usr/bin/systemctl  # specific command only
+%devops ALL=(ALL) /usr/bin/docker              # group sudo</code></pre>
+
+        <h3>/etc/passwd, /etc/shadow, /etc/group</h3>
+        <pre><code># /etc/passwd format (not passwords!)
+# username:x:UID:GID:GECOS:home:shell
+alice:x:1001:1001:Alice Smith:/home/alice:/bin/bash
+nobody:x:65534:65534::/nonexistent:/usr/sbin/nologin
+
+# /etc/shadow (password hashes)
+# username:hash:lastchange:min:max:warn:inactive:expire
+alice:$6$rounds=5000$salt$hash:18000:0:90:7:14:19000:
+
+# /etc/group format
+# groupname:password:GID:members
+devops:x:1500:alice,bob,charlie
+
+# PAM configuration
+cat /etc/pam.d/system-auth
+# pam_pwquality: enforce password complexity
+echo "minlen=12 ucredit=-1 lcredit=-1 dcredit=-1 ocredit=-1" \
+  > /etc/security/pwquality.conf</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== PERMISSIONS ===== -->
+    <section id="permissions">
+      <h2>🔐 File Permissions, ACL & umask</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Permissions Deep Dive</div>
+          <button class="btn btn--outline btn--sm" data-lesson="linux-administration:permissions">Mark Complete</button>
+        </div>
+        <pre><code># Permission bits: rwxrwxrwx = owner/group/others
+# r=4, w=2, x=1
+chmod 755 script.sh        # rwxr-xr-x (owner full, group/others read+exec)
+chmod 644 config.conf      # rw-r--r-- (owner read+write, others read)
+chmod 600 ~/.ssh/id_rsa    # rw------- (private key, owner only)
+chmod 777 /tmp/shared      # full access to all (dangerous)
+
+# Symbolic mode
+chmod u+x,g-w,o-r file
+chmod a+r file             # a = all (u+g+o)
+chmod -R 755 /var/www/     # recursive
+
+# Special bits
+chmod u+s /usr/bin/passwd  # SUID — runs as owner, not caller
+chmod g+s /var/shared/     # SGID — new files inherit directory group
+chmod +t /tmp/              # Sticky — only owner can delete their files
+
+# Find SUID/SGID files (security audit)
+find / -perm -4000 -type f 2>/dev/null   # SUID
+find / -perm -2000 -type f 2>/dev/null   # SGID
+
+# umask — default permission mask
+umask                      # show current (usually 022)
+umask 027                  # set: files=640, dirs=750
+# Formula: file=666-umask, dir=777-umask</code></pre>
+
+        <h3>POSIX ACL — Fine-Grained Permissions</h3>
+        <pre><code># ACL allows per-user/group permissions beyond basic rwx
+# Install: dnf install acl
+
+# View ACLs
+getfacl /var/www/myapp/
+
+# Grant alice read+write on a file
+setfacl -m u:alice:rw /var/www/myapp/config.php
+
+# Grant devops group read on directory (recursive)
+setfacl -R -m g:devops:r-x /var/www/myapp/
+
+# Set default ACL (inherited by new files)
+setfacl -d -m g:devops:rwx /var/shared/
+
+# Remove ACL
+setfacl -x u:alice /path/to/file
+setfacl -b /path/to/file        # remove ALL ACLs
+
+# File attributes (chattr)
+chattr +i /etc/resolv.conf       # immutable — cannot be modified even by root
+chattr +a /var/log/app.log       # append-only
+lsattr /etc/                     # list attributes</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== STORAGE ===== -->
+    <section id="storage">
+      <h2>💾 Storage, LVM & RAID</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">LVM — Complete Workflow</div>
+          <button class="btn btn--outline btn--sm" data-lesson="linux-administration:lvm">Mark Complete</button>
+        </div>
+        <p>LVM allows flexible disk management — resize volumes, take snapshots without downtime.</p>
+        <pre><code># LVM hierarchy: Physical Volumes (PV) → Volume Groups (VG) → Logical Volumes (LV)
+
+# ── SETUP ──
+# 1. Create Physical Volume
+pvcreate /dev/sdb /dev/sdc
+pvdisplay                            # show PV details
+pvs                                  # summary
+
+# 2. Create Volume Group
+vgcreate data_vg /dev/sdb /dev/sdc
+vgdisplay data_vg
+vgs
+
+# 3. Create Logical Volume
+lvcreate -L 80G -n data_lv data_vg        # fixed size
+lvcreate -l 100%FREE -n data_lv data_vg   # use all space
+lvcreate -l 80%VG -n data_lv data_vg      # 80% of VG
+lvdisplay
+
+# 4. Create filesystem and mount
+mkfs.ext4 /dev/data_vg/data_lv
+mkfs.xfs /dev/data_vg/data_lv       # for XFS
+mkdir /data
+mount /dev/data_vg/data_lv /data
+
+# Persistent mount in /etc/fstab
+echo '/dev/data_vg/data_lv /data ext4 defaults 0 2' >> /etc/fstab
+mount -a                             # test fstab
+
+# ── EXTEND ──
+# Add new disk to VG
+pvcreate /dev/sdd
+vgextend data_vg /dev/sdd
+
+# Extend LV and resize filesystem
+lvextend -L +20G /dev/data_vg/data_lv    # add 20GB
+lvextend -l +100%FREE /dev/data_vg/data_lv  # use all available
+resize2fs /dev/data_vg/data_lv           # ext4 online resize
+xfs_growfs /data                          # XFS online resize
+
+# ── SNAPSHOT ──
+lvcreate -L 10G -s -n data_snap /dev/data_vg/data_lv  # snapshot
+mount -o ro /dev/data_vg/data_snap /mnt/snap            # mount snapshot
+# Revert to snapshot (data_lv must be unmounted)
+lvconvert --merge /dev/data_vg/data_snap
+
+# ── MIGRATE ──
+# Move data from one PV to another
+pvmove /dev/sdb /dev/sdd
+# Then remove old PV
+vgreduce data_vg /dev/sdb
+pvremove /dev/sdb</code></pre>
+
+        <h3>RAID with mdadm</h3>
+        <pre><code># Software RAID
+# RAID 1 (mirror) with 2 disks
+mdadm --create /dev/md0 --level=1 --raid-devices=2 /dev/sdb /dev/sdc
+
+# RAID 5 (striping + parity) with 3 disks
+mdadm --create /dev/md0 --level=5 --raid-devices=3 /dev/sdb /dev/sdc /dev/sdd
+
+# Monitor RAID
+cat /proc/mdstat
+mdadm --detail /dev/md0
+
+# Persist config
+mdadm --detail --scan >> /etc/mdadm.conf
+
+# Save to mdadm.conf for auto-assemble at boot
+mdadm --detail --scan | tee -a /etc/mdadm.conf
+
+# Simulate disk failure and replacement
+mdadm /dev/md0 --fail /dev/sdc          # mark failed
+mdadm /dev/md0 --remove /dev/sdc        # remove
+mdadm /dev/md0 --add /dev/sde           # add replacement</code></pre>
+
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>RAID Level</th><th>Disks Min</th><th>Redundancy</th><th>Capacity</th><th>Best For</th></tr></thead>
+            <tbody>
+              <tr><td>RAID 0</td><td>2</td><td>None</td><td>100%</td><td>Temp data, max speed</td></tr>
+              <tr><td>RAID 1</td><td>2</td><td>1 disk failure</td><td>50%</td><td>OS drive, critical data</td></tr>
+              <tr><td>RAID 5</td><td>3</td><td>1 disk failure</td><td>(n-1)/n</td><td>General storage</td></tr>
+              <tr><td>RAID 6</td><td>4</td><td>2 disk failures</td><td>(n-2)/n</td><td>Large arrays</td></tr>
+              <tr><td>RAID 10</td><td>4</td><td>1 per mirror</td><td>50%</td><td>DB servers, performance+redundancy</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== NETWORKING ===== -->
+    <section id="networking">
+      <h2>🌐 Networking</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Network Configuration & SSH Tunneling</div>
+          <button class="btn btn--outline btn--sm" data-lesson="linux-administration:networking">Mark Complete</button>
+        </div>
+        <pre><code># IP configuration (ip command — replaces ifconfig/route)
+ip addr show
+ip addr add 192.168.1.100/24 dev eth0
+ip addr del 192.168.1.100/24 dev eth0
+ip link set eth0 up / down
+ip route show
+ip route add default via 192.168.1.1
+ip route add 10.0.0.0/8 via 192.168.1.254 dev eth0
+
+# DNS resolution
+cat /etc/resolv.conf
+dig google.com                        # full DNS response
+dig google.com A +short               # just IP
+dig @8.8.8.8 google.com MX           # specific server, MX record
+dig -x 8.8.8.8                        # reverse DNS
+nslookup google.com 8.8.8.8
+
+# Connections & ports
+ss -tlnp                              # TCP listening with process
+ss -tulnp | grep :443                 # specific port
+ss -s                                 # socket summary
+lsof -i :80                           # process using port 80
+netstat -an | grep ESTABLISHED | wc -l  # count connections</code></pre>
+
+        <h3>SSH Advanced</h3>
+        <pre><code># Key generation (prefer ed25519)
+ssh-keygen -t ed25519 -C "admin@company.com" -f ~/.ssh/id_ed25519
+ssh-copy-id -i ~/.ssh/id_ed25519.pub user@server
+
+# SSH config (~/.ssh/config)
+Host bastion
+  HostName 203.0.113.10
+  User ubuntu
+  IdentityFile ~/.ssh/bastion_key
+
+Host prod-db
+  HostName 10.0.1.50         # private IP
+  User postgres
+  ProxyJump bastion          # jump through bastion
+  IdentityFile ~/.ssh/prod_key
+
+# SSH Tunneling
+# -L: Local port forward (access remote service locally)
+ssh -L 8080:localhost:80 user@remote-host
+# Now: curl http://localhost:8080 → hits port 80 on remote-host
+
+# -R: Remote port forward (expose local service to remote)
+ssh -R 9090:localhost:3000 user@remote-host
+# Now: someone on remote-host hits port 9090 → your port 3000
+
+# -D: Dynamic SOCKS proxy
+ssh -D 1080 -N user@remote-host
+# Configure browser SOCKS5 proxy: localhost:1080
+
+# Persistent tunnels (autossh)
+autossh -M 0 -f -N -L 5432:db:5432 user@bastion</code></pre>
+
+        <h3>SSH Server Hardening (sshd_config)</h3>
+        <pre><code># /etc/ssh/sshd_config
+Port 2222                          # non-standard port
+AddressFamily inet                  # IPv4 only
+ListenAddress 0.0.0.0
+
+Protocol 2                          # SSH v2 only
+PermitRootLogin no                  # disable root SSH
+PubkeyAuthentication yes
+PasswordAuthentication no           # keys only
+ChallengeResponseAuthentication no
+UsePAM yes
+
+AllowUsers alice bob deployer       # whitelist
+AllowGroups sshusers
+
+MaxAuthTries 3
+LoginGraceTime 20
+ClientAliveInterval 300
+ClientAliveCountMax 2
+
+# Restart SSH (test config first!)
+sshd -t                             # test config
+systemctl reload sshd</code></pre>
+
+        <h3>Fail2Ban</h3>
+        <pre><code># /etc/fail2ban/jail.local
+[DEFAULT]
+bantime  = 3600        # ban for 1 hour
+findtime = 600         # check window
+maxretry = 3           # max failures
+
+[sshd]
+enabled  = true
+port     = 2222
+filter   = sshd
+logpath  = /var/log/auth.log
+maxretry = 3
+banaction = iptables-multiport
+
+# Commands
+fail2ban-client status sshd        # show banned IPs
+fail2ban-client set sshd unbanip 1.2.3.4  # unban IP
+fail2ban-client status             # show all jails</code></pre>
+
+        <h3>Network Bonding (High Availability)</h3>
+        <pre><code"># Bonding with Netplan (Ubuntu 20.04+)
+# /etc/netplan/01-bond.yaml
+network:
+  version: 2
+  bonds:
+    bond0:
+      interfaces: [eth0, eth1]
+      parameters:
+        mode: active-backup     # or 802.3ad (LACP), balance-rr
+        primary: eth0
+        mii-monitor-interval: 100
+      addresses: [192.168.1.10/24]
+      gateway4: 192.168.1.1
+      nameservers:
+        addresses: [8.8.8.8]
+
+netplan apply</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== SYSTEMD ===== -->
+    <section id="systemd">
+      <h2>⚙️ systemd — Service Management</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Unit Files & Timers</div>
+          <button class="btn btn--outline btn--sm" data-lesson="linux-administration:systemd">Mark Complete</button>
+        </div>
+        <pre><code># Essential systemctl commands
+systemctl start nginx
+systemctl stop nginx
+systemctl restart nginx
+systemctl reload nginx              # reload config without stop
+systemctl enable nginx              # start at boot
+systemctl disable nginx
+systemctl is-active nginx
+systemctl is-enabled nginx
+systemctl status nginx              # detailed status + last logs
+systemctl list-units --type=service --state=running
+systemctl list-unit-files          # all installed units
+
+# journalctl log queries
+journalctl -u nginx                 # all logs for nginx
+journalctl -u nginx -f              # follow (tail -f)
+journalctl -u nginx --since "1 hour ago"
+journalctl -u nginx --since "2026-01-01" --until "2026-01-02"
+journalctl -p err -b               # errors since last boot
+journalctl --disk-usage            # how much journal space used
+journalctl --vacuum-size=500M      # trim journal to 500MB</code></pre>
+
+        <h3>Custom Service Unit File</h3>
+        <pre><code># /etc/systemd/system/myapp.service
+[Unit]
+Description=My Application Server
+Documentation=https://docs.myapp.com
+After=network.target postgresql.service
+Requires=postgresql.service
+Wants=redis.service
+
+[Service]
+Type=simple                          # simple|forking|oneshot|notify|dbus
+User=myapp
+Group=myapp
+WorkingDirectory=/var/www/myapp
+ExecStart=/usr/bin/node server.js
+ExecReload=/bin/kill -HUP $MAINPID
+ExecStop=/bin/kill -SIGTERM $MAINPID
+
+Restart=on-failure
+RestartSec=5
+StartLimitInterval=60
+StartLimitBurst=3
+
+# Security hardening
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+ReadWritePaths=/var/www/myapp/logs
+PrivateTmp=yes
+
+# Environment
+Environment="NODE_ENV=production"
+EnvironmentFile=/etc/myapp/env      # load from file
+
+# Resource limits
+LimitNOFILE=65535
+MemoryMax=512M
+CPUQuota=50%
+
+[Install]
+WantedBy=multi-user.target
+
+# Apply changes
+systemctl daemon-reload
+systemctl enable --now myapp</code></pre>
+
+        <h3>systemd Timer (cron replacement)</h3>
+        <pre><code># /etc/systemd/system/backup.timer
+[Unit]
+Description=Daily backup timer
+
+[Timer]
+OnCalendar=*-*-* 02:00:00          # every day at 2am
+OnCalendar=Mon *-*-* 04:00:00      # every Monday at 4am
+Persistent=true                     # run missed jobs on boot
+
+[Install]
+WantedBy=timers.target
+
+# /etc/systemd/system/backup.service
+[Unit]
+Description=Database backup
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/backup.sh
+
+# Enable timer
+systemctl enable --now backup.timer
+systemctl list-timers               # show all timers</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== NGINX ===== -->
+    <section id="nginx">
+      <h2>🌍 Nginx Deep Dive</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Location Matching, Upstream, Rate Limiting</div>
+          <button class="btn btn--outline btn--sm" data-lesson="linux-administration:nginx">Mark Complete</button>
+        </div>
+        <h3>Location Block Priority</h3>
+        <pre><code"># Priority order (= > ^~ > regex > prefix)
+server {
+  # 1. Exact match (highest priority)
+  location = /health {
+    return 200 "OK";
+    access_log off;
+  }
+
+  # 2. Preferential prefix (stops regex search if matched)
+  location ^~ /static/ {
+    root /var/www;
+    expires 30d;
+    add_header Cache-Control "public, no-transform";
+  }
+
+  # 3. Case-sensitive regex
+  location ~ \.php$ {
+    fastcgi_pass unix:/run/php/php8.1-fpm.sock;
+    include fastcgi_params;
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+  }
+
+  # 4. Case-insensitive regex
+  location ~* \.(jpg|jpeg|png|gif|webp|svg)$ {
+    expires 1y;
+    add_header Cache-Control "public, immutable";
+    try_files $uri =404;
+  }
+
+  # 5. Prefix (lowest priority)
+  location / {
+    try_files $uri $uri/ /index.html;
+  }
+}</code></pre>
+
+        <h3>Upstream Load Balancing</h3>
+        <pre><code># /etc/nginx/sites-available/myapp.conf
+upstream app_servers {
+  least_conn;                    # least-connections algorithm
+  # or: ip_hash; (sticky sessions)
+  # or: round_robin; (default)
+
+  server 10.0.1.10:3000 weight=3 max_fails=3 fail_timeout=30s;
+  server 10.0.1.11:3000 weight=1;
+  server 10.0.1.12:3000 backup;  # only used if primary fails
+}
+
+server {
+  listen 443 ssl http2;
+  server_name myapp.com;
+
+  ssl_certificate     /etc/ssl/myapp.crt;
+  ssl_certificate_key /etc/ssl/myapp.key;
+  ssl_protocols TLSv1.2 TLSv1.3;
+  ssl_ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256;
+  ssl_prefer_server_ciphers off;
+  ssl_session_cache shared:SSL:10m;
+  ssl_session_timeout 1d;
+
+  # Security headers
+  add_header Strict-Transport-Security "max-age=63072000" always;
+  add_header X-Content-Type-Options nosniff;
+  add_header X-Frame-Options DENY;
+  add_header Content-Security-Policy "default-src 'self'";
+
+  location / {
+    proxy_pass http://app_servers;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_connect_timeout 5s;
+    proxy_read_timeout 30s;
+    proxy_buffer_size 4k;
+    proxy_buffers 8 8k;
+  }
+}</code></pre>
+
+        <h3>Rate Limiting & Caching</h3>
+        <pre><code"># Rate limiting
+# http block (in nginx.conf)
+limit_req_zone $binary_remote_addr zone=api:10m rate=10r/s;
+limit_conn_zone $binary_remote_addr zone=conn_limit:10m;
+
+# server block
+location /api/ {
+  limit_req zone=api burst=20 nodelay;
+  limit_conn conn_limit 10;
+  limit_req_status 429;
+  proxy_pass http://app_servers;
+}
+
+# Proxy cache
+proxy_cache_path /var/cache/nginx levels=1:2
+  keys_zone=my_cache:10m max_size=1g
+  inactive=60m use_temp_path=off;
+
+location /static/ {
+  proxy_cache my_cache;
+  proxy_cache_valid 200 30d;
+  proxy_cache_valid 404 1m;
+  proxy_cache_use_stale error timeout updating;
+  add_header X-Cache-Status $upstream_cache_status;
+  proxy_pass http://app_servers;
+}</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== MYSQL ===== -->
+    <section id="mysql">
+      <h2>🗄️ MySQL Administration</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Replication & Backup</div>
+          <button class="btn btn--outline btn--sm" data-lesson="linux-administration:mysql">Mark Complete</button>
+        </div>
+        <pre><code"># MySQL replication setup
+# === PRIMARY SERVER (/etc/mysql/mysql.conf.d/mysqld.cnf) ===
+[mysqld]
+server-id = 1
+log_bin = /var/log/mysql/mysql-bin.log
+binlog_do_db = myapp_prod
+binlog_format = ROW
+sync_binlog = 1
+innodb_flush_log_at_trx_commit = 1
+
+# Create replication user
+CREATE USER 'replicator'@'10.0.1.%'
+  IDENTIFIED WITH mysql_native_password BY 'RepPass123!';
+GRANT REPLICATION SLAVE ON *.* TO 'replicator'@'10.0.1.%';
+FLUSH PRIVILEGES;
+SHOW MASTER STATUS\G  -- note File and Position
+
+# === REPLICA SERVER ===
+[mysqld]
+server-id = 2
+relay_log = /var/log/mysql/relay-bin
+read_only = 1
+
+CHANGE MASTER TO
+  MASTER_HOST='10.0.1.10',
+  MASTER_USER='replicator',
+  MASTER_PASSWORD='RepPass123!',
+  MASTER_LOG_FILE='mysql-bin.000001',
+  MASTER_LOG_POS=154;
+START SLAVE;
+SHOW SLAVE STATUS\G  -- check Seconds_Behind_Master</code></pre>
+
+        <h3>Backup & Recovery</h3>
+        <pre><code"># Logical backup with mysqldump
+mysqldump -u root -p \
+  --single-transaction \     # consistent backup without lock
+  --routines --triggers \
+  --all-databases | gzip > full_backup_$(date +%F).sql.gz
+
+# Restore
+gunzip < full_backup.sql.gz | mysql -u root -p
+
+# Point-in-Time Recovery
+# 1. Restore full backup
+# 2. Apply binary logs
+mysqlbinlog --start-datetime="2026-01-15 10:00:00" \
+            --stop-datetime="2026-01-15 10:30:00" \
+            /var/log/mysql/mysql-bin.000003 | mysql -u root -p
+
+# Hot backup with Percona XtraBackup
+xtrabackup --backup --target-dir=/backup/full
+xtrabackup --prepare --target-dir=/backup/full  # make consistent
+xtrabackup --copy-back --target-dir=/backup/full # restore</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== SELINUX ===== -->
+    <section id="selinux">
+      <h2>🔒 SELinux Mastery</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Contexts, Booleans & Policy</div>
+          <button class="btn btn--outline btn--sm" data-lesson="linux-administration:selinux">Mark Complete</button>
+        </div>
+        <pre><code"># Status
+getenforce      # Enforcing / Permissive / Disabled
+sestatus        # full status
+
+# Modes
+setenforce 0    # Permissive (logs but doesn't block)
+setenforce 1    # Enforcing
+# Permanent: /etc/selinux/config → SELINUX=enforcing
+
+# View contexts (labels)
+ls -Z /var/www/html/
+ps -eZ | grep nginx
+id -Z                           # current user context
+
+# Context format: user:role:type:level
+# httpd_sys_content_t — web content
+# httpd_sys_rw_content_t — web content nginx can write
+
+# Change context
+chcon -Rv --type=httpd_sys_content_t /var/www/myapp/
+restorecon -Rv /var/www/         # restore to default from policy
+
+# Permanent context (survives relabeling)
+semanage fcontext -a -t httpd_sys_content_t "/var/www/myapp(/.*)?"
+restorecon -Rv /var/www/myapp/
+
+# Port management
+semanage port -l | grep http    # show allowed ports for http
+semanage port -a -t http_port_t -p tcp 8080  # allow port 8080
+
+# Booleans (toggle policy features)
+getsebool -a | grep httpd       # show all httpd booleans
+setsebool -P httpd_can_network_connect on    # allow httpd to connect network
+setsebool -P httpd_can_network_connect_db on # allow httpd to reach DB
+
+# Troubleshooting
+ausearch -m avc -ts recent      # show recent denials
+# or
+grep "denied" /var/log/audit/audit.log | tail -20
+audit2why < /var/log/audit/audit.log    # explain denials
+audit2allow -a -M mypolicy              # create policy from denials
+semodule -i mypolicy.pp                 # install policy</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== HARDENING ===== -->
+    <section id="hardening">
+      <h2>🛡️ System Hardening</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Production Hardening Checklist</div>
+          <button class="btn btn--outline btn--sm" data-lesson="linux-administration:hardening">Mark Complete</button>
+        </div>
+        <pre><code"># firewalld
+firewall-cmd --zone=public --add-port=443/tcp --permanent
+firewall-cmd --zone=public --remove-service=dhcpv6-client --permanent
+firewall-cmd --zone=public --remove-service=ssh --permanent
+firewall-cmd --zone=public --add-rich-rule='rule family="ipv4" source address="10.0.0.0/8" service name="ssh" accept' --permanent
+firewall-cmd --reload
+firewall-cmd --list-all
+
+# Kernel security parameters (/etc/sysctl.d/99-security.conf)
+# Disable IP forwarding (not a router)
+net.ipv4.ip_forward = 0
+# Protect against SYN flood
+net.ipv4.tcp_syncookies = 1
+# Disable source routing
+net.ipv4.conf.all.accept_source_route = 0
+# Disable ICMP redirects
+net.ipv4.conf.all.accept_redirects = 0
+net.ipv6.conf.all.accept_redirects = 0
+# Log martian packets
+net.ipv4.conf.all.log_martians = 1
+# ASLR
+kernel.randomize_va_space = 2
+
+sysctl --system                      # apply all sysctl configs
+
+# Audit with auditd
+auditctl -w /etc/passwd -p wa -k passwd_changes
+auditctl -w /etc/sudoers -p wa -k sudoers_changes
+auditctl -a always,exit -F arch=b64 -S execve -k exec_commands
+ausearch -k passwd_changes
+
+# Remove unnecessary packages
+dnf remove telnet lftp rsh ypbind tftp
+systemctl disable --now cups bluetooth avahi-daemon</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== PERFORMANCE ===== -->
+    <section id="performance">
+      <h2>📊 Performance Tuning</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">USE Method — Utilization, Saturation, Errors</div>
+          <button class="btn btn--outline btn--sm" data-lesson="linux-administration:performance">Mark Complete</button>
+        </div>
+        <p>For every resource (CPU, Memory, Disk, Network) check: Utilization, Saturation, Errors.</p>
+        <pre><code"># CPU
+mpstat -P ALL 1 5           # per-CPU utilization every 1s
+sar -u 1 10                 # historical CPU stats
+top / htop                  # interactive
+# High sy% = kernel, hi% = hardware interrupts, wa% = I/O wait
+
+# Memory
+free -h                     # RAM + swap summary
+vmstat 1 10                 # virtual memory stats (si/so = swap in/out)
+cat /proc/meminfo           # detailed breakdown
+# High si/so = swap thrashing = add RAM or reduce workload
+slabtop                     # kernel slab cache usage
+
+# Disk I/O
+iostat -x 1 10              # extended disk stats
+# %util > 80% = disk saturation
+# await > 20ms = high latency
+iotop -ao                   # per-process I/O
+dstat --disk --io           # combined view
+
+# Network
+sar -n DEV 1 5              # network interface stats
+iftop -i eth0               # per-connection bandwidth
+ss -s                       # socket summary
+cat /proc/net/sockstat       # socket counts
+
+# Tuning: CPU governor
+cpupower frequency-info
+cpupower frequency-set -g performance
+
+# Tuning: I/O scheduler
+cat /sys/block/sda/queue/scheduler      # current scheduler
+echo mq-deadline > /sys/block/sda/queue/scheduler  # change
+
+# Tuning: Network
+echo 'net.core.rmem_max = 16777216' >> /etc/sysctl.conf
+echo 'net.core.wmem_max = 16777216' >> /etc/sysctl.conf
+echo 'net.ipv4.tcp_rmem = 4096 87380 16777216' >> /etc/sysctl.conf
+sysctl --system</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== TROUBLESHOOTING ===== -->
+    <section id="troubleshooting">
+      <h2>🔧 10 Real-World Troubleshooting Scenarios</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Common Production Issues</div>
+          <button class="btn btn--outline btn--sm" data-lesson="linux-administration:troubleshooting">Mark Complete</button>
+        </div>
+
+        <h3>Scenario 1: Disk Full — /var/log</h3>
+        <pre><code"># Diagnose
+df -h
+du -sh /var/log/* | sort -rh | head -10
+ls -lh /var/log/nginx/
+
+# Fix
+> /var/log/nginx/error.log            # truncate (NOT rm — nginx still has fd)
+# Better: logrotate
+cat > /etc/logrotate.d/nginx << 'EOF'
+/var/log/nginx/*.log {
+  daily
+  missingok
+  rotate 14
+  compress
+  delaycompress
+  notifempty
+  sharedscripts
+  postrotate
+    nginx -s reopen
+  endscript
+}
+EOF</code></pre>
+
+        <h3>Scenario 2: High Load Average</h3>
+        <pre><code"># Diagnose
+uptime         # load avg: 24.50 (should be ≤ CPU count)
+nproc          # how many CPUs do we have?
+top -bn1 | head -25
+ps aux --sort=-%cpu | head -10
+
+# Find D-state processes (uninterruptible sleep = I/O wait)
+ps aux | awk '$8 == "D" {print}'
+
+# Fix
+# If CPU: find and optimize/kill offending process
+# If I/O: check iostat, optimize queries, add caching
+# If memory: free -h, check swap</code></pre>
+
+        <h3>Scenario 3: OOM Killer Fired</h3>
+        <pre><code"># Check logs
+dmesg | grep -i "oom\|killed" | tail -20
+journalctl -k | grep -i "oom" | tail -20
+
+# Who was killed?
+grep "Out of memory" /var/log/kern.log | tail -5
+
+# Prevention
+# Tune OOM score (lower = less likely to be killed)
+echo -200 > /proc/$(pgrep mysql)/oom_score_adj
+
+# Add swap (emergency)
+fallocate -l 4G /swapfile
+chmod 600 /swapfile
+mkswap /swapfile
+swapon /swapfile
+echo '/swapfile none swap sw 0 0' >> /etc/fstab</code></pre>
+
+        <h3>Scenario 4: Service Won't Start</h3>
+        <pre><code"># Diagnose
+systemctl status nginx -l            # -l = full output
+journalctl -xe -u nginx              # extended context
+nginx -t                             # test config
+
+# Common fixes
+# Port already in use?
+ss -tlnp | grep :80
+fuser -k 80/tcp                      # kill process using port
+
+# SELinux blocking?
+ausearch -m avc -ts recent | grep nginx
+
+# File permissions?
+namei -l /path/to/file</code></pre>
+
+        <h3>Scenario 5: SSH Connection Refused</h3>
+        <pre><code"># From local machine
+nc -zv server 22         # is port open?
+telnet server 22         # try direct connection
+
+# On server (console access required)
+systemctl status sshd
+ss -tlnp | grep :22
+firewall-cmd --list-ports
+semanage port -l | grep ssh   # is SSH port allowed in SELinux?
+
+# Fix if SELinux blocking custom port
+semanage port -a -t ssh_port_t -p tcp 2222</code></pre>
+
+        <h3>Scenario 6: Inode Exhaustion</h3>
+        <pre><code"># df -h shows space but "No space left on device" error
+df -i                   # check inode usage
+# 100% inode usage = too many small files
+
+# Find directories with most files
+find / -xdev -printf '%h\n' | sort | uniq -c | sort -rn | head -20
+
+# Fix: delete tmp/cache/session files
+find /var/spool/postfix -type f | wc -l
+find /var/spool/postfix -type f -delete</code></pre>
+
+        <h3>Scenario 7: Network Latency Spike</h3>
+        <pre><code"># Diagnose
+ping -c 100 8.8.8.8 | tail -3       # packet loss?
+mtr --report 8.8.8.8                 # traceroute + ping
+sar -n DEV 1 10                      # interface stats
+ss -s                                # socket summary
+ethtool eth0 | grep Speed
+
+# Diagnose high TIME_WAIT connections
+ss -tan | awk '{print $1}' | sort | uniq -c
+
+# Fix: tune kernel TCP parameters
+echo 'net.ipv4.tcp_tw_reuse = 1' >> /etc/sysctl.conf
+echo 'net.ipv4.tcp_fin_timeout = 30' >> /etc/sysctl.conf
+sysctl --system</code></pre>
+
+        <h3>Scenario 8: Filesystem Corruption</h3>
+        <pre><code"># Check errors in dmesg
+dmesg | grep -i "I/O error\|filesystem error"
+
+# Cannot unmount? (remount read-only first)
+mount -o remount,ro /data
+
+# Run fsck (filesystem must be unmounted)
+umount /data
+fsck.ext4 -f -y /dev/data_vg/data_lv    # -y = auto-yes
+
+# If can't unmount root
+# Boot from rescue mode / live CD, then run fsck</code></pre>
+
+        <h3>Scenario 9: Certificate Expiry</h3>
+        <pre><code"># Check cert expiry
+openssl x509 -in /etc/ssl/myapp.crt -noout -dates
+echo | openssl s_client -host myapp.com -port 443 2>/dev/null \
+  | openssl x509 -noout -dates
+
+# Auto-renew with Let's Encrypt (certbot)
+certbot renew --dry-run
+certbot renew --nginx
+
+# Monitor with script
+EXPIRY=$(openssl x509 -in /etc/ssl/cert.pem -noout -enddate | cut -d= -f2)
+EXPIRY_EPOCH=$(date -d "$EXPIRY" +%s)
+NOW=$(date +%s)
+DAYS=$(( (EXPIRY_EPOCH - NOW) / 86400 ))
+[[ $DAYS -lt 30 ]] && echo "WARNING: cert expires in $DAYS days"</code></pre>
+
+        <h3>Scenario 10: Memory Leak in Application</h3>
+        <pre><code"># Track memory growth over time
+watch -n 5 'ps aux --sort=-%mem | head -5'
+
+# Detailed memory map
+pmap -d $(pgrep myapp) | tail -1
+
+# Valgrind (development/staging only)
+valgrind --leak-check=full ./myapp
+
+# Quick fix: set memory limit in systemd unit
+# MemoryMax=512M
+
+# Workaround: restart service daily
+echo "0 3 * * * systemctl restart myapp" | crontab -</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== LABS ===== -->
+    <section id="labs">
+      <h2>🧪 200+ Linux Labs</h2>
+      <div class="grid-2">
+        <div class="card card--glow"><h3>Lab 1: User & Permission Setup</h3><p style="color:var(--text-dim)">Create users, groups, set permissions, configure sudo access, test PAM.</p><span class="badge badge--success">Beginner</span></div>
+        <div class="card card--glow"><h3>Lab 2: Bash Deployment Script</h3><p style="color:var(--text-dim)">Write a production deployment script with logging, error handling, and rollback.</p><span class="badge badge--warning">Intermediate</span></div>
+        <div class="card card--glow"><h3>Lab 3: LVM Storage</h3><p style="color:var(--text-dim)">Create PV, VG, LV. Extend volume online. Take and merge a snapshot.</p><span class="badge badge--warning">Intermediate</span></div>
+        <div class="card card--glow"><h3>Lab 4: Software RAID 5</h3><p style="color:var(--text-dim)">Create RAID 5 with 3 disks using mdadm. Simulate disk failure and rebuild.</p><span class="badge badge--danger">Advanced</span></div>
+        <div class="card card--glow"><h3>Lab 5: Nginx SSL + Rate Limiting</h3><p style="color:var(--text-dim)">Configure Nginx with TLS 1.3, upstream load balancing, and rate limiting.</p><span class="badge badge--warning">Intermediate</span></div>
+        <div class="card card--glow"><h3>Lab 6: MySQL Replication</h3><p style="color:var(--text-dim)">Set up primary-replica replication. Test failover. Practice PITR.</p><span class="badge badge--danger">Advanced</span></div>
+        <div class="card card--glow"><h3>Lab 7: SELinux Policy</h3><p style="color:var(--text-dim)">Configure contexts, booleans, fix denials. Write custom SELinux module.</p><span class="badge badge--danger">Advanced</span></div>
+        <div class="card card--glow"><h3>Lab 8: SSH Hardening + Fail2Ban</h3><p style="color:var(--text-dim)">Harden sshd_config, set up key-only auth, configure fail2ban with custom rules.</p><span class="badge badge--warning">Intermediate</span></div>
+        <div class="card card--glow"><h3>Lab 9: System Monitoring Stack</h3><p style="color:var(--text-dim)">Install Node Exporter, Prometheus, Grafana. Create custom dashboards.</p><span class="badge badge--danger">Advanced</span></div>
+        <div class="card card--glow"><h3>Lab 10: Performance Tuning</h3><p style="color:var(--text-dim)">Profile a slow system using iostat/vmstat/perf. Tune kernel parameters.</p><span class="badge badge--danger">Advanced</span></div>
+      </div>
+    </section>
+
+    <!-- ===== INTERVIEW ===== -->
+    <section id="interview">
+      <h2>🎯 Linux Interview Questions</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Top 20 Linux Admin Interview Q&A</div>
+          <button class="btn btn--outline btn--sm" data-lesson="linux-administration:interview">Mark Complete</button>
+        </div>
+
+        <h3>Q1: What happens when you type a command in Linux?</h3>
+        <p>Shell reads input → checks aliases → checks shell builtins → searches PATH directories in order → forks a child process (fork()) → child calls execve() to replace itself with the command binary → parent shell waits (waitpid()).</p>
+
+        <h3>Q2: What is the difference between hard link and symbolic link?</h3>
+        <p><strong>Hard link:</strong> Second directory entry pointing to same inode. Cannot span filesystems. Still works if original deleted. <code>ls -li</code> shows same inode number.<br><strong>Soft/Symbolic link:</strong> Points to the file path (not inode). Dangling link if original deleted. Can span filesystems and link to directories.</p>
+
+        <h3>Q3: How do you check which process is listening on port 80?</h3>
+        <pre><code>ss -tlnp | grep :80
+lsof -i :80
+fuser 80/tcp</code></pre>
+
+        <h3>Q4: Explain the difference between kill -9 and kill -15</h3>
+        <p><code>kill -15</code> (SIGTERM): Polite shutdown. Process can catch it, clean up, close files, flush buffers before exiting.<br><code>kill -9</code> (SIGKILL): Cannot be caught or ignored. Kernel immediately terminates process. Use as last resort — may leave resources in bad state.</p>
+
+        <h3>Q5: What is zombie process? How to handle it?</h3>
+        <p>Zombie = process that finished but parent hasn't read its exit status (wait()). Shows as Z in ps. Fix: kill parent (parent will reap zombies) or if parent is init it auto-reaps. <code>ps aux | grep Z</code></p>
+
+        <h3>Q6: How does LVM snapshot work?</h3>
+        <p>LVM snapshot uses Copy-on-Write (CoW). When a block in the original LV is about to be modified, LVM first copies the original block to the snapshot LV, then allows the write. Snapshot contains only changed blocks = efficient.</p>
+
+        <h3>Q7: What is the difference between ext4 and XFS?</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Feature</th><th>ext4</th><th>XFS</th></tr></thead>
+            <tbody>
+              <tr><td>Max filesystem</td><td>1 EiB</td><td>8 EiB</td></tr>
+              <tr><td>Max file size</td><td>16 TiB</td><td>8 EiB</td></tr>
+              <tr><td>Shrink online</td><td>Yes</td><td>No</td></tr>
+              <tr><td>Large files</td><td>Good</td><td>Excellent</td></tr>
+              <tr><td>Default on</td><td>Debian/Ubuntu</td><td>RHEL 7+</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Q8: Explain SELinux context format</h3>
+        <p><code>user:role:type:level</code>. Type is most important for policy decisions (Type Enforcement). Files get context from policy rules. httpd process runs in <code>httpd_t</code> domain and can only access files with matching types like <code>httpd_sys_content_t</code>.</p>
+
+        <h3>Q9: How would you find all SUID files on the system?</h3>
+        <pre><code>find / -perm -4000 -type f 2>/dev/null
+find / -perm /6000 -type f 2>/dev/null  # SUID or SGID</code></pre>
+
+        <h3>Q10: What does the sticky bit do on a directory?</h3>
+        <p>Sticky bit on a directory (like /tmp) means only the file owner, directory owner, or root can delete/rename files in that directory — even if others have write permission. Prevents users from deleting each other's files.</p>
+      </div>
+    </section>
+
+    <!-- ===== CERTS ===== -->
+    <section id="certs">
+      <h2>🏆 Linux Certifications</h2>
+      <div class="grid-2">
+        <div class="card card--glow">
+          <h3>RHCSA</h3>
+          <p style="color:var(--text-dim)">Red Hat Certified System Administrator. Performance-based exam on RHEL 9.</p>
+          <p><strong>Exam:</strong> EX200 | <strong>Duration:</strong> 3 hours | <strong>Topics:</strong> User mgmt, LVM, SELinux, systemd, containers</p>
+          <span class="badge badge--warning">Intermediate</span>
+        </div>
+        <div class="card card--glow">
+          <h3>RHCE</h3>
+          <p style="color:var(--text-dim)">Red Hat Certified Engineer. Requires RHCSA. Focuses on Ansible automation.</p>
+          <p><strong>Exam:</strong> EX294 | <strong>Duration:</strong> 4 hours | <strong>Topics:</strong> Ansible, roles, Vault, modules</p>
+          <span class="badge badge--danger">Advanced</span>
+        </div>
+        <div class="card card--glow">
+          <h3>LPIC-1</h3>
+          <p style="color:var(--text-dim)">Linux Professional Institute Certification Level 1. Distro-agnostic.</p>
+          <p><strong>Exam:</strong> 101 + 102 | <strong>Cost:</strong> ~$200 each | <strong>Topics:</strong> Commands, filesystems, networking</p>
+          <span class="badge badge--success">Beginner</span>
+        </div>
+        <div class="card card--glow">
+          <h3>CompTIA Linux+</h3>
+          <p style="color:var(--text-dim)">Vendor-neutral, covers both RHEL and Ubuntu. ISO 17024 accredited.</p>
+          <p><strong>Exam:</strong> XK0-005 | <strong>Questions:</strong> 90 | <strong>Pass:</strong> 720/900</p>
+          <span class="badge badge--warning">Intermediate</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CONTAINERS ON LINUX ===== -->
+    <section id="containers-linux">
+      <h2>🐳 Containers on Linux (namespaces &amp; cgroups)</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">How Docker/Kubernetes Actually Work</div>
+          <button class="btn btn--outline btn--sm" data-lesson="linux-administration:containers-linux">Mark Complete</button>
+        </div>
+
+        <h3>Linux Namespaces — Isolation Building Blocks</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Namespace</th><th>Flag</th><th>Isolates</th><th>Example Use</th></tr></thead>
+            <tbody>
+              <tr><td>PID</td><td>CLONE_NEWPID</td><td>Process IDs (PID 1 inside container)</td><td>Container process tree</td></tr>
+              <tr><td>NET</td><td>CLONE_NEWNET</td><td>Network interfaces, routes, iptables</td><td>Container networking</td></tr>
+              <tr><td>MNT</td><td>CLONE_NEWNS</td><td>Mount points and filesystem</td><td>Container root filesystem</td></tr>
+              <tr><td>UTS</td><td>CLONE_NEWUTS</td><td>Hostname and domain name</td><td>Container hostname</td></tr>
+              <tr><td>IPC</td><td>CLONE_NEWIPC</td><td>SysV IPC, POSIX message queues</td><td>Shared memory isolation</td></tr>
+              <tr><td>USER</td><td>CLONE_NEWUSER</td><td>UID/GID mappings</td><td>Rootless containers (podman)</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <pre><code># Demonstrate namespace isolation
+unshare --pid --fork --mount-proc bash
+  # Now: ps aux only shows your processes, PID 1 is bash
+
+# Inspect running container's namespaces
+container_pid=$(docker inspect -f '{{.State.Pid}}' mycontainer)
+ls -la /proc/$container_pid/ns/
+# lrwxrwxrwx  net -> net:[4026532298]
+# lrwxrwxrwx  pid -> pid:[4026532301]
+
+# Enter container namespace manually (what 'docker exec' does)
+nsenter -t $container_pid --pid --net --mount bash</code></pre>
+
+        <h3>cgroups v2 — Resource Limits</h3>
+        <pre><code># cgroups v2 hierarchy under /sys/fs/cgroup/
+/sys/fs/cgroup/
+├── memory.max       # hard memory limit
+├── memory.high      # soft limit (triggers reclaim)
+├── cpu.max          # "quota period" e.g. "50000 100000" = 50% of one CPU
+├── cpu.weight       # relative priority (default 100)
+├── io.max           # disk I/O limits per device
+└── pids.max         # max number of PIDs (fork bomb protection)
+
+# Docker uses cgroups under the hood
+docker run --memory=512m --memory-swap=512m \
+  --cpus=0.5 \
+  --pids-limit=100 \
+  nginx
+
+# Verify limits applied
+cat /sys/fs/cgroup/system.slice/docker-&lt;containerid&gt;.scope/memory.max
+# 536870912 (512 MiB in bytes)
+
+# Manual cgroup creation
+mkdir /sys/fs/cgroup/my-limited-group
+echo "512M" &gt; /sys/fs/cgroup/my-limited-group/memory.max
+echo $$ &gt; /sys/fs/cgroup/my-limited-group/cgroup.procs  # add current shell</code></pre>
+
+        <h3>Container Networking Deep Dive</h3>
+        <pre><code># Docker creates a veth pair per container
+ip link show  # see veth* interfaces on host
+brctl show    # see docker0 bridge
+
+# Container network flow:
+# container eth0 &lt;-veth pair-&gt; host vethXXX -&gt; docker0 bridge -&gt; iptables NAT -&gt; host eth0 -&gt; internet
+
+# Inspect iptables rules Docker creates
+iptables -t nat -L DOCKER -n --line-numbers
+iptables -L DOCKER-ISOLATION-STAGE-1 -n
+
+# Create a custom bridge network
+docker network create --driver bridge \
+  --subnet 172.20.0.0/16 \
+  --ip-range 172.20.240.0/20 \
+  my-network
+
+# Overlay network (Docker Swarm / multi-host)
+docker network create --driver overlay --attachable my-overlay
+# Uses VXLAN encapsulation, kernel module: vxlan</code></pre>
+
+        <h3>Rootless Containers (Security Best Practice)</h3>
+        <pre><code># Run Docker daemon as non-root (Docker rootless mode)
+dockerd-rootless-setuptool.sh install
+export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
+
+# Podman — no daemon, rootless by default
+podman run --rm nginx
+podman run --userns=keep-id myimage  # map host UID to container
+
+# Security benefits of rootless:
+# Container UID 0 maps to host UID 1000 (your user) — not real root
+# Even if container is compromised, attacker has only user-level access
+# No SUID binaries, no setcap needed for privileged ports (use 8080 not 80)
+
+# User namespace mapping in /etc/subuid
+cat /etc/subuid  # vikash:100000:65536
+# UID 0 in container -&gt; UID 100000 on host</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== eBPF ===== -->
+    <section id="ebpf">
+      <h2>🔬 eBPF — Linux Superpower</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Observability, Security &amp; Networking without Kernel Modules</div>
+          <button class="btn btn--outline btn--sm" data-lesson="linux-administration:ebpf">Mark Complete</button>
+        </div>
+
+        <h3>What is eBPF?</h3>
+        <ul>
+          <li>eBPF (extended Berkeley Packet Filter) — run sandboxed programs in the Linux kernel without changing kernel source or loading modules</li>
+          <li>Use cases: observability (Cilium Hubble), security (Falco, Tetragon), networking (Cilium CNI), performance profiling (bpftrace, Parca)</li>
+          <li>Programs attach to kernel hooks: kprobes, uprobes, tracepoints, XDP (eXpress Data Path), tc (traffic control), LSM (Linux Security Module)</li>
+        </ul>
+
+        <h3>bpftrace — One-liners for System Insight</h3>
+        <pre><code># List all available probes
+bpftrace -l 'tracepoint:syscalls:*' | head -20
+
+# Trace all open() syscalls with filename
+bpftrace -e 'tracepoint:syscalls:sys_enter_openat { printf("%s opened %s\n", comm, str(args-&gt;filename)); }'
+
+# Histogram of read() sizes by process
+bpftrace -e 'tracepoint:syscalls:sys_exit_read { @[comm] = hist(args-&gt;ret); }'
+
+# Top 10 slowest disk I/Os (latency &gt; 1ms)
+bpftrace -e '
+kprobe:blk_account_io_start { @start[arg0] = nsecs; }
+kprobe:blk_account_io_done / @start[arg0] / {
+  $lat = (nsecs - @start[arg0]) / 1000;
+  if ($lat &gt; 1000) { printf("I/O latency: %d us\n", $lat); }
+  delete(@start[arg0]);
+}'
+
+# TCP connection latency
+bpftrace -e 'kprobe:tcp_rcv_state_process /args-&gt;sk-&gt;__sk_common.skc_state == 2/ { @[comm] = hist((nsecs - @start[args-&gt;sk]) / 1000); }'
+
+# Network packet drops
+bpftrace -e 'kprobe:kfree_skb { @drops[kstack(5)] = count(); } interval:s:5 { print(@drops); clear(@drops); }'</code></pre>
+
+        <h3>Cilium — eBPF-Powered Kubernetes Networking</h3>
+        <pre><code># Install Cilium as CNI (replaces kube-proxy entirely with eBPF)
+helm install cilium cilium/cilium --version 1.15.0 \
+  --namespace kube-system \
+  --set kubeProxyReplacement=true \
+  --set hubble.relay.enabled=true \
+  --set hubble.ui.enabled=true
+
+# View network flows with Hubble
+cilium hubble ui  # open UI
+hubble observe --namespace production --follow
+hubble observe --pod frontend --protocol tcp --port 5432
+
+# eBPF-based NetworkPolicy (L7 aware — understands HTTP methods, gRPC)
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: api-l7-policy
+spec:
+  endpointSelector:
+    matchLabels:
+      app: backend-api
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            app: frontend
+      toPorts:
+        - ports:
+            - port: "8080"
+              protocol: TCP
+          rules:
+            http:
+              - method: GET
+                path: "/api/v1/.*"   # only allow GET /api/v1/*</code></pre>
+      </div>
+    </section>
+
+    <section id="quiz-section-wrapper">
+      <h2>🧠 Test Your Knowledge</h2>
+      <div id="quiz-section"></div>
+    </section>
+  </main>
+
+  <aside class="progress-panel">
+    <div class="progress-panel__title">Your Progress</div>
+    <div id="portal-progress-bars"></div>
+  </aside>
+</div>
+
+<div id="footer-placeholder"></div>
+
+<script src="../assets/js/store.js"></script>
+<script src="../assets/js/utils.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/progress.js"></script>
+<script src="../assets/js/quiz.js"></script>
+<script src="../assets/js/search.js"></script>
+<script src="../assets/js/partials.js"></script>
+<script src="../assets/js/portal.js"></script>
+</body>
+</html>

@@ -1,0 +1,416 @@
+{
+  "title": "Ultimate IT Encyclopedia Quiz",
+  "description": "Expert-level questions covering networking, OS, programming, databases, cloud, DevSecOps, containers, CI/CD, monitoring, and security.",
+  "questions": [
+    {
+      "question": "In HTTP/2, what mechanism replaces multiple parallel TCP connections used in HTTP/1.1?",
+      "options": [
+        "A. Multiplexed streams over a single TCP connection",
+        "B. Connection pooling with keep-alive",
+        "C. HTTP pipelining with queued requests",
+        "D. WebSocket upgrades for all requests"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "What is the key difference between TLS 1.3 and TLS 1.2 handshakes?",
+      "options": [
+        "A. TLS 1.3 uses RSA only; TLS 1.2 uses ECDSA",
+        "B. TLS 1.3 completes in 1 RTT (0-RTT on resumption), removes weak ciphers, and mandates PFS",
+        "C. TLS 1.2 is faster due to simpler cipher suites",
+        "D. TLS 1.3 requires client certificates by default"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "A Linux process is in 'D' (uninterruptible sleep) state. What does this indicate?",
+      "options": [
+        "A. The process is dead and being reaped by init",
+        "B. The process is waiting for a signal from another process",
+        "C. The process is blocked on I/O — typically disk or network — and cannot be killed with SIGKILL",
+        "D. The process is in debug mode and paused by a debugger"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "What Linux command shows which process has a file open and which process is listening on a port?",
+      "options": [
+        "A. ps aux --sort=-%mem",
+        "B. netstat -s --tcp",
+        "C. strace -p PID -e trace=network",
+        "D. lsof -i :80  or  lsof /path/to/file"
+      ],
+      "correct": 3
+    },
+    {
+      "question": "In Windows Server, which Event ID in the Security log indicates a successful logon?",
+      "options": [
+        "A. 4624",
+        "B. 4625",
+        "C. 4740",
+        "D. 7045"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "What does Active Directory's Kerberos authentication issue a 'TGT' (Ticket Granting Ticket) for?",
+      "options": [
+        "A. Authorizing LDAP queries directly to domain controllers",
+        "B. Proving a user's identity to the KDC so they can request service tickets without re-entering credentials",
+        "C. Encrypting LDAP bind traffic between client and DC",
+        "D. Granting admin rights on the user's workstation"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "In Python, what is the difference between a list comprehension and a generator expression?",
+      "options": [
+        "A. List comprehensions are faster; generators are for type checking",
+        "B. They are syntactically identical with no behavioral difference",
+        "C. List comprehensions produce the entire list in memory at once; generators are lazy — yielding one item at a time, saving memory",
+        "D. Generators only work with numeric types; list comprehensions work with any type"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "In JavaScript, what is the output order of this code: console.log('A'); setTimeout(()=>console.log('B'),0); Promise.resolve().then(()=>console.log('C')); console.log('D');",
+      "options": [
+        "A. A, B, C, D",
+        "B. A, D, B, C",
+        "C. A, C, D, B",
+        "D. A, D, C, B"
+      ],
+      "correct": 3
+    },
+    {
+      "question": "In Go, what happens if you send on a closed channel?",
+      "options": [
+        "A. The runtime panics",
+        "B. The send blocks forever",
+        "C. The value is silently discarded",
+        "D. An error is returned to the caller"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "What does Go's 'defer' keyword guarantee about execution order when multiple defers exist in one function?",
+      "options": [
+        "A. FIFO — first defer registered runs first",
+        "B. LIFO — last defer registered runs first (stack order)",
+        "C. All defers run in parallel via goroutines",
+        "D. Order depends on whether defers are in if/else branches"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "In CAP theorem, which guarantee must distributed systems always maintain (making it a choice between C and A)?",
+      "options": [
+        "A. Consistency — all nodes always have identical data",
+        "B. Availability — every request gets a response",
+        "C. Partition Tolerance — system continues despite network partitions",
+        "D. Durability — committed writes survive failures"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "What is the difference between a MongoDB $lookup aggregation stage and a SQL LEFT JOIN?",
+      "options": [
+        "A. $lookup only works with arrays; LEFT JOIN works with any type",
+        "B. They are functionally identical in all cases",
+        "C. $lookup requires the same database; LEFT JOIN can span servers",
+        "D. $lookup joins collections in memory (no foreign keys/indexes enforced by schema); LEFT JOIN can use indexed foreign keys with query planner optimization"
+      ],
+      "correct": 3
+    },
+    {
+      "question": "A Redis ZADD leaderboard operation with the same member but a different score — what happens?",
+      "options": [
+        "A. Updates the member's score in-place and repositions it in the sorted order",
+        "B. Returns an error — member already exists",
+        "C. Creates a duplicate entry with the new score",
+        "D. The old score is kept; new score is ignored"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "In Terraform, what is the purpose of a 'data source' block?",
+      "options": [
+        "A. Defines a new resource for Terraform to manage and create",
+        "B. Reads information about existing infrastructure not managed by the current Terraform config",
+        "C. Stores sensitive values like passwords outside of state",
+        "D. Declares a reusable module from the Terraform registry"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "What security risk does 'terraform state' expose if the state file is stored without encryption?",
+      "options": [
+        "A. None — state files only contain resource IDs, not sensitive data",
+        "B. State files expose only IP addresses, not credentials",
+        "C. Terraform state can contain plaintext secrets (DB passwords, private keys) written by providers",
+        "D. The risk is only relevant if the state file is larger than 10MB"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "In a Kubernetes Deployment, what is the effect of setting 'maxUnavailable: 0' and 'maxSurge: 1' in a rolling update?",
+      "options": [
+        "A. Update is blocked — conflicting settings",
+        "B. All pods are replaced simultaneously with zero downtime",
+        "C. Updates are paused until manual approval",
+        "D. One new pod is created first, then one old pod is removed — ensuring no reduction in capacity throughout the rollout"
+      ],
+      "correct": 3
+    },
+    {
+      "question": "What is the difference between a Kubernetes ConfigMap and a Secret?",
+      "options": [
+        "A. Secrets are base64-encoded (not encrypted by default) and treated with additional access controls; ConfigMaps are plain text",
+        "B. ConfigMaps are larger; Secrets have a 1KB limit",
+        "C. Secrets are automatically encrypted at rest with AES-256; ConfigMaps are not",
+        "D. ConfigMaps mount as volumes only; Secrets only as environment variables"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "In a GitHub Actions workflow, what does setting 'id-token: write' permission enable?",
+      "options": [
+        "A. Allows the workflow to write to GitHub issue comments",
+        "B. Allows the workflow to request an OIDC JWT from GitHub, used for keyless authentication to cloud providers (AWS, GCP, Azure)",
+        "C. Grants write access to the repository via GITHUB_TOKEN",
+        "D. Enables signing of commits and tags"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "What is the primary purpose of SLSA (Supply Chain Levels for Software Artifacts) provenance?",
+      "options": [
+        "A. A compliance framework for software licenses",
+        "B. A service level agreement for software availability",
+        "C. Cryptographically verifiable metadata that documents how a software artifact was built — inputs, build system, outputs",
+        "D. A dependency management system replacing npm/pip"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "In Prometheus, what is the difference between a Counter and a Gauge metric type?",
+      "options": [
+        "A. Counters store strings; Gauges store numbers",
+        "B. Counters are for infrastructure; Gauges are for application metrics",
+        "C. There is no functional difference — naming convention only",
+        "D. Counters only go up (reset on restart) — use rate(); Gauges can go up or down — use directly for current values"
+      ],
+      "correct": 3
+    },
+    {
+      "question": "A Prometheus alert is in 'PENDING' state. What does this mean?",
+      "options": [
+        "A. The alert condition is currently true but hasn't exceeded the 'for' duration threshold yet",
+        "B. The alert has fired and is waiting for acknowledgment in Alertmanager",
+        "C. The alert rule has a syntax error and is pending validation",
+        "D. Alertmanager has received the alert but not yet routed it"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "What does OWASP A01:2021 (Broken Access Control) cover that was not in the 2017 Top 10 top position?",
+      "options": [
+        "A. SQL injection attacks on REST APIs",
+        "B. IDOR (Insecure Direct Object References), missing function-level access control, and CORS misconfigurations — moved to #1 from #5",
+        "C. Broken authentication and session management",
+        "D. Using components with known vulnerabilities"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "What is SSRF (Server-Side Request Forgery) and why is it especially dangerous in cloud environments?",
+      "options": [
+        "A. Server sends forged responses to clients; dangerous because it bypasses TLS",
+        "B. SQL injection variant targeting server-side scripts; dangerous because DBs are often internal",
+        "C. Attacker tricks server into making HTTP requests to internal resources; in cloud it can reach the metadata endpoint (169.254.169.254) to steal IAM credentials",
+        "D. Session fixation on the server side; dangerous because sessions persist longer in cloud"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "In DevSecOps, what is the difference between SAST and DAST?",
+      "options": [
+        "A. SAST scans containers; DAST scans source code",
+        "B. SAST runs in production; DAST runs in development",
+        "C. They test the same things — DAST is just faster",
+        "D. SAST analyzes source code statically without executing it; DAST tests the running application by sending requests and observing responses"
+      ],
+      "correct": 3
+    },
+    {
+      "question": "What does a WAF (Web Application Firewall) protect against that a network firewall cannot?",
+      "options": [
+        "A. Application-layer attacks like SQLi, XSS, CSRF, and OWASP Top 10 vulnerabilities — it inspects HTTP request/response content",
+        "B. DDoS volumetric attacks at the network layer",
+        "C. IP spoofing and ARP poisoning attacks",
+        "D. Unauthorized port scanning of the server"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "What does Perfect Forward Secrecy (PFS) guarantee that standard RSA key exchange does not?",
+      "options": [
+        "A. Faster TLS handshakes by caching session keys",
+        "B. Compromise of the long-term server private key cannot decrypt previously recorded traffic — each session uses ephemeral key pairs",
+        "C. Perfect encryption with no computational overhead",
+        "D. Automatic certificate renewal before expiry"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "In the STRIDE threat model, which threat category does 'an attacker replaying a captured authentication token' fall under?",
+      "options": [
+        "A. Tampering",
+        "B. Repudiation",
+        "C. Spoofing",
+        "D. Elevation of Privilege"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "What is the SRE concept of an 'error budget' and how does it influence product decisions?",
+      "options": [
+        "A. A financial budget for handling production incidents",
+        "B. A threshold below which error rates are considered acceptable and ignored",
+        "C. A percentage of test budget allocated to chaos engineering",
+        "D. 100% minus the SLO target — the allowed downtime/errors. When exhausted, new features are frozen until reliability improves"
+      ],
+      "correct": 3
+    },
+    {
+      "question": "In PostgreSQL, what does EXPLAIN ANALYZE show that EXPLAIN alone does not?",
+      "options": [
+        "A. Actual execution time and row counts from running the query — comparing estimated vs actual rows reveals planner miscalculations",
+        "B. The estimated query cost and plan without executing",
+        "C. The index definitions used by the query",
+        "D. The disk I/O cost of the query plan"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "What is WireGuard's key architectural advantage over OpenVPN and IPsec?",
+      "options": [
+        "A. WireGuard supports more cipher suites, making it more flexible",
+        "B. WireGuard has a minimal codebase (~4000 lines vs 400,000+ for OpenVPN/IPsec), uses modern cryptography (Curve25519, ChaCha20-Poly1305), and operates in the Linux kernel for superior performance",
+        "C. WireGuard is the only VPN protocol that supports IPv6",
+        "D. WireGuard runs over HTTP/2, making it firewall-friendly"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "In DNS security, what attack does DNSSEC prevent and how?",
+      "options": [
+        "A. DDoS amplification — by reducing DNS response sizes",
+        "B. DNS tunneling — by blocking TXT record queries",
+        "C. DNS cache poisoning — by cryptographically signing DNS records so resolvers can verify authenticity",
+        "D. DNS hijacking — by encrypting queries between client and resolver"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "What is the Kubernetes 'readinessProbe' used for, and how does it differ from 'livenessProbe'?",
+      "options": [
+        "A. They are identical — just two names for the same feature",
+        "B. livenessProbe checks application logic; readinessProbe checks container startup",
+        "C. readinessProbe runs once at startup; livenessProbe runs continuously",
+        "D. readinessProbe controls whether traffic is sent to a pod; livenessProbe controls whether the container is restarted — a pod can be alive but not ready"
+      ],
+      "correct": 3
+    },
+    {
+      "question": "What is the purpose of 'topologySpreadConstraints' in a Kubernetes Pod spec?",
+      "options": [
+        "A. Spreads pod replicas across failure domains (AZs, nodes) to prevent all replicas from co-locating in one zone",
+        "B. Sets CPU/memory topology for NUMA-aware scheduling",
+        "C. Restricts pods to specific node topologies based on hardware",
+        "D. Configures network topology for service mesh routing"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "In the OSI model, at which layer does TLS operate?",
+      "options": [
+        "A. Layer 3 — Network",
+        "B. Layer 5/6 — Session/Presentation",
+        "C. Layer 4 — Transport",
+        "D. Layer 7 — Application"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "What is the binary representation of the decimal number 202?",
+      "options": [
+        "A. 11001001",
+        "B. 11001100",
+        "C. 11001010",
+        "D. 10101010"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "What AWS service would you use to get short-term IAM credentials for a Kubernetes pod without storing static access keys?",
+      "options": [
+        "A. AWS Secrets Manager with rotation",
+        "B. EC2 instance profile applied to the worker node",
+        "C. AWS Systems Manager Parameter Store with IAM policy",
+        "D. IRSA (IAM Roles for Service Accounts) — pod assumes IAM role via OIDC federation"
+      ],
+      "correct": 3
+    },
+    {
+      "question": "What does the 'Shift Left' principle mean in DevSecOps?",
+      "options": [
+        "A. Integrating security testing earlier in the development lifecycle — in developer IDEs, PRs, and CI — rather than only at release time",
+        "B. Moving security reviews to after deployment for faster delivery",
+        "C. Shifting security team responsibilities left to the development team permanently",
+        "D. Moving infrastructure from right (cloud) to left (on-premises)"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "In structured logging, why is JSON format preferred over plain text for production logs?",
+      "options": [
+        "A. JSON is smaller in size than plain text",
+        "B. JSON is machine-parseable — fields like traceId, userId, level can be indexed and queried efficiently in log aggregation tools like Loki, Elasticsearch, and Splunk",
+        "C. JSON logs load faster in the browser console",
+        "D. JSON is the only format supported by CloudWatch Logs"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "What is 'supply chain attack' in software security, with a real-world example?",
+      "options": [
+        "A. Attacking a company's physical supply of hardware components; example: intercepting server deliveries",
+        "B. A DDoS attack targeting e-commerce checkout systems during peak sales",
+        "C. Compromising a trusted third-party dependency or build system to inject malicious code into downstream software; example: the SolarWinds Orion backdoor or malicious npm packages",
+        "D. Social engineering attacks against supply chain managers to steal credentials"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "In SQL, what is the execution order of clauses in a SELECT statement?",
+      "options": [
+        "A. SELECT → FROM → WHERE → GROUP BY → HAVING → ORDER BY",
+        "B. WHERE → FROM → SELECT → GROUP BY → HAVING → ORDER BY",
+        "C. FROM → SELECT → WHERE → GROUP BY → ORDER BY → HAVING",
+        "D. FROM → JOIN → WHERE → GROUP BY → HAVING → SELECT → ORDER BY → LIMIT"
+      ],
+      "correct": 3
+    },
+    {
+      "question": "What does the HTTP 'OPTIONS' method used in a CORS preflight request ask the server?",
+      "options": [
+        "A. What HTTP methods and headers are allowed for cross-origin requests to that endpoint",
+        "B. Whether the server is available and healthy",
+        "C. To return all supported authentication methods",
+        "D. Whether the endpoint supports HTTP/2"
+      ],
+      "correct": 0
+    }
+  ]
+}

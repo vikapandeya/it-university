@@ -1,0 +1,1129 @@
+<!doctype html>
+<html lang="en" data-portal="ai-prompt-engineering" data-depth="2">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI & Prompt Engineering — IT University</title>
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/reset.css">
+  <link rel="stylesheet" href="../assets/css/portal-themes.css">
+  <link rel="stylesheet" href="../assets/css/layout.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/quiz.css">
+</head>
+<body class="page-body">
+<div id="header-placeholder"></div>
+
+<div class="portal-layout">
+  <aside class="sidebar">
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Foundations</div>
+      <a href="#ai-history" class="sidebar__link">📅 AI History</a>
+      <a href="#ml-types" class="sidebar__link">🤖 ML Types</a>
+      <a href="#neural-networks" class="sidebar__link">🧠 Neural Networks</a>
+      <a href="#transformers" class="sidebar__link">⚡ Transformer Architecture</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Language Models</div>
+      <a href="#llms" class="sidebar__link">💬 LLMs Comparison</a>
+      <a href="#tokenization" class="sidebar__link">🔤 Tokenization</a>
+      <a href="#prompt-engineering" class="sidebar__link">✍️ Prompt Engineering</a>
+      <a href="#advanced-prompting" class="sidebar__link">🎯 Expert Techniques</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">APIs & Code</div>
+      <a href="#api-usage" class="sidebar__link">🔌 Claude & OpenAI API</a>
+      <a href="#rag" class="sidebar__link">📚 RAG Systems</a>
+      <a href="#langchain" class="sidebar__link">⛓️ LangChain / LangGraph</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Frameworks & Local</div>
+      <a href="#crewai" class="sidebar__link">👥 CrewAI Agents</a>
+      <a href="#ollama" class="sidebar__link">🦙 Ollama Local LLMs</a>
+      <a href="#finetuning" class="sidebar__link">🔧 Fine-Tuning LoRA</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Practice</div>
+      <a href="#projects" class="sidebar__link">🚀 Projects</a>
+      <a href="#interview" class="sidebar__link">🎯 Interview Q&A</a>
+      <a href="#quiz-section" class="sidebar__link">🧠 Quiz</a>
+    </div>
+  </aside>
+
+  <main class="content">
+    <h1>🤖 AI & Prompt Engineering</h1>
+    <p style="color:var(--text-dim);font-size:var(--text-lg);margin-bottom:var(--gap-xl)">From ML fundamentals to production RAG systems. Build AI applications with Claude, GPT-4, LangChain, CrewAI, and local models via Ollama.</p>
+
+    <!-- ===== AI HISTORY ===== -->
+    <section id="ai-history">
+      <h2>📅 AI History Timeline</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">1950–2025: Key Milestones</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ai-prompt-engineering:ai-history">Mark Complete</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Year</th><th>Milestone</th><th>Significance</th></tr></thead>
+            <tbody>
+              <tr><td>1950</td><td>Turing Test proposed</td><td>Defined machine intelligence for decades</td></tr>
+              <tr><td>1956</td><td>Dartmouth Conference</td><td>AI coined as a field</td></tr>
+              <tr><td>1957</td><td>Perceptron (Rosenblatt)</td><td>First neural network learning algorithm</td></tr>
+              <tr><td>1969</td><td>Minsky & Papert show XOR problem</td><td>First "AI Winter" triggered</td></tr>
+              <tr><td>1986</td><td>Backpropagation popularized</td><td>Multi-layer networks can learn</td></tr>
+              <tr><td>1997</td><td>Deep Blue beats Kasparov</td><td>AI beats world chess champion</td></tr>
+              <tr><td>1998</td><td>LeNet (Yann LeCun)</td><td>CNN for handwriting recognition</td></tr>
+              <tr><td>2012</td><td>AlexNet wins ImageNet (16.4% error)</td><td>Deep learning revolution begins</td></tr>
+              <tr><td>2014</td><td>GANs (Goodfellow)</td><td>Generative adversarial networks</td></tr>
+              <tr><td>2017</td><td>"Attention Is All You Need"</td><td>Transformer architecture published</td></tr>
+              <tr><td>2018</td><td>BERT (Google), GPT-1 (OpenAI)</td><td>Pre-trained language models</td></tr>
+              <tr><td>2020</td><td>GPT-3 (175B params)</td><td>Emergent capabilities, few-shot learning</td></tr>
+              <tr><td>2022</td><td>ChatGPT, Stable Diffusion, DALL-E 2</td><td>Generative AI goes mainstream</td></tr>
+              <tr><td>2023</td><td>GPT-4, Claude, Llama 2, Mistral</td><td>Race for frontier + open models</td></tr>
+              <tr><td>2024</td><td>Claude 3, GPT-4o, Llama 3, Gemini 1.5, DeepSeek-V2</td><td>Multimodal, long context, cheap inference</td></tr>
+              <tr><td>2025</td><td>Claude 4, GPT-4.5/o3, DeepSeek-R1, Qwen2.5, Gemini 2.0</td><td>Reasoning models, open-source closing gap</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ML TYPES ===== -->
+    <section id="ml-types">
+      <h2>🤖 Machine Learning Types</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Supervised, Unsupervised, Reinforcement Learning</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ai-prompt-engineering:ml-types">Mark Complete</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Type</th><th>Training Data</th><th>Goal</th><th>Algorithms</th><th>Examples</th></tr></thead>
+            <tbody>
+              <tr><td>Supervised</td><td>Labeled (X, Y pairs)</td><td>Learn X→Y mapping</td><td>Linear/Logistic Regression, SVM, Random Forest, XGBoost, Neural Networks</td><td>Spam detection, image classification, price prediction</td></tr>
+              <tr><td>Unsupervised</td><td>Unlabeled (X only)</td><td>Find structure/patterns</td><td>K-Means, DBSCAN, PCA, Autoencoders, VAE</td><td>Customer segmentation, anomaly detection, topic modeling</td></tr>
+              <tr><td>Reinforcement</td><td>Environment feedback (reward)</td><td>Maximize cumulative reward</td><td>Q-Learning, PPO, DDPG, AlphaGo, ChatGPT (RLHF)</td><td>Game playing, robotics, recommendation</td></tr>
+              <tr><td>Self-Supervised</td><td>Data itself as label</td><td>Learn representations</td><td>BERT (masked LM), GPT (next token), SimCLR</td><td>Pre-training LLMs, embeddings</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <h3>RLHF — How ChatGPT was trained</h3>
+        <pre><code># Reinforcement Learning from Human Feedback (RLHF)
+# Step 1: Supervised Fine-Tuning (SFT)
+#   — Start from pre-trained GPT
+#   — Fine-tune on human-written demonstrations (prompt → ideal response)
+
+# Step 2: Reward Model Training
+#   — Generate multiple responses to prompts
+#   — Human rankers rank responses (best to worst)
+#   — Train reward model to predict human preference scores
+
+# Step 3: PPO RL Training
+#   — Use PPO (Proximal Policy Optimization) algorithm
+#   — LLM generates response → reward model scores it
+#   — PPO updates LLM to maximize reward score
+#   — KL penalty prevents diverging too far from SFT model
+
+# Constitutional AI (Anthropic/Claude alternative)
+# Step 1: SFT on helpful responses
+# Step 2: Generate harmful response → have model critique it → rewrite
+# Step 3: RL against AI preference model (not human ranking)
+# — Scales better, more consistent principles</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== NEURAL NETWORKS ===== -->
+    <section id="neural-networks">
+      <h2>🧠 Neural Networks</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Architecture, Activations, Backpropagation</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ai-prompt-engineering:neural-networks">Mark Complete</button>
+        </div>
+        <h3>Activation Functions</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Function</th><th>Formula</th><th>Range</th><th>Use Case</th></tr></thead>
+            <tbody>
+              <tr><td>Sigmoid</td><td>1 / (1 + e^-x)</td><td>(0, 1)</td><td>Binary classification output</td></tr>
+              <tr><td>Tanh</td><td>(e^x - e^-x) / (e^x + e^-x)</td><td>(-1, 1)</td><td>Hidden layers (zero-centered)</td></tr>
+              <tr><td>ReLU</td><td>max(0, x)</td><td>[0, ∞)</td><td>Default hidden layers (fast, sparse)</td></tr>
+              <tr><td>Leaky ReLU</td><td>max(0.01x, x)</td><td>(-∞, ∞)</td><td>Avoid dying ReLU problem</td></tr>
+              <tr><td>GELU</td><td>x × Φ(x)</td><td>≈(-0.17, ∞)</td><td>Transformers (BERT, GPT)</td></tr>
+              <tr><td>Softmax</td><td>e^xi / Σe^xj</td><td>(0, 1), sums to 1</td><td>Multi-class classification output</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <h3>Backpropagation (simplified)</h3>
+        <pre><code># Forward pass: compute predictions
+# Loss = CrossEntropy(predictions, labels)
+# Backward pass: compute gradients via chain rule
+# dLoss/dW = dLoss/dOutput × dOutput/dHidden × dHidden/dW
+# Update weights: W = W - learning_rate × gradient
+
+import torch
+import torch.nn as nn
+
+model = nn.Sequential(
+    nn.Linear(784, 256),
+    nn.ReLU(),
+    nn.Dropout(0.3),
+    nn.Linear(256, 128),
+    nn.ReLU(),
+    nn.Linear(128, 10)
+)
+
+optimizer = torch.optim.AdamW(model.parameters(), lr=1e-3, weight_decay=0.01)
+criterion = nn.CrossEntropyLoss()
+
+for epoch in range(100):
+    for X, y in dataloader:
+        optimizer.zero_grad()
+        output = model(X)           # forward pass
+        loss = criterion(output, y) # compute loss
+        loss.backward()             # backprop (compute gradients)
+        nn.utils.clip_grad_norm_(model.parameters(), 1.0)  # gradient clip
+        optimizer.step()            # update weights</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== TRANSFORMERS ===== -->
+    <section id="transformers">
+      <h2>⚡ Transformer Architecture</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Self-Attention, Encoder vs Decoder, Scaling Laws</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ai-prompt-engineering:transformers">Mark Complete</button>
+        </div>
+        <h3>Self-Attention Mechanism</h3>
+        <pre><code># "Attention is All You Need" (Vaswani et al., 2017)
+# For each token, compute how much to attend to every other token
+
+# Input embedding → 3 linear projections
+# Q (Query) = X × Wq    — what am I looking for?
+# K (Key)   = X × Wk    — what do I contain?
+# V (Value) = X × Wv    — what do I contribute?
+
+# Attention scores (scaled dot-product)
+# Attention(Q, K, V) = softmax(QK^T / sqrt(d_k)) × V
+# sqrt(d_k) = scale factor to prevent vanishing gradients
+
+# Multi-Head Attention
+# Run h attention heads in parallel (each with different W_q, W_k, W_v)
+# Concatenate heads → linear projection
+# Different heads learn different relationships:
+#   Head 1: nearby tokens (syntax)
+#   Head 2: coreference resolution
+#   Head 3: semantic similarity
+
+import torch, torch.nn.functional as F
+
+def attention(Q, K, V, mask=None):
+    d_k = Q.shape[-1]
+    scores = Q @ K.transpose(-2, -1) / d_k ** 0.5  # scaled dot product
+    if mask is not None:
+        scores = scores.masked_fill(mask == 0, -1e9)  # causal mask for decoder
+    weights = F.softmax(scores, dim=-1)
+    return weights @ V</code></pre>
+
+        <h3>Encoder vs Decoder vs Encoder-Decoder</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Architecture</th><th>Attention Type</th><th>Models</th><th>Best For</th></tr></thead>
+            <tbody>
+              <tr><td>Encoder-only</td><td>Bidirectional (sees all tokens)</td><td>BERT, RoBERTa, DeBERTa</td><td>Classification, NER, embeddings</td></tr>
+              <tr><td>Decoder-only</td><td>Causal (left-to-right only)</td><td>GPT-4, Claude, Llama, Mistral</td><td>Text generation, chat, code</td></tr>
+              <tr><td>Encoder-Decoder</td><td>Encoder: bidir. Decoder: causal + cross-attention</td><td>T5, BART, Whisper</td><td>Translation, summarization, speech</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Scaling Laws (Chinchilla)</h3>
+        <pre><code># Kaplan et al. (OpenAI, 2020):
+# Loss ~ N^(-0.076) × D^(-0.095) × C^(-0.050)
+# N = model parameters, D = training tokens, C = compute
+
+# Chinchilla (Hoffmann et al., DeepMind, 2022):
+# Optimal: D ≈ 20 × N  (20 tokens per parameter)
+# GPT-3 (175B params) was UNDERTRAINED
+# Chinchilla (70B params, 1.4T tokens) > Gopher (280B, 300B tokens)
+
+# Examples
+# Llama 2 70B — trained on 2T tokens (optimal: ~1.4T)
+# Llama 3 8B  — trained on 15T tokens (much more than optimal)
+# More tokens > more parameters (up to a point)
+
+# Context window evolution
+# GPT-3:         4K tokens
+# GPT-4:        32K tokens (turbo: 128K)
+# Claude 3:    200K tokens
+# Gemini 1.5:    1M tokens (research: 10M)
+# Key techniques: RoPE, ALiBi, YaRN for long context</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== LLMS ===== -->
+    <section id="llms">
+      <h2>💬 LLMs Comparison</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Major Models — Features & Trade-offs</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ai-prompt-engineering:llms">Mark Complete</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Model</th><th>Provider</th><th>Context</th><th>Strengths</th><th>Best For</th></tr></thead>
+            <tbody>
+              <tr><td>GPT-4o</td><td>OpenAI</td><td>128K</td><td>Multimodal, fast, wide tool support</td><td>General use, vision, function calling</td></tr>
+              <tr><td>o3/o4-mini</td><td>OpenAI</td><td>200K</td><td>Extended reasoning, math/code</td><td>Hard math, coding competitions, science</td></tr>
+              <tr><td>Claude Sonnet 4.6</td><td>Anthropic</td><td>200K</td><td>Long context, safe, reliable, code</td><td>Document analysis, coding, enterprise</td></tr>
+              <tr><td>Claude Opus 4.8</td><td>Anthropic</td><td>200K</td><td>Most capable, best instruction following</td><td>Complex reasoning, agentic tasks</td></tr>
+              <tr><td>Gemini 2.0 Flash</td><td>Google</td><td>1M</td><td>Ultra-long context, multimodal, fast</td><td>Video analysis, huge documents</td></tr>
+              <tr><td>Llama 3.3 70B</td><td>Meta (open)</td><td>128K</td><td>Open weights, strong benchmark performance</td><td>Self-hosted, fine-tuning, research</td></tr>
+              <tr><td>DeepSeek-R1</td><td>DeepSeek (open)</td><td>128K</td><td>Strong reasoning, open weights, cheap</td><td>Math, coding, cost-sensitive deployments</td></tr>
+              <tr><td>Qwen2.5 72B</td><td>Alibaba (open)</td><td>128K</td><td>Multilingual, strong coding</td><td>Multilingual apps, code generation</td></tr>
+              <tr><td>Mistral Small 3.1</td><td>Mistral (open)</td><td>128K</td><td>Fast, efficient, multilingual</td><td>Low latency, EU data residency</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TOKENIZATION ===== -->
+    <section id="tokenization">
+      <h2>🔤 Tokenization</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">BPE, tiktoken, Context Limits</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ai-prompt-engineering:tokenization">Mark Complete</button>
+        </div>
+        <pre><code># Byte Pair Encoding (BPE) — most common tokenizer algorithm
+# 1. Start with character vocabulary
+# 2. Count most frequent adjacent pairs
+# 3. Merge most frequent pair into new token
+# 4. Repeat until vocabulary size reached (e.g., 50,000 tokens)
+
+# Rule of thumb: ~1 token = ~4 chars (English)
+# Code is more tokens-dense than English prose
+# Non-Latin scripts (Chinese, Arabic) often 1 char = 1+ tokens
+
+import tiktoken  # OpenAI tokenizer library
+
+enc = tiktoken.get_encoding("cl100k_base")  # GPT-4 tokenizer
+tokens = enc.encode("Hello, world! How many tokens am I?")
+print(f"Token count: {len(tokens)}")         # 10
+print(f"Tokens: {tokens}")
+print(f"Decoded: {enc.decode(tokens)}")
+
+# Anthropic token counting
+import anthropic
+client = anthropic.Anthropic()
+response = client.messages.count_tokens(
+    model="claude-sonnet-4-6",
+    messages=[{"role": "user", "content": "Hello, world!"}]
+)
+print(f"Input tokens: {response.input_tokens}")  # 10</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== PROMPT ENGINEERING ===== -->
+    <section id="prompt-engineering">
+      <h2>✍️ Prompt Engineering</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Zero-shot, Few-shot, Chain-of-Thought, ReAct</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ai-prompt-engineering:prompt-engineering">Mark Complete</button>
+        </div>
+
+        <h3>Zero-Shot vs Few-Shot</h3>
+        <pre><code># Zero-Shot: just the task, no examples
+"""
+Classify the sentiment of this review as Positive, Negative, or Neutral.
+
+Review: "The hotel was clean but the breakfast was disappointing."
+Sentiment:
+"""
+
+# Few-Shot: provide examples to guide format and reasoning
+"""
+Classify the sentiment:
+
+Review: "Amazing experience, would definitely return!" → Positive
+Review: "Terrible service, waited 2 hours." → Negative
+Review: "Room was okay, nothing special." → Neutral
+
+Review: "The hotel was clean but the breakfast was disappointing."
+Sentiment:
+"""</code></pre>
+
+        <h3>Chain-of-Thought (CoT)</h3>
+        <pre><code># Standard prompt (fails on multi-step reasoning)
+"""Q: Roger has 5 tennis balls. He buys 2 cans of balls, 3 balls each. How many?"""
+# Model may answer: 8 (wrong) or 11 (correct)
+
+# Chain-of-Thought: "Let's think step by step"
+"""
+Q: Roger has 5 tennis balls. He buys 2 cans of 3 balls each. How many balls does he have now?
+
+Let's think step by step:
+- Roger starts with 5 balls
+- He buys 2 cans × 3 balls = 6 balls
+- Total: 5 + 6 = 11 balls
+
+A: 11 balls
+"""
+
+# Zero-shot CoT magic phrase
+"Let's think step by step."
+# Improves accuracy on math/logic by 20-40%</code></pre>
+
+        <h3>ReAct (Reason + Act)</h3>
+        <pre><code"># ReAct: interleave reasoning and tool use
+# Pattern: Thought → Action → Observation → Thought → ...
+
+"""
+Question: What is the current CEO of the company that makes Claude?
+
+Thought: I need to find who makes Claude, then find their CEO.
+Action: Search["Claude AI maker"]
+Observation: Claude is made by Anthropic.
+Thought: Now I need to find Anthropic's CEO.
+Action: Search["Anthropic CEO"]
+Observation: Dario Amodei is the CEO of Anthropic.
+Thought: I have the answer.
+Answer: Dario Amodei is the CEO of Anthropic, the company that makes Claude.
+"""</code></pre>
+
+        <h3>Tree of Thoughts (ToT)</h3>
+        <pre><code"># ToT: explore multiple reasoning paths simultaneously
+# Like a game tree — evaluate intermediate thoughts
+# Best for: math problems, planning, creative writing
+
+# 1. Generate multiple thought candidates (branches)
+# 2. Evaluate each thought (good/bad/unsure)
+# 3. Explore promising branches further
+# 4. Backtrack if stuck
+# 5. Return best solution found
+
+# Self-Consistency: sample multiple CoT paths, take majority vote
+# Works well for math: 40 independent paths → vote on final answer</code></pre>
+
+        <h3>Structured Output with JSON</h3>
+        <pre><code">import anthropic, json
+
+client = anthropic.Anthropic()
+
+response = client.messages.create(
+    model="claude-sonnet-4-6",
+    max_tokens=1024,
+    messages=[{
+        "role": "user",
+        "content": """Extract product info from this text as JSON with fields:
+name, price, category, in_stock (boolean).
+
+Text: "The Sony WH-1000XM5 headphones are available for $349.99.
+They're in the Electronics category and currently in stock."
+
+Return ONLY valid JSON, no explanation."""
+    }]
+)
+
+data = json.loads(response.content[0].text)
+print(data)
+# {"name": "Sony WH-1000XM5", "price": 349.99, "category": "Electronics", "in_stock": true}</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== ADVANCED PROMPTING ===== -->
+    <section id="advanced-prompting">
+      <h2>🎯 Expert Prompting Techniques</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Meta-Prompting, DSPy, Compression</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ai-prompt-engineering:advanced-prompting">Mark Complete</button>
+        </div>
+        <h3>System Prompt Engineering</h3>
+        <pre><code">EFFECTIVE SYSTEM PROMPT STRUCTURE:
+
+[ROLE & PERSONA]
+You are an expert Senior DevOps Engineer with 10+ years of experience
+in Kubernetes, AWS, and CI/CD pipelines.
+
+[CONTEXT & CONSTRAINTS]
+You are helping a team migrating a monolithic app to microservices.
+The team uses Python (FastAPI) and deploys to AWS EKS.
+Do NOT suggest solutions requiring non-AWS infrastructure.
+
+[BEHAVIOR RULES]
+- Always provide working code examples
+- Mention security implications
+- If unsure, say so rather than guessing
+- Format code with proper syntax highlighting
+
+[OUTPUT FORMAT]
+Respond with:
+1. Brief explanation
+2. Code example (if applicable)
+3. Common pitfalls to avoid</code></pre>
+
+        <h3>Prompt Compression</h3>
+        <pre><code"># Long prompts = expensive + slow. Compress without losing meaning.
+
+# VERBOSE:
+"""
+Please analyze the following Python code that I have written
+and provide me with a comprehensive review of the code quality,
+including any potential bugs, performance issues, security vulnerabilities,
+and suggestions for improvement. Here is the code:
+"""
+
+# COMPRESSED (same intent, fewer tokens):
+"""
+Review this Python code for bugs, perf, security, and improvements:
+"""
+
+# Use LLMLingua for automatic compression
+# Achieves 2-20x compression with minimal quality loss
+pip install llmlingua
+from llmlingua import PromptCompressor
+compressor = PromptCompressor(model_name="microsoft/llmlingua-2-xlm-roberta-large-meetingbank")
+result = compressor.compress_prompt(long_prompt, rate=0.33)</code></pre>
+
+        <h3>DSPy — Systematic Prompt Optimization</h3>
+        <pre><code">import dspy
+
+# DSPy: program your prompts instead of hand-crafting them
+# Automatically optimize prompts using a development set
+
+# Define a signature (input → output types)
+class SentimentAnalyzer(dspy.Signature):
+    """Analyze the sentiment of a product review."""
+    review = dspy.InputField()
+    sentiment = dspy.OutputField(desc="Positive, Negative, or Neutral")
+
+# Create a module
+analyzer = dspy.Predict(SentimentAnalyzer)
+
+# Optimize with examples (BootstrapFewShot, etc.)
+from dspy.teleprompt import BootstrapFewShot
+
+trainset = [
+    dspy.Example(review="Great product!", sentiment="Positive"),
+    dspy.Example(review="Waste of money", sentiment="Negative")
+]
+
+teleprompter = BootstrapFewShot(metric=lambda x, y: x.sentiment == y.sentiment)
+optimized = teleprompter.compile(analyzer, trainset=trainset)</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== API USAGE ===== -->
+    <section id="api-usage">
+      <h2>🔌 Claude & OpenAI API</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Messages API, Tool Use, Streaming, Prompt Caching</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ai-prompt-engineering:api-usage">Mark Complete</button>
+        </div>
+        <h3>Claude Messages API</h3>
+        <pre><code">import anthropic
+
+client = anthropic.Anthropic(api_key="sk-ant-...")
+
+# Basic message
+response = client.messages.create(
+    model="claude-sonnet-4-6",
+    max_tokens=1024,
+    system="You are a helpful Python expert.",
+    messages=[
+        {"role": "user", "content": "Explain list comprehensions."}
+    ]
+)
+print(response.content[0].text)
+print(f"Input tokens: {response.usage.input_tokens}")
+print(f"Output tokens: {response.usage.output_tokens}")
+
+# Multi-turn conversation
+conversation = [
+    {"role": "user", "content": "What is Python?"},
+    {"role": "assistant", "content": "Python is a high-level programming language..."},
+    {"role": "user", "content": "What are its main uses?"}
+]
+response = client.messages.create(
+    model="claude-sonnet-4-6",
+    max_tokens=512,
+    messages=conversation
+)</code></pre>
+
+        <h3>Tool Use (Function Calling)</h3>
+        <pre><code">import anthropic, json
+
+client = anthropic.Anthropic()
+
+tools = [{
+    "name": "get_weather",
+    "description": "Get current weather for a location",
+    "input_schema": {
+        "type": "object",
+        "properties": {
+            "location": {"type": "string", "description": "City name"},
+            "unit": {"type": "string", "enum": ["celsius", "fahrenheit"]}
+        },
+        "required": ["location"]
+    }
+}]
+
+def get_weather(location, unit="celsius"):
+    # Real implementation would call weather API
+    return {"location": location, "temperature": 22, "condition": "Sunny", "unit": unit}
+
+# Initial message
+messages = [{"role": "user", "content": "What's the weather in London?"}]
+
+response = client.messages.create(
+    model="claude-sonnet-4-6",
+    max_tokens=1024,
+    tools=tools,
+    messages=messages
+)
+
+# Handle tool call
+if response.stop_reason == "tool_use":
+    tool_use = next(b for b in response.content if b.type == "tool_use")
+    tool_result = get_weather(**tool_use.input)
+
+    messages.extend([
+        {"role": "assistant", "content": response.content},
+        {"role": "user", "content": [{
+            "type": "tool_result",
+            "tool_use_id": tool_use.id,
+            "content": json.dumps(tool_result)
+        }]}
+    ])
+
+    final = client.messages.create(
+        model="claude-sonnet-4-6",
+        max_tokens=1024,
+        tools=tools,
+        messages=messages
+    )
+    print(final.content[0].text)</code></pre>
+
+        <h3>Streaming + Prompt Caching</h3>
+        <pre><code">import anthropic
+
+client = anthropic.Anthropic()
+
+# Streaming response
+with client.messages.stream(
+    model="claude-sonnet-4-6",
+    max_tokens=1024,
+    messages=[{"role": "user", "content": "Write a short story."}]
+) as stream:
+    for text in stream.text_stream:
+        print(text, end="", flush=True)
+
+# Prompt caching (large system prompts or documents)
+# Cache prefix must be ≥1024 tokens. Saves cost on repeated calls.
+response = client.messages.create(
+    model="claude-sonnet-4-6",
+    max_tokens=1024,
+    system=[{
+        "type": "text",
+        "text": "You are an expert analyzing this 100-page document...\n\n" + document_text,
+        "cache_control": {"type": "ephemeral"}  # cache this prefix
+    }],
+    messages=[{"role": "user", "content": "What are the key risks?"}]
+)
+# First call: normal cost. Subsequent calls in 5min: 90% cheaper for cached portion.</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== RAG ===== -->
+    <section id="rag">
+      <h2>📚 RAG — Retrieval-Augmented Generation</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Chunking, Embeddings, Vector DBs, Advanced Retrieval</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ai-prompt-engineering:rag">Mark Complete</button>
+        </div>
+        <h3>RAG Pipeline</h3>
+        <pre><code"># RAG: augment LLM knowledge with your own documents
+# Index phase: Document → Chunks → Embeddings → Vector DB
+# Query phase: Question → Embedding → Similarity Search → Context → LLM
+
+# Chunking strategies
+def chunk_by_tokens(text, chunk_size=512, overlap=50):
+    import tiktoken
+    enc = tiktoken.get_encoding("cl100k_base")
+    tokens = enc.encode(text)
+    chunks = []
+    for i in range(0, len(tokens), chunk_size - overlap):
+        chunk = enc.decode(tokens[i:i+chunk_size])
+        chunks.append(chunk)
+    return chunks
+
+# Semantic chunking (split at natural boundaries)
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+splitter = RecursiveCharacterTextSplitter(
+    chunk_size=1000,
+    chunk_overlap=200,
+    separators=["\n\n", "\n", ". ", " "]  # priority order
+)</code></pre>
+
+        <h3>Vector Database Comparison</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>DB</th><th>Type</th><th>Strengths</th><th>Best For</th></tr></thead>
+            <tbody>
+              <tr><td>ChromaDB</td><td>Open-source, local</td><td>Simple API, fast dev, no setup</td><td>Prototyping, local RAG</td></tr>
+              <tr><td>Pinecone</td><td>Managed cloud</td><td>Fully managed, scales to billions, fast</td><td>Production, enterprise</td></tr>
+              <tr><td>Qdrant</td><td>Open-source / cloud</td><td>Fast, filtering, payload storage, self-host</td><td>Production self-hosted</td></tr>
+              <tr><td>Weaviate</td><td>Open-source / cloud</td><td>GraphQL, multi-modal, hybrid search</td><td>Complex data, hybrid</td></tr>
+              <tr><td>pgvector</td><td>PostgreSQL extension</td><td>SQL + vector in one DB</td><td>Existing Postgres stack</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Complete RAG System (Chroma + Claude)</h3>
+        <pre><code">import chromadb, anthropic
+from chromadb.utils import embedding_functions
+
+client = chromadb.PersistentClient(path="./chroma_db")
+ef = embedding_functions.OpenAIEmbeddingFunction(
+    api_key="sk-...", model_name="text-embedding-3-small"
+)
+collection = client.get_or_create_collection("docs", embedding_function=ef)
+
+# Index documents
+documents = ["Python is a high-level language...", "Docker containers..."]
+ids = [f"doc_{i}" for i in range(len(documents))]
+collection.add(documents=documents, ids=ids)
+
+# Query
+def rag_query(question: str, n_results: int = 3) -> str:
+    results = collection.query(query_texts=[question], n_results=n_results)
+    context = "\n\n".join(results['documents'][0])
+
+    claude = anthropic.Anthropic()
+    response = claude.messages.create(
+        model="claude-sonnet-4-6",
+        max_tokens=1024,
+        messages=[{
+            "role": "user",
+            "content": f"Context:\n{context}\n\nQuestion: {question}\n\nAnswer based on the context:"
+        }]
+    )
+    return response.content[0].text
+
+print(rag_query("What is Python used for?"))</code></pre>
+
+        <h3>Advanced Retrieval Techniques</h3>
+        <pre><code"># HyDE — Hypothetical Document Embeddings
+# Generate a hypothetical answer → embed it → search
+# Often finds better matches than embedding the question directly
+
+# Multi-query retrieval
+# Generate 3 variations of the question → search with each → dedupe
+from langchain.retrievers.multi_query import MultiQueryRetriever
+
+# Parent-Child chunking
+# Index small chunks for retrieval, return large parent chunk as context
+# Keeps context coherent, improves retrieval precision
+
+# Reranking
+from sentence_transformers import CrossEncoder
+reranker = CrossEncoder('cross-encoder/ms-marco-MiniLM-L-6-v2')
+
+def rerank(query, documents, top_k=3):
+    pairs = [[query, doc] for doc in documents]
+    scores = reranker.predict(pairs)
+    ranked = sorted(zip(scores, documents), reverse=True)
+    return [doc for _, doc in ranked[:top_k]]</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== LANGCHAIN ===== -->
+    <section id="langchain">
+      <h2>⛓️ LangChain / LangGraph</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">LCEL Chains, RAG Chain, LangGraph Agents</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ai-prompt-engineering:langchain">Mark Complete</button>
+        </div>
+        <pre><code">from langchain_anthropic import ChatAnthropic
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.output_parsers import StrOutputParser
+from langchain_core.runnables import RunnableParallel
+
+llm = ChatAnthropic(model="claude-sonnet-4-6")
+
+# Simple LCEL chain (pipe syntax)
+prompt = ChatPromptTemplate.from_messages([
+    ("system", "You are a helpful assistant."),
+    ("human", "{question}")
+])
+chain = prompt | llm | StrOutputParser()
+print(chain.invoke({"question": "What is RAG?"}))
+
+# RAG chain
+from langchain_core.runnables import RunnablePassthrough
+from langchain_chroma import Chroma
+from langchain_openai import OpenAIEmbeddings
+
+vectorstore = Chroma(embedding_function=OpenAIEmbeddings())
+retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
+
+rag_prompt = ChatPromptTemplate.from_template("""
+Answer the question based on this context:
+{context}
+
+Question: {question}
+""")
+
+def format_docs(docs):
+    return "\n\n".join(doc.page_content for doc in docs)
+
+rag_chain = (
+    {"context": retriever | format_docs, "question": RunnablePassthrough()}
+    | rag_prompt | llm | StrOutputParser()
+)
+print(rag_chain.invoke("What is the refund policy?"))</code></pre>
+
+        <h3>LangGraph — Stateful Agents</h3>
+        <pre><code">from langgraph.graph import StateGraph, END
+from typing import TypedDict, Annotated
+import operator
+
+class AgentState(TypedDict):
+    messages: Annotated[list, operator.add]
+    next: str
+
+def researcher(state: AgentState):
+    # Search the web, return findings
+    ...
+    return {"messages": [{"role": "assistant", "content": findings}]}
+
+def writer(state: AgentState):
+    # Write report based on research
+    ...
+    return {"messages": [{"role": "assistant", "content": report}]}
+
+def router(state: AgentState):
+    last_msg = state["messages"][-1]["content"]
+    if "RESEARCH_DONE" in last_msg:
+        return "writer"
+    return "researcher"
+
+workflow = StateGraph(AgentState)
+workflow.add_node("researcher", researcher)
+workflow.add_node("writer", writer)
+workflow.add_edge("writer", END)
+workflow.add_conditional_edges("researcher", router, {"researcher": "researcher", "writer": "writer"})
+workflow.set_entry_point("researcher")
+
+app = workflow.compile()
+result = app.invoke({"messages": [{"role": "user", "content": "Research Claude Sonnet 4.6"}]})</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== CREWAI ===== -->
+    <section id="crewai">
+      <h2>👥 CrewAI — Multi-Agent Framework</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Agents, Tasks, Tools & Crews</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ai-prompt-engineering:crewai">Mark Complete</button>
+        </div>
+        <pre><code">from crewai import Agent, Task, Crew, Process
+from crewai_tools import SerperDevTool, WebsiteSearchTool
+
+# Tools
+search_tool = SerperDevTool()
+
+# Agents
+security_researcher = Agent(
+    role="Senior Security Researcher",
+    goal="Investigate and document the latest cybersecurity threats",
+    backstory="Expert with 15 years in threat intelligence and incident response.",
+    tools=[search_tool],
+    llm="claude-sonnet-4-6",
+    verbose=True,
+    allow_delegation=False,
+    max_iter=3
+)
+
+report_writer = Agent(
+    role="Technical Report Writer",
+    goal="Write comprehensive, clear security reports",
+    backstory="Experienced technical writer who translates complex security concepts.",
+    llm="claude-sonnet-4-6",
+    verbose=True
+)
+
+# Tasks
+research_task = Task(
+    description="""
+    Research the top 3 active ransomware groups in 2025.
+    For each: TTPs, target industries, notable incidents.
+    Use search tools to find current information.
+    """,
+    expected_output="Detailed research notes on 3 ransomware groups with TTPs and IOCs",
+    agent=security_researcher
+)
+
+report_task = Task(
+    description="Write an executive threat report based on the research.",
+    expected_output="Professional 2-page executive report with recommendations",
+    agent=report_writer,
+    context=[research_task]    # depends on research_task output
+)
+
+# Crew
+crew = Crew(
+    agents=[security_researcher, report_writer],
+    tasks=[research_task, report_task],
+    process=Process.sequential,   # or Process.hierarchical (manager agent)
+    verbose=True
+)
+
+result = crew.kickoff()
+print(result.raw)</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== OLLAMA ===== -->
+    <section id="ollama">
+      <h2>🦙 Ollama — Local LLMs</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Run Models Locally, Modelfile, API, Docker</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ai-prompt-engineering:ollama">Mark Complete</button>
+        </div>
+        <pre><code"># Install Ollama
+curl -fsSL https://ollama.ai/install.sh | sh
+
+# Pull and run models
+ollama pull llama3.3                     # 8B, 4.7GB
+ollama pull qwen2.5:14b                  # 14B, 8.9GB
+ollama pull deepseek-r1:14b              # reasoning model
+ollama pull nomic-embed-text             # embedding model
+
+# Run interactively
+ollama run llama3.3
+
+# API (OpenAI-compatible!)
+curl http://localhost:11434/api/generate \
+  -d '{"model":"llama3.3","prompt":"What is RAG?","stream":false}'
+
+# Chat API
+curl http://localhost:11434/api/chat \
+  -d '{"model":"llama3.3","messages":[{"role":"user","content":"Hello!"}]}'
+
+# Python (using OpenAI SDK — Ollama is compatible!)
+from openai import OpenAI
+client = OpenAI(base_url="http://localhost:11434/v1", api_key="ollama")
+response = client.chat.completions.create(
+    model="llama3.3",
+    messages=[{"role": "user", "content": "Explain Docker in 3 sentences."}]
+)
+print(response.choices[0].message.content)</code></pre>
+
+        <h3>Custom Modelfile</h3>
+        <pre><code"># Modelfile — customize a model
+FROM llama3.3
+
+PARAMETER temperature 0.7
+PARAMETER top_p 0.9
+PARAMETER num_ctx 8192      # context window
+
+SYSTEM """
+You are DevBot, an expert DevOps assistant.
+You specialize in Kubernetes, Docker, Terraform, and AWS.
+Always provide working code examples and security best practices.
+"""
+
+# Build and run custom model
+ollama create devbot -f Modelfile
+ollama run devbot</code></pre>
+
+        <h3>Docker Compose with GPU Support</h3>
+        <pre><code"># docker-compose.yml
+version: '3.8'
+services:
+  ollama:
+    image: ollama/ollama
+    volumes:
+      - ollama_data:/root/.ollama
+    ports:
+      - "11434:11434"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    restart: unless-stopped
+
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    environment:
+      OLLAMA_BASE_URL: http://ollama:11434
+    ports:
+      - "3000:8080"
+    depends_on:
+      - ollama
+    volumes:
+      - webui_data:/app/backend/data
+    restart: unless-stopped
+
+volumes:
+  ollama_data:
+  webui_data:</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== FINE-TUNING ===== -->
+    <section id="finetuning">
+      <h2>🔧 Fine-Tuning with LoRA/QLoRA</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Parameter-Efficient Fine-Tuning (PEFT)</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ai-prompt-engineering:finetuning">Mark Complete</button>
+        </div>
+        <pre><code"># LoRA — Low-Rank Adaptation
+# Instead of fine-tuning all parameters (7B = 14GB GPU)
+# Inject small trainable matrices (rank r) alongside frozen weights
+# W' = W + B×A  where B (d×r), A (r×d), r << d
+# Typical r=8 or r=16: train only 0.1% of parameters!
+
+from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
+from peft import LoraConfig, get_peft_model, TaskType, prepare_model_for_kbit_training
+import torch
+
+# QLoRA: 4-bit quantization + LoRA (train 7B on single 16GB GPU)
+bnb_config = BitsAndBytesConfig(
+    load_in_4bit=True,
+    bnb_4bit_compute_dtype=torch.bfloat16,
+    bnb_4bit_use_double_quant=True,
+    bnb_4bit_quant_type="nf4"
+)
+
+model = AutoModelForCausalLM.from_pretrained(
+    "meta-llama/Llama-3.1-8B-Instruct",
+    quantization_config=bnb_config,
+    device_map="auto"
+)
+model = prepare_model_for_kbit_training(model)
+
+lora_config = LoraConfig(
+    r=16,                           # rank — higher = more params
+    lora_alpha=32,                  # scaling factor
+    target_modules=["q_proj", "v_proj", "k_proj", "o_proj"],
+    lora_dropout=0.1,
+    task_type=TaskType.CAUSAL_LM
+)
+model = get_peft_model(model, lora_config)
+model.print_trainable_parameters()
+# trainable params: 13,107,200 || all params: 8,030,261,248 || 0.163%
+
+# Training with SFTTrainer (TRL library)
+from trl import SFTTrainer
+from transformers import TrainingArguments
+
+args = TrainingArguments(
+    output_dir="./llama-finetuned",
+    num_train_epochs=3,
+    per_device_train_batch_size=4,
+    gradient_accumulation_steps=4,
+    learning_rate=2e-4,
+    fp16=True,
+    logging_steps=10,
+    save_strategy="epoch",
+    warmup_ratio=0.03,
+    lr_scheduler_type="cosine"
+)
+
+trainer = SFTTrainer(
+    model=model,
+    args=args,
+    train_dataset=dataset,
+    dataset_text_field="text",
+    max_seq_length=2048
+)
+trainer.train()
+model.save_pretrained("./llama-finetuned")</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== PROJECTS ===== -->
+    <section id="projects">
+      <h2>🚀 AI Projects</h2>
+      <div class="grid-2">
+        <div class="card card--glow"><h3>Project 1: Document Q&A RAG</h3><p style="color:var(--text-dim)">Build a RAG system that answers questions about PDF documents using ChromaDB, Claude, and Streamlit UI.</p><span class="badge badge--warning">Intermediate</span></div>
+        <div class="card card--glow"><h3>Project 2: AI Coding Assistant</h3><p style="color:var(--text-dim)">VS Code extension with Claude API: code review, explanation, refactoring suggestions, and test generation.</p><span class="badge badge--warning">Intermediate</span></div>
+        <div class="card card--glow"><h3>Project 3: Multi-Agent Research Tool</h3><p style="color:var(--text-dim)">CrewAI + LangGraph system with researcher, analyzer, and writer agents. Generates structured research reports.</p><span class="badge badge--danger">Advanced</span></div>
+        <div class="card card--glow"><h3>Project 4: Fine-Tuned Domain Expert</h3><p style="color:var(--text-dim)">Fine-tune Llama 3.1 8B with QLoRA on domain-specific data. Deploy with Ollama or vLLM.</p><span class="badge badge--danger">Advanced</span></div>
+      </div>
+    </section>
+
+    <!-- ===== INTERVIEW ===== -->
+    <section id="interview">
+      <h2>🎯 AI Interview Questions</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Top 15 AI/ML Interview Q&A</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ai-prompt-engineering:interview">Mark Complete</button>
+        </div>
+
+        <h3>Q1: What is the difference between a parameter and a hyperparameter?</h3>
+        <p><strong>Parameter:</strong> Learned by the model during training (weights, biases). Model has billions of parameters.<br><strong>Hyperparameter:</strong> Set before training, controls training process. Examples: learning rate, batch size, number of layers, dropout rate, rank (r) in LoRA.</p>
+
+        <h3>Q2: What is hallucination in LLMs and how do you mitigate it?</h3>
+        <p>Hallucination: LLM generates confident but factually incorrect information. Mitigation: RAG (ground responses in retrieved facts), temperature=0 (deterministic), chain-of-thought (forces step-by-step reasoning), citations (force model to cite sources), Constitutional AI, self-consistency (sample multiple paths, take majority vote).</p>
+
+        <h3>Q3: What is the attention mechanism and why is it important?</h3>
+        <p>Attention allows each token to look at all other tokens and determine how much to "attend" to them. Scales with O(n²) in sequence length. Key innovation: captures long-range dependencies that RNNs struggled with. Multi-head attention runs multiple attention patterns in parallel, each learning different relationships.</p>
+
+        <h3>Q4: Explain RAG vs. Fine-tuning — when to use each?</h3>
+        <p><strong>RAG:</strong> Use when knowledge changes frequently (news, docs, products), when you need citations/sources, when data is too large to fit in context, or when you need to control what the model knows.<br><strong>Fine-tuning:</strong> Use when you need a specific output format/style, domain-specific reasoning patterns, or to reduce prompt length. NOT for adding new facts (use RAG for that).</p>
+
+        <h3>Q5: What is temperature and how does it affect output?</h3>
+        <p>Temperature scales the logits before softmax. Low temperature (0.0-0.3): more deterministic, picks highest probability tokens. Good for code, facts. High temperature (0.7-1.0): more random, creative, varied. Good for creative writing. Temperature &gt;1.0: can get incoherent. For factual Q&A: 0. For creative: 0.7-0.9.</p>
+
+        <h3>Q6: What is the difference between tokens and embeddings?</h3>
+        <p><strong>Tokens:</strong> Discrete units (integers) — BPE subword pieces. "tokenization" → ["token", "ization"].<br><strong>Embeddings:</strong> Dense vector representations (float arrays, e.g. 4096 dimensions) that capture semantic meaning. Similar words have similar embedding vectors. LLM maps tokens → embeddings as first step.</p>
+
+        <h3>Q7: How does RLHF improve LLM behavior?</h3>
+        <p>RLHF (Reinforcement Learning from Human Feedback): 1) Fine-tune on human demonstrations (SFT). 2) Collect pairwise human preferences (which response is better). 3) Train reward model on preferences. 4) Use PPO to optimize LLM to maximize reward while staying close to SFT model (KL constraint). Makes models more helpful, honest, and harmless.</p>
+
+        <h3>Q8: What is a vector database and why is it needed for RAG?</h3>
+        <p>Vector databases store high-dimensional embedding vectors and enable fast approximate nearest-neighbor (ANN) search using algorithms like HNSW or IVF. Needed for RAG because: 1) Text semantic similarity is captured in embedding space, not exact string matching. 2) Traditional SQL can't efficiently search 1536-dimensional vectors across millions of documents. Examples: Chroma, Pinecone, Qdrant, pgvector.</p>
+      </div>
+    </section>
+
+    <section id="quiz-section-wrapper">
+      <h2>🧠 Test Your Knowledge</h2>
+      <div id="quiz-section"></div>
+    </section>
+  </main>
+
+  <aside class="progress-panel">
+    <div class="progress-panel__title">Your Progress</div>
+    <div id="portal-progress-bars"></div>
+  </aside>
+</div>
+
+<div id="footer-placeholder"></div>
+
+<script src="../assets/js/store.js"></script>
+<script src="../assets/js/utils.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/progress.js"></script>
+<script src="../assets/js/quiz.js"></script>
+<script src="../assets/js/search.js"></script>
+<script src="../assets/js/partials.js"></script>
+<script src="../assets/js/portal.js"></script>
+</body>
+</html>

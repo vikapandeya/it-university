@@ -1,0 +1,40 @@
+[data-portal="ultimate-it"] {
+  --accent:      #00d4ff;
+  --accent-dim:  #0099bb;
+  --accent-glow: rgba(0, 212, 255, 0.15);
+}
+[data-portal="devops-cloud"] {
+  --accent:      #4d9fff;
+  --accent-dim:  #2d7adb;
+  --accent-glow: rgba(77, 159, 255, 0.15);
+}
+[data-portal="cybersecurity-vapt"] {
+  --accent:      #ff4d6d;
+  --accent-dim:  #cc2244;
+  --accent-glow: rgba(255, 77, 109, 0.15);
+}
+[data-portal="linux-administration"] {
+  --accent:      #39d353;
+  --accent-dim:  #22a33a;
+  --accent-glow: rgba(57, 211, 83, 0.15);
+}
+[data-portal="aws-learning"] {
+  --accent:      #ff9900;
+  --accent-dim:  #cc7700;
+  --accent-glow: rgba(255, 153, 0, 0.15);
+}
+[data-portal="ai-prompt-engineering"] {
+  --accent:      #b57bee;
+  --accent-dim:  #8a50c8;
+  --accent-glow: rgba(181, 123, 238, 0.15);
+}
+[data-portal="tools-ide"] {
+  --accent:      #f0883e;
+  --accent-dim:  #c86a20;
+  --accent-glow: rgba(240, 136, 62, 0.15);
+}
+[data-portal="computer-basics"] {
+  --accent:      #34d399;
+  --accent-dim:  #10a37a;
+  --accent-glow: rgba(52, 211, 153, 0.15);
+}

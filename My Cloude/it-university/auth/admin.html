@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en" data-depth="2">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Panel — IT University</title>
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/reset.css">
+  <link rel="stylesheet" href="../assets/css/layout.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/auth.css">
+  <link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body class="page-body">
+<div id="header-placeholder"></div>
+
+<main class="admin-layout">
+  <div class="admin-header">
+    <div>
+      <h1 style="font-size:var(--text-3xl);font-weight:800">Admin Panel <span style="color:var(--accent)">⚙️</span></h1>
+      <p style="color:var(--text-dim);margin-top:4px">Manage users, quizzes, and platform data.</p>
+    </div>
+    <div style="display:flex;gap:var(--gap-sm)">
+      <a href="dashboard.html" class="btn btn--ghost btn--sm">← Dashboard</a>
+      <button class="btn btn--outline btn--sm" onclick="auth.logout()">Logout</button>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div id="admin-stats" style="margin-bottom:var(--gap-xl)"></div>
+
+  <!-- Tabs with full ARIA tab pattern -->
+  <div role="tablist" aria-label="Admin sections" class="admin-tabs">
+    <button role="tab" class="admin-tab active" data-tab="users" aria-selected="true" aria-controls="panel-users" id="tab-users">👥 Users</button>
+    <button role="tab" class="admin-tab" data-tab="scores" aria-selected="false" aria-controls="panel-scores" id="tab-scores">🏆 Quiz Scores</button>
+  </div>
+
+  <div id="panel-users" role="tabpanel" aria-labelledby="tab-users" class="admin-panel active">
+    <h2 style="margin-bottom:var(--gap)">All Users</h2>
+    <div id="users-table"></div>
+  </div>
+
+  <div id="panel-scores" role="tabpanel" aria-labelledby="tab-scores" class="admin-panel" hidden>
+    <h2 style="margin-bottom:var(--gap)">Quiz Leaderboard</h2>
+    <div id="scores-table"></div>
+  </div>
+</main>
+
+<div id="footer-placeholder"></div>
+
+<script src="../assets/js/store.js"></script>
+<script src="../assets/js/utils.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/admin.js"></script>
+<script src="../assets/js/partials.js"></script>
+<script>
+  if (!auth.requireAdmin()) throw new Error('not admin');
+
+  admin.renderStats('admin-stats');
+  admin.renderUserTable('users-table');
+
+  // Tab switching with ARIA
+  document.querySelectorAll('.admin-tab').forEach(tab => {
+    tab.addEventListener('click', function() {
+      document.querySelectorAll('.admin-tab').forEach(t => {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      document.querySelectorAll('.admin-panel').forEach(p => {
+        p.classList.remove('active');
+        p.hidden = true;
+      });
+      this.classList.add('active');
+      this.setAttribute('aria-selected', 'true');
+      const panelId = 'panel-' + this.dataset.tab;
+      const panel = document.getElementById(panelId);
+      if (panel) {
+        panel.classList.add('active');
+        panel.hidden = false;
+        if (this.dataset.tab === 'scores') admin.renderScoreTable('scores-table');
+      }
+    });
+  });
+</script>
+</body>
+</html>

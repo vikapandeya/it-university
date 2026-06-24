@@ -1,0 +1,256 @@
+{
+  "title": "AI & Prompt Engineering Quiz",
+  "description": "Test your knowledge of AI, LLMs, prompt engineering techniques, and AI agents.",
+  "questions": [
+    {
+      "question": "What is the attention mechanism in transformers primarily designed to solve?",
+      "options": [
+        "A. Capture long-range dependencies between tokens in a sequence",
+        "B. Speed up training on GPUs",
+        "C. Reduce model parameter count",
+        "D. Enable training on multiple GPUs simultaneously"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "What is the difference between encoder-only and decoder-only transformer architectures?",
+      "options": [
+        "A. Encoders are faster; decoders are more accurate",
+        "B. Encoder-only (BERT) uses bidirectional attention for understanding; decoder-only (GPT) uses causal attention for generation",
+        "C. Encoders generate text; decoders classify text",
+        "D. They are the same architecture with different names"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "What is RAG (Retrieval-Augmented Generation) used for?",
+      "options": [
+        "A. Making LLMs run faster",
+        "B. Training smaller models on large datasets",
+        "C. Reducing hallucinations by grounding LLM responses in retrieved relevant documents",
+        "D. Random Answer Generation for testing LLM capabilities"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "What is 'temperature' in LLM generation?",
+      "options": [
+        "A. The operating temperature of the GPU during inference",
+        "B. The warmup time before a model is ready",
+        "C. The number of tokens generated per second",
+        "D. A parameter that controls output randomness — 0 is deterministic, higher values are more creative/random"
+      ],
+      "correct": 3
+    },
+    {
+      "question": "Which prompting technique explicitly asks the model to reason step-by-step?",
+      "options": [
+        "A. Chain-of-Thought (CoT) prompting",
+        "B. Zero-shot prompting",
+        "C. Few-shot prompting",
+        "D. Role prompting"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "What is the purpose of RLHF (Reinforcement Learning from Human Feedback)?",
+      "options": [
+        "A. Train models to play games by rewarding correct moves",
+        "B. Align LLM behavior with human preferences by training a reward model on human rankings",
+        "C. Reduce computational cost of training",
+        "D. Enable models to learn from internet data automatically"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "What is a vector database used for in AI applications?",
+      "options": [
+        "A. Managing GPU memory allocation during training",
+        "B. Storing model weights in a compressed format",
+        "C. Storing and querying high-dimensional embedding vectors for semantic similarity search",
+        "D. A database specifically for AI-generated code"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "What does 'fine-tuning' an LLM mean?",
+      "options": [
+        "A. Optimizing the model for faster inference without training",
+        "B. Fine-tuning hyperparameters without changing model weights",
+        "C. Making small adjustments to prompts for better outputs",
+        "D. Continuing training a pre-trained model on domain-specific data to adapt its behavior"
+      ],
+      "correct": 3
+    },
+    {
+      "question": "What is LoRA (Low-Rank Adaptation) in the context of LLM fine-tuning?",
+      "options": [
+        "A. A parameter-efficient fine-tuning technique that injects trainable low-rank matrices alongside frozen model weights",
+        "B. A method to run LLMs on low-RAM devices",
+        "C. A library for training large-scale distributed models",
+        "D. A compression technique to reduce model size"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "What is the difference between RAG and fine-tuning for adding domain knowledge?",
+      "options": [
+        "A. RAG is faster to train; fine-tuning produces better results",
+        "B. RAG retrieves external knowledge at inference time (for dynamic/changing data); fine-tuning bakes knowledge into weights (for style/format)",
+        "C. RAG requires more computational resources than fine-tuning",
+        "D. Fine-tuning is better for factual recall; RAG is better for creative tasks"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "What is the Chinchilla scaling law's key insight?",
+      "options": [
+        "A. Larger models always perform better regardless of data",
+        "B. Models should be trained on data 10x the parameter count in bytes",
+        "C. For a given compute budget, training a smaller model on more tokens is often more efficient than training a very large model on fewer tokens",
+        "D. Scaling laws only apply to models over 100B parameters"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "What does 'hallucination' mean in the context of LLMs?",
+      "options": [
+        "A. When an LLM generates very creative fictional content on request",
+        "B. When an LLM refuses to answer a question",
+        "C. When an LLM generates duplicate responses",
+        "D. When an LLM confidently generates factually incorrect or fabricated information"
+      ],
+      "correct": 3
+    },
+    {
+      "question": "What is a system prompt in the Claude/OpenAI API?",
+      "options": [
+        "A. Instructions provided to the model before the conversation that define its behavior, persona, and constraints",
+        "B. The first user message in a conversation",
+        "C. An automated message generated by the operating system",
+        "D. A prompt template stored in the database"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "In BPE (Byte Pair Encoding) tokenization, what is a 'token'?",
+      "options": [
+        "A. Always exactly one word",
+        "B. A subword unit — could be a character, part of a word, whole word, or multiple words depending on frequency",
+        "C. Always exactly one character",
+        "D. One sentence of text"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "What is the ReAct prompting pattern?",
+      "options": [
+        "A. Re-reading and reacting to prompts for better understanding",
+        "B. React.js framework integration for AI-powered UI",
+        "C. Interleaving Reasoning and Acting — model thinks, takes actions (tool calls), observes results, then reasons again",
+        "D. A retry mechanism for failed AI responses"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "What is CrewAI primarily used for?",
+      "options": [
+        "A. Single-agent chatbot development",
+        "B. Fine-tuning models for customer service",
+        "C. Crew management for AI development teams",
+        "D. Multi-agent AI orchestration where specialized agents collaborate on complex tasks"
+      ],
+      "correct": 3
+    },
+    {
+      "question": "What is the primary advantage of Ollama for AI development?",
+      "options": [
+        "A. Running LLMs locally on your own hardware with OpenAI-compatible API",
+        "B. Access to the latest frontier models like GPT-4",
+        "C. Cloud-based model training at low cost",
+        "D. Automatic prompt optimization"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "What does 'context window' mean for an LLM?",
+      "options": [
+        "A. The window in which the AI operates on screen",
+        "B. The maximum number of tokens (input + output) the model can process in a single inference call",
+        "C. The browser window used to access AI APIs",
+        "D. The temporal range of training data the model was trained on"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "What is Constitutional AI (used by Anthropic/Claude)?",
+      "options": [
+        "A. AI that can only operate within constitutional law boundaries",
+        "B. A government regulation framework for AI deployment",
+        "C. A training approach where AI critiques and revises its own outputs based on a set of principles, reducing need for human feedback",
+        "D. AI trained exclusively on government constitutional documents"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "In LangChain LCEL (LangChain Expression Language), what does the pipe operator (|) do?",
+      "options": [
+        "A. Performs a bitwise OR operation on model outputs",
+        "B. Separates multiple prompts that run in parallel",
+        "C. Formats strings in the pipeline",
+        "D. Chains components together so the output of one becomes the input of the next"
+      ],
+      "correct": 3
+    },
+    {
+      "question": "What is 'prompt injection' in AI security?",
+      "options": [
+        "A. An attack where malicious content in the input overrides or bypasses the original system instructions",
+        "B. Injecting system prompts via API",
+        "C. SQL injection adapted for AI databases",
+        "D. Injecting additional tokens to extend the context window"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "What is Self-Consistency prompting?",
+      "options": [
+        "A. Ensuring prompts are free of contradictions",
+        "B. Sampling multiple chain-of-thought reasoning paths independently, then taking the majority vote answer",
+        "C. A prompt that maintains consistent formatting throughout",
+        "D. Training a model to be consistent across conversations"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "What is the primary purpose of embeddings in AI/ML?",
+      "options": [
+        "A. Compressing model weights for faster inference",
+        "B. Embedding external APIs into model responses",
+        "C. Converting discrete data (text, images) into dense numerical vectors that capture semantic meaning",
+        "D. Creating visual representations of neural network layers"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "What does 'QLoRA' add to LoRA fine-tuning?",
+      "options": [
+        "A. Quality metrics for evaluating fine-tuned model outputs",
+        "B. A quick learning rate adaptation during training",
+        "C. Quarterly learning optimization for production models",
+        "D. 4-bit quantization of the base model, dramatically reducing GPU memory requirements while maintaining quality"
+      ],
+      "correct": 3
+    },
+    {
+      "question": "What is the Tree of Thoughts (ToT) prompting technique designed for?",
+      "options": [
+        "A. Exploring multiple reasoning paths simultaneously, evaluating intermediate thoughts, and backtracking — best for complex problems",
+        "B. Organizing prompt templates in a tree structure",
+        "C. Building decision trees from LLM outputs",
+        "D. A prompt compression technique for long inputs"
+      ],
+      "correct": 0
+    }
+  ]
+}

@@ -1,0 +1,256 @@
+{
+  "title": "AWS Complete Learning Quiz",
+  "description": "Test your AWS knowledge across IAM, EC2, VPC, S3, Lambda, and more.",
+  "questions": [
+    {
+      "question": "In AWS IAM, what takes the highest priority when evaluating permissions?",
+      "options": [
+        "A. Identity-based policies",
+        "B. Resource-based policies",
+        "C. An explicit Deny statement in any policy",
+        "D. AWS managed policies"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "What is the difference between IAM roles and IAM users?",
+      "options": [
+        "A. Roles are for humans; users are for services",
+        "B. Roles provide temporary credentials assumed by AWS services/users; users have permanent credentials",
+        "C. Users can have multiple roles simultaneously; roles can only have one user",
+        "D. Roles are global; users are region-specific"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "An EC2 instance in a private subnet needs to download OS updates. What AWS resource enables this?",
+      "options": [
+        "A. Internet Gateway",
+        "B. Virtual Private Gateway",
+        "C. NAT Gateway (in a public subnet)",
+        "D. VPC Endpoint"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "What does S3 'versioning' protect against?",
+      "options": [
+        "A. Unauthorized access to bucket objects",
+        "B. Accidental deletion or overwriting of objects — keeps all versions",
+        "C. Cross-region data transfer costs",
+        "D. Object size limits"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Which EC2 pricing model offers the greatest discount (up to 90%) but can be interrupted?",
+      "options": [
+        "A. Reserved Instances",
+        "B. Dedicated Hosts",
+        "C. Spot Instances",
+        "D. Savings Plans"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "What is the difference between RDS Multi-AZ and Read Replicas?",
+      "options": [
+        "A. Multi-AZ is for disaster recovery (standby replica, synchronous, no reads); Read Replicas are for read scaling (asynchronous)",
+        "B. Multi-AZ allows read traffic; Read Replicas do not",
+        "C. Multi-AZ uses asynchronous replication; Read Replicas use synchronous",
+        "D. They are the same feature with different names"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "What is a VPC endpoint used for?",
+      "options": [
+        "A. Connecting VPCs to the internet",
+        "B. Allowing VPC resources to access AWS services privately without routing traffic through the internet",
+        "C. Establishing VPN connections to on-premises networks",
+        "D. Exposing internal services to the internet"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "In AWS Lambda, what causes a 'cold start'?",
+      "options": [
+        "A. Running a Lambda function for the first time ever",
+        "B. Lambda spinning up a new execution environment when no warm instance is available",
+        "C. A Lambda function that takes more than 30 seconds to execute",
+        "D. Exceeding the concurrent execution limit"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "What is the maximum retention period for S3 Glacier Deep Archive?",
+      "options": [
+        "A. 90 days",
+        "B. 1 year",
+        "C. 7 years",
+        "D. No maximum — you set the retention period"
+      ],
+      "correct": 3
+    },
+    {
+      "question": "Which DynamoDB feature allows reading data at its most recent state, even in a multi-writer scenario?",
+      "options": [
+        "A. Eventually consistent reads (default)",
+        "B. Strongly consistent reads",
+        "C. Transactional reads",
+        "D. DynamoDB Streams"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "What is AWS GuardDuty?",
+      "options": [
+        "A. A firewall for EC2 instances",
+        "B. A threat detection service that continuously monitors AWS accounts using ML and threat intelligence",
+        "C. A web application firewall (WAF)",
+        "D. An identity governance service"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "In S3, what is the purpose of a presigned URL?",
+      "options": [
+        "A. Permanently makes an S3 object public",
+        "B. Grants temporary, time-limited access to a private S3 object without requiring AWS credentials",
+        "C. Signs an S3 bucket policy cryptographically",
+        "D. Creates a signed version of the S3 bucket name"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "What is the difference between an ALB and NLB?",
+      "options": [
+        "A. ALB operates at Layer 7 (HTTP) with path/host routing; NLB at Layer 4 (TCP/UDP) with ultra-low latency",
+        "B. ALB is for internal traffic; NLB is for internet-facing",
+        "C. ALB supports WebSocket; NLB does not",
+        "D. ALB can have static IPs; NLB cannot"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "What is AWS KMS envelope encryption?",
+      "options": [
+        "A. Encrypting data with multiple CMKs simultaneously",
+        "B. Using a CMK to encrypt a data key, then using the data key to encrypt actual data — CMK never leaves KMS",
+        "C. Wrapping encryption keys in an envelope for transit",
+        "D. A method to encrypt KMS keys with other KMS keys"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "What is the purpose of an IAM permissions boundary?",
+      "options": [
+        "A. Sets the maximum permissions an IAM entity can have — even if identity policies grant more, boundary limits them",
+        "B. Creates a firewall around IAM users",
+        "C. Defines minimum permissions required for an AWS account",
+        "D. Restricts which regions an IAM user can access"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "Which AWS service would you use to automatically rotate database credentials?",
+      "options": [
+        "A. AWS Systems Manager Parameter Store",
+        "B. AWS Secrets Manager",
+        "C. AWS KMS",
+        "D. AWS IAM"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "What is DynamoDB's RCU consumption for 1 strongly consistent read of a 7KB item?",
+      "options": [
+        "A. 1 RCU",
+        "B. 2 RCU",
+        "C. 3.5 RCU",
+        "D. 7 RCU"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "What is the purpose of an SCP (Service Control Policy) in AWS Organizations?",
+      "options": [
+        "A. Encrypts data across all accounts in the organization",
+        "B. Sets maximum permission guardrails for member accounts — even if identity policies allow, SCP can deny",
+        "C. Manages service quotas across the organization",
+        "D. Controls which AWS services are available per region"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Which Route 53 routing policy routes based on the health of your endpoints with an active-passive failover?",
+      "options": [
+        "A. Latency routing",
+        "B. Weighted routing",
+        "C. Failover routing",
+        "D. Geolocation routing"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "What is IRSA (IAM Roles for Service Accounts) in EKS?",
+      "options": [
+        "A. An IAM role that only allows read access to S3",
+        "B. A mechanism that lets Kubernetes pods assume IAM roles via service account annotations, avoiding node-level permissions",
+        "C. Identity-based Resource Scheduling Algorithm",
+        "D. An AWS service for managing Kubernetes RBAC"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "What is the purpose of CloudFront origin access control (OAC)?",
+      "options": [
+        "A. Controls which origins CloudFront can access on the internet",
+        "B. Ensures only CloudFront can access S3 objects — blocks direct S3 URL access",
+        "C. Provides access control for CloudFront admin console",
+        "D. Controls edge location selection for caching"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "In AWS, what is the Shared Responsibility Model for EC2 instances?",
+      "options": [
+        "A. AWS manages everything including the OS",
+        "B. AWS manages hypervisor and physical infrastructure; customer manages guest OS, patches, apps, and security groups",
+        "C. Customer manages hardware; AWS manages software",
+        "D. Both AWS and customer share equal responsibility for all layers"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "What does Aurora's 'cluster endpoint' route traffic to?",
+      "options": [
+        "A. All Aurora instances randomly",
+        "B. Only read replicas",
+        "C. The primary (writer) instance",
+        "D. The instance with lowest latency from the client"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "What is the primary benefit of using Spot Instances in an Auto Scaling group?",
+      "options": [
+        "A. Guaranteed availability with no interruptions",
+        "B. Up to 90% cost reduction for fault-tolerant workloads that can handle interruptions",
+        "C. Faster instance startup compared to On-Demand",
+        "D. Free egress data transfer"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "What AWS service provides a centralized view of security findings from GuardDuty, Inspector, Macie, and others?",
+      "options": [
+        "A. AWS CloudTrail",
+        "B. AWS Config",
+        "C. AWS Security Hub",
+        "D. Amazon Detective"
+      ],
+      "correct": 2
+    }
+  ]
+}

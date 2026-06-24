@@ -1,0 +1,92 @@
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--gap-lg);
+  background: radial-gradient(ellipse at 50% 0%, rgba(0,212,255,0.07) 0%, transparent 60%);
+}
+
+.auth-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: var(--gap-xl);
+  width: min(440px, 100%);
+  box-shadow: var(--shadow-lg);
+}
+
+.auth-box__logo {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  color: var(--accent);
+  margin-bottom: var(--gap-xl);
+}
+.auth-box__logo span { color: var(--text); }
+
+.auth-box h1 {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  margin-bottom: var(--gap-sm);
+}
+.auth-box p { color: var(--text-dim); margin-bottom: var(--gap-lg); }
+
+.form-group { margin-bottom: var(--gap); }
+.form-group label {
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-dim);
+  margin-bottom: 6px;
+}
+.form-group input {
+  width: 100%;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  color: var(--text);
+  font-size: var(--text-base);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.form-group input:focus {
+  border-color: var(--accent-dim);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+  outline: none;
+}
+.form-group input::placeholder { color: var(--text-muted); }
+
+.form-error {
+  color: var(--danger);
+  font-size: var(--text-sm);
+  margin-bottom: var(--gap);
+  display: none;
+}
+.form-error.visible { display: block; }
+
+.auth-switch {
+  text-align: center;
+  margin-top: var(--gap-lg);
+  font-size: var(--text-sm);
+  color: var(--text-dim);
+}
+.auth-switch a { color: var(--accent); font-weight: 600; }
+
+/* Dashboard */
+.dashboard-layout {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: var(--gap-xl) var(--gap-lg);
+}
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--gap-xl);
+  flex-wrap: wrap;
+  gap: var(--gap);
+}
+.dashboard-header__greeting { font-size: var(--text-3xl); font-weight: 800; }
+.dashboard-header__greeting span { color: var(--accent); }
