@@ -1,0 +1,3622 @@
+<!doctype html>
+<html lang="en" data-portal="devops-cloud" data-depth="2">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DevOps &amp; Cloud Mastery — IT University</title>
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/reset.css">
+  <link rel="stylesheet" href="../assets/css/portal-themes.css">
+  <link rel="stylesheet" href="../assets/css/layout.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/quiz.css">
+</head>
+<body class="page-body">
+<div id="header-placeholder"></div>
+
+<div class="portal-layout">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Foundation</div>
+      <a href="#linux" class="sidebar__link">Linux for DevOps</a>
+      <a href="#git" class="sidebar__link">Git Advanced</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Containers</div>
+      <a href="#docker" class="sidebar__link">Docker Deep Dive</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">CI/CD</div>
+      <a href="#github-actions" class="sidebar__link">GitHub Actions</a>
+      <a href="#jenkins" class="sidebar__link">Jenkins</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Orchestration</div>
+      <a href="#kubernetes" class="sidebar__link">Kubernetes</a>
+      <a href="#helm" class="sidebar__link">Helm</a>
+      <a href="#argocd" class="sidebar__link">ArgoCD</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">IaC &amp; Config</div>
+      <a href="#terraform" class="sidebar__link">Terraform</a>
+      <a href="#ansible" class="sidebar__link">Ansible</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Observability</div>
+      <a href="#observability" class="sidebar__link">Observability</a>
+      <a href="#platform" class="sidebar__link">Platform Engineering</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Advanced</div>
+      <a href="#service-mesh" class="sidebar__link">🕸️ Service Mesh (Istio)</a>
+      <a href="#chaos-engineering" class="sidebar__link">💥 Chaos Engineering</a>
+      <a href="#devsecops-pipeline" class="sidebar__link">🔐 DevSecOps Pipeline</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Hands-on</div>
+      <a href="#labs" class="sidebar__link">Labs</a>
+      <a href="#projects" class="sidebar__link">Projects</a>
+      <a href="#quiz-section" class="sidebar__link">Quiz</a>
+    </div>
+  </aside>
+
+  <!-- Content -->
+  <main class="content">
+    <h1>DevOps &amp; Cloud Mastery</h1>
+    <p style="color:var(--text-dim);font-size:var(--text-lg);margin-bottom:var(--gap-xl)">From Linux and Git to Kubernetes, Terraform, ArgoCD, and full platform engineering — a production-grade DevOps learning path.</p>
+
+    <!-- ═══════════════════════════════════════════════
+         LINUX FOR DEVOPS
+    ═══════════════════════════════════════════════ -->
+    <section id="linux">
+      <h2>Linux for DevOps</h2>
+
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Essential Commands</div>
+          <button class="btn btn--outline btn--sm" data-lesson="devops-cloud:linux-essentials">Mark Complete</button>
+        </div>
+        <p>DevOps engineers live in the terminal. Master these command groups:</p>
+        <pre><code># ── FILE SEARCH ──────────────────────────────────────
+find /var/log -name "*.log" -mtime -7           # logs modified in last 7 days
+find /app -type f -name "*.conf" -exec ls -lh {} \;
+find . -size +100M -type f                       # files larger than 100MB
+
+# ── TEXT PROCESSING ──────────────────────────────────
+grep -rn "ERROR" /var/log/nginx/                 # recursive, line numbers
+grep -E "^(ERROR|WARN)" app.log                  # extended regex
+awk '{print $1, $7}' /var/log/nginx/access.log   # IP and URL columns
+awk -F: '$3 >= 1000 {print $1}' /etc/passwd      # regular users only
+sed -i 's/old_value/new_value/g' config.conf     # in-place replace
+sed -n '10,20p' file.txt                         # print lines 10-20
+
+# ── SORTING &amp; COUNTING ────────────────────────────────
+sort -k5 -rn file.txt                            # sort by column 5, reverse numeric
+sort access.log | uniq -c | sort -rn | head -20  # top 20 unique lines
+cut -d',' -f1,3 data.csv                         # extract CSV columns 1 and 3
+
+# ── PROCESS MANAGEMENT ───────────────────────────────
+ps aux --sort=-%cpu | head -10                   # top CPU processes
+ps aux --sort=-%mem | head -10                   # top memory processes
+kill -15 PID          # SIGTERM — graceful shutdown
+kill -9  PID          # SIGKILL — force kill (last resort)
+pkill -f "python app.py"
+pgrep -la nginx
+lsof -i :8080         # what process is using port 8080
+strace -p PID         # trace system calls of a running process
+
+# ── NETWORKING ───────────────────────────────────────
+ss -tlnp              # listening TCP ports with PID
+netstat -an | grep ESTABLISHED | wc -l
+curl -v -X POST https://api.example.com/data \
+  -H "Content-Type: application/json" \
+  -d '{"key":"value"}'
+wget -qO- https://example.com/file.tar.gz | tar xz
+tcpdump -i eth0 port 80 -w capture.pcap
+
+# ── DISK &amp; MEMORY ─────────────────────────────────────
+df -hT                # disk usage with filesystem type
+du -sh /var/log/*     # size of each item
+free -h               # memory usage
+vmstat 1 5            # system stats every 1s, 5 times
+iostat -xz 1          # disk I/O stats
+
+# ── TMUX ESSENTIALS ──────────────────────────────────
+tmux new -s deploy          # new session named "deploy"
+tmux attach -t deploy       # attach to session
+# Inside tmux:
+# Ctrl+b c    — new window
+# Ctrl+b %    — split vertical
+# Ctrl+b "    — split horizontal
+# Ctrl+b d    — detach (session keeps running)
+# Ctrl+b [    — scroll mode (q to exit)</code></pre>
+      </div>
+
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Bash Scripting for DevOps</div>
+          <button class="btn btn--outline btn--sm" data-lesson="devops-cloud:bash-scripting">Mark Complete</button>
+        </div>
+        <p>Production bash scripts must be robust, observable, and safe.</p>
+        <pre><code>#!/usr/bin/env bash
+# deploy.sh — Production deployment script
+set -euo pipefail          # exit on error, unbound var, pipe failure
+IFS=$'\n\t'                # safer word splitting
+
+# ── LOGGING ──────────────────────────────────────────
+readonly LOG_FILE="/var/log/deploy.log"
+readonly TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
+
+log()   { echo "[${TIMESTAMP}] [INFO]  $*" | tee -a "$LOG_FILE"; }
+warn()  { echo "[${TIMESTAMP}] [WARN]  $*" | tee -a "$LOG_FILE" >&2; }
+error() { echo "[${TIMESTAMP}] [ERROR] $*" | tee -a "$LOG_FILE" >&2; exit 1; }
+
+# ── ARGUMENT PARSING ─────────────────────────────────
+usage() {
+  cat &lt;&lt;EOF
+Usage: $0 [OPTIONS]
+Options:
+  -e, --env       Environment (dev|staging|prod)   [required]
+  -v, --version   Docker image version tag         [required]
+  -n, --dry-run   Print commands without executing
+  -h, --help      Show this help
+EOF
+}
+
+ENV=""
+VERSION=""
+DRY_RUN=false
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -e|--env)     ENV="$2";     shift 2 ;;
+    -v|--version) VERSION="$2"; shift 2 ;;
+    -n|--dry-run) DRY_RUN=true; shift   ;;
+    -h|--help)    usage; exit 0          ;;
+    *)            error "Unknown option: $1" ;;
+  esac
+done
+
+[[ -z "$ENV" ]]     &amp;&amp; error "--env is required"
+[[ -z "$VERSION" ]] &amp;&amp; error "--version is required"
+[[ "$ENV" =~ ^(dev|staging|prod)$ ]] || error "Invalid env: $ENV"
+
+# ── SIGNAL HANDLING (cleanup on exit/ctrl+c) ─────────
+TMPDIR_WORK=$(mktemp -d)
+cleanup() {
+  log "Cleaning up temp dir: $TMPDIR_WORK"
+  rm -rf "$TMPDIR_WORK"
+}
+trap cleanup EXIT
+trap 'error "Script interrupted"' INT TERM
+
+# ── RETRY FUNCTION ────────────────────────────────────
+retry() {
+  local -r max_attempts=${RETRY_MAX:-3}
+  local -r delay=${RETRY_DELAY:-5}
+  local attempt=1
+  until "$@"; do
+    if (( attempt == max_attempts )); then
+      error "Command failed after $max_attempts attempts: $*"
+    fi
+    warn "Attempt $attempt failed. Retrying in ${delay}s..."
+    sleep "$delay"
+    (( attempt++ ))
+  done
+}
+
+# ── RUN (respects --dry-run) ─────────────────────────
+run() {
+  log "Running: $*"
+  if [[ "$DRY_RUN" == true ]]; then
+    log "[DRY-RUN] Skipping execution"
+    return 0
+  fi
+  "$@"
+}
+
+# ── MAIN DEPLOYMENT LOGIC ────────────────────────────
+NAMESPACE="$ENV"
+DEPLOYMENT="myapp"
+IMAGE="123456789.dkr.ecr.us-east-1.amazonaws.com/myapp:${VERSION}"
+
+log "Starting deployment: env=$ENV version=$VERSION"
+
+# Verify image exists in ECR
+run aws ecr describe-images \
+  --repository-name myapp \
+  --image-ids imageTag="$VERSION" \
+  --region us-east-1 &gt;/dev/null
+
+# Update kubeconfig
+run aws eks update-kubeconfig \
+  --name "cluster-$ENV" \
+  --region us-east-1
+
+# Apply manifests from temp dir
+cp -r ./k8s/"$ENV"/* "$TMPDIR_WORK/"
+sed -i "s|IMAGE_PLACEHOLDER|${IMAGE}|g" "$TMPDIR_WORK"/*.yaml
+
+run kubectl apply -f "$TMPDIR_WORK/" -n "$NAMESPACE"
+
+# Wait for rollout with retry
+retry kubectl rollout status deployment/"$DEPLOYMENT" \
+  -n "$NAMESPACE" --timeout=5m
+
+log "Deployment complete: $ENV @ $VERSION"</code></pre>
+
+        <h3>Cron Syntax Reference</h3>
+        <pre><code># ┌─ minute      (0-59)
+# │ ┌─ hour        (0-23)
+# │ │ ┌─ day of month (1-31)
+# │ │ │ ┌─ month       (1-12 or Jan-Dec)
+# │ │ │ │ ┌─ day of week  (0-7, 0 and 7 = Sunday)
+# │ │ │ │ │
+# * * * * *  command
+
+0  2 * * *     /opt/scripts/backup.sh          # daily at 2:00 AM
+*/15 * * * *   /opt/scripts/health-check.sh    # every 15 minutes
+0  9 * * 1-5   /opt/scripts/report.sh          # weekdays at 9 AM
+0  0 1 * *     /opt/scripts/monthly-cleanup.sh # 1st of each month
+@reboot        /opt/scripts/startup.sh         # on system boot
+
+# Crontab management
+crontab -l          # list current user's crons
+crontab -e          # edit
+crontab -u deploy -l # list another user's crons</code></pre>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         GIT ADVANCED
+    ═══════════════════════════════════════════════ -->
+    <section id="git">
+      <h2>Git Advanced</h2>
+
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Branching Strategies</div>
+          <button class="btn btn--outline btn--sm" data-lesson="devops-cloud:git-branching">Mark Complete</button>
+        </div>
+        <h3>Git Flow</h3>
+        <pre><code>main ────────────────●─────────────────────────────► (release tags)
+                     │
+develop ──●──────────●──────────●────────────────────►
+          │          │          │
+feature ──●──────────┘          │  (merged to develop)
+                                │
+release ────────────────────────●───●────────────────►
+                                    │
+hotfix ─────────────────────────────●────────────────►
+       (branched from main, merged back to main+develop)</code></pre>
+        <p>Git Flow suits projects with scheduled releases and multiple environments.</p>
+
+        <h3>Trunk-Based Development</h3>
+        <pre><code>main ────●────●────●────●────●────●────●────────────►
+         │         │         │
+feat-A ──┘   feat-B┘   feat-C┘   (short-lived, merged fast)
+
+# Feature flags hide incomplete work
+# Devs commit to main (or very short branches, &lt; 2 days)
+# Enables continuous deployment</code></pre>
+
+        <h3>GitHub Flow</h3>
+        <pre><code>main ────────────────────────●──────────────────────►
+                             │
+feature/login ──●──●──●──PR─┘  (deploy to prod after merge)</code></pre>
+      </div>
+
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Merge vs Rebase vs Squash</div>
+          <button class="btn btn--outline btn--sm" data-lesson="devops-cloud:git-merge-rebase">Mark Complete</button>
+        </div>
+        <pre><code># ── MERGE (preserves history, adds merge commit) ────
+git checkout main
+git merge feature/my-feature
+# Use when: preserving full context, release branches
+
+# ── REBASE (linear history, rewrites commits) ────────
+git checkout feature/my-feature
+git rebase main         # replays feature commits on top of main
+git checkout main
+git merge feature/my-feature  # fast-forward
+# Use when: keeping main history clean, local cleanup
+# NEVER rebase shared/public branches
+
+# ── SQUASH (one commit per feature) ──────────────────
+git merge --squash feature/my-feature
+git commit -m "feat: add user authentication"
+# Use when: noisy feature branch, clean PR history desired
+
+# ── INTERACTIVE REBASE (edit history) ────────────────
+git rebase -i HEAD~5   # edit last 5 commits
+# Commands: pick, reword, edit, squash, fixup, drop</code></pre>
+      </div>
+
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Git Hooks</div>
+          <button class="btn btn--outline btn--sm" data-lesson="devops-cloud:git-hooks">Mark Complete</button>
+        </div>
+        <pre><code># Location: .git/hooks/ (local) or shared via tools like husky
+
+# ── pre-commit: runs before commit is created ────────
+# .git/hooks/pre-commit
+#!/bin/bash
+set -e
+echo "Running pre-commit checks..."
+npm run lint
+npm run test:unit
+# Prevent committing secrets
+if git diff --cached | grep -E "(password|secret|api_key)\s*=" ; then
+  echo "ERROR: Possible secret detected in diff!"
+  exit 1
+fi
+
+# ── commit-msg: enforces conventional commits ────────
+# .git/hooks/commit-msg
+#!/bin/bash
+MSG=$(cat "$1")
+PATTERN="^(feat|fix|docs|style|refactor|test|chore|ci|perf)(\(.+\))?: .{1,72}"
+if ! echo "$MSG" | grep -qE "$PATTERN"; then
+  echo "ERROR: Commit message must follow Conventional Commits:"
+  echo "  type(scope): description"
+  echo "  e.g.: feat(auth): add JWT refresh tokens"
+  exit 1
+fi
+
+# ── pre-push: runs before git push ───────────────────
+#!/bin/bash
+set -e
+echo "Running pre-push checks..."
+npm run test
+npm run build</code></pre>
+      </div>
+
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Git Internals &amp; Conventional Commits</div>
+          <button class="btn btn--outline btn--sm" data-lesson="devops-cloud:git-internals">Mark Complete</button>
+        </div>
+        <pre><code># ── GIT OBJECT TYPES ────────────────────────────────
+# blob   — file content (SHA-1 hashed)
+# tree   — directory listing (blobs + sub-trees)
+# commit — snapshot pointer (tree + parent + metadata)
+# tag    — annotated pointer to a commit
+
+git cat-file -t abc123    # what type is this object?
+git cat-file -p abc123    # print the object content
+git ls-tree HEAD          # show tree of current commit
+git log --oneline --graph --all
+
+# ── CONVENTIONAL COMMITS ─────────────────────────────
+# Format: type(scope): description
+#
+# feat(auth): add OAuth2 login with Google
+# fix(api): handle null response from payment gateway
+# docs(readme): add deployment instructions
+# style(css): format button component
+# refactor(db): extract connection pool to singleton
+# test(auth): add unit tests for JWT validation
+# chore(deps): upgrade axios to 1.6.0
+# ci(github): add SAST scan to PR workflow
+# perf(query): add index on users.email column
+# BREAKING CHANGE: describe in footer when API changes
+
+# ── SEMANTIC VERSIONING ──────────────────────────────
+# MAJOR.MINOR.PATCH  (e.g., 2.4.1)
+#
+# MAJOR — breaking/incompatible API change
+# MINOR — new backward-compatible functionality
+# PATCH — backward-compatible bug fix
+#
+# Pre-release: 1.0.0-alpha.1, 1.0.0-beta.2, 1.0.0-rc.1
+# Build meta:  1.0.0+build.42
+
+git tag -a v2.4.1 -m "fix: patch payment timeout bug"
+git push origin v2.4.1</code></pre>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         DOCKER
+    ═══════════════════════════════════════════════ -->
+    <section id="docker">
+      <h2>Docker Deep Dive</h2>
+
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Docker Architecture</div>
+          <button class="btn btn--outline btn--sm" data-lesson="devops-cloud:docker-arch">Mark Complete</button>
+        </div>
+        <pre><code>Docker CLI
+    │ REST API
+    ▼
+dockerd (Docker daemon)
+    │ gRPC
+    ▼
+containerd (container lifecycle manager)
+    │ OCI runtime spec
+    ▼
+runc (low-level container runtime)
+    │ Linux kernel
+    ▼
+namespaces + cgroups + seccomp
+
+# Storage: Union FS / OverlayFS
+# Each layer is a diff stored at /var/lib/docker/overlay2/
+# Layers are read-only; container adds a thin R/W layer on top
+
+# OCI (Open Container Initiative)
+# image-spec: defines container image format
+# runtime-spec: defines how to run a container</code></pre>
+      </div>
+
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Multi-Stage Dockerfile</div>
+          <button class="btn btn--outline btn--sm" data-lesson="devops-cloud:docker-multistage">Mark Complete</button>
+        </div>
+        <pre><code># ── Stage 1: Builder ────────────────────────────────
+FROM node:20-alpine AS builder
+WORKDIR /build
+
+# Copy dependency files first (layer caching)
+COPY package*.json ./
+RUN npm ci                    # clean install, uses package-lock.json
+
+# Copy source and build
+COPY . .
+RUN npm run build             # outputs to /build/dist
+
+# ── Stage 2: Production ──────────────────────────────
+FROM node:20-alpine AS production
+WORKDIR /app
+
+# Only copy production deps + built artifacts
+COPY package*.json ./
+RUN npm ci --only=production &amp;&amp; npm cache clean --force
+
+COPY --from=builder /build/dist ./dist
+COPY --from=builder /build/public ./public
+
+# Security: non-root user
+RUN addgroup -S appgroup &amp;&amp; adduser -S appuser -G appgroup
+USER appuser
+
+EXPOSE 3000
+HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
+  CMD wget -qO- http://localhost:3000/health || exit 1
+
+CMD ["node", "dist/server.js"]
+
+# Result: ~80MB instead of ~900MB (no dev deps, no source)</code></pre>
+      </div>
+
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Docker Networking</div>
+          <button class="btn btn--outline btn--sm" data-lesson="devops-cloud:docker-networking">Mark Complete</button>
+        </div>
+        <pre><code># ── BRIDGE (default) ────────────────────────────────
+# Containers on same bridge can communicate by container name
+# Use for: single-host multi-container apps
+docker network create app-net
+docker run -d --network app-net --name db postgres:15
+docker run -d --network app-net --name web myapp
+# web can reach db at hostname "db"
+
+# ── HOST ─────────────────────────────────────────────
+# Container shares host's network stack (no isolation)
+# Use for: performance-critical apps, monitoring agents
+docker run --network host prometheus
+
+# ── OVERLAY ──────────────────────────────────────────
+# Multi-host networking (Docker Swarm / encrypted tunnel)
+# Use for: distributed apps across multiple Docker hosts
+docker network create -d overlay --attachable my-overlay
+
+# ── NONE ─────────────────────────────────────────────
+# Completely isolated, no network interfaces
+# Use for: batch jobs, security-sensitive tasks
+docker run --network none my-batch-job</code></pre>
+      </div>
+
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Docker Compose v3 Full Example</div>
+          <button class="btn btn--outline btn--sm" data-lesson="devops-cloud:docker-compose-full">Mark Complete</button>
+        </div>
+        <pre><code>version: '3.9'
+
+services:
+  nginx:
+    image: nginx:1.25-alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+    depends_on:
+      app:
+        condition: service_healthy
+    networks: [frontend]
+    restart: unless-stopped
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    environment:
+      - NODE_ENV=production
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks: [frontend, backend]
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 128M
+
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks: [backend]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    command: redis-server --maxmemory 256mb --maxmemory-policy allkeys-lru
+    volumes:
+      - redisdata:/data
+    networks: [backend]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+  redisdata:
+
+networks:
+  frontend:
+  backend:
+    internal: true    # no external access to backend network</code></pre>
+      </div>
+
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Docker Security &amp; Resource Limits</div>
+          <button class="btn btn--outline btn--sm" data-lesson="devops-cloud:docker-security">Mark Complete</button>
+        </div>
+        <pre><code># ── SECURITY BEST PRACTICES ─────────────────────────
+# 1. Non-root user (in Dockerfile)
+USER appuser
+
+# 2. Read-only filesystem
+docker run --read-only --tmpfs /tmp myapp
+
+# 3. Drop capabilities
+docker run --cap-drop=ALL --cap-add=NET_BIND_SERVICE nginx
+
+# 4. No new privileges
+docker run --security-opt=no-new-privileges myapp
+
+# 5. Seccomp profile
+docker run --security-opt seccomp=./seccomp-profile.json myapp
+
+# ── RESOURCE LIMITS ──────────────────────────────────
+docker run \
+  --memory="512m" \
+  --memory-swap="512m" \    # equal = no swap
+  --cpus="1.5" \
+  --pids-limit=100 \
+  myapp
+
+# ── CONTAINER SCANNING WITH TRIVY ────────────────────
+# Install: https://aquasecurity.github.io/trivy/
+trivy image myapp:latest
+trivy image --severity HIGH,CRITICAL myapp:latest
+trivy image --exit-code 1 --severity CRITICAL myapp:latest
+trivy fs .                          # scan filesystem/Dockerfile
+trivy k8s --report summary cluster  # scan entire K8s cluster</code></pre>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         GITHUB ACTIONS
+    ═══════════════════════════════════════════════ -->
+    <section id="github-actions">
+      <h2>GitHub Actions</h2>
+
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Full CI/CD Workflow with OIDC Auth</div>
+          <button class="btn btn--outline btn--sm" data-lesson="devops-cloud:github-actions-full">Mark Complete</button>
+        </div>
+        <pre><code># .github/workflows/ci-cd.yml
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  id-token: write    # Required for OIDC
+  contents: read
+  security-events: write
+
+env:
+  AWS_REGION: us-east-1
+  ECR_REPOSITORY: myapp
+  EKS_CLUSTER: production
+
+jobs:
+  # ── JOB 1: Test Matrix ──────────────────────────────
+  test:
+    name: Test (Node ${{ matrix.node-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 20]
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run linter
+        run: npm run lint
+
+      - name: Run unit tests
+        run: npm test -- --coverage
+
+      - name: Upload coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-node${{ matrix.node-version }}
+          path: coverage/
+          retention-days: 7
+
+  # ── JOB 2: Security Scan ────────────────────────────
+  security-scan:
+    name: Security Scan (Trivy)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build image for scanning
+        run: docker build -t scan-target:${{ github.sha }} .
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: scan-target:${{ github.sha }}
+          format: sarif
+          output: trivy-results.sarif
+          severity: HIGH,CRITICAL
+          exit-code: 1
+
+      - name: Upload Trivy results to GitHub Security
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: trivy-results.sarif
+
+  # ── JOB 3: Build &amp; Push to ECR (OIDC — no static keys) ─
+  build-and-push:
+    name: Build and Push to ECR
+    runs-on: ubuntu-latest
+    needs: [test, security-scan]
+    if: github.ref == 'refs/heads/main' &amp;&amp; github.event_name == 'push'
+    environment: production
+    outputs:
+      image-tag: ${{ steps.meta.outputs.tags }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::123456789:role/github-actions-ecr
+          aws-region: ${{ env.AWS_REGION }}
+          # No AWS_ACCESS_KEY_ID or AWS_SECRET_ACCESS_KEY needed!
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}
+          tags: |
+            type=sha,prefix=,format=short
+            type=semver,pattern={{version}}
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          build-args: |
+            BUILD_DATE=${{ github.event.head_commit.timestamp }}
+            GIT_SHA=${{ github.sha }}
+
+  # ── JOB 4: Deploy to Kubernetes ─────────────────────
+  deploy:
+    name: Deploy to Kubernetes
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    environment:
+      name: production
+      url: https://myapp.example.com
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::123456789:role/github-actions-eks
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Update kubeconfig
+        run: aws eks update-kubeconfig --name ${{ env.EKS_CLUSTER }} --region ${{ env.AWS_REGION }}
+
+      - name: Deploy with kubectl
+        run: |
+          IMAGE="${{ needs.build-and-push.outputs.image-tag }}"
+          kubectl set image deployment/myapp \
+            myapp="$IMAGE" \
+            -n production
+          kubectl rollout status deployment/myapp -n production --timeout=5m
+
+      - name: Smoke test
+        run: |
+          sleep 10
+          curl -f https://myapp.example.com/health || exit 1</code></pre>
+
+        <h3>Reusable Workflow</h3>
+        <pre><code># .github/workflows/reusable-deploy.yml
+name: Reusable Deploy
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+      image-tag:
+        required: true
+        type: string
+    secrets:
+      KUBE_CONFIG:
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    steps:
+      - name: Deploy
+        run: echo "Deploying ${{ inputs.image-tag }} to ${{ inputs.environment }}"
+
+# ── Calling the reusable workflow ───────────────────
+# jobs:
+#   deploy-prod:
+#     uses: ./.github/workflows/reusable-deploy.yml
+#     with:
+#       environment: production
+#       image-tag: ${{ needs.build.outputs.tag }}
+#     secrets:
+#       KUBE_CONFIG: ${{ secrets.KUBE_CONFIG_PROD }}</code></pre>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         JENKINS
+    ═══════════════════════════════════════════════ -->
+    <section id="jenkins">
+      <h2>Jenkins</h2>
+
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Declarative Pipeline</div>
+          <button class="btn btn--outline btn--sm" data-lesson="devops-cloud:jenkins-pipeline">Mark Complete</button>
+        </div>
+        <pre><code>// Jenkinsfile
+@Library('my-shared-lib@main') _
+
+pipeline {
+  agent {
+    docker {
+      image 'node:20-alpine'
+      args  '-v /var/run/docker.sock:/var/run/docker.sock'
+    }
+  }
+
+  environment {
+    APP_NAME    = 'myapp'
+    ECR_REGISTRY = '123456789.dkr.ecr.us-east-1.amazonaws.com'
+    IMAGE_TAG   = "${ECR_REGISTRY}/${APP_NAME}:${env.BUILD_NUMBER}"
+    SONAR_TOKEN = credentials('sonarqube-token')
+    KUBECONFIG  = credentials('eks-kubeconfig')
+  }
+
+  options {
+    timeout(time: 30, unit: 'MINUTES')
+    disableConcurrentBuilds()
+    buildDiscarder(logRotator(numToKeepStr: '10'))
+  }
+
+  stages {
+    stage('Checkout') {
+      steps {
+        checkout scm
+        script {
+          env.GIT_COMMIT_MSG = sh(
+            script: 'git log -1 --pretty=%B',
+            returnStdout: true
+          ).trim()
+        }
+      }
+    }
+
+    stage('Unit Tests') {
+      steps {
+        sh 'npm ci'
+        sh 'npm test -- --reporters=jest-junit'
+      }
+      post {
+        always {
+          junit 'junit-results/*.xml'
+          publishHTML([
+            reportDir: 'coverage/lcov-report',
+            reportFiles: 'index.html',
+            reportName: 'Coverage Report'
+          ])
+        }
+      }
+    }
+
+    stage('SonarQube Analysis') {
+      steps {
+        withSonarQubeEnv('sonarqube-server') {
+          sh """
+            sonar-scanner \
+              -Dsonar.projectKey=${APP_NAME} \
+              -Dsonar.sources=src \
+              -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+          """
+        }
+        timeout(time: 5, unit: 'MINUTES') {
+          waitForQualityGate abortPipeline: true
+        }
+      }
+    }
+
+    stage('Docker Build') {
+      steps {
+        sh "docker build -t ${IMAGE_TAG} ."
+        sh "trivy image --exit-code 1 --severity CRITICAL ${IMAGE_TAG}"
+      }
+    }
+
+    stage('ECR Push') {
+      when {
+        branch 'main'
+      }
+      steps {
+        sh """
+          aws ecr get-login-password --region us-east-1 \
+            | docker login --username AWS --password-stdin ${ECR_REGISTRY}
+          docker push ${IMAGE_TAG}
+          docker tag ${IMAGE_TAG} ${ECR_REGISTRY}/${APP_NAME}:latest
+          docker push ${ECR_REGISTRY}/${APP_NAME}:latest
+        """
+      }
+    }
+
+    stage('Deploy to Kubernetes') {
+      when {
+        branch 'main'
+      }
+      steps {
+        withKubeConfig([credentialsId: 'eks-kubeconfig']) {
+          sh """
+            kubectl set image deployment/${APP_NAME} \
+              ${APP_NAME}=${IMAGE_TAG} \
+              -n production
+            kubectl rollout status deployment/${APP_NAME} \
+              -n production --timeout=5m
+          """
+        }
+      }
+    }
+
+    stage('Smoke Test') {
+      when {
+        branch 'main'
+      }
+      steps {
+        sh 'sleep 15'
+        sh 'curl -f https://myapp.example.com/health'
+      }
+    }
+
+    stage('Notify') {
+      steps {
+        script {
+          def color = currentBuild.result == 'SUCCESS' ? 'good' : 'danger'
+          slackSend(
+            color: color,
+            message: "${APP_NAME} #${BUILD_NUMBER} ${currentBuild.result}: ${env.BUILD_URL}"
+          )
+        }
+      }
+    }
+  }
+
+  post {
+    always {
+      cleanWs()
+      sh "docker rmi ${IMAGE_TAG} || true"
+    }
+    success {
+      echo "Pipeline succeeded for build #${env.BUILD_NUMBER}"
+    }
+    failure {
+      emailext(
+        subject: "FAILURE: ${APP_NAME} Build #${env.BUILD_NUMBER}",
+        body: "Check console: ${env.BUILD_URL}",
+        to: 'devops-team@example.com'
+      )
+    }
+  }
+}
+
+// ── Shared Library Structure ──────────────────────
+// vars/deployToK8s.groovy
+def call(Map config) {
+  withKubeConfig([credentialsId: config.kubeconfigId]) {
+    sh """
+      kubectl set image deployment/${config.appName} \
+        ${config.appName}=${config.imageTag} \
+        -n ${config.namespace}
+      kubectl rollout status deployment/${config.appName} \
+        -n ${config.namespace} --timeout=5m
+    """
+  }
+}
+// Usage: deployToK8s(appName: 'myapp', imageTag: env.IMAGE_TAG, ...)</code></pre>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         KUBERNETES
+    ═══════════════════════════════════════════════ -->
+    <section id="kubernetes">
+      <h2>Kubernetes Deep Dive</h2>
+
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Architecture</div>
+          <button class="btn btn--outline btn--sm" data-lesson="devops-cloud:k8s-architecture">Mark Complete</button>
+        </div>
+        <pre><code>┌─────────────────────────────────────────────────────┐
+│                  CONTROL PLANE                      │
+│                                                     │
+│  ┌──────────────┐  ┌──────────┐  ┌───────────────┐ │
+│  │ kube-apiserver│  │  etcd    │  │  kube-scheduler│ │
+│  │ (REST gateway)│  │(key-val  │  │ (assigns pods │ │
+│  │               │  │  store)  │  │  to nodes)    │ │
+│  └──────────────┘  └──────────┘  └───────────────┘ │
+│  ┌──────────────────────────────┐                   │
+│  │  kube-controller-manager     │                   │
+│  │  (Node/Replica/Job/etc ctrl) │                   │
+│  └──────────────────────────────┘                   │
+│  ┌──────────────────────────────┐                   │
+│  │  cloud-controller-manager    │                   │
+│  │  (LB, volumes, routes)       │                   │
+│  └──────────────────────────────┘                   │
+└─────────────────────────────────────────────────────┘
+           │ API calls (HTTPS/443)
+           ▼
+┌──────────────────┐  ┌──────────────────┐
+│   WORKER NODE 1  │  │   WORKER NODE 2  │
+│                  │  │                  │
+│ ┌─────────────┐  │  │ ┌─────────────┐  │
+│ │   kubelet   │  │  │ │   kubelet   │  │
+│ │ (node agent)│  │  │ │ (node agent)│  │
+│ └─────────────┘  │  │ └─────────────┘  │
+│ ┌─────────────┐  │  │ ┌─────────────┐  │
+│ │ kube-proxy  │  │  │ │ kube-proxy  │  │
+│ │ (iptables)  │  │  │ │ (iptables)  │  │
+│ └─────────────┘  │  │ └─────────────┘  │
+│ ┌──────┐┌──────┐ │  │ ┌──────┐┌──────┐ │
+│ │ Pod  ││ Pod  │ │  │ │ Pod  ││ Pod  │ │
+│ └──────┘└──────┘ │  │ └──────┘└──────┘ │
+└──────────────────┘  └──────────────────┘</code></pre>
+      </div>
+
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Workload Types</div>
+          <button class="btn btn--outline btn--sm" data-lesson="devops-cloud:k8s-workloads">Mark Complete</button>
+        </div>
+        <pre><code># ── DEPLOYMENT (stateless apps, rolling updates) ────
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp
+  namespace: production
+  labels:
+    app: myapp
+    version: "1.0"
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: myapp
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+      - name: myapp
+        image: myapp:1.0
+        ports:
+        - containerPort: 3000
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        startupProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          failureThreshold: 30
+          periodSeconds: 10
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app: myapp
+              topologyKey: kubernetes.io/hostname
+      topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: topology.kubernetes.io/zone
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            app: myapp
+
+---
+# ── STATEFULSET (MySQL with PVC) ─────────────────────
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql
+  namespace: production
+spec:
+  serviceName: mysql-headless
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:8.0
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: root-password
+        volumeMounts:
+        - name: data
+          mountPath: /var/lib/mysql
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: [ReadWriteOnce]
+      storageClassName: gp3
+      resources:
+        requests:
+          storage: 20Gi
+
+---
+# ── DAEMONSET (log collector on every node) ──────────
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: fluentd
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      app: fluentd
+  template:
+    metadata:
+      labels:
+        app: fluentd
+    spec:
+      tolerations:
+      - key: node-role.kubernetes.io/control-plane
+        effect: NoSchedule
+      containers:
+      - name: fluentd
+        image: fluent/fluentd-kubernetes-daemonset:v1
+        volumeMounts:
+        - name: varlog
+          mountPath: /var/log
+        - name: containers
+          mountPath: /var/lib/docker/containers
+          readOnly: true
+      volumes:
+      - name: varlog
+        hostPath:
+          path: /var/log
+      - name: containers
+        hostPath:
+          path: /var/lib/docker/containers
+
+---
+# ── CRONJOB (nightly database backup) ────────────────
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: db-backup
+  namespace: production
+spec:
+  schedule: "0 2 * * *"    # daily at 2 AM UTC
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: backup
+            image: myapp-backup:latest
+            env:
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: host
+            command: ["/bin/sh", "-c", "pg_dump $DB_HOST | gzip | aws s3 cp - s3://backups/$(date +%Y%m%d).sql.gz"]</code></pre>
+      </div>
+
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Services, Ingress, ConfigMap, Secret</div>
+          <button class="btn btn--outline btn--sm" data-lesson="devops-cloud:k8s-services">Mark Complete</button>
+        </div>
+        <pre><code># ── CLUSTERIP (internal only) ────────────────────────
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-clusterip
+  namespace: production
+spec:
+  selector:
+    app: myapp
+  ports:
+  - port: 80
+    targetPort: 3000
+  type: ClusterIP
+
+---
+# ── NODEPORT (external via node IP:port) ─────────────
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-nodeport
+spec:
+  selector:
+    app: myapp
+  ports:
+  - port: 80
+    targetPort: 3000
+    nodePort: 30080    # 30000-32767
+  type: NodePort
+
+---
+# ── LOADBALANCER (cloud provider LB) ─────────────────
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-lb
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: nlb
+spec:
+  selector:
+    app: myapp
+  ports:
+  - port: 443
+    targetPort: 3000
+  type: LoadBalancer
+
+---
+# ── INGRESS WITH TLS ──────────────────────────────────
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: myapp-ingress
+  namespace: production
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - myapp.example.com
+    secretName: myapp-tls
+  rules:
+  - host: myapp.example.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: myapp-clusterip
+            port:
+              number: 80
+
+---
+# ── CONFIGMAP ────────────────────────────────────────
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: myapp-config
+  namespace: production
+data:
+  APP_ENV: production
+  LOG_LEVEL: info
+  nginx.conf: |
+    server {
+      listen 80;
+      location / { proxy_pass http://app:3000; }
+    }
+
+---
+# ── SECRET (base64 encoded) ───────────────────────────
+apiVersion: v1
+kind: Secret
+metadata:
+  name: myapp-secret
+  namespace: production
+type: Opaque
+data:
+  DB_PASSWORD: cGFzc3dvcmQxMjM=    # echo -n 'password123' | base64
+  API_KEY: c2VjcmV0a2V5           # Use Sealed Secrets or Vault in prod!
+
+---
+# ── MOUNTING configmap + secret in pod ───────────────
+# In container spec:
+# envFrom:
+# - configMapRef:
+#     name: myapp-config
+# - secretRef:
+#     name: myapp-secret
+#
+# volumeMounts:
+# - name: config-vol
+#   mountPath: /etc/nginx/nginx.conf
+#   subPath: nginx.conf
+# volumes:
+# - name: config-vol
+#   configMap:
+#     name: myapp-config</code></pre>
+      </div>
+
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">HPA, NetworkPolicy, RBAC</div>
+          <button class="btn btn--outline btn--sm" data-lesson="devops-cloud:k8s-hpa-rbac">Mark Complete</button>
+        </div>
+        <pre><code># ── HPA WITH CPU + CUSTOM METRICS ────────────────────
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: myapp-hpa
+  namespace: production
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: myapp
+  minReplicas: 3
+  maxReplicas: 20
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Pods
+    pods:
+      metric:
+        name: http_requests_per_second
+      target:
+        type: AverageValue
+        averageValue: 1000m
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 300
+    scaleUp:
+      stabilizationWindowSeconds: 60
+
+---
+# ── NETWORKPOLICY: deny all ingress, allow specific ───
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: deny-all-ingress
+  namespace: production
+spec:
+  podSelector: {}
+  policyTypes: [Ingress]
+# Allows nothing by default
+
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-frontend-to-backend
+  namespace: production
+spec:
+  podSelector:
+    matchLabels:
+      role: backend
+  policyTypes: [Ingress]
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          role: frontend
+    ports:
+    - protocol: TCP
+      port: 3000
+
+---
+# ── RBAC ─────────────────────────────────────────────
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: deploy-sa
+  namespace: production
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: deploy-role
+  namespace: production
+rules:
+- apiGroups: ["apps"]
+  resources: ["deployments"]
+  verbs: ["get", "list", "patch", "update"]
+- apiGroups: [""]
+  resources: ["pods", "services"]
+  verbs: ["get", "list"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: deploy-rolebinding
+  namespace: production
+subjects:
+- kind: ServiceAccount
+  name: deploy-sa
+  namespace: production
+roleRef:
+  kind: Role
+  name: deploy-role
+  apiGroup: rbac.authorization.k8s.io</code></pre>
+      </div>
+
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">kubectl Cheat Sheet</div>
+          <button class="btn btn--outline btn--sm" data-lesson="devops-cloud:kubectl-cheatsheet">Mark Complete</button>
+        </div>
+        <pre><code># ── CLUSTER INFO ─────────────────────────────────────
+kubectl cluster-info
+kubectl get nodes -o wide
+kubectl top nodes
+kubectl api-resources
+kubectl explain deployment.spec.strategy
+
+# ── POD OPERATIONS ───────────────────────────────────
+kubectl get pods -n production -o wide
+kubectl get pods --all-namespaces
+kubectl describe pod myapp-abc123 -n production
+kubectl logs -f myapp-abc123 -n production --previous
+kubectl exec -it myapp-abc123 -n production -- bash
+kubectl cp myapp-abc123:/app/logs/app.log ./app.log
+kubectl port-forward pod/myapp-abc123 8080:3000
+kubectl delete pod myapp-abc123 --grace-period=0
+
+# ── DEPLOYMENT OPERATIONS ────────────────────────────
+kubectl get deployments -n production
+kubectl rollout status deployment/myapp -n production
+kubectl rollout history deployment/myapp -n production
+kubectl rollout undo deployment/myapp -n production
+kubectl rollout undo deployment/myapp --to-revision=3
+kubectl scale deployment myapp --replicas=5 -n production
+kubectl set image deployment/myapp myapp=myapp:2.0 -n production
+kubectl autoscale deployment myapp --min=3 --max=10 --cpu-percent=70
+
+# ── DEBUGGING ────────────────────────────────────────
+kubectl get events -n production --sort-by='.lastTimestamp'
+kubectl describe node worker-1
+kubectl top pod -n production --sort-by=cpu
+kubectl run debug --image=busybox -it --rm -- sh  # temp debug pod
+kubectl debug myapp-abc123 -it --image=busybox    # ephemeral container
+kubectl get endpoints myapp -n production          # service routing check
+kubectl auth can-i create deployments --as=deploy-sa -n production
+
+# ── RESOURCE MANAGEMENT ──────────────────────────────
+kubectl apply -f ./manifests/ -n production
+kubectl diff -f ./manifests/                       # preview changes
+kubectl delete -f ./manifests/
+kubectl label pod myapp-abc123 env=debug
+kubectl annotate deployment myapp deployed-by=ci-pipeline
+kubectl patch deployment myapp -p '{"spec":{"replicas":5}}'
+
+# ── NAMESPACES ───────────────────────────────────────
+kubectl create namespace staging
+kubectl config set-context --current --namespace=production  # set default ns</code></pre>
+      </div>
+
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Pod Scheduling</div>
+          <button class="btn btn--outline btn--sm" data-lesson="devops-cloud:k8s-scheduling">Mark Complete</button>
+        </div>
+        <pre><code># ── NODE SELECTOR (simple label match) ───────────────
+spec:
+  nodeSelector:
+    kubernetes.io/arch: amd64
+    node.kubernetes.io/instance-type: m5.xlarge
+
+# ── NODE AFFINITY (flexible rules) ───────────────────
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: topology.kubernetes.io/zone
+          operator: In
+          values: [us-east-1a, us-east-1b]
+    preferredDuringSchedulingIgnoredDuringExecution:
+    - weight: 1
+      preference:
+        matchExpressions:
+        - key: node-type
+          operator: In
+          values: [compute-optimized]
+
+# ── POD ANTI-AFFINITY (spread across nodes) ──────────
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+    - labelSelector:
+        matchLabels:
+          app: myapp
+      topologyKey: kubernetes.io/hostname
+
+# ── TAINTS &amp; TOLERATIONS ─────────────────────────────
+# Taint a node (only tolerated pods can schedule here):
+kubectl taint nodes gpu-node-1 dedicated=gpu:NoSchedule
+
+# Pod tolerates the taint:
+tolerations:
+- key: "dedicated"
+  operator: "Equal"
+  value: "gpu"
+  effect: "NoSchedule"
+
+# ── TOPOLOGY SPREAD CONSTRAINTS ──────────────────────
+topologySpreadConstraints:
+- maxSkew: 1
+  topologyKey: topology.kubernetes.io/zone
+  whenUnsatisfiable: DoNotSchedule
+  labelSelector:
+    matchLabels:
+      app: myapp
+- maxSkew: 2
+  topologyKey: kubernetes.io/hostname
+  whenUnsatisfiable: ScheduleAnyway
+  labelSelector:
+    matchLabels:
+      app: myapp</code></pre>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         TERRAFORM
+    ═══════════════════════════════════════════════ -->
+    <section id="terraform">
+      <h2>Terraform</h2>
+
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Complete VPC + EC2 Example</div>
+          <button class="btn btn--outline btn--sm" data-lesson="devops-cloud:terraform-vpc">Mark Complete</button>
+        </div>
+        <pre><code># ── versions.tf ──────────────────────────────────────
+terraform {
+  required_version = ">= 1.5.0"
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+  backend "s3" {
+    bucket         = "my-terraform-state"
+    key            = "prod/vpc/terraform.tfstate"
+    region         = "us-east-1"
+    encrypt        = true
+    dynamodb_table = "terraform-locks"
+  }
+}
+
+provider "aws" {
+  region = var.aws_region
+  default_tags {
+    tags = {
+      Project     = var.project
+      Environment = var.environment
+      ManagedBy   = "Terraform"
+    }
+  }
+}
+
+# ── variables.tf ─────────────────────────────────────
+variable "aws_region" {
+  type        = string
+  default     = "us-east-1"
+  description = "AWS region to deploy into"
+}
+
+variable "environment" {
+  type        = string
+  description = "Deployment environment"
+  validation {
+    condition     = contains(["dev", "staging", "prod"], var.environment)
+    error_message = "environment must be dev, staging, or prod."
+  }
+}
+
+variable "project" {
+  type    = string
+  default = "myapp"
+}
+
+variable "vpc_cidr" {
+  type    = string
+  default = "10.0.0.0/16"
+}
+
+variable "public_subnets" {
+  type    = list(string)
+  default = ["10.0.1.0/24", "10.0.2.0/24"]
+}
+
+variable "private_subnets" {
+  type    = list(string)
+  default = ["10.0.11.0/24", "10.0.12.0/24"]
+}
+
+variable "instance_type" {
+  type    = string
+  default = "t3.micro"
+}
+
+# ── locals.tf ────────────────────────────────────────
+locals {
+  name_prefix = "${var.project}-${var.environment}"
+  azs         = ["${var.aws_region}a", "${var.aws_region}b"]
+
+  common_tags = {
+    Owner = "platform-team"
+  }
+}
+
+# ── data.tf ──────────────────────────────────────────
+data "aws_ami" "amazon_linux_2023" {
+  most_recent = true
+  owners      = ["amazon"]
+  filter {
+    name   = "name"
+    values = ["al2023-ami-*-x86_64"]
+  }
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+}
+
+# ── main.tf ──────────────────────────────────────────
+resource "aws_vpc" "main" {
+  cidr_block           = var.vpc_cidr
+  enable_dns_hostnames = true
+  enable_dns_support   = true
+
+  tags = { Name = "${local.name_prefix}-vpc" }
+}
+
+resource "aws_internet_gateway" "main" {
+  vpc_id = aws_vpc.main.id
+  tags   = { Name = "${local.name_prefix}-igw" }
+}
+
+resource "aws_subnet" "public" {
+  count                   = length(var.public_subnets)
+  vpc_id                  = aws_vpc.main.id
+  cidr_block              = var.public_subnets[count.index]
+  availability_zone       = local.azs[count.index]
+  map_public_ip_on_launch = true
+
+  tags = { Name = "${local.name_prefix}-public-${local.azs[count.index]}" }
+}
+
+resource "aws_subnet" "private" {
+  count             = length(var.private_subnets)
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = var.private_subnets[count.index]
+  availability_zone = local.azs[count.index]
+
+  tags = { Name = "${local.name_prefix}-private-${local.azs[count.index]}" }
+}
+
+resource "aws_eip" "nat" {
+  count  = length(var.public_subnets)
+  domain = "vpc"
+}
+
+resource "aws_nat_gateway" "main" {
+  count         = length(var.public_subnets)
+  allocation_id = aws_eip.nat[count.index].id
+  subnet_id     = aws_subnet.public[count.index].id
+  depends_on    = [aws_internet_gateway.main]
+
+  tags = { Name = "${local.name_prefix}-nat-${count.index + 1}" }
+}
+
+resource "aws_route_table" "public" {
+  vpc_id = aws_vpc.main.id
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.main.id
+  }
+  tags = { Name = "${local.name_prefix}-rt-public" }
+}
+
+resource "aws_route_table_association" "public" {
+  count          = length(aws_subnet.public)
+  subnet_id      = aws_subnet.public[count.index].id
+  route_table_id = aws_route_table.public.id
+}
+
+resource "aws_security_group" "web" {
+  name        = "${local.name_prefix}-web-sg"
+  description = "Web server security group"
+  vpc_id      = aws_vpc.main.id
+
+  dynamic "ingress" {
+    for_each = [80, 443]
+    content {
+      from_port   = ingress.value
+      to_port     = ingress.value
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = { Name = "${local.name_prefix}-web-sg" }
+}
+
+resource "aws_instance" "web" {
+  for_each = {
+    web1 = { subnet_index = 0 }
+    web2 = { subnet_index = 1 }
+  }
+
+  ami                    = data.aws_ami.amazon_linux_2023.id
+  instance_type          = var.instance_type
+  subnet_id              = aws_subnet.public[each.value.subnet_index].id
+  vpc_security_group_ids = [aws_security_group.web.id]
+
+  user_data = &lt;&lt;-EOF
+    #!/bin/bash
+    dnf install -y nginx
+    systemctl enable --now nginx
+  EOF
+
+  lifecycle {
+    create_before_destroy = true
+    prevent_destroy       = false
+    ignore_changes        = [ami]
+  }
+
+  tags = { Name = "${local.name_prefix}-${each.key}" }
+}
+
+# ── outputs.tf ───────────────────────────────────────
+output "vpc_id" {
+  value       = aws_vpc.main.id
+  description = "VPC ID"
+}
+
+output "public_subnet_ids" {
+  value = aws_subnet.public[*].id
+}
+
+output "web_instance_ips" {
+  value = { for k, v in aws_instance.web : k => v.public_ip }
+}
+
+# ── STATE MANAGEMENT COMMANDS ────────────────────────
+# terraform state list
+# terraform state show aws_vpc.main
+# terraform state mv aws_instance.old aws_instance.new
+# terraform state rm aws_instance.web["web1"]
+# terraform import aws_instance.web["web3"] i-0abc123def456</code></pre>
+      </div>
+
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Modules &amp; count vs for_each</div>
+          <button class="btn btn--outline btn--sm" data-lesson="devops-cloud:terraform-modules">Mark Complete</button>
+        </div>
+        <pre><code># ── MODULES ──────────────────────────────────────────
+# modules/ec2-instance/main.tf
+resource "aws_instance" "this" {
+  ami           = var.ami_id
+  instance_type = var.instance_type
+  subnet_id     = var.subnet_id
+  tags          = var.tags
+}
+
+# modules/ec2-instance/variables.tf
+variable "ami_id"        { type = string }
+variable "instance_type" { type = string; default = "t3.micro" }
+variable "subnet_id"     { type = string }
+variable "tags"          { type = map(string); default = {} }
+
+# modules/ec2-instance/outputs.tf
+output "id"        { value = aws_instance.this.id }
+output "public_ip" { value = aws_instance.this.public_ip }
+
+# ── Calling a module ─────────────────────────────────
+module "bastion" {
+  source        = "./modules/ec2-instance"
+  ami_id        = data.aws_ami.amazon_linux_2023.id
+  instance_type = "t3.small"
+  subnet_id     = aws_subnet.public[0].id
+  tags          = { Name = "bastion", Role = "jump-host" }
+}
+output "bastion_ip" { value = module.bastion.public_ip }
+
+# ── count vs for_each ────────────────────────────────
+# count: indexed list — removing middle item shifts all resources
+resource "aws_subnet" "with_count" {
+  count      = 3
+  cidr_block = "10.0.${count.index}.0/24"
+  vpc_id     = aws_vpc.main.id
+}
+# aws_subnet.with_count[0], [1], [2]
+
+# for_each: keyed map — safe to remove individual items
+resource "aws_subnet" "with_for_each" {
+  for_each   = { web = "10.0.1.0/24", app = "10.0.2.0/24", db = "10.0.3.0/24" }
+  cidr_block = each.value
+  vpc_id     = aws_vpc.main.id
+  tags       = { Name = each.key }
+}
+# aws_subnet.with_for_each["web"], ["app"], ["db"]
+# Removing "app" only destroys that one subnet</code></pre>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         ANSIBLE
+    ═══════════════════════════════════════════════ -->
+    <section id="ansible">
+      <h2>Ansible</h2>
+
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Inventory &amp; Playbook Structure</div>
+          <button class="btn btn--outline btn--sm" data-lesson="devops-cloud:ansible-playbook">Mark Complete</button>
+        </div>
+        <pre><code># ── STATIC INVENTORY (inventory/hosts.ini) ───────────
+[webservers]
+web1 ansible_host=10.0.1.10 ansible_user=ubuntu
+web2 ansible_host=10.0.1.11 ansible_user=ubuntu
+
+[dbservers]
+db1 ansible_host=10.0.2.10 ansible_user=ubuntu
+
+[production:children]
+webservers
+dbservers
+
+[production:vars]
+ansible_ssh_private_key_file=~/.ssh/prod.pem
+ansible_python_interpreter=/usr/bin/python3
+
+# ── DYNAMIC INVENTORY (AWS EC2 plugin) ───────────────
+# inventory/aws_ec2.yaml
+plugin: amazon.aws.aws_ec2
+regions: [us-east-1]
+filters:
+  "tag:Environment": production
+  instance-state-name: running
+keyed_groups:
+  - key: tags.Role
+    prefix: role
+  - key: placement.availability_zone
+hostnames: ["private-ip-address"]
+# Usage: ansible-inventory -i inventory/aws_ec2.yaml --list
+
+# ── PLAYBOOK (site.yml) ───────────────────────────────
+---
+- name: Deploy Nginx web servers
+  hosts: webservers
+  become: true
+  gather_facts: true
+
+  vars:
+    nginx_version: "1.25"
+    app_user: www-data
+    app_port: 80
+
+  vars_files:
+    - vars/main.yml
+    - "vars/{{ ansible_distribution | lower }}.yml"
+
+  pre_tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+      when: ansible_os_family == "Debian"
+
+  tasks:
+    - name: Install Nginx
+      apt:
+        name: "nginx={{ nginx_version }}*"
+        state: present
+      tags: [install, nginx]
+      notify: Reload Nginx
+
+    - name: Copy Nginx config
+      template:
+        src: nginx.conf.j2
+        dest: /etc/nginx/nginx.conf
+        owner: root
+        group: root
+        mode: '0644'
+        validate: nginx -t -c %s
+      notify: Reload Nginx
+      tags: [config]
+
+    - name: Create app directory
+      file:
+        path: /var/www/myapp
+        state: directory
+        owner: "{{ app_user }}"
+        group: "{{ app_user }}"
+        mode: '0755'
+      tags: [setup]
+
+    - name: Clone application
+      git:
+        repo: https://github.com/org/myapp.git
+        dest: /var/www/myapp
+        version: "{{ app_version | default('main') }}"
+        force: yes
+      when: deploy_app | default(false) | bool
+      tags: [deploy]
+
+    - name: Ensure Nginx is started and enabled
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+  handlers:
+    - name: Reload Nginx
+      service:
+        name: nginx
+        state: reloaded
+
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted</code></pre>
+      </div>
+
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Role: deploy-nginx</div>
+          <button class="btn btn--outline btn--sm" data-lesson="devops-cloud:ansible-role">Mark Complete</button>
+        </div>
+        <pre><code># Role directory structure:
+# roles/deploy-nginx/
+# ├── tasks/main.yml
+# ├── handlers/main.yml
+# ├── templates/nginx.conf.j2
+# ├── defaults/main.yml
+# ├── vars/main.yml
+# ├── files/
+# └── meta/main.yml
+
+# roles/deploy-nginx/defaults/main.yml
+nginx_port: 80
+nginx_worker_processes: auto
+nginx_worker_connections: 1024
+server_name: _
+document_root: /var/www/html
+
+# roles/deploy-nginx/tasks/main.yml
+---
+- name: Install Nginx
+  apt:
+    name: nginx
+    state: present
+    update_cache: yes
+
+- name: Deploy Nginx configuration
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+    validate: "nginx -t -c %s"
+  notify: Reload Nginx
+
+- name: Enable and start Nginx
+  service:
+    name: nginx
+    state: started
+    enabled: yes
+
+# roles/deploy-nginx/handlers/main.yml
+---
+- name: Reload Nginx
+  service:
+    name: nginx
+    state: reloaded
+
+# roles/deploy-nginx/templates/nginx.conf.j2
+# ── Jinja2 Template ───────────────────────────────────
+user {{ app_user }};
+worker_processes {{ nginx_worker_processes }};
+pid /run/nginx.pid;
+
+events {
+    worker_connections {{ nginx_worker_connections }};
+    multi_accept on;
+}
+
+http {
+    sendfile on;
+    tcp_nopush on;
+    types_hash_max_size 2048;
+
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
+
+    access_log /var/log/nginx/access.log;
+    error_log  /var/log/nginx/error.log;
+
+    gzip on;
+    gzip_types text/plain text/css application/json application/javascript;
+
+    server {
+        listen {{ nginx_port }};
+        server_name {{ server_name }};
+        root {{ document_root }};
+
+        {% if enable_ssl | default(false) %}
+        listen 443 ssl;
+        ssl_certificate     {{ ssl_cert_path }};
+        ssl_certificate_key {{ ssl_key_path }};
+        {% endif %}
+
+        location / {
+            try_files $uri $uri/ =404;
+        }
+
+        {% for location in custom_locations | default([]) %}
+        location {{ location.path }} {
+            proxy_pass {{ location.backend }};
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+        }
+        {% endfor %}
+    }
+}
+
+# ── ANSIBLE VAULT ─────────────────────────────────────
+ansible-vault create vars/secrets.yml          # create encrypted file
+ansible-vault edit vars/secrets.yml            # edit encrypted file
+ansible-vault view vars/secrets.yml            # view without editing
+ansible-vault encrypt vars/plain.yml           # encrypt existing file
+ansible-vault decrypt vars/secrets.yml         # decrypt (careful!)
+ansible-vault encrypt_string 'mypassword' --name 'db_password'
+
+# In playbook:
+# vars_files:
+#   - vars/secrets.yml   # auto-decrypted with --ask-vault-pass
+#
+# ansible-playbook site.yml --vault-password-file ~/.vault_pass
+
+# ── VARIABLE PRECEDENCE (lowest to highest) ───────────
+# 1. role defaults
+# 2. inventory file vars
+# 3. inventory group_vars
+# 4. inventory host_vars
+# 5. playbook group_vars
+# 6. playbook host_vars
+# 7. host facts
+# 8. play vars
+# 9. play vars_files
+# 10. role vars
+# 11. block vars
+# 12. task vars
+# 13. set_facts / registered vars
+# 14. extra vars (-e) &lt;-- HIGHEST PRIORITY</code></pre>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         HELM
+    ═══════════════════════════════════════════════ -->
+    <section id="helm">
+      <h2>Helm</h2>
+
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Chart Structure &amp; Templates</div>
+          <button class="btn btn--outline btn--sm" data-lesson="devops-cloud:helm-charts">Mark Complete</button>
+        </div>
+        <pre><code># ── CHART STRUCTURE ──────────────────────────────────
+myapp/
+├── Chart.yaml                 # chart metadata
+├── values.yaml                # default values
+├── values-production.yaml     # env overrides
+├── templates/
+│   ├── _helpers.tpl           # named templates (macros)
+│   ├── deployment.yaml
+│   ├── service.yaml
+│   ├── ingress.yaml
+│   ├── configmap.yaml
+│   ├── hpa.yaml
+│   └── NOTES.txt              # shown after install
+└── charts/                    # sub-chart dependencies
+
+# ── Chart.yaml ───────────────────────────────────────
+apiVersion: v2
+name: myapp
+description: My Application Helm Chart
+type: application
+version: 0.5.0        # chart version
+appVersion: "2.1.0"   # app version
+
+dependencies:
+- name: postgresql
+  version: "12.x.x"
+  repository: https://charts.bitnami.com/bitnami
+  condition: postgresql.enabled
+
+# ── values.yaml ──────────────────────────────────────
+replicaCount: 3
+
+image:
+  repository: 123456789.dkr.ecr.us-east-1.amazonaws.com/myapp
+  tag: ""           # defaults to Chart.appVersion
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 3000
+
+ingress:
+  enabled: true
+  className: nginx
+  host: myapp.example.com
+  tls: true
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+env:
+  APP_ENV: production
+  LOG_LEVEL: info
+
+postgresql:
+  enabled: true
+  auth:
+    database: myapp
+    username: myapp
+
+# ── templates/_helpers.tpl ───────────────────────────
+{{- define "myapp.name" -}}
+{{- .Chart.Name | trunc 63 | trimSuffix "-" }}
+{{- end }}
+
+{{- define "myapp.fullname" -}}
+{{- if .Values.fullnameOverride }}
+{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
+{{- else }}
+{{- printf "%s-%s" .Release.Name (include "myapp.name" .) | trunc 63 | trimSuffix "-" }}
+{{- end }}
+{{- end }}
+
+{{- define "myapp.labels" -}}
+helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+app.kubernetes.io/name: {{ include "myapp.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end }}
+
+{{- define "myapp.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "myapp.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
+
+# ── templates/deployment.yaml ────────────────────────
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "myapp.fullname" . }}
+  labels:
+    {{- include "myapp.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "myapp.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "myapp.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - containerPort: {{ .Values.service.targetPort }}
+        env:
+        {{- range $key, $val := .Values.env }}
+        - name: {{ $key }}
+          value: {{ $val | quote }}
+        {{- end }}
+        resources:
+          {{- toYaml .Values.resources | nindent 10 }}
+
+# ── HELM COMMANDS ─────────────────────────────────────
+helm install myapp ./myapp -n production --create-namespace
+helm install myapp ./myapp -f values-production.yaml
+helm upgrade myapp ./myapp --set image.tag=2.1.0
+helm upgrade --install myapp ./myapp    # idempotent
+helm rollback myapp 1                   # rollback to revision 1
+helm uninstall myapp -n production
+helm list -A                            # all releases, all namespaces
+helm diff upgrade myapp ./myapp         # preview changes (plugin)
+helm lint ./myapp                       # validate chart
+helm template myapp ./myapp             # render YAML locally
+helm history myapp                      # revision history</code></pre>
+      </div>
+
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Helmfile</div>
+          <button class="btn btn--outline btn--sm" data-lesson="devops-cloud:helmfile">Mark Complete</button>
+        </div>
+        <pre><code># helmfile.yaml — deploy multiple charts declaratively
+repositories:
+- name: bitnami
+  url: https://charts.bitnami.com/bitnami
+- name: ingress-nginx
+  url: https://kubernetes.github.io/ingress-nginx
+- name: cert-manager
+  url: https://charts.jetstack.io
+
+environments:
+  production:
+    values:
+    - environments/production.yaml
+
+releases:
+- name: ingress-nginx
+  namespace: ingress-nginx
+  chart: ingress-nginx/ingress-nginx
+  version: 4.8.0
+  values:
+  - controller:
+      replicaCount: 2
+
+- name: cert-manager
+  namespace: cert-manager
+  chart: cert-manager/cert-manager
+  version: 1.13.0
+  set:
+  - name: installCRDs
+    value: true
+
+- name: myapp
+  namespace: production
+  chart: ./charts/myapp
+  values:
+  - charts/myapp/values.yaml
+  - charts/myapp/values-{{ .Environment.Name }}.yaml
+  needs:
+  - ingress-nginx/ingress-nginx
+
+# Commands
+# helmfile sync           -- apply all
+# helmfile diff           -- preview changes
+# helmfile apply          -- sync if diff
+# helmfile destroy        -- remove all</code></pre>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         ARGOCD
+    ═══════════════════════════════════════════════ -->
+    <section id="argocd">
+      <h2>ArgoCD &amp; GitOps</h2>
+
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">GitOps Principles &amp; ArgoCD</div>
+          <button class="btn btn--outline btn--sm" data-lesson="devops-cloud:argocd">Mark Complete</button>
+        </div>
+        <p><strong>The 4 GitOps Principles:</strong></p>
+        <ol>
+          <li><strong>Declarative</strong> — the entire system is described declaratively (YAML/Helm)</li>
+          <li><strong>Versioned and Immutable</strong> — desired state stored in Git (single source of truth)</li>
+          <li><strong>Pulled Automatically</strong> — software agents automatically pull and apply declared state</li>
+          <li><strong>Continuously Reconciled</strong> — software agents continuously observe actual state and reconcile with desired state</li>
+        </ol>
+        <pre><code># ── ArgoCD Application ───────────────────────────────
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: myapp
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: myproject
+  source:
+    repoURL: https://github.com/org/gitops-repo.git
+    targetRevision: main
+    path: apps/myapp/overlays/production
+    # For Helm:
+    # chart: myapp
+    # helm:
+    #   valueFiles: [values-production.yaml]
+    #   parameters:
+    #   - name: image.tag
+    #     value: "2.1.0"
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: production
+  syncPolicy:
+    automated:
+      prune: true        # delete resources removed from Git
+      selfHeal: true     # revert manual changes to cluster
+    syncOptions:
+    - CreateNamespace=true
+    - PrunePropagationPolicy=foreground
+    retry:
+      limit: 3
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
+
+---
+# ── AppProject (RBAC for applications) ───────────────
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: myproject
+  namespace: argocd
+spec:
+  description: My Application Project
+  sourceRepos:
+  - 'https://github.com/org/*'
+  destinations:
+  - namespace: production
+    server: https://kubernetes.default.svc
+  - namespace: staging
+    server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+  - group: ''
+    kind: Namespace
+  namespaceResourceWhitelist:
+  - group: 'apps'
+    kind: Deployment
+  - group: ''
+    kind: Service
+  roles:
+  - name: developer
+    policies:
+    - p, proj:myproject:developer, applications, sync, myproject/*, allow
+    groups:
+    - github-org:developers
+
+---
+# ── Argo Rollouts: BlueGreen Strategy ────────────────
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: myapp
+  namespace: production
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+      - name: myapp
+        image: myapp:2.1.0
+        ports:
+        - containerPort: 3000
+  strategy:
+    blueGreen:
+      activeService: myapp-active       # routes production traffic
+      previewService: myapp-preview     # routes preview traffic
+      autoPromotionEnabled: false       # require manual approval
+      scaleDownDelaySeconds: 30
+      prePromotionAnalysis:
+        templates:
+        - templateName: success-rate
+        args:
+        - name: service-name
+          value: myapp-preview
+      postPromotionAnalysis:
+        templates:
+        - templateName: success-rate
+
+# ArgoCD CLI quick reference
+# argocd app list
+# argocd app get myapp
+# argocd app sync myapp
+# argocd app diff myapp
+# argocd app rollback myapp 3
+# argocd app history myapp</code></pre>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         OBSERVABILITY
+    ═══════════════════════════════════════════════ -->
+    <section id="observability">
+      <h2>Observability</h2>
+
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Three Pillars: Metrics, Logs, Traces</div>
+          <button class="btn btn--outline btn--sm" data-lesson="devops-cloud:observability-pillars">Mark Complete</button>
+        </div>
+        <p>Observability lets you understand system behavior from its outputs without needing to re-deploy or add ad-hoc instrumentation.</p>
+        <ul>
+          <li><strong>Metrics</strong> — numeric time-series data. Aggregatable. Cheap to store. Best for dashboards and alerting. Tools: Prometheus, Grafana, Datadog.</li>
+          <li><strong>Logs</strong> — structured/unstructured events. Rich context. Expensive at scale. Best for debugging specific issues. Tools: Loki, ELK, CloudWatch Logs.</li>
+          <li><strong>Traces</strong> — request flow across services. Latency breakdown. Best for finding bottlenecks in distributed systems. Tools: Jaeger, Tempo, X-Ray.</li>
+        </ul>
+      </div>
+
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Prometheus PromQL</div>
+          <button class="btn btn--outline btn--sm" data-lesson="devops-cloud:prometheus">Mark Complete</button>
+        </div>
+        <pre><code># ── RATE: requests per second over 5 min window ──────
+rate(http_requests_total{job="myapp",status=~"2.."}[5m])
+
+# ── INCREASE: total requests in last hour ─────────────
+increase(http_requests_total[1h])
+
+# ── ERROR RATE percentage ────────────────────────────
+sum(rate(http_requests_total{status=~"5.."}[5m]))
+/
+sum(rate(http_requests_total[5m]))
+* 100
+
+# ── P99 LATENCY (histogram) ──────────────────────────
+histogram_quantile(
+  0.99,
+  sum(rate(http_request_duration_seconds_bucket[5m])) by (le, service)
+)
+
+# ── TOP 5 PODS BY CPU ────────────────────────────────
+topk(5,
+  sum(rate(container_cpu_usage_seconds_total{namespace="production"}[5m]))
+  by (pod)
+)
+
+# ── MEMORY USAGE % ───────────────────────────────────
+(
+  container_memory_working_set_bytes{namespace="production"}
+  /
+  container_spec_memory_limit_bytes{namespace="production"}
+) * 100
+
+# ── ALERT RULES ──────────────────────────────────────
+# prometheus/alerts.yaml
+groups:
+- name: myapp.rules
+  rules:
+  - alert: HighCPUUsage
+    expr: |
+      (
+        sum(rate(container_cpu_usage_seconds_total{namespace="production"}[5m]))
+        by (pod)
+        /
+        sum(container_spec_cpu_quota{namespace="production"} / 100000)
+        by (pod)
+      ) * 100 > 80
+    for: 5m
+    labels:
+      severity: warning
+      team: platform
+    annotations:
+      summary: "Pod {{ $labels.pod }} CPU usage > 80%"
+      description: "CPU usage is {{ $value | humanize }}% for {{ $labels.pod }}"
+      runbook: "https://runbooks.example.com/high-cpu"
+
+  - alert: HighErrorRate
+    expr: |
+      sum(rate(http_requests_total{status=~"5.."}[5m])) by (service)
+      /
+      sum(rate(http_requests_total[5m])) by (service)
+      * 100 > 1
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Service {{ $labels.service }} error rate > 1%"</code></pre>
+      </div>
+
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Grafana &amp; Loki</div>
+          <button class="btn btn--outline btn--sm" data-lesson="devops-cloud:grafana-loki">Mark Complete</button>
+        </div>
+        <pre><code># ── GRAFANA DASHBOARD PROVISIONING ───────────────────
+# grafana/provisioning/dashboards/myapp.yaml
+apiVersion: 1
+providers:
+- name: myapp
+  type: file
+  options:
+    path: /var/lib/grafana/dashboards
+  updateIntervalSeconds: 30
+
+# ── LOKI LOGQL QUERIES ────────────────────────────────
+# All logs from myapp in production:
+{namespace="production", app="myapp"}
+
+# Filter for ERROR logs:
+{namespace="production", app="myapp"} |= "ERROR"
+
+# Parse JSON logs and filter by level:
+{app="myapp"} | json | level="error"
+
+# Count errors per minute:
+count_over_time({app="myapp"} |= "ERROR" [1m])
+
+# Rate of errors:
+rate({app="myapp"} |= "ERROR" [5m])
+
+# Extract field and filter:
+{app="myapp"} | json | status_code >= 500
+
+# Pattern matching:
+{app="myapp"} |~ "timeout|connection refused"</code></pre>
+      </div>
+
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">OpenTelemetry &amp; SLO</div>
+          <button class="btn btn--outline btn--sm" data-lesson="devops-cloud:otel-slo">Mark Complete</button>
+        </div>
+        <pre><code># ── OPENTELEMETRY PYTHON INSTRUMENTATION ─────────────
+# pip install opentelemetry-sdk opentelemetry-exporter-otlp
+
+from opentelemetry import trace, metrics
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import BatchSpanProcessor
+from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
+from opentelemetry.sdk.metrics import MeterProvider
+
+# Configure tracing
+trace.set_tracer_provider(TracerProvider())
+tracer = trace.get_tracer(__name__)
+
+otlp_exporter = OTLPSpanExporter(endpoint="http://otel-collector:4317")
+trace.get_tracer_provider().add_span_processor(
+    BatchSpanProcessor(otlp_exporter)
+)
+
+# Use in code
+with tracer.start_as_current_span("process-order") as span:
+    span.set_attribute("order.id", order_id)
+    span.set_attribute("order.amount", amount)
+    try:
+        result = process(order_id)
+        span.set_status(trace.StatusCode.OK)
+    except Exception as e:
+        span.record_exception(e)
+        span.set_status(trace.StatusCode.ERROR, str(e))
+        raise
+
+# ── SLI / SLO / ERROR BUDGET ─────────────────────────
+# SLI (Service Level Indicator) — what you measure
+# e.g., "ratio of successful HTTP requests"
+
+# SLO (Service Level Objective) — target
+# e.g., "99.9% of requests return 2xx within 500ms over 30 days"
+
+# Error Budget = 100% - SLO = 0.1%
+# Over 30 days: 43,200 minutes
+# Error budget: 43.2 minutes of downtime allowed
+
+# PromQL to track SLO:
+# Availability SLI:
+sum(rate(http_requests_total{status!~"5.."}[30d]))
+/
+sum(rate(http_requests_total[30d]))
+
+# Error budget remaining:
+1 - (
+  (1 - sum(rate(http_requests_total{status=~"5.."}[30d]))
+       /
+       sum(rate(http_requests_total[30d])))
+  /
+  0.999   # SLO target
+)</code></pre>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         PLATFORM ENGINEERING
+    ═══════════════════════════════════════════════ -->
+    <section id="platform">
+      <h2>Platform Engineering</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Internal Developer Platform (IDP)</div>
+          <button class="btn btn--outline btn--sm" data-lesson="devops-cloud:platform-engineering">Mark Complete</button>
+        </div>
+        <p>Platform Engineering builds a curated set of self-service tools and workflows that let developers ship without deep infrastructure knowledge.</p>
+        <ul>
+          <li><strong>Golden Paths</strong> — paved roads for common patterns (deploy a service, create a DB, add monitoring)</li>
+          <li><strong>Developer Portal</strong> — Backstage.io for service catalog, templates, TechDocs</li>
+          <li><strong>Infrastructure Abstraction</strong> — Crossplane, Terraform CDK, or Pulumi for on-demand infra</li>
+          <li><strong>Policy as Code</strong> — OPA/Gatekeeper, Kyverno for guardrails</li>
+          <li><strong>Supply Chain Security</strong> — SBOM generation, Cosign image signing, SLSA framework</li>
+        </ul>
+        <pre><code># ── KYVERNO POLICY: require resource limits ──────────
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: require-resource-limits
+spec:
+  validationFailureAction: enforce
+  rules:
+  - name: check-container-resources
+    match:
+      resources:
+        kinds: [Pod]
+    validate:
+      message: "Resource limits are required for all containers."
+      pattern:
+        spec:
+          containers:
+          - resources:
+              limits:
+                memory: "?*"
+                cpu: "?*"
+
+# ── COSIGN image signing ──────────────────────────────
+# Sign image
+cosign sign --key cosign.key 123456789.dkr.ecr.us-east-1.amazonaws.com/myapp:2.1.0
+
+# Verify signature
+cosign verify --key cosign.pub 123456789.dkr.ecr.us-east-1.amazonaws.com/myapp:2.1.0
+
+# Generate SBOM
+syft 123456789.dkr.ecr.us-east-1.amazonaws.com/myapp:2.1.0 -o spdx-json &gt; sbom.json
+cosign attach sbom --sbom sbom.json 123456789.dkr.ecr.us-east-1.amazonaws.com/myapp:2.1.0</code></pre>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         LABS
+    ═══════════════════════════════════════════════ -->
+    <section id="labs">
+      <h2>Hands-on Labs</h2>
+
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Lab 1: Multi-Stage Docker Build &amp; Security Scan</div>
+          <button class="btn btn--outline btn--sm" data-lesson="devops-cloud:lab-docker">Mark Complete</button>
+        </div>
+        <span class="badge badge--accent">Beginner</span>
+        <pre><code># Goal: Build an optimized Node.js image, scan it, run it
+
+# Step 1 — Create the project
+mkdir docker-lab &amp;&amp; cd docker-lab
+npm init -y
+npm install express
+cat &gt; server.js &lt;&lt;'EOF'
+const express = require('express');
+const app = express();
+app.get('/health', (req, res) =&gt; res.json({ status: 'ok' }));
+app.get('/', (req, res) =&gt; res.send('Hello from Docker!'));
+app.listen(3000, () =&gt; console.log('Listening on 3000'));
+EOF
+
+# Step 2 — Create multi-stage Dockerfile (as shown in Docker section)
+
+# Step 3 — Create .dockerignore
+cat &gt; .dockerignore &lt;&lt;'EOF'
+node_modules
+npm-debug.log
+.git
+*.md
+coverage
+.env
+EOF
+
+# Step 4 — Build both stages and compare sizes
+docker build --target builder -t myapp:builder .
+docker build --target production -t myapp:prod .
+docker images | grep myapp
+
+# Step 5 — Scan with Trivy
+trivy image myapp:prod
+
+# Step 6 — Run and verify
+docker run -d -p 3000:3000 --name myapp myapp:prod
+curl http://localhost:3000/health
+docker stats myapp
+
+# Step 7 — Run with security flags
+docker run -d \
+  --read-only \
+  --tmpfs /tmp \
+  --cap-drop=ALL \
+  --security-opt=no-new-privileges \
+  --memory=256m --cpus=0.5 \
+  -p 3000:3000 myapp:prod
+
+# Cleanup
+docker rm -f myapp</code></pre>
+      </div>
+
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Lab 2: Kubernetes Deploy, Scale, and Rolling Update</div>
+          <button class="btn btn--outline btn--sm" data-lesson="devops-cloud:lab-kubernetes">Mark Complete</button>
+        </div>
+        <span class="badge badge--accent">Intermediate</span>
+        <pre><code># Prerequisites: minikube or kind cluster running
+# minikube start --nodes=3
+# kind create cluster --config kind-config.yaml
+
+# Step 1 — Create namespace
+kubectl create namespace lab
+
+# Step 2 — Create deployment + service
+cat &gt; myapp-deployment.yaml &lt;&lt;'EOF'
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp
+  namespace: lab
+spec:
+  replicas: 3
+  selector:
+    matchLabels: { app: myapp }
+  template:
+    metadata:
+      labels: { app: myapp }
+    spec:
+      containers:
+      - name: myapp
+        image: nginx:1.24
+        ports: [{ containerPort: 80 }]
+        resources:
+          requests: { cpu: "50m", memory: "64Mi" }
+          limits: { cpu: "200m", memory: "128Mi" }
+        readinessProbe:
+          httpGet: { path: /, port: 80 }
+          initialDelaySeconds: 3
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp
+  namespace: lab
+spec:
+  selector: { app: myapp }
+  ports: [{ port: 80, targetPort: 80 }]
+  type: ClusterIP
+EOF
+
+kubectl apply -f myapp-deployment.yaml
+
+# Step 3 — Watch rollout
+kubectl rollout status deployment/myapp -n lab
+kubectl get pods -n lab -w
+
+# Step 4 — Scale up
+kubectl scale deployment myapp --replicas=6 -n lab
+
+# Step 5 — Rolling update to new image
+kubectl set image deployment/myapp myapp=nginx:1.25 -n lab
+kubectl rollout status deployment/myapp -n lab
+
+# Step 6 — Check rollout history
+kubectl rollout history deployment/myapp -n lab
+
+# Step 7 — Rollback
+kubectl rollout undo deployment/myapp -n lab
+
+# Step 8 — Port-forward and verify
+kubectl port-forward svc/myapp 8080:80 -n lab &amp;
+curl http://localhost:8080
+
+# Step 9 — Enable HPA
+kubectl autoscale deployment myapp \
+  --min=3 --max=10 --cpu-percent=70 -n lab
+kubectl get hpa -n lab
+
+# Cleanup
+kubectl delete namespace lab</code></pre>
+      </div>
+
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Lab 3: Terraform — VPC + EC2 on AWS</div>
+          <button class="btn btn--outline btn--sm" data-lesson="devops-cloud:lab-terraform">Mark Complete</button>
+        </div>
+        <span class="badge badge--accent">Intermediate</span>
+        <pre><code># Prerequisites: AWS CLI configured, Terraform installed
+
+# Step 1 — Create directory and files
+mkdir terraform-lab &amp;&amp; cd terraform-lab
+
+# Create versions.tf, variables.tf, main.tf using the code
+# from the Terraform section above.
+
+# Step 2 — Create S3 bucket and DynamoDB table for state
+aws s3 mb s3://my-terraform-state-$(whoami) --region us-east-1
+aws dynamodb create-table \
+  --table-name terraform-locks \
+  --attribute-definitions AttributeName=LockID,AttributeType=S \
+  --key-schema AttributeName=LockID,KeyType=HASH \
+  --billing-mode PAY_PER_REQUEST \
+  --region us-east-1
+
+# Step 3 — Initialize
+terraform init
+
+# Step 4 — Create terraform.tfvars
+cat &gt; terraform.tfvars &lt;&lt;'EOF'
+environment = "dev"
+project     = "lab"
+aws_region  = "us-east-1"
+EOF
+
+# Step 5 — Plan and review
+terraform plan -out=tfplan
+terraform show tfplan
+
+# Step 6 — Apply
+terraform apply tfplan
+
+# Step 7 — Inspect state
+terraform state list
+terraform state show aws_vpc.main
+terraform output
+
+# Step 8 — Make a change (add a tag) and plan again
+# Edit main.tf — add Tag to aws_vpc.main
+terraform plan    # see only that tag changes
+
+# Step 9 — Import an existing resource
+# terraform import aws_instance.web["web3"] i-0abc123
+
+# Step 10 — Destroy
+terraform destroy -target=aws_instance.web
+terraform destroy   # full teardown</code></pre>
+      </div>
+
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Lab 4: Full GitHub Actions CI/CD to EKS</div>
+          <button class="btn btn--outline btn--sm" data-lesson="devops-cloud:lab-cicd">Mark Complete</button>
+        </div>
+        <span class="badge badge--accent">Advanced</span>
+        <pre><code># Goal: push to main → test → build → push to ECR → deploy to EKS
+
+# Step 1 — Set up OIDC trust policy in AWS (run once)
+# Trust the GitHub OIDC provider for your repo
+aws iam create-open-id-connect-provider \
+  --url https://token.actions.githubusercontent.com \
+  --client-id-list sts.amazonaws.com \
+  --thumbprint-list 6938fd4d98bab03faadb97b34396831e3780aea1
+
+# Step 2 — Create IAM role for GitHub Actions
+# Trust policy allows github.com/YOUR_ORG/YOUR_REPO on main branch
+# Attach policies: AmazonEC2ContainerRegistryPowerUser
+#                  (custom policy for EKS kubectl access)
+
+# Step 3 — Create ECR repository
+aws ecr create-repository --repository-name myapp --region us-east-1
+
+# Step 4 — Create EKS cluster (or use existing)
+eksctl create cluster \
+  --name production \
+  --region us-east-1 \
+  --nodegroup-name workers \
+  --node-type t3.medium \
+  --nodes 3
+
+# Step 5 — Add GitHub Actions IAM role to aws-auth ConfigMap
+eksctl create iamidentitymapping \
+  --cluster production \
+  --arn arn:aws:iam::123456789:role/github-actions-eks \
+  --username github-actions \
+  --group system:masters
+
+# Step 6 — Create the workflow file
+mkdir -p .github/workflows
+# Create .github/workflows/ci-cd.yml using the code from the GitHub Actions section
+
+# Step 7 — Configure GitHub repository secrets (none needed!)
+# OIDC eliminates the need for AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY
+# Only set: (optional) SLACK_WEBHOOK_URL
+
+# Step 8 — Push and watch the pipeline
+git add .
+git commit -m "ci: add GitHub Actions CI/CD pipeline"
+git push origin main
+# Watch at: github.com/YOUR_ORG/YOUR_REPO/actions
+
+# Step 9 — Verify deployment
+kubectl get pods -n production
+kubectl get ingress -n production
+curl https://myapp.example.com/health</code></pre>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         PROJECTS
+    ═══════════════════════════════════════════════ -->
+    <section id="projects">
+      <h2>Real-World Projects</h2>
+
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Project 1: WordPress on Kubernetes with Helm</div>
+          <button class="btn btn--outline btn--sm" data-lesson="devops-cloud:project-wordpress">Mark Complete</button>
+        </div>
+        <div style="margin-bottom:var(--gap)">
+          <span class="badge">Kubernetes</span>
+          <span class="badge">Helm</span>
+          <span class="badge">MySQL</span>
+          <span class="badge">cert-manager</span>
+          <span class="badge">ArgoCD</span>
+        </div>
+        <p><strong>Architecture:</strong> WordPress (3 replicas) + MySQL StatefulSet + Redis (session cache) + NGINX Ingress + TLS via cert-manager + persistent storage on EBS/GCE.</p>
+        <pre><code># Architecture overview:
+# Internet → AWS NLB → Ingress (nginx) → WordPress pods
+#                                      → MySQL StatefulSet (PVC)
+#                                      → Redis (session store)
+
+# Step 1 — Add Helm repos
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm repo add cert-manager https://charts.jetstack.io
+helm repo update
+
+# Step 2 — Install ingress-nginx
+helm install ingress-nginx ingress-nginx/ingress-nginx \
+  -n ingress-nginx --create-namespace \
+  --set controller.replicaCount=2
+
+# Step 3 — Install cert-manager
+helm install cert-manager cert-manager/cert-manager \
+  -n cert-manager --create-namespace \
+  --set installCRDs=true
+
+# Step 4 — Create LetsEncrypt ClusterIssuer
+kubectl apply -f - &lt;&lt;'EOF'
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: admin@example.com
+    privateKeySecretRef:
+      name: letsencrypt-prod
+    solvers:
+    - http01:
+        ingress:
+          class: nginx
+EOF
+
+# Step 5 — Create namespace and secrets
+kubectl create namespace wordpress
+kubectl create secret generic wordpress-db \
+  --from-literal=mysql-root-password=RootPass123 \
+  --from-literal=mysql-password=WPPass123 \
+  -n wordpress
+
+# Step 6 — Install WordPress with MySQL via Helm
+helm install wordpress bitnami/wordpress \
+  -n wordpress \
+  --set wordpressUsername=admin \
+  --set wordpressPassword=Admin123! \
+  --set wordpressEmail=admin@example.com \
+  --set mariadb.auth.rootPassword=RootPass123 \
+  --set mariadb.auth.password=WPPass123 \
+  --set replicaCount=3 \
+  --set ingress.enabled=true \
+  --set ingress.ingressClassName=nginx \
+  --set ingress.hostname=wordpress.example.com \
+  --set ingress.annotations."cert-manager\.io/cluster-issuer"=letsencrypt-prod \
+  --set ingress.tls=true \
+  --set persistence.storageClass=gp3 \
+  --set persistence.size=20Gi
+
+# Step 7 — Verify
+kubectl get pods -n wordpress
+kubectl get ingress -n wordpress
+kubectl get certificate -n wordpress</code></pre>
+      </div>
+
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Project 2: Microservices on Kubernetes with GitOps</div>
+          <button class="btn btn--outline btn--sm" data-lesson="devops-cloud:project-microservices">Mark Complete</button>
+        </div>
+        <div style="margin-bottom:var(--gap)">
+          <span class="badge">Microservices</span>
+          <span class="badge">ArgoCD</span>
+          <span class="badge">Istio</span>
+          <span class="badge">Prometheus</span>
+          <span class="badge">Terraform</span>
+        </div>
+        <p><strong>Services:</strong> API Gateway, Auth Service, Product Service, Order Service, Notification Service. All connected via Istio service mesh.</p>
+        <pre><code># Architecture:
+# Client → API Gateway (Kong/Nginx) → Auth Service
+#                                   → Product Service → PostgreSQL
+#                                   → Order Service   → PostgreSQL + Redis
+#                                   → Notification    → RabbitMQ
+
+# GitOps repository structure:
+# gitops-repo/
+# ├── clusters/
+# │   ├── production/
+# │   │   ├── argocd-apps/
+# │   │   │   ├── api-gateway.yaml
+# │   │   │   ├── auth-service.yaml
+# │   │   │   └── ...
+# │   │   └── cluster-config/
+# │   └── staging/
+# └── apps/
+#     ├── api-gateway/
+#     │   ├── Chart.yaml
+#     │   ├── values.yaml
+#     │   └── values-production.yaml
+#     └── ...
+
+# Step 1 — Bootstrap ArgoCD
+kubectl create namespace argocd
+kubectl apply -n argocd \
+  -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+# Step 2 — Install Istio
+istioctl install --set profile=production -y
+kubectl label namespace production istio-injection=enabled
+
+# Step 3 — Create ArgoCD App-of-Apps pattern
+kubectl apply -f - &lt;&lt;'EOF'
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: production-apps
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/org/gitops-repo.git
+    targetRevision: main
+    path: clusters/production/argocd-apps
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+EOF
+
+# Step 4 — Configure Istio Traffic Management
+kubectl apply -f - &lt;&lt;'EOF'
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: product-service
+  namespace: production
+spec:
+  hosts: [product-service]
+  http:
+  - match:
+    - headers:
+        x-version:
+          exact: v2
+    route:
+    - destination:
+        host: product-service
+        subset: v2
+  - route:
+    - destination:
+        host: product-service
+        subset: v1
+      weight: 90
+    - destination:
+        host: product-service
+        subset: v2
+      weight: 10
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: product-service
+  namespace: production
+spec:
+  host: product-service
+  trafficPolicy:
+    connectionPool:
+      http:
+        http2MaxRequests: 1000
+        maxRequestsPerConnection: 10
+    outlierDetection:
+      consecutiveGatewayErrors: 5
+      interval: 10s
+      baseEjectionTime: 30s
+  subsets:
+  - name: v1
+    labels: { version: v1 }
+  - name: v2
+    labels: { version: v2 }
+EOF
+
+# Step 5 — Install monitoring stack
+helm install kube-prometheus-stack \
+  prometheus-community/kube-prometheus-stack \
+  -n monitoring --create-namespace \
+  --set grafana.ingress.enabled=true \
+  --set grafana.ingress.hosts[0]=grafana.example.com</code></pre>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SERVICE MESH & mTLS (ISTIO)
+    ═══════════════════════════════════════════════ -->
+    <section id="service-mesh">
+      <h2>🕸️ Service Mesh &amp; mTLS (Istio)</h2>
+
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Zero-Trust Networking for Microservices</div>
+          <button class="btn btn--outline btn--sm" data-lesson="devops-cloud:service-mesh">Mark Complete</button>
+        </div>
+
+        <h3>Why Service Mesh?</h3>
+        <ul>
+          <li>mTLS between ALL services — no unencrypted east-west traffic</li>
+          <li>Traffic management — canary, blue/green, circuit breaker, retry, timeout</li>
+          <li>Observability — automatic distributed tracing, metrics, access logs (no code changes)</li>
+          <li>Policy enforcement — AuthorizationPolicy, rate limiting, JWT validation at proxy layer</li>
+        </ul>
+
+        <h3>Istio Architecture</h3>
+        <pre><code>┌─────────────────────────────────────────────────┐
+│                Control Plane (istiod)            │
+│  Pilot (traffic)  Citadel (certs)  Galley (cfg) │
+└────────────────────┬────────────────────────────┘
+                     │ xDS protocol (gRPC)
+        ┌────────────┼────────────┐
+        ▼            ▼            ▼
+   ┌─────────┐  ┌─────────┐  ┌─────────┐
+   │ Pod A   │  │ Pod B   │  │ Pod C   │
+   │┌───────┐│  │┌───────┐│  │┌───────┐│
+   ││Envoy  ││  ││Envoy  ││  ││Envoy  ││  ← sidecar proxies
+   ││Proxy  ││  ││Proxy  ││  ││Proxy  ││
+   │└───────┘│  │└───────┘│  │└───────┘│
+   └─────────┘  └─────────┘  └─────────┘
+         ↑ mTLS everywhere ↑</code></pre>
+
+        <h3>Traffic Management</h3>
+        <pre><code># Canary deployment — 90/10 traffic split
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: reviews
+spec:
+  hosts: [reviews]
+  http:
+    - match:
+        - headers:
+            x-user-type:
+              exact: beta-tester  # header-based routing
+      route:
+        - destination:
+            host: reviews
+            subset: v2
+    - route:
+        - destination:
+            host: reviews
+            subset: v1
+          weight: 90
+        - destination:
+            host: reviews
+            subset: v2
+          weight: 10
+---
+# Circuit breaker — auto-eject failing instances
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: reviews
+spec:
+  host: reviews
+  trafficPolicy:
+    outlierDetection:
+      consecutiveGatewayErrors: 5
+      interval: 10s
+      baseEjectionTime: 30s
+      maxEjectionPercent: 50
+  subsets:
+    - name: v1
+      labels: {version: v1}
+    - name: v2
+      labels: {version: v2}</code></pre>
+
+        <h3>Zero-Trust AuthorizationPolicy</h3>
+        <pre><code># Allow only frontend → backend communication
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: backend-allow-frontend-only
+  namespace: production
+spec:
+  selector:
+    matchLabels:
+      app: backend
+  action: ALLOW
+  rules:
+    - from:
+        - source:
+            principals: ["cluster.local/ns/production/sa/frontend"]
+      to:
+        - operation:
+            methods: ["GET", "POST"]
+            paths: ["/api/*"]
+---
+# Deny all by default (best practice — explicit allow list)
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: deny-all
+  namespace: production
+spec: {}  # empty spec = deny all</code></pre>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         CHAOS ENGINEERING & SRE
+    ═══════════════════════════════════════════════ -->
+    <section id="chaos-engineering">
+      <h2>💥 Chaos Engineering &amp; SRE</h2>
+
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Build Resilience Through Controlled Failure</div>
+          <button class="btn btn--outline btn--sm" data-lesson="devops-cloud:chaos-engineering">Mark Complete</button>
+        </div>
+
+        <h3>SRE Core Concepts</h3>
+        <div style="overflow-x:auto">
+          <table class="data-table">
+            <thead>
+              <tr><th>Concept</th><th>Definition</th><th>Example</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>SLI (Service Level Indicator)</td><td>A quantitative measure of service behavior</td><td>99th percentile request latency</td></tr>
+              <tr><td>SLO (Service Level Objective)</td><td>Target threshold for an SLI</td><td>p99 latency &lt; 500ms over 28 days</td></tr>
+              <tr><td>SLA (Service Level Agreement)</td><td>Contractual commitment with consequences</td><td>99.9% uptime or credits issued</td></tr>
+              <tr><td>Error Budget</td><td>100% - SLO = allowed failure budget</td><td>0.1% downtime = 43.8 min/month</td></tr>
+              <tr><td>Toil</td><td>Manual, repetitive operational work</td><td>Manually restarting crashed services</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Error Budget Policy</h3>
+        <ul>
+          <li>If error budget healthy (&gt;50%) — fast releases, experiments allowed</li>
+          <li>If error budget at risk (10–50%) — slow releases, focus on reliability</li>
+          <li>If error budget exhausted (&lt;0%) — freeze releases, mandatory reliability sprint</li>
+          <li>This creates natural alignment between dev velocity and system reliability</li>
+        </ul>
+
+        <h3>Chaos Engineering with LitmusChaos</h3>
+        <pre><code># ChaosEngine — inject pod failure into production namespace
+apiVersion: litmuschaos.io/v1alpha1
+kind: ChaosEngine
+metadata:
+  name: pod-delete-chaos
+  namespace: production
+spec:
+  appinfo:
+    appns: production
+    applabel: "app=payment-service"
+    appkind: deployment
+  chaosServiceAccount: litmus-admin
+  experiments:
+    - name: pod-delete
+      spec:
+        components:
+          env:
+            - name: TOTAL_CHAOS_DURATION
+              value: "60"          # 60 seconds of chaos
+            - name: CHAOS_INTERVAL
+              value: "10"          # delete pod every 10s
+            - name: FORCE
+              value: "false"
+            - name: PODS_AFFECTED_PERC
+              value: "50"          # kill 50% of pods</code></pre>
+
+        <h3>Chaos Scenarios to Test</h3>
+        <div style="overflow-x:auto">
+          <table class="data-table">
+            <thead>
+              <tr><th>Scenario</th><th>Tool</th><th>What It Validates</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Pod deletion</td><td>LitmusChaos pod-delete</td><td>Pod restart, health check correctness</td></tr>
+              <tr><td>Network latency</td><td>tc netem / Toxiproxy</td><td>Timeout handling, circuit breakers</td></tr>
+              <tr><td>CPU stress</td><td>LitmusChaos cpu-hog</td><td>Auto-scaling, throttling, graceful degradation</td></tr>
+              <tr><td>Dependency failure</td><td>Toxiproxy</td><td>Fallback behavior, error messages</td></tr>
+              <tr><td>AZ failure (AWS)</td><td>AWS FIS</td><td>Multi-AZ architecture, cross-zone load balancing</td></tr>
+              <tr><td>Database failover</td><td>RDS Multi-AZ test</td><td>Aurora failover &lt; 30s, reconnection logic</td></tr>
+              <tr><td>Memory pressure</td><td>LitmusChaos memory-hog</td><td>OOM behavior, vertical scaling</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>GameDay Runbook</h3>
+        <pre><code>## GameDay: "Payment Service Chaos"
+Pre-conditions:
+  - Monitoring dashboards open (Grafana)
+  - On-call engineer standing by
+  - Rollback procedure documented
+  - Stakeholders notified
+
+Experiment 1 (10:00): Kill 50% of payment pods
+  Hypothesis: Auto-healing restores within 30s, no revenue impact
+  Steady state: &lt;1% 5xx errors on /api/payment
+
+Experiment 2 (10:30): Inject 500ms network latency to DB
+  Hypothesis: Circuit breaker activates, cached responses served
+  Steady state: p99 latency &lt; 2s
+
+Experiment 3 (11:00): Simulate AZ failure
+  Hypothesis: Traffic shifts to healthy AZ within 60s
+  Steady state: &lt;5 min revenue impact
+
+Post-GameDay: Blameless postmortem, action items, SLO review</code></pre>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         COMPLETE DEVSECOPS PIPELINE
+    ═══════════════════════════════════════════════ -->
+    <section id="devsecops-pipeline">
+      <h2>🔐 Complete DevSecOps Pipeline</h2>
+
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Security Embedded at Every Stage</div>
+          <button class="btn btn--outline btn--sm" data-lesson="devops-cloud:devsecops-pipeline">Mark Complete</button>
+        </div>
+
+        <h3>DevSecOps Pipeline Architecture</h3>
+        <pre><code>Developer Push
+      │
+      ▼
+┌─────────────────────────────────────────────────────────┐
+│  PRE-COMMIT (local)                                      │
+│  • git-secrets (hardcoded credentials)                   │
+│  • detect-secrets (entropy-based secret detection)       │
+│  • prettier/eslint (code quality)                        │
+└────────────────────────┬────────────────────────────────┘
+                         │
+                         ▼
+┌─────────────────────────────────────────────────────────┐
+│  CI — PULL REQUEST (GitHub Actions / Jenkins)           │
+│  • SAST: Semgrep, CodeQL                                │
+│  • SCA: Snyk / Dependabot (CVE in dependencies)         │
+│  • Secrets scan: Gitleaks / TruffleHog                  │
+│  • IaC scan: Checkov (Terraform/K8s misconfigs)         │
+│  • Container scan: Trivy (image vulnerabilities)        │
+│  • SBOM generation: Syft → SPDX/CycloneDX              │
+│  • Image signing: cosign (SLSA provenance)              │
+└────────────────────────┬────────────────────────────────┘
+                         │
+                         ▼
+┌─────────────────────────────────────────────────────────┐
+│  STAGING — DYNAMIC TESTING                              │
+│  • DAST: OWASP ZAP baseline scan                        │
+│  • Smoke tests + integration tests                      │
+│  • Performance baseline (k6 / Locust)                   │
+│  • Chaos experiment (LitmusChaos)                       │
+└────────────────────────┬────────────────────────────────┘
+                         │
+                         ▼
+┌─────────────────────────────────────────────────────────┐
+│  PRODUCTION — RUNTIME SECURITY                          │
+│  • Falco: runtime syscall monitoring                    │
+│  • OPA Gatekeeper: admission control policies           │
+│  • Kubernetes audit logs → SIEM                         │
+│  • Network policies: zero-trust east-west               │
+│  • Secrets from Vault (dynamic, auto-rotate)            │
+└─────────────────────────────────────────────────────────┘</code></pre>
+
+        <h3>Checkov — IaC Security Scanning</h3>
+        <pre><code># Scan Terraform code
+checkov -d ./terraform --framework terraform \
+  --check CKV_AWS_8,CKV_AWS_18,CKV_AWS_21  # specific checks
+checkov -d ./terraform --soft-fail          # warn, don't block
+checkov -d ./terraform --compact --output json > checkov-report.json
+
+# Scan Kubernetes manifests
+checkov -d ./k8s --framework kubernetes \
+  --check CKV_K8S_14,CKV_K8S_16,CKV_K8S_30
+
+# Key checks:
+# CKV_AWS_8  — EC2 IMDSv2 required
+# CKV_AWS_18 — S3 access logging enabled
+# CKV_AWS_21 — S3 versioning enabled
+# CKV_K8S_14 — Pod spec has memory limits
+# CKV_K8S_16 — containers do not run as root
+# CKV_K8S_30 — NetworkPolicy exists for namespace</code></pre>
+
+        <h3>OPA Gatekeeper — Policy as Code</h3>
+        <pre><code># Constraint Template — require resource limits
+apiVersion: templates.gatekeeper.sh/v1
+kind: ConstraintTemplate
+metadata:
+  name: k8srequiredlimits
+spec:
+  crd:
+    spec:
+      names:
+        kind: K8sRequiredLimits
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package k8srequiredlimits
+        violation[{"msg": msg}] {
+          container := input.review.object.spec.containers[_]
+          not container.resources.limits.memory
+          msg := sprintf("Container %v must have memory limits", [container.name])
+        }
+---
+# Constraint — enforce the template cluster-wide
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sRequiredLimits
+metadata:
+  name: require-resource-limits
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    excludedNamespaces: ["kube-system"]</code></pre>
+
+        <h3>Falco Runtime Security Rules</h3>
+        <pre><code># Falco rule — detect shell spawned inside container
+- rule: Terminal shell in container
+  desc: A shell was spawned in a container
+  condition: >
+    spawned_process and container and
+    shell_procs and proc.tty != 0 and
+    container_entrypoint
+  output: >
+    Shell spawned in a container
+    (user=%user.name container=%container.name image=%container.image.repository
+     shell=%proc.name parent=%proc.pname cmdline=%proc.cmdline)
+  priority: WARNING
+  tags: [container, shell, mitre_execution]
+
+# Detect crypto mining
+- rule: Crypto mining detected
+  desc: Detects outbound connection to known crypto mining pools
+  condition: >
+    outbound and
+    (fd.sip.name in (mining_pool_hosts) or
+     fd.dport in (3333, 4444, 5555, 7777, 8888, 9999))
+  output: Crypto mining connection (proc=%proc.name ip=%fd.rip port=%fd.rport)
+  priority: CRITICAL
+
+# Alert via webhook → Slack/PagerDuty</code></pre>
+
+        <h3>SLSA Supply Chain Security</h3>
+        <ul>
+          <li>SLSA Level 1 — Provenance generated (who built what from which source)</li>
+          <li>SLSA Level 2 — Signed provenance (tamper-evident, hosted SCM)</li>
+          <li>SLSA Level 3 — Build service with hardened, auditable build environment</li>
+          <li>SLSA Level 4 — Hermetic builds, two-party review for all changes</li>
+        </ul>
+        <pre><code>cosign sign --key cosign.key myrepo/myimage:sha256-abc123
+cosign verify --key cosign.pub myrepo/myimage:sha256-abc123</code></pre>
+      </div>
+    </section>
+
+    <!-- Quiz -->
+    <section id="quiz-section-wrapper">
+      <h2>Test Your Knowledge</h2>
+      <div id="quiz-section"></div>
+    </section>
+  </main>
+
+  <!-- Progress Panel -->
+  <aside class="progress-panel">
+    <div class="progress-panel__title">Your Progress</div>
+    <div id="portal-progress-bars"></div>
+  </aside>
+</div>
+
+<div id="footer-placeholder"></div>
+
+<script src="../assets/js/store.js"></script>
+<script src="../assets/js/utils.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/progress.js"></script>
+<script src="../assets/js/quiz.js"></script>
+<script src="../assets/js/search.js"></script>
+<script src="../assets/js/partials.js"></script>
+<script src="../assets/js/portal.js"></script>
+</body>
+</html>

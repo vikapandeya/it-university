@@ -1,0 +1,867 @@
+<!doctype html>
+<html lang="en" data-portal="computer-basics" data-depth="2">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Computer Basics & Office Skills — IT University</title>
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/reset.css">
+  <link rel="stylesheet" href="../assets/css/portal-themes.css">
+  <link rel="stylesheet" href="../assets/css/layout.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/quiz.css">
+  <style>
+    .tab-row{display:flex;gap:6px;margin-bottom:var(--gap);flex-wrap:wrap}
+    .tab-btn{padding:8px 18px;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg-card);color:var(--text-dim);cursor:pointer;font-size:var(--text-sm);font-weight:500;transition:all .2s}
+    .tab-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+    .tab-btn:hover:not(.active){border-color:var(--accent);color:var(--accent)}
+    .tab-pane{display:none}
+    .tab-pane.active{display:block}
+    kbd{background:var(--bg-card);border:1px solid var(--border);border-radius:4px;padding:2px 6px;font-size:.78rem;font-family:monospace;white-space:nowrap}
+    .shortcut-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px}
+    .shortcut-item{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:var(--bg-elevated);border-radius:var(--radius);font-size:var(--text-sm)}
+    /* Practice test styles */
+    .test-card{background:var(--bg-card);border:2px solid var(--border);border-radius:var(--radius);padding:20px;text-align:center;cursor:pointer;transition:all .2s;margin-bottom:10px}
+    .test-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+    .test-card.beginner{border-color:#22c55e}
+    .test-card.intermediate{border-color:var(--accent)}
+    .test-card.advanced{border-color:#f0883e}
+    .test-card.expert{border-color:#f85149}
+    .test-level{font-weight:800;font-size:1rem;margin-bottom:4px}
+    .test-meta{color:var(--text-dim);font-size:var(--text-sm)}
+    .test-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+    .pt-timer{font-size:1.5rem;font-weight:800;color:var(--accent);margin:8px 0}
+    .pt-q{margin-bottom:20px;padding:16px;background:var(--bg-elevated);border-radius:var(--radius);border:1px solid var(--border)}
+    .pt-q p{font-weight:600;margin-bottom:10px}
+    .pt-opt{display:block;padding:10px 14px;margin:6px 0;border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;transition:all .15s;background:var(--bg-card);text-align:left;width:100%}
+    .pt-opt:hover{border-color:var(--accent);background:var(--bg-elevated)}
+    .pt-opt.correct{background:#166534;border-color:#22c55e;color:#86efac}
+    .pt-opt.wrong{background:#7f1d1d;border-color:#f85149;color:#fca5a5}
+    .score-circle{width:120px;height:120px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 16px;font-weight:800;border:4px solid var(--accent)}
+    .score-num{font-size:2rem;line-height:1}
+    .score-lbl{font-size:.8rem;color:var(--text-dim)}
+    /* Glossary */
+    .glossary-letter{font-size:1.2rem;font-weight:800;color:var(--accent);margin:20px 0 8px;padding-bottom:4px;border-bottom:2px solid var(--border)}
+    .glossary-term{padding:10px 0;border-bottom:1px solid var(--border)}
+    .glossary-term strong{display:block;margin-bottom:2px}
+    .glossary-index{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px}
+    .glossary-index a{padding:4px 10px;background:var(--bg-elevated);border-radius:var(--radius);font-size:var(--text-sm);font-weight:600;color:var(--accent);text-decoration:none}
+    .glossary-index a:hover{background:var(--accent);color:#fff}
+  </style>
+</head>
+<body class="page-body">
+<div id="header-placeholder"></div>
+
+<div class="portal-layout">
+  <aside class="sidebar">
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Foundations</div>
+      <a href="#hardware" class="sidebar__link">🖥️ Computer Hardware</a>
+      <a href="#software" class="sidebar__link">💾 Software Basics</a>
+      <a href="#internet" class="sidebar__link">🌐 Internet & Email</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">MS Office</div>
+      <a href="#msoffice" class="sidebar__link">📄 Word / Excel / PPT</a>
+      <a href="#outlook" class="sidebar__link">📧 Outlook & Teams</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Data & Web</div>
+      <a href="#datascience" class="sidebar__link">📊 Data Science Basics</a>
+      <a href="#webdev" class="sidebar__link">🕸️ Web Development</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Reference</div>
+      <a href="#shortcuts" class="sidebar__link">⌨️ Shortcuts</a>
+      <a href="#maintenance" class="sidebar__link">🔧 PC Maintenance</a>
+      <a href="#glossary" class="sidebar__link">📖 Glossary A–Z</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Practice</div>
+      <a href="#practice-tests" class="sidebar__link">📝 Practice Tests</a>
+      <a href="#quiz-section" class="sidebar__link">🧠 Computer Quiz</a>
+    </div>
+  </aside>
+
+  <main class="content">
+    <h1>🖥️ Computer Basics & Office Skills</h1>
+    <p style="color:var(--text-dim);font-size:var(--text-lg);margin-bottom:var(--gap-xl)">From hardware fundamentals to MS Office mastery, internet skills, data science, and timed practice tests — everything you need to be computer-confident.</p>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="hardware">
+      <h2>🖥️ Computer Hardware</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Components & How They Work Together</div>
+          <button class="btn btn--outline btn--sm" data-lesson="computer-basics:hardware">Mark Complete</button>
+        </div>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated);text-align:left">Component</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Function</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Key Specs</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><strong>CPU</strong></td><td style="border:1px solid var(--border);padding:8px 12px">Processes instructions — "brain" of the computer</td><td style="border:1px solid var(--border);padding:8px 12px">Cores, GHz, cache size</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><strong>RAM</strong></td><td style="border:1px solid var(--border);padding:8px 12px">Temporary working memory for active programs</td><td style="border:1px solid var(--border);padding:8px 12px">GB (8/16/32), DDR5</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><strong>SSD/HDD</strong></td><td style="border:1px solid var(--border);padding:8px 12px">Permanent storage for OS, files, applications</td><td style="border:1px solid var(--border);padding:8px 12px">TB, NVMe vs SATA</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><strong>GPU</strong></td><td style="border:1px solid var(--border);padding:8px 12px">Renders graphics; AI/ML acceleration</td><td style="border:1px solid var(--border);padding:8px 12px">VRAM, CUDA cores</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><strong>Motherboard</strong></td><td style="border:1px solid var(--border);padding:8px 12px">Connects all components via buses and slots</td><td style="border:1px solid var(--border);padding:8px 12px">Form factor, chipset</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><strong>PSU</strong></td><td style="border:1px solid var(--border);padding:8px 12px">Power Supply Unit — converts AC to DC power</td><td style="border:1px solid var(--border);padding:8px 12px">Wattage, 80+ rating</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><strong>NIC</strong></td><td style="border:1px solid var(--border);padding:8px 12px">Network Interface Card — wired/wireless connectivity</td><td style="border:1px solid var(--border);padding:8px 12px">1Gbps, 2.5Gbps, WiFi 6</td></tr>
+        </table>
+        <h3 style="margin-top:var(--gap)">Input vs Output Devices</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div>
+            <h4>Input Devices</h4>
+            <ul>
+              <li>Keyboard, Mouse, Touchpad</li>
+              <li>Microphone, Webcam</li>
+              <li>Scanner, Barcode reader</li>
+              <li>Touchscreen (also output)</li>
+              <li>USB drive (also output)</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Output Devices</h4>
+            <ul>
+              <li>Monitor, Projector</li>
+              <li>Printer, 3D Printer</li>
+              <li>Speakers, Headphones</li>
+              <li>LED indicators</li>
+              <li>Haptic feedback devices</li>
+            </ul>
+          </div>
+        </div>
+        <h3 style="margin-top:var(--gap)">Computer Types Compared</h3>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Type</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Use Case</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Example</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Desktop PC</td><td style="border:1px solid var(--border);padding:8px 12px">Office work, gaming, upgradeable</td><td style="border:1px solid var(--border);padding:8px 12px">Dell OptiPlex, Gaming PC</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Laptop</td><td style="border:1px solid var(--border);padding:8px 12px">Portable, all-in-one</td><td style="border:1px solid var(--border);padding:8px 12px">MacBook, ThinkPad</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Server</td><td style="border:1px solid var(--border);padding:8px 12px">Hosts services, 24/7 operation</td><td style="border:1px solid var(--border);padding:8px 12px">Dell PowerEdge</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Tablet</td><td style="border:1px solid var(--border);padding:8px 12px">Media, light work, touchscreen</td><td style="border:1px solid var(--border);padding:8px 12px">iPad, Surface</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Embedded</td><td style="border:1px solid var(--border);padding:8px 12px">IoT devices, appliances</td><td style="border:1px solid var(--border);padding:8px 12px">Raspberry Pi, Arduino</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="software">
+      <h2>💾 Software Basics</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">OS, Applications & File Systems</div>
+          <button class="btn btn--outline btn--sm" data-lesson="computer-basics:software">Mark Complete</button>
+        </div>
+        <h3>Types of Software</h3>
+        <ul>
+          <li><strong>System Software</strong> — OS (Windows, Linux, macOS), drivers, BIOS/UEFI</li>
+          <li><strong>Application Software</strong> — Browser, Office, IDE, games</li>
+          <li><strong>Middleware</strong> — Database drivers, message queues, APIs</li>
+          <li><strong>Utility Software</strong> — Antivirus, disk cleanup, compression tools</li>
+        </ul>
+        <h3>Operating System Types</h3>
+        <table style="width:100%;border-collapse:collapse;margin-top:8px">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">OS</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">License</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Best For</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Windows 11</td><td style="border:1px solid var(--border);padding:8px 12px">Proprietary</td><td style="border:1px solid var(--border);padding:8px 12px">Office, gaming, enterprise</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">macOS</td><td style="border:1px solid var(--border);padding:8px 12px">Proprietary (Apple only)</td><td style="border:1px solid var(--border);padding:8px 12px">Creative work, developer</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Ubuntu Linux</td><td style="border:1px solid var(--border);padding:8px 12px">Open source (free)</td><td style="border:1px solid var(--border);padding:8px 12px">Servers, dev, learning</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Android / iOS</td><td style="border:1px solid var(--border);padding:8px 12px">Mixed</td><td style="border:1px solid var(--border);padding:8px 12px">Mobile devices</td></tr>
+        </table>
+        <h3 style="margin-top:var(--gap)">File System Concepts</h3>
+        <ul>
+          <li><strong>File</strong> — named collection of data stored on disk</li>
+          <li><strong>Folder/Directory</strong> — container for organizing files</li>
+          <li><strong>Path</strong> — location of a file, e.g. <code>C:\Users\John\Documents\report.pdf</code></li>
+          <li><strong>Extension</strong> — type indicator (.pdf, .docx, .jpg, .py, .exe)</li>
+          <li><strong>Hidden files</strong> — prefixed with dot on Linux (<code>.bashrc</code>), toggled on Windows</li>
+          <li><strong>Permissions</strong> — who can read/write/execute a file (owner, group, others)</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="internet">
+      <h2>🌐 Internet & Email Fundamentals</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">How the Internet Works</div>
+          <button class="btn btn--outline btn--sm" data-lesson="computer-basics:internet">Mark Complete</button>
+        </div>
+        <h3>Key Concepts</h3>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated);text-align:left">Concept</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Definition</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><strong>Internet</strong></td><td style="border:1px solid var(--border);padding:8px 12px">Global network of interconnected computers using TCP/IP protocols</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><strong>WWW</strong></td><td style="border:1px solid var(--border);padding:8px 12px">World Wide Web — websites accessed via HTTP/HTTPS browsers (a service on the internet)</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><strong>Browser</strong></td><td style="border:1px solid var(--border);padding:8px 12px">Software to access web pages: Chrome, Firefox, Edge, Safari</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><strong>URL</strong></td><td style="border:1px solid var(--border);padding:8px 12px">Uniform Resource Locator — web address (https://example.com/path)</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><strong>ISP</strong></td><td style="border:1px solid var(--border);padding:8px 12px">Internet Service Provider — company that gives you internet access</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><strong>IP Address</strong></td><td style="border:1px solid var(--border);padding:8px 12px">Unique numeric address for every device (192.168.1.1 = LAN, 8.8.8.8 = Google DNS)</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><strong>DNS</strong></td><td style="border:1px solid var(--border);padding:8px 12px">Domain Name System — translates domain names to IP addresses</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><strong>VPN</strong></td><td style="border:1px solid var(--border);padding:8px 12px">Virtual Private Network — encrypts your traffic and masks your IP</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><strong>Cookie</strong></td><td style="border:1px solid var(--border);padding:8px 12px">Small file stored by browser to remember login/preferences per site</td></tr>
+        </table>
+        <h3 style="margin-top:var(--gap)">Email Best Practices</h3>
+        <ul>
+          <li><strong>Subject line</strong> — specific and actionable: "Q3 Report Review — Feedback by Friday"</li>
+          <li><strong>CC vs BCC</strong> — CC is visible to all recipients; BCC is hidden (use for privacy)</li>
+          <li><strong>Reply-All caution</strong> — only Reply All when the whole thread needs your response</li>
+          <li><strong>Attachments</strong> — mention in body; use links for large files (&gt;10MB)</li>
+          <li><strong>Phishing</strong> — never click links or download files from unexpected emails</li>
+          <li><strong>Professional tone</strong> — greeting, body, signature; proofread before sending</li>
+        </ul>
+        <h3>Internet Safety</h3>
+        <ul>
+          <li>Use strong unique passwords + a password manager (Bitwarden, 1Password)</li>
+          <li>Enable 2FA (Two-Factor Authentication) on all important accounts</li>
+          <li>Check for HTTPS (padlock icon) before entering passwords</li>
+          <li>Keep browser and OS updated — patches fix security vulnerabilities</li>
+          <li>Use a VPN on public WiFi (airports, cafes, hotels)</li>
+          <li>Never share personal info in reply to unsolicited messages</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="msoffice">
+      <h2>📄 Microsoft Office Suite</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Word, Excel & PowerPoint</div>
+          <button class="btn btn--outline btn--sm" data-lesson="computer-basics:msoffice">Mark Complete</button>
+        </div>
+
+        <div class="tab-row" id="office-tabs">
+          <button class="tab-btn active" onclick="switchTab('office-tabs','off-word',this)">MS Word</button>
+          <button class="tab-btn" onclick="switchTab('office-tabs','off-excel',this)">MS Excel</button>
+          <button class="tab-btn" onclick="switchTab('office-tabs','off-ppt',this)">PowerPoint</button>
+        </div>
+
+        <div id="off-word" class="tab-pane active">
+          <h3>Microsoft Word — Key Skills</h3>
+          <ul>
+            <li>Styles and Themes for consistent formatting</li>
+            <li>Track Changes for collaborative editing (Review tab)</li>
+            <li>Mail Merge — send personalized letters/emails</li>
+            <li>Table of Contents auto-generation from Heading styles</li>
+            <li>Export to PDF: File → Save As → PDF</li>
+            <li>Templates for resumes, reports, letters</li>
+          </ul>
+          <h4 style="margin-top:12px">Essential Word Shortcuts</h4>
+          <div class="shortcut-grid">
+            <div class="shortcut-item"><span>Bold / Italic / Underline</span><kbd>Ctrl+B/I/U</kbd></div>
+            <div class="shortcut-item"><span>Find &amp; Replace</span><kbd>Ctrl+H</kbd></div>
+            <div class="shortcut-item"><span>Heading 1/2/3</span><kbd>Ctrl+Alt+1/2/3</kbd></div>
+            <div class="shortcut-item"><span>Line spacing 1/2</span><kbd>Ctrl+1 / Ctrl+2</kbd></div>
+            <div class="shortcut-item"><span>Word Count</span><kbd>Ctrl+Shift+G</kbd></div>
+            <div class="shortcut-item"><span>Insert hyperlink</span><kbd>Ctrl+K</kbd></div>
+            <div class="shortcut-item"><span>Print</span><kbd>Ctrl+P</kbd></div>
+            <div class="shortcut-item"><span>Spelling check</span><kbd>F7</kbd></div>
+          </div>
+        </div>
+
+        <div id="off-excel" class="tab-pane">
+          <h3>Microsoft Excel — Key Skills</h3>
+          <ul>
+            <li>Formulas and Functions (500+ built-in) starting with <code>=</code></li>
+            <li>PivotTables: Insert → PivotTable — summarise large datasets instantly</li>
+            <li>VLOOKUP / XLOOKUP for data lookup across sheets</li>
+            <li>Conditional Formatting — color-code data based on rules</li>
+            <li>Data Validation — restrict cell input (dropdowns, number ranges)</li>
+            <li>Charts: Insert → Chart — bar, line, pie, scatter</li>
+          </ul>
+          <h4 style="margin-top:12px">Key Excel Functions</h4>
+          <pre><code>=SUM(A1:A10)           // Sum range
+=AVERAGE(B1:B10)       // Average
+=COUNT(C1:C10)         // Count cells with numbers
+=COUNTIF(A:A,">100")   // Count with condition
+=SUMIF(A:A,">0",B:B)   // Sum with condition
+=IF(A1>50,"Pass","Fail")  // Conditional
+=VLOOKUP(E1,A:B,2,0)   // Lookup (legacy)
+=XLOOKUP(E1,A:A,B:B)   // Modern lookup
+=CONCATENATE(A1," ",B1) // Join text
+=TEXT(A1,"dd/mm/yyyy") // Format date as text
+=IFERROR(formula,"N/A") // Handle errors</code></pre>
+        </div>
+
+        <div id="off-ppt" class="tab-pane">
+          <h3>PowerPoint — Key Skills</h3>
+          <ul>
+            <li>Slide Master (View → Slide Master) for consistent theme across all slides</li>
+            <li>SmartArt for org charts and process diagrams</li>
+            <li>Animations (per element) and Transitions (per slide)</li>
+            <li>Presenter View — see notes + timer + next slide while audience sees only slides</li>
+            <li>Export as PDF or video (.mp4): File → Export</li>
+            <li>Embed videos, audio, and clickable hyperlinks</li>
+          </ul>
+          <h4 style="margin-top:12px">Presentation Design Rules</h4>
+          <ul>
+            <li><strong>6×6 Rule</strong> — max 6 bullet points per slide, 6 words per bullet</li>
+            <li><strong>Fonts</strong> — max 2 fonts; 28pt minimum for body text</li>
+            <li><strong>Contrast</strong> — dark text on light background or vice versa, never similar shades</li>
+            <li><strong>Images over text</strong> — a relevant image communicates faster than bullets</li>
+            <li><strong>Timing</strong> — 1–2 minutes per slide; use Rehearse Timings to practice</li>
+            <li><strong>White space</strong> — don't crowd slides; give content room to breathe</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="outlook">
+      <h2>📧 Outlook & Microsoft Teams</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Communication & Collaboration Tools</div>
+          <button class="btn btn--outline btn--sm" data-lesson="computer-basics:outlook">Mark Complete</button>
+        </div>
+        <h3>Outlook Features</h3>
+        <ul>
+          <li><strong>Rules</strong> — auto-sort/move/delete incoming emails by sender, subject, or content</li>
+          <li><strong>Focused Inbox</strong> — AI prioritizes important emails; "Other" tab for the rest</li>
+          <li><strong>Calendar integration</strong> — book/accept meetings directly from Outlook</li>
+          <li><strong>Tasks</strong> — to-do list synced with Microsoft To Do</li>
+          <li><strong>Categories</strong> — color-code emails for easy filtering</li>
+          <li><strong>Quick Steps</strong> — one-click multi-action automation (move + mark read)</li>
+        </ul>
+        <div class="shortcut-grid" style="margin-top:12px">
+          <div class="shortcut-item"><span>New Email</span><kbd>Ctrl+N</kbd></div>
+          <div class="shortcut-item"><span>Reply / Reply All</span><kbd>Ctrl+R / Ctrl+Shift+R</kbd></div>
+          <div class="shortcut-item"><span>Forward</span><kbd>Ctrl+F</kbd></div>
+          <div class="shortcut-item"><span>Send</span><kbd>Ctrl+Enter</kbd></div>
+          <div class="shortcut-item"><span>Search</span><kbd>Ctrl+E</kbd></div>
+          <div class="shortcut-item"><span>Calendar view</span><kbd>Ctrl+2</kbd></div>
+        </div>
+        <h3 style="margin-top:var(--gap)">Microsoft Teams</h3>
+        <ul>
+          <li><strong>Teams & Channels</strong> — organize conversations by team/project/department</li>
+          <li><strong>@ mentions</strong> — @name alerts that person; @team alerts all members</li>
+          <li><strong>Tabs</strong> — pin apps (SharePoint, Planner, GitHub) directly in a channel</li>
+          <li><strong>Meetings</strong> — schedule/join video calls; record with auto-transcript</li>
+          <li><strong>Files</strong> — SharePoint-backed file sharing and co-authoring in real-time</li>
+          <li><strong>Status</strong> — Available / Busy / Do Not Disturb / Away — set focus time</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="datascience">
+      <h2>📊 Data Science Basics</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Python Pandas & NumPy Essentials</div>
+          <button class="btn btn--outline btn--sm" data-lesson="computer-basics:datascience">Mark Complete</button>
+        </div>
+        <h3>Pandas — Data Analysis</h3>
+        <pre><code>import pandas as pd
+
+# Load data
+df = pd.read_csv('data.csv')
+df = pd.read_excel('data.xlsx')
+
+# Explore data
+df.head()               # first 5 rows
+df.tail(10)             # last 10 rows
+df.info()               # columns, types, nulls
+df.describe()           # stats: mean, std, min, max
+
+# Select & Filter
+df['name']              # select column
+df[['name','age']]      # select multiple columns
+df[df['age'] > 25]      # filter rows
+df[df['city'] == 'Mumbai']
+
+# Common operations
+df.dropna()             # remove rows with nulls
+df.fillna(0)            # fill nulls with 0
+df.groupby('dept')['salary'].mean()  # group + aggregate
+df.sort_values('salary', ascending=False).head(10)
+df.merge(df2, on='id', how='left')   # SQL-style join
+df.pivot_table(values='sales', index='month', columns='product')
+
+# Export
+df.to_csv('output.csv', index=False)
+df.to_excel('output.xlsx', index=False)</code></pre>
+
+        <h3>NumPy — Numerical Computing</h3>
+        <pre><code>import numpy as np
+
+# Arrays
+a = np.array([1, 2, 3, 4, 5])
+b = np.zeros((3, 4))        # 3x4 zeros
+c = np.ones((2, 3))         # 2x3 ones
+r = np.arange(0, 10, 2)     # [0,2,4,6,8]
+l = np.linspace(0, 1, 5)    # 5 evenly spaced values
+
+# Math
+np.mean(a), np.median(a), np.std(a)
+np.sum(a), np.min(a), np.max(a)
+np.dot(a, b)                # dot product
+np.sqrt(a), np.log(a)
+
+# Reshape & index
+a.reshape(5, 1)
+a[2:4]                      # slice [3, 4]
+b[0, :]                     # first row
+b[:, 1]                     # second column</code></pre>
+
+        <h3>Data Visualization with Matplotlib</h3>
+        <pre><code>import matplotlib.pyplot as plt
+
+# Line plot
+plt.plot([1,2,3,4], [1,4,9,16], label='y=x²')
+plt.xlabel('x'); plt.ylabel('y'); plt.title('Squared'); plt.legend(); plt.show()
+
+# Bar chart
+categories = ['A','B','C']
+values = [10, 25, 15]
+plt.bar(categories, values, color=['blue','red','green'])
+plt.show()
+
+# With Pandas
+df['salary'].hist(bins=20)
+df.plot.scatter(x='age', y='salary')
+df.groupby('dept')['salary'].mean().plot.bar()</code></pre>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="webdev">
+      <h2>🕸️ Web Development Overview</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Frontend, Backend & Databases</div>
+          <button class="btn btn--outline btn--sm" data-lesson="computer-basics:webdev">Mark Complete</button>
+        </div>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Layer</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Technologies</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">What it does</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><strong>Frontend</strong></td><td style="border:1px solid var(--border);padding:8px 12px">HTML, CSS, JavaScript, React, Vue</td><td style="border:1px solid var(--border);padding:8px 12px">What the user sees and interacts with in the browser</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><strong>Backend</strong></td><td style="border:1px solid var(--border);padding:8px 12px">Node.js, Python/Django, Java, Go</td><td style="border:1px solid var(--border);padding:8px 12px">Business logic, APIs, authentication, server-side processing</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><strong>Database</strong></td><td style="border:1px solid var(--border);padding:8px 12px">MySQL, PostgreSQL, MongoDB, Redis</td><td style="border:1px solid var(--border);padding:8px 12px">Persistent data storage and retrieval</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><strong>Hosting</strong></td><td style="border:1px solid var(--border);padding:8px 12px">AWS, Azure, Vercel, Netlify</td><td style="border:1px solid var(--border);padding:8px 12px">Servers that serve your site to the internet 24/7</td></tr>
+        </table>
+        <h3 style="margin-top:var(--gap)">HTML Basics</h3>
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;title&gt;My Page&lt;/title&gt;
+  &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Heading 1&lt;/h1&gt;
+  &lt;p&gt;Paragraph with &lt;strong&gt;bold&lt;/strong&gt; and &lt;a href="url"&gt;link&lt;/a&gt;&lt;/p&gt;
+  &lt;img src="photo.jpg" alt="Description"&gt;
+  &lt;ul&gt;&lt;li&gt;Item 1&lt;/li&gt;&lt;li&gt;Item 2&lt;/li&gt;&lt;/ul&gt;
+  &lt;input type="text" placeholder="Type here"&gt;
+  &lt;button onclick="alert('Hi!')"&gt;Click me&lt;/button&gt;
+  &lt;script src="app.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        <h3>CSS Basics</h3>
+        <pre><code>/* Select and style */
+h1 { color: blue; font-size: 2rem; }
+.card { background: #fff; border-radius: 8px; padding: 20px; }
+#main { max-width: 1200px; margin: 0 auto; }
+
+/* Flexbox layout */
+.container { display: flex; justify-content: center; align-items: center; gap: 16px; }
+
+/* Grid layout */
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+
+/* Responsive */
+@media (max-width: 768px) { .grid { grid-template-columns: 1fr; } }</code></pre>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="shortcuts">
+      <h2>⌨️ MS Office Keyboard Shortcuts</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Power User Shortcuts</div>
+          <button class="btn btn--outline btn--sm" data-lesson="computer-basics:shortcuts">Mark Complete</button>
+        </div>
+        <h3>Universal (All Office Apps)</h3>
+        <div class="shortcut-grid">
+          <div class="shortcut-item"><span>New document</span><kbd>Ctrl+N</kbd></div>
+          <div class="shortcut-item"><span>Open file</span><kbd>Ctrl+O</kbd></div>
+          <div class="shortcut-item"><span>Save / Save As</span><kbd>Ctrl+S / F12</kbd></div>
+          <div class="shortcut-item"><span>Print</span><kbd>Ctrl+P</kbd></div>
+          <div class="shortcut-item"><span>Undo / Redo</span><kbd>Ctrl+Z / Ctrl+Y</kbd></div>
+          <div class="shortcut-item"><span>Copy / Paste</span><kbd>Ctrl+C / Ctrl+V</kbd></div>
+          <div class="shortcut-item"><span>Find</span><kbd>Ctrl+F</kbd></div>
+          <div class="shortcut-item"><span>Select All</span><kbd>Ctrl+A</kbd></div>
+        </div>
+        <h3 style="margin-top:12px">Excel-Specific</h3>
+        <div class="shortcut-grid">
+          <div class="shortcut-item"><span>Enter formula</span><kbd>=</kbd></div>
+          <div class="shortcut-item"><span>AutoSum</span><kbd>Alt+=</kbd></div>
+          <div class="shortcut-item"><span>Fill Down/Right</span><kbd>Ctrl+D/R</kbd></div>
+          <div class="shortcut-item"><span>New Sheet</span><kbd>Shift+F11</kbd></div>
+          <div class="shortcut-item"><span>Filter toggle</span><kbd>Ctrl+Shift+L</kbd></div>
+          <div class="shortcut-item"><span>Format Cells</span><kbd>Ctrl+1</kbd></div>
+          <div class="shortcut-item"><span>Absolute reference</span><kbd>F4</kbd></div>
+          <div class="shortcut-item"><span>Go to cell</span><kbd>Ctrl+G</kbd></div>
+        </div>
+        <h3 style="margin-top:12px">PowerPoint-Specific</h3>
+        <div class="shortcut-grid">
+          <div class="shortcut-item"><span>New slide</span><kbd>Ctrl+M</kbd></div>
+          <div class="shortcut-item"><span>Start slideshow</span><kbd>F5</kbd></div>
+          <div class="shortcut-item"><span>Presenter view</span><kbd>Alt+F5</kbd></div>
+          <div class="shortcut-item"><span>Duplicate slide</span><kbd>Ctrl+D</kbd></div>
+          <div class="shortcut-item"><span>Group objects</span><kbd>Ctrl+G</kbd></div>
+          <div class="shortcut-item"><span>Black screen</span><kbd>B</kbd></div>
+          <div class="shortcut-item"><span>Next/Prev slide</span><kbd>→ / ←</kbd></div>
+          <div class="shortcut-item"><span>End slideshow</span><kbd>Esc</kbd></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="maintenance">
+      <h2>🔧 PC Maintenance & Troubleshooting</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Keep Your PC Running Fast</div>
+          <button class="btn btn--outline btn--sm" data-lesson="computer-basics:maintenance">Mark Complete</button>
+        </div>
+        <h3>Regular Maintenance Checklist</h3>
+        <ul>
+          <li>✅ <strong>Windows Update</strong> — monthly; critical patches fix security holes</li>
+          <li>✅ <strong>Disk Cleanup</strong> — delete temp files (Win+R → <code>cleanmgr</code>)</li>
+          <li>✅ <strong>Startup programs</strong> — Task Manager → Startup; disable unused apps</li>
+          <li>✅ <strong>Antivirus scan</strong> — weekly full scan (Windows Defender is sufficient)</li>
+          <li>✅ <strong>Browser cleanup</strong> — clear cache/cookies monthly</li>
+          <li>✅ <strong>Backup</strong> — 3-2-1 rule: 3 copies, 2 different media, 1 offsite/cloud</li>
+          <li>✅ <strong>Physical cleaning</strong> — compressed air for vents quarterly</li>
+        </ul>
+        <h3 style="margin-top:var(--gap)">Common Problems & Solutions</h3>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Problem</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Common Cause</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Solution</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Computer slow</td><td style="border:1px solid var(--border);padding:8px 12px">Full RAM/disk, startup bloat</td><td style="border:1px solid var(--border);padding:8px 12px">Close unused apps, disable startup, add RAM</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">No internet</td><td style="border:1px solid var(--border);padding:8px 12px">Driver, router, DNS issue</td><td style="border:1px solid var(--border);padding:8px 12px">Restart router, run network troubleshooter</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Blue screen (BSOD)</td><td style="border:1px solid var(--border);padding:8px 12px">Driver crash, hardware fault</td><td style="border:1px solid var(--border);padding:8px 12px">Note error code, update drivers, check RAM</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Overheating</td><td style="border:1px solid var(--border);padding:8px 12px">Dust, faulty fan, bad paste</td><td style="border:1px solid var(--border);padding:8px 12px">Clean vents, reapply thermal paste</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">App won't open</td><td style="border:1px solid var(--border);padding:8px 12px">Corrupt install, missing DLL</td><td style="border:1px solid var(--border);padding:8px 12px">Repair install via Add/Remove Programs</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="glossary">
+      <h2>📖 Computer Glossary A–Z</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Essential IT Terms</div>
+          <button class="btn btn--outline btn--sm" data-lesson="computer-basics:glossary">Mark Complete</button>
+        </div>
+        <div class="glossary-index">
+          <a href="#gl-a">A</a><a href="#gl-b">B</a><a href="#gl-c">C</a><a href="#gl-d">D</a>
+          <a href="#gl-e">E</a><a href="#gl-f">F</a><a href="#gl-h">H</a><a href="#gl-i">I</a>
+          <a href="#gl-l">L</a><a href="#gl-m">M</a><a href="#gl-n">N</a><a href="#gl-o">O</a>
+          <a href="#gl-p">P</a><a href="#gl-r">R</a><a href="#gl-s">S</a><a href="#gl-t">T</a>
+          <a href="#gl-u">U</a><a href="#gl-v">V</a><a href="#gl-w">W</a>
+        </div>
+        <div id="gl-a" class="glossary-letter">A</div>
+        <div class="glossary-term"><strong>API (Application Programming Interface)</strong> — A set of rules for how software applications communicate with each other. Like a menu in a restaurant — lists what you can order (request) and what you'll get back.</div>
+        <div class="glossary-term"><strong>Algorithm</strong> — A step-by-step procedure for solving a problem or completing a task. Like a recipe for code.</div>
+        <div id="gl-b" class="glossary-letter">B</div>
+        <div class="glossary-term"><strong>Bandwidth</strong> — The maximum data transfer rate of a network connection. Measured in Mbps or Gbps.</div>
+        <div class="glossary-term"><strong>Bit / Byte</strong> — Bit = smallest unit (0 or 1). Byte = 8 bits. 1 KB = 1024 bytes, 1 MB = 1024 KB.</div>
+        <div class="glossary-term"><strong>Bluetooth</strong> — Short-range wireless technology (typically 10m) for connecting devices (headphones, keyboards, mice).</div>
+        <div id="gl-c" class="glossary-letter">C</div>
+        <div class="glossary-term"><strong>Cache</strong> — Temporary storage for frequently accessed data. Web browsers cache pages; CPUs cache instructions for speed.</div>
+        <div class="glossary-term"><strong>Cloud Computing</strong> — Using remote servers (via the internet) to store, manage, and process data instead of local hardware. Examples: AWS, Azure, Google Cloud.</div>
+        <div class="glossary-term"><strong>CPU (Central Processing Unit)</strong> — The primary chip that executes program instructions. The "brain" of the computer.</div>
+        <div class="glossary-term"><strong>Cybersecurity</strong> — Protecting systems, networks, and programs from digital attacks, unauthorized access, and data theft.</div>
+        <div id="gl-d" class="glossary-letter">D</div>
+        <div class="glossary-term"><strong>Database</strong> — Organized collection of structured data. Types: Relational (SQL tables), NoSQL (documents, key-value).</div>
+        <div class="glossary-term"><strong>DNS (Domain Name System)</strong> — The internet's phone book — translates human-readable domain names (google.com) to IP addresses (142.250.80.46).</div>
+        <div id="gl-e" class="glossary-letter">E</div>
+        <div class="glossary-term"><strong>Encryption</strong> — Converting data into a coded form that can only be read by authorized parties with a key. Used in HTTPS, passwords.</div>
+        <div class="glossary-term"><strong>Ethernet</strong> — Wired networking technology using cables (Cat5e, Cat6) for high-speed, reliable connections.</div>
+        <div id="gl-f" class="glossary-letter">F</div>
+        <div class="glossary-term"><strong>Firewall</strong> — Network security system that monitors and controls incoming/outgoing traffic based on security rules.</div>
+        <div class="glossary-term"><strong>Framework</strong> — Pre-built code structure that provides a foundation for application development. Examples: React (frontend), Django (backend).</div>
+        <div id="gl-h" class="glossary-letter">H</div>
+        <div class="glossary-term"><strong>Hardware</strong> — Physical components of a computer: CPU, RAM, SSD, motherboard, monitor, keyboard, mouse.</div>
+        <div class="glossary-term"><strong>HTTP/HTTPS</strong> — HyperText Transfer Protocol — the foundation of web communication. HTTPS adds TLS encryption (padlock in browser).</div>
+        <div id="gl-i" class="glossary-letter">I</div>
+        <div class="glossary-term"><strong>IP Address</strong> — Unique numerical label for every device on a network. IPv4: 192.168.1.1 (4 octets). IPv6: longer hex format for more addresses.</div>
+        <div class="glossary-term"><strong>IoT (Internet of Things)</strong> — Network of physical devices embedded with sensors/software that connect and exchange data over the internet.</div>
+        <div id="gl-l" class="glossary-letter">L</div>
+        <div class="glossary-term"><strong>LAN (Local Area Network)</strong> — Network connecting computers in a limited area (office, home). Uses switches and routers.</div>
+        <div id="gl-m" class="glossary-letter">M</div>
+        <div class="glossary-term"><strong>Malware</strong> — Malicious software: viruses, trojans, ransomware, spyware, adware. Spread via email attachments, downloads, websites.</div>
+        <div class="glossary-term"><strong>Memory (RAM)</strong> — Random Access Memory — temporary, volatile storage where the CPU keeps data it's currently using. More RAM = smoother multitasking.</div>
+        <div id="gl-n" class="glossary-letter">N</div>
+        <div class="glossary-term"><strong>Network</strong> — Group of interconnected devices that communicate and share resources (files, printers, internet).</div>
+        <div id="gl-o" class="glossary-letter">O</div>
+        <div class="glossary-term"><strong>Open Source</strong> — Software with publicly available source code that anyone can view, modify, and distribute. Examples: Linux, Firefox, Python.</div>
+        <div class="glossary-term"><strong>OS (Operating System)</strong> — Software that manages hardware and provides services for applications. Examples: Windows, Linux, macOS, Android.</div>
+        <div id="gl-p" class="glossary-letter">P</div>
+        <div class="glossary-term"><strong>Phishing</strong> — Social engineering attack via fraudulent emails/messages designed to steal credentials, credit cards, or install malware.</div>
+        <div class="glossary-term"><strong>Protocol</strong> — Set of rules governing how data is transmitted. Examples: HTTP, TCP/IP, FTP, SMTP, SSH.</div>
+        <div id="gl-r" class="glossary-letter">R</div>
+        <div class="glossary-term"><strong>Router</strong> — Networking device that forwards packets between networks. Connects your LAN to the internet via the ISP.</div>
+        <div id="gl-s" class="glossary-letter">S</div>
+        <div class="glossary-term"><strong>SaaS (Software as a Service)</strong> — Cloud-delivered software accessed via browser. Examples: Gmail, Salesforce, Microsoft 365, Slack.</div>
+        <div class="glossary-term"><strong>Software</strong> — Programs and operating information used by a computer. Opposite of hardware.</div>
+        <div class="glossary-term"><strong>SSL/TLS</strong> — Protocols that encrypt data in transit. TLS 1.3 is current. Creates the HTTPS padlock in browsers.</div>
+        <div id="gl-t" class="glossary-letter">T</div>
+        <div class="glossary-term"><strong>TCP/IP</strong> — Transmission Control Protocol/Internet Protocol — the fundamental communication protocol suite of the internet.</div>
+        <div id="gl-u" class="glossary-letter">U</div>
+        <div class="glossary-term"><strong>UI/UX</strong> — User Interface (visual design) / User Experience (overall feel and usability). Good UX makes software intuitive and satisfying.</div>
+        <div class="glossary-term"><strong>USB</strong> — Universal Serial Bus — standard connector for peripherals (drives, keyboards, charging). USB-A, USB-C, USB 3.2 are common types.</div>
+        <div id="gl-v" class="glossary-letter">V</div>
+        <div class="glossary-term"><strong>Virtualization</strong> — Running multiple virtual machines on one physical host using software (VMware, VirtualBox, Hyper-V).</div>
+        <div class="glossary-term"><strong>VPN (Virtual Private Network)</strong> — Encrypts your internet traffic and routes it through a remote server, masking your IP and location.</div>
+        <div id="gl-w" class="glossary-letter">W</div>
+        <div class="glossary-term"><strong>WiFi</strong> — Wireless networking using radio waves (802.11 standard). WiFi 6 (802.11ax) offers up to 9.6 Gbps theoretical speed.</div>
+        <div class="glossary-term"><strong>WAN (Wide Area Network)</strong> — Network spanning large geographic areas. The internet is the largest WAN.</div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="practice-tests">
+      <h2>📝 Timed Practice Tests</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Test Your Knowledge — 4 Difficulty Levels</div>
+        </div>
+
+        <div id="test-home">
+          <p style="color:var(--text-dim);margin-bottom:16px">Choose a difficulty level. Each test has 10 questions with a 10-minute timer. Your best scores are saved.</p>
+          <div class="test-grid">
+            <div class="test-card beginner" onclick="startTest('beginner')">
+              <div class="test-level" style="color:#22c55e">BEGINNER</div>
+              <div class="test-meta">10 questions · 10 min · Computer fundamentals</div>
+            </div>
+            <div class="test-card intermediate" onclick="startTest('intermediate')">
+              <div class="test-level" style="color:var(--accent)">INTERMEDIATE</div>
+              <div class="test-meta">10 questions · 10 min · Networking & security</div>
+            </div>
+            <div class="test-card advanced" onclick="startTest('advanced')">
+              <div class="test-level" style="color:#f0883e">ADVANCED</div>
+              <div class="test-meta">10 questions · 10 min · Cloud & advanced concepts</div>
+            </div>
+            <div class="test-card expert" onclick="startTest('expert')">
+              <div class="test-level" style="color:#f85149">EXPERT</div>
+              <div class="test-meta">10 questions · 15 min · Deep technical knowledge</div>
+            </div>
+          </div>
+        </div>
+
+        <div id="test-area" style="display:none">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+            <h3 id="test-title" style="margin:0"></h3>
+            <div class="pt-timer" id="test-timer">10:00</div>
+          </div>
+          <div id="test-questions"></div>
+          <div style="display:flex;gap:10px;margin-top:16px">
+            <button class="btn btn--primary" onclick="submitTest()">Submit Test</button>
+            <button class="btn btn--outline" onclick="exitTest()">Exit</button>
+          </div>
+        </div>
+
+        <div id="test-results" style="display:none;text-align:center;padding:24px 0">
+          <div class="score-circle" id="score-circle">
+            <div class="score-num" id="score-pct"></div>
+            <div class="score-lbl" id="score-fraction"></div>
+          </div>
+          <h3 id="score-grade" style="margin-bottom:8px"></h3>
+          <p id="score-msg" style="color:var(--text-dim);margin-bottom:20px"></p>
+          <div style="display:flex;gap:10px;justify-content:center">
+            <button class="btn btn--primary" id="retry-btn">Try Again</button>
+            <button class="btn btn--outline" onclick="exitTest()">Choose Level</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="quiz-section">
+      <h2>🧠 Computer Basics Quiz</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Test Your Computer Knowledge</div>
+        </div>
+        <p style="color:var(--text-dim);margin-bottom:var(--gap)">25 questions covering hardware, software, internet, MS Office, data science, and web basics.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <aside class="progress-panel">
+    <div class="progress-panel__section">
+      <div class="progress-panel__title">Portal Progress</div>
+      <div id="portal-progress-bars"></div>
+    </div>
+  </aside>
+</div>
+
+<div id="footer-placeholder"></div>
+
+<script>
+// Tab switching
+function switchTab(tabsId, paneId, btn) {
+  document.getElementById(tabsId).querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  // Find all panes that are siblings in the same lesson block
+  const lessonBlock = btn.closest('.lesson-block');
+  lessonBlock.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  const pane = document.getElementById(paneId);
+  if (pane) pane.classList.add('active');
+}
+
+// ─── Practice Tests ─────────────────────────────────────────────────────────
+const testData = {
+  beginner: {
+    label: 'Beginner', time: 600,
+    questions: [
+      {q:'What does CPU stand for?', opts:['Central Processing Unit','Computer Power Unit','Core Processing Utility','Central Program Unit'], a:0},
+      {q:'Which is an INPUT device?', opts:['Monitor','Printer','Keyboard','Speaker'], a:2},
+      {q:'What is RAM used for?', opts:['Permanent storage','Temporary working memory','Powering the CPU','Connecting to internet'], a:1},
+      {q:'Which storage type is fastest?', opts:['HDD','DVD','SATA SSD','NVMe SSD'], a:3},
+      {q:'How many bits in a byte?', opts:['4','16','8','32'], a:2},
+      {q:'Which OS is open-source?', opts:['Windows','macOS','iOS','Linux'], a:3},
+      {q:'What does GUI stand for?', opts:['Graphical User Interface','General Utility Index','Global Upload Interface','Graphics Unit Instruction'], a:0},
+      {q:'What connects all PC components?', opts:['CPU','Motherboard','GPU','PSU'], a:1},
+      {q:'Which is NOT an operating system?', opts:['Windows','Linux','Chrome OS','Microsoft Word'], a:3},
+      {q:'Binary uses how many digits?', opts:['8','10','16','2'], a:3},
+    ]
+  },
+  intermediate: {
+    label: 'Intermediate', time: 600,
+    questions: [
+      {q:'Which port does HTTPS use?', opts:['80','21','443','8080'], a:2},
+      {q:'What does DNS do?', opts:['Encrypt data','Translate domains to IPs','Store web pages','Route packets'], a:1},
+      {q:'TCP vs UDP — which guarantees delivery?', opts:['UDP','TCP','Both','Neither'], a:1},
+      {q:'SQL SELECT is used to...?', opts:['Update records','Delete records','Query/read data','Create tables'], a:2},
+      {q:'What is a firewall?', opts:['Antivirus software','Network traffic filter','Type of RAM','File compression tool'], a:1},
+      {q:'Which OSI layer does IP operate at?', opts:['Layer 2','Layer 7','Layer 4','Layer 3'], a:3},
+      {q:'What is phishing?', opts:['Network attack','Fraudulent emails stealing credentials','Type of malware','DDoS variant'], a:1},
+      {q:'What does VPN stand for?', opts:['Virtual Private Network','Virtual Public Node','Verified Protocol Network','Visual Print Network'], a:0},
+      {q:'RDBMS stores data in...?', opts:['Documents','Key-value pairs','Tables with rows/columns','XML files'], a:2},
+      {q:'What is a subnet mask?', opts:['Blocks malware','Divides network/host portions of IP','Encrypts packets','Type of DNS record'], a:1},
+    ]
+  },
+  advanced: {
+    label: 'Advanced', time: 600,
+    questions: [
+      {q:'What is O(n log n) complexity?', opts:['Linear','Quadratic','Linearithmic','Constant'], a:2},
+      {q:'Which cloud model rents virtual machines?', opts:['SaaS','PaaS','IaaS','FaaS'], a:2},
+      {q:'What is a Docker container?', opts:['Virtual machine','Lightweight isolated app package','Cloud storage unit','Database engine'], a:1},
+      {q:'Transformer architecture uses...?', opts:['Convolution layers','Recurrent loops','Self-attention mechanism','Genetic algorithms'], a:2},
+      {q:'Which prevents SQL injection?', opts:['Strong passwords','Parameterized queries','More RAM','Antivirus'], a:1},
+      {q:'Git rebase does what?', opts:['Delete a branch','Reapply commits on top of another base','Clone a repository','Merge with conflicts'], a:1},
+      {q:'Python GIL limits what?', opts:['File I/O','CPU-bound multi-threading','Network requests','Module imports'], a:1},
+      {q:'AES-256 is an example of...?', opts:['Hashing algorithm','Asymmetric encryption','Symmetric encryption','Network protocol'], a:2},
+      {q:'Kubernetes orchestrates...?', opts:['SQL databases','Containers at scale','Cloud billing','DNS records'], a:1},
+      {q:'What is a closure in JS?', opts:['End of a loop','Function retaining outer scope access','Class constructor','Error handler'], a:1},
+    ]
+  },
+  expert: {
+    label: 'Expert', time: 900,
+    questions: [
+      {q:'CAP theorem: distributed systems can guarantee at most...?', opts:['All 3: C, A, P','2 of 3: C, A, P','Only 1 property','None simultaneously'], a:1},
+      {q:'What is a race condition?', opts:['CPU overheating','Concurrent threads producing unpredictable results','Memory leak','Deadlock'], a:1},
+      {q:'TLS 1.3 handshake requires how many round trips?', opts:['3','2','1','0'], a:2},
+      {q:'Which hashing algorithm is considered broken?', opts:['SHA-256','SHA-3','MD5','BLAKE2'], a:2},
+      {q:'What is CORS?', opts:['SQL injection type','Browser security policy for cross-origin requests','Cloud region setting','Certificate type'], a:1},
+      {q:'O(2ⁿ) complexity is called?', opts:['Polynomial','Exponential','Factorial','Logarithmic'], a:1},
+      {q:'What is eventual consistency in distributed systems?', opts:['Data never converges','All nodes converge to same value given no new updates','Data is always consistent','Consistency is never guaranteed'], a:1},
+      {q:'What does SIGKILL do in Linux?', opts:['Pause process','Graceful shutdown','Force kill (cannot be caught/ignored)','Reload config'], a:2},
+      {q:'In Kubernetes, what does a PodDisruptionBudget do?', opts:['Limits CPU usage','Sets min available pods during disruptions','Controls network policies','Manages secrets'], a:1},
+      {q:'What is mTLS (Mutual TLS)?', opts:['Multi-threaded TLS','Both client and server authenticate each other via certificates','TLS with multiple CAs','TLS over UDP'], a:1},
+    ]
+  }
+};
+
+let testState = { level: null, current: 0, score: 0, selected: [], timerInterval: null, timeLeft: 0 };
+
+function startTest(level) {
+  const data = testData[level];
+  testState = { level, current: 0, score: 0, selected: Array(data.questions.length).fill(null), timerInterval: null, timeLeft: data.time };
+  document.getElementById('test-home').style.display = 'none';
+  document.getElementById('test-results').style.display = 'none';
+  document.getElementById('test-area').style.display = 'block';
+  document.getElementById('test-title').textContent = data.label + ' Test';
+  renderTestQuestions(data);
+  startTestTimer();
+}
+
+function renderTestQuestions(data) {
+  const container = document.getElementById('test-questions');
+  container.innerHTML = data.questions.map((q, qi) => `
+    <div class="pt-q">
+      <p>${qi + 1}. ${q.q}</p>
+      ${q.opts.map((opt, oi) => `
+        <button class="pt-opt" id="opt-${qi}-${oi}" onclick="selectOpt(${qi},${oi})">${String.fromCharCode(65+oi)}. ${opt}</button>
+      `).join('')}
+    </div>
+  `).join('');
+}
+
+function selectOpt(qi, oi) {
+  testState.selected[qi] = oi;
+  const data = testData[testState.level];
+  document.querySelectorAll(`[id^="opt-${qi}-"]`).forEach(b => b.classList.remove('correct', 'wrong'));
+  document.getElementById(`opt-${qi}-${oi}`).classList.add(oi === data.questions[qi].a ? 'correct' : 'wrong');
+  if (oi === data.questions[qi].a) {
+    document.getElementById(`opt-${qi}-${data.questions[qi].a}`).classList.add('correct');
+  } else {
+    document.getElementById(`opt-${qi}-${data.questions[qi].a}`).classList.add('correct');
+  }
+}
+
+function startTestTimer() {
+  clearInterval(testState.timerInterval);
+  testState.timerInterval = setInterval(() => {
+    testState.timeLeft--;
+    const m = Math.floor(testState.timeLeft / 60), s = testState.timeLeft % 60;
+    document.getElementById('test-timer').textContent = m + ':' + String(s).padStart(2, '0');
+    if (testState.timeLeft <= 0) { clearInterval(testState.timerInterval); submitTest(); }
+  }, 1000);
+}
+
+function submitTest() {
+  clearInterval(testState.timerInterval);
+  const data = testData[testState.level];
+  let score = 0;
+  testState.selected.forEach((sel, i) => { if (sel === data.questions[i].a) score++; });
+  const pct = Math.round(score / data.questions.length * 100);
+  const grade = pct >= 90 ? 'Excellent! 🏆' : pct >= 70 ? 'Good Job! 👍' : pct >= 50 ? 'Keep Practicing! 📚' : 'Study More! 💪';
+  const msg = `You scored ${score} out of ${data.questions.length} in the ${data.label} test.`;
+
+  document.getElementById('test-area').style.display = 'none';
+  const results = document.getElementById('test-results');
+  results.style.display = 'block';
+  document.getElementById('score-pct').textContent = pct + '%';
+  document.getElementById('score-fraction').textContent = score + '/' + data.questions.length;
+  document.getElementById('score-grade').textContent = grade;
+  document.getElementById('score-msg').textContent = msg;
+  document.getElementById('retry-btn').onclick = () => startTest(testState.level);
+
+  // Save to localStorage
+  try {
+    const key = 'itu__cb_test_' + testState.level;
+    const prev = parseInt(localStorage.getItem(key) || '0');
+    if (pct > prev) localStorage.setItem(key, pct);
+  } catch(e) {}
+}
+
+function exitTest() {
+  clearInterval(testState.timerInterval);
+  document.getElementById('test-area').style.display = 'none';
+  document.getElementById('test-results').style.display = 'none';
+  document.getElementById('test-home').style.display = 'block';
+}
+</script>
+
+<script src="../assets/js/store.js"></script>
+<script src="../assets/js/utils.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/progress.js"></script>
+<script src="../assets/js/quiz.js"></script>
+<script src="../assets/js/search.js"></script>
+<script src="../assets/js/partials.js"></script>
+<script src="../assets/js/portal.js"></script>
+</body>
+</html>

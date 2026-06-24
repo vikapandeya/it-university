@@ -1,0 +1,256 @@
+{
+  "title": "Computer Basics & Office Skills Quiz",
+  "description": "Test your knowledge of hardware, operating systems, MS Office, the internet, and data science fundamentals.",
+  "questions": [
+    {
+      "question": "What does CPU stand for?",
+      "options": [
+        "A. Central Processing Unit",
+        "B. Computer Power Unit",
+        "C. Core Processing Utility",
+        "D. Central Program Unit"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "Which type of storage retains data without power (non-volatile)?",
+      "options": [
+        "A. RAM",
+        "B. ROM / SSD / HDD",
+        "C. Cache",
+        "D. CPU Register"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "In Microsoft Excel, which function calculates the average of a range?",
+      "options": [
+        "A. SUM()",
+        "B. COUNT()",
+        "C. AVERAGE()",
+        "D. MEAN()"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "What does HTTP stand for?",
+      "options": [
+        "A. High-speed Text Transmission Protocol",
+        "B. Hyperlink and Text Transition Protocol",
+        "C. Host Transfer and Tunneling Protocol",
+        "D. HyperText Transfer Protocol"
+      ],
+      "correct": 3
+    },
+    {
+      "question": "What is the primary job of an Operating System?",
+      "options": [
+        "A. Manage hardware resources and provide services to applications",
+        "B. Run web browsers",
+        "C. Process spreadsheets",
+        "D. Encrypt network traffic"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "In Excel, which shortcut autofills a selected cell formula down a column?",
+      "options": [
+        "A. Ctrl+F",
+        "B. Ctrl+D",
+        "C. Ctrl+E",
+        "D. Ctrl+Down"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "What is RAM used for?",
+      "options": [
+        "A. Permanent storage of the OS",
+        "B. Processing graphics",
+        "C. Temporary fast storage for actively running programs",
+        "D. Storing BIOS firmware"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Which protocol secures web traffic by encrypting it?",
+      "options": [
+        "A. HTTP",
+        "B. FTP",
+        "C. SMTP",
+        "D. HTTPS (TLS)"
+      ],
+      "correct": 3
+    },
+    {
+      "question": "In Python's pandas, what does df.head() return?",
+      "options": [
+        "A. The first 5 rows",
+        "B. The last 5 rows",
+        "C. The column headers only",
+        "D. The data types of each column"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "What is the function of a router on a network?",
+      "options": [
+        "A. Connect devices within the same LAN by MAC address",
+        "B. Forward packets between networks based on IP address",
+        "C. Provide wireless signals only",
+        "D. Assign domain names"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "In Word, which shortcut adds a page break?",
+      "options": [
+        "A. Ctrl+B",
+        "B. Ctrl+P",
+        "C. Ctrl+Enter",
+        "D. Ctrl+Shift+Enter"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "What does SSD stand for?",
+      "options": [
+        "A. Static Storage Device",
+        "B. System Software Directory",
+        "C. Sequential Sector Disk",
+        "D. Solid State Drive"
+      ],
+      "correct": 3
+    },
+    {
+      "question": "What Python library is primarily used for numerical array computations?",
+      "options": [
+        "A. NumPy",
+        "B. matplotlib",
+        "C. pandas",
+        "D. seaborn"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "In PowerPoint, what is a 'Slide Master'?",
+      "options": [
+        "A. The first slide in a presentation",
+        "B. A template that controls the design of all slides",
+        "C. The slide with the most content",
+        "D. A locked slide that cannot be edited"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "What is an IP address?",
+      "options": [
+        "A. A physical hardware identifier (MAC)",
+        "B. A type of network cable",
+        "C. A numerical label assigned to each device on a network",
+        "D. A web browser setting"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "What does DNS resolve?",
+      "options": [
+        "A. MAC addresses to IP addresses",
+        "B. IP addresses to physical locations",
+        "C. HTTP requests to responses",
+        "D. Domain names to IP addresses"
+      ],
+      "correct": 3
+    },
+    {
+      "question": "Which Excel function looks up a value in a table by row?",
+      "options": [
+        "A. VLOOKUP",
+        "B. HLOOKUP",
+        "C. INDEX",
+        "D. MATCH"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "What is 'virtualization' in computing?",
+      "options": [
+        "A. Rendering 3D graphics",
+        "B. Running multiple virtual machines on one physical host",
+        "C. Backing up data to the cloud",
+        "D. Encrypting a hard drive"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "In data science, what is a 'DataFrame' in pandas?",
+      "options": [
+        "A. A type of graph",
+        "B. A machine learning model",
+        "C. A 2D tabular data structure with labeled axes",
+        "D. A Python function for data cleaning"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "What does the 'motherboard' do in a computer?",
+      "options": [
+        "A. Stores the OS permanently",
+        "B. Runs graphics calculations",
+        "C. Manages internet connections only",
+        "D. Connects and allows communication between all hardware components"
+      ],
+      "correct": 3
+    },
+    {
+      "question": "In Word, 'Track Changes' is used to:",
+      "options": [
+        "A. Record edits made so reviewers can see and accept/reject them",
+        "B. Monitor file size changes",
+        "C. Sync documents to the cloud automatically",
+        "D. Change document theme colors"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "What is a 'cookie' in web browsing?",
+      "options": [
+        "A. A type of malware",
+        "B. A small data file stored by a browser to remember session info",
+        "C. A browser extension",
+        "D. A type of web server"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Which pandas method removes rows with missing values?",
+      "options": [
+        "A. df.clean()",
+        "B. df.remove_nan()",
+        "C. df.dropna()",
+        "D. df.fillna()"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "What does 'cloud computing' mean?",
+      "options": [
+        "A. Networking using wireless signals",
+        "B. Processing data inside a physical cloud server room only",
+        "C. Using distributed DNS servers",
+        "D. Delivering computing services (servers, storage, software) over the internet"
+      ],
+      "correct": 3
+    },
+    {
+      "question": "In Excel, what does the '$' symbol do in a cell reference like '$A$1'?",
+      "options": [
+        "A. Makes the reference absolute so it does not change when the formula is copied",
+        "B. Formats the cell as currency",
+        "C. Refers to a named range",
+        "D. Calculates the sum of column A"
+      ],
+      "correct": 0
+    }
+  ]
+}

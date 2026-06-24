@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en" data-depth="2">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard — IT University</title>
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/reset.css">
+  <link rel="stylesheet" href="../assets/css/layout.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/auth.css">
+</head>
+<body class="page-body">
+<div id="header-placeholder"></div>
+
+<main class="dashboard-layout">
+  <!-- Friendly error if a non-admin was redirected from admin.html -->
+  <div class="form-error" id="access-error" style="margin-bottom:var(--gap)"></div>
+
+  <div class="dashboard-header">
+    <div>
+      <div class="dashboard-header__greeting">Hello, <span id="user-name">Learner</span> 👋</div>
+      <p style="color:var(--text-dim);margin-top:4px">Here's your learning snapshot.</p>
+    </div>
+    <button class="btn btn--outline btn--sm" onclick="auth.logout()">Logout</button>
+  </div>
+
+  <!-- Stats Row -->
+  <div class="grid-4" style="margin-bottom:var(--gap-xl)" id="stats-row">
+    <div class="stat-card"><div class="stat-card__value" id="stat-lessons">0</div><div class="stat-card__label">Lessons Done</div></div>
+    <div class="stat-card"><div class="stat-card__value" id="stat-labs">0</div><div class="stat-card__label">Labs Completed</div></div>
+    <div class="stat-card"><div class="stat-card__value" id="stat-quizzes">0</div><div class="stat-card__label">Quizzes Taken</div></div>
+    <div class="stat-card"><div class="stat-card__value" id="stat-certs">0</div><div class="stat-card__label">Cert Goals</div></div>
+  </div>
+
+  <div class="grid-2">
+    <!-- Progress -->
+    <div class="card">
+      <h3 style="margin-bottom:var(--gap)">Portal Progress</h3>
+      <div id="dash-progress"></div>
+    </div>
+
+    <!-- Leaderboard -->
+    <div class="card">
+      <h3 style="margin-bottom:var(--gap)">Quiz Leaderboard</h3>
+      <div id="leaderboard-list"></div>
+    </div>
+  </div>
+
+  <!-- Portal Links -->
+  <h2 style="margin:var(--gap-xl) 0 var(--gap)">Continue Learning</h2>
+  <div class="grid-3">
+    <a href="../ultimate-it/index.html" class="portal-card" style="--accent:#00d4ff;--accent-glow:rgba(0,212,255,0.15)">
+      <div class="portal-card__icon">🌐</div>
+      <div class="portal-card__title">IT Encyclopedia</div>
+    </a>
+    <a href="../devops-cloud/index.html" class="portal-card" style="--accent:#4d9fff;--accent-glow:rgba(77,159,255,0.15)">
+      <div class="portal-card__icon">☁️</div>
+      <div class="portal-card__title">DevOps &amp; Cloud</div>
+    </a>
+    <a href="../cybersecurity-vapt/index.html" class="portal-card" style="--accent:#ff4d6d;--accent-glow:rgba(255,77,109,0.15)">
+      <div class="portal-card__icon">🛡️</div>
+      <div class="portal-card__title">Cybersecurity</div>
+    </a>
+    <a href="../linux-administration/index.html" class="portal-card" style="--accent:#39d353;--accent-glow:rgba(57,211,83,0.15)">
+      <div class="portal-card__icon">🐧</div>
+      <div class="portal-card__title">Linux Admin</div>
+    </a>
+    <a href="../aws-learning/index.html" class="portal-card" style="--accent:#ff9900;--accent-glow:rgba(255,153,0,0.15)">
+      <div class="portal-card__icon">🚀</div>
+      <div class="portal-card__title">AWS Learning</div>
+    </a>
+    <a href="../ai-prompt-engineering/index.html" class="portal-card" style="--accent:#b57bee;--accent-glow:rgba(181,123,238,0.15)">
+      <div class="portal-card__icon">🤖</div>
+      <div class="portal-card__title">AI &amp; Prompting</div>
+    </a>
+    <a href="../tools-ide/index.html" class="portal-card" style="--accent:#f0883e;--accent-glow:rgba(240,136,62,0.15)">
+      <div class="portal-card__icon">⚡</div>
+      <div class="portal-card__title">Online IDE &amp; Tools</div>
+    </a>
+    <a href="../computer-basics/index.html" class="portal-card" style="--accent:#34d399;--accent-glow:rgba(52,211,153,0.15)">
+      <div class="portal-card__icon">🖥️</div>
+      <div class="portal-card__title">Computer Basics</div>
+    </a>
+  </div>
+</main>
+
+<div id="footer-placeholder"></div>
+
+<script src="../assets/js/store.js"></script>
+<script src="../assets/js/utils.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/progress.js"></script>
+<script src="../assets/js/partials.js"></script>
+<script>
+  if (!auth.requireAuth()) throw new Error('not authed');
+
+  // Show friendly message when redirected from admin page
+  if (new URLSearchParams(location.search).get('err') === 'admin') {
+    const errEl = document.getElementById('access-error');
+    if (errEl) { errEl.textContent = 'Admin access is required to view that page.'; errEl.classList.add('visible'); }
+  }
+
+  const user = store.currentUser();
+  document.getElementById('user-name').textContent = escapeHtml(user.name);
+
+  const p = store.getProgress(user.id);
+  document.getElementById('stat-lessons').textContent = Object.keys(p.lessons || {}).length;
+  document.getElementById('stat-labs').textContent    = Object.keys(p.labs    || {}).length;
+  document.getElementById('stat-quizzes').textContent = Object.keys(p.quizzes || {}).length;
+  document.getElementById('stat-certs').textContent   = Object.keys(p.certs   || {}).length;
+
+  progress.renderProgressBars('dash-progress');
+
+  // Leaderboard — escapeHtml on all user-supplied fields
+  const board = store.getLeaderboard().slice(0, 8);
+  const lbEl = document.getElementById('leaderboard-list');
+  if (!board.length) {
+    lbEl.innerHTML = '<p style="color:var(--text-muted);font-size:var(--text-sm)">No quiz scores yet. Take a quiz!</p>';
+  } else {
+    lbEl.innerHTML = board.map((e, i) => `
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border)">
+        <span style="font-family:var(--font-mono);color:var(--text-muted);font-size:var(--text-sm)">#${i+1}</span>
+        <span style="font-size:var(--text-sm)">${escapeHtml(e.name)}</span>
+        <span style="font-size:var(--text-xs);color:var(--text-muted)">${escapeHtml(e.portal)}</span>
+        <span style="color:var(--accent);font-weight:700;font-family:var(--font-mono)">${e.score}%</span>
+      </div>`).join('');
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,266 @@
+{
+  "title": "Cybersecurity & VAPT Quiz",
+  "description": "Expert-level questions on web security, penetration testing, cloud security, cryptography, OWASP Top 10, and DevSecOps.",
+  "questions": [
+    {
+      "question": "What does CIA stand for in information security, and which property does ransomware primarily violate?",
+      "options": [
+        "A. CIA = Confidentiality, Integrity, Availability; ransomware violates Availability (and Confidentiality)",
+        "B. CIA = Confidentiality, Integrity, Accountability; ransomware violates Integrity",
+        "C. CIA = Control, Identify, Analyze; ransomware violates Control",
+        "D. CIA = Confidentiality, Integrity, Availability; ransomware only violates Integrity"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "Which OWASP Top 10 (2021) category moved to position #1 and includes IDOR and missing function-level access control?",
+      "options": [
+        "A. A03 — Injection",
+        "B. A01 — Broken Access Control",
+        "C. A02 — Cryptographic Failures",
+        "D. A05 — Security Misconfiguration"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "What makes a parameterized query (prepared statement) prevent SQL injection?",
+      "options": [
+        "A. It encrypts user input before passing it to the database",
+        "B. It validates input length and character type before query execution",
+        "C. It separates SQL code from user data — the database driver ensures user data is never interpreted as SQL commands",
+        "D. It runs queries in a sandboxed environment with no write permissions"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Which XSS type stores the malicious payload in the database, affecting every user who views that content?",
+      "options": [
+        "A. Reflected XSS",
+        "B. DOM-based XSS",
+        "C. Blind XSS",
+        "D. Stored (Persistent) XSS"
+      ],
+      "correct": 3
+    },
+    {
+      "question": "What is SSRF and why is it critical when targeting cloud infrastructure?",
+      "options": [
+        "A. Server-Side Request Forgery — attacker makes the server fetch internal URLs; in cloud, can reach the metadata endpoint (169.254.169.254) and steal IAM credentials",
+        "B. SQL Server Request Failure — causes DB downtime",
+        "C. Session-Stealing Request Forwarding — hijacks authenticated sessions",
+        "D. Secure Socket Request Failure — bypasses TLS validation"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "What does the Nmap '-sS' (SYN scan) flag do differently from a full TCP connect scan?",
+      "options": [
+        "A. Sends only SYN packets and waits for all responses before continuing",
+        "B. Sends SYN, receives SYN-ACK, then sends RST — half-open, often avoids connection logging",
+        "C. Completes the full 3-way handshake, making it undetectable",
+        "D. Scans all 65535 ports sequentially using SYN packets"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "In CVSS v3.1, a vulnerability with AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H scores 10.0. What does 'S:C' (Scope: Changed) mean?",
+      "options": [
+        "A. The vulnerability can only be exploited in a changed network environment",
+        "B. The attack changes the network scope from local to remote",
+        "C. Exploiting the vulnerability impacts resources beyond the vulnerable component's authorization scope",
+        "D. Scope changed means additional user interaction is required"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "What is the difference between symmetric and asymmetric encryption, and why is TLS hybrid?",
+      "options": [
+        "A. Symmetric uses public/private keys; asymmetric uses one shared key. TLS uses asymmetric for everything.",
+        "B. Symmetric is only for files; asymmetric is only for network. TLS uses asymmetric for both.",
+        "C. They are identical in modern implementations — TLS uses whichever the server prefers",
+        "D. Symmetric (same key, fast) encrypts bulk data; asymmetric (key pair, slow) is used in TLS handshake to establish a session key — TLS uses both"
+      ],
+      "correct": 3
+    },
+    {
+      "question": "A web app hashes passwords with unsalted MD5. What attack is most effective?",
+      "options": [
+        "A. Rainbow table attack — precomputed MD5 hashes for millions of common passwords can crack unsalted hashes instantly",
+        "B. Brute force with a password list",
+        "C. MITM attack to intercept the plaintext password",
+        "D. SQL injection to bypass the password check"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "What does the Content-Security-Policy header 'default-src self; script-src self nonce-abc123' enforce?",
+      "options": [
+        "A. All content from external sources is cached and served locally",
+        "B. Only scripts from the same origin OR with matching nonce are executed — inline scripts without nonce are blocked",
+        "C. Scripts are scanned for malware before execution",
+        "D. Only HTTPS scripts are allowed from any origin"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "In Burp Suite Intruder, which attack type uses independent wordlists for each payload position, trying every combination?",
+      "options": [
+        "A. Sniper",
+        "B. Pitchfork",
+        "C. Cluster Bomb",
+        "D. Battering Ram"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "What is a CSRF attack and what is the most effective prevention mechanism?",
+      "options": [
+        "A. Injecting scripts into another user's session; prevention: CSP headers",
+        "B. Cross-service request flooding targeting APIs; prevention: rate limiting",
+        "C. Client-side request faking via XSS; prevention: input sanitization",
+        "D. Forging requests from an authenticated user's browser to a target site; prevention: synchronizer token pattern (CSRF token) or SameSite cookie attribute"
+      ],
+      "correct": 3
+    },
+    {
+      "question": "The 'alg: none' JWT vulnerability allows an attacker to do what?",
+      "options": [
+        "A. Set the algorithm to 'none' so the server skips signature verification — forging tokens with arbitrary claims",
+        "B. Encrypt the JWT payload to hide user data from the server",
+        "C. Use no algorithm to speed up JWT parsing on high-traffic APIs",
+        "D. Disable JWT expiration checking on the server"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "What does 'find / -perm -4000 -type f 2>/dev/null' find on a Linux system during privilege escalation enumeration?",
+      "options": [
+        "A. World-writable files that any user can modify",
+        "B. Files with the SUID bit set — run with the file owner's permissions, potential escalation vector",
+        "C. Files modified in the last 4000 seconds",
+        "D. Executable files with 4000 bytes or more"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "What does TLS Perfect Forward Secrecy (PFS) guarantee that standard RSA key exchange does NOT?",
+      "options": [
+        "A. That session keys are rotated every 30 minutes automatically",
+        "B. That all TLS 1.2 vulnerabilities are automatically patched",
+        "C. Compromise of the server's long-term private key cannot decrypt previously captured session traffic — each session uses ephemeral keys",
+        "D. Forward compatibility with future TLS versions"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "In the Cyber Kill Chain, which stage involves creating the exploit-laden payload (malicious document, weaponized PDF)?",
+      "options": [
+        "A. Reconnaissance",
+        "B. Delivery",
+        "C. Command & Control",
+        "D. Weaponization"
+      ],
+      "correct": 3
+    },
+    {
+      "question": "What is the MITRE ATT&CK framework and how is it used in practice?",
+      "options": [
+        "A. A knowledge base of adversary tactics, techniques, and procedures (TTPs) used to map attacks, improve detections, and run purple team exercises",
+        "B. A regulatory compliance framework for Fortune 500 companies",
+        "C. An automated penetration testing tool developed by MITRE",
+        "D. A CVE scoring system alternative developed for nation-state attacks"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "What is a 'dangling DNS' record and what attack does it enable?",
+      "options": [
+        "A. A DNS record with an expired TTL that causes slow resolution",
+        "B. A CNAME pointing to a deleted external resource — attacker claims that resource and serves malicious content on the victim's subdomain (subdomain takeover)",
+        "C. A DNS record that points to an internal IP, exposed externally",
+        "D. An MX record pointing to a non-existent mail server"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "What is the difference between black-box, grey-box, and white-box penetration testing?",
+      "options": [
+        "A. Black = external only; grey = internal only; white = cloud environments",
+        "B. Black = automated only; grey = hybrid; white = manual only",
+        "C. Black = no prior knowledge; grey = partial knowledge (e.g., credentials but no source); white = full knowledge (source code, architecture, credentials)",
+        "D. The difference is only in the colour of the test report cover"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "What does 'passive reconnaissance' involve that makes it harder to detect than active recon?",
+      "options": [
+        "A. Running scans at night when security teams are offline",
+        "B. Using stealth Nmap scans with timing option -T1",
+        "C. Routing all traffic through Tor to hide the attacker's IP",
+        "D. Gathering target intelligence from public sources (OSINT, Shodan, crt.sh, LinkedIn) without sending any traffic directly to the target"
+      ],
+      "correct": 3
+    },
+    {
+      "question": "What is Trivy used for in a DevSecOps pipeline?",
+      "options": [
+        "A. Scanning container images, filesystems, and Git repos for CVEs, misconfigurations, and exposed secrets",
+        "B. Dynamic application security testing of running web applications",
+        "C. Static analysis of Python and JavaScript source code",
+        "D. Network port scanning and service fingerprinting"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "In AWS, what security event would GuardDuty detect that CloudTrail alone cannot alert on?",
+      "options": [
+        "A. An IAM user creating a new access key",
+        "B. Cryptocurrency mining behavior detected via unusual EC2 network patterns — ML-based anomaly detection beyond raw API call logging",
+        "C. An S3 bucket policy being modified to allow public access",
+        "D. Root account login from the AWS console"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "What is privilege escalation in penetration testing, and name a common Linux vector?",
+      "options": [
+        "A. Escalating a bug report to the security team; common vector: using Metasploit autopwn",
+        "B. Gaining access to a higher-paying tier of cloud services; common vector: API key theft",
+        "C. Gaining higher authorization after initial access; common vector: sudo -l to find misconfigured sudo rights, SUID binaries, writable cron jobs, or kernel exploits",
+        "D. Increasing Nmap scan speed with -T5; common vector: port 4444"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "What does the OWASP A10:2021 (SSRF) vulnerability enable that makes it especially dangerous in microservice architectures?",
+      "options": [
+        "A. Allows attackers to run arbitrary SQL on the backend database",
+        "B. Forces server-side scripts to execute attacker-supplied code",
+        "C. Allows stealing of session tokens from other users via the server",
+        "D. Server fetches internal service URLs on the attacker's behalf — can pivot to internal APIs, cloud metadata, or other services not exposed externally"
+      ],
+      "correct": 3
+    },
+    {
+      "question": "What does Argon2id's memory-hard design protect against compared to SHA-256 for password hashing?",
+      "options": [
+        "A. Argon2id requires significant RAM to compute — preventing GPU/ASIC parallel cracking attacks that make SHA-256 trivially fast to brute force",
+        "B. Argon2id is reversible, making password recovery possible for admins",
+        "C. Argon2id hashes are shorter, reducing database storage needs",
+        "D. SHA-256 is deprecated; Argon2id is just its replacement with identical security properties"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "What is the purpose of Certificate Transparency (CT) logs, and how can defenders use them?",
+      "options": [
+        "A. CT logs store certificate private keys for disaster recovery",
+        "B. CT logs are public, append-only records of all issued TLS certificates — defenders monitor them (via crt.sh, Cert Spotter) to detect unauthorized certificates issued for their domains",
+        "C. CT logs enforce certificate revocation across all browsers globally",
+        "D. CT logs encrypt certificate metadata to prevent MITM attacks"
+      ],
+      "correct": 1
+    }
+  ]
+}

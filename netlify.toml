@@ -1,0 +1,26 @@
+# Netlify deployment configuration for IT University static site
+
+[build]
+  publish = "."
+
+# Custom 404 page
+[[redirects]]
+  from   = "/*"
+  to     = "/404.html"
+  status = 404
+
+# Security headers for every response
+[[headers]]
+  for = "/*"
+
+  [headers.values]
+    # Prevent clickjacking
+    X-Frame-Options = "SAMEORIGIN"
+    # Prevent MIME-type sniffing
+    X-Content-Type-Options = "nosniff"
+    # Minimal referrer info
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    # Prevent XSS in older browsers
+    X-XSS-Protection = "1; mode=block"
+    # Permissions policy — restrict camera/microphone/geolocation
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"

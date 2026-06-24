@@ -1,0 +1,1446 @@
+<!doctype html>
+<html lang="en" data-portal="aws-learning" data-depth="2">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AWS Learning — IT University</title>
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/reset.css">
+  <link rel="stylesheet" href="../assets/css/portal-themes.css">
+  <link rel="stylesheet" href="../assets/css/layout.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/quiz.css">
+</head>
+<body class="page-body">
+<div id="header-placeholder"></div>
+
+<div class="portal-layout">
+  <aside class="sidebar">
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Foundations</div>
+      <a href="#global" class="sidebar__link">🌐 Global Infrastructure</a>
+      <a href="#iam" class="sidebar__link">🔑 IAM Deep Dive</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Compute & Networking</div>
+      <a href="#ec2" class="sidebar__link">💻 EC2 & Auto Scaling</a>
+      <a href="#vpc" class="sidebar__link">🕸️ VPC Architecture</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Storage & Databases</div>
+      <a href="#s3" class="sidebar__link">🪣 S3 Mastery</a>
+      <a href="#rds" class="sidebar__link">🗄️ RDS & Aurora</a>
+      <a href="#dynamodb" class="sidebar__link">⚡ DynamoDB</a>
+      <a href="#elasticache" class="sidebar__link">🔴 ElastiCache</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Serverless & CDN</div>
+      <a href="#lambda" class="sidebar__link">λ Lambda</a>
+      <a href="#route53" class="sidebar__link">🌍 Route 53</a>
+      <a href="#cloudfront" class="sidebar__link">⚡ CloudFront</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Containers & DevOps</div>
+      <a href="#ecs" class="sidebar__link">🐳 ECS / EKS / ECR</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Security & Governance</div>
+      <a href="#security" class="sidebar__link">🔒 Security Services</a>
+      <a href="#monitoring" class="sidebar__link">📊 CloudWatch & Logs</a>
+      <a href="#organizations" class="sidebar__link">🏢 Organizations</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Advanced</div>
+      <a href="#data-engineering" class="sidebar__link">📊 Data Engineering</a>
+      <a href="#well-architected" class="sidebar__link">🏛️ Well-Architected</a>
+      <a href="#sagemaker" class="sidebar__link">🤖 SageMaker & MLOps</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Practice</div>
+      <a href="#architecture" class="sidebar__link">🏛️ Architecture Hub</a>
+      <a href="#interview" class="sidebar__link">🎯 Interview Q&A</a>
+      <a href="#certs" class="sidebar__link">🏆 Certification Hub</a>
+      <a href="#quiz-section" class="sidebar__link">🧠 Quiz</a>
+    </div>
+  </aside>
+
+  <main class="content">
+    <h1>☁️ AWS Cloud Learning</h1>
+    <p style="color:var(--text-dim);font-size:var(--text-lg);margin-bottom:var(--gap-xl)">From IAM to multi-region architectures. SAA-C03 / SAP-C02 / DVA-C02 aligned with real-world production patterns.</p>
+
+    <section id="global">
+      <h2>🌐 AWS Global Infrastructure</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Regions, AZs, Edge Locations</div>
+          <button class="btn btn--outline btn--sm" data-lesson="aws-learning:global">Mark Complete</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Concept</th><th>Definition</th><th>Count (approx)</th></tr></thead>
+            <tbody>
+              <tr><td>Region</td><td>Geographic area with 2+ AZs, independent power/network</td><td>35+ regions</td></tr>
+              <tr><td>Availability Zone (AZ)</td><td>One or more discrete data centers in a region. Connected via low-latency links</td><td>100+ AZs</td></tr>
+              <tr><td>Edge Location</td><td>CloudFront CDN PoP. Closer to users for caching</td><td>400+</td></tr>
+              <tr><td>Local Zone</td><td>AWS infrastructure in metros (e.g., LA, Dallas) for ultra-low latency</td><td>30+</td></tr>
+              <tr><td>Wavelength Zone</td><td>AWS compute at 5G carrier networks. Sub-ms latency to mobile devices</td><td>Select carriers</td></tr>
+              <tr><td>Outpost</td><td>AWS rack installed in your own data center. Runs AWS services on-premises</td><td>Your DC</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Shared Responsibility Model</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Layer</th><th>AWS Responsible</th><th>Customer Responsible</th></tr></thead>
+            <tbody>
+              <tr><td>Physical</td><td>Data center, hardware, host OS</td><td>Nothing</td></tr>
+              <tr><td>IaaS (EC2)</td><td>Hypervisor, host patching</td><td>Guest OS, patches, apps, firewall, data</td></tr>
+              <tr><td>PaaS (RDS)</td><td>DB engine patching, replication, backups</td><td>Schema design, encryption, IAM, network</td></tr>
+              <tr><td>SaaS (S3)</td><td>Durability, hardware, global replication</td><td>Access policies, encryption, versioning</td></tr>
+              <tr><td>Serverless (Lambda)</td><td>Runtime patching, scaling, OS</td><td>Code, IAM role, environment variables, deps</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="iam">
+      <h2>🔑 IAM — Identity and Access Management</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Policy Evaluation Logic</div>
+          <button class="btn btn--outline btn--sm" data-lesson="aws-learning:iam">Mark Complete</button>
+        </div>
+        <p>IAM evaluates policies in this priority order when determining Allow/Deny:</p>
+        <ol>
+          <li><strong>Explicit Deny</strong> in any policy — DENY (cannot be overridden)</li>
+          <li><strong>SCPs (Service Control Policies)</strong> — Organization-level. Must Allow.</li>
+          <li><strong>Resource-based policy</strong> with explicit Allow (cross-account case)</li>
+          <li><strong>IAM permissions boundary</strong> — defines max permissions</li>
+          <li><strong>Session policies</strong> — inline policy during AssumeRole</li>
+          <li><strong>Identity-based policies</strong> (user/group/role policies)</li>
+          <li>Default — <strong>DENY</strong></li>
+        </ol>
+
+        <h3>IAM Policy Anatomy</h3>
+        <pre><code>{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowS3ReadOnly",
+      "Effect": "Allow",
+      "Action": ["s3:GetObject", "s3:ListBucket"],
+      "Resource": [
+        "arn:aws:s3:::my-bucket",
+        "arn:aws:s3:::my-bucket/*"
+      ],
+      "Condition": {
+        "StringEquals": { "aws:RequestedRegion": "us-east-1" },
+        "Bool": { "aws:MultiFactorAuthPresent": "true" }
+      }
+    },
+    {
+      "Sid": "DenyDeleteIfNoMFA",
+      "Effect": "Deny",
+      "Action": "s3:DeleteObject",
+      "Resource": "*",
+      "Condition": {
+        "BoolIfExists": { "aws:MultiFactorAuthPresent": "false" }
+      }
+    }
+  ]
+}</code></pre>
+
+        <h3>Cross-Account Role Trust Policy</h3>
+        <pre><code>// Trust policy — on Role in Account B, trusts Account A
+{
+  "Version": "2012-10-17",
+  "Statement": [{
+    "Effect": "Allow",
+    "Principal": { "AWS": "arn:aws:iam::111111111111:root" },
+    "Action": "sts:AssumeRole",
+    "Condition": {
+      "StringEquals": {
+        "sts:ExternalId": "unique-secret-id"   // prevents confused deputy
+      }
+    }
+  }]
+}
+
+// Assume the role from Account A
+aws sts assume-role \
+  --role-arn "arn:aws:iam::222222222222:role/CrossAccountRole" \
+  --role-session-name "deploy-session" \
+  --external-id "unique-secret-id"</code></pre>
+
+        <h3>IAM Best Practices</h3>
+        <pre><code>// Root account: MFA enabled, no access keys, rarely used
+// Use IAM Identity Center (SSO) for human users
+// Use IAM roles for EC2/Lambda — NEVER hardcode access keys
+// Apply least privilege — start deny all, add specific allows
+// Use permissions boundaries to delegate admin safely
+// Enable CloudTrail for all API calls
+// Use aws:SourceIp condition to restrict by network
+// Use IAM Access Analyzer to find external access
+
+aws iam generate-credential-report
+aws iam get-credential-report --query 'Content' \
+  --output text | base64 -d</code></pre>
+      </div>
+    </section>
+
+    <section id="ec2">
+      <h2>💻 EC2 & Auto Scaling</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Instance Types, EBS Storage & ASG</div>
+          <button class="btn btn--outline btn--sm" data-lesson="aws-learning:ec2">Mark Complete</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Family</th><th>Optimized For</th><th>Examples</th><th>Use Cases</th></tr></thead>
+            <tbody>
+              <tr><td>General Purpose</td><td>Balanced CPU/RAM</td><td>t3, m6i, m7g</td><td>Web servers, dev/test, small DBs</td></tr>
+              <tr><td>Compute Optimized</td><td>High vCPU:RAM ratio</td><td>c6i, c7g</td><td>Batch, HPC, ML inference</td></tr>
+              <tr><td>Memory Optimized</td><td>Large RAM</td><td>r6i, x2idn</td><td>In-memory DBs, Redis, SAP HANA</td></tr>
+              <tr><td>Storage Optimized</td><td>High IOPS/throughput</td><td>i4i, d3, h1</td><td>NoSQL, data warehouses, HDFS</td></tr>
+              <tr><td>Accelerated</td><td>GPU/FPGA</td><td>p4, g5, inf2, trn1</td><td>ML training, video, scientific</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>EBS Volume Types</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Type</th><th>IOPS</th><th>Throughput</th><th>Use Case</th></tr></thead>
+            <tbody>
+              <tr><td>gp3 (SSD)</td><td>Up to 16,000</td><td>Up to 1,000 MiB/s</td><td>General — boot volumes, dev/test</td></tr>
+              <tr><td>io2 Block Express</td><td>Up to 256,000</td><td>Up to 4,000 MiB/s</td><td>Critical DBs, latency-sensitive</td></tr>
+              <tr><td>st1 (HDD)</td><td>500 IOPS</td><td>Up to 500 MiB/s</td><td>Sequential: log processing, big data</td></tr>
+              <tr><td>sc1 (HDD)</td><td>250 IOPS</td><td>Up to 250 MiB/s</td><td>Cold data, infrequent access</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>EC2 Pricing Models</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Model</th><th>Savings</th><th>Commitment</th><th>Best For</th></tr></thead>
+            <tbody>
+              <tr><td>On-Demand</td><td>—</td><td>None</td><td>Short-term, unpredictable, dev/test</td></tr>
+              <tr><td>Savings Plans</td><td>Up to 72%</td><td>1 or 3 years ($/hr)</td><td>Consistent usage, flexible types</td></tr>
+              <tr><td>Reserved Instances</td><td>Up to 75%</td><td>1 or 3 years</td><td>Steady-state, specific instance</td></tr>
+              <tr><td>Spot Instances</td><td>Up to 90%</td><td>None (can interrupt)</td><td>Batch, ML training, CI/CD</td></tr>
+              <tr><td>Dedicated Hosts</td><td>Varies</td><td>On-demand or 1yr</td><td>BYOL licensing, compliance</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Auto Scaling Group — Mixed Instances Policy</h3>
+        <pre><code>aws autoscaling create-auto-scaling-group \
+  --auto-scaling-group-name MyASG \
+  --min-size 2 --max-size 20 --desired-capacity 4 \
+  --vpc-zone-identifier "subnet-aaa,subnet-bbb,subnet-ccc" \
+  --mixed-instances-policy '{
+    "LaunchTemplate": {
+      "LaunchTemplateSpecification": {
+        "LaunchTemplateName": "MyTemplate",
+        "Version": "$Latest"
+      },
+      "Overrides": [
+        {"InstanceType": "m6i.xlarge"},
+        {"InstanceType": "m6a.xlarge"},
+        {"InstanceType": "m5.xlarge"}
+      ]
+    },
+    "InstancesDistribution": {
+      "OnDemandPercentageAboveBaseCapacity": 30,
+      "SpotAllocationStrategy": "capacity-optimized"
+    }
+  }'
+
+# Target tracking scaling policy
+aws autoscaling put-scaling-policy \
+  --auto-scaling-group-name MyASG \
+  --policy-name cpu-target-tracking \
+  --policy-type TargetTrackingScaling \
+  --target-tracking-configuration '{
+    "PredefinedMetricSpecification": {
+      "PredefinedMetricType": "ASGAverageCPUUtilization"
+    },
+    "TargetValue": 70.0,
+    "ScaleInCooldown": 300,
+    "ScaleOutCooldown": 60
+  }'</code></pre>
+
+        <h3>EC2 Instance Metadata (IMDSv2)</h3>
+        <pre><code># IMDSv2 — token-based, secure against SSRF
+TOKEN=$(curl -s -X PUT "http://169.254.169.254/latest/api/token" \
+  -H "X-aws-ec2-metadata-token-ttl-seconds: 21600")
+
+curl -H "X-aws-ec2-metadata-token: $TOKEN" \
+  http://169.254.169.254/latest/meta-data/instance-id
+
+curl -H "X-aws-ec2-metadata-token: $TOKEN" \
+  http://169.254.169.254/latest/meta-data/iam/security-credentials/</code></pre>
+      </div>
+    </section>
+
+    <section id="vpc">
+      <h2>🕸️ VPC Architecture</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Subnets, Security Groups, NACL, Connectivity</div>
+          <button class="btn btn--outline btn--sm" data-lesson="aws-learning:vpc">Mark Complete</button>
+        </div>
+        <pre><code># 3-tier VPC Architecture (3 AZs)
+# ┌─────────────── VPC 10.0.0.0/16 ───────────────────────┐
+# │  AZ-1               AZ-2               AZ-3            │
+# │  Public 10.0.1/24   Public 10.0.2/24   Public 10.0.3/24│
+# │  [NAT GW][ALB]      [ALB]              [ALB]           │
+# │  App    10.0.11/24  App 10.0.12/24     App 10.0.13/24  │
+# │  [EC2/ECS]          [EC2/ECS]          [EC2/ECS]       │
+# │  DB     10.0.21/24  DB 10.0.22/24      DB 10.0.23/24   │
+# │  [RDS/Redis]        [RDS/Redis]        [RDS/Redis]     │
+# └────────────────────────────────────────────────────────┘
+# Internet Gateway (IGW) attached to VPC
+# Public subnets: route 0.0.0.0/0 → IGW
+# Private subnets: route 0.0.0.0/0 → NAT Gateway</code></pre>
+
+        <h3>Security Groups vs NACLs</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Feature</th><th>Security Group</th><th>NACL</th></tr></thead>
+            <tbody>
+              <tr><td>Level</td><td>Instance (ENI)</td><td>Subnet</td></tr>
+              <tr><td>Statefulness</td><td>Stateful — return traffic auto-allowed</td><td>Stateless — allow both directions</td></tr>
+              <tr><td>Rules</td><td>Allow only (implicit deny)</td><td>Allow AND Deny, numbered priority</td></tr>
+              <tr><td>Default behavior</td><td>Deny all inbound, allow all outbound</td><td>Allow all in/out</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>VPC Connectivity Options</h3>
+        <pre><code># VPC Peering — direct, non-transitive, no overlapping CIDRs
+# Must add routes to BOTH VPC route tables
+
+# Transit Gateway — hub-and-spoke, transitive routing
+# VPC A ──┐
+# VPC B ──┼──> TGW <── On-Premises (VPN/Direct Connect)
+# VPC C ──┘
+
+# VPC Endpoints — keep traffic within AWS network
+# Gateway Endpoint (S3 and DynamoDB only — free)
+aws ec2 create-vpc-endpoint \
+  --vpc-id vpc-xxx \
+  --service-name com.amazonaws.us-east-1.s3 \
+  --route-table-ids rtb-xxx
+
+# Interface Endpoint (ENI in subnet — charged)
+aws ec2 create-vpc-endpoint \
+  --vpc-id vpc-xxx \
+  --service-name com.amazonaws.us-east-1.secretsmanager \
+  --vpc-endpoint-type Interface \
+  --subnet-ids subnet-aaa \
+  --security-group-ids sg-xxx
+
+# VPC Flow Logs
+aws ec2 create-flow-logs \
+  --resource-type VPC \
+  --resource-ids vpc-xxx \
+  --traffic-type ALL \
+  --log-destination-type cloud-watch-logs \
+  --log-group-name /aws/vpc/flowlogs</code></pre>
+      </div>
+    </section>
+
+    <section id="s3">
+      <h2>🪣 S3 — Simple Storage Service</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Storage Classes, Lifecycle, Encryption</div>
+          <button class="btn btn--outline btn--sm" data-lesson="aws-learning:s3">Mark Complete</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Storage Class</th><th>Availability</th><th>Retrieval</th><th>Min Duration</th><th>Use Case</th></tr></thead>
+            <tbody>
+              <tr><td>S3 Standard</td><td>99.99%</td><td>ms</td><td>None</td><td>Frequently accessed data</td></tr>
+              <tr><td>Intelligent-Tiering</td><td>99.9%</td><td>ms</td><td>None</td><td>Unknown access patterns</td></tr>
+              <tr><td>Standard-IA</td><td>99.9%</td><td>ms</td><td>30 days</td><td>Infrequent, quick access</td></tr>
+              <tr><td>One Zone-IA</td><td>99.5%</td><td>ms</td><td>30 days</td><td>Non-critical, reproduceable</td></tr>
+              <tr><td>Glacier Instant</td><td>99.9%</td><td>ms</td><td>90 days</td><td>Archives with instant retrieval</td></tr>
+              <tr><td>Glacier Flexible</td><td>99.9%</td><td>minutes-hours</td><td>90 days</td><td>Backup, long-term archive</td></tr>
+              <tr><td>Glacier Deep Archive</td><td>99.9%</td><td>12-48 hours</td><td>180 days</td><td>Compliance, 7-10yr retention</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Lifecycle Policy + Encryption</h3>
+        <pre><code># Lifecycle policy (JSON)
+{
+  "Rules": [{
+    "ID": "archive-logs",
+    "Status": "Enabled",
+    "Filter": {"Prefix": "logs/"},
+    "Transitions": [
+      {"Days": 30, "StorageClass": "STANDARD_IA"},
+      {"Days": 90, "StorageClass": "GLACIER"},
+      {"Days": 365, "StorageClass": "DEEP_ARCHIVE"}
+    ],
+    "Expiration": {"Days": 2555}
+  }]
+}
+
+# Encryption options
+# SSE-S3:   S3 manages keys (AES-256). Default. Free.
+# SSE-KMS:  KMS manages keys. Audit trail. Small cost.
+# SSE-C:    Customer provides key per request.
+# Client-side: Encrypt before upload.
+
+aws s3 cp file.pdf s3://my-bucket/ \
+  --sse aws:kms \
+  --sse-kms-key-id arn:aws:kms:us-east-1:ACCOUNT:key/KEY-ID
+
+# Enforce encryption via bucket policy
+{
+  "Effect": "Deny",
+  "Principal": "*",
+  "Action": "s3:PutObject",
+  "Resource": "arn:aws:s3:::my-bucket/*",
+  "Condition": {
+    "StringNotEquals": {
+      "s3:x-amz-server-side-encryption": "aws:kms"
+    }
+  }
+}
+
+# Presigned URL (expires in 1 hour)
+aws s3 presign s3://my-bucket/private-file.pdf --expires-in 3600
+
+# Python presigned URL
+import boto3
+s3 = boto3.client('s3')
+url = s3.generate_presigned_url(
+    'get_object',
+    Params={'Bucket': 'my-bucket', 'Key': 'private-file.pdf'},
+    ExpiresIn=3600
+)</code></pre>
+      </div>
+    </section>
+
+    <section id="rds">
+      <h2>🗄️ RDS & Aurora</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Multi-AZ vs Read Replicas vs Aurora Global</div>
+          <button class="btn btn--outline btn--sm" data-lesson="aws-learning:rds">Mark Complete</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Feature</th><th>Multi-AZ Standby</th><th>Read Replica</th><th>Aurora Global</th></tr></thead>
+            <tbody>
+              <tr><td>Purpose</td><td>High availability (failover)</td><td>Read scaling</td><td>Multi-region DR + global reads</td></tr>
+              <tr><td>Replication</td><td>Synchronous</td><td>Asynchronous</td><td>Storage-level (&lt;1s)</td></tr>
+              <tr><td>Promotes to primary?</td><td>Auto (60-120s RTO)</td><td>Manual promotion</td><td>Manual (&lt;1 min RPO)</td></tr>
+              <tr><td>Serves reads?</td><td>No (standby not accessible)</td><td>Yes — use read endpoint</td><td>Yes — regional readers</td></tr>
+              <tr><td>Scope</td><td>Different AZ, same region</td><td>Same or cross-region</td><td>Different regions</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <h3>Aurora Key Features</h3>
+        <pre><code># Aurora: AWS-native. 5x MySQL performance, 3x PostgreSQL
+# Storage: auto-grows 10GB → 128TB in 10GB increments
+# Replication: 6 copies across 3 AZs. Quorum writes.
+
+# Endpoints
+# Cluster endpoint: writes → primary instance
+# Reader endpoint: load-balanced reads → all replicas
+# Custom endpoint: specific subset of instances
+
+# Aurora Serverless v2
+# Scales in 0.5 ACU steps, to near-zero
+# Good for: variable workloads, dev/test, new apps
+
+# Cross-region snapshot copy for DR
+aws rds copy-db-snapshot \
+  --source-db-snapshot-identifier arn:aws:rds:us-east-1:ACCOUNT:snapshot:mydb-snap \
+  --target-db-snapshot-identifier mydb-snap-dr \
+  --region us-west-2 \
+  --kms-key-id arn:aws:kms:us-west-2:ACCOUNT:key/KEY-ID</code></pre>
+      </div>
+    </section>
+
+    <section id="dynamodb">
+      <h2>⚡ DynamoDB</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Data Modeling, RCU/WCU, Single-Table Design</div>
+          <button class="btn btn--outline btn--sm" data-lesson="aws-learning:dynamodb">Mark Complete</button>
+        </div>
+        <h3>RCU / WCU Calculations</h3>
+        <pre><code># Read Capacity Unit (RCU):
+# 1 RCU = 1 strongly consistent read/sec for item up to 4KB
+# 1 RCU = 2 eventually consistent reads/sec for item up to 4KB
+# Example: 100 strongly consistent reads/sec, avg item 6KB
+# RCUs = 100 * ceil(6/4) = 100 * 2 = 200 RCU
+
+# Write Capacity Unit (WCU):
+# 1 WCU = 1 write/sec for item up to 1KB</code></pre>
+
+        <h3>Single-Table Design Pattern</h3>
+        <pre><code># Store multiple entity types with overloaded PK/SK
+# PK              | SK                | attributes
+# USER#u123       | PROFILE           | name, email
+# USER#u123       | ORDER#o456        | total, status
+# PRODUCT#p001    | METADATA          | name, price
+# PRODUCT#p001    | REVIEW#r321       | rating, text
+
+import boto3
+from boto3.dynamodb.conditions import Key, Attr
+
+dynamodb = boto3.resource('dynamodb')
+table = dynamodb.Table('AppTable')
+
+# Query all orders for a user (newest first)
+response = table.query(
+    KeyConditionExpression=Key('PK').eq('USER#u123') &
+                          Key('SK').begins_with('ORDER#'),
+    ScanIndexForward=False,
+    Limit=10
+)
+
+# Conditional update (optimistic locking)
+table.update_item(
+    Key={'PK': 'PRODUCT#p001', 'SK': 'METADATA'},
+    UpdateExpression='SET price = :p, version = version + :inc',
+    ConditionExpression=Attr('version').eq(current_version),
+    ExpressionAttributeValues={':p': 29.99, ':inc': 1}
+)
+
+# Transactional write (atomic multi-item)
+dynamodb.meta.client.transact_write(
+    TransactItems=[
+        {'Put': {'TableName': 'AppTable', 'Item': order_item}},
+        {'Update': {
+            'TableName': 'AppTable',
+            'Key': {'PK': 'USER#u123', 'SK': 'STATS'},
+            'UpdateExpression': 'SET order_count = order_count + :inc',
+            'ExpressionAttributeValues': {':inc': 1}
+        }}
+    ]
+)</code></pre>
+      </div>
+    </section>
+
+    <section id="elasticache">
+      <h2>🔴 ElastiCache</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Redis vs Memcached + Caching Patterns</div>
+          <button class="btn btn--outline btn--sm" data-lesson="aws-learning:elasticache">Mark Complete</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Feature</th><th>Redis</th><th>Memcached</th></tr></thead>
+            <tbody>
+              <tr><td>Data Structures</td><td>Strings, Lists, Sets, Sorted Sets, Hashes, Streams</td><td>Strings only</td></tr>
+              <tr><td>Persistence</td><td>RDB snapshots + AOF</td><td>None</td></tr>
+              <tr><td>Replication</td><td>Primary + replicas, Multi-AZ, Global Datastore</td><td>No replication</td></tr>
+              <tr><td>Pub/Sub</td><td>Yes</td><td>No</td></tr>
+              <tr><td>Choose when</td><td>Sessions, leaderboards, real-time analytics, queues</td><td>Simple caching, multi-threaded</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <h3>Caching Strategies</h3>
+        <pre><code># Cache-Aside (Lazy Loading) — most common
+import redis, json, boto3
+
+r = redis.Redis(host='cluster.xxx.cache.amazonaws.com', port=6379)
+
+def get_user(user_id):
+    key = f"user:{user_id}"
+    cached = r.get(key)
+    if cached:
+        return json.loads(cached)
+    user = db.query("SELECT * FROM users WHERE id=%s", user_id)
+    r.setex(key, 3600, json.dumps(user))   # TTL 1 hour
+    return user
+
+# Write-Through — write to cache AND DB simultaneously
+def update_user(user_id, data):
+    db.update(user_id, data)
+    r.setex(f"user:{user_id}", 3600, json.dumps(data))</code></pre>
+      </div>
+    </section>
+
+    <section id="lambda">
+      <h2>λ Lambda — Serverless Compute</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Cold Starts, Concurrency, Destinations</div>
+          <button class="btn btn--outline btn--sm" data-lesson="aws-learning:lambda">Mark Complete</button>
+        </div>
+        <pre><code># Cold start optimization
+# 1. Use ARM64 (Graviton2) — faster init, cheaper
+# 2. Minimize package size — trim dependencies
+# 3. Python/Node cold starts faster than Java
+# 4. Provisioned Concurrency — pre-warm N instances
+# 5. Keep SDK clients OUTSIDE the handler (reused on warm invokes)
+
+import json, boto3
+
+# Initialize outside handler — reused on warm invocations
+dynamodb = boto3.resource('dynamodb')
+table = dynamodb.Table('AppTable')
+
+def lambda_handler(event, context):
+    try:
+        body = json.loads(event.get('body', '{}'))
+        result = table.get_item(Key={'PK': f"USER#{body['userId']}"})
+        return {
+            'statusCode': 200,
+            'headers': {'Content-Type': 'application/json'},
+            'body': json.dumps(result.get('Item', {}))
+        }
+    except Exception as e:
+        return {'statusCode': 500, 'body': json.dumps({'error': str(e)})}
+
+# Concurrency limits
+# Account default: 1000 concurrent executions per region
+# Reserved concurrency: guarantee for critical functions
+# Provisioned concurrency: always-warm (zero cold start)
+
+# Async invocation destinations
+aws lambda put-function-event-invoke-config \
+  --function-name MyFunction \
+  --destination-config '{
+    "OnSuccess": {"Destination": "arn:aws:sqs:::success-queue"},
+    "OnFailure": {"Destination": "arn:aws:sqs:::dlq"}
+  }'</code></pre>
+      </div>
+    </section>
+
+    <section id="route53">
+      <h2>🌍 Route 53</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Routing Policies & Health Checks</div>
+          <button class="btn btn--outline btn--sm" data-lesson="aws-learning:route53">Mark Complete</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Routing Policy</th><th>Use Case</th><th>Key Feature</th></tr></thead>
+            <tbody>
+              <tr><td>Simple</td><td>Single resource</td><td>Returns all values randomly if multiple</td></tr>
+              <tr><td>Failover</td><td>Active-passive DR</td><td>Health check → switch to secondary</td></tr>
+              <tr><td>Weighted</td><td>A/B testing, canary</td><td>10% new, 90% old</td></tr>
+              <tr><td>Latency</td><td>Multi-region apps</td><td>Route to region with lowest latency</td></tr>
+              <tr><td>Geolocation</td><td>Compliance, content</td><td>Route by user's country/continent</td></tr>
+              <tr><td>Geoproximity</td><td>Custom geographic routing</td><td>Distance + bias (Traffic Flow)</td></tr>
+              <tr><td>Multi-Value Answer</td><td>Simple load balancing</td><td>Returns up to 8 healthy records</td></tr>
+              <tr><td>IP-based</td><td>CIDR-based routing</td><td>Route ISP/corporate IPs to endpoints</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <h3>Alias vs CNAME</h3>
+        <pre><code># CNAME: maps hostname to hostname.
+#   Cannot be at zone apex (myapp.com). Charged per query.
+
+# Alias: Route53-specific. Points hostname to AWS resource.
+#   Free queries. CAN be at zone apex.
+#   Use Alias for: ELB, CloudFront, S3 static site, API Gateway
+
+# Create health check
+aws route53 create-health-check \
+  --caller-reference "hc-$(date +%s)" \
+  --health-check-config '{
+    "Type": "HTTPS",
+    "FullyQualifiedDomainName": "api.myapp.com",
+    "Port": 443,
+    "ResourcePath": "/health",
+    "RequestInterval": 30,
+    "FailureThreshold": 3
+  }'</code></pre>
+      </div>
+    </section>
+
+    <section id="cloudfront">
+      <h2>⚡ CloudFront</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Cache Behaviors, OAC, Edge Functions</div>
+          <button class="btn btn--outline btn--sm" data-lesson="aws-learning:cloudfront">Mark Complete</button>
+        </div>
+        <pre><code># CloudFront Distribution (Terraform-style pseudocode)
+resource "aws_cloudfront_distribution" "main" {
+  origin {
+    domain_name = aws_s3_bucket.app.bucket_regional_domain_name
+    origin_access_control_id = aws_cloudfront_origin_access_control.oac.id
+  }
+
+  # Default cache behavior (HTML pages — no cache)
+  default_cache_behavior {
+    viewer_protocol_policy = "redirect-to-https"
+    cache_policy_id        = "4135ea2d-6df8-44a3-9df3-4b5a84be39ad" # CachingDisabled
+    allowed_methods        = ["GET", "HEAD", "OPTIONS"]
+    target_origin_id       = "s3-origin"
+  }
+
+  # Ordered cache behavior (static assets — long cache)
+  ordered_cache_behavior {
+    path_pattern     = "/static/*"
+    viewer_protocol_policy = "redirect-to-https"
+    cache_policy_id  = "658327ea-f89d-4fab-a63d-7e88639e58f6" # CachingOptimized
+    compress         = true
+    target_origin_id = "s3-origin"
+  }
+}
+
+# Lambda@Edge vs CloudFront Functions
+# Lambda@Edge:
+#   - Viewer/Origin request+response (4 trigger points)
+#   - Node.js or Python, up to 10s (origin), 5s (viewer)
+#   - Use for: auth, URL rewrites, A/B testing
+# CloudFront Functions:
+#   - Viewer request/response only
+#   - JS only, &lt;1ms, very cheap
+#   - Use for: simple redirects, header manipulation, URL normalization</code></pre>
+      </div>
+    </section>
+
+    <section id="ecs">
+      <h2>🐳 ECS / EKS / ECR</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Container Orchestration on AWS</div>
+          <button class="btn btn--outline btn--sm" data-lesson="aws-learning:ecs">Mark Complete</button>
+        </div>
+        <h3>ECS Fargate Task Definition</h3>
+        <pre><code>{
+  "family": "myapp",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "512", "memory": "1024",
+  "executionRoleArn": "arn:aws:iam::ACCOUNT:role/ecsTaskExecutionRole",
+  "taskRoleArn": "arn:aws:iam::ACCOUNT:role/myAppTaskRole",
+  "containerDefinitions": [{
+    "name": "myapp",
+    "image": "ACCOUNT.dkr.ecr.us-east-1.amazonaws.com/myapp:latest",
+    "portMappings": [{"containerPort": 3000}],
+    "secrets": [{
+      "name": "DB_PASSWORD",
+      "valueFrom": "arn:aws:secretsmanager:us-east-1:ACCOUNT:secret:db-pass"
+    }],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "/ecs/myapp",
+        "awslogs-region": "us-east-1",
+        "awslogs-stream-prefix": "ecs"
+      }
+    },
+    "healthCheck": {
+      "command": ["CMD-SHELL", "curl -f http://localhost:3000/health || exit 1"],
+      "interval": 30, "timeout": 5, "retries": 3
+    }
+  }]
+}</code></pre>
+
+        <h3>EKS with IRSA (IAM Roles for Service Accounts)</h3>
+        <pre><code># IRSA: pod-level IAM — no need for node instance role
+
+# 1. Enable OIDC provider
+eksctl utils associate-iam-oidc-provider \
+  --cluster my-cluster --approve
+
+# 2. Create IAM service account
+eksctl create iamserviceaccount \
+  --name myapp-sa \
+  --namespace myapp \
+  --cluster my-cluster \
+  --attach-policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess \
+  --approve
+
+# 3. Reference in pod spec
+apiVersion: v1
+kind: Pod
+spec:
+  serviceAccountName: myapp-sa   # AWS SDK auto-discovers role
+  containers:
+  - name: myapp
+    image: myapp:latest</code></pre>
+      </div>
+    </section>
+
+    <section id="security">
+      <h2>🔒 Security Services</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">KMS, WAF, GuardDuty, Secrets Manager</div>
+          <button class="btn btn--outline btn--sm" data-lesson="aws-learning:security">Mark Complete</button>
+        </div>
+        <h3>KMS Envelope Encryption</h3>
+        <pre><code># CMK (Customer Master Key) → encrypts Data Key → Data Key encrypts data
+# CMK never leaves KMS. Only encrypted data key stored with ciphertext.
+
+import boto3
+kms = boto3.client('kms')
+
+# Generate data key
+response = kms.generate_data_key(
+    KeyId='arn:aws:kms:us-east-1:ACCOUNT:key/KEY-ID',
+    KeySpec='AES_256'
+)
+plaintext_key = response['Plaintext']       # use for encryption, then discard
+encrypted_key = response['CiphertextBlob']  # store with encrypted data
+
+# Decrypt data key later
+response = kms.decrypt(CiphertextBlob=encrypted_key)
+plaintext_key = response['Plaintext']</code></pre>
+
+        <h3>GuardDuty Finding Categories</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Category</th><th>Example Findings</th></tr></thead>
+            <tbody>
+              <tr><td>Backdoor</td><td>EC2 communicating with C2 servers, crypto mining</td></tr>
+              <tr><td>UnauthorizedAccess</td><td>API calls from TOR exit node, root credentials from unusual location</td></tr>
+              <tr><td>Recon</td><td>Port scanning from EC2, failed logins</td></tr>
+              <tr><td>Credential</td><td>IAM credentials used from unexpected account</td></tr>
+              <tr><td>Exfiltration</td><td>S3 accessed from unusual geo, large data download</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Secrets Manager vs Parameter Store</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Feature</th><th>Secrets Manager</th><th>Parameter Store</th></tr></thead>
+            <tbody>
+              <tr><td>Auto-rotation</td><td>Yes (Lambda, built-in for RDS)</td><td>No</td></tr>
+              <tr><td>Cost</td><td>$0.40/secret/month</td><td>Standard: Free. Advanced: $0.05/param/mo</td></tr>
+              <tr><td>Cross-account</td><td>Yes (resource policy)</td><td>No</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <pre><code>import boto3, json
+sm = boto3.client('secretsmanager')
+secret = json.loads(
+    sm.get_secret_value(SecretId='myapp/prod/db')['SecretString']
+)
+DB_PASSWORD = secret['password']</code></pre>
+      </div>
+    </section>
+
+    <section id="monitoring">
+      <h2>📊 CloudWatch & Observability</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Logs Insights Queries & Alarms</div>
+          <button class="btn btn--outline btn--sm" data-lesson="aws-learning:monitoring">Mark Complete</button>
+        </div>
+        <pre><code># CloudWatch Logs Insights
+
+# Top Lambda errors
+fields @timestamp, @message
+| filter @message like /ERROR/
+| stats count(*) as errorCount by @logStream
+| sort errorCount desc | limit 20
+
+# P99 API latency over time
+fields @timestamp, responseLatency
+| stats pct(responseLatency, 99) as p99, avg(responseLatency) as avg
+  by bin(5m)
+
+# 5xx errors by endpoint
+fields @timestamp, request, status
+| filter status >= 500
+| stats count(*) as errors by request
+| sort errors desc
+
+# Create composite alarm (reduce noise)
+aws cloudwatch put-composite-alarm \
+  --alarm-name "Application-Down" \
+  --alarm-rule "ALARM(Lambda-HighErrorRate) AND ALARM(ALB-5xx-High)" \
+  --alarm-actions arn:aws:sns:us-east-1:ACCOUNT:ops-pagerduty</code></pre>
+      </div>
+    </section>
+
+    <section id="organizations">
+      <h2>🏢 AWS Organizations & Well-Architected</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Multi-Account Strategy & 6 Pillars</div>
+          <button class="btn btn--outline btn--sm" data-lesson="aws-learning:organizations">Mark Complete</button>
+        </div>
+        <pre><code># Recommended OU structure
+# Root
+#   Management (payer — no workloads)
+#   Security (centralized tools, logs)
+#     Audit (CloudTrail, Config)
+#     Log Archive
+#   Infrastructure (shared services)
+#     Network (TGW, DNS, Shared VPC)
+#     Tooling (CI/CD, artifact repos)
+#   Workloads
+#     Production
+#       App1-Prod, App2-Prod
+#     Non-Production
+#       Dev, Staging
+#   Sandbox (experimentation, relaxed guardrails)</code></pre>
+
+        <h3>Well-Architected 6 Pillars</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Pillar</th><th>Key Principles</th><th>Key Services</th></tr></thead>
+            <tbody>
+              <tr><td>Operational Excellence</td><td>IaC, small reversible changes, runbooks</td><td>CloudFormation, Systems Manager, CloudWatch</td></tr>
+              <tr><td>Security</td><td>Zero trust, least privilege, encryption, audit trails</td><td>IAM, KMS, GuardDuty, Security Hub, WAF</td></tr>
+              <tr><td>Reliability</td><td>Multi-AZ/region, auto-recovery, chaos testing</td><td>Route53, ASG, RDS Multi-AZ, S3, Backup</td></tr>
+              <tr><td>Performance Efficiency</td><td>Right-sizing, serverless, CDN, caching</td><td>CloudFront, ElastiCache, Lambda, Graviton</td></tr>
+              <tr><td>Cost Optimization</td><td>Reserved/Spot, right-sizing, turn off unused</td><td>Cost Explorer, Trusted Advisor, Budgets</td></tr>
+              <tr><td>Sustainability</td><td>Right-sizing, minimize waste, efficient code</td><td>Graviton, Spot, serverless, low-carbon regions</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="architecture">
+      <h2>🏛️ Reference Architectures</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">3-Tier Web + Event-Driven Serverless</div>
+          <button class="btn btn--outline btn--sm" data-lesson="aws-learning:architecture">Mark Complete</button>
+        </div>
+        <h3>3-Tier Web Architecture</h3>
+        <pre><code># Internet → Route53 → CloudFront (CDN) → WAF v2
+#   → Application Load Balancer (ALB)
+#   → ECS Fargate (multi-AZ, auto-scale)
+#   → Aurora PostgreSQL (Multi-AZ, read replicas)
+#   → ElastiCache Redis (session + query cache)
+#   → S3 (static assets, user uploads)
+#   → Secrets Manager (DB creds, API keys)
+#   → CloudWatch + X-Ray (observability)</code></pre>
+
+        <h3>Event-Driven Serverless Pipeline</h3>
+        <pre><code># S3 upload → Lambda (validate)
+#   → SQS (buffer, retry) → Lambda (transform)
+#   → DynamoDB → DynamoDB Streams
+#   → Lambda → EventBridge → downstream services
+
+# Benefits: scale to zero, loose coupling,
+# built-in retry with DLQ, no server management</code></pre>
+      </div>
+    </section>
+
+    <section id="interview">
+      <h2>🎯 AWS Interview Questions</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Top 10 AWS Interview Q&A</div>
+          <button class="btn btn--outline btn--sm" data-lesson="aws-learning:interview">Mark Complete</button>
+        </div>
+
+        <h3>Q1: S3 returns 403. What do you check?</h3>
+        <p>1) Bucket policy — any explicit Deny? 2) IAM policy — does principal have s3:GetObject? 3) Block Public Access settings. 4) S3 Object ACLs. 5) KMS key policy — if encrypted, does IAM have kms:Decrypt? 6) Cross-account — resource-based policy allows? 7) VPC endpoint policy (if using endpoint).</p>
+
+        <h3>Q2: How does Auto Scaling decide when to scale?</h3>
+        <p>ASG uses <strong>scaling policies</strong>: Target Tracking (maintain metric at target — CPU=70%), Step Scaling (step adjustments on alarm threshold breaches), Scheduled (pre-warm at 9am), Predictive (ML-based, scales before load arrives). Cooldown periods prevent thrashing.</p>
+
+        <h3>Q3: Difference between NLB and ALB?</h3>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Feature</th><th>ALB (Layer 7)</th><th>NLB (Layer 4)</th></tr></thead>
+          <tbody>
+            <tr><td>Layer</td><td>HTTP/HTTPS</td><td>TCP/UDP/TLS</td></tr>
+            <tr><td>Routing</td><td>Path, host, headers, query string</td><td>IP + port only</td></tr>
+            <tr><td>Static IP</td><td>No (use Global Accelerator)</td><td>Yes (Elastic IP per AZ)</td></tr>
+            <tr><td>Use for</td><td>Web apps, microservices</td><td>Gaming, IoT, low-latency financial</td></tr>
+          </tbody>
+        </table></div>
+
+        <h3>Q4: How to design for 99.99% availability?</h3>
+        <p>Multi-AZ (3 AZs) + Multi-region (Route53 failover with health checks). Stateless compute (session in Redis/DynamoDB). DB: RDS Multi-AZ or Aurora Global. CDN for static. Circuit breakers for cascades. Chaos testing to verify recovery. RTO/RPO targets define architecture choices.</p>
+
+        <h3>Q5: Explain DynamoDB hot partition problem</h3>
+        <p>Hot partition occurs when too many reads/writes go to a single partition (e.g., using timestamp or status as PK — low cardinality). Fix: use high-cardinality keys (UUID, userId). For write-heavy: add random suffix to PK (write sharding), combine in GSI for reads.</p>
+
+        <h3>Q6: How does CloudFront cache invalidation work?</h3>
+        <p>Files cached until TTL expires OR explicit invalidation. Specify path patterns (<code>/images/*</code>). First 1000 paths/month free, then $0.005/path. Best practice: use versioned filenames (<code>app.v2.js</code>) to avoid invalidations — deploy new version, update HTML reference.</p>
+
+        <h3>Q7: What is the purpose of a NAT Gateway?</h3>
+        <p>Allows instances in private subnets to initiate outbound internet connections (e.g., for OS updates, API calls) without allowing inbound connections from the internet. NAT GW is in a public subnet; private subnet route table sends 0.0.0.0/0 to NAT GW. Managed, scales automatically, $0.045/hour + data processing.</p>
+      </div>
+    </section>
+
+    <section id="certs">
+      <h2>🏆 AWS Certification Hub</h2>
+      <div class="grid-2">
+        <div class="card card--glow">
+          <h3>CLF-C02 — Cloud Practitioner</h3>
+          <p style="color:var(--text-dim)">Entry-level. Business/technical fundamentals of AWS.</p>
+          <p><strong>Questions:</strong> 65 | <strong>Duration:</strong> 90min | <strong>Pass:</strong> 700/1000 | <strong>Cost:</strong> $100</p>
+          <span class="badge badge--success">Beginner</span>
+        </div>
+        <div class="card card--glow">
+          <h3>SAA-C03 — Solutions Architect Associate</h3>
+          <p style="color:var(--text-dim)">Most popular AWS cert. Design resilient, cost-optimized architectures.</p>
+          <p><strong>Questions:</strong> 65 | <strong>Duration:</strong> 130min | <strong>Pass:</strong> 720/1000 | <strong>Cost:</strong> $150</p>
+          <span class="badge badge--warning">Intermediate</span>
+        </div>
+        <div class="card card--glow">
+          <h3>DVA-C02 — Developer Associate</h3>
+          <p style="color:var(--text-dim)">Serverless, CI/CD, SDK, Lambda, DynamoDB deep dive.</p>
+          <p><strong>Questions:</strong> 65 | <strong>Duration:</strong> 130min | <strong>Pass:</strong> 720/1000 | <strong>Cost:</strong> $150</p>
+          <span class="badge badge--warning">Intermediate</span>
+        </div>
+        <div class="card card--glow">
+          <h3>SAP-C02 — Solutions Architect Professional</h3>
+          <p style="color:var(--text-dim)">Complex architectures, migrations, enterprise cost optimization.</p>
+          <p><strong>Questions:</strong> 75 | <strong>Duration:</strong> 180min | <strong>Pass:</strong> 750/1000 | <strong>Cost:</strong> $300</p>
+          <span class="badge badge--danger">Advanced</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="data-engineering">
+      <h2>📊 AWS Data Engineering &amp; Analytics</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Glue, Athena, Kinesis, Redshift, Lake Formation</div>
+          <button class="btn btn--outline btn--sm" data-lesson="aws-learning:data-engineering">Mark Complete</button>
+        </div>
+
+        <h3>AWS Data Lake Architecture</h3>
+        <pre><code>S3 Raw Zone → Glue ETL → S3 Curated Zone → Athena/Redshift → QuickSight
+     ↑              ↑              ↑
+  Kinesis       Glue Catalog    Lake Formation
+  Data Firehose  (Hive Metastore)  (column-level security)</code></pre>
+
+        <h3>Amazon Kinesis — Real-Time Streaming</h3>
+        <pre><code>┌─────────────────────────────────────────────────────┐
+│ Kinesis Data Streams    │ Kinesis Firehose           │
+│ • Manual shard scaling  │ • Fully managed delivery   │
+│ • 1–365 day retention   │ • Auto-scales              │
+│ • Custom consumer apps  │ → S3, Redshift, OpenSearch │
+│ • Replay capability     │ • Transforms via Lambda    │
+└─────────────────────────────────────────────────────┘</code></pre>
+        <pre><code class="language-python"># Kinesis producer — put a single record
+import boto3, json, time
+
+kinesis = boto3.client('kinesis', region_name='us-east-1')
+
+record = {
+    'user_id': 'u-1234',
+    'event': 'purchase',
+    'amount': 59.99,
+    'timestamp': int(time.time())
+}
+
+kinesis.put_record(
+    StreamName='user-events',
+    Data=json.dumps(record),
+    PartitionKey=record['user_id']   # routes to consistent shard
+)</code></pre>
+        <pre><code class="language-python"># Kinesis consumer — read from a shard
+shard_id = 'shardId-000000000000'
+resp = kinesis.get_shard_iterator(
+    StreamName='user-events',
+    ShardId=shard_id,
+    ShardIteratorType='TRIM_HORIZON'   # read from oldest record
+)
+iterator = resp['ShardIterator']
+
+while True:
+    result = kinesis.get_records(ShardIterator=iterator, Limit=100)
+    for rec in result['Records']:
+        data = json.loads(rec['Data'])
+        print(data)
+    iterator = result['NextShardIterator']
+    time.sleep(1)   # poll interval</code></pre>
+        <p><strong>Key concept:</strong> Each shard = <strong>1 MB/s write</strong>, <strong>2 MB/s read</strong>, <strong>1,000 records/s</strong>. Scale by adding shards (split) or reducing (merge).</p>
+
+        <h3>AWS Glue — Serverless ETL</h3>
+        <pre><code class="language-python"># Glue PySpark job example
+import sys
+from awsglue.transforms import *
+from awsglue.utils import getResolvedOptions
+from pyspark.context import SparkContext
+from awsglue.context import GlueContext
+from awsglue.job import Job
+
+args = getResolvedOptions(sys.argv, ['JOB_NAME', 'source_bucket', 'target_bucket'])
+sc = SparkContext()
+glueContext = GlueContext(sc)
+spark = glueContext.spark_session
+job = Job(glueContext)
+job.init(args['JOB_NAME'], args)
+
+# Read from S3 (Glue DynamicFrame)
+raw_data = glueContext.create_dynamic_frame.from_options(
+    connection_type="s3",
+    connection_options={"paths": [f"s3://{args['source_bucket']}/raw/"]},
+    format="json"
+)
+
+# Apply transformations
+from awsglue.transforms import ApplyMapping, DropNullFields
+mapped = ApplyMapping.apply(
+    frame=raw_data,
+    mappings=[
+        ("user_id",    "string", "user_id",             "string"),
+        ("event_time", "string", "event_timestamp",     "timestamp"),
+        ("amount",     "double", "transaction_amount",  "decimal"),
+    ]
+)
+clean = DropNullFields.apply(frame=mapped)
+
+# Write to Parquet in S3 (partitioned)
+glueContext.write_dynamic_frame.from_options(
+    frame=clean,
+    connection_type="s3",
+    connection_options={
+        "path": f"s3://{args['target_bucket']}/curated/",
+        "partitionKeys": ["year", "month", "day"]
+    },
+    format="parquet"
+)
+job.commit()</code></pre>
+
+        <h3>Amazon Athena — Serverless SQL on S3</h3>
+        <pre><code class="language-sql">-- Create external table over S3 Parquet data
+CREATE EXTERNAL TABLE transactions (
+    user_id     STRING,
+    event_time  TIMESTAMP,
+    amount      DECIMAL(10,2),
+    category    STRING
+)
+PARTITIONED BY (year INT, month INT, day INT)
+STORED AS PARQUET
+LOCATION 's3://my-data-lake/curated/transactions/'
+TBLPROPERTIES ('parquet.compress'='SNAPPY');
+
+-- Load partitions (or use MSCK REPAIR TABLE)
+ALTER TABLE transactions ADD PARTITION (year=2024, month=1, day=15)
+LOCATION 's3://my-data-lake/curated/transactions/year=2024/month=1/day=15/';
+
+-- Query with partition pruning (efficient — scans only relevant partitions)
+SELECT category, SUM(amount) AS total, COUNT(*) AS tx_count
+FROM transactions
+WHERE year = 2024 AND month = 1
+GROUP BY category
+ORDER BY total DESC;
+
+-- Cost optimization: always filter on partition keys, use columnar format
+-- $5 per TB scanned — partitioning can reduce cost 99%</code></pre>
+
+        <h3>Amazon Redshift — Cloud Data Warehouse</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Feature</th><th>Detail</th></tr></thead>
+            <tbody>
+              <tr><td>Architecture</td><td>MPP (Massively Parallel Processing), leader node + compute nodes</td></tr>
+              <tr><td>Distribution styles</td><td>KEY (join columns), EVEN (large fact tables), ALL (small dimension tables)</td></tr>
+              <tr><td>Sort keys</td><td>Compound (range filters), Interleaved (multiple filter columns)</td></tr>
+              <tr><td>Spectrum</td><td>Query S3 directly from Redshift — federated queries without loading</td></tr>
+              <tr><td>RA3 nodes</td><td>Separate compute from storage (managed storage on S3)</td></tr>
+              <tr><td>Concurrency Scaling</td><td>Auto-adds read capacity during query bursts</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <pre><code class="language-sql">-- Redshift best practices
+-- 1. Choose correct distribution key (avoids data redistribution)
+CREATE TABLE orders (
+    order_id    BIGINT,
+    customer_id INT,
+    amount      DECIMAL(12,2)
+)
+DISTKEY(customer_id)    -- co-locate with customers table
+SORTKEY(order_date);    -- range filter optimization
+
+-- 2. VACUUM + ANALYZE after bulk loads
+VACUUM orders;
+ANALYZE orders;
+
+-- 3. WLM (Workload Management) — queue management
+-- Assign query groups to queues with memory/slot allocation</code></pre>
+
+        <h3>Lake Formation — Data Lake Security</h3>
+        <ul>
+          <li><strong>Column-level security</strong> — grant access to specific columns only</li>
+          <li><strong>Row-level filters</strong> — restrict rows based on user's department/region</li>
+          <li><strong>LF-Tags (attribute-based access control)</strong> — tag resources, assign permissions to tags</li>
+          <li><strong>Governed tables</strong> — atomic transactions on S3, automatic compaction</li>
+          <li><strong>Cross-account data sharing</strong> without data movement (RAM + LF)</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="well-architected">
+      <h2>🏛️ AWS Well-Architected Framework</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Six Pillars for Production-Grade Architecture</div>
+          <button class="btn btn--outline btn--sm" data-lesson="aws-learning:well-architected">Mark Complete</button>
+        </div>
+
+        <h3>The Six Pillars</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Pillar</th><th>Core Question</th><th>Key Practices</th></tr></thead>
+            <tbody>
+              <tr><td>Operational Excellence</td><td>How do you run and improve operations?</td><td>IaC, runbooks, observability, event-driven ops</td></tr>
+              <tr><td>Security</td><td>How do you protect data and systems?</td><td>IAM least privilege, encryption, GuardDuty, Config rules</td></tr>
+              <tr><td>Reliability</td><td>How do you recover from failures?</td><td>Multi-AZ, auto-scaling, chaos engineering, backup/restore</td></tr>
+              <tr><td>Performance Efficiency</td><td>How do you use resources efficiently?</td><td>Right-sizing, serverless, caching, Global Accelerator</td></tr>
+              <tr><td>Cost Optimization</td><td>How do you avoid unnecessary costs?</td><td>Savings Plans, Spot instances, S3 lifecycle, rightsizing</td></tr>
+              <tr><td>Sustainability</td><td>How do you minimize environmental impact?</td><td>Graviton processors, efficient architectures, managed services</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Multi-Region Active-Active Architecture</h3>
+        <pre><code>                    Route 53 Latency Routing
+                   /                        \
+         us-east-1                      eu-west-1
+         ┌──────┐                       ┌──────┐
+         │ ALB  │                       │ ALB  │
+         └──┬───┘                       └──┬───┘
+         ┌──▼───┐                       ┌──▼───┐
+         │ ECS  │                       │ ECS  │
+         └──┬───┘                       └──┬───┘
+         ┌──▼────────────────────────────▼──┐
+         │   Aurora Global Database          │
+         │  Primary (us-east-1)              │
+         │  Replica (eu-west-1) — &lt;1s lag   │
+         └───────────────────────────────────┘
+         ┌──────────────────────────────────┐
+         │   DynamoDB Global Tables          │
+         │   (multi-master, eventual)        │
+         └──────────────────────────────────┘</code></pre>
+
+        <h3>Disaster Recovery Strategies</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Strategy</th><th>RTO</th><th>RPO</th><th>Cost</th><th>Implementation</th></tr></thead>
+            <tbody>
+              <tr><td>Backup &amp; Restore</td><td>Hours</td><td>Hours</td><td>$</td><td>S3 backups, restore on disaster</td></tr>
+              <tr><td>Pilot Light</td><td>10–30 min</td><td>Minutes</td><td>$$</td><td>Core infra running, scale on disaster</td></tr>
+              <tr><td>Warm Standby</td><td>Minutes</td><td>Seconds</td><td>$$$</td><td>Scaled-down prod in second region</td></tr>
+              <tr><td>Active-Active</td><td>Seconds</td><td>Near-zero</td><td>$$$$</td><td>Full prod in both regions, Route 53 failover</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Cost Optimization Deep Dive</h3>
+        <pre><code class="language-bash"># AWS Cost anomaly detection
+aws ce create-anomaly-monitor \
+  --anomaly-monitor '{"MonitorName":"SpendMonitor","MonitorType":"DIMENSIONAL","MonitorDimension":"SERVICE"}'
+
+# Compute Optimizer recommendations
+aws compute-optimizer get-ec2-instance-recommendations \
+  --filters Name=Finding,Values=Overprovisioned
+
+# Reserved Instance coverage report
+aws ce get-reservation-coverage \
+  --time-period Start=2024-01-01,End=2024-01-31 \
+  --granularity MONTHLY
+
+# Key strategies:
+# • EC2: Savings Plans (1-3yr) = 30-70% off; Spot = 90% off (fault-tolerant workloads)
+# • RDS: Reserved instances for production databases
+# • S3: Lifecycle policies (Standard → IA after 30d → Glacier after 90d → delete after 7yr)
+# • Trusted Advisor: checks for idle resources, underutilized EBS, unassociated EIPs</code></pre>
+
+        <h3>Service Control Policies (SCPs) — Guardrails at Scale</h3>
+        <pre><code class="language-json">{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "DenyNonApprovedRegions",
+      "Effect": "Deny",
+      "Action": "*",
+      "Resource": "*",
+      "Condition": {
+        "StringNotEquals": {
+          "aws:RequestedRegion": ["us-east-1", "eu-west-1", "ap-southeast-1"]
+        },
+        "ArnNotLike": {
+          "aws:PrincipalARN": "arn:aws:iam::*:role/GlobalAdmin"
+        }
+      }
+    },
+    {
+      "Sid": "DenyRootAccountActions",
+      "Effect": "Deny",
+      "Action": "*",
+      "Resource": "*",
+      "Condition": {
+        "StringEquals": {
+          "aws:PrincipalType": "Root"
+        }
+      }
+    },
+    {
+      "Sid": "RequireS3Encryption",
+      "Effect": "Deny",
+      "Action": "s3:PutObject",
+      "Resource": "*",
+      "Condition": {
+        "StringNotEquals": {
+          "s3:x-amz-server-side-encryption": ["aws:kms", "AES256"]
+        }
+      }
+    }
+  ]
+}</code></pre>
+      </div>
+    </section>
+
+    <section id="sagemaker">
+      <h2>🤖 Amazon SageMaker &amp; ML on AWS</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">End-to-End ML: Training, Deployment &amp; MLOps</div>
+          <button class="btn btn--outline btn--sm" data-lesson="aws-learning:sagemaker">Mark Complete</button>
+        </div>
+
+        <h3>SageMaker Architecture Overview</h3>
+        <pre><code>Data Prep          Training              Deployment
+─────────         ─────────            ────────────
+S3 raw data  →  SageMaker Training  →  Real-time Endpoint
+     ↓          (managed EC2/GPU)       (auto-scaling)
+SageMaker        ↓                    Batch Transform
+Processing    Model Registry           (async large datasets)
+(Spark/SKLearn)   ↓                   Serverless Inference
+Feature Store  SageMaker Pipelines     (event-driven)
+(online+offline)  (MLOps CI/CD)</code></pre>
+
+        <h3>SageMaker Training Job</h3>
+        <pre><code class="language-python">import sagemaker
+from sagemaker.sklearn import SKLearn
+
+role = sagemaker.get_execution_role()
+sess = sagemaker.Session()
+
+# Define estimator
+sklearn_estimator = SKLearn(
+    entry_point='train.py',           # your training script
+    role=role,
+    instance_type='ml.m5.xlarge',
+    instance_count=1,
+    framework_version='1.2-1',
+    hyperparameters={
+        'max-depth': 5,
+        'n-estimators': 100,
+        'learning-rate': 0.1
+    },
+    use_spot_instances=True,          # 70-90% cheaper for training
+    max_wait=7200,
+    max_run=3600,
+    metric_definitions=[
+        {'Name': 'train:accuracy', 'Regex': 'train_accuracy: ([0-9.]+)'},
+        {'Name': 'val:accuracy',   'Regex': 'val_accuracy: ([0-9.]+)'},
+    ]
+)
+
+# Launch training
+sklearn_estimator.fit({
+    'train': 's3://my-bucket/data/train/',
+    'test':  's3://my-bucket/data/test/'
+})</code></pre>
+
+        <h3>Model Deployment &amp; A/B Testing</h3>
+        <pre><code class="language-python"># Deploy with auto-scaling
+predictor = sklearn_estimator.deploy(
+    initial_instance_count=1,
+    instance_type='ml.m5.large',
+    endpoint_name='fraud-detection-v1'
+)
+
+# A/B testing with production variants
+from sagemaker.session import production_variant
+
+variant1 = production_variant('ModelV1', 'ml.m5.large', initial_weight=80)
+variant2 = production_variant('ModelV2', 'ml.m5.large', initial_weight=20)
+
+sess.endpoint_from_production_variants(
+    name='fraud-detection-ab',
+    production_variants=[variant1, variant2]
+)
+
+# Inference
+import boto3, json
+runtime = boto3.client('sagemaker-runtime')
+response = runtime.invoke_endpoint(
+    EndpointName='fraud-detection-v1',
+    ContentType='application/json',
+    Body=json.dumps({'features': [0.5, 1.2, -0.3, 2.1]})
+)
+result = json.loads(response['Body'].read())</code></pre>
+
+        <h3>MLOps with SageMaker Pipelines</h3>
+        <pre><code class="language-python">from sagemaker.workflow.pipeline import Pipeline
+from sagemaker.workflow.steps import ProcessingStep, TrainingStep, RegisterModel
+from sagemaker.workflow.conditions import ConditionGreaterThanOrEqualTo
+from sagemaker.workflow.condition_step import ConditionStep
+
+# Define pipeline steps
+step_process = ProcessingStep(name="Preprocessing", ...)
+step_train   = TrainingStep(name="Training", depends_on=[step_process], ...)
+
+# Conditional registration — only register if accuracy >= 0.85
+cond_acc = ConditionGreaterThanOrEqualTo(
+    left=JsonGet(step_name=step_eval.name, property_file=eval_report, json_path="metrics.accuracy.value"),
+    right=0.85
+)
+step_cond = ConditionStep(
+    name="CheckAccuracy",
+    conditions=[cond_acc],
+    if_steps=[step_register],
+    else_steps=[step_fail]
+)
+
+pipeline = Pipeline(
+    name="FraudDetectionPipeline",
+    steps=[step_process, step_train, step_eval, step_cond],
+)
+pipeline.upsert(role_arn=role)
+pipeline.start()</code></pre>
+
+        <h3>SageMaker Feature Store</h3>
+        <ul>
+          <li><strong>Online store</strong> — low-latency (&lt;10ms) real-time features for inference</li>
+          <li><strong>Offline store</strong> — S3-backed for training, Athena queryable</li>
+          <li><strong>Feature groups</strong> — versioned, shareable across teams</li>
+          <li><strong>Prevents training-serving skew</strong> — same feature logic used at train and serve time</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="quiz-section-wrapper">
+      <h2>🧠 Test Your Knowledge</h2>
+      <div id="quiz-section"></div>
+    </section>
+  </main>
+
+  <aside class="progress-panel">
+    <div class="progress-panel__title">Your Progress</div>
+    <div id="portal-progress-bars"></div>
+  </aside>
+</div>
+
+<div id="footer-placeholder"></div>
+
+<script src="../assets/js/store.js"></script>
+<script src="../assets/js/utils.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/progress.js"></script>
+<script src="../assets/js/quiz.js"></script>
+<script src="../assets/js/search.js"></script>
+<script src="../assets/js/partials.js"></script>
+<script src="../assets/js/portal.js"></script>
+</body>
+</html>

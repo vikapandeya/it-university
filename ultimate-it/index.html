@@ -1,0 +1,2672 @@
+<!doctype html>
+<html lang="en" data-portal="ultimate-it" data-depth="2">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ultimate IT Encyclopedia — IT University</title>
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/reset.css">
+  <link rel="stylesheet" href="../assets/css/portal-themes.css">
+  <link rel="stylesheet" href="../assets/css/layout.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/quiz.css">
+</head>
+<body class="page-body">
+<div id="header-placeholder"></div>
+
+<div class="portal-layout">
+  <aside class="sidebar">
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Fundamentals</div>
+      <a href="#history" class="sidebar__link">🖥️ Computer History</a>
+      <a href="#cpu" class="sidebar__link">⚡ CPU Architecture</a>
+      <a href="#memory" class="sidebar__link">🧠 Memory Hierarchy</a>
+      <a href="#binary" class="sidebar__link">🔢 Binary & Number Systems</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Networking</div>
+      <a href="#osi" class="sidebar__link">🌐 OSI Model</a>
+      <a href="#tcpip" class="sidebar__link">📡 TCP/IP Deep</a>
+      <a href="#dns" class="sidebar__link">🔍 DNS & DHCP</a>
+      <a href="#ports" class="sidebar__link">🔌 Common Ports</a>
+      <a href="#http" class="sidebar__link">🌍 HTTP/HTTPS</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Operating Systems</div>
+      <a href="#linux-os" class="sidebar__link">🐧 Linux</a>
+      <a href="#windows" class="sidebar__link">🪟 Windows Server</a>
+      <a href="#processes" class="sidebar__link">⚙️ Process Management</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Programming</div>
+      <a href="#python" class="sidebar__link">🐍 Python</a>
+      <a href="#javascript" class="sidebar__link">🌟 JavaScript</a>
+      <a href="#go" class="sidebar__link">🔵 Go</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Databases</div>
+      <a href="#sql" class="sidebar__link">🗄️ SQL Deep</a>
+      <a href="#mongodb" class="sidebar__link">🍃 MongoDB</a>
+      <a href="#redis" class="sidebar__link">🔴 Redis</a>
+      <a href="#db-compare" class="sidebar__link">📊 DB Comparison</a>
+      <a href="#data-engineering" class="sidebar__link">🔄 Data Engineering</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Cloud & DevOps</div>
+      <a href="#cloud" class="sidebar__link">☁️ Cloud Overview</a>
+      <a href="#iac" class="sidebar__link">🏗️ IaC / Terraform</a>
+      <a href="#containers" class="sidebar__link">🐳 Docker & Kubernetes</a>
+      <a href="#cicd" class="sidebar__link">🔄 CI/CD Pipelines</a>
+      <a href="#devops" class="sidebar__link">📈 DevOps / SRE</a>
+      <a href="#monitoring" class="sidebar__link">📊 Monitoring & Observability</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Security</div>
+      <a href="#security" class="sidebar__link">🔒 Security Fundamentals</a>
+      <a href="#owasp" class="sidebar__link">🛡️ OWASP Top 10</a>
+      <a href="#devsecops" class="sidebar__link">🔐 DevSecOps</a>
+      <a href="#network-security" class="sidebar__link">🌐 Network Security</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Practice</div>
+      <a href="#interview" class="sidebar__link">💼 Interview Hub</a>
+      <a href="#certs" class="sidebar__link">🏆 Cert Roadmaps</a>
+      <a href="#quiz-section" class="sidebar__link">🧠 Quiz</a>
+    </div>
+  </aside>
+
+  <main class="content">
+    <h1>📚 Ultimate IT Encyclopedia</h1>
+    <p style="color:var(--text-dim);font-size:var(--text-lg);margin-bottom:var(--gap-xl)">Your complete reference for IT fundamentals — networking, OS, programming, databases, cloud, and security.</p>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="history">
+      <h2>🖥️ Computer History & Generations</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Five Generations of Computing</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ultimate-it:history">Mark Complete</button>
+        </div>
+        <table style="width:100%;border-collapse:collapse;margin-bottom:var(--gap)">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated);text-align:left">Generation</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Years</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Technology</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Key Example</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">1st</td><td style="border:1px solid var(--border);padding:8px 12px">1940–1956</td><td style="border:1px solid var(--border);padding:8px 12px">Vacuum tubes</td><td style="border:1px solid var(--border);padding:8px 12px">ENIAC (1945), UNIVAC I</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">2nd</td><td style="border:1px solid var(--border);padding:8px 12px">1956–1963</td><td style="border:1px solid var(--border);padding:8px 12px">Transistors</td><td style="border:1px solid var(--border);padding:8px 12px">IBM 7090, TRADIC</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">3rd</td><td style="border:1px solid var(--border);padding:8px 12px">1964–1971</td><td style="border:1px solid var(--border);padding:8px 12px">Integrated Circuits (ICs)</td><td style="border:1px solid var(--border);padding:8px 12px">IBM System/360</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">4th</td><td style="border:1px solid var(--border);padding:8px 12px">1971–present</td><td style="border:1px solid var(--border);padding:8px 12px">Microprocessors (VLSI)</td><td style="border:1px solid var(--border);padding:8px 12px">Intel 4004, Apple II, IBM PC</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">5th</td><td style="border:1px solid var(--border);padding:8px 12px">Present–future</td><td style="border:1px solid var(--border);padding:8px 12px">AI/ML, Quantum computing</td><td style="border:1px solid var(--border);padding:8px 12px">GPT-4, IBM Q System One</td></tr>
+        </table>
+        <h3>Key Computing Milestones</h3>
+        <ul>
+          <li><strong>1945</strong> — ENIAC: first general-purpose electronic computer, 17,468 vacuum tubes, 30 tons</li>
+          <li><strong>1947</strong> — Transistor invented at Bell Labs (Bardeen, Brattain, Shockley)</li>
+          <li><strong>1958</strong> — Integrated circuit invented by Jack Kilby (TI) and Robert Noyce (Fairchild)</li>
+          <li><strong>1971</strong> — Intel 4004: first commercial microprocessor, 2,300 transistors</li>
+          <li><strong>1981</strong> — IBM PC launched with MS-DOS; personal computing era begins</li>
+          <li><strong>1991</strong> — World Wide Web goes public (Tim Berners-Lee, CERN)</li>
+          <li><strong>2007</strong> — iPhone: mobile computing revolution</li>
+          <li><strong>2022</strong> — ChatGPT: generative AI enters mainstream</li>
+        </ul>
+        <p>Moore's Law (Gordon Moore, 1965): transistor count doubles every ~2 years. Held from 1965–2016. Now slowing due to physical limits (5nm, 3nm nodes). Industry pivoting to chiplets, 3D stacking, and specialized accelerators (GPUs, TPUs).</p>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="cpu">
+      <h2>⚡ CPU Architecture</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">CPU Internals</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ultimate-it:cpu">Mark Complete</button>
+        </div>
+        <h3>Core CPU Components</h3>
+        <ul>
+          <li><strong>ALU (Arithmetic Logic Unit)</strong> — performs arithmetic (+−×÷) and logical (AND/OR/NOT/XOR) operations</li>
+          <li><strong>CU (Control Unit)</strong> — fetches, decodes, and directs execution of instructions; coordinates all CPU components</li>
+          <li><strong>Registers</strong> — fastest storage (0 latency), inside CPU. Types: General-purpose (RAX, RBX on x86-64), Program Counter (PC/IP), Stack Pointer (SP), Flags register (ZF, CF, SF, OF)</li>
+          <li><strong>Cache hierarchy</strong> — L1 (fastest, 32–64KB per core, 1–5ns), L2 (256KB–1MB per core, 5–20ns), L3 (shared, 4–64MB, 20–50ns)</li>
+        </ul>
+        <h3>CPU Pipeline</h3>
+        <p>Modern CPUs use instruction pipelining to execute multiple instructions simultaneously:</p>
+        <pre><code>Cycle:    1    2    3    4    5    6
+Instr 1:  IF   ID   EX   MA   WB
+Instr 2:       IF   ID   EX   MA   WB
+Instr 3:            IF   ID   EX   MA
+
+IF = Instruction Fetch
+ID = Instruction Decode
+EX = Execute (ALU)
+MA = Memory Access
+WB = Write Back</code></pre>
+        <p><strong>Hazards</strong>: Data hazard (instruction needs result of previous), Control hazard (branch prediction miss = pipeline flush, ~15 cycle penalty), Structural hazard (resource conflict).</p>
+        <h3>Multi-core and Hyperthreading</h3>
+        <ul>
+          <li><strong>Multi-core</strong>: multiple independent CPU cores on one die; true parallel execution</li>
+          <li><strong>Hyperthreading (Intel SMT)</strong>: one physical core presents as 2 logical cores to OS; shares execution units but has separate registers/program counter; ~20-30% throughput gain for I/O-bound workloads</li>
+          <li><strong>NUMA (Non-Uniform Memory Access)</strong>: multi-socket servers; each CPU has local RAM (fast) and must cross interconnect (slower) for remote RAM</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="memory">
+      <h2>🧠 Memory Hierarchy</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Storage Hierarchy</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ultimate-it:memory">Mark Complete</button>
+        </div>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Level</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Size</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Speed</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Volatility</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">CPU Registers</td><td style="border:1px solid var(--border);padding:8px 12px">Bytes</td><td style="border:1px solid var(--border);padding:8px 12px">&lt;1 ns</td><td style="border:1px solid var(--border);padding:8px 12px">Volatile</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">L1 Cache</td><td style="border:1px solid var(--border);padding:8px 12px">32–64 KB</td><td style="border:1px solid var(--border);padding:8px 12px">1–5 ns</td><td style="border:1px solid var(--border);padding:8px 12px">Volatile</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">L2 Cache</td><td style="border:1px solid var(--border);padding:8px 12px">256 KB – 1 MB</td><td style="border:1px solid var(--border);padding:8px 12px">5–20 ns</td><td style="border:1px solid var(--border);padding:8px 12px">Volatile</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">L3 Cache</td><td style="border:1px solid var(--border);padding:8px 12px">4–64 MB</td><td style="border:1px solid var(--border);padding:8px 12px">20–50 ns</td><td style="border:1px solid var(--border);padding:8px 12px">Volatile</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">RAM (DDR4/5)</td><td style="border:1px solid var(--border);padding:8px 12px">GBs</td><td style="border:1px solid var(--border);padding:8px 12px">50–100 ns</td><td style="border:1px solid var(--border);padding:8px 12px">Volatile</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">NVMe SSD</td><td style="border:1px solid var(--border);padding:8px 12px">TBs</td><td style="border:1px solid var(--border);padding:8px 12px">~100 µs</td><td style="border:1px solid var(--border);padding:8px 12px">Non-volatile</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">SATA SSD</td><td style="border:1px solid var(--border);padding:8px 12px">TBs</td><td style="border:1px solid var(--border);padding:8px 12px">~500 µs</td><td style="border:1px solid var(--border);padding:8px 12px">Non-volatile</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">HDD</td><td style="border:1px solid var(--border);padding:8px 12px">TBs</td><td style="border:1px solid var(--border);padding:8px 12px">5–10 ms</td><td style="border:1px solid var(--border);padding:8px 12px">Non-volatile</td></tr>
+        </table>
+        <p style="margin-top:var(--gap)"><strong>Virtual Memory</strong>: OS creates illusion of more RAM using disk (swap/pagefile). Pages (4KB) are swapped in/out on demand. TLB (Translation Lookaside Buffer) caches virtual→physical address translations. Page fault = page not in RAM, must load from disk (expensive: ~10ms).</p>
+        <p><strong>RAM Types</strong>: DDR4 (2133–3200 MT/s), DDR5 (4800–8400 MT/s, lower latency per bank), ECC RAM (Error-Correcting Code — detects and corrects single-bit errors, used in servers).</p>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="binary">
+      <h2>🔢 Binary & Number Systems</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Number System Conversions</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ultimate-it:binary">Mark Complete</button>
+        </div>
+        <pre><code># Binary (base 2): 0,1
+# Octal (base 8): 0-7
+# Decimal (base 10): 0-9
+# Hexadecimal (base 16): 0-9, A-F
+
+Decimal 255 → Binary: 11111111 → Hex: FF → Octal: 377
+Decimal 192 → Binary: 11000000 → Hex: C0 (used in 192.168.x.x)
+
+IP address 192.168.1.1:
+  192 = 11000000
+  168 = 10101000
+  1   = 00000001
+  1   = 00000001
+  Binary: 11000000.10101000.00000001.00000001</code></pre>
+        <h3>Two's Complement (signed integers)</h3>
+        <pre><code># 8-bit signed integer range: -128 to +127
+# Positive: same as unsigned
+# Negative: invert all bits, add 1
+
+-1 in 8-bit:
+  +1 = 00000001
+  Invert: 11111110
+  +1:     11111111  ← this is -1 in two's complement
+
+-128 in 8-bit: 10000000</code></pre>
+        <h3>Subnet Mask Quick Reference</h3>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">CIDR</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Subnet Mask</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Hosts</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Common Use</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">/8</td><td style="border:1px solid var(--border);padding:8px 12px">255.0.0.0</td><td style="border:1px solid var(--border);padding:8px 12px">16,777,214</td><td style="border:1px solid var(--border);padding:8px 12px">Class A (10.x.x.x)</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">/16</td><td style="border:1px solid var(--border);padding:8px 12px">255.255.0.0</td><td style="border:1px solid var(--border);padding:8px 12px">65,534</td><td style="border:1px solid var(--border);padding:8px 12px">Class B, large org</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">/24</td><td style="border:1px solid var(--border);padding:8px 12px">255.255.255.0</td><td style="border:1px solid var(--border);padding:8px 12px">254</td><td style="border:1px solid var(--border);padding:8px 12px">Most common subnet</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">/25</td><td style="border:1px solid var(--border);padding:8px 12px">255.255.255.128</td><td style="border:1px solid var(--border);padding:8px 12px">126</td><td style="border:1px solid var(--border);padding:8px 12px">Split /24 in half</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">/26</td><td style="border:1px solid var(--border);padding:8px 12px">255.255.255.192</td><td style="border:1px solid var(--border);padding:8px 12px">62</td><td style="border:1px solid var(--border);padding:8px 12px">Small office</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">/28</td><td style="border:1px solid var(--border);padding:8px 12px">255.255.255.240</td><td style="border:1px solid var(--border);padding:8px 12px">14</td><td style="border:1px solid var(--border);padding:8px 12px">Small VLAN</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">/30</td><td style="border:1px solid var(--border);padding:8px 12px">255.255.255.252</td><td style="border:1px solid var(--border);padding:8px 12px">2</td><td style="border:1px solid var(--border);padding:8px 12px">Point-to-point link</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">/32</td><td style="border:1px solid var(--border);padding:8px 12px">255.255.255.255</td><td style="border:1px solid var(--border);padding:8px 12px">1</td><td style="border:1px solid var(--border);padding:8px 12px">Host route, loopback</td></tr>
+        </table>
+        <p style="margin-top:var(--gap)">Formula: Usable hosts = 2^(32-prefix) - 2 (subtract network and broadcast addresses)</p>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="osi">
+      <h2>🌐 OSI Model — 7 Layers</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">OSI Reference Model</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ultimate-it:osi">Mark Complete</button>
+        </div>
+        <p>Mnemonic: <strong>"Please Do Not Throw Sausage Pizza Away"</strong> (Physical, Data Link, Network, Transport, Session, Presentation, Application)</p>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">#</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Layer</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">PDU</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Protocols</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Devices</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Function</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">7</td><td style="border:1px solid var(--border);padding:8px 12px"><strong>Application</strong></td><td style="border:1px solid var(--border);padding:8px 12px">Data</td><td style="border:1px solid var(--border);padding:8px 12px">HTTP, HTTPS, FTP, SMTP, DNS, SSH, SNMP</td><td style="border:1px solid var(--border);padding:8px 12px">Proxy, WAF</td><td style="border:1px solid var(--border);padding:8px 12px">User-facing network services</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">6</td><td style="border:1px solid var(--border);padding:8px 12px"><strong>Presentation</strong></td><td style="border:1px solid var(--border);padding:8px 12px">Data</td><td style="border:1px solid var(--border);padding:8px 12px">TLS/SSL, JPEG, MPEG, ASCII, Unicode</td><td style="border:1px solid var(--border);padding:8px 12px">—</td><td style="border:1px solid var(--border);padding:8px 12px">Encryption, encoding, compression</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">5</td><td style="border:1px solid var(--border);padding:8px 12px"><strong>Session</strong></td><td style="border:1px solid var(--border);padding:8px 12px">Data</td><td style="border:1px solid var(--border);padding:8px 12px">NetBIOS, RPC, NFS, SQL</td><td style="border:1px solid var(--border);padding:8px 12px">—</td><td style="border:1px solid var(--border);padding:8px 12px">Establish, manage, terminate sessions</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">4</td><td style="border:1px solid var(--border);padding:8px 12px"><strong>Transport</strong></td><td style="border:1px solid var(--border);padding:8px 12px">Segment</td><td style="border:1px solid var(--border);padding:8px 12px">TCP, UDP, SCTP</td><td style="border:1px solid var(--border);padding:8px 12px">Firewall (L4)</td><td style="border:1px solid var(--border);padding:8px 12px">End-to-end delivery, ports, reliability</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">3</td><td style="border:1px solid var(--border);padding:8px 12px"><strong>Network</strong></td><td style="border:1px solid var(--border);padding:8px 12px">Packet</td><td style="border:1px solid var(--border);padding:8px 12px">IP, ICMP, OSPF, BGP, ARP</td><td style="border:1px solid var(--border);padding:8px 12px">Router, L3 switch</td><td style="border:1px solid var(--border);padding:8px 12px">Logical addressing, routing</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">2</td><td style="border:1px solid var(--border);padding:8px 12px"><strong>Data Link</strong></td><td style="border:1px solid var(--border);padding:8px 12px">Frame</td><td style="border:1px solid var(--border);padding:8px 12px">Ethernet, 802.11 WiFi, PPP, VLAN 802.1Q</td><td style="border:1px solid var(--border);padding:8px 12px">Switch, Bridge, NIC</td><td style="border:1px solid var(--border);padding:8px 12px">MAC addressing, error detection (CRC)</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">1</td><td style="border:1px solid var(--border);padding:8px 12px"><strong>Physical</strong></td><td style="border:1px solid var(--border);padding:8px 12px">Bit</td><td style="border:1px solid var(--border);padding:8px 12px">Ethernet 1000BASE-T, fiber (SFP), USB</td><td style="border:1px solid var(--border);padding:8px 12px">Hub, repeater, cable</td><td style="border:1px solid var(--border);padding:8px 12px">Electrical/optical signal transmission</td></tr>
+        </table>
+        <h3 style="margin-top:var(--gap)">TCP vs UDP</h3>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Feature</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">TCP</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">UDP</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Connection</td><td style="border:1px solid var(--border);padding:8px 12px">Connection-oriented (3-way handshake)</td><td style="border:1px solid var(--border);padding:8px 12px">Connectionless</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Reliability</td><td style="border:1px solid var(--border);padding:8px 12px">Guaranteed delivery, ACK, retransmit</td><td style="border:1px solid var(--border);padding:8px 12px">Best-effort, no guarantee</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Ordering</td><td style="border:1px solid var(--border);padding:8px 12px">Ordered (sequence numbers)</td><td style="border:1px solid var(--border);padding:8px 12px">No ordering</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Speed</td><td style="border:1px solid var(--border);padding:8px 12px">Slower (overhead)</td><td style="border:1px solid var(--border);padding:8px 12px">Faster (minimal overhead)</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Use cases</td><td style="border:1px solid var(--border);padding:8px 12px">HTTP, HTTPS, FTP, SSH, SMTP, databases</td><td style="border:1px solid var(--border);padding:8px 12px">DNS, DHCP, VoIP, video streaming, gaming</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="tcpip">
+      <h2>📡 TCP/IP Deep</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">TCP 3-Way Handshake &amp; Flow Control</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ultimate-it:tcpip">Mark Complete</button>
+        </div>
+        <pre><code>TCP 3-Way Handshake (Connection Establishment):
+Client                          Server
+  |──── SYN (seq=100) ─────────►|   Client wants to connect
+  |◄─── SYN-ACK (seq=300,ack=101)|   Server acknowledges, sends its seq
+  |──── ACK (ack=301) ─────────►|   Client acknowledges server
+  |        [Connected]            |
+
+TCP 4-Way Teardown (Connection Termination):
+  |──── FIN (seq=500) ─────────►|   Client wants to close
+  |◄─── ACK (ack=501) ──────────|   Server acknowledges
+  |◄─── FIN (seq=400) ──────────|   Server closes its side
+  |──── ACK (ack=401) ─────────►|   Client acknowledges
+         [TIME_WAIT 2×MSL]</code></pre>
+        <h3>TCP Flow Control (Sliding Window)</h3>
+        <p>The receiver advertises a <strong>window size</strong> (rwnd) — how much data it can buffer. Sender cannot send more than window size without receiving ACK. This prevents overwhelming a slow receiver.</p>
+        <h3>Congestion Control</h3>
+        <ul>
+          <li><strong>Slow Start</strong>: cwnd starts at 1 MSS, doubles each RTT until ssthresh</li>
+          <li><strong>Congestion Avoidance</strong>: cwnd grows linearly (+1 MSS per RTT)</li>
+          <li><strong>Fast Retransmit</strong>: 3 duplicate ACKs → retransmit without waiting for timeout</li>
+          <li><strong>Fast Recovery</strong>: after fast retransmit, halve cwnd instead of restarting slow start</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="dns">
+      <h2>🔍 DNS &amp; DHCP</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">DNS Resolution Process</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ultimate-it:dns">Mark Complete</button>
+        </div>
+        <pre><code>DNS Resolution for "www.example.com":
+1. Browser checks local cache
+2. OS checks /etc/hosts (or C:\Windows\System32\drivers\etc\hosts)
+3. OS queries configured resolver (e.g. 8.8.8.8)
+4. Resolver checks its cache
+5. Resolver queries Root nameserver (.) → "try .com TLD"
+6. Resolver queries .com TLD → "try example.com nameserver"
+7. Resolver queries example.com authoritative NS → A record: 93.184.216.34
+8. Resolver caches result (TTL: e.g. 300s) and returns to client
+9. Browser connects to 93.184.216.34</code></pre>
+        <h3>DNS Record Types</h3>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Record</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Purpose</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Example</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">A</td><td style="border:1px solid var(--border);padding:8px 12px">Maps hostname → IPv4</td><td style="border:1px solid var(--border);padding:8px 12px">www.example.com → 93.184.216.34</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">AAAA</td><td style="border:1px solid var(--border);padding:8px 12px">Maps hostname → IPv6</td><td style="border:1px solid var(--border);padding:8px 12px">www.example.com → 2606:2800:220:1:248:1893:25c8:1946</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">CNAME</td><td style="border:1px solid var(--border);padding:8px 12px">Alias to another hostname</td><td style="border:1px solid var(--border);padding:8px 12px">blog.example.com → example.com</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">MX</td><td style="border:1px solid var(--border);padding:8px 12px">Mail exchange server</td><td style="border:1px solid var(--border);padding:8px 12px">example.com → mail.example.com (priority 10)</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">TXT</td><td style="border:1px solid var(--border);padding:8px 12px">Arbitrary text (SPF, DKIM, domain verification)</td><td style="border:1px solid var(--border);padding:8px 12px">v=spf1 include:_spf.google.com ~all</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">NS</td><td style="border:1px solid var(--border);padding:8px 12px">Authoritative nameservers</td><td style="border:1px solid var(--border);padding:8px 12px">example.com → ns1.nameserver.com</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">SOA</td><td style="border:1px solid var(--border);padding:8px 12px">Start of Authority (zone info)</td><td style="border:1px solid var(--border);padding:8px 12px">Serial, refresh, retry, expire, TTL</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">PTR</td><td style="border:1px solid var(--border);padding:8px 12px">Reverse DNS (IP → hostname)</td><td style="border:1px solid var(--border);padding:8px 12px">34.216.184.93.in-addr.arpa → www.example.com</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">SRV</td><td style="border:1px solid var(--border);padding:8px 12px">Service location (host, port, priority)</td><td style="border:1px solid var(--border);padding:8px 12px">_sip._tcp.example.com 10 20 5060 sip.example.com</td></tr>
+        </table>
+        <h3 style="margin-top:var(--gap)">DHCP DORA Process</h3>
+        <pre><code>Client                      DHCP Server
+  |── DISCOVER (broadcast) ──►|  "Anyone have an IP for me?"
+  |◄── OFFER ─────────────────|  "I offer you 192.168.1.100/24, GW: 192.168.1.1"
+  |── REQUEST (broadcast) ───►|  "I want the offer from 192.168.1.1"
+  |◄── ACK ───────────────────|  "Confirmed, lease for 24 hours"
+
+DORA = Discover → Offer → Request → Acknowledge
+Default lease: 24 hours. Client renews at 50% of lease (T1) and 87.5% (T2).</code></pre>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="ports">
+      <h2>🔌 Common Network Ports</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Essential Ports Reference</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ultimate-it:ports">Mark Complete</button>
+        </div>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Port</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Protocol</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Service</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Notes</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">20</td><td style="border:1px solid var(--border);padding:8px 12px">TCP</td><td style="border:1px solid var(--border);padding:8px 12px">FTP Data</td><td style="border:1px solid var(--border);padding:8px 12px">File transfer data channel</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">21</td><td style="border:1px solid var(--border);padding:8px 12px">TCP</td><td style="border:1px solid var(--border);padding:8px 12px">FTP Control</td><td style="border:1px solid var(--border);padding:8px 12px">File transfer commands (unencrypted)</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">22</td><td style="border:1px solid var(--border);padding:8px 12px">TCP</td><td style="border:1px solid var(--border);padding:8px 12px">SSH / SFTP / SCP</td><td style="border:1px solid var(--border);padding:8px 12px">Secure remote shell and file transfer</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">23</td><td style="border:1px solid var(--border);padding:8px 12px">TCP</td><td style="border:1px solid var(--border);padding:8px 12px">Telnet</td><td style="border:1px solid var(--border);padding:8px 12px">Unencrypted — do not use</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">25</td><td style="border:1px solid var(--border);padding:8px 12px">TCP</td><td style="border:1px solid var(--border);padding:8px 12px">SMTP</td><td style="border:1px solid var(--border);padding:8px 12px">Email sending (server-to-server)</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">53</td><td style="border:1px solid var(--border);padding:8px 12px">TCP/UDP</td><td style="border:1px solid var(--border);padding:8px 12px">DNS</td><td style="border:1px solid var(--border);padding:8px 12px">UDP for queries, TCP for zone transfers</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">67/68</td><td style="border:1px solid var(--border);padding:8px 12px">UDP</td><td style="border:1px solid var(--border);padding:8px 12px">DHCP</td><td style="border:1px solid var(--border);padding:8px 12px">67 server, 68 client</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">80</td><td style="border:1px solid var(--border);padding:8px 12px">TCP</td><td style="border:1px solid var(--border);padding:8px 12px">HTTP</td><td style="border:1px solid var(--border);padding:8px 12px">Unencrypted web</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">110</td><td style="border:1px solid var(--border);padding:8px 12px">TCP</td><td style="border:1px solid var(--border);padding:8px 12px">POP3</td><td style="border:1px solid var(--border);padding:8px 12px">Retrieve email (downloads and deletes)</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">143</td><td style="border:1px solid var(--border);padding:8px 12px">TCP</td><td style="border:1px solid var(--border);padding:8px 12px">IMAP</td><td style="border:1px solid var(--border);padding:8px 12px">Email (keeps on server, folders)</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">443</td><td style="border:1px solid var(--border);padding:8px 12px">TCP</td><td style="border:1px solid var(--border);padding:8px 12px">HTTPS</td><td style="border:1px solid var(--border);padding:8px 12px">Encrypted web (TLS)</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">3306</td><td style="border:1px solid var(--border);padding:8px 12px">TCP</td><td style="border:1px solid var(--border);padding:8px 12px">MySQL/MariaDB</td><td style="border:1px solid var(--border);padding:8px 12px">Database</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">5432</td><td style="border:1px solid var(--border);padding:8px 12px">TCP</td><td style="border:1px solid var(--border);padding:8px 12px">PostgreSQL</td><td style="border:1px solid var(--border);padding:8px 12px">Database</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">6379</td><td style="border:1px solid var(--border);padding:8px 12px">TCP</td><td style="border:1px solid var(--border);padding:8px 12px">Redis</td><td style="border:1px solid var(--border);padding:8px 12px">In-memory data store</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">27017</td><td style="border:1px solid var(--border);padding:8px 12px">TCP</td><td style="border:1px solid var(--border);padding:8px 12px">MongoDB</td><td style="border:1px solid var(--border);padding:8px 12px">NoSQL database</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">8080</td><td style="border:1px solid var(--border);padding:8px 12px">TCP</td><td style="border:1px solid var(--border);padding:8px 12px">HTTP Alt</td><td style="border:1px solid var(--border);padding:8px 12px">Dev web servers, proxies</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">3389</td><td style="border:1px solid var(--border);padding:8px 12px">TCP</td><td style="border:1px solid var(--border);padding:8px 12px">RDP</td><td style="border:1px solid var(--border);padding:8px 12px">Windows Remote Desktop</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">389</td><td style="border:1px solid var(--border);padding:8px 12px">TCP</td><td style="border:1px solid var(--border);padding:8px 12px">LDAP</td><td style="border:1px solid var(--border);padding:8px 12px">Directory services</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">636</td><td style="border:1px solid var(--border);padding:8px 12px">TCP</td><td style="border:1px solid var(--border);padding:8px 12px">LDAPS</td><td style="border:1px solid var(--border);padding:8px 12px">Secure LDAP (TLS)</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="http">
+      <h2>🌐 HTTP &amp; HTTPS</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">How the Web Works: HTTP/HTTPS</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ultimate-it:http">Mark Complete</button>
+        </div>
+        <p>HTTP (HyperText Transfer Protocol) is the foundation of data communication on the web. Every time a browser loads a page, it sends an HTTP request and receives a response.</p>
+        <h3>Request / Response Cycle</h3>
+        <pre><code>Client                          Server
+  |                               |
+  |-- GET /index.html HTTP/1.1 -->|
+  |   Host: example.com           |
+  |   Accept: text/html           |
+  |                               |
+  |&lt;-- HTTP/1.1 200 OK ----------|
+  |    Content-Type: text/html   |
+  |    Content-Length: 1234      |
+  |                               |
+  |    &lt;html&gt;...&lt;/html&gt;          |</code></pre>
+        <h3>HTTP Methods</h3>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Method</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Purpose</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Idempotent?</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">GET</td><td style="border:1px solid var(--border);padding:8px 12px">Retrieve a resource</td><td style="border:1px solid var(--border);padding:8px 12px">Yes</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">POST</td><td style="border:1px solid var(--border);padding:8px 12px">Create a new resource</td><td style="border:1px solid var(--border);padding:8px 12px">No</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">PUT</td><td style="border:1px solid var(--border);padding:8px 12px">Replace a resource entirely</td><td style="border:1px solid var(--border);padding:8px 12px">Yes</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">PATCH</td><td style="border:1px solid var(--border);padding:8px 12px">Update part of a resource</td><td style="border:1px solid var(--border);padding:8px 12px">No</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">DELETE</td><td style="border:1px solid var(--border);padding:8px 12px">Remove a resource</td><td style="border:1px solid var(--border);padding:8px 12px">Yes</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">HEAD</td><td style="border:1px solid var(--border);padding:8px 12px">GET without body (headers only)</td><td style="border:1px solid var(--border);padding:8px 12px">Yes</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">OPTIONS</td><td style="border:1px solid var(--border);padding:8px 12px">Query supported methods (CORS preflight)</td><td style="border:1px solid var(--border);padding:8px 12px">Yes</td></tr>
+        </table>
+        <h3>Status Code Families</h3>
+        <ul>
+          <li><strong>1xx Informational:</strong> 100 Continue, 101 Switching Protocols</li>
+          <li><strong>2xx Success:</strong> 200 OK · 201 Created · 204 No Content · 206 Partial Content</li>
+          <li><strong>3xx Redirection:</strong> 301 Moved Permanently · 302 Found · 304 Not Modified</li>
+          <li><strong>4xx Client Error:</strong> 400 Bad Request · 401 Unauthorized · 403 Forbidden · 404 Not Found · 429 Too Many Requests</li>
+          <li><strong>5xx Server Error:</strong> 500 Internal Server Error · 502 Bad Gateway · 503 Service Unavailable · 504 Gateway Timeout</li>
+        </ul>
+        <h3>Key Request Headers</h3>
+        <pre><code>Accept: text/html,application/json     # What formats the client accepts
+Authorization: Bearer &lt;token&gt;          # Auth credentials
+Content-Type: application/json         # Body format on POST/PUT
+Cache-Control: no-cache                # Caching directives
+Cookie: session_id=abc123              # Session data
+User-Agent: Mozilla/5.0 ...            # Client identification
+X-Forwarded-For: 203.0.113.45         # Real IP behind a proxy</code></pre>
+        <h3>TLS Handshake (HTTPS)</h3>
+        <p>HTTPS wraps HTTP inside TLS. The handshake happens before any HTTP data is sent:</p>
+        <ol>
+          <li><strong>Client Hello</strong> — browser sends supported TLS versions &amp; cipher suites</li>
+          <li><strong>Server Hello</strong> — server picks cipher, sends its X.509 certificate</li>
+          <li><strong>Certificate Validation</strong> — browser verifies the cert is signed by a trusted CA</li>
+          <li><strong>Key Exchange</strong> — both sides derive a shared symmetric session key</li>
+          <li><strong>Finished</strong> — encrypted HTTP traffic begins</li>
+        </ol>
+        <h3>HTTP/1.1 vs HTTP/2 vs HTTP/3</h3>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Feature</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">HTTP/1.1</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">HTTP/2</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">HTTP/3</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Transport</td><td style="border:1px solid var(--border);padding:8px 12px">TCP</td><td style="border:1px solid var(--border);padding:8px 12px">TCP</td><td style="border:1px solid var(--border);padding:8px 12px">QUIC (UDP)</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Multiplexing</td><td style="border:1px solid var(--border);padding:8px 12px">No</td><td style="border:1px solid var(--border);padding:8px 12px">Yes (streams)</td><td style="border:1px solid var(--border);padding:8px 12px">Yes (no HOL blocking)</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Header compression</td><td style="border:1px solid var(--border);padding:8px 12px">None</td><td style="border:1px solid var(--border);padding:8px 12px">HPACK</td><td style="border:1px solid var(--border);padding:8px 12px">QPACK</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Connection setup</td><td style="border:1px solid var(--border);padding:8px 12px">TCP + TLS RTTs</td><td style="border:1px solid var(--border);padding:8px 12px">TCP + TLS RTTs</td><td style="border:1px solid var(--border);padding:8px 12px">0-RTT resumption</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="linux-os">
+      <h2>🐧 Linux Operating System</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Linux: Filesystem, Commands &amp; Administration</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ultimate-it:linux-os">Mark Complete</button>
+        </div>
+        <h3>Filesystem Hierarchy Standard (FHS)</h3>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Directory</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Purpose</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>/</code></td><td style="border:1px solid var(--border);padding:8px 12px">Root of the entire filesystem tree</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>/bin</code></td><td style="border:1px solid var(--border);padding:8px 12px">Essential binaries (ls, cp, mv, bash)</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>/etc</code></td><td style="border:1px solid var(--border);padding:8px 12px">System-wide configuration files</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>/home</code></td><td style="border:1px solid var(--border);padding:8px 12px">User home directories</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>/var</code></td><td style="border:1px solid var(--border);padding:8px 12px">Variable data: logs, mail, spool</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>/tmp</code></td><td style="border:1px solid var(--border);padding:8px 12px">Temporary files (cleared on reboot)</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>/proc</code></td><td style="border:1px solid var(--border);padding:8px 12px">Virtual FS exposing kernel and process info</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>/usr</code></td><td style="border:1px solid var(--border);padding:8px 12px">User-installed binaries, libraries, docs</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>/dev</code></td><td style="border:1px solid var(--border);padding:8px 12px">Device files (block and character devices)</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>/mnt</code> / <code>/media</code></td><td style="border:1px solid var(--border);padding:8px 12px">Mount points for drives and removable media</td></tr>
+        </table>
+        <h3>Essential Commands</h3>
+        <pre><code># File Operations
+ls -la              # Long listing including hidden files
+cp -r src/ dst/     # Copy directory recursively
+mv old.txt new.txt  # Move / rename file
+rm -rf dir/         # Remove directory recursively
+find / -name "*.log" -mtime -7  # Files modified in last 7 days
+chmod 755 script.sh # owner rwx, group rx, others rx
+chown user:group file           # Change owner and group
+
+# Text Processing
+grep -rn "error" /var/log/      # Recursive grep with line numbers
+awk '{print $1, $3}' file       # Print columns 1 and 3
+sed 's/old/new/g' file          # Replace all occurrences
+tail -f /var/log/syslog         # Follow log file in real time
+sort file | uniq -c | sort -rn  # Count unique lines, ranked
+
+# Disk and Memory
+df -h                # Disk usage, human-readable
+du -sh /var/log/     # Size of directory
+free -h              # RAM and swap usage
+lsblk                # List block devices
+
+# Network
+ss -tulpn            # Show listening ports
+curl -I https://example.com     # Fetch HTTP headers only
+ip addr show         # Show IP addresses</code></pre>
+        <h3>User &amp; Group Management</h3>
+        <pre><code>useradd -m -s /bin/bash alice   # Create user with home + bash shell
+passwd alice                     # Set password
+usermod -aG sudo alice           # Add alice to sudo group
+userdel -r alice                 # Delete user and home directory
+id alice                         # Show UID, GID, groups
+cat /etc/passwd                  # All user accounts</code></pre>
+        <h3>systemd Service Management</h3>
+        <pre><code>systemctl start nginx            # Start a service
+systemctl stop nginx             # Stop a service
+systemctl restart nginx          # Restart a service
+systemctl enable nginx           # Auto-start at boot
+systemctl status nginx           # Show status and recent logs
+journalctl -u nginx -f           # Follow service logs
+systemctl list-units --type=service  # List all services</code></pre>
+        <h3>Package Managers by Distro</h3>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Distro Family</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Package Manager</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Install Example</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Debian / Ubuntu</td><td style="border:1px solid var(--border);padding:8px 12px">apt</td><td style="border:1px solid var(--border);padding:8px 12px"><code>apt install nginx</code></td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">RHEL / CentOS / Fedora</td><td style="border:1px solid var(--border);padding:8px 12px">dnf / yum</td><td style="border:1px solid var(--border);padding:8px 12px"><code>dnf install nginx</code></td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Arch Linux</td><td style="border:1px solid var(--border);padding:8px 12px">pacman</td><td style="border:1px solid var(--border);padding:8px 12px"><code>pacman -S nginx</code></td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">openSUSE</td><td style="border:1px solid var(--border);padding:8px 12px">zypper</td><td style="border:1px solid var(--border);padding:8px 12px"><code>zypper install nginx</code></td></tr>
+        </table>
+        <h3>File Permissions Reference</h3>
+        <pre><code>rwxr-xr--  =  754
+||| ||| |||
+||| ||| +-- Others: r-- = 4
+||| +------ Group:  r-x = 5
++---------- Owner:  rwx = 7
+
+Special bits:
+  SUID (4xxx): run as file owner  → chmod 4755 binary
+  SGID (2xxx): run as file group / dirs inherit group
+  Sticky (1xxx): only owner can delete → chmod 1777 /tmp</code></pre>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="windows">
+      <h2>🪟 Windows Server</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Windows Server Administration</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ultimate-it:windows">Mark Complete</button>
+        </div>
+        <h3>Active Directory (AD DS)</h3>
+        <p>Active Directory Domain Services is the heart of enterprise Windows environments. It stores information about network objects (users, computers, groups) and provides centralised authentication and authorisation.</p>
+        <ul>
+          <li><strong>Domain</strong> — Logical grouping of objects sharing a security boundary (e.g., <code>corp.local</code>)</li>
+          <li><strong>Domain Controller (DC)</strong> — Server running AD DS; holds the directory database (<code>NTDS.dit</code>)</li>
+          <li><strong>Forest</strong> — Collection of one or more domains sharing a common schema</li>
+          <li><strong>Organisational Unit (OU)</strong> — Container for users/computers; Group Policy attaches here</li>
+          <li><strong>Group Policy Object (GPO)</strong> — Rules applied to users or computers in an OU</li>
+          <li><strong>Kerberos (port 88)</strong> — Authentication protocol used within a domain</li>
+          <li><strong>LDAP 389 / LDAPS 636</strong> — Protocol for directory queries</li>
+        </ul>
+        <h3>Common Server Roles</h3>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Role</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Description</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">AD DS</td><td style="border:1px solid var(--border);padding:8px 12px">Directory services, authentication, GPOs</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">DNS</td><td style="border:1px solid var(--border);padding:8px 12px">Name resolution — required by AD</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">DHCP</td><td style="border:1px solid var(--border);padding:8px 12px">Dynamic IP address assignment</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">IIS</td><td style="border:1px solid var(--border);padding:8px 12px">Web server for .NET / ASP.NET applications</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">File &amp; Storage Services</td><td style="border:1px solid var(--border);padding:8px 12px">SMB file shares, DFS namespaces, storage pools</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Hyper-V</td><td style="border:1px solid var(--border);padding:8px 12px">Microsoft's native Type-1 hypervisor</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">WSUS</td><td style="border:1px solid var(--border);padding:8px 12px">Centralised Windows Update management</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">RDS</td><td style="border:1px solid var(--border);padding:8px 12px">Remote Desktop Services — virtualised desktops &amp; apps</td></tr>
+        </table>
+        <h3>PowerShell Administration</h3>
+        <pre><code># Active Directory
+Get-ADUser -Filter * | Select Name, SamAccountName
+New-ADUser -Name "Alice Smith" -SamAccountName asmith -Enabled $true
+Add-ADGroupMember -Identity "IT-Admins" -Members asmith
+Get-ADComputer -Filter {OperatingSystem -like "*Server*"}
+
+# Services
+Get-Service | Where-Object {$_.Status -eq "Running"}
+Restart-Service -Name "wuauserv"
+Set-Service -Name "Spooler" -StartupType Automatic
+
+# Networking
+Get-NetIPAddress
+Test-NetConnection -ComputerName google.com -Port 443
+netstat -ano | findstr :3389       # Find RDP listeners
+
+# Event log (PowerShell)
+Get-EventLog -LogName System -Newest 20 -EntryType Error
+Get-WinEvent -FilterHashtable @{LogName='Security'; Id=4625} -MaxEvents 10</code></pre>
+        <h3>Key Registry Paths</h3>
+        <ul>
+          <li><code>HKLM\SOFTWARE</code> — Installed application settings (all users)</li>
+          <li><code>HKCU\SOFTWARE</code> — Settings for the current user</li>
+          <li><code>HKLM\SYSTEM\CurrentControlSet\Services</code> — Windows service configurations</li>
+          <li><code>HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion</code> — OS version info</li>
+          <li><code>HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run</code> — User startup programs</li>
+        </ul>
+        <h3>Security Event IDs to Know</h3>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Event ID</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Description</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Log</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">4624</td><td style="border:1px solid var(--border);padding:8px 12px">Successful logon</td><td style="border:1px solid var(--border);padding:8px 12px">Security</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">4625</td><td style="border:1px solid var(--border);padding:8px 12px">Failed logon</td><td style="border:1px solid var(--border);padding:8px 12px">Security</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">4720</td><td style="border:1px solid var(--border);padding:8px 12px">User account created</td><td style="border:1px solid var(--border);padding:8px 12px">Security</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">4740</td><td style="border:1px solid var(--border);padding:8px 12px">Account locked out</td><td style="border:1px solid var(--border);padding:8px 12px">Security</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">7045</td><td style="border:1px solid var(--border);padding:8px 12px">New service installed</td><td style="border:1px solid var(--border);padding:8px 12px">System</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">1074</td><td style="border:1px solid var(--border);padding:8px 12px">System shutdown / restart initiated</td><td style="border:1px solid var(--border);padding:8px 12px">System</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="processes">
+      <h2>⚙️ Process Management</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Processes, Threads &amp; CPU Scheduling</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ultimate-it:processes">Mark Complete</button>
+        </div>
+        <p>A process is a running instance of a program with its own memory space, file handles, and at least one thread. The OS kernel manages scheduling, isolation, and resource allocation across all processes.</p>
+        <h3>Process States</h3>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">State</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Description</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">New</td><td style="border:1px solid var(--border);padding:8px 12px">Being created (fork/exec not yet complete)</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Ready</td><td style="border:1px solid var(--border);padding:8px 12px">In run queue — CPU available but not yet assigned</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Running</td><td style="border:1px solid var(--border);padding:8px 12px">Currently executing on a CPU core</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Blocked / Waiting</td><td style="border:1px solid var(--border);padding:8px 12px">Waiting for I/O, a signal, or a resource</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Zombie</td><td style="border:1px solid var(--border);padding:8px 12px">Finished but parent hasn't called wait(); entry remains in process table</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Stopped</td><td style="border:1px solid var(--border);padding:8px 12px">Suspended by SIGSTOP or a debugger; resume with SIGCONT</td></tr>
+        </table>
+        <h3>Viewing &amp; Managing Processes</h3>
+        <pre><code># List processes
+ps aux                  # All processes, BSD style
+ps -ef                  # All processes, UNIX style
+pgrep nginx             # Get PID(s) by name
+
+# Real-time monitoring
+top                     # Classic task manager (q to quit)
+htop                    # Interactive, colour-coded
+
+# Process tree
+pstree -p               # Hierarchy with PIDs
+
+# Resource usage
+lsof -p 1234            # Files/sockets open by PID 1234
+lsof -i :80             # What process listens on port 80
+strace -p 1234          # Trace system calls of a running process</code></pre>
+        <h3>Linux Signals</h3>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Signal</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Number</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Meaning</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Catchable?</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">SIGHUP</td><td style="border:1px solid var(--border);padding:8px 12px">1</td><td style="border:1px solid var(--border);padding:8px 12px">Hangup — reload config (daemons)</td><td style="border:1px solid var(--border);padding:8px 12px">Yes</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">SIGINT</td><td style="border:1px solid var(--border);padding:8px 12px">2</td><td style="border:1px solid var(--border);padding:8px 12px">Interrupt from keyboard (Ctrl+C)</td><td style="border:1px solid var(--border);padding:8px 12px">Yes</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">SIGTERM</td><td style="border:1px solid var(--border);padding:8px 12px">15</td><td style="border:1px solid var(--border);padding:8px 12px">Graceful termination (default kill)</td><td style="border:1px solid var(--border);padding:8px 12px">Yes</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">SIGKILL</td><td style="border:1px solid var(--border);padding:8px 12px">9</td><td style="border:1px solid var(--border);padding:8px 12px">Immediate kill — cannot be caught</td><td style="border:1px solid var(--border);padding:8px 12px">No</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">SIGSTOP</td><td style="border:1px solid var(--border);padding:8px 12px">19</td><td style="border:1px solid var(--border);padding:8px 12px">Pause process — cannot be caught</td><td style="border:1px solid var(--border);padding:8px 12px">No</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">SIGCONT</td><td style="border:1px solid var(--border);padding:8px 12px">18</td><td style="border:1px solid var(--border);padding:8px 12px">Resume stopped process</td><td style="border:1px solid var(--border);padding:8px 12px">Yes</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">SIGSEGV</td><td style="border:1px solid var(--border);padding:8px 12px">11</td><td style="border:1px solid var(--border);padding:8px 12px">Segmentation fault — invalid memory access</td><td style="border:1px solid var(--border);padding:8px 12px">Yes</td></tr>
+        </table>
+        <pre><code>kill -15 1234      # SIGTERM (graceful) to PID 1234
+kill -9 1234       # SIGKILL (force) to PID 1234
+killall nginx      # Kill all processes named nginx
+pkill -f "python3" # Kill by command pattern</code></pre>
+        <h3>Priority &amp; Scheduling</h3>
+        <pre><code># nice values: -20 (highest priority) to +19 (lowest)
+nice -n 10 ./backup.sh     # Start with lower priority
+renice -n -5 -p 1234       # Change priority of running process
+
+# Linux CPU schedulers
+# CFS (Completely Fair Scheduler) — default, weighted fair share
+# FIFO — real-time, no preemption until blocked or exit
+# Round Robin — real-time, time-sliced preemption</code></pre>
+        <h3>Background Jobs in Bash</h3>
+        <pre><code>./script.sh &amp;        # Run in background
+jobs                 # List background jobs
+fg %1                # Bring job 1 to foreground
+bg %1                # Resume stopped job in background
+nohup ./script.sh &amp;  # Survive logout (immune to SIGHUP)
+disown -h %1         # Remove from job table, keep running</code></pre>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="python">
+      <h2>🐍 Python Deep Dive</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Python Advanced Concepts</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ultimate-it:python">Mark Complete</button>
+        </div>
+        <h3>OOP in Python</h3>
+        <pre><code>from abc import ABC, abstractmethod
+from typing import Optional, List
+from dataclasses import dataclass
+
+# Abstract base class
+class Animal(ABC):
+    def __init__(self, name: str, age: int):
+        self.name = name
+        self.age = age
+
+    @abstractmethod
+    def speak(self) -> str:
+        pass
+
+    def __repr__(self) -> str:
+        return f"{self.__class__.__name__}(name={self.name!r})"
+
+    def __eq__(self, other) -> bool:
+        return isinstance(other, type(self)) and self.name == other.name
+
+class Dog(Animal):
+    def speak(self) -> str:
+        return f"{self.name} says Woof!"
+
+    @property
+    def human_age(self) -> int:
+        return self.age * 7  # property: computed attribute
+
+    @staticmethod
+    def is_domestic() -> bool:  # no self or cls
+        return True
+
+    @classmethod
+    def from_dict(cls, data: dict) -> 'Dog':  # alternative constructor
+        return cls(data['name'], data['age'])
+
+dog = Dog("Rex", 3)
+print(dog.speak())       # Rex says Woof!
+print(dog.human_age)     # 21
+print(Dog.is_domestic()) # True</code></pre>
+
+        <h3>Decorators</h3>
+        <pre><code>import functools
+import time
+
+# Function decorator
+def timer(func):
+    @functools.wraps(func)  # preserves func metadata
+    def wrapper(*args, **kwargs):
+        start = time.perf_counter()
+        result = func(*args, **kwargs)
+        elapsed = time.perf_counter() - start
+        print(f"{func.__name__} took {elapsed:.4f}s")
+        return result
+    return wrapper
+
+# Decorator with arguments
+def retry(max_attempts=3, delay=1.0):
+    def decorator(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            for attempt in range(max_attempts):
+                try:
+                    return func(*args, **kwargs)
+                except Exception as e:
+                    if attempt == max_attempts - 1:
+                        raise
+                    time.sleep(delay)
+        return wrapper
+    return decorator
+
+@timer
+@retry(max_attempts=3, delay=0.5)
+def fetch_data(url: str) -> dict:
+    import requests
+    return requests.get(url).json()</code></pre>
+
+        <h3>Generators &amp; Async</h3>
+        <pre><code># Generator (lazy evaluation — memory efficient)
+def fibonacci():
+    a, b = 0, 1
+    while True:
+        yield a
+        a, b = b, a + b
+
+gen = fibonacci()
+first_10 = [next(gen) for _ in range(10)]
+# [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+
+# Async/await (non-blocking I/O)
+import asyncio
+import aiohttp
+
+async def fetch(session, url: str) -> dict:
+    async with session.get(url) as response:
+        return await response.json()
+
+async def fetch_all(urls: List[str]) -> List[dict]:
+    async with aiohttp.ClientSession() as session:
+        tasks = [fetch(session, url) for url in urls]
+        return await asyncio.gather(*tasks)  # run concurrently
+
+results = asyncio.run(fetch_all(["https://api.github.com/users/torvalds"]))</code></pre>
+
+        <h3>Context Managers</h3>
+        <pre><code>from contextlib import contextmanager
+
+# Class-based context manager
+class DatabaseConnection:
+    def __enter__(self):
+        self.conn = create_connection()
+        return self.conn
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        if exc_type:
+            self.conn.rollback()
+        else:
+            self.conn.commit()
+        self.conn.close()
+        return False  # don't suppress exceptions
+
+# Generator-based (simpler)
+@contextmanager
+def managed_file(path: str, mode: str = 'r'):
+    f = open(path, mode)
+    try:
+        yield f
+    finally:
+        f.close()
+
+with managed_file('/etc/hosts') as f:
+    content = f.read()</code></pre>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="javascript">
+      <h2>⚡ JavaScript Programming</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">JavaScript: Core Language &amp; Runtime</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ultimate-it:javascript">Mark Complete</button>
+        </div>
+        <p>JavaScript is the only language natively supported by browsers, and also runs server-side via Node.js. Understanding its single-threaded, event-loop model is essential for writing performant, bug-free JS.</p>
+        <h3>Variables &amp; Scope</h3>
+        <pre><code>// var — function-scoped, hoisted (avoid in modern code)
+var x = 1;
+
+// let — block-scoped, not hoisted
+let y = 2;
+
+// const — block-scoped, must be initialised (reference is immutable)
+const PI = 3.14159;
+
+// Temporal Dead Zone: let/const cannot be used before declaration
+console.log(a); // ReferenceError
+let a = 5;
+
+// Closure: inner function retains access to outer scope after it returns
+function counter() {
+  let count = 0;
+  return () =&gt; ++count;
+}
+const inc = counter();
+inc(); // 1
+inc(); // 2</code></pre>
+        <h3>Data Types</h3>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Type</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Example</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Notes</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Number</td><td style="border:1px solid var(--border);padding:8px 12px"><code>42</code>, <code>3.14</code>, <code>NaN</code>, <code>Infinity</code></td><td style="border:1px solid var(--border);padding:8px 12px">IEEE 754 double — no separate integer type</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">BigInt</td><td style="border:1px solid var(--border);padding:8px 12px"><code>9007199254740993n</code></td><td style="border:1px solid var(--border);padding:8px 12px">Arbitrary-precision integers</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">String</td><td style="border:1px solid var(--border);padding:8px 12px"><code>"hello"</code>, <code>`hi ${name}`</code></td><td style="border:1px solid var(--border);padding:8px 12px">Immutable Unicode sequence</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Boolean</td><td style="border:1px solid var(--border);padding:8px 12px"><code>true</code> / <code>false</code></td><td style="border:1px solid var(--border);padding:8px 12px">Falsy: 0, "", null, undefined, NaN, false</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">null</td><td style="border:1px solid var(--border);padding:8px 12px"><code>null</code></td><td style="border:1px solid var(--border);padding:8px 12px">Intentional absence of value</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">undefined</td><td style="border:1px solid var(--border);padding:8px 12px"><code>undefined</code></td><td style="border:1px solid var(--border);padding:8px 12px">Variable declared but not assigned</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Symbol</td><td style="border:1px solid var(--border);padding:8px 12px"><code>Symbol('id')</code></td><td style="border:1px solid var(--border);padding:8px 12px">Unique, immutable identifier</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Object</td><td style="border:1px solid var(--border);padding:8px 12px"><code>{a:1}</code>, <code>[]</code>, <code>new Map()</code></td><td style="border:1px solid var(--border);padding:8px 12px">All non-primitive values</td></tr>
+        </table>
+        <h3>Async/Await &amp; Promises</h3>
+        <pre><code>// Promise: represents a value that may be available now, later, or never
+const p = new Promise((resolve, reject) =&gt; {
+  setTimeout(() =&gt; resolve('done'), 1000);
+});
+p.then(val =&gt; console.log(val)).catch(err =&gt; console.error(err));
+
+// async/await: syntactic sugar over promises — same event loop behaviour
+async function fetchUser(id) {
+  try {
+    const res = await fetch(`/api/users/${id}`);  // waits for network
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();               // waits for body parse
+    return data;
+  } catch (err) {
+    console.error('Failed:', err.message);
+    throw err;
+  }
+}
+
+// Run multiple promises concurrently
+const [users, posts] = await Promise.all([fetchUsers(), fetchPosts()]);
+
+// First settled (fulfilled or rejected)
+const fastest = await Promise.race([fetchPrimary(), fetchFallback()]);</code></pre>
+        <h3>The Event Loop</h3>
+        <pre><code>// JavaScript is single-threaded — one call stack.
+// The event loop processes:
+//   1. Call stack (synchronous code) — must drain first
+//   2. Microtask queue (Promises, queueMicrotask) — all of these before next task
+//   3. Macrotask queue (setTimeout, setInterval, I/O callbacks) — one per loop tick
+
+console.log('1');          // sync
+setTimeout(() =&gt; console.log('4'), 0);  // macrotask
+Promise.resolve().then(() =&gt; console.log('3'));  // microtask
+console.log('2');          // sync
+// Output: 1, 2, 3, 4</code></pre>
+        <h3>DOM Manipulation</h3>
+        <pre><code>// Query
+const btn = document.querySelector('#submit-btn');
+const items = document.querySelectorAll('.list-item');
+
+// Modify
+btn.textContent = 'Loading...';
+btn.classList.add('disabled');
+btn.setAttribute('aria-disabled', 'true');
+
+// Create and insert
+const li = document.createElement('li');
+li.textContent = 'New item';
+document.querySelector('ul').appendChild(li);
+
+// Events
+btn.addEventListener('click', (e) =&gt; {
+  e.preventDefault();
+  console.log('Clicked at', e.clientX, e.clientY);
+});
+
+// Event delegation — attach to parent, check target
+document.querySelector('.list').addEventListener('click', (e) =&gt; {
+  if (e.target.matches('.list-item')) {
+    e.target.classList.toggle('selected');
+  }
+});</code></pre>
+        <h3>Node.js Essentials</h3>
+        <pre><code>// CommonJS modules (Node default)
+const fs = require('fs');
+const path = require('path');
+
+// ES Modules (package.json: "type": "module")
+import { readFile } from 'fs/promises';
+
+// Read a file asynchronously
+const data = await readFile('config.json', 'utf8');
+const config = JSON.parse(data);
+
+// HTTP server (raw Node)
+const http = require('http');
+const server = http.createServer((req, res) =&gt; {
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  res.end('Hello World');
+});
+server.listen(3000, () =&gt; console.log('Listening on 3000'));
+
+// Environment variables
+const port = process.env.PORT || 3000;
+const dbUrl = process.env.DATABASE_URL;</code></pre>
+        <h3>Modern JS Features (ES2015+)</h3>
+        <pre><code>// Destructuring
+const { name, age = 0 } = user;
+const [first, ...rest] = array;
+
+// Spread / rest
+const merged = { ...defaults, ...overrides };
+function sum(...nums) { return nums.reduce((a, b) =&gt; a + b, 0); }
+
+// Optional chaining &amp; nullish coalescing
+const city = user?.address?.city ?? 'Unknown';
+
+// Array helpers
+const doubled = [1,2,3].map(n =&gt; n * 2);
+const evens = [1,2,3,4].filter(n =&gt; n % 2 === 0);
+const total = [1,2,3].reduce((acc, n) =&gt; acc + n, 0);
+
+// WeakMap for private-ish per-object data
+const _private = new WeakMap();
+class Foo { constructor() { _private.set(this, { secret: 42 }); } }</code></pre>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="go">
+      <h2>🐹 Go Programming</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Go: Concurrency, Interfaces &amp; Idioms</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ultimate-it:go">Mark Complete</button>
+        </div>
+        <p>Go (Golang) is a statically typed, compiled language designed for simplicity and high-performance concurrency. It is widely used for cloud services, CLIs, and microservices.</p>
+        <h3>Language Basics</h3>
+        <pre><code>package main
+
+import (
+    "fmt"
+    "errors"
+)
+
+func main() {
+    // Variable declaration
+    name := "Gopher"         // short declaration (infers string)
+    var age int = 5          // explicit
+    const Pi = 3.14159       // untyped constant
+
+    fmt.Printf("Hello, %s! Age: %d\n", name, age)
+
+    // Multiple return values
+    result, err := divide(10, 0)
+    if err != nil {
+        fmt.Println("Error:", err)
+    } else {
+        fmt.Println("Result:", result)
+    }
+}
+
+func divide(a, b float64) (float64, error) {
+    if b == 0 {
+        return 0, errors.New("division by zero")
+    }
+    return a / b, nil
+}</code></pre>
+        <h3>Structs &amp; Methods</h3>
+        <pre><code>type Server struct {
+    Host string
+    Port int
+    tls  bool   // unexported field (lowercase)
+}
+
+// Method with value receiver (copies struct)
+func (s Server) Addr() string {
+    return fmt.Sprintf("%s:%d", s.Host, s.Port)
+}
+
+// Method with pointer receiver (can mutate struct)
+func (s *Server) EnableTLS() {
+    s.tls = true
+}
+
+s := Server{Host: "0.0.0.0", Port: 8080}
+s.EnableTLS()
+fmt.Println(s.Addr())  // 0.0.0.0:8080</code></pre>
+        <h3>Interfaces</h3>
+        <pre><code>// Interfaces are satisfied implicitly — no "implements" keyword
+type Writer interface {
+    Write(data []byte) (int, error)
+}
+
+type Logger interface {
+    Log(msg string)
+}
+
+// Composition: embed interfaces
+type ReadWriter interface {
+    io.Reader
+    io.Writer
+}
+
+// Type assertion
+var w Writer = os.Stdout
+if f, ok := w.(*os.File); ok {
+    fmt.Println("It's a file:", f.Name())
+}
+
+// Empty interface accepts any type
+func printAny(v interface{}) {
+    fmt.Printf("%T: %v\n", v, v)
+}</code></pre>
+        <h3>Goroutines &amp; Channels</h3>
+        <pre><code>// Goroutine: lightweight thread managed by Go runtime (not OS thread)
+go func() {
+    fmt.Println("I run concurrently")
+}()
+
+// Channel: typed conduit for goroutine communication
+ch := make(chan int)     // unbuffered — synchronises sender and receiver
+bch := make(chan int, 5) // buffered — sender blocks only when full
+
+// Send / receive
+go func() { ch &lt;- 42 }()  // send in goroutine
+val := &lt;-ch               // receive (blocks until value arrives)
+
+// Select: multiplex on multiple channels
+select {
+case msg := &lt;-ch1:
+    fmt.Println("from ch1:", msg)
+case msg := &lt;-ch2:
+    fmt.Println("from ch2:", msg)
+case &lt;-time.After(2 * time.Second):
+    fmt.Println("timeout")
+}
+
+// Fan-out pattern
+jobs := make(chan int, 100)
+for w := 0; w &lt; 4; w++ {    // 4 workers
+    go func() {
+        for j := range jobs {
+            process(j)
+        }
+    }()
+}
+for i := 0; i &lt; 100; i++ { jobs &lt;- i }
+close(jobs)</code></pre>
+        <h3>Error Handling</h3>
+        <pre><code>// Go errors are values — no exceptions
+import "fmt"
+
+// Custom error type
+type ValidationError struct {
+    Field   string
+    Message string
+}
+func (e *ValidationError) Error() string {
+    return fmt.Sprintf("validation failed on %s: %s", e.Field, e.Message)
+}
+
+// Wrapping errors (Go 1.13+)
+err := fmt.Errorf("db query failed: %w", originalErr)
+// Unwrap to check type:
+var ve *ValidationError
+if errors.As(err, &amp;ve) {
+    fmt.Println("bad field:", ve.Field)
+}
+
+// Sentinel errors
+var ErrNotFound = errors.New("not found")
+if errors.Is(err, ErrNotFound) { ... }</code></pre>
+        <h3>defer, panic &amp; recover</h3>
+        <pre><code>func riskyOp() (err error) {
+    defer func() {
+        if r := recover(); r != nil {
+            err = fmt.Errorf("recovered from panic: %v", r)
+        }
+    }()
+    // defer runs LIFO when function returns (even on panic)
+    defer fmt.Println("cleanup")
+
+    panic("something went wrong")  // triggers recover above
+}
+
+// Common defer pattern: resource cleanup
+f, err := os.Open("file.txt")
+if err != nil { return err }
+defer f.Close()   // guaranteed to run when function exits</code></pre>
+        <h3>Common Packages</h3>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Package</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Purpose</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>fmt</code></td><td style="border:1px solid var(--border);padding:8px 12px">Formatted I/O (Printf, Println, Sprintf, Errorf)</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>net/http</code></td><td style="border:1px solid var(--border);padding:8px 12px">HTTP client and server</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>encoding/json</code></td><td style="border:1px solid var(--border);padding:8px 12px">JSON marshal / unmarshal</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>os</code></td><td style="border:1px solid var(--border);padding:8px 12px">File I/O, environment variables, process control</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>sync</code></td><td style="border:1px solid var(--border);padding:8px 12px">Mutex, WaitGroup, Once for safe concurrency</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>context</code></td><td style="border:1px solid var(--border);padding:8px 12px">Cancellation, deadlines, per-request values</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>testing</code></td><td style="border:1px solid var(--border);padding:8px 12px">Unit tests, benchmarks, test helpers</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>log/slog</code></td><td style="border:1px solid var(--border);padding:8px 12px">Structured logging (Go 1.21+)</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="sql">
+      <h2>🗄️ SQL Deep</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">SQL Fundamentals &amp; Advanced</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ultimate-it:sql">Mark Complete</button>
+        </div>
+        <h3>JOINs</h3>
+        <pre><code>-- INNER JOIN: only matching rows in both tables
+SELECT u.name, o.total FROM users u
+INNER JOIN orders o ON u.id = o.user_id;
+
+-- LEFT JOIN: all from left, matching from right (NULL if no match)
+SELECT u.name, COUNT(o.id) as order_count
+FROM users u
+LEFT JOIN orders o ON u.id = o.user_id
+GROUP BY u.id, u.name;
+
+-- Window Functions (PostgreSQL/MySQL 8+)
+SELECT
+  name,
+  department,
+  salary,
+  RANK() OVER (PARTITION BY department ORDER BY salary DESC) as dept_rank,
+  AVG(salary) OVER (PARTITION BY department) as dept_avg,
+  LAG(salary, 1) OVER (ORDER BY salary) as prev_salary
+FROM employees;
+
+-- CTE (Common Table Expression)
+WITH monthly_sales AS (
+  SELECT
+    DATE_TRUNC('month', created_at) as month,
+    SUM(amount) as revenue
+  FROM orders
+  WHERE status = 'completed'
+  GROUP BY 1
+),
+growth AS (
+  SELECT
+    month,
+    revenue,
+    LAG(revenue) OVER (ORDER BY month) as prev_revenue
+  FROM monthly_sales
+)
+SELECT month, revenue,
+  ROUND((revenue - prev_revenue) / prev_revenue * 100, 2) as growth_pct
+FROM growth
+ORDER BY month;</code></pre>
+
+        <h3>Indexes</h3>
+        <pre><code>-- B-tree index (default, good for =, &lt;, &gt;, BETWEEN, LIKE 'prefix%')
+CREATE INDEX idx_users_email ON users(email);
+
+-- Composite index (column order matters!)
+CREATE INDEX idx_orders_user_date ON orders(user_id, created_at DESC);
+-- Covers: WHERE user_id=? | WHERE user_id=? AND created_at&gt;?
+-- NOT covered: WHERE created_at&gt;? (user_id must come first)
+
+-- Partial index (PostgreSQL) — index subset of rows
+CREATE INDEX idx_active_users ON users(last_login)
+WHERE status = 'active';
+
+-- EXPLAIN ANALYZE (PostgreSQL)
+EXPLAIN ANALYZE SELECT * FROM orders WHERE user_id = 1234;
+-- Look for: Seq Scan (bad for large tables) → Index Scan (good)
+-- Key metrics: rows=actual_rows, width=row_bytes, actual time
+
+-- Covering index (includes all columns needed)
+CREATE INDEX idx_covering ON orders(user_id) INCLUDE (status, total);</code></pre>
+
+        <h3>Normalization</h3>
+        <ul>
+          <li><strong>1NF</strong>: Atomic values, no repeating groups, primary key exists</li>
+          <li><strong>2NF</strong>: 1NF + no partial dependencies (all non-key columns depend on ENTIRE primary key)</li>
+          <li><strong>3NF</strong>: 2NF + no transitive dependencies (non-key columns depend only on PK, not other non-key columns)</li>
+          <li><strong>BCNF</strong>: 3NF + every determinant is a candidate key</li>
+          <li><strong>Denormalization</strong>: intentionally violate NF for performance (reporting databases, caching)</li>
+        </ul>
+        <h3>ACID Properties</h3>
+        <ul>
+          <li><strong>Atomicity</strong>: All operations in a transaction succeed or all fail (commit/rollback)</li>
+          <li><strong>Consistency</strong>: DB goes from one valid state to another (constraints enforced)</li>
+          <li><strong>Isolation</strong>: Concurrent transactions don't interfere (isolation levels: READ UNCOMMITTED → READ COMMITTED → REPEATABLE READ → SERIALIZABLE)</li>
+          <li><strong>Durability</strong>: Committed transactions persist even after crash (WAL/redo log)</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="mongodb">
+      <h2>🍃 MongoDB</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">MongoDB Commands &amp; Aggregation</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ultimate-it:mongodb">Mark Complete</button>
+        </div>
+        <pre><code>// Basic CRUD
+db.users.insertOne({ name: "Alice", age: 30, tags: ["admin", "dev"] })
+db.users.insertMany([{ name: "Bob" }, { name: "Carol" }])
+db.users.findOne({ name: "Alice" })
+db.users.find({ age: { $gte: 25 } }).sort({ age: 1 }).limit(10)
+db.users.updateOne({ name: "Alice" }, { $set: { age: 31 }, $push: { tags: "senior" } })
+db.users.deleteMany({ age: { $lt: 18 } })
+
+// Aggregation Pipeline
+db.orders.aggregate([
+  { $match: { status: "completed", createdAt: { $gte: new Date("2024-01-01") } } },
+  { $lookup: { from: "users", localField: "userId", foreignField: "_id", as: "user" } },
+  { $unwind: "$user" },
+  { $group: {
+    _id: "$user.country",
+    totalRevenue: { $sum: "$amount" },
+    orderCount: { $count: {} },
+    avgOrder: { $avg: "$amount" }
+  }},
+  { $sort: { totalRevenue: -1 } },
+  { $limit: 10 }
+])
+
+// Index types
+db.users.createIndex({ email: 1 }, { unique: true })       // single field
+db.users.createIndex({ country: 1, city: 1 })               // compound
+db.users.createIndex({ bio: "text" })                       // full-text search
+db.products.createIndex({ location: "2dsphere" })           // geospatial
+db.logs.createIndex({ createdAt: 1 }, { expireAfterSeconds: 2592000 })  // TTL (30 days)</code></pre>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="redis">
+      <h2>🔴 Redis</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Redis Data Structures</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ultimate-it:redis">Mark Complete</button>
+        </div>
+        <pre><code># String — simple key-value
+SET user:1001:name "Alice"
+GET user:1001:name
+INCR page:views        # atomic increment
+EXPIRE session:abc 3600  # expire in 1 hour
+TTL session:abc          # check remaining TTL
+SETEX token:xyz 300 "jwt.payload.sig"  # SET with EX in one command
+
+# Hash — object-like structure
+HSET user:1001 name "Alice" age 30 email "alice@example.com"
+HGET user:1001 name
+HMGET user:1001 name email
+HGETALL user:1001
+HINCRBY user:1001 loginCount 1
+
+# List — ordered, duplicates allowed (queue / stack)
+RPUSH queue:emails "email1" "email2"   # add to right (enqueue)
+LPOP queue:emails                       # remove from left (dequeue)
+LRANGE queue:emails 0 -1               # get all items
+LLEN queue:emails
+
+# Set — unordered, unique elements
+SADD user:1001:friends "bob" "carol" "dave"
+SMEMBERS user:1001:friends
+SISMEMBER user:1001:friends "bob"   # O(1) lookup
+SINTER user:1001:friends user:1002:friends  # mutual friends
+SUNION user:1001:friends user:1002:friends
+
+# Sorted Set — unique with score, ordered by score
+ZADD leaderboard 1500 "alice" 1200 "bob" 1800 "carol"
+ZRANGE leaderboard 0 -1 WITHSCORES     # ascending
+ZREVRANGE leaderboard 0 2 WITHSCORES   # top 3
+ZINCRBY leaderboard 100 "alice"         # add 100 to score
+ZRANK leaderboard "alice"               # 0-based rank
+
+# Pub/Sub
+SUBSCRIBE channel:news        # in one terminal
+PUBLISH channel:news "Hello!"  # in another terminal</code></pre>
+        <p><strong>Persistence</strong>: RDB (point-in-time snapshot, compact) vs AOF (append-only log, every write, more durable). Production: use both. <strong>Eviction policies</strong>: allkeys-lru (remove least recently used), volatile-lru (LRU among keys with TTL), noeviction (return error when full).</p>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="db-compare">
+      <h2>📊 Database Comparison</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">SQL vs NoSQL vs NewSQL — Choosing the Right DB</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ultimate-it:db-compare">Mark Complete</button>
+        </div>
+        <h3>Core Comparison</h3>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Dimension</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Relational (SQL)</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Document (NoSQL)</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Key-Value</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Wide-Column</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Graph</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Examples</td><td style="border:1px solid var(--border);padding:8px 12px">PostgreSQL, MySQL, SQLite</td><td style="border:1px solid var(--border);padding:8px 12px">MongoDB, CouchDB, Firestore</td><td style="border:1px solid var(--border);padding:8px 12px">Redis, DynamoDB, etcd</td><td style="border:1px solid var(--border);padding:8px 12px">Cassandra, HBase, Bigtable</td><td style="border:1px solid var(--border);padding:8px 12px">Neo4j, Neptune, ArangoDB</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Schema</td><td style="border:1px solid var(--border);padding:8px 12px">Fixed, enforced</td><td style="border:1px solid var(--border);padding:8px 12px">Flexible, per-document</td><td style="border:1px solid var(--border);padding:8px 12px">None</td><td style="border:1px solid var(--border);padding:8px 12px">Column families</td><td style="border:1px solid var(--border);padding:8px 12px">Nodes + edges</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Scaling</td><td style="border:1px solid var(--border);padding:8px 12px">Vertical (+ read replicas)</td><td style="border:1px solid var(--border);padding:8px 12px">Horizontal sharding</td><td style="border:1px solid var(--border);padding:8px 12px">Horizontal</td><td style="border:1px solid var(--border);padding:8px 12px">Horizontal (masterless)</td><td style="border:1px solid var(--border);padding:8px 12px">Vertical / limited H</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">ACID</td><td style="border:1px solid var(--border);padding:8px 12px">Full</td><td style="border:1px solid var(--border);padding:8px 12px">Partial (document-level)</td><td style="border:1px solid var(--border);padding:8px 12px">Atomic ops only</td><td style="border:1px solid var(--border);padding:8px 12px">Eventual consistency</td><td style="border:1px solid var(--border);padding:8px 12px">Full (Neo4j)</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Best for</td><td style="border:1px solid var(--border);padding:8px 12px">Financial, ERP, complex joins</td><td style="border:1px solid var(--border);padding:8px 12px">Catalogs, CMS, user profiles</td><td style="border:1px solid var(--border);padding:8px 12px">Sessions, cache, queues</td><td style="border:1px solid var(--border);padding:8px 12px">IoT, time-series, analytics</td><td style="border:1px solid var(--border);padding:8px 12px">Social networks, fraud detection</td></tr>
+        </table>
+        <h3>CAP Theorem</h3>
+        <p>A distributed system can guarantee only 2 of 3 properties simultaneously:</p>
+        <ul>
+          <li><strong>C — Consistency:</strong> All nodes see the same data at the same time</li>
+          <li><strong>A — Availability:</strong> Every request gets a response (not necessarily current data)</li>
+          <li><strong>P — Partition Tolerance:</strong> System continues despite network partition</li>
+        </ul>
+        <p>Since network partitions are unavoidable: real systems choose <strong>CP</strong> (consistent but may reject writes during partition — PostgreSQL, HBase, etcd, ZooKeeper) or <strong>AP</strong> (available but may serve stale data — DynamoDB with eventual consistency, Cassandra, CouchDB).</p>
+        <h3>PACELC Model (Extension to CAP)</h3>
+        <p>During normal operation (no partition): trade-off is <strong>Latency vs Consistency</strong>. Examples: DynamoDB is AP/EL (high availability, low latency over consistency); CockroachDB is CP/EC (prioritises consistency).</p>
+        <h3>When to Use What</h3>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Use Case</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Recommended DB</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Why</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Banking / payments</td><td style="border:1px solid var(--border);padding:8px 12px">PostgreSQL / CockroachDB</td><td style="border:1px solid var(--border);padding:8px 12px">Full ACID, strong consistency</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">User sessions / cache</td><td style="border:1px solid var(--border);padding:8px 12px">Redis</td><td style="border:1px solid var(--border);padding:8px 12px">Sub-ms latency, TTL support</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Product catalogue</td><td style="border:1px solid var(--border);padding:8px 12px">MongoDB</td><td style="border:1px solid var(--border);padding:8px 12px">Flexible schema, nested docs</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">IoT / time-series</td><td style="border:1px solid var(--border);padding:8px 12px">Cassandra / InfluxDB / TimescaleDB</td><td style="border:1px solid var(--border);padding:8px 12px">High write throughput, time-ordered</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Social graph / fraud</td><td style="border:1px solid var(--border);padding:8px 12px">Neo4j</td><td style="border:1px solid var(--border);padding:8px 12px">Relationship traversal in O(1) vs O(n) JOINs</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Search</td><td style="border:1px solid var(--border);padding:8px 12px">Elasticsearch / OpenSearch</td><td style="border:1px solid var(--border);padding:8px 12px">Inverted index, full-text, aggregations</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Global OLTP</td><td style="border:1px solid var(--border);padding:8px 12px">CockroachDB / Spanner</td><td style="border:1px solid var(--border);padding:8px 12px">Geo-distributed, serialisable ACID</td></tr>
+        </table>
+        <h3>Connection Pooling &amp; Performance</h3>
+        <pre><code># PostgreSQL: check active connections
+SELECT count(*), state FROM pg_stat_activity GROUP BY state;
+
+# Max connections (default 100, each costs ~10MB RAM)
+SHOW max_connections;
+
+# Use PgBouncer or pg_pool-II for pooling
+# Transaction mode: connection returned after each transaction
+# Session mode: connection held for entire client session
+
+# MongoDB: connection pool settings (Node.js Mongoose)
+mongoose.connect(uri, {
+  maxPoolSize: 10,          # max concurrent connections
+  serverSelectionTimeoutMS: 5000,
+  socketTimeoutMS: 45000,
+});
+
+# Redis: connection pool with ioredis
+const redis = new Redis({ maxRetriesPerRequest: 3, lazyConnect: true });</code></pre>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="cloud">
+      <h2>☁️ Cloud Overview</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">AWS vs Azure vs GCP — Service Mapping</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ultimate-it:cloud">Mark Complete</button>
+        </div>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Category</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">AWS</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Azure</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">GCP</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Compute (VM)</td><td style="border:1px solid var(--border);padding:8px 12px">EC2</td><td style="border:1px solid var(--border);padding:8px 12px">Azure VMs</td><td style="border:1px solid var(--border);padding:8px 12px">Compute Engine</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Serverless</td><td style="border:1px solid var(--border);padding:8px 12px">Lambda</td><td style="border:1px solid var(--border);padding:8px 12px">Azure Functions</td><td style="border:1px solid var(--border);padding:8px 12px">Cloud Run / Cloud Functions</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Object Storage</td><td style="border:1px solid var(--border);padding:8px 12px">S3</td><td style="border:1px solid var(--border);padding:8px 12px">Blob Storage</td><td style="border:1px solid var(--border);padding:8px 12px">Cloud Storage</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Managed K8s</td><td style="border:1px solid var(--border);padding:8px 12px">EKS</td><td style="border:1px solid var(--border);padding:8px 12px">AKS</td><td style="border:1px solid var(--border);padding:8px 12px">GKE</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Relational DB</td><td style="border:1px solid var(--border);padding:8px 12px">RDS / Aurora</td><td style="border:1px solid var(--border);padding:8px 12px">Azure SQL / Flexible Server</td><td style="border:1px solid var(--border);padding:8px 12px">Cloud SQL / AlloyDB</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">NoSQL</td><td style="border:1px solid var(--border);padding:8px 12px">DynamoDB</td><td style="border:1px solid var(--border);padding:8px 12px">Cosmos DB</td><td style="border:1px solid var(--border);padding:8px 12px">Firestore / Bigtable</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Message Queue</td><td style="border:1px solid var(--border);padding:8px 12px">SQS / SNS / EventBridge</td><td style="border:1px solid var(--border);padding:8px 12px">Service Bus / Event Grid</td><td style="border:1px solid var(--border);padding:8px 12px">Pub/Sub / Eventarc</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">CDN</td><td style="border:1px solid var(--border);padding:8px 12px">CloudFront</td><td style="border:1px solid var(--border);padding:8px 12px">Azure CDN / Front Door</td><td style="border:1px solid var(--border);padding:8px 12px">Cloud CDN</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Identity (IAM)</td><td style="border:1px solid var(--border);padding:8px 12px">IAM</td><td style="border:1px solid var(--border);padding:8px 12px">Entra ID (AAD)</td><td style="border:1px solid var(--border);padding:8px 12px">Cloud IAM</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Secrets</td><td style="border:1px solid var(--border);padding:8px 12px">Secrets Manager / SSM</td><td style="border:1px solid var(--border);padding:8px 12px">Key Vault</td><td style="border:1px solid var(--border);padding:8px 12px">Secret Manager</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Monitoring</td><td style="border:1px solid var(--border);padding:8px 12px">CloudWatch</td><td style="border:1px solid var(--border);padding:8px 12px">Azure Monitor</td><td style="border:1px solid var(--border);padding:8px 12px">Cloud Monitoring / Ops</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">DNS</td><td style="border:1px solid var(--border);padding:8px 12px">Route 53</td><td style="border:1px solid var(--border);padding:8px 12px">Azure DNS</td><td style="border:1px solid var(--border);padding:8px 12px">Cloud DNS</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">VPN / Direct Link</td><td style="border:1px solid var(--border);padding:8px 12px">VPN Gateway / Direct Connect</td><td style="border:1px solid var(--border);padding:8px 12px">VPN Gateway / ExpressRoute</td><td style="border:1px solid var(--border);padding:8px 12px">Cloud VPN / Interconnect</td></tr>
+        </table>
+        <h3>Service Models</h3>
+        <ul>
+          <li><strong>IaaS</strong> — You manage OS, runtime, apps. Provider manages hardware. Example: EC2, Azure VMs</li>
+          <li><strong>PaaS</strong> — Provider manages OS and runtime. You manage apps and data. Example: Elastic Beanstalk, App Engine</li>
+          <li><strong>SaaS</strong> — Provider manages everything. Example: Gmail, Salesforce, Office 365</li>
+          <li><strong>FaaS / Serverless</strong> — Event-driven, pay-per-execution, auto-scaling to zero. Example: Lambda, Cloud Run</li>
+          <li><strong>CaaS</strong> — Container as a Service: managed container platform. Example: ECS Fargate, GKE Autopilot</li>
+        </ul>
+        <h3>AWS IAM — Least Privilege in Practice</h3>
+        <pre><code># IAM Policy — restrict S3 access to a specific bucket and prefix
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": ["s3:GetObject", "s3:PutObject"],
+      "Resource": "arn:aws:s3:::my-app-bucket/uploads/*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "s3:ListBucket",
+      "Resource": "arn:aws:s3:::my-app-bucket",
+      "Condition": {
+        "StringLike": { "s3:prefix": ["uploads/*"] }
+      }
+    }
+  ]
+}
+
+# IAM Role for EC2 — attach role, no static keys needed
+aws iam create-role --role-name MyAppRole \
+  --assume-role-policy-document file://trust-policy.json
+aws iam attach-role-policy --role-name MyAppRole \
+  --policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
+
+# Check what actions a policy allows
+aws iam simulate-principal-policy \
+  --policy-source-arn arn:aws:iam::123456789012:user/alice \
+  --action-names "s3:DeleteBucket" \
+  --resource-arns "arn:aws:s3:::sensitive-bucket"</code></pre>
+        <h3>VPC Networking (AWS)</h3>
+        <pre><code># VPC architecture — 3-tier
+VPC: 10.0.0.0/16
+  Public subnets (one per AZ): 10.0.1.0/24, 10.0.2.0/24
+    → Internet Gateway attached
+    → Load balancer, NAT Gateway, bastion host
+  Private subnets (app layer): 10.0.11.0/24, 10.0.12.0/24
+    → EC2 instances, ECS tasks
+    → Egress via NAT Gateway only
+  Isolated subnets (DB layer): 10.0.21.0/24, 10.0.22.0/24
+    → RDS, ElastiCache
+    → No internet access — security group allows only app layer
+
+# Security Groups (stateful — return traffic auto-allowed)
+# vs NACLs (stateless — must allow inbound AND outbound explicitly)
+
+# Security Group rules for app tier
+aws ec2 authorize-security-group-ingress \
+  --group-id sg-app \
+  --protocol tcp --port 8080 \
+  --source-group sg-alb   # only from load balancer SG</code></pre>
+        <h3>AWS Well-Architected Framework — 6 Pillars</h3>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Pillar</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Key Practices</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Operational Excellence</td><td style="border:1px solid var(--border);padding:8px 12px">IaC, runbooks, small reversible changes, blameless post-mortems</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Security</td><td style="border:1px solid var(--border);padding:8px 12px">Least privilege IAM, encryption at rest &amp; in transit, GuardDuty, CloudTrail</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Reliability</td><td style="border:1px solid var(--border);padding:8px 12px">Multi-AZ, auto-scaling, health checks, chaos engineering</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Performance Efficiency</td><td style="border:1px solid var(--border);padding:8px 12px">Right-sizing, serverless where possible, CDN, ElastiCache</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Cost Optimization</td><td style="border:1px solid var(--border);padding:8px 12px">Reserved/Spot instances, S3 lifecycle, budget alerts, rightsizing</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Sustainability</td><td style="border:1px solid var(--border);padding:8px 12px">Maximise utilization, managed services, efficient architectures</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="iac">
+      <h2>🏗️ Infrastructure as Code (Terraform)</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Terraform — Writing, Planning &amp; Deploying IaC</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ultimate-it:iac">Mark Complete</button>
+        </div>
+        <h3>Core Concepts</h3>
+        <ul>
+          <li><strong>Provider</strong> — Plugin that talks to cloud API (aws, azurerm, google, kubernetes)</li>
+          <li><strong>Resource</strong> — A single infrastructure object (aws_instance, aws_s3_bucket)</li>
+          <li><strong>Data Source</strong> — Read existing resources not managed by this config</li>
+          <li><strong>Variable</strong> — Parameterise your config; passed via .tfvars or environment vars</li>
+          <li><strong>Output</strong> — Export values from a module or root config</li>
+          <li><strong>State</strong> — terraform.tfstate tracks what Terraform manages; store remotely (S3 + DynamoDB lock)</li>
+          <li><strong>Module</strong> — Reusable group of resources; use Terraform Registry or write your own</li>
+          <li><strong>Workspace</strong> — Multiple state files from same config (dev/staging/prod)</li>
+        </ul>
+        <h3>Terraform Workflow</h3>
+        <pre><code>terraform init          # download providers, set up backend
+terraform fmt           # format code (always run before commit)
+terraform validate      # check syntax and logical errors
+terraform plan          # dry-run: show what will change
+terraform apply         # create/update resources
+terraform destroy       # tear down all managed resources
+terraform state list    # list resources in state
+terraform state show aws_instance.web   # inspect specific resource
+terraform import aws_s3_bucket.logs my-existing-bucket  # import existing</code></pre>
+        <h3>Production Terraform Example</h3>
+        <pre><code># versions.tf
+terraform {
+  required_version = ">= 1.6"
+  required_providers {
+    aws = { source = "hashicorp/aws", version = "~> 5.0" }
+  }
+  backend "s3" {
+    bucket         = "tf-state-prod"
+    key            = "infra/terraform.tfstate"
+    region         = "us-east-1"
+    dynamodb_table = "tf-state-lock"
+    encrypt        = true
+  }
+}
+
+# variables.tf
+variable "environment" { type = string }
+variable "instance_type" {
+  type    = string
+  default = "t3.micro"
+  validation {
+    condition     = contains(["t3.micro","t3.small","t3.medium"], var.instance_type)
+    error_message = "Must be a valid t3 instance type."
+  }
+}
+
+# main.tf
+locals {
+  common_tags = {
+    Environment = var.environment
+    ManagedBy   = "Terraform"
+    Owner       = "platform-team"
+  }
+}
+
+resource "aws_vpc" "main" {
+  cidr_block           = "10.0.0.0/16"
+  enable_dns_hostnames = true
+  tags                 = merge(local.common_tags, { Name = "main-vpc" })
+}
+
+resource "aws_subnet" "private" {
+  count             = 2
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = cidrsubnet(aws_vpc.main.cidr_block, 8, count.index + 10)
+  availability_zone = data.aws_availability_zones.available.names[count.index]
+  tags              = merge(local.common_tags, { Name = "private-${count.index}" })
+}
+
+data "aws_availability_zones" "available" { state = "available" }
+
+# outputs.tf
+output "vpc_id"   { value = aws_vpc.main.id }
+output "subnets"  { value = aws_subnet.private[*].id }</code></pre>
+        <h3>Terraform Security Best Practices</h3>
+        <ul>
+          <li>Always use <strong>remote state with encryption</strong> (S3 + SSE-S3/KMS) and state locking (DynamoDB)</li>
+          <li>Never commit <code>.tfstate</code> or <code>*.tfvars</code> with secrets to Git — use <code>.gitignore</code></li>
+          <li>Use <strong>tfsec</strong> or <strong>Checkov</strong> in CI to scan for misconfigurations</li>
+          <li>Pin provider versions — <code>~&gt; 5.0</code> allows patch updates, prevents breaking changes</li>
+          <li>Use <strong>OIDC federation</strong> in CI (GitHub Actions → AWS) instead of static access keys</li>
+          <li>Apply <strong>Sentinel policies</strong> (Terraform Enterprise) or OPA for policy-as-code enforcement</li>
+        </ul>
+        <h3>Other IaC Tools</h3>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Tool</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Language</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Best For</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Terraform / OpenTofu</td><td style="border:1px solid var(--border);padding:8px 12px">HCL</td><td style="border:1px solid var(--border);padding:8px 12px">Multi-cloud, most widely used</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Pulumi</td><td style="border:1px solid var(--border);padding:8px 12px">Python / TS / Go</td><td style="border:1px solid var(--border);padding:8px 12px">Developers who prefer real programming languages</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">AWS CDK</td><td style="border:1px solid var(--border);padding:8px 12px">Python / TS / Java</td><td style="border:1px solid var(--border);padding:8px 12px">AWS-only, generates CloudFormation</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Ansible</td><td style="border:1px solid var(--border);padding:8px 12px">YAML</td><td style="border:1px solid var(--border);padding:8px 12px">Config management, app deployment, OS config</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Helm</td><td style="border:1px solid var(--border);padding:8px 12px">YAML + Go templates</td><td style="border:1px solid var(--border);padding:8px 12px">Kubernetes application packaging</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="containers">
+      <h2>🐳 Docker &amp; Kubernetes</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Docker: Images, Containers &amp; Best Practices</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ultimate-it:containers-docker">Mark Complete</button>
+        </div>
+        <h3>Docker Core Concepts</h3>
+        <ul>
+          <li><strong>Image</strong> — Immutable, layered filesystem snapshot built from a Dockerfile</li>
+          <li><strong>Container</strong> — Running instance of an image; isolated via Linux namespaces + cgroups</li>
+          <li><strong>Registry</strong> — Docker Hub, ECR, GCR, ACR — stores and distributes images</li>
+          <li><strong>Volume</strong> — Persistent storage that survives container restarts</li>
+          <li><strong>Network</strong> — bridge (default), host, none, overlay (Swarm/K8s)</li>
+        </ul>
+        <h3>Production Dockerfile</h3>
+        <pre><code># Multi-stage build: builder stage (all dev deps) → final stage (runtime only)
+# Stage 1: build
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production   # use ci not install for reproducibility
+
+COPY . .
+RUN npm run build
+
+# Stage 2: runtime — minimal image
+FROM node:20-alpine AS runtime
+RUN addgroup -S appgroup &amp;&amp; adduser -S appuser -G appgroup
+WORKDIR /app
+
+COPY --from=builder --chown=appuser:appgroup /app/dist ./dist
+COPY --from=builder --chown=appuser:appgroup /app/node_modules ./node_modules
+
+USER appuser                 # never run as root
+EXPOSE 3000
+HEALTHCHECK --interval=30s --timeout=3s CMD wget -qO- http://localhost:3000/health || exit 1
+CMD ["node", "dist/server.js"]</code></pre>
+        <h3>Docker Security Checklist</h3>
+        <ul>
+          <li>Use <strong>non-root user</strong> inside container (USER directive)</li>
+          <li>Use <strong>minimal base images</strong> — alpine, distroless, scratch</li>
+          <li>Scan images with <strong>Trivy</strong>: <code>trivy image myapp:latest</code></li>
+          <li>Set <strong>read-only root filesystem</strong>: <code>docker run --read-only</code></li>
+          <li>Drop all Linux capabilities, add only what's needed: <code>--cap-drop ALL --cap-add NET_BIND_SERVICE</code></li>
+          <li>Never copy secrets into image layers — use build secrets or runtime env</li>
+          <li>Pin image digests in production: <code>FROM node:20-alpine@sha256:abc123...</code></li>
+        </ul>
+        <h3>Essential Docker Commands</h3>
+        <pre><code>docker build -t myapp:1.0.0 --no-cache .
+docker run -d -p 3000:3000 --name api --env-file .env myapp:1.0.0
+docker exec -it api sh         # shell into running container
+docker logs api -f --tail 100 # follow logs
+docker stats                   # live CPU/RAM per container
+docker inspect api             # full JSON config
+docker system prune -af        # remove all unused resources
+docker buildx build --platform linux/amd64,linux/arm64 -t myapp:1.0.0 --push .  # multi-arch</code></pre>
+      </div>
+      <div class="lesson-block" style="margin-top:var(--gap-xl)">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Kubernetes: Architecture &amp; Production Patterns</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ultimate-it:containers-k8s">Mark Complete</button>
+        </div>
+        <h3>Kubernetes Architecture</h3>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Component</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Where</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Responsibility</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">API Server</td><td style="border:1px solid var(--border);padding:8px 12px">Control Plane</td><td style="border:1px solid var(--border);padding:8px 12px">All REST API calls; auth/authz gate; etcd writes go through here</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">etcd</td><td style="border:1px solid var(--border);padding:8px 12px">Control Plane</td><td style="border:1px solid var(--border);padding:8px 12px">Distributed key-value store — single source of truth for cluster state</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Scheduler</td><td style="border:1px solid var(--border);padding:8px 12px">Control Plane</td><td style="border:1px solid var(--border);padding:8px 12px">Assigns Pods to Nodes based on resources, affinity, taints</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Controller Manager</td><td style="border:1px solid var(--border);padding:8px 12px">Control Plane</td><td style="border:1px solid var(--border);padding:8px 12px">Runs reconciliation loops (Deployment, ReplicaSet, Node controllers)</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">kubelet</td><td style="border:1px solid var(--border);padding:8px 12px">Worker Node</td><td style="border:1px solid var(--border);padding:8px 12px">Ensures Pods declared in API server are running on this node</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">kube-proxy</td><td style="border:1px solid var(--border);padding:8px 12px">Worker Node</td><td style="border:1px solid var(--border);padding:8px 12px">Implements Service networking with iptables/IPVS rules</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">CNI Plugin</td><td style="border:1px solid var(--border);padding:8px 12px">Worker Node</td><td style="border:1px solid var(--border);padding:8px 12px">Pod networking (Calico, Cilium, Flannel, Weave)</td></tr>
+        </table>
+        <h3>Production Deployment Manifest</h3>
+        <pre><code>apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+  namespace: production
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate: { maxSurge: 1, maxUnavailable: 0 }
+  selector:
+    matchLabels: { app: api }
+  template:
+    metadata:
+      labels: { app: api, version: "1.2.0" }
+    spec:
+      serviceAccountName: api-sa        # least-privilege service account
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 2000
+      containers:
+        - name: api
+          image: myregistry/api:1.2.0@sha256:abc123  # pinned digest
+          ports: [{ containerPort: 3000 }]
+          resources:
+            requests: { cpu: 100m, memory: 128Mi }   # scheduler uses requests
+            limits:   { cpu: 500m, memory: 512Mi }   # OOM killed if exceeded
+          readinessProbe:
+            httpGet: { path: /health, port: 3000 }
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet: { path: /health, port: 3000 }
+            initialDelaySeconds: 15
+            failureThreshold: 3
+          envFrom:
+            - secretRef: { name: api-secrets }       # Secrets from K8s Secret
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: ["ALL"] }
+      topologySpreadConstraints:                      # spread across AZs
+        - maxSkew: 1
+          topologyKey: topology.kubernetes.io/zone
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector: { matchLabels: { app: api } }</code></pre>
+        <h3>Key kubectl Commands</h3>
+        <pre><code>kubectl get pods -n production -o wide
+kubectl describe pod api-xyz -n production
+kubectl logs api-xyz -n production -f --tail=100
+kubectl exec -it api-xyz -n production -- sh
+kubectl top pods -n production       # CPU/RAM (metrics-server required)
+kubectl rollout status deployment/api -n production
+kubectl rollout undo deployment/api -n production  # instant rollback
+kubectl apply -f manifests/          # apply entire directory
+kubectl diff -f manifests/           # preview changes before apply
+kubectl get events -n production --sort-by='.lastTimestamp'</code></pre>
+        <h3>Kubernetes Security Hardening</h3>
+        <ul>
+          <li><strong>RBAC</strong> — bind only necessary verbs/resources to ServiceAccounts; no cluster-admin for apps</li>
+          <li><strong>Network Policies</strong> — default-deny all ingress, explicitly allow only needed paths</li>
+          <li><strong>Pod Security Standards</strong> — enforce <code>restricted</code> profile (replaces PodSecurityPolicy)</li>
+          <li><strong>OPA / Kyverno</strong> — admission controller policies (block images without digest, require resource limits)</li>
+          <li><strong>Secrets encryption at rest</strong> — enable KMS envelope encryption for etcd</li>
+          <li><strong>Workload Identity</strong> — IRSA (AWS), Workload Identity (GKE) — no static credentials in Pods</li>
+          <li><strong>Falco</strong> — runtime threat detection (unexpected shell in container, privilege escalation)</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="cicd">
+      <h2>🔄 CI/CD Pipelines</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">GitHub Actions, GitLab CI &amp; ArgoCD</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ultimate-it:cicd">Mark Complete</button>
+        </div>
+        <h3>GitHub Actions — Production Workflow</h3>
+        <pre><code>name: CI/CD Pipeline
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE: ${{ github.repository }}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20', cache: 'npm' }
+      - run: npm ci
+      - run: npm test -- --coverage
+      - run: npm run lint
+      - uses: actions/upload-artifact@v4
+        with: { name: coverage, path: coverage/ }
+
+  sast:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Semgrep SAST
+        uses: semgrep/semgrep-action@v1
+        with: { config: "p/owasp-top-ten p/secrets" }
+
+  build-push:
+    runs-on: ubuntu-latest
+    needs: [test, sast]
+    if: github.ref == 'refs/heads/main'
+    permissions:
+      contents: read
+      packages: write
+      id-token: write         # OIDC token for AWS/GCP auth
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS via OIDC (no static keys!)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::123456789012:role/GitHubActionsRole
+          aws-region: us-east-1
+
+      - name: Log in to registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push image
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          sbom: true
+          provenance: true    # SLSA Level 3 provenance
+
+      - name: Scan image with Trivy
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ github.sha }}
+          severity: HIGH,CRITICAL
+          exit-code: 1         # fail pipeline on critical vulns
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build-push
+    environment: production   # requires manual approval in GitHub
+    steps:
+      - name: Update K8s manifest and push (GitOps trigger)
+        run: |
+          git config user.email "ci@company.com"
+          git config user.name "CI Bot"
+          sed -i "s|image:.*|image: ${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ github.sha }}|" k8s/deployment.yaml
+          git add k8s/deployment.yaml
+          git commit -m "deploy: update image to ${{ github.sha }}"
+          git push</code></pre>
+        <h3>GitOps with ArgoCD</h3>
+        <pre><code># ArgoCD Application manifest
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/org/k8s-manifests
+    targetRevision: main
+    path: apps/my-app/production
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: production
+  syncPolicy:
+    automated:
+      prune: true          # delete resources removed from Git
+      selfHeal: true       # re-sync if cluster drifts from Git
+    syncOptions:
+      - CreateNamespace=true
+      - RespectIgnoreDifferences=true
+    retry:
+      limit: 5
+      backoff: { duration: 5s, factor: 2, maxDuration: 3m }
+
+# ArgoCD CLI
+argocd app list
+argocd app sync my-app
+argocd app rollback my-app 3    # rollback to revision 3</code></pre>
+        <h3>Pipeline Security Checklist</h3>
+        <ul>
+          <li>Use <strong>OIDC federation</strong> — never store cloud credentials as static secrets in CI</li>
+          <li><strong>Pin action versions</strong> by full commit SHA: <code>uses: actions/checkout@11bd71901...</code></li>
+          <li>Set <strong>minimal permissions</strong> at job and workflow level with <code>permissions:</code></li>
+          <li>Run <strong>SAST</strong> (Semgrep, CodeQL), <strong>SCA</strong> (Dependabot, Snyk), and <strong>container scanning</strong> (Trivy) in every PR</li>
+          <li>Use <strong>branch protection</strong> — require PR reviews, status checks, and signed commits</li>
+          <li>Generate <strong>SBOM</strong> (Software Bill of Materials) with every release image</li>
+          <li>Enable <strong>secret scanning</strong> — GitHub Advanced Security / GitLeaks pre-commit hook</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="devops">
+      <h2>📈 DevOps &amp; SRE</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">DevOps Principles, SRE &amp; Incident Management</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ultimate-it:devops">Mark Complete</button>
+        </div>
+        <h3>CALMS Framework</h3>
+        <ul>
+          <li><strong>C</strong>ulture — shared ownership, blameless post-mortems, psychological safety</li>
+          <li><strong>A</strong>utomation — CI/CD, IaC, automated testing, auto-remediation</li>
+          <li><strong>L</strong>ean — small batch sizes, limit WIP, continuous improvement (Kaizen), fast feedback loops</li>
+          <li><strong>M</strong>easurement — DORA metrics, SLI/SLO, data-driven decisions, observability</li>
+          <li><strong>S</strong>haring — runbooks, post-mortems, internal platforms, knowledge bases</li>
+        </ul>
+        <h3>DORA Metrics</h3>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Metric</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Elite</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">High</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Medium</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Low</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Deployment Frequency</td><td style="border:1px solid var(--border);padding:8px 12px">Multiple/day</td><td style="border:1px solid var(--border);padding:8px 12px">Daily–weekly</td><td style="border:1px solid var(--border);padding:8px 12px">Weekly–monthly</td><td style="border:1px solid var(--border);padding:8px 12px">&lt; 6 months</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Lead Time for Change</td><td style="border:1px solid var(--border);padding:8px 12px">&lt; 1 hour</td><td style="border:1px solid var(--border);padding:8px 12px">1 day–1 week</td><td style="border:1px solid var(--border);padding:8px 12px">1 week–1 month</td><td style="border:1px solid var(--border);padding:8px 12px">&gt; 6 months</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">MTTR</td><td style="border:1px solid var(--border);padding:8px 12px">&lt; 1 hour</td><td style="border:1px solid var(--border);padding:8px 12px">&lt; 1 day</td><td style="border:1px solid var(--border);padding:8px 12px">1 day–1 week</td><td style="border:1px solid var(--border);padding:8px 12px">&gt; 6 months</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Change Failure Rate</td><td style="border:1px solid var(--border);padding:8px 12px">0–5%</td><td style="border:1px solid var(--border);padding:8px 12px">0–15%</td><td style="border:1px solid var(--border);padding:8px 12px">16–30%</td><td style="border:1px solid var(--border);padding:8px 12px">46–60%</td></tr>
+        </table>
+        <h3>SRE: SLI / SLO / SLA / Error Budget</h3>
+        <ul>
+          <li><strong>SLI</strong> — metric measuring service behaviour (e.g., % successful requests, p99 latency)</li>
+          <li><strong>SLO</strong> — target for SLI (e.g., 99.9% requests succeed, p99 &lt; 200 ms over 30 days)</li>
+          <li><strong>SLA</strong> — contractual commitment to users; always slightly weaker than SLO to leave buffer</li>
+          <li><strong>Error Budget</strong> — 100% − SLO. At 99.9% SLO: 43.8 min/month of allowed downtime. If budget spent → freeze feature work, fix reliability</li>
+          <li><strong>Toil</strong> — manual, repetitive, automatable work with no lasting value. Keep &lt; 50% of SRE time</li>
+        </ul>
+        <pre><code># Good SLO example
+service: payment-api
+sli:
+  - name: availability
+    query: sum(rate(http_requests_total{status!~"5.."}[5m])) / sum(rate(http_requests_total[5m]))
+  - name: latency
+    query: histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[5m]))
+slo:
+  - sli: availability, target: 99.9%, window: 30d
+  - sli: latency,    target: 0.200, window: 30d   # p99 < 200ms</code></pre>
+        <h3>Incident Management Lifecycle</h3>
+        <ol>
+          <li><strong>Detection</strong> — alert fires (PagerDuty, Opsgenie) or customer report</li>
+          <li><strong>Triage</strong> — is it real? Severity level (P1–P4)?</li>
+          <li><strong>Declare incident</strong> — open incident channel, assign Incident Commander (IC)</li>
+          <li><strong>Mitigate first</strong> — restore service before root-causing (feature flag, rollback, scale out)</li>
+          <li><strong>Communicate</strong> — internal stakeholders + status page update every 30 min</li>
+          <li><strong>Resolve</strong> — confirm metrics back to SLO, close incident</li>
+          <li><strong>Post-mortem</strong> — blameless, within 48 h. 5 Whys, timeline, action items with owners and due dates</li>
+        </ol>
+        <h3>Chaos Engineering</h3>
+        <p>Deliberately inject failures to discover weaknesses before they cause incidents:</p>
+        <ul>
+          <li><strong>Principles of Chaos</strong>: form hypothesis → run controlled experiment in prod → observe → fix</li>
+          <li><strong>Tools</strong>: Chaos Monkey (Netflix), AWS FIS (Fault Injection Simulator), LitmusChaos (K8s), Gremlin</li>
+          <li><strong>Common experiments</strong>: kill random pods, CPU stress, network latency injection, AZ failure, dependency unavailability</li>
+          <li>Always have a <strong>kill switch</strong>; start with the lowest-traffic region/time</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="monitoring">
+      <h2>📊 Monitoring &amp; Observability</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">The Three Pillars: Metrics, Logs &amp; Traces</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ultimate-it:monitoring">Mark Complete</button>
+        </div>
+        <h3>Three Pillars of Observability</h3>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Pillar</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">What it answers</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Tools</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Metrics</td><td style="border:1px solid var(--border);padding:8px 12px">Is it broken? How fast? How many?</td><td style="border:1px solid var(--border);padding:8px 12px">Prometheus, CloudWatch, Datadog, InfluxDB</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Logs</td><td style="border:1px solid var(--border);padding:8px 12px">What happened and when?</td><td style="border:1px solid var(--border);padding:8px 12px">Loki, ELK (Elasticsearch+Logstash+Kibana), Splunk, CloudWatch Logs</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Traces</td><td style="border:1px solid var(--border);padding:8px 12px">Where did this request go?</td><td style="border:1px solid var(--border);padding:8px 12px">Jaeger, Tempo, AWS X-Ray, Zipkin, Honeycomb</td></tr>
+        </table>
+        <h3>Prometheus + Grafana Stack</h3>
+        <pre><code># prometheus.yml — scrape config
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+rule_files:
+  - "alerts/*.yml"
+
+alerting:
+  alertmanagers:
+    - static_configs: [{ targets: ['alertmanager:9093'] }]
+
+scrape_configs:
+  - job_name: 'kubernetes-pods'
+    kubernetes_sd_configs:
+      - role: pod
+    relabel_configs:
+      - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+        action: keep
+        regex: true
+
+# PromQL — key query patterns
+# Request rate (rps) by service
+sum(rate(http_requests_total[5m])) by (service)
+
+# Error rate %
+sum(rate(http_requests_total{status=~"5.."}[5m])) by (service)
+  / sum(rate(http_requests_total[5m])) by (service) * 100
+
+# p99 latency
+histogram_quantile(0.99, sum(rate(http_request_duration_seconds_bucket[5m])) by (le, service))
+
+# CPU usage per pod
+sum(rate(container_cpu_usage_seconds_total[5m])) by (pod) * 1000  # millicores</code></pre>
+        <h3>Alerting Rules</h3>
+        <pre><code># alerts/availability.yml
+groups:
+  - name: availability
+    rules:
+      - alert: HighErrorRate
+        expr: |
+          sum(rate(http_requests_total{status=~"5.."}[5m])) by (service)
+          / sum(rate(http_requests_total[5m])) by (service) > 0.01
+        for: 2m
+        labels: { severity: critical }
+        annotations:
+          summary: "Error rate > 1% for {{ $labels.service }}"
+          runbook: "https://runbooks.internal/high-error-rate"
+
+      - alert: HighLatency
+        expr: |
+          histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[5m])) > 0.5
+        for: 5m
+        labels: { severity: warning }
+        annotations:
+          summary: "p99 latency > 500ms for {{ $labels.service }}"
+
+      - alert: PodCrashLooping
+        expr: rate(kube_pod_container_status_restarts_total[15m]) * 60 * 15 > 0
+        for: 0m
+        labels: { severity: critical }
+        annotations:
+          summary: "Pod {{ $labels.pod }} is crash-looping"</code></pre>
+        <h3>Structured Logging Best Practices</h3>
+        <pre><code>// Always log in JSON — machine-parseable, searchable
+const log = {
+  timestamp: new Date().toISOString(),
+  level: "error",
+  message: "payment failed",
+  traceId: "abc-123-xyz",        // correlate with distributed trace
+  userId: "user-456",
+  orderId: "order-789",
+  amount: 99.99,
+  currency: "USD",
+  error: { code: "CARD_DECLINED", provider: "stripe" }
+};
+console.log(JSON.stringify(log));
+
+// Logging levels — use appropriately
+// DEBUG: detailed diagnostic info (disable in prod)
+// INFO:  normal operation events (request received, job completed)
+// WARN:  unexpected but recoverable (fallback used, retry succeeded)
+// ERROR: failure requiring attention (request failed, DB unreachable)
+// FATAL: unrecoverable — process will exit</code></pre>
+        <h3>Golden Signals (Google SRE)</h3>
+        <ul>
+          <li><strong>Latency</strong> — time to serve a request. Distinguish success vs error latency</li>
+          <li><strong>Traffic</strong> — how much demand (req/s, messages/s, transactions/s)</li>
+          <li><strong>Errors</strong> — rate of failed requests (explicit: 500s; implicit: 200 with wrong data)</li>
+          <li><strong>Saturation</strong> — how full is the service? CPU %, memory %, queue depth, disk I/O</li>
+        </ul>
+        <p>Alert on <strong>symptoms</strong> (user impact) not causes. "Error rate &gt; 1%" is a symptom. "CPU &gt; 80%" is a cause — it only matters if it's causing a symptom.</p>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="security">
+      <h2>🔒 Security Fundamentals</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Cryptography, PKI &amp; Security Models</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ultimate-it:security">Mark Complete</button>
+        </div>
+        <h3>Encryption Types</h3>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Type</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Algorithm</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Key</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Use Case</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Symmetric</td><td style="border:1px solid var(--border);padding:8px 12px">AES-256-GCM, ChaCha20-Poly1305</td><td style="border:1px solid var(--border);padding:8px 12px">Same key for enc/dec</td><td style="border:1px solid var(--border);padding:8px 12px">Bulk data, TLS record layer, disk encryption</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Asymmetric</td><td style="border:1px solid var(--border);padding:8px 12px">RSA-4096, Ed25519, ECDSA P-256</td><td style="border:1px solid var(--border);padding:8px 12px">Public + Private key pair</td><td style="border:1px solid var(--border);padding:8px 12px">TLS handshake, digital signatures, SSH, JWT</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Hashing</td><td style="border:1px solid var(--border);padding:8px 12px">SHA-256/SHA-3, bcrypt, Argon2id</td><td style="border:1px solid var(--border);padding:8px 12px">None (one-way)</td><td style="border:1px solid var(--border);padding:8px 12px">Password storage, integrity verification, HMAC</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Key Exchange</td><td style="border:1px solid var(--border);padding:8px 12px">ECDHE (X25519), DH</td><td style="border:1px solid var(--border);padding:8px 12px">Ephemeral per-session</td><td style="border:1px solid var(--border);padding:8px 12px">TLS — provides Perfect Forward Secrecy (PFS)</td></tr>
+        </table>
+        <h3>PKI &amp; Certificate Lifecycle</h3>
+        <pre><code># Generate a self-signed cert (dev only — not trusted by browsers)
+openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes
+
+# Generate CSR (Certificate Signing Request) for real CA
+openssl req -new -newkey rsa:4096 -keyout server.key -out server.csr \
+  -subj "/CN=api.example.com/O=MyOrg/C=US"
+
+# Inspect a certificate
+openssl x509 -in cert.pem -text -noout
+# Key fields: Subject, Issuer, SANs (Subject Alternative Names), expiry, signature algorithm
+
+# Check cert expiry of a live domain
+echo | openssl s_client -connect example.com:443 2>/dev/null | openssl x509 -noout -dates
+
+# Let's Encrypt / ACME (auto-renew via certbot)
+certbot certonly --nginx -d example.com -d www.example.com
+# Certs stored in /etc/letsencrypt/live/example.com/
+
+# Certificate Transparency (CT) — check for unauthorized certs
+# crt.sh/?q=example.com — shows all certs ever issued for a domain</code></pre>
+        <h3>Password Hashing — Right vs Wrong</h3>
+        <pre><code>// WRONG — never store plaintext or fast hash
+password_hash = md5(password)        // broken in seconds
+password_hash = sha256(password)     // rainbow table attacks
+
+// RIGHT — slow adaptive hash with salt (built-in salt, auto-salted)
+// Argon2id (winner of Password Hashing Competition 2015 — preferred)
+const hash = await argon2.hash(password, { type: argon2.argon2id });
+
+// bcrypt (widely supported, still acceptable)
+const hash = await bcrypt.hash(password, 12);  // cost factor 12
+
+// Verify
+const valid = await argon2.verify(hash, inputPassword);</code></pre>
+        <h3>Common Attack Types</h3>
+        <ul>
+          <li><strong>Phishing / Spear Phishing</strong> — credential harvesting via email; targeted = spear phishing</li>
+          <li><strong>SQL Injection</strong> — malicious SQL via unsanitised input (use parameterised queries)</li>
+          <li><strong>XSS (Cross-Site Scripting)</strong> — inject JS into pages; stored vs reflected vs DOM-based</li>
+          <li><strong>CSRF</strong> — trick authenticated user's browser into making unauthorised requests</li>
+          <li><strong>SSRF</strong> — server fetches internal URLs on attacker's behalf (critical in cloud)</li>
+          <li><strong>DDoS</strong> — volumetric, protocol, or application-layer flood</li>
+          <li><strong>MITM</strong> — intercept traffic between parties (mitigated by TLS pinning)</li>
+          <li><strong>Supply Chain Attack</strong> — compromise third-party dep (e.g., npm package, GitHub Action)</li>
+          <li><strong>Credential Stuffing</strong> — automated login attempts with breached username/password pairs</li>
+          <li><strong>Zero-Day</strong> — exploit of unknown, unpatched vulnerability; no defence except layered security</li>
+        </ul>
+        <h3>Zero Trust Architecture</h3>
+        <p>"Never trust, always verify" — even internal traffic is treated as hostile:</p>
+        <ul>
+          <li><strong>Verify explicitly</strong> — authenticate and authorise every request (MFA, device health, context)</li>
+          <li><strong>Least privilege</strong> — minimum access for the task; just-in-time (JIT) privilege elevation</li>
+          <li><strong>Assume breach</strong> — microsegmentation, mTLS between services, encrypt everything, log everything</li>
+          <li><strong>Tools</strong>: BeyondCorp (Google), Zscaler, Cloudflare Access, Istio mTLS, HashiCorp Boundary</li>
+        </ul>
+        <h3>Secrets Management</h3>
+        <pre><code># HashiCorp Vault — enterprise secrets management
+vault secrets enable -path=secret kv-v2
+vault kv put secret/myapp db_password="s3cr3t" api_key="abc123"
+vault kv get -format=json secret/myapp
+
+# Dynamic secrets — generated on-demand, auto-expire
+vault secrets enable database
+vault write database/config/postgres \
+  plugin_name=postgresql-database-plugin \
+  connection_url="postgresql://{{username}}:{{password}}@db:5432/mydb" \
+  allowed_roles=myapp
+# Each lease gets unique credentials; revoked after TTL
+
+# Kubernetes integration via Vault Agent Injector
+# Injects secrets as files into Pod filesystem — no env vars, no K8s Secrets in plaintext
+
+# AWS Secrets Manager — simpler, cloud-native
+aws secretsmanager create-secret --name /prod/db/password --secret-string "s3cr3t"
+aws secretsmanager get-secret-value --secret-id /prod/db/password
+# Rotate automatically with Lambda rotation function</code></pre>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="owasp">
+      <h2>🛡️ OWASP Top 10</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">OWASP Top 10 (2021) — Web Application Vulnerabilities</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ultimate-it:owasp">Mark Complete</button>
+        </div>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">#</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Vulnerability</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Example</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Prevention</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">A01</td><td style="border:1px solid var(--border);padding:8px 12px">Broken Access Control</td><td style="border:1px solid var(--border);padding:8px 12px">IDOR: /api/users/123 returns any user's data</td><td style="border:1px solid var(--border);padding:8px 12px">Enforce auth on every endpoint; deny by default</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">A02</td><td style="border:1px solid var(--border);padding:8px 12px">Cryptographic Failures</td><td style="border:1px solid var(--border);padding:8px 12px">Passwords in MD5, HTTP instead of HTTPS</td><td style="border:1px solid var(--border);padding:8px 12px">Argon2id/bcrypt, TLS everywhere, classify sensitive data</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">A03</td><td style="border:1px solid var(--border);padding:8px 12px">Injection</td><td style="border:1px solid var(--border);padding:8px 12px">SQL: <code>' OR 1=1 --</code>; Command injection</td><td style="border:1px solid var(--border);padding:8px 12px">Parameterised queries, ORM, input validation, WAF</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">A04</td><td style="border:1px solid var(--border);padding:8px 12px">Insecure Design</td><td style="border:1px solid var(--border);padding:8px 12px">No rate limiting on password reset endpoint</td><td style="border:1px solid var(--border);padding:8px 12px">Threat modelling, secure design patterns, abuse cases</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">A05</td><td style="border:1px solid var(--border);padding:8px 12px">Security Misconfiguration</td><td style="border:1px solid var(--border);padding:8px 12px">Default creds, verbose error messages, open S3 bucket</td><td style="border:1px solid var(--border);padding:8px 12px">Hardening guides, config scanning, remove defaults</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">A06</td><td style="border:1px solid var(--border);padding:8px 12px">Vulnerable &amp; Outdated Components</td><td style="border:1px solid var(--border);padding:8px 12px">Log4Shell, npm packages with known CVEs</td><td style="border:1px solid var(--border);padding:8px 12px">Dependabot, Snyk, SBOM, patch management SLA</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">A07</td><td style="border:1px solid var(--border);padding:8px 12px">Identification &amp; Auth Failures</td><td style="border:1px solid var(--border);padding:8px 12px">Weak passwords, no MFA, JWT alg=none</td><td style="border:1px solid var(--border);padding:8px 12px">MFA, account lockout, secure session management, strong JWT</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">A08</td><td style="border:1px solid var(--border);padding:8px 12px">Software &amp; Data Integrity Failures</td><td style="border:1px solid var(--border);padding:8px 12px">Unverified CI plugin, insecure deserialization</td><td style="border:1px solid var(--border);padding:8px 12px">Sign artifacts, verify checksums, pin dependencies</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">A09</td><td style="border:1px solid var(--border);padding:8px 12px">Security Logging &amp; Monitoring Failures</td><td style="border:1px solid var(--border);padding:8px 12px">Failed logins not logged; no alerting on anomalies</td><td style="border:1px solid var(--border);padding:8px 12px">Audit logs, SIEM, alert on suspicious patterns, log injection prevention</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">A10</td><td style="border:1px solid var(--border);padding:8px 12px">SSRF</td><td style="border:1px solid var(--border);padding:8px 12px">Attacker triggers server to call <code>http://169.254.169.254/latest/meta-data/</code></td><td style="border:1px solid var(--border);padding:8px 12px">Allowlist external URLs, block metadata IPs, network egress controls</td></tr>
+        </table>
+        <h3>Injection — Deep Dive</h3>
+        <pre><code>-- SQL Injection: NEVER build queries with string concatenation
+BAD:  query = "SELECT * FROM users WHERE name = '" + userInput + "'"
+      # Input: ' OR '1'='1  → returns all users
+
+GOOD: Parameterised query (Python psycopg2)
+      cursor.execute("SELECT * FROM users WHERE name = %s", (userInput,))
+
+GOOD: ORM (SQLAlchemy)
+      User.query.filter_by(name=userInput).first()
+
+-- Command Injection
+BAD:  os.system("ping " + user_host)    # Input: ; rm -rf /
+GOOD: subprocess.run(["ping", user_host], capture_output=True)  # list form — no shell
+
+-- LDAP Injection, XPath Injection, Template Injection
+# Same pattern: never concatenate user input into query/template strings
+# Use parameterised APIs or strict input validation + encoding</code></pre>
+        <h3>XSS Prevention</h3>
+        <pre><code">// Stored XSS — attacker saves &lt;script&gt;alert(1)&lt;/script&gt; as a comment
+// Reflected XSS — payload in URL: /search?q=&lt;script&gt;...&lt;/script&gt;
+// DOM-based XSS — JS reads location.hash and sets innerHTML directly
+
+// Prevention:
+// 1. HTML-encode ALL user data before rendering
+const safe = str.replace(/&amp;/g,'&amp;amp;').replace(/</g,'&amp;lt;')...;
+
+// 2. Use textContent / innerText — never innerHTML with user data
+element.textContent = userInput;  // safe
+element.innerHTML = userInput;    // DANGEROUS — never
+
+// 3. Content Security Policy header
+// Blocks inline scripts; only allows trusted sources
+Content-Security-Policy: default-src 'self'; script-src 'self' 'nonce-abc123'
+
+// 4. DOMPurify for rich-text fields that must allow HTML
+import DOMPurify from 'dompurify';
+element.innerHTML = DOMPurify.sanitize(richText);</code></pre>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="devsecops">
+      <h2>🔐 DevSecOps</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Shifting Security Left — SAST, DAST, SCA &amp; Supply Chain</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ultimate-it:devsecops">Mark Complete</button>
+        </div>
+        <h3>Security Testing in the Pipeline</h3>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Type</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">When</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Tools</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Finds</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">SAST (Static)</td><td style="border:1px solid var(--border);padding:8px 12px">Every PR/commit</td><td style="border:1px solid var(--border);padding:8px 12px">Semgrep, CodeQL, Checkmarx, SonarQube</td><td style="border:1px solid var(--border);padding:8px 12px">Injection, hardcoded secrets, insecure patterns</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">SCA (Dependencies)</td><td style="border:1px solid var(--border);padding:8px 12px">Every PR + daily</td><td style="border:1px solid var(--border);padding:8px 12px">Dependabot, Snyk, OWASP Dependency-Check</td><td style="border:1px solid var(--border);padding:8px 12px">Known CVEs in third-party libraries</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Container Scan</td><td style="border:1px solid var(--border);padding:8px 12px">On image build</td><td style="border:1px solid var(--border);padding:8px 12px">Trivy, Grype, Clair, ECR scanning</td><td style="border:1px solid var(--border);padding:8px 12px">CVEs in OS packages and language deps in image</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">IaC Scan</td><td style="border:1px solid var(--border);padding:8px 12px">On IaC PR</td><td style="border:1px solid var(--border);padding:8px 12px">Checkov, tfsec, Terrascan, KICS</td><td style="border:1px solid var(--border);padding:8px 12px">Misconfigurations (open SGs, unencrypted buckets)</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Secret Detection</td><td style="border:1px solid var(--border);padding:8px 12px">Pre-commit + CI</td><td style="border:1px solid var(--border);padding:8px 12px">GitLeaks, detect-secrets, GitHub Secret Scanning</td><td style="border:1px solid var(--border);padding:8px 12px">API keys, tokens, passwords committed to Git</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">DAST (Dynamic)</td><td style="border:1px solid var(--border);padding:8px 12px">Staging/nightly</td><td style="border:1px solid var(--border);padding:8px 12px">OWASP ZAP, Burp Suite, Nuclei</td><td style="border:1px solid var(--border);padding:8px 12px">Runtime vulns: XSS, SQLi, misconfigs in live app</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Pen Test</td><td style="border:1px solid var(--border);padding:8px 12px">Quarterly</td><td style="border:1px solid var(--border);padding:8px 12px">Manual + Metasploit, Burp Pro, custom</td><td style="border:1px solid var(--border);padding:8px 12px">Business logic flaws, chained vulns, privilege esc</td></tr>
+        </table>
+        <h3>CVE &amp; CVSS Scoring</h3>
+        <pre><code># CVE (Common Vulnerabilities and Exposures)
+# Format: CVE-YEAR-NUMBER (e.g., CVE-2021-44228 = Log4Shell)
+# NVD (National Vulnerability Database): nvd.nist.gov
+
+# CVSS v3.1 Score (Common Vulnerability Scoring System)
+# 0.0       — None
+# 0.1–3.9   — Low
+# 4.0–6.9   — Medium
+# 7.0–8.9   — High
+# 9.0–10.0  — Critical
+
+# Key CVSS metrics:
+# Attack Vector (AV):   Network (N) | Adjacent (A) | Local (L) | Physical (P)
+# Attack Complexity:    Low (L) | High (H)
+# Privileges Required:  None (N) | Low (L) | High (H)
+# User Interaction:     None (N) | Required (R)
+# Scope:                Unchanged (U) | Changed (C)
+# CIA Impact:           None (N) | Low (L) | High (H)
+
+# Log4Shell: CVSS 10.0 — AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H
+
+# Check if your image has critical CVEs
+trivy image --severity CRITICAL --exit-code 1 myapp:latest
+trivy fs --security-checks vuln,secret .    # scan local codebase</code></pre>
+        <h3>Supply Chain Security (SLSA Framework)</h3>
+        <ul>
+          <li><strong>SLSA Level 1</strong> — provenance generated (build inputs → outputs documented)</li>
+          <li><strong>SLSA Level 2</strong> — provenance signed by a hosted CI system</li>
+          <li><strong>SLSA Level 3</strong> — build is hermetic (no network), source integrity verified</li>
+          <li><strong>SBOM</strong> (Software Bill of Materials) — full inventory of all components; SPDX or CycloneDX format</li>
+          <li><strong>Sigstore / cosign</strong> — sign and verify container images and artifacts without managing keys</li>
+        </ul>
+        <pre><code># Sign an image with cosign (keyless via OIDC)
+cosign sign --yes ghcr.io/org/myapp:1.0.0@sha256:abc123
+
+# Verify signature before pulling/deploying
+cosign verify ghcr.io/org/myapp:1.0.0 \
+  --certificate-identity=https://github.com/org/repo/.github/workflows/release.yml@refs/heads/main \
+  --certificate-oidc-issuer=https://token.actions.githubusercontent.com
+
+# Generate SBOM with syft
+syft ghcr.io/org/myapp:1.0.0 -o spdx-json > sbom.spdx.json
+
+# Gitleaks pre-commit hook
+gitleaks protect --staged   # scan staged files before commit</code></pre>
+        <h3>Threat Modelling (STRIDE)</h3>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Threat</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Violates</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Example</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Mitigation</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Spoofing</td><td style="border:1px solid var(--border);padding:8px 12px">Authentication</td><td style="border:1px solid var(--border);padding:8px 12px">Impersonating another user</td><td style="border:1px solid var(--border);padding:8px 12px">MFA, strong auth tokens</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Tampering</td><td style="border:1px solid var(--border);padding:8px 12px">Integrity</td><td style="border:1px solid var(--border);padding:8px 12px">Modifying data in transit</td><td style="border:1px solid var(--border);padding:8px 12px">TLS, HMAC, digital signatures</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Repudiation</td><td style="border:1px solid var(--border);padding:8px 12px">Non-repudiation</td><td style="border:1px solid var(--border);padding:8px 12px">Denying an action was taken</td><td style="border:1px solid var(--border);padding:8px 12px">Audit logs, signed transactions</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Info Disclosure</td><td style="border:1px solid var(--border);padding:8px 12px">Confidentiality</td><td style="border:1px solid var(--border);padding:8px 12px">Leaking passwords in error messages</td><td style="border:1px solid var(--border);padding:8px 12px">Encryption, error sanitisation, least privilege</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Denial of Service</td><td style="border:1px solid var(--border);padding:8px 12px">Availability</td><td style="border:1px solid var(--border);padding:8px 12px">Flooding API with requests</td><td style="border:1px solid var(--border);padding:8px 12px">Rate limiting, WAF, CDN, auto-scaling</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Elevation of Privilege</td><td style="border:1px solid var(--border);padding:8px 12px">Authorisation</td><td style="border:1px solid var(--border);padding:8px 12px">Regular user accessing admin endpoint</td><td style="border:1px solid var(--border);padding:8px 12px">RBAC, authz checks on every route</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="network-security">
+      <h2>🌐 Network Security</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Firewalls, VPNs, WAF &amp; Network Hardening</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ultimate-it:network-security">Mark Complete</button>
+        </div>
+        <h3>Firewall Types</h3>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Type</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">OSI Layer</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Inspects</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Example</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Packet Filter</td><td style="border:1px solid var(--border);padding:8px 12px">L3/L4</td><td style="border:1px solid var(--border);padding:8px 12px">IP, port, protocol</td><td style="border:1px solid var(--border);padding:8px 12px">iptables, AWS NACLs</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Stateful</td><td style="border:1px solid var(--border);padding:8px 12px">L3/L4</td><td style="border:1px solid var(--border);padding:8px 12px">Connection state tracking</td><td style="border:1px solid var(--border);padding:8px 12px">AWS Security Groups, nftables</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Application (L7)</td><td style="border:1px solid var(--border);padding:8px 12px">L7</td><td style="border:1px solid var(--border);padding:8px 12px">HTTP headers, payloads, DNS</td><td style="border:1px solid var(--border);padding:8px 12px">Palo Alto, pfSense, Cisco ASA</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">WAF</td><td style="border:1px solid var(--border);padding:8px 12px">L7</td><td style="border:1px solid var(--border);padding:8px 12px">HTTP req/resp, OWASP rules</td><td style="border:1px solid var(--border);padding:8px 12px">AWS WAF, Cloudflare WAF, ModSecurity</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">NGFW</td><td style="border:1px solid var(--border);padding:8px 12px">L3–L7</td><td style="border:1px solid var(--border);padding:8px 12px">DPI, IPS, TLS inspection</td><td style="border:1px solid var(--border);padding:8px 12px">Palo Alto NGFW, Fortinet FortiGate</td></tr>
+        </table>
+        <h3>iptables — Linux Firewall</h3>
+        <pre><code># Default-deny policy — best practice
+iptables -P INPUT DROP
+iptables -P FORWARD DROP
+iptables -P OUTPUT ACCEPT
+
+# Allow established connections (stateful)
+iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+
+# Allow loopback
+iptables -A INPUT -i lo -j ACCEPT
+
+# Allow SSH (restrict to admin IP range)
+iptables -A INPUT -p tcp --dport 22 -s 10.0.0.0/8 -j ACCEPT
+
+# Allow HTTPS
+iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+
+# Log and drop everything else
+iptables -A INPUT -j LOG --log-prefix "iptables-DROP: " --log-level 7
+iptables -A INPUT -j DROP
+
+# Save rules
+iptables-save > /etc/iptables/rules.v4</code></pre>
+        <h3>VPN Types</h3>
+        <ul>
+          <li><strong>IPsec</strong> — L3 VPN; encrypts IP packets. Modes: Transport (host-to-host) and Tunnel (gateway-to-gateway). Used in site-to-site VPNs (AWS VPN, Cisco). IKEv2 for key exchange</li>
+          <li><strong>OpenVPN</strong> — TLS-based, runs over UDP/TCP. Flexible, firewall-friendly. Open source</li>
+          <li><strong>WireGuard</strong> — modern, minimal (~4000 lines), faster than OpenVPN/IPsec. Uses Curve25519, ChaCha20-Poly1305, BLAKE2. Default choice for new deployments</li>
+          <li><strong>SSL VPN</strong> — HTTPS-based (e.g., Cisco AnyConnect, Zscaler). Works through web proxies</li>
+        </ul>
+        <h3>Network Monitoring &amp; IDS/IPS</h3>
+        <pre><code># Snort / Suricata — IDS/IPS (signature-based + anomaly)
+suricata -c /etc/suricata/suricata.yaml -i eth0
+suricata-update      # update rule sets
+
+# tcpdump — packet capture
+tcpdump -i eth0 -w capture.pcap           # capture all traffic
+tcpdump -i eth0 port 443 -n               # filter HTTPS
+tcpdump -i eth0 src 192.168.1.50 -v      # from specific host
+tcpdump -i eth0 tcp and not port 22       # all TCP except SSH
+
+# nmap — network scanning (use only on systems you own/have permission)
+nmap -sV -sC -p- 192.168.1.0/24          # service detection, default scripts
+nmap -sU --top-ports 100 192.168.1.1     # UDP scan top ports
+nmap -A -T4 192.168.1.1                  # aggressive scan (OS detect, traceroute)
+
+# netstat / ss — connection state
+ss -tulpn                                 # listening ports + owning process
+ss -tnp state established                 # all established TCP connections
+
+# AWS VPC Flow Logs — cloud network audit
+# Captures metadata: src/dst IP, port, protocol, bytes, action (ACCEPT/REJECT)
+# Send to CloudWatch Logs or S3, query with Athena</code></pre>
+        <h3>TLS Hardening Checklist</h3>
+        <ul>
+          <li>Minimum <strong>TLS 1.2</strong>; prefer <strong>TLS 1.3</strong> (only secure cipher suites, faster)</li>
+          <li>Disable weak ciphers: RC4, 3DES, MD5, SHA-1, anonymous DH</li>
+          <li>Enable <strong>HSTS</strong> (HTTP Strict Transport Security): <code>Strict-Transport-Security: max-age=31536000; includeSubDomains; preload</code></li>
+          <li>Use <strong>ECDHE</strong> key exchange for Perfect Forward Secrecy (PFS)</li>
+          <li>Configure <strong>OCSP Stapling</strong> — server proactively sends cert revocation status</li>
+          <li>Test with <strong>SSL Labs</strong> — aim for A+ rating</li>
+          <li>Use <strong>Certificate Transparency</strong> monitoring to detect mis-issued certs</li>
+        </ul>
+        <h3>DNS Security</h3>
+        <pre><code># DNSSEC — cryptographically signs DNS records
+# Prevents DNS spoofing and cache poisoning
+dig +dnssec google.com         # check DNSSEC chain
+delv google.com A @8.8.8.8     # DNSSEC validation
+
+# DNS over HTTPS (DoH) / DNS over TLS (DoT)
+# Encrypts DNS queries — prevents ISP snooping and MITM
+# Providers: Cloudflare (1.1.1.1), Google (8.8.8.8), NextDNS
+
+# DNS Filtering (block malware/phishing domains)
+# Pi-hole (self-hosted), Cloudflare Gateway, Cisco Umbrella
+
+# Common DNS attacks:
+# DNS Cache Poisoning  — inject false records into resolver cache
+# DNS Amplification DDoS — small query → large response via open resolvers
+# DNS Tunneling — exfiltrate data via DNS TXT records (Iodine, dnscat2)
+# Dangling DNS — CNAME pointing to deleted resource (subdomain takeover)</code></pre>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="interview">
+      <h2>💼 Interview Hub</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Networking Interview Q&amp;A</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ultimate-it:interview-networking">Mark Complete</button>
+        </div>
+        <div style="margin-bottom:var(--gap)">
+          <p style="color:var(--accent);font-weight:600">Q1: What is the difference between TCP and UDP?</p>
+          <p><strong>A:</strong> TCP (connection-oriented) guarantees delivery via 3-way handshake, sequencing, ACKs, and retransmission. It has flow control (window size) and congestion control. UDP is connectionless with no delivery guarantee — just fire-and-forget. TCP: HTTP, HTTPS, FTP, SSH, SMTP, databases. UDP: DNS, DHCP, VoIP, video streaming, online gaming (where speed matters more than guaranteed delivery).</p>
+        </div>
+        <div style="margin-bottom:var(--gap)">
+          <p style="color:var(--accent);font-weight:600">Q2: What happens when you type google.com in a browser?</p>
+          <p><strong>A:</strong> 1) Browser checks local DNS cache and OS hosts file. 2) DNS resolver query (recursive: root → .com TLD → google.com authoritative) returns IP 142.250.x.x. 3) TCP 3-way handshake to port 443. 4) TLS handshake: ClientHello, ServerHello, certificate exchange, key exchange (ECDHE for PFS), ChangeCipherSpec. 5) HTTP/2 GET request. 6) Server responds with HTML. 7) Browser parses HTML, spawns parallel requests for CSS/JS/images. 8) JavaScript executes, page renders. TTFB (Time to First Byte) &lt; 200ms is good practice.</p>
+        </div>
+        <div style="margin-bottom:var(--gap)">
+          <p style="color:var(--accent);font-weight:600">Q3: Explain subnetting. How many hosts in a /26?</p>
+          <p><strong>A:</strong> Subnetting divides a network into smaller sub-networks. CIDR /26 means 26 bits for network, 6 bits for hosts. Hosts = 2^6 - 2 = 62 usable (subtract network address and broadcast). Example: 192.168.1.0/26 → network 192.168.1.0, broadcast 192.168.1.63, usable 192.168.1.1–192.168.1.62. Private ranges: 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16.</p>
+        </div>
+        <div style="margin-bottom:var(--gap)">
+          <p style="color:var(--accent);font-weight:600">Q4: What is BGP? How does internet routing work?</p>
+          <p><strong>A:</strong> BGP (Border Gateway Protocol) is the routing protocol of the internet. ISPs and large organizations run BGP to exchange routing information between Autonomous Systems (AS). Each AS has an ASN (Autonomous System Number). BGP chooses paths based on policies and attributes (AS_PATH length, LOCAL_PREF, MED). EBGP runs between different ASes, IBGP within the same AS. BGP is path-vector: it knows the full AS-path to each prefix, not just next-hop. Route hijacking (BGP hijack) occurs when an AS falsely announces prefixes it doesn't own.</p>
+        </div>
+        <div style="margin-bottom:var(--gap)">
+          <p style="color:var(--accent);font-weight:600">Q5: What is a VLAN? When would you use it?</p>
+          <p><strong>A:</strong> VLAN (Virtual LAN) segments a physical network into multiple logical networks at Layer 2. Traffic between VLANs requires a router (or L3 switch). Use cases: isolate departments (HR, Finance, Engineering), separate voice from data traffic, isolate IoT devices from corporate network, DMZ for internet-facing servers. Tagged with 802.1Q (4-byte header, 12-bit VLAN ID, max 4096 VLANs). Trunk ports carry multiple VLANs, access ports carry one.</p>
+        </div>
+        <div style="margin-bottom:var(--gap)">
+          <p style="color:var(--accent);font-weight:600">Q6: Explain NAT and PAT</p>
+          <p><strong>A:</strong> NAT (Network Address Translation) translates private IPs to public IPs. Static NAT: 1-to-1 mapping. Dynamic NAT: pool of public IPs. PAT (Port Address Translation, also called NAT overload): many private IPs share one public IP, differentiated by source port. This is how your home router works — all devices share one public IP, with different ports tracked in the NAT table. AWS NAT Gateway uses PAT. Solves IPv4 exhaustion.</p>
+        </div>
+      </div>
+
+      <div class="lesson-block" style="margin-top:var(--gap-xl)">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Linux Interview Q&amp;A</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ultimate-it:interview-linux">Mark Complete</button>
+        </div>
+        <div style="margin-bottom:var(--gap)">
+          <p style="color:var(--accent);font-weight:600">Q1: What happens during Linux boot?</p>
+          <p><strong>A:</strong> BIOS/UEFI → POST (hardware check) → finds bootloader (GRUB2 in /boot/grub2) → GRUB2 loads kernel image (vmlinuz) and initramfs into RAM → kernel initializes hardware, mounts initramfs as root → initramfs mounts real root filesystem → kernel starts PID 1 (systemd on modern systems) → systemd reads /etc/systemd/system/ unit files → starts services in parallel based on dependencies → reaches default target (multi-user.target or graphical.target) → login prompt.</p>
+        </div>
+        <div style="margin-bottom:var(--gap)">
+          <p style="color:var(--accent);font-weight:600">Q2: Explain file permissions and SUID/SGID</p>
+          <p><strong>A:</strong> Permissions: user/group/other, each with read(4)/write(2)/execute(1). chmod 755 = rwxr-xr-x. SUID (4000): execute file as file owner (e.g., /usr/bin/passwd runs as root so it can edit /etc/shadow). SGID (2000): on file = run as file's group; on directory = new files inherit directory's group (useful for shared project dirs). Sticky bit (1000): on directory = only owner can delete their files (used on /tmp). Check with ls -l; SUID shows 's' in owner execute bit.</p>
+        </div>
+        <div style="margin-bottom:var(--gap)">
+          <p style="color:var(--accent);font-weight:600">Q3: What is a zombie process?</p>
+          <p><strong>A:</strong> A zombie (defunct) process has finished but its entry remains in the process table because the parent hasn't called wait() to read its exit status. The process uses no memory/CPU but wastes a PID. Fix: fix the parent to call wait(); if parent is broken, kill the parent (child gets adopted by init/systemd which calls wait() properly). See zombies with: ps aux | grep Z.</p>
+        </div>
+        <div style="margin-bottom:var(--gap)">
+          <p style="color:var(--accent);font-weight:600">Q4: How does SSH key authentication work?</p>
+          <p><strong>A:</strong> 1) Client has private key (~/.ssh/id_ed25519), server has public key in ~/.ssh/authorized_keys. 2) Server sends random challenge encrypted with client's public key. 3) Client decrypts with private key and sends proof (cryptographic signature). 4) Server verifies signature with stored public key. 5) Access granted. The private key never leaves the client. Ed25519 is preferred (shorter, faster, more secure than RSA).</p>
+        </div>
+        <div style="margin-bottom:var(--gap)">
+          <p style="color:var(--accent);font-weight:600">Q5: How do you troubleshoot high load average?</p>
+          <p><strong>A:</strong> Load average = running + runnable + uninterruptible sleep processes, averaged over 1/5/15 min. Concern if load &gt; number of CPU cores. Steps: 1) uptime — see load averages. 2) top/htop — sort by CPU (%CPU), identify top consumers. 3) ps aux --sort=-%cpu | head -10. 4) If load high but CPU low → check for I/O wait (iostat -x 1 — high iowait%). 5) strace -p PID — see syscalls. 6) iotop — find I/O hog. 7) vmstat 1 — check r (runnable), b (blocked in sleep).</p>
+        </div>
+      </div>
+
+      <div class="lesson-block" style="margin-top:var(--gap-xl)">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">DevOps Interview Q&amp;A</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ultimate-it:interview-devops">Mark Complete</button>
+        </div>
+        <div style="margin-bottom:var(--gap)">
+          <p style="color:var(--accent);font-weight:600">Q1: What is GitOps?</p>
+          <p><strong>A:</strong> GitOps treats Git as the single source of truth for infrastructure and application state. Desired state is declared in Git. An operator (like ArgoCD or Flux) continuously reconciles actual cluster state with desired Git state. Benefits: audit trail (git blame), rollback (git revert), PR-based changes with review, disaster recovery (redeploy from Git). Pull-based (operator pulls from Git) vs push-based (CI pipeline pushes to cluster).</p>
+        </div>
+        <div style="margin-bottom:var(--gap)">
+          <p style="color:var(--accent);font-weight:600">Q2: Blue/Green vs Canary deployment</p>
+          <p><strong>A:</strong> Blue/Green: two identical environments. Traffic switches 100% from blue (current) to green (new). Zero downtime, instant rollback by switching back. Cost: double infrastructure. Canary: gradually shift traffic (1% → 10% → 50% → 100%) to new version while monitoring error rate/latency. Catch issues with minimal blast radius. Can be combined with feature flags. Tools: Argo Rollouts, Istio traffic splitting, AWS CodeDeploy, nginx upstream weight.</p>
+        </div>
+        <div style="margin-bottom:var(--gap)">
+          <p style="color:var(--accent);font-weight:600">Q3: How do you handle secrets in CI/CD?</p>
+          <p><strong>A:</strong> Never commit secrets to Git (use .gitignore, git-secrets, pre-commit hooks). Options: 1) CI/CD native secrets (GitHub Actions secrets, GitLab CI variables — encrypted at rest). 2) HashiCorp Vault (dynamic secrets, lease-based, audit log). 3) AWS Secrets Manager / Parameter Store (with IAM roles for CI runners). 4) OIDC federation (CI runner gets temporary AWS credentials without static keys). 5) Sealed Secrets (K8s — encrypts secret before committing to Git, only cluster can decrypt).</p>
+        </div>
+        <div style="margin-bottom:var(--gap)">
+          <p style="color:var(--accent);font-weight:600">Q4: What are DORA metrics?</p>
+          <p><strong>A:</strong> DORA (DevOps Research and Assessment) identified 4 key metrics for software delivery performance: 1) Deployment Frequency (how often do you deploy? Elite: multiple/day). 2) Lead Time for Changes (commit to production? Elite: &lt;1 hour). 3) MTTR Mean Time to Restore (how fast do you recover from failures? Elite: &lt;1 hour). 4) Change Failure Rate (what % of changes cause incidents? Elite: 0-15%). These predict organizational performance and business outcomes.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="certs">
+      <h2>🏆 Certification Roadmaps</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">IT Certification Paths</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ultimate-it:certs">Mark Complete</button>
+        </div>
+        <div class="grid-2">
+          <div class="card card--glow">
+            <h3 style="color:var(--accent)">🐧 Linux Path</h3>
+            <p><strong>Linux Essentials → RHCSA → RHCE → RHCA</strong></p>
+            <ul style="color:var(--text-dim)">
+              <li>RHCSA (EX200): $400, 3.5 hrs, hands-on only, 70% to pass</li>
+              <li>RHCE (EX294): Ansible automation, requires RHCSA</li>
+              <li>Study: Red Hat official, Study RHCSA (Asghar Ghori book)</li>
+            </ul>
+          </div>
+          <div class="card card--glow">
+            <h3 style="color:var(--accent)">☁️ AWS Path</h3>
+            <p><strong>CLF-C02 → SAA-C03 → SAP-C02</strong></p>
+            <ul style="color:var(--text-dim)">
+              <li>Cloud Practitioner: $100, 90 min, 65 questions, 700/1000</li>
+              <li>SAA: $150, 130 min, 65 questions, 720/1000</li>
+              <li>Study: Adrian Cantrill, Stephane Maarek, official docs</li>
+            </ul>
+          </div>
+          <div class="card card--glow">
+            <h3 style="color:var(--accent)">☸️ Kubernetes Path</h3>
+            <p><strong>Docker basics → CKA → CKAD → CKS</strong></p>
+            <ul style="color:var(--text-dim)">
+              <li>CKA: $395, 2 hrs, 17 performance-based tasks, 66% to pass</li>
+              <li>Open book: kubernetes.io docs allowed during exam</li>
+              <li>Study: killer.sh, KodeKloud, Mumshad's Udemy course</li>
+            </ul>
+          </div>
+          <div class="card card--glow">
+            <h3 style="color:var(--accent)">🔒 Security Path</h3>
+            <p><strong>Security+ → CEH → OSCP → CISSP</strong></p>
+            <ul style="color:var(--text-dim)">
+              <li>Security+ (SY0-701): $370, 90 min, max 90 questions, 750/900</li>
+              <li>OSCP: $1499 (90-day lab), 24-hr exam, 70 points to pass</li>
+              <li>CISSP: $749, 125-175 questions (adaptive), 5 years experience</li>
+            </ul>
+          </div>
+          <div class="card card--glow">
+            <h3 style="color:var(--accent)">💻 CompTIA Path</h3>
+            <p><strong>A+ → Network+ → Security+ → CySA+</strong></p>
+            <ul style="color:var(--text-dim)">
+              <li>A+ (2-part exam): entry level hardware/software troubleshooting</li>
+              <li>Network+: networking fundamentals, $350</li>
+              <li>Security+: required for DoD 8570, $370</li>
+            </ul>
+          </div>
+          <div class="card card--glow">
+            <h3 style="color:var(--accent)">🤖 DevOps Path</h3>
+            <p><strong>Git+Linux → Docker → K8s → Terraform → CKA → AWS DevOps Pro</strong></p>
+            <ul style="color:var(--text-dim)">
+              <li>GitHub Actions certification: $200, 75 questions</li>
+              <li>HashiCorp Terraform Associate: $70.50, 57 questions</li>
+              <li>AWS DevOps Professional: $300, 75 questions, 180 min</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== DATA ENGINEERING ===== -->
+    <section id="data-engineering">
+      <h2>📊 Data Engineering Fundamentals</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Pipelines, Warehouses, Lakes &amp; Stream Processing</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ultimate-it:data-engineering">Mark Complete</button>
+        </div>
+
+        <h3>Data Engineering Landscape</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Concept</th><th>Description</th><th>Tools</th></tr></thead>
+            <tbody>
+              <tr><td>ETL</td><td>Extract, Transform, Load — batch processing</td><td>Airflow, Glue, dbt, Spark</td></tr>
+              <tr><td>ELT</td><td>Extract, Load, Transform — load raw then transform in warehouse</td><td>dbt + Snowflake/BigQuery</td></tr>
+              <tr><td>Streaming</td><td>Real-time event processing</td><td>Kafka, Kinesis, Flink, Spark Streaming</td></tr>
+              <tr><td>Data Lake</td><td>Raw data at scale in object storage</td><td>S3 + Iceberg/Delta/Hudi</td></tr>
+              <tr><td>Data Warehouse</td><td>Structured, query-optimized analytics store</td><td>Redshift, BigQuery, Snowflake</td></tr>
+              <tr><td>Data Lakehouse</td><td>Lake + warehouse (ACID transactions on S3)</td><td>Databricks Delta Lake, Apache Iceberg</td></tr>
+              <tr><td>Data Mesh</td><td>Decentralized, domain-owned data products</td><td>Architecture pattern, not a single tool</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Apache Kafka — Distributed Event Streaming</h3>
+        <pre><code>Producer -&gt; Topic (Partitions) -&gt; Consumer Groups
+                │
+         Partition 0: [msg0, msg1, msg2...]  offset
+         Partition 1: [msg0, msg1, msg2...]
+         Partition 2: [msg0, msg1, msg2...]
+                │
+         Consumer Group A: each consumer reads one partition
+         Consumer Group B: independent — reads all partitions from start
+
+Key concepts:
+• Retention: messages kept for N days (not deleted on consume)
+• Offset: consumer tracks position — can replay from any point
+• Replication factor: each partition replicated across N brokers
+• Consumer group: horizontal scale — add consumers to parallelize
+• Exactly-once semantics: producer idempotence + transactional API</code></pre>
+
+        <h3>dbt — Data Build Tool</h3>
+        <pre><code>-- models/marts/finance/fct_revenue.sql
+{{ config(
+    materialized='incremental',
+    unique_key='order_id',
+    partition_by={'field': 'order_date', 'data_type': 'date'},
+    cluster_by=['customer_segment']
+) }}
+
+WITH orders AS (
+    SELECT * FROM {{ ref('stg_orders') }}   -- ref() builds DAG automatically
+    {% if is_incremental() %}
+    WHERE order_date &gt; (SELECT MAX(order_date) FROM {{ this }})
+    {% endif %}
+),
+customers AS (
+    SELECT * FROM {{ ref('stg_customers') }}
+)
+SELECT
+    o.order_id,
+    o.order_date,
+    c.customer_segment,
+    SUM(o.amount) AS revenue
+FROM orders o
+JOIN customers c USING (customer_id)
+GROUP BY 1, 2, 3</code></pre>
+
+        <h3>Apache Airflow — Workflow Orchestration</h3>
+        <pre><code>from airflow.decorators import dag, task
+from airflow.providers.amazon.aws.operators.glue import GlueJobOperator
+from datetime import datetime, timedelta
+
+@dag(
+    schedule='0 2 * * *',          # daily at 2 AM
+    start_date=datetime(2024, 1, 1),
+    catchup=False,
+    default_args={'retries': 2, 'retry_delay': timedelta(minutes=5)}
+)
+def daily_etl_pipeline():
+
+    @task
+    def extract_from_api():
+        import requests
+        data = requests.get("https://api.example.com/events").json()
+        return data
+
+    @task
+    def validate_data(data):
+        assert len(data) &gt; 0, "No data extracted"
+        return data
+
+    glue_transform = GlueJobOperator(
+        task_id='run_glue_etl',
+        job_name='daily-transform',
+        script_location='s3://my-bucket/scripts/transform.py',
+        region_name='us-east-1'
+    )
+
+    @task
+    def load_to_warehouse(data):
+        # load to Redshift/Snowflake
+        pass
+
+    raw = extract_from_api()
+    validated = validate_data(raw)
+    validated &gt;&gt; glue_transform &gt;&gt; load_to_warehouse(validated)
+
+dag_instance = daily_etl_pipeline()</code></pre>
+
+        <h3>Data Quality &amp; Observability</h3>
+        <ul>
+          <li><strong>Great Expectations</strong> — define "expectations" (assertions) on data: column must not be null, values in range, no duplicates</li>
+          <li><strong>Monte Carlo / Anomalo</strong> — ML-based data anomaly detection: volume drops, schema changes, freshness SLA</li>
+          <li><strong>Data contracts</strong> — schema, SLA, and ownership agreements between data producers and consumers</li>
+          <li><strong>Lineage tracking:</strong> Apache Atlas, OpenLineage (Marquez) — trace data from source to dashboard</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="quiz-section-wrapper">
+      <h2>🧠 Test Your Knowledge</h2>
+      <div id="quiz-section"></div>
+    </section>
+
+  </main>
+
+  <aside class="progress-panel">
+    <div class="progress-panel__title">Your Progress</div>
+    <div id="portal-progress-bars"></div>
+  </aside>
+</div>
+
+<div id="footer-placeholder"></div>
+
+<script src="../assets/js/store.js"></script>
+<script src="../assets/js/utils.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/progress.js"></script>
+<script src="../assets/js/quiz.js"></script>
+<script src="../assets/js/search.js"></script>
+<script src="../assets/js/partials.js"></script>
+<script src="../assets/js/portal.js"></script>
+</body>
+</html>

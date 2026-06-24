@@ -1,0 +1,256 @@
+{
+  "title": "DevOps & Cloud Mastery Quiz",
+  "description": "Expert questions on Docker, Kubernetes, Terraform, CI/CD, GitOps, monitoring, and cloud architecture.",
+  "questions": [
+    {
+      "question": "What is the key difference between a Docker image and a Docker container?",
+      "options": [
+        "A. Image is a read-only layered template; container is a running instance of that image with a writable layer",
+        "B. Container is a read-only template; image is the running instance",
+        "C. They are the same thing stored in different locations",
+        "D. Image is stored in memory; container is stored on disk"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "In a multi-stage Dockerfile, what does the '--target build' flag accomplish?",
+      "options": [
+        "A. Names the final image 'build' in the local registry",
+        "B. Stops the build at the stage named 'build', skipping subsequent stages",
+        "C. Enables parallel execution of all stages up to 'build'",
+        "D. Copies only the 'build' stage artifacts to the host"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Which Docker run flag makes the container filesystem read-only, improving security posture?",
+      "options": [
+        "A. --no-write",
+        "B. --immutable",
+        "C. --read-only",
+        "D. --ro-filesystem"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "In Kubernetes, what is the role of the 'etcd' component?",
+      "options": [
+        "A. Schedules pods onto worker nodes based on resource availability",
+        "B. Routes traffic between pods using iptables rules",
+        "C. Manages container lifecycle on each worker node",
+        "D. Distributed key-value store — the single source of truth for all cluster state"
+      ],
+      "correct": 3
+    },
+    {
+      "question": "What does a Kubernetes Deployment's 'maxUnavailable: 0, maxSurge: 1' rolling update strategy guarantee?",
+      "options": [
+        "A. One extra pod is created before any old pod is removed — capacity never drops below desired replicas",
+        "B. All pods are replaced simultaneously with zero downtime",
+        "C. Updates pause after each pod for manual approval",
+        "D. Only one pod runs at any time during the update"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "What is the difference between a Kubernetes Service type 'ClusterIP' and 'LoadBalancer'?",
+      "options": [
+        "A. ClusterIP exposes to internet; LoadBalancer is internal only",
+        "B. LoadBalancer provisions an external cloud load balancer; ClusterIP is only reachable within the cluster",
+        "C. ClusterIP is for TCP; LoadBalancer is for HTTP only",
+        "D. LoadBalancer auto-scales pods; ClusterIP does not"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "What Kubernetes object ensures exactly one pod instance runs on every node in the cluster?",
+      "options": [
+        "A. Deployment with replicas matching node count",
+        "B. StatefulSet",
+        "C. DaemonSet",
+        "D. ReplicaSet"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "In Terraform, what is stored in the '.terraform.lock.hcl' file?",
+      "options": [
+        "A. The encrypted state of all managed resources",
+        "B. Variable values for the current workspace",
+        "C. The plan output from the last 'terraform plan' run",
+        "D. Provider version constraints and checksums — ensures reproducible provider installations across team members"
+      ],
+      "correct": 3
+    },
+    {
+      "question": "Which Terraform command imports an existing AWS S3 bucket into state management WITHOUT recreating it?",
+      "options": [
+        "A. terraform import aws_s3_bucket.existing my-bucket-name",
+        "B. terraform apply -target=aws_s3_bucket.existing",
+        "C. terraform state add aws_s3_bucket.existing my-bucket-name",
+        "D. terraform refresh -resource=aws_s3_bucket.existing"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "What does 'terraform validate' check that 'terraform fmt' does not?",
+      "options": [
+        "A. fmt checks syntax errors; validate only formats code",
+        "B. validate checks configuration correctness and internal consistency (valid references, required args); fmt only fixes code formatting",
+        "C. They check identical things — validate is just slower",
+        "D. validate compares state with cloud reality; fmt does not"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "In GitOps with ArgoCD, what does 'self-heal: true' do?",
+      "options": [
+        "A. Automatically fixes application bugs using AI analysis",
+        "B. Restarts crashed containers without human intervention",
+        "C. Reverts manual changes made directly to the cluster that drift from the Git-declared state",
+        "D. Heals broken Git merge conflicts automatically"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "In GitHub Actions, which permission is required to request an OIDC token for keyless cloud authentication?",
+      "options": [
+        "A. contents: write",
+        "B. packages: write",
+        "C. security-events: write",
+        "D. id-token: write"
+      ],
+      "correct": 3
+    },
+    {
+      "question": "What does pinning a GitHub Action by full SHA (e.g., uses: actions/checkout@abc1234...) protect against?",
+      "options": [
+        "A. Supply chain attacks where a tag is moved to point to malicious code — SHA is immutable",
+        "B. Protects against the action becoming slow over time",
+        "C. Ensures the action only runs on Ubuntu runners",
+        "D. Prevents breaking changes from newer action versions"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "What Prometheus function should you use on a counter metric to get requests per second?",
+      "options": [
+        "A. increase()",
+        "B. rate()",
+        "C. delta()",
+        "D. avg_over_time()"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "In the Google SRE Golden Signals framework, which signal is most directly tied to user experience?",
+      "options": [
+        "A. Saturation — how full the service is",
+        "B. Traffic — how much demand exists",
+        "C. Latency — time to serve a request (the user waits for this)",
+        "D. Errors — rate of failed requests"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "What is the primary security benefit of using Workload Identity (GKE) or IRSA (EKS) instead of environment variable credentials in pods?",
+      "options": [
+        "A. Credentials are automatically rotated every 30 minutes instead of daily",
+        "B. Cloud provider encrypts the environment variables at rest",
+        "C. Access is audited by the Kubernetes API server rather than CloudTrail",
+        "D. No static long-lived credentials are stored anywhere — pods receive short-lived tokens via OIDC federation, reducing blast radius of credential theft"
+      ],
+      "correct": 3
+    },
+    {
+      "question": "What does 'immutable infrastructure' mean in practice?",
+      "options": [
+        "A. Servers that cannot be modified after deployment — changes require replacing the server entirely with a new image, eliminating configuration drift",
+        "B. Infrastructure running on read-only filesystems",
+        "C. Infrastructure that is permanently hosted and never decommissioned",
+        "D. Containers that use read-only Docker images"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "In Kubernetes NetworkPolicy, what happens by default if no NetworkPolicy selects a pod?",
+      "options": [
+        "A. All ingress and egress traffic to/from the pod is blocked",
+        "B. All ingress and egress traffic to/from the pod is allowed",
+        "C. Ingress is blocked; egress is allowed by default",
+        "D. The pod is automatically placed in a quarantine namespace"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "What is the purpose of a Kubernetes PodDisruptionBudget (PDB)?",
+      "options": [
+        "A. Limits CPU and memory spending per pod",
+        "B. Controls pod scheduling priority relative to other pods",
+        "C. Ensures a minimum number of pods remain available during voluntary disruptions like node drains or rolling updates",
+        "D. Sets cost budgets for cloud resources consumed by pods"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Which Helm command upgrades a release but rolls back automatically if the deployment fails?",
+      "options": [
+        "A. helm upgrade --force myrelease ./chart",
+        "B. helm upgrade --wait --timeout 300s myrelease ./chart",
+        "C. helm rollout upgrade myrelease ./chart",
+        "D. helm upgrade --atomic myrelease ./chart"
+      ],
+      "correct": 3
+    },
+    {
+      "question": "What AWS component allows private access to S3 from within a VPC without traffic traversing the internet?",
+      "options": [
+        "A. VPC Gateway Endpoint for S3",
+        "B. NAT Gateway",
+        "C. Transit Gateway",
+        "D. PrivateLink Interface Endpoint"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "In a CI/CD pipeline, what is a 'canary deployment' and what metric triggers rollback?",
+      "options": [
+        "A. Deploy to a test environment only; rollback if tests fail",
+        "B. Route a small percentage of traffic to the new version; monitor error rate and latency — if SLO thresholds are breached, roll back automatically",
+        "C. Deploy to one availability zone first; rollback if health checks fail",
+        "D. A blue/green deployment with a canary test user group"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "What is the purpose of an SBOM (Software Bill of Materials) in DevSecOps?",
+      "options": [
+        "A. A billing document for cloud resource usage",
+        "B. A manifest file listing all Kubernetes resources in a namespace",
+        "C. A complete inventory of all software components, libraries, and their versions in an artifact — enables rapid CVE impact assessment",
+        "D. A bill of Terraform resources to be provisioned"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "In Kubernetes, what does 'kubectl rollout undo deployment/api' roll back to?",
+      "options": [
+        "A. The initial deployment when the Deployment was first created",
+        "B. A specific revision number must be provided — the command alone fails",
+        "C. Clears all rollout history and resets to the chart default",
+        "D. The previous revision — the last known-good ReplicaSet before the current one"
+      ],
+      "correct": 3
+    },
+    {
+      "question": "What does the Ansible 'handlers' section in a playbook do?",
+      "options": [
+        "A. Defines tasks triggered by 'notify' — run once at the end of a play only if notified, useful for restarting services only when config changes",
+        "B. Defines tasks that always run, regardless of whether changes occurred",
+        "C. Handles errors and provides fallback tasks for failures",
+        "D. Manages inventory host groups and connection handlers"
+      ],
+      "correct": 0
+    }
+  ]
+}

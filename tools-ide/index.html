@@ -1,0 +1,831 @@
+<!doctype html>
+<html lang="en" data-portal="tools-ide" data-depth="2">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Online IDE & Developer Tools — IT University</title>
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/reset.css">
+  <link rel="stylesheet" href="../assets/css/portal-themes.css">
+  <link rel="stylesheet" href="../assets/css/layout.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/quiz.css">
+  <style>
+    /* IDE Styles */
+    .ide-toolbar{display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--bg-elevated);border:1px solid var(--border);border-bottom:none;border-radius:var(--radius) var(--radius) 0 0;flex-wrap:wrap}
+    .ide-lang-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+    .ide-lang-tab{padding:6px 14px;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg-card);color:var(--text-dim);cursor:pointer;font-size:var(--text-sm);font-weight:500;transition:all .2s}
+    .ide-lang-tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+    .ide-lang-tab:hover:not(.active){border-color:var(--accent);color:var(--accent)}
+    .ide-editor-area{display:flex;border:1px solid var(--border);border-bottom:none;min-height:320px;font-family:monospace;font-size:13px}
+    .ide-lines{width:44px;background:var(--bg-elevated);color:var(--text-dim);text-align:right;padding:14px 8px;user-select:none;line-height:1.6;font-size:13px;flex-shrink:0;border-right:1px solid var(--border);overflow:hidden}
+    .ide-code{flex:1;background:#0d1117;color:#e6edf3;padding:14px;line-height:1.6;resize:none;border:none;outline:none;font-family:'Fira Code','Cascadia Code',monospace;font-size:13px;tab-size:2}
+    .ide-output{border:1px solid var(--border);border-radius:0 0 var(--radius) var(--radius);background:#0d1117;color:#3fb950;font-family:monospace;font-size:13px;min-height:120px}
+    .ide-output-header{display:flex;align-items:center;gap:8px;padding:8px 14px;background:#161b22;color:#8b949e;font-size:12px;font-weight:600;border-bottom:1px solid #30363d}
+    .ide-result{padding:12px 14px;white-space:pre-wrap;line-height:1.6}
+    .ide-btn{padding:7px 16px;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg-card);color:var(--text);cursor:pointer;font-size:var(--text-sm);font-weight:600;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
+    .ide-btn-run{background:var(--accent);color:#fff;border-color:var(--accent)}
+    .ide-btn-run:hover{opacity:.88}
+    .ide-btn:not(.ide-btn-run):hover{border-color:var(--accent);color:var(--accent)}
+    .ide-status{font-size:12px;font-weight:700;margin-left:auto}
+    .ide-status.running{color:#f0883e}
+    .ide-status.done{color:#3fb950}
+    .ide-status.err{color:#f85149}
+    .out-err{color:#f85149}
+    .out-muted{color:#8b949e}
+    /* Tab styles */
+    .tab-row{display:flex;gap:6px;margin-bottom:var(--gap);flex-wrap:wrap}
+    .tab-btn{padding:8px 18px;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg-card);color:var(--text-dim);cursor:pointer;font-size:var(--text-sm);font-weight:500;transition:all .2s}
+    .tab-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+    .tab-btn:hover:not(.active){border-color:var(--accent);color:var(--accent)}
+    .tab-pane{display:none}
+    .tab-pane.active{display:block}
+    /* Git styles */
+    .git-stage{display:flex;flex-direction:column;gap:12px;margin:16px 0}
+    .git-stage__item{display:flex;align-items:center;gap:12px}
+    .git-stage__box{padding:6px 14px;border-radius:var(--radius);font-family:monospace;font-size:var(--text-sm);font-weight:600;white-space:nowrap}
+    .git-stage__box--gray{background:var(--bg-elevated);color:var(--text)}
+    .git-stage__box--warn{background:#d97706;color:#fff}
+    .git-stage__box--blue{background:var(--accent);color:#fff}
+    .git-stage__box--green{background:#22c55e;color:#fff}
+    /* Accordion */
+    .acc-item{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:8px}
+    .acc-header{padding:12px 16px;cursor:pointer;font-weight:600;display:flex;justify-content:space-between;align-items:center;background:var(--bg-card);transition:background .2s;user-select:none}
+    .acc-header:hover{background:var(--bg-elevated)}
+    .acc-body{display:none;padding:14px 16px;background:var(--bg-elevated);font-size:var(--text-sm);line-height:1.7}
+    .acc-item.open .acc-body{display:block}
+    .acc-item.open .acc-caret{transform:rotate(180deg)}
+    .acc-caret{transition:transform .2s}
+    /* Shortcut grid */
+    .shortcut-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px}
+    .shortcut-item{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:var(--bg-elevated);border-radius:var(--radius);font-size:var(--text-sm)}
+    kbd{background:var(--bg-card);border:1px solid var(--border);border-radius:4px;padding:2px 6px;font-size:.78rem;font-family:monospace;white-space:nowrap}
+  </style>
+</head>
+<body class="page-body">
+<div id="header-placeholder"></div>
+
+<div class="portal-layout">
+  <aside class="sidebar">
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Online IDE</div>
+      <a href="#ide" class="sidebar__link">⚡ Code Editor</a>
+      <a href="#ide-langs" class="sidebar__link">🌐 Languages</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Git & GitHub</div>
+      <a href="#git-basics" class="sidebar__link">📖 Git Basics</a>
+      <a href="#git-branching" class="sidebar__link">🌿 Branching</a>
+      <a href="#git-remote" class="sidebar__link">🔗 Remote & GitHub</a>
+      <a href="#git-ref" class="sidebar__link">📋 Command Reference</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Productivity</div>
+      <a href="#shortcuts" class="sidebar__link">⌨️ Keyboard Shortcuts</a>
+      <a href="#file-mgmt" class="sidebar__link">📁 File Management</a>
+      <a href="#regex" class="sidebar__link">🔍 Regex Reference</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Practice</div>
+      <a href="#quiz-section" class="sidebar__link">🧠 Tools Quiz</a>
+    </div>
+  </aside>
+
+  <main class="content">
+    <h1>⚡ Online IDE & Developer Tools</h1>
+    <p style="color:var(--text-dim);font-size:var(--text-lg);margin-bottom:var(--gap-xl)">Write and run code in 10 languages right in your browser, plus a complete Git reference and keyboard shortcut cheat sheets.</p>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="ide">
+      <h2>⚡ Online Code Editor</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Browser IDE — 10 Languages</div>
+          <button class="btn btn--outline btn--sm" data-lesson="tools-ide:ide">Mark Complete</button>
+        </div>
+
+        <!-- Language tabs -->
+        <div class="ide-lang-tabs" id="ide-lang-tabs">
+          <button class="ide-lang-tab active" onclick="setIdeLang('javascript',this)">JS</button>
+          <button class="ide-lang-tab" onclick="setIdeLang('html',this)">HTML</button>
+          <button class="ide-lang-tab" onclick="setIdeLang('python',this)">Python</button>
+          <button class="ide-lang-tab" onclick="setIdeLang('java',this)">Java</button>
+          <button class="ide-lang-tab" onclick="setIdeLang('c',this)">C</button>
+          <button class="ide-lang-tab" onclick="setIdeLang('cpp',this)">C++</button>
+          <button class="ide-lang-tab" onclick="setIdeLang('php',this)">PHP</button>
+          <button class="ide-lang-tab" onclick="setIdeLang('go',this)">Go</button>
+          <button class="ide-lang-tab" onclick="setIdeLang('ruby',this)">Ruby</button>
+          <button class="ide-lang-tab" onclick="setIdeLang('rust',this)">Rust</button>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="ide-toolbar">
+          <span id="ide-lang-label" style="font-size:.85rem;font-weight:700;color:var(--accent);min-width:120px">JavaScript</span>
+          <button class="ide-btn ide-btn-run" onclick="runIdeCode()">▶ Run</button>
+          <button class="ide-btn" onclick="copyIdeCode()">Copy</button>
+          <button class="ide-btn" onclick="resetIdeCode()">Reset</button>
+          <button class="ide-btn" onclick="clearIdeOutput()">Clear</button>
+          <span class="ide-status" id="ide-status">● Ready</span>
+        </div>
+
+        <!-- Editor -->
+        <div class="ide-editor-area">
+          <div class="ide-lines" id="ide-lines">1</div>
+          <textarea class="ide-code" id="ide-editor" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="// Write your code here and press Run..."></textarea>
+        </div>
+
+        <!-- Output -->
+        <div class="ide-output">
+          <div class="ide-output-header">
+            ▶ Output Console
+            <span id="ide-exec-time" style="margin-left:12px;font-size:.75rem"></span>
+          </div>
+          <div class="ide-result" id="ide-result"><span class="out-muted">// Output will appear here after you click Run...</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="ide-langs">
+      <h2>🌐 Language Reference</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Hello World in 10 Languages</div>
+          <button class="btn btn--outline btn--sm" data-lesson="tools-ide:langs">Mark Complete</button>
+        </div>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated);text-align:left">Language</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Hello World</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Execution</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">JavaScript</td><td style="border:1px solid var(--border);padding:8px 12px"><code>console.log("Hello, World!");</code></td><td style="border:1px solid var(--border);padding:8px 12px">Browser native</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Python</td><td style="border:1px solid var(--border);padding:8px 12px"><code>print("Hello, World!")</code></td><td style="border:1px solid var(--border);padding:8px 12px">Piston API</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Java</td><td style="border:1px solid var(--border);padding:8px 12px"><code>System.out.println("Hello, World!");</code></td><td style="border:1px solid var(--border);padding:8px 12px">Piston API</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">C</td><td style="border:1px solid var(--border);padding:8px 12px"><code>printf("Hello, World!\n");</code></td><td style="border:1px solid var(--border);padding:8px 12px">Piston API (gcc)</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">C++</td><td style="border:1px solid var(--border);padding:8px 12px"><code>cout &lt;&lt; "Hello, World!" &lt;&lt; endl;</code></td><td style="border:1px solid var(--border);padding:8px 12px">Piston API (g++)</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">PHP</td><td style="border:1px solid var(--border);padding:8px 12px"><code>echo "Hello, World!";</code></td><td style="border:1px solid var(--border);padding:8px 12px">Piston API</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Go</td><td style="border:1px solid var(--border);padding:8px 12px"><code>fmt.Println("Hello, World!")</code></td><td style="border:1px solid var(--border);padding:8px 12px">Piston API</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Ruby</td><td style="border:1px solid var(--border);padding:8px 12px"><code>puts "Hello, World!"</code></td><td style="border:1px solid var(--border);padding:8px 12px">Piston API</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Rust</td><td style="border:1px solid var(--border);padding:8px 12px"><code>println!("Hello, World!");</code></td><td style="border:1px solid var(--border);padding:8px 12px">Piston API</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">HTML/CSS</td><td style="border:1px solid var(--border);padding:8px 12px"><code>&lt;h1&gt;Hello, World!&lt;/h1&gt;</code></td><td style="border:1px solid var(--border);padding:8px 12px">Live iframe preview</td></tr>
+        </table>
+        <p style="margin-top:var(--gap);color:var(--text-dim)"><strong>Tip:</strong> Use <code>Ctrl+Enter</code> to run code quickly. JavaScript runs natively in the browser; all other languages use the Piston code execution API with a 30-second timeout.</p>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="git-basics">
+      <h2>📖 Git Basics</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">What is Git? Core Workflow</div>
+          <button class="btn btn--outline btn--sm" data-lesson="tools-ide:git-basics">Mark Complete</button>
+        </div>
+        <p>Git is a free, distributed <strong>version control system</strong> created by Linus Torvalds in 2005. It tracks changes to files over time, lets you recall any version, collaborate with others, and work on features in isolation.</p>
+        <p style="color:var(--text-dim)"><strong>Git vs GitHub:</strong> Git is the tool (runs locally). GitHub is a cloud hosting service for Git repositories. GitLab and Bitbucket are alternatives.</p>
+
+        <h3>Core Git Workflow</h3>
+        <div class="git-stage">
+          <div class="git-stage__item">
+            <div class="git-stage__box git-stage__box--gray">Working Directory</div>
+            <span style="color:var(--text-dim)">→ Files you edit locally</span>
+          </div>
+          <div class="git-stage__item">
+            <div class="git-stage__box git-stage__box--warn">Staging Area</div>
+            <span style="color:var(--text-dim)">→ <code>git add</code> — snapshot ready to commit</span>
+          </div>
+          <div class="git-stage__item">
+            <div class="git-stage__box git-stage__box--blue">Local Repo</div>
+            <span style="color:var(--text-dim)">→ <code>git commit</code> — saved to history</span>
+          </div>
+          <div class="git-stage__item">
+            <div class="git-stage__box git-stage__box--green">Remote Repo</div>
+            <span style="color:var(--text-dim)">→ <code>git push</code> — shared with team</span>
+          </div>
+        </div>
+
+        <pre><code># First-time setup
+git config --global user.name "Your Name"
+git config --global user.email "you@email.com"
+git config --global init.defaultBranch main
+
+# Initialize new repo
+git init                  # create .git folder
+git add .                 # stage everything
+git commit -m "Init"      # first commit
+
+# Check state
+git status                # what's changed?
+git log --oneline         # commit history
+git log --oneline --graph --all  # visual branch graph
+git diff                  # unstaged changes
+git diff --staged         # staged changes</code></pre>
+
+        <h3>Undoing Changes</h3>
+        <pre><code>git restore file.txt          # discard working dir changes
+git restore --staged file.txt # unstage a file
+git revert HEAD               # create undo commit (safe)
+git reset --soft HEAD~1       # undo last commit, keep staged
+git reset --hard HEAD~1       # undo last commit, DISCARD changes
+git stash                     # save changes temporarily
+git stash pop                 # restore stashed changes</code></pre>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="git-branching">
+      <h2>🌿 Branching & Merging</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Branches, Merge, Rebase</div>
+          <button class="btn btn--outline btn--sm" data-lesson="tools-ide:branching">Mark Complete</button>
+        </div>
+        <p>Branches let you work on features/fixes in isolation without affecting the main codebase.</p>
+
+        <pre><code># Create and switch to branch
+git branch feature/login    # create
+git checkout feature/login  # switch (classic)
+git checkout -b feature/x   # create + switch
+git switch -c feature/x     # modern syntax
+
+# Merge feature into main
+git checkout main
+git merge feature/login     # merge
+git branch -d feature/login # delete merged branch
+git branch -D feature/login # force delete
+
+# Rebase (cleaner linear history)
+git rebase main             # replay commits on top of main
+git cherry-pick abc1234     # pick one commit from another branch
+
+# View branches
+git branch                  # local branches
+git branch -a               # all (including remote)
+git branch -vv              # show tracking & last commit</code></pre>
+
+        <h3>Git Workflows</h3>
+        <div class="acc-item">
+          <div class="acc-header" onclick="toggleAcc(this)">Git Flow <span class="acc-caret">▾</span></div>
+          <div class="acc-body"><strong>Branches:</strong> main (production) · develop (integration) · feature/* (new features) · release/* (prepare release) · hotfix/* (urgent fixes). Complex but structured — great for versioned software with explicit release cycles.</div>
+        </div>
+        <div class="acc-item">
+          <div class="acc-header" onclick="toggleAcc(this)">GitHub Flow <span class="acc-caret">▾</span></div>
+          <div class="acc-body"><strong>Simple:</strong> Create branch → commit changes → open Pull Request → review → merge to main → deploy. Used by GitHub, most web startups. Short-lived branches, continuous deployment. Best for web apps.</div>
+        </div>
+        <div class="acc-item">
+          <div class="acc-header" onclick="toggleAcc(this)">Trunk-Based Development <span class="acc-caret">▾</span></div>
+          <div class="acc-body">All devs commit directly to <code>main</code> (or very short-lived feature branches &lt;24h). Feature flags hide incomplete features. Requires strong CI/CD and test coverage. Fastest delivery cycle — used by Google, Facebook.</div>
+        </div>
+
+        <h3 style="margin-top:var(--gap)">Merge Conflicts</h3>
+        <pre><code># Git marks conflicts with:
+&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+your changes here
+=======
+their changes here
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature/login
+
+# Resolution steps:
+# 1. Edit the file to remove markers and keep correct content
+# 2. git add the resolved file
+# 3. git commit (merge commit is created)</code></pre>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="git-remote">
+      <h2>🔗 Remote & GitHub</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Push, Pull, PRs, GitHub Actions</div>
+          <button class="btn btn--outline btn--sm" data-lesson="tools-ide:remote">Mark Complete</button>
+        </div>
+        <pre><code># Connect to remote
+git remote add origin https://github.com/user/repo.git
+git remote -v              # list remotes
+git remote remove origin   # remove remote
+
+# Push / Pull
+git push -u origin main    # first push (sets upstream)
+git push                   # subsequent pushes
+git pull                   # fetch + merge (= git fetch + git merge)
+git fetch                  # download but don't merge
+git pull --rebase          # fetch + rebase (cleaner history)
+
+# Clone existing repo
+git clone https://github.com/user/repo.git
+git clone https://github.com/user/repo.git my-folder
+
+# Fork workflow (open source contribution)
+git remote add upstream https://github.com/original/repo.git
+git fetch upstream
+git rebase upstream/main   # sync your fork</code></pre>
+
+        <h3>.gitignore — Exclude Files</h3>
+        <pre><code># node_modules and build output
+node_modules/
+dist/
+build/
+.cache/
+
+# Environment & secrets (NEVER commit these)
+.env
+.env.local
+*.pem
+*.key
+secrets.json
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE files
+.vscode/
+.idea/
+*.swp</code></pre>
+
+        <h3>GitHub Features</h3>
+        <ul>
+          <li><strong>Pull Requests (PR)</strong> — propose changes, request review, discuss, then merge. Core collaboration feature.</li>
+          <li><strong>GitHub Actions</strong> — CI/CD pipelines in YAML. Auto-run tests, build, deploy on push/PR. Free for public repos.</li>
+          <li><strong>Issues & Projects</strong> — bug tracking, feature requests, Kanban-style boards.</li>
+          <li><strong>Dependabot</strong> — scans dependencies for CVEs, auto-creates PRs to patch vulnerabilities.</li>
+          <li><strong>GitHub Pages</strong> — free static site hosting from any repo.</li>
+          <li><strong>Codespaces</strong> — cloud-based VS Code environment for any repo.</li>
+        </ul>
+
+        <h3>GitHub Actions — Example Workflow</h3>
+        <pre><code># .github/workflows/ci.yml
+name: CI Pipeline
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - run: npm install
+      - run: npm test
+      - run: npm run build</code></pre>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="git-ref">
+      <h2>📋 Git Command Reference</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Complete Command Cheat Sheet</div>
+          <button class="btn btn--outline btn--sm" data-lesson="tools-ide:git-ref">Mark Complete</button>
+        </div>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated);text-align:left">Command</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Description</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>git init</code></td><td style="border:1px solid var(--border);padding:8px 12px">Initialize a new repository</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>git clone &lt;url&gt;</code></td><td style="border:1px solid var(--border);padding:8px 12px">Clone a repository locally</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>git status</code></td><td style="border:1px solid var(--border);padding:8px 12px">Show working tree status</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>git add &lt;file&gt;</code></td><td style="border:1px solid var(--border);padding:8px 12px">Stage changes for commit</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>git commit -m "msg"</code></td><td style="border:1px solid var(--border);padding:8px 12px">Commit staged changes</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>git push</code></td><td style="border:1px solid var(--border);padding:8px 12px">Push commits to remote</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>git pull</code></td><td style="border:1px solid var(--border);padding:8px 12px">Fetch + merge from remote</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>git branch -b feat</code></td><td style="border:1px solid var(--border);padding:8px 12px">Create + switch to branch</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>git merge &lt;branch&gt;</code></td><td style="border:1px solid var(--border);padding:8px 12px">Merge branch into current</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>git rebase main</code></td><td style="border:1px solid var(--border);padding:8px 12px">Replay commits on top of main</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>git log --oneline --graph</code></td><td style="border:1px solid var(--border);padding:8px 12px">Visual commit history</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>git diff HEAD</code></td><td style="border:1px solid var(--border);padding:8px 12px">Show all changes since last commit</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>git stash</code></td><td style="border:1px solid var(--border);padding:8px 12px">Temporarily save changes</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>git tag v1.0.0</code></td><td style="border:1px solid var(--border);padding:8px 12px">Create a release tag</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>git blame &lt;file&gt;</code></td><td style="border:1px solid var(--border);padding:8px 12px">Show who changed each line</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>git bisect start</code></td><td style="border:1px solid var(--border);padding:8px 12px">Binary search for bug-introducing commit</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>git reflog</code></td><td style="border:1px solid var(--border);padding:8px 12px">History of HEAD movements (recover lost commits)</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>git cherry-pick &lt;hash&gt;</code></td><td style="border:1px solid var(--border);padding:8px 12px">Apply one specific commit to current branch</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="shortcuts">
+      <h2>⌨️ Keyboard Shortcuts</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Essential Shortcuts for Power Users</div>
+          <button class="btn btn--outline btn--sm" data-lesson="tools-ide:shortcuts">Mark Complete</button>
+        </div>
+
+        <div class="tab-row" id="shortcut-tabs">
+          <button class="tab-btn active" onclick="switchTab('shortcut-tabs','sc-windows',this)">Windows</button>
+          <button class="tab-btn" onclick="switchTab('shortcut-tabs','sc-vscode',this)">VS Code</button>
+          <button class="tab-btn" onclick="switchTab('shortcut-tabs','sc-chrome',this)">Browser</button>
+          <button class="tab-btn" onclick="switchTab('shortcut-tabs','sc-terminal',this)">Terminal</button>
+        </div>
+
+        <div id="sc-windows" class="tab-pane active">
+          <h3>Windows Shortcuts</h3>
+          <div class="shortcut-grid">
+            <div class="shortcut-item"><span>Copy / Paste / Cut</span><kbd>Ctrl+C/V/X</kbd></div>
+            <div class="shortcut-item"><span>Undo / Redo</span><kbd>Ctrl+Z/Y</kbd></div>
+            <div class="shortcut-item"><span>Select All</span><kbd>Ctrl+A</kbd></div>
+            <div class="shortcut-item"><span>Find / Replace</span><kbd>Ctrl+F/H</kbd></div>
+            <div class="shortcut-item"><span>Save / Save As</span><kbd>Ctrl+S/Shift+S</kbd></div>
+            <div class="shortcut-item"><span>New Window/Tab</span><kbd>Ctrl+N/T</kbd></div>
+            <div class="shortcut-item"><span>Close Window/Tab</span><kbd>Alt+F4/Ctrl+W</kbd></div>
+            <div class="shortcut-item"><span>Switch Apps</span><kbd>Alt+Tab</kbd></div>
+            <div class="shortcut-item"><span>Virtual Desktop</span><kbd>Win+Ctrl+D</kbd></div>
+            <div class="shortcut-item"><span>Screenshot</span><kbd>Win+Shift+S</kbd></div>
+            <div class="shortcut-item"><span>Task Manager</span><kbd>Ctrl+Shift+Esc</kbd></div>
+            <div class="shortcut-item"><span>Run Dialog</span><kbd>Win+R</kbd></div>
+            <div class="shortcut-item"><span>Lock Screen</span><kbd>Win+L</kbd></div>
+            <div class="shortcut-item"><span>File Explorer</span><kbd>Win+E</kbd></div>
+            <div class="shortcut-item"><span>Snap Window Left/Right</span><kbd>Win+←/→</kbd></div>
+            <div class="shortcut-item"><span>Minimize All</span><kbd>Win+D</kbd></div>
+          </div>
+        </div>
+
+        <div id="sc-vscode" class="tab-pane">
+          <h3>VS Code Shortcuts</h3>
+          <div class="shortcut-grid">
+            <div class="shortcut-item"><span>Command Palette</span><kbd>Ctrl+Shift+P</kbd></div>
+            <div class="shortcut-item"><span>Quick Open File</span><kbd>Ctrl+P</kbd></div>
+            <div class="shortcut-item"><span>Toggle Terminal</span><kbd>Ctrl+`</kbd></div>
+            <div class="shortcut-item"><span>Multi-cursor</span><kbd>Alt+Click</kbd></div>
+            <div class="shortcut-item"><span>Select all occurrences</span><kbd>Ctrl+Shift+L</kbd></div>
+            <div class="shortcut-item"><span>Move line up/down</span><kbd>Alt+↑/↓</kbd></div>
+            <div class="shortcut-item"><span>Copy line up/down</span><kbd>Alt+Shift+↑/↓</kbd></div>
+            <div class="shortcut-item"><span>Delete line</span><kbd>Ctrl+Shift+K</kbd></div>
+            <div class="shortcut-item"><span>Go to definition</span><kbd>F12</kbd></div>
+            <div class="shortcut-item"><span>Find references</span><kbd>Shift+F12</kbd></div>
+            <div class="shortcut-item"><span>Rename symbol</span><kbd>F2</kbd></div>
+            <div class="shortcut-item"><span>Format document</span><kbd>Shift+Alt+F</kbd></div>
+            <div class="shortcut-item"><span>Toggle comment</span><kbd>Ctrl+/</kbd></div>
+            <div class="shortcut-item"><span>Fold/Unfold region</span><kbd>Ctrl+Shift+[/]</kbd></div>
+            <div class="shortcut-item"><span>Split editor</span><kbd>Ctrl+\</kbd></div>
+            <div class="shortcut-item"><span>Zen Mode</span><kbd>Ctrl+K Z</kbd></div>
+          </div>
+        </div>
+
+        <div id="sc-chrome" class="tab-pane">
+          <h3>Browser (Chrome/Edge) Shortcuts</h3>
+          <div class="shortcut-grid">
+            <div class="shortcut-item"><span>New Tab</span><kbd>Ctrl+T</kbd></div>
+            <div class="shortcut-item"><span>Reopen closed tab</span><kbd>Ctrl+Shift+T</kbd></div>
+            <div class="shortcut-item"><span>Navigate tabs</span><kbd>Ctrl+1-9</kbd></div>
+            <div class="shortcut-item"><span>Address bar</span><kbd>Ctrl+L</kbd></div>
+            <div class="shortcut-item"><span>Find on page</span><kbd>Ctrl+F</kbd></div>
+            <div class="shortcut-item"><span>Dev Tools</span><kbd>F12</kbd></div>
+            <div class="shortcut-item"><span>Hard refresh</span><kbd>Ctrl+Shift+R</kbd></div>
+            <div class="shortcut-item"><span>View source</span><kbd>Ctrl+U</kbd></div>
+            <div class="shortcut-item"><span>Bookmark page</span><kbd>Ctrl+D</kbd></div>
+            <div class="shortcut-item"><span>Downloads</span><kbd>Ctrl+J</kbd></div>
+            <div class="shortcut-item"><span>History</span><kbd>Ctrl+H</kbd></div>
+            <div class="shortcut-item"><span>Incognito</span><kbd>Ctrl+Shift+N</kbd></div>
+          </div>
+        </div>
+
+        <div id="sc-terminal" class="tab-pane">
+          <h3>Terminal / Bash Shortcuts</h3>
+          <div class="shortcut-grid">
+            <div class="shortcut-item"><span>Cancel command</span><kbd>Ctrl+C</kbd></div>
+            <div class="shortcut-item"><span>EOF / logout</span><kbd>Ctrl+D</kbd></div>
+            <div class="shortcut-item"><span>Clear screen</span><kbd>Ctrl+L</kbd></div>
+            <div class="shortcut-item"><span>Prev/Next command</span><kbd>↑ / ↓</kbd></div>
+            <div class="shortcut-item"><span>Search history</span><kbd>Ctrl+R</kbd></div>
+            <div class="shortcut-item"><span>Move word left/right</span><kbd>Alt+←/→</kbd></div>
+            <div class="shortcut-item"><span>Start of line</span><kbd>Ctrl+A</kbd></div>
+            <div class="shortcut-item"><span>End of line</span><kbd>Ctrl+E</kbd></div>
+            <div class="shortcut-item"><span>Delete to start</span><kbd>Ctrl+U</kbd></div>
+            <div class="shortcut-item"><span>Delete word back</span><kbd>Ctrl+W</kbd></div>
+            <div class="shortcut-item"><span>Suspend process</span><kbd>Ctrl+Z</kbd></div>
+            <div class="shortcut-item"><span>Background job</span><kbd>command &</kbd></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="file-mgmt">
+      <h2>📁 File Management</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Files, Paths, and Organization</div>
+          <button class="btn btn--outline btn--sm" data-lesson="tools-ide:file-mgmt">Mark Complete</button>
+        </div>
+        <h3>Windows File System</h3>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated);text-align:left">Path</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Purpose</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>C:\Windows\System32</code></td><td style="border:1px solid var(--border);padding:8px 12px">Core Windows system files and DLLs</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>C:\Program Files</code></td><td style="border:1px solid var(--border);padding:8px 12px">Installed applications (64-bit)</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>C:\Users\&lt;name&gt;</code></td><td style="border:1px solid var(--border);padding:8px 12px">User profile: Desktop, Documents, Downloads</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>%AppData%</code></td><td style="border:1px solid var(--border);padding:8px 12px">App config data (roaming)</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>%TEMP%</code></td><td style="border:1px solid var(--border);padding:8px 12px">Temporary files (safe to delete)</td></tr>
+        </table>
+
+        <h3 style="margin-top:var(--gap)">Linux File System</h3>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated);text-align:left">Path</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Purpose</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>/etc</code></td><td style="border:1px solid var(--border);padding:8px 12px">System configuration files</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>/var/log</code></td><td style="border:1px solid var(--border);padding:8px 12px">Log files</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>/tmp</code></td><td style="border:1px solid var(--border);padding:8px 12px">Temporary files (cleared on reboot)</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>/home/user</code></td><td style="border:1px solid var(--border);padding:8px 12px">User home directory (~)</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>/usr/local/bin</code></td><td style="border:1px solid var(--border);padding:8px 12px">User-installed binaries</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>/proc</code></td><td style="border:1px solid var(--border);padding:8px 12px">Virtual filesystem — kernel/process info</td></tr>
+        </table>
+
+        <h3 style="margin-top:var(--gap)">PowerShell File Commands</h3>
+        <pre><code>Get-ChildItem -Recurse -Filter "*.log"  # find log files
+Get-Content file.txt | Select -Last 20  # last 20 lines
+Copy-Item src dst -Recurse              # copy folder
+Move-Item src dst                       # move/rename
+Remove-Item -Recurse -Force folder/     # delete folder
+Get-Item file.txt | Select-Object *     # file properties
+Compress-Archive src -DestPath out.zip  # create zip
+Expand-Archive out.zip -DestPath ./     # extract zip</code></pre>
+
+        <h3>File Organization Best Practices</h3>
+        <ul>
+          <li><strong>Projects folder</strong> — keep all dev projects under <code>~/Projects/</code> or <code>C:\Dev\</code></li>
+          <li><strong>Date-prefix backups</strong> — <code>2026-06-23_backup_project.zip</code></li>
+          <li><strong>No spaces in paths</strong> — use hyphens or underscores in filenames</li>
+          <li><strong>Meaningful names</strong> — <code>invoice-2026-q2.pdf</code> not <code>document1.pdf</code></li>
+          <li><strong>Version files</strong> — use Git instead of <code>report_v2_FINAL_final.docx</code></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="regex">
+      <h2>🔍 Regex Reference</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Regular Expressions Quick Reference</div>
+          <button class="btn btn--outline btn--sm" data-lesson="tools-ide:regex">Mark Complete</button>
+        </div>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated);text-align:left">Pattern</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Meaning</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Example match</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>.</code></td><td style="border:1px solid var(--border);padding:8px 12px">Any character (except newline)</td><td style="border:1px solid var(--border);padding:8px 12px">a, b, 3, @</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>*</code></td><td style="border:1px solid var(--border);padding:8px 12px">Zero or more of previous</td><td style="border:1px solid var(--border);padding:8px 12px">ab*, aaa</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>+</code></td><td style="border:1px solid var(--border);padding:8px 12px">One or more of previous</td><td style="border:1px solid var(--border);padding:8px 12px">ab+, must have b</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>?</code></td><td style="border:1px solid var(--border);padding:8px 12px">Zero or one of previous</td><td style="border:1px solid var(--border);padding:8px 12px">colou?r → color or colour</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>^</code></td><td style="border:1px solid var(--border);padding:8px 12px">Start of line</td><td style="border:1px solid var(--border);padding:8px 12px">^Hello matches line start</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>$</code></td><td style="border:1px solid var(--border);padding:8px 12px">End of line</td><td style="border:1px solid var(--border);padding:8px 12px">end$ matches line end</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>[abc]</code></td><td style="border:1px solid var(--border);padding:8px 12px">Any of a, b, c</td><td style="border:1px solid var(--border);padding:8px 12px">[aeiou] = vowel</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>[^abc]</code></td><td style="border:1px solid var(--border);padding:8px 12px">Not a, b, or c</td><td style="border:1px solid var(--border);padding:8px 12px">[^0-9] = non-digit</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>\d</code></td><td style="border:1px solid var(--border);padding:8px 12px">Any digit [0-9]</td><td style="border:1px solid var(--border);padding:8px 12px">\d{4} = 4 digits</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>\w</code></td><td style="border:1px solid var(--border);padding:8px 12px">Word char [a-zA-Z0-9_]</td><td style="border:1px solid var(--border);padding:8px 12px">\w+ = word</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>\s</code></td><td style="border:1px solid var(--border);padding:8px 12px">Whitespace</td><td style="border:1px solid var(--border);padding:8px 12px">space, tab, newline</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>{n,m}</code></td><td style="border:1px solid var(--border);padding:8px 12px">n to m repetitions</td><td style="border:1px solid var(--border);padding:8px 12px">\d{3,5} = 3-5 digits</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><code>(abc)</code></td><td style="border:1px solid var(--border);padding:8px 12px">Capture group</td><td style="border:1px solid var(--border);padding:8px 12px">(foo|bar) = foo or bar</td></tr>
+        </table>
+
+        <h3 style="margin-top:var(--gap)">Common Patterns</h3>
+        <pre><code># Email address
+^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$
+
+# IP address (basic)
+^(\d{1,3}\.){3}\d{1,3}$
+
+# Phone number (international)
+^\+?[1-9]\d{1,14}$
+
+# URL
+^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}
+
+# Password: min 8 chars, uppercase, lowercase, digit
+^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$
+
+# grep usage
+grep -E "ERROR|WARN" /var/log/syslog
+grep -rn "\bTODO\b" ./src/
+grep -v "^#" /etc/config    # skip comments</code></pre>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="quiz-section">
+      <h2>🧠 Tools Quiz</h2>
+      <div id="quiz-container" data-portal="tools-ide"></div>
+    </section>
+
+  </main>
+
+  <aside class="progress-panel">
+    <div class="progress-panel__section">
+      <div class="progress-panel__title">Portal Progress</div>
+      <div id="portal-progress-bars"></div>
+    </div>
+  </aside>
+</div>
+
+<div id="footer-placeholder"></div>
+
+<script>
+// IDE Language definitions
+const ideLanguages = {
+  javascript: {
+    label: 'JavaScript', ext: 'js',
+    template: `// JavaScript — runs in your browser\nconsole.log("Hello from JavaScript!");\n\n// Try it:\nconst nums = [1, 2, 3, 4, 5];\nconst doubled = nums.map(n => n * 2);\nconsole.log("Doubled:", doubled);\nconsole.log("Sum:", nums.reduce((a, b) => a + b, 0));`
+  },
+  html: {
+    label: 'HTML/CSS', ext: 'html',
+    template: `<!DOCTYPE html>\n<html>\n<head>\n  <style>\n    body { font-family: sans-serif; padding: 20px; background: #1e293b; color: #e2e8f0; }\n    h1 { color: #60a5fa; }\n    .box { background: #334155; padding: 16px; border-radius: 8px; margin-top: 12px; }\n  </style>\n</head>\n<body>\n  <h1>Hello from HTML!</h1>\n  <div class="box">Edit me and click Run to see the preview.</div>\n</body>\n</html>`
+  },
+  python: {
+    label: 'Python', ext: 'py',
+    template: `# Python 3\nprint("Hello from Python!")\n\n# List comprehension\nnums = [1, 2, 3, 4, 5]\ndoubled = [n * 2 for n in nums]\nprint("Doubled:", doubled)\nprint("Sum:", sum(nums))\n\n# Simple function\ndef greet(name):\n    return f"Hello, {name}!"\n\nprint(greet("IT University"))`
+  },
+  java: {
+    label: 'Java', ext: 'java',
+    template: `public class Main {\n    public static void main(String[] args) {\n        System.out.println("Hello from Java!");\n        \n        // Array example\n        int[] nums = {1, 2, 3, 4, 5};\n        int sum = 0;\n        for (int n : nums) sum += n;\n        System.out.println("Sum: " + sum);\n    }\n}`
+  },
+  c: {
+    label: 'C', ext: 'c',
+    template: `#include <stdio.h>\n\nint main() {\n    printf("Hello from C!\\n");\n    \n    // Loop example\n    int sum = 0;\n    for (int i = 1; i <= 5; i++) {\n        sum += i;\n        printf("i=%d sum=%d\\n", i, sum);\n    }\n    return 0;\n}`
+  },
+  cpp: {
+    label: 'C++', ext: 'cpp',
+    template: `#include <iostream>\n#include <vector>\nusing namespace std;\n\nint main() {\n    cout << "Hello from C++!" << endl;\n    \n    vector<int> nums = {1, 2, 3, 4, 5};\n    int sum = 0;\n    for (int n : nums) sum += n;\n    cout << "Sum: " << sum << endl;\n    return 0;\n}`
+  },
+  php: {
+    label: 'PHP', ext: 'php',
+    template: `<?php\necho "Hello from PHP!\\n";\n\n$nums = [1, 2, 3, 4, 5];\n$doubled = array_map(fn($n) => $n * 2, $nums);\necho "Doubled: " . implode(", ", $doubled) . "\\n";\necho "Sum: " . array_sum($nums) . "\\n";`
+  },
+  go: {
+    label: 'Go', ext: 'go',
+    template: `package main\n\nimport "fmt"\n\nfunc main() {\n    fmt.Println("Hello from Go!")\n    \n    nums := []int{1, 2, 3, 4, 5}\n    sum := 0\n    for _, n := range nums {\n        sum += n\n    }\n    fmt.Printf("Sum: %d\\n", sum)\n}`
+  },
+  ruby: {
+    label: 'Ruby', ext: 'rb',
+    template: `puts "Hello from Ruby!"\n\nnums = [1, 2, 3, 4, 5]\ndoubled = nums.map { |n| n * 2 }\nputs "Doubled: #{doubled.join(', ')}"\nputs "Sum: #{nums.sum}"`
+  },
+  rust: {
+    label: 'Rust', ext: 'rs',
+    template: `fn main() {\n    println!("Hello from Rust!");\n    \n    let nums = vec![1, 2, 3, 4, 5];\n    let sum: i32 = nums.iter().sum();\n    println!("Sum: {}", sum);\n    \n    let doubled: Vec<i32> = nums.iter().map(|&n| n * 2).collect();\n    println!("Doubled: {:?}", doubled);\n}`
+  }
+};
+
+// Piston language versions
+const pistonLangs = {
+  python: 'python', java: 'java', c: 'c', cpp: 'cpp',
+  php: 'php', go: 'go', ruby: 'ruby', rust: 'rust'
+};
+
+let currentLang = 'javascript';
+let htmlPreviewWin = null;
+
+function setIdeLang(lang, btn) {
+  currentLang = lang;
+  document.querySelectorAll('.ide-lang-tab').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  document.getElementById('ide-lang-label').textContent = ideLanguages[lang].label;
+  document.getElementById('ide-editor').value = ideLanguages[lang].template;
+  updateLineNumbers();
+  document.getElementById('ide-result').innerHTML = '<span class="out-muted">// Output will appear here after you click Run...</span>';
+  document.getElementById('ide-exec-time').textContent = '';
+  setIdeStatus('● Ready', '');
+}
+
+function setIdeStatus(text, cls) {
+  const el = document.getElementById('ide-status');
+  el.textContent = text;
+  el.className = 'ide-status' + (cls ? ' ' + cls : '');
+}
+
+function updateLineNumbers() {
+  const editor = document.getElementById('ide-editor');
+  const lines = editor.value.split('\n').length;
+  document.getElementById('ide-lines').textContent = Array.from({length: lines}, (_, i) => i + 1).join('\n');
+}
+
+document.getElementById('ide-editor').addEventListener('input', updateLineNumbers);
+document.getElementById('ide-editor').addEventListener('keydown', function(e) {
+  if (e.key === 'Tab') {
+    e.preventDefault();
+    const s = this.selectionStart, end = this.selectionEnd;
+    this.value = this.value.substring(0, s) + '  ' + this.value.substring(end);
+    this.selectionStart = this.selectionEnd = s + 2;
+    updateLineNumbers();
+  }
+  if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+    e.preventDefault();
+    runIdeCode();
+  }
+});
+
+async function runIdeCode() {
+  const code = document.getElementById('ide-editor').value.trim();
+  const out = document.getElementById('ide-result');
+  const timeEl = document.getElementById('ide-exec-time');
+  if (!code) { out.innerHTML = '<span class="out-muted">// No code to run.</span>'; return; }
+
+  setIdeStatus('⟳ Running...', 'running');
+  out.innerHTML = '<span class="out-muted">// Running...</span>';
+  timeEl.textContent = '';
+
+  const t0 = Date.now();
+
+  try {
+    if (currentLang === 'javascript') {
+      // Run JS in browser
+      const logs = [];
+      const fakeConsole = { log: (...a) => logs.push(a.map(x => typeof x === 'object' ? JSON.stringify(x, null, 2) : String(x)).join(' ')), error: (...a) => logs.push('ERROR: ' + a.join(' ')), warn: (...a) => logs.push('WARN: ' + a.join(' ')) };
+      try {
+        const fn = new Function('console', code);
+        fn(fakeConsole);
+      } catch(e) { logs.push('ERROR: ' + e.message); }
+      const elapsed = Date.now() - t0;
+      out.innerHTML = logs.length ? logs.map(l => escHtml(l)).join('\n') : '<span class="out-muted">// (no output)</span>';
+      timeEl.textContent = '⏱ ' + elapsed + 'ms';
+      setIdeStatus('✓ Done', 'done');
+    } else if (currentLang === 'html') {
+      // Live preview in new window
+      const win = window.open('', '_blank', 'width=900,height=600');
+      if (win) { win.document.open(); win.document.write(code); win.document.close(); }
+      out.innerHTML = '<span style="color:#3fb950">// HTML preview opened in new window/tab.</span>';
+      timeEl.textContent = '⏱ ' + (Date.now() - t0) + 'ms';
+      setIdeStatus('✓ Done', 'done');
+    } else {
+      // Piston API
+      const lang = pistonLangs[currentLang];
+      const resp = await fetch('https://emkc.org/api/v2/piston/execute', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ language: lang, version: '*', files: [{ content: code }] }),
+        signal: AbortSignal.timeout(30000)
+      });
+      const data = await resp.json();
+      const elapsed = Date.now() - t0;
+      timeEl.textContent = '⏱ ' + elapsed + 'ms';
+      const stdout = data.run?.stdout || '';
+      const stderr = data.run?.stderr || '';
+      if (stdout || stderr) {
+        out.innerHTML = (stdout ? escHtml(stdout) : '') + (stderr ? '\n<span class="out-err">' + escHtml(stderr) + '</span>' : '');
+      } else {
+        out.innerHTML = '<span class="out-muted">// (no output)</span>';
+      }
+      setIdeStatus('✓ Done', 'done');
+    }
+  } catch(e) {
+    out.innerHTML = '<span class="out-err">Error: ' + escHtml(e.message) + '</span>';
+    setIdeStatus('✗ Error', 'err');
+    document.getElementById('ide-exec-time').textContent = '';
+  }
+}
+
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function copyIdeCode() {
+  const code = document.getElementById('ide-editor').value;
+  navigator.clipboard.writeText(code).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = code; document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta);
+  });
+}
+
+function resetIdeCode() {
+  document.getElementById('ide-editor').value = ideLanguages[currentLang].template;
+  updateLineNumbers();
+}
+
+function clearIdeOutput() {
+  document.getElementById('ide-result').innerHTML = '<span class="out-muted">// Output cleared.</span>';
+  document.getElementById('ide-exec-time').textContent = '';
+}
+
+// Tab switching
+function switchTab(tabsId, paneId, btn) {
+  const tabsEl = document.getElementById(tabsId);
+  tabsEl.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  const panes = document.querySelectorAll('[id^="' + paneId.split('-')[0] + '-"]');
+  // find sibling panes
+  document.querySelectorAll('.tab-pane').forEach(p => {
+    if (p.closest('.lesson-block') === btn.closest('.lesson-block')) p.classList.remove('active');
+  });
+  const pane = document.getElementById(paneId);
+  if (pane) pane.classList.add('active');
+}
+
+// Accordion
+function toggleAcc(header) {
+  header.parentElement.classList.toggle('open');
+}
+
+// Init IDE with JavaScript template
+setIdeLang('javascript', document.querySelector('.ide-lang-tab'));
+</script>
+
+<script src="../assets/js/store.js"></script>
+<script src="../assets/js/utils.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/progress.js"></script>
+<script src="../assets/js/quiz.js"></script>
+<script src="../assets/js/search.js"></script>
+<script src="../assets/js/partials.js"></script>
+<script src="../assets/js/portal.js"></script>
+</body>
+</html>

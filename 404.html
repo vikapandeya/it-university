@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en" data-depth="1">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>404 — Page Not Found | IT University</title>
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <style>
+    .not-found {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: var(--gap-xl) var(--gap-lg);
+    }
+    .not-found__code {
+      font-family: var(--font-mono);
+      font-size: clamp(5rem, 15vw, 12rem);
+      font-weight: 900;
+      line-height: 1;
+      color: var(--accent);
+      opacity: .15;
+      margin-bottom: -20px;
+    }
+    .not-found__title {
+      font-size: clamp(1.5rem, 3vw, 2.5rem);
+      font-weight: 800;
+      margin-bottom: var(--gap);
+    }
+    .not-found__desc { color: var(--text-dim); max-width: 440px; margin-bottom: var(--gap-xl); }
+    .not-found__links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--gap-sm);
+      justify-content: center;
+      margin-top: var(--gap);
+    }
+  </style>
+</head>
+<body class="page-body">
+<div id="header-placeholder"></div>
+
+<main class="not-found">
+  <div class="not-found__code">404</div>
+  <h1 class="not-found__title">Page Not Found</h1>
+  <p class="not-found__desc">
+    The page you're looking for doesn't exist or has been moved.
+    Head back to the dashboard or pick a learning portal below.
+  </p>
+  <a href="index.html" class="btn btn--primary btn--lg">🏠 Back to Home</a>
+  <div class="not-found__links">
+    <a href="ultimate-it/index.html" class="btn btn--outline btn--sm">🌐 IT Encyclopedia</a>
+    <a href="devops-cloud/index.html" class="btn btn--outline btn--sm">☁️ DevOps</a>
+    <a href="cybersecurity-vapt/index.html" class="btn btn--outline btn--sm">🛡️ CyberSec</a>
+    <a href="linux-administration/index.html" class="btn btn--outline btn--sm">🐧 Linux</a>
+    <a href="aws-learning/index.html" class="btn btn--outline btn--sm">🚀 AWS</a>
+    <a href="ai-prompt-engineering/index.html" class="btn btn--outline btn--sm">🤖 AI</a>
+    <a href="tools-ide/index.html" class="btn btn--outline btn--sm">⚡ IDE</a>
+    <a href="computer-basics/index.html" class="btn btn--outline btn--sm">🖥️ Basics</a>
+  </div>
+</main>
+
+<div id="footer-placeholder"></div>
+
+<script src="assets/js/store.js"></script>
+<script src="assets/js/utils.js"></script>
+<script src="assets/js/auth.js"></script>
+<script src="assets/js/search.js"></script>
+<script src="assets/js/partials.js"></script>
+</body>
+</html>

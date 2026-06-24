@@ -1,0 +1,256 @@
+{
+  "title": "Linux Administration Quiz",
+  "description": "Test your Linux command-line, system administration, and troubleshooting skills.",
+  "questions": [
+    {
+      "question": "Which command shows disk usage of each directory summarized?",
+      "options": [
+        "A. df -h",
+        "B. du -sh /*",
+        "C. ls -lh",
+        "D. stat /"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "What does 'chmod 755 script.sh' set?",
+      "options": [
+        "A. Owner: rwx, Group: r-x, Others: r-x",
+        "B. Owner: rwx, Group: rwx, Others: rwx",
+        "C. Owner: rw-, Group: r--, Others: r--",
+        "D. Owner: rwx, Group: r--, Others: ---"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "In LVM, what is the correct order of creation?",
+      "options": [
+        "A. LV → VG → PV",
+        "B. PV → LV → VG",
+        "C. PV → VG → LV",
+        "D. VG → PV → LV"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Which command shows TCP listening ports with process names?",
+      "options": [
+        "A. netstat -rn",
+        "B. ss -tlnp",
+        "C. ip addr show",
+        "D. ping -c 4 localhost"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "What does 'set -euo pipefail' do in a bash script?",
+      "options": [
+        "A. Sets environment variables for production",
+        "B. Exit on error, treat unset vars as errors, fail on pipe errors",
+        "C. Sets file permissions for the script",
+        "D. Enables verbose debugging mode"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Which systemd command shows the last 50 lines of nginx service logs?",
+      "options": [
+        "A. systemctl status nginx -n 50",
+        "B. journalctl -u nginx -n 50",
+        "C. tail -50 /var/log/nginx.log",
+        "D. logctl -u nginx --tail 50"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "What does SUID bit do on an executable file?",
+      "options": [
+        "A. Allows any user to delete the file",
+        "B. The file runs with the file owner's permissions, not the executing user's",
+        "C. Prevents the file from being executed by others",
+        "D. Sets the file as a system-critical binary"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "What command displays SELinux security contexts on files?",
+      "options": [
+        "A. ls -Z",
+        "B. semanage -l",
+        "C. getcon -f",
+        "D. sestatus -v"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "How do you extend an ext4 logical volume online without unmounting?",
+      "options": [
+        "A. pvcreate + vgextend only",
+        "B. lvextend -L +20G /dev/vg/lv && resize2fs /dev/vg/lv",
+        "C. fdisk /dev/sdb && mkfs.ext4 /dev/sdb1",
+        "D. umount + fsck + resize2fs + mount"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "What is RAID 5 minimum disk requirement and how many disk failures can it survive?",
+      "options": [
+        "A. 2 disks, 1 failure",
+        "B. 3 disks, 1 failure",
+        "C. 4 disks, 2 failures",
+        "D. 2 disks, 0 failures"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Which SSH option creates a local port forward (access remote service locally)?",
+      "options": [
+        "A. ssh -R 8080:localhost:80 host",
+        "B. ssh -D 1080 host",
+        "C. ssh -L 8080:localhost:80 host",
+        "D. ssh -T 8080 host"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "What does the sticky bit on /tmp prevent?",
+      "options": [
+        "A. Creating new files in the directory",
+        "B. Only allows the file owner or root to delete/rename their own files, even if others have write permission",
+        "C. Makes the directory read-only for everyone",
+        "D. Prevents all executables in the directory from running"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "What does 'getenforce' return when SELinux is actively blocking violations?",
+      "options": [
+        "A. 0",
+        "B. Permissive",
+        "C. Enforcing",
+        "D. 1"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Which command shows the process tree with PIDs?",
+      "options": [
+        "A. ps -ef --sort=pid",
+        "B. pstree -p",
+        "C. top -b -n 1",
+        "D. ps aux --forest"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "What does 'kill -HUP PID' signal do to a running process?",
+      "options": [
+        "A. Force kills the process immediately (SIGKILL)",
+        "B. Pauses the process execution",
+        "C. Sends SIGHUP — typically causes the process to reload its configuration",
+        "D. Terminates the process gracefully (SIGTERM)"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "In /etc/passwd, what does 'x' in the password field mean?",
+      "options": [
+        "A. The password is literally 'x'",
+        "B. The account is locked",
+        "C. The hashed password is stored in /etc/shadow",
+        "D. No password is required"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "What is the USE method for Linux performance analysis?",
+      "options": [
+        "A. Update, Scale, Execute",
+        "B. Utilization, Saturation, Errors — check each for every resource",
+        "C. User, System, Exit codes per process",
+        "D. Usage, Speed, Efficiency metrics"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Which file defines filesystem mounts that persist across reboots?",
+      "options": [
+        "A. /etc/mounts.conf",
+        "B. /proc/mounts",
+        "C. /etc/fstab",
+        "D. /etc/filesystems"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "What does 'chattr +i /etc/resolv.conf' do to the file?",
+      "options": [
+        "A. Makes the file executable by all users",
+        "B. Makes the file immutable — even root cannot modify or delete it",
+        "C. Sets the file as hidden from ls output",
+        "D. Changes file to inherit parent directory's permissions"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "What does 'nginx -t' do?",
+      "options": [
+        "A. Tests connectivity to upstream servers",
+        "B. Starts nginx in test mode with minimal traffic",
+        "C. Validates nginx configuration file syntax without starting",
+        "D. Shows nginx active connections and throughput"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Which cron expression runs a job every day at 3:30 AM?",
+      "options": [
+        "A. 3 30 * * *",
+        "B. 30 3 * * *",
+        "C. */30 3 * * *",
+        "D. 0 3 30 * *"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "With default umask 022, what permissions do newly created files get?",
+      "options": [
+        "A. 777",
+        "B. 755",
+        "C. 644",
+        "D. 600"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "How do you permanently allow port 8080 for Nginx in SELinux?",
+      "options": [
+        "A. chcon -t httpd_sys_content_t /port/8080",
+        "B. restorecon -Rv /etc/nginx/",
+        "C. semanage port -a -t http_port_t -p tcp 8080",
+        "D. setsebool -P httpd_can_connect 8080"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "What does 'lvextend -l +100%FREE /dev/vg/lv' do?",
+      "options": [
+        "A. Extends the logical volume by 100MB",
+        "B. Extends the LV to use all free space remaining in the volume group",
+        "C. Extends the volume group by 100% of current size",
+        "D. Creates a new logical volume using 100% of the disk"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Which systemd unit type replaces traditional cron jobs?",
+      "options": [
+        "A. .socket unit",
+        "B. .path unit",
+        "C. .mount unit",
+        "D. .timer unit paired with a .service unit"
+      ],
+      "correct": 3
+    }
+  ]
+}

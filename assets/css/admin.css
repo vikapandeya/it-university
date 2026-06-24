@@ -1,0 +1,38 @@
+.admin-layout {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--gap-xl) var(--gap-lg);
+}
+.admin-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--gap-xl);
+  flex-wrap: wrap;
+  gap: var(--gap);
+}
+.admin-tabs {
+  display: flex;
+  gap: 2px;
+  background: var(--bg-elevated);
+  border-radius: var(--radius);
+  padding: 4px;
+  margin-bottom: var(--gap-xl);
+  flex-wrap: wrap;
+}
+.admin-tab {
+  padding: 8px 20px;
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-dim);
+  transition: all var(--transition);
+  cursor: pointer;
+}
+.admin-tab.active {
+  background: var(--bg-card);
+  color: var(--accent);
+  box-shadow: var(--shadow-sm);
+}
+.admin-panel { display: none; }
+.admin-panel.active { display: block; }

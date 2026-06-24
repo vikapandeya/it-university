@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en" data-depth="2">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Interview Questions Hub — IT University</title>
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/reset.css">
+  <link rel="stylesheet" href="../assets/css/layout.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <style>
+    .iq-tabs { display:flex; flex-wrap:wrap; gap:var(--gap-sm); margin-bottom:var(--gap-xl); }
+    .iq-tab { padding:0.5rem 1rem; border-radius:var(--radius); border:1px solid var(--border); background:var(--bg-card); cursor:pointer; font-size:var(--text-sm); transition:all 0.2s; }
+    .iq-tab.active, .iq-tab:hover { background:var(--accent); color:#000; border-color:var(--accent); }
+    .iq-category { display:none; }
+    .iq-category.active { display:block; }
+    .qa-item { border:1px solid var(--border); border-radius:var(--radius); margin-bottom:var(--gap-md); overflow:hidden; }
+    .qa-question { padding:1rem 1.25rem; background:var(--bg-card); cursor:pointer; display:flex; justify-content:space-between; align-items:center; font-weight:600; user-select:none; }
+    .qa-question:hover { background:var(--bg-hover,var(--bg-card)); }
+    .qa-question .arrow { transition:transform 0.2s; font-size:0.8rem; }
+    .qa-answer { display:none; padding:1rem 1.25rem; border-top:1px solid var(--border); line-height:1.7; }
+    .qa-answer code { background:var(--bg-card); padding:0.15rem 0.4rem; border-radius:4px; font-size:0.85em; }
+    .qa-answer pre { background:var(--bg-card); padding:1rem; border-radius:var(--radius); overflow-x:auto; margin:0.75rem 0; font-size:0.85rem; }
+    .qa-item.open .qa-answer { display:block; }
+    .qa-item.open .arrow { transform:rotate(180deg); }
+    .difficulty { padding:0.2rem 0.6rem; border-radius:20px; font-size:0.7rem; font-weight:700; margin-left:0.5rem; }
+    .diff-easy { background:#39d35322; color:#39d353; }
+    .diff-med { background:#ff990022; color:#ff9900; }
+    .diff-hard { background:#ff4d6d22; color:#ff4d6d; }
+    .stats-bar { display:flex; gap:var(--gap-lg); margin-bottom:var(--gap-xl); padding:1rem 1.5rem; background:var(--bg-card); border-radius:var(--radius); border:1px solid var(--border); flex-wrap:wrap; }
+    .stat { text-align:center; }
+    .stat__num { font-size:1.8rem; font-weight:800; color:var(--accent,#00d4ff); }
+    .stat__label { font-size:var(--text-sm); color:var(--text-dim); }
+  </style>
+</head>
+<body class="page-body">
+<div id="header-placeholder"></div>
+
+<div style="max-width:1100px;margin:0 auto;padding:var(--gap-xl) var(--gap-lg)">
+  <h1>🎯 Interview Questions Hub</h1>
+  <p style="color:var(--text-dim);font-size:var(--text-lg);margin-bottom:var(--gap-xl)">200+ interview questions across 10 categories. Click any question to reveal the answer.</p>
+
+  <div class="stats-bar">
+    <div class="stat"><div class="stat__num">200+</div><div class="stat__label">Questions</div></div>
+    <div class="stat"><div class="stat__num">10</div><div class="stat__label">Categories</div></div>
+    <div class="stat"><div class="stat__num">3</div><div class="stat__label">Difficulty Levels</div></div>
+    <div class="stat"><div class="stat__num">∞</div><div class="stat__label">Practice</div></div>
+  </div>
+
+  <div class="iq-tabs">
+    <button class="iq-tab active" onclick="showCat('networking')">🌐 Networking</button>
+    <button class="iq-tab" onclick="showCat('linux')">🐧 Linux</button>
+    <button class="iq-tab" onclick="showCat('devops')">⚙️ DevOps</button>
+    <button class="iq-tab" onclick="showCat('kubernetes')">☸️ Kubernetes</button>
+    <button class="iq-tab" onclick="showCat('aws')">☁️ AWS</button>
+    <button class="iq-tab" onclick="showCat('security')">🔒 Security</button>
+    <button class="iq-tab" onclick="showCat('python')">🐍 Python</button>
+    <button class="iq-tab" onclick="showCat('databases')">🗄️ Databases</button>
+    <button class="iq-tab" onclick="showCat('system-design')">🏛️ System Design</button>
+    <button class="iq-tab" onclick="showCat('behavioral')">💼 Behavioral</button>
+  </div>
+
+  <!-- ===== NETWORKING ===== -->
+  <div id="cat-networking" class="iq-category active">
+    <h2>🌐 Networking Questions</h2>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">What is the difference between TCP and UDP? <span><span class="difficulty diff-easy">Easy</span><span class="arrow">▼</span></span></div><div class="qa-answer"><p><strong>TCP (Transmission Control Protocol):</strong> Connection-oriented. 3-way handshake (SYN→SYN-ACK→ACK). Guaranteed delivery, ordering, error correction. Used for HTTP, SSH, FTP, databases. Slower due to overhead.</p><p><strong>UDP (User Datagram Protocol):</strong> Connectionless. No handshake. No guaranteed delivery. Faster. Used for DNS, streaming, VoIP, gaming, QUIC. Application handles reliability if needed.</p></div></div>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">Explain the OSI model layers and give a real example for each. <span><span class="difficulty diff-med">Medium</span><span class="arrow">▼</span></span></div><div class="qa-answer"><ol><li><strong>Physical</strong> — Cables, fiber, radio waves</li><li><strong>Data Link</strong> — Ethernet frames, MAC addresses, switches</li><li><strong>Network</strong> — IP routing, routers</li><li><strong>Transport</strong> — TCP segments, UDP datagrams, ports</li><li><strong>Session</strong> — SSL session management, NetBIOS</li><li><strong>Presentation</strong> — TLS encryption, data encoding, compression</li><li><strong>Application</strong> — HTTP, DNS, FTP, SMTP</li></ol></div></div>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">What happens when you type google.com in a browser? <span><span class="difficulty diff-med">Medium</span><span class="arrow">▼</span></span></div><div class="qa-answer"><ol><li>Browser checks cache for DNS record</li><li>OS checks /etc/hosts file</li><li>DNS resolver query: stub → recursive → root → TLD (.com) → authoritative nameserver</li><li>IP returned (e.g., 142.250.80.46)</li><li>TCP connection: SYN → SYN-ACK → ACK (3-way handshake)</li><li>TLS handshake: certificates exchanged, session key derived</li><li>HTTP GET / request sent</li><li>Server responds with HTML; browser parses, downloads resources, renders page</li></ol></div></div>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">What is subnetting? Calculate the network for 192.168.10.50/26. <span><span class="difficulty diff-med">Medium</span><span class="arrow">▼</span></span></div><div class="qa-answer"><p>Subnetting divides a network into smaller sub-networks. /26 = 26 network bits, 6 host bits = 64 addresses per subnet (62 usable).</p><p>192.168.10.50/26: Subnet boundaries every 64: 0, 64, 128, 192. 50 falls in the 0-63 range.</p><ul><li><strong>Network:</strong> 192.168.10.0</li><li><strong>Broadcast:</strong> 192.168.10.63</li><li><strong>Usable hosts:</strong> 192.168.10.1 – 192.168.10.62</li><li><strong>Subnet mask:</strong> 255.255.255.192</li></ul></div></div>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">What is the difference between a hub, switch, and router? <span><span class="difficulty diff-easy">Easy</span><span class="arrow">▼</span></span></div><div class="qa-answer"><ul><li><strong>Hub (Layer 1):</strong> Broadcasts all traffic to all ports. No intelligence. Legacy device.</li><li><strong>Switch (Layer 2):</strong> Forwards frames based on MAC address table. Only sends to the correct port. VLANs supported.</li><li><strong>Router (Layer 3):</strong> Routes packets between networks using IP addresses. NAT, DHCP, inter-VLAN routing.</li></ul></div></div>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">How does ARP work and what is ARP poisoning? <span><span class="difficulty diff-med">Medium</span><span class="arrow">▼</span></span></div><div class="qa-answer"><p><strong>ARP (Address Resolution Protocol):</strong> Maps IP → MAC. Device broadcasts "Who has 192.168.1.1?" — that IP's owner replies with its MAC. Cached in ARP table.</p><p><strong>ARP Poisoning (Spoofing):</strong> Attacker sends fake ARP replies, mapping their MAC to another device's IP. This poisons the victim's ARP cache, redirecting traffic through the attacker (MITM). Prevention: Dynamic ARP Inspection (DAI) on managed switches, static ARP entries.</p></div></div>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">What is BGP and why is it called the routing protocol of the internet? <span><span class="difficulty diff-hard">Hard</span><span class="arrow">▼</span></span></div><div class="qa-answer"><p>BGP (Border Gateway Protocol) is an EGP (Exterior Gateway Protocol) that manages how packets are routed between Autonomous Systems (ASes) — large networks run by ISPs, cloud providers, enterprises.</p><p>Called "the routing protocol of the internet" because: it maintains the internet's global routing table (~900K prefixes), ISPs exchange routes via BGP peering/transit, and route selection uses path vector algorithm (AS_PATH, MED, local preference attributes).</p><p>BGP hijacking: attacker announces more specific prefixes to attract traffic (BGP has no authentication by default). Fix: RPKI (Route Origin Validation).</p></div></div>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">Explain TCP flow control and congestion control. <span><span class="difficulty diff-hard">Hard</span><span class="arrow">▼</span></span></div><div class="qa-answer"><p><strong>Flow Control:</strong> Prevents sender from overwhelming the receiver. Receiver advertises a window size (rwnd) — max bytes it can buffer. Sender cannot send more than rwnd unacknowledged bytes.</p><p><strong>Congestion Control:</strong> Prevents sender from overwhelming the network. TCP algorithms:<br>- Slow Start: start with cwnd=1 MSS, double per RTT until ssthresh<br>- Congestion Avoidance: increase cwnd linearly (+1 per RTT) above ssthresh<br>- Fast Retransmit/Recovery: on 3 duplicate ACKs, halve cwnd, retransmit lost segment</p></div></div>
+  </div>
+
+  <!-- ===== LINUX ===== -->
+  <div id="cat-linux" class="iq-category">
+    <h2>🐧 Linux Questions</h2>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">What is a zombie process and how do you handle it? <span><span class="difficulty diff-med">Medium</span><span class="arrow">▼</span></span></div><div class="qa-answer"><p>A zombie process has finished execution but still has an entry in the process table because its parent hasn't read its exit status via wait(). Shows as 'Z' in ps output.</p><pre>ps aux | awk '$8 == "D" || $8 == "Z" {print}'</pre><p><strong>Fix:</strong> Kill the parent process (init/systemd will reap orphans automatically). If parent is misbehaving: <code>kill -SIGCHLD parent_pid</code> to prompt it to reap children.</p></div></div>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">How does Linux boot process work from power-on to login prompt? <span><span class="difficulty diff-med">Medium</span><span class="arrow">▼</span></span></div><div class="qa-answer"><ol><li><strong>BIOS/UEFI:</strong> POST, finds bootable device</li><li><strong>GRUB2:</strong> Loads kernel (vmlinuz) + initramfs into RAM</li><li><strong>Kernel:</strong> Initializes hardware, mounts initramfs as temporary /</li><li><strong>initramfs:</strong> Loads drivers, finds real root filesystem</li><li><strong>systemd (PID 1):</strong> Reads unit files, starts services in dependency order</li><li><strong>Login:</strong> getty on TTY, or display manager for GUI</li></ol></div></div>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">Explain inode exhaustion — how do you diagnose and fix it? <span><span class="difficulty diff-hard">Hard</span><span class="arrow">▼</span></span></div><div class="qa-answer"><p>Each file needs an inode. If all inodes are used, you get "No space left on device" even when disk has free space.</p><pre>df -i    # check inode usage (100% = problem)
+find / -xdev -printf '%h\n' | sort | uniq -c | sort -rn | head -20  # find dirs with most files</pre><p><strong>Common cause:</strong> Thousands of small cache/session/temp files in one directory. Fix: delete old files, increase inode count (requires reformatting), or move files to a filesystem with more inodes.</p></div></div>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">What is the difference between hard links and symbolic links? <span><span class="difficulty diff-easy">Easy</span><span class="arrow">▼</span></span></div><div class="qa-answer"><ul><li><strong>Hard link:</strong> Points directly to the inode. Same inode number as original. Both are equal — deleting "original" doesn't break the link. Cannot span filesystems. Cannot link directories.</li><li><strong>Symbolic (soft) link:</strong> Points to the file path. Different inode. Dangling if original deleted. Can span filesystems. Can link directories.</li></ul><pre>ln /etc/nginx/nginx.conf /backup/nginx.conf      # hard link
+ln -s /etc/nginx/nginx.conf ~/nginx-link.conf   # symlink</pre></div></div>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">How does SELinux work and when should you use permissive mode? <span><span class="difficulty diff-hard">Hard</span><span class="arrow">▼</span></span></div><div class="qa-answer"><p>SELinux uses Mandatory Access Control (MAC). Every process and file has a security context (user:role:type:level). Policy rules define what types can access what other types (Type Enforcement).</p><p><strong>Enforcing:</strong> Blocks AND logs violations. Production mode.</p><p><strong>Permissive:</strong> Logs but does NOT block. Use temporarily to diagnose what would be denied: <code>setenforce 0</code>. Examine: <code>ausearch -m avc -ts recent</code>. Fix denials with <code>audit2allow</code>. Return to enforcing: <code>setenforce 1</code>.</p><p>Never leave permissive in production — set in /etc/selinux/config for permanence.</p></div></div>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">A server has high load average but low CPU usage. What do you investigate? <span><span class="difficulty diff-hard">Hard</span><span class="arrow">▼</span></span></div><div class="qa-answer"><p>Load average counts ALL runnable + uninterruptible sleep (D-state) processes. High load + low CPU = processes blocked on I/O (disk or network).</p><pre>uptime           # load average
+iostat -x 1      # check %util, await — is disk saturated?
+iotop -ao        # which processes are doing I/O?
+ps aux | awk '$8 == "D" {print}'  # D-state processes
+vmstat 1         # check wa (I/O wait) column</pre><p>Fix: find the I/O bottleneck (slow disk, NFS timeout, DB lock). Consider faster storage, I/O scheduler tuning, or caching.</p></div></div>
+  </div>
+
+  <!-- ===== DEVOPS ===== -->
+  <div id="cat-devops" class="iq-category">
+    <h2>⚙️ DevOps Questions</h2>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">What is the difference between blue/green and canary deployments? <span><span class="difficulty diff-med">Medium</span><span class="arrow">▼</span></span></div><div class="qa-answer"><p><strong>Blue/Green:</strong> Run two identical environments. Blue = current live, Green = new version. Switch all traffic at once (DNS or load balancer cutover). Easy rollback (switch back). Requires 2x infrastructure.</p><p><strong>Canary:</strong> Route small percentage (e.g., 5%) of traffic to new version. Monitor metrics. Gradually increase if healthy. Affects only a subset of users if issues arise. Requires traffic splitting (weighted routing, feature flags, or service mesh).</p></div></div>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">What is GitOps and how does ArgoCD implement it? <span><span class="difficulty diff-med">Medium</span><span class="arrow">▼</span></span></div><div class="qa-answer"><p><strong>GitOps principles:</strong> 1) Git is the single source of truth for declarative infrastructure. 2) Changes made through PRs/commits (no direct kubectl). 3) Approved changes automatically applied. 4) Continuous reconciliation detects and fixes drift.</p><p><strong>ArgoCD implementation:</strong> Watches a Git repo. Compares desired state (Git) with actual state (Kubernetes). Syncs automatically (or on demand). Shows drift. Supports self-heal (auto-reverts manual changes) and prune (deletes resources removed from Git).</p></div></div>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">Explain the DORA metrics and what each measures. <span><span class="difficulty diff-easy">Easy</span><span class="arrow">▼</span></span></div><div class="qa-answer"><ul><li><strong>Deployment Frequency:</strong> How often you deploy to production. Elite = multiple times/day.</li><li><strong>Lead Time for Changes:</strong> Time from commit to production. Elite = &lt;1 hour.</li><li><strong>Change Failure Rate:</strong> % of deployments causing incidents. Elite = 0-15%.</li><li><strong>Time to Restore Service:</strong> How quickly you recover from incidents. Elite = &lt;1 hour.</li></ul></div></div>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">How would you implement secret management in a CI/CD pipeline? <span><span class="difficulty diff-hard">Hard</span><span class="arrow">▼</span></span></div><div class="qa-answer"><ul><li>Never store secrets in Git (even in .gitignore — use git-secrets or truffleHog to scan)</li><li>Use GitHub Actions/GitLab secrets or Vault for CI secrets injection</li><li>For AWS: OIDC identity federation (no static access keys) + Secrets Manager</li><li>In runtime: Kubernetes ExternalSecrets Operator + AWS Secrets Manager or HashiCorp Vault</li><li>Rotate secrets regularly, audit access, alert on direct secret reads</li><li>Separate secrets by environment (dev/staging/prod have different credentials)</li></ul></div></div>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">What is the difference between Docker and a VM? <span><span class="difficulty diff-easy">Easy</span><span class="arrow">▼</span></span></div><div class="qa-answer"><ul><li><strong>VM:</strong> Full OS virtualization via hypervisor. Includes kernel. Complete isolation. Startup: minutes. Size: GBs. Strong security boundary.</li><li><strong>Container:</strong> Process isolation using Linux namespaces + cgroups. Shares host kernel. Startup: seconds. Size: MBs. Lighter isolation (same kernel vulnerabilities).</li></ul><p>Choose containers for microservices, CI, stateless apps. Choose VMs for strong isolation, full OS control, legacy apps.</p></div></div>
+  </div>
+
+  <!-- ===== KUBERNETES ===== -->
+  <div id="cat-kubernetes" class="iq-category">
+    <h2>☸️ Kubernetes Questions</h2>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">Explain the Kubernetes control plane components. <span><span class="difficulty diff-med">Medium</span><span class="arrow">▼</span></span></div><div class="qa-answer"><ul><li><strong>kube-apiserver:</strong> Front door for all Kubernetes API calls. Validates and persists state to etcd.</li><li><strong>etcd:</strong> Distributed key-value store. Stores ALL cluster state. Backup etcd = backup your cluster.</li><li><strong>kube-scheduler:</strong> Assigns pods to nodes based on resource requests, affinity, taints/tolerations.</li><li><strong>kube-controller-manager:</strong> Runs controllers: Deployment, ReplicaSet, Node, Endpoint controllers. Reconciliation loop.</li><li><strong>cloud-controller-manager:</strong> Handles cloud-specific resources (LoadBalancer, PersistentVolume provisioning).</li></ul></div></div>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">What happens when you run 'kubectl apply -f deployment.yaml'? <span><span class="difficulty diff-med">Medium</span><span class="arrow">▼</span></span></div><div class="qa-answer"><ol><li>kubectl sends PATCH/POST to kube-apiserver</li><li>apiserver authenticates (cert), authorizes (RBAC), validates schema, runs admission webhooks</li><li>apiserver persists desired state to etcd</li><li>Deployment controller detects change, creates/updates ReplicaSet</li><li>ReplicaSet controller creates Pods in etcd (no node assigned yet)</li><li>kube-scheduler finds suitable nodes (checks resources, affinity, taints)</li><li>kubelet on the assigned node pulls image, starts container, reports status</li></ol></div></div>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">What is the difference between Deployment, StatefulSet, and DaemonSet? <span><span class="difficulty diff-med">Medium</span><span class="arrow">▼</span></span></div><div class="qa-answer"><ul><li><strong>Deployment:</strong> Stateless apps. Pods are interchangeable. Rolling updates, rollbacks. Use for web servers, APIs.</li><li><strong>StatefulSet:</strong> Stateful apps. Pods have stable network identity (pod-0, pod-1) and persistent storage. Ordered, graceful deployment/deletion. Use for databases (MySQL, Kafka, Elasticsearch).</li><li><strong>DaemonSet:</strong> Runs exactly one pod per node (or selected nodes). Use for monitoring agents, log collectors, network plugins.</li></ul></div></div>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">A pod is stuck in Pending state. How do you troubleshoot? <span><span class="difficulty diff-hard">Hard</span><span class="arrow">▼</span></span></div><div class="qa-answer"><pre>kubectl describe pod &lt;pod-name&gt; -n &lt;namespace&gt;  # look at Events section</pre><p>Common causes from Events:</p><ul><li><strong>Insufficient CPU/memory:</strong> Nodes don't have enough resources. Check: <code>kubectl describe nodes | grep -A5 Allocatable</code></li><li><strong>No matching node (affinity/taint):</strong> Add toleration or fix nodeSelector</li><li><strong>PVC not bound:</strong> Check <code>kubectl get pvc</code> — storage class not provisioning?</li><li><strong>Image pull failure:</strong> Wrong tag, private registry missing imagePullSecret</li><li><strong>No nodes at all:</strong> Check node count, cluster autoscaler logs</li></ul></div></div>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">How does Kubernetes RBAC work? Give an example. <span><span class="difficulty diff-med">Medium</span><span class="arrow">▼</span></span></div><div class="qa-answer"><p>RBAC grants permissions via: Subject (who) + Role (what permissions) + RoleBinding (binding).</p><pre>apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: pod-reader
+  namespace: myapp
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "list", "watch"]
+---
+kind: RoleBinding
+metadata:
+  name: read-pods
+  namespace: myapp
+subjects:
+- kind: ServiceAccount
+  name: myapp-sa
+roleRef:
+  kind: Role
+  name: pod-reader</pre></div></div>
+  </div>
+
+  <!-- ===== AWS ===== -->
+  <div id="cat-aws" class="iq-category">
+    <h2>☁️ AWS Questions</h2>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">How do you design a highly available, fault-tolerant web architecture on AWS? <span><span class="difficulty diff-hard">Hard</span><span class="arrow">▼</span></span></div><div class="qa-answer"><ul><li><strong>Multi-AZ:</strong> Deploy EC2/ECS in 3 AZs behind an ALB</li><li><strong>Auto Scaling:</strong> ASG with target tracking on CPU — scale out on high load</li><li><strong>Database:</strong> RDS Multi-AZ (synchronous standby) + Read Replicas, or Aurora Global DB</li><li><strong>Cache:</strong> ElastiCache Redis cluster mode with Multi-AZ replicas</li><li><strong>CDN:</strong> CloudFront for static assets, caching, DDoS protection</li><li><strong>DNS:</strong> Route53 failover routing with health checks</li><li><strong>Storage:</strong> S3 for static assets (11 nines durability)</li><li><strong>Monitoring:</strong> CloudWatch alarms → SNS → PagerDuty</li></ul></div></div>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">What is the difference between Security Groups and NACLs? <span><span class="difficulty diff-easy">Easy</span><span class="arrow">▼</span></span></div><div class="qa-answer"><ul><li><strong>Security Group:</strong> Stateful (return traffic automatic). Allow-only rules. Instance level (ENI). Applied per resource.</li><li><strong>NACL:</strong> Stateless (must allow both directions explicitly). Allow AND Deny. Subnet level. Rules numbered by priority.</li></ul><p>Use SGs for primary security control. Use NACLs to block specific IPs/ranges at subnet level (e.g., block known malicious IP ranges).</p></div></div>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">You need a Lambda function to access RDS in a private VPC. How do you set this up? <span><span class="difficulty diff-med">Medium</span><span class="arrow">▼</span></span></div><div class="qa-answer"><ol><li>Configure Lambda to run inside the VPC: assign subnets (private) and security group</li><li>Lambda creates ENIs in those subnets — needs sufficient IP addresses</li><li>RDS security group must allow inbound from Lambda's security group</li><li>Use RDS Proxy (recommended): reduces connection overhead, handles connection pooling, IAM auth</li><li>Store DB credentials in Secrets Manager, reference in Lambda env vars</li><li>Lambda execution role needs secretsmanager:GetSecretValue permission</li></ol></div></div>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">Explain DynamoDB's partition key design and the hot partition problem. <span><span class="difficulty diff-hard">Hard</span><span class="arrow">▼</span></span></div><div class="qa-answer"><p>DynamoDB distributes data across partitions based on partition key hash. Each partition handles up to 3,000 RCUs and 1,000 WCUs.</p><p><strong>Hot partition:</strong> When most traffic goes to one partition key (e.g., using date as PK — all writes hit today's partition). Symptoms: ProvisionedThroughputExceededException even with seemingly enough capacity.</p><p><strong>Solutions:</strong></p><ul><li>High-cardinality PK (UUID, userId) — distributes evenly</li><li>Write sharding: append random suffix 0-N to PK, combine in GSI for reads</li><li>On-demand capacity mode (auto-scales per partition)</li><li>DAX for read-heavy patterns (cache in front of DynamoDB)</li></ul></div></div>
+  </div>
+
+  <!-- ===== SECURITY ===== -->
+  <div id="cat-security" class="iq-category">
+    <h2>🔒 Security Questions</h2>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">What is OWASP and what are the top 3 web vulnerabilities? <span><span class="difficulty diff-easy">Easy</span><span class="arrow">▼</span></span></div><div class="qa-answer"><p>OWASP (Open Worldwide Application Security Project) — non-profit foundation maintaining the OWASP Top 10, a standard awareness document for web security risks.</p><p><strong>Top 3 (2021):</strong></p><ol><li><strong>Broken Access Control:</strong> Users can act beyond their intended permissions (IDOR, privilege escalation, force browsing)</li><li><strong>Cryptographic Failures:</strong> Sensitive data exposed due to weak/missing encryption (HTTP not HTTPS, MD5 passwords)</li><li><strong>Injection:</strong> SQLi, LDAP injection, OS command injection — untrusted data sent as part of a query/command</li></ol></div></div>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">Explain how HTTPS/TLS works step by step. <span><span class="difficulty diff-med">Medium</span><span class="arrow">▼</span></span></div><div class="qa-answer"><ol><li>Client sends ClientHello (TLS version, cipher suites, random)</li><li>Server sends ServerHello + Certificate (public key + CA signature)</li><li>Client verifies certificate against trusted CAs in trust store</li><li>Key exchange: ECDHE (TLS 1.3) — both sides compute shared secret</li><li>Session keys derived (symmetric AES-256)</li><li>Server sends Finished, encrypted with session key</li><li>Client sends Finished</li><li>Application data encrypted with session keys</li></ol><p>TLS 1.3 achieves this in 1 RTT (vs 2 RTT for TLS 1.2). All TLS 1.3 cipher suites provide Perfect Forward Secrecy.</p></div></div>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">How would you respond to discovering credentials were leaked in a public GitHub repo? <span><span class="difficulty diff-hard">Hard</span><span class="arrow">▼</span></span></div><div class="qa-answer"><ol><li><strong>Immediate (within minutes):</strong> Revoke/rotate the leaked credentials immediately — assume they've already been used</li><li><strong>Audit:</strong> Check CloudTrail/audit logs for any API calls using the leaked key (time since exposure)</li><li><strong>Remove from Git:</strong> Use BFG Repo Cleaner or git filter-repo to purge from history (also need to force-push all branches, notify all contributors)</li><li><strong>Notify:</strong> Security team, management, potentially customers if their data was at risk</li><li><strong>Root cause:</strong> Why were credentials in code? Add pre-commit hooks (truffleHog, git-secrets), secret scanning in CI, educate team</li><li><strong>Prevent recurrence:</strong> Use AWS IAM Roles/OIDC, environment variables, secret managers — never hardcode credentials</li></ol></div></div>
+  </div>
+
+  <!-- ===== PYTHON ===== -->
+  <div id="cat-python" class="iq-category">
+    <h2>🐍 Python Questions</h2>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">What is the GIL and how does it affect Python concurrency? <span><span class="difficulty diff-hard">Hard</span><span class="arrow">▼</span></span></div><div class="qa-answer"><p>The GIL (Global Interpreter Lock) is a mutex in CPython that ensures only one thread executes Python bytecode at a time. This means multi-threading cannot achieve true CPU parallelism in CPython.</p><p><strong>When GIL doesn't matter:</strong> I/O-bound tasks — GIL is released during I/O, so threading works well for web scraping, API calls, file I/O.</p><p><strong>When GIL is a problem:</strong> CPU-bound tasks (video processing, ML inference, computation).</p><p><strong>Workarounds:</strong> multiprocessing (separate processes, no shared GIL), asyncio (single-thread cooperative concurrency for I/O), C extensions (NumPy releases GIL), or use PyPy.</p></div></div>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">Explain Python decorators with a real-world example. <span><span class="difficulty diff-med">Medium</span><span class="arrow">▼</span></span></div><div class="qa-answer"><pre>import functools, time
+
+def timer(func):
+    @functools.wraps(func)  # preserves __name__, __doc__
+    def wrapper(*args, **kwargs):
+        start = time.perf_counter()
+        result = func(*args, **kwargs)
+        elapsed = time.perf_counter() - start
+        print(f"{func.__name__} took {elapsed:.4f}s")
+        return result
+    return wrapper
+
+@timer
+def slow_query(n):
+    return sum(range(n))
+
+slow_query(10_000_000)  # "slow_query took 0.2341s"</pre><p>Real-world uses: @login_required (Django), @cache, @retry, @rate_limit, @validate_input.</p></div></div>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">What is the difference between 'is' and '==' in Python? <span><span class="difficulty diff-easy">Easy</span><span class="arrow">▼</span></span></div><div class="qa-answer"><ul><li><code>==</code> checks value equality (calls __eq__ method)</li><li><code>is</code> checks identity — same object in memory (same id())</li></ul><pre>a = [1, 2, 3]
+b = [1, 2, 3]
+a == b   # True (same values)
+a is b   # False (different objects)
+
+x = None
+x is None    # True (correct way to check for None)
+x == None    # True but bad practice — use 'is'</pre><p>Small integers (-5 to 256) and short strings are interned — <code>is</code> may return True unexpectedly. Never rely on <code>is</code> for value comparison.</p></div></div>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">What are Python generators and when should you use them? <span><span class="difficulty diff-med">Medium</span><span class="arrow">▼</span></span></div><div class="qa-answer"><p>Generators produce values one at a time using <code>yield</code> — they're lazy (evaluate on demand). They maintain state between yields and use O(1) memory regardless of data size.</p><pre>def read_large_file(filename):
+    with open(filename) as f:
+        for line in f:
+            yield line.strip()  # one line at a time
+
+# Generator expression
+squares = (x**2 for x in range(1_000_000))  # no list created
+total = sum(squares)  # iterates lazily
+
+# Infinite sequence
+def fibonacci():
+    a, b = 0, 1
+    while True:
+        yield a
+        a, b = b, a + b</pre></div></div>
+  </div>
+
+  <!-- ===== DATABASES ===== -->
+  <div id="cat-databases" class="iq-category">
+    <h2>🗄️ Databases Questions</h2>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">What is the difference between SQL and NoSQL databases? When to use each? <span><span class="difficulty diff-easy">Easy</span><span class="arrow">▼</span></span></div><div class="qa-answer"><ul><li><strong>SQL (Relational):</strong> Structured schema, ACID transactions, complex queries with JOINs. Use for: financial systems, e-commerce, CRM, anywhere data consistency is critical.</li><li><strong>NoSQL:</strong> Flexible schema, horizontal scaling, various data models (document, key-value, column, graph). Use for: high-scale reads/writes, variable schema, specific access patterns (DynamoDB, MongoDB, Redis).</li></ul><p>Don't choose NoSQL just for "scale" — modern SQL (PostgreSQL, Aurora) scales extremely well. Choose based on access patterns, not hype.</p></div></div>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">Explain database indexes — types and trade-offs. <span><span class="difficulty diff-med">Medium</span><span class="arrow">▼</span></span></div><div class="qa-answer"><p><strong>B-Tree index (default):</strong> Balanced tree. Good for =, &lt;, &gt;, BETWEEN, ORDER BY. Most queries.</p><p><strong>Hash index:</strong> O(1) equality lookups only. No range queries. PostgreSQL supports.</p><p><strong>Composite index:</strong> Multi-column. Column order matters! Index (a, b) helps queries on (a), (a, b) but NOT (b) alone.</p><p><strong>Partial index:</strong> Index only rows matching a condition. Smaller, faster.</p><p><strong>Trade-offs:</strong> Indexes speed up reads but slow down writes (INSERT/UPDATE/DELETE must update all indexes). Every index uses disk space. Don't over-index — target your actual query patterns.</p></div></div>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">What is a database transaction and what does ACID guarantee? <span><span class="difficulty diff-med">Medium</span><span class="arrow">▼</span></span></div><div class="qa-answer"><ul><li><strong>Atomicity:</strong> All operations in a transaction succeed or all are rolled back. No partial updates.</li><li><strong>Consistency:</strong> Transaction brings DB from one valid state to another. All constraints (FK, unique, check) satisfied.</li><li><strong>Isolation:</strong> Concurrent transactions behave as if sequential. Isolation levels: Read Uncommitted → Read Committed → Repeatable Read → Serializable (stronger = slower).</li><li><strong>Durability:</strong> Committed transactions survive crashes. Write-ahead log (WAL) ensures this.</li></ul></div></div>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">How does database replication work and what is replication lag? <span><span class="difficulty diff-hard">Hard</span><span class="arrow">▼</span></span></div><div class="qa-answer"><p><strong>Synchronous replication:</strong> Primary waits for replica acknowledgment before confirming write. Zero replication lag. Slower writes. Used by RDS Multi-AZ.</p><p><strong>Asynchronous replication:</strong> Primary doesn't wait. Replica may lag by seconds/minutes. Faster writes but potential data loss on failover. Used by Read Replicas.</p><p><strong>Replication lag causes:</strong> Heavy write load, large transactions, network issues, slow replica hardware.</p><p><strong>Impact:</strong> Reading from a lagging replica may return stale data. Application must handle this: direct writes to primary, reads to replica with acceptable lag, or use strongly consistent reads when needed.</p></div></div>
+  </div>
+
+  <!-- ===== SYSTEM DESIGN ===== -->
+  <div id="cat-system-design" class="iq-category">
+    <h2>🏛️ System Design Questions</h2>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">How would you design a URL shortener like bit.ly? <span><span class="difficulty diff-med">Medium</span><span class="arrow">▼</span></span></div><div class="qa-answer"><p><strong>Requirements:</strong> Shorten URL, redirect, analytics (optional), 100M URLs, 10B redirects/day.</p><p><strong>Core design:</strong></p><ul><li>Generate short code: Base62 encode a unique ID (counter or UUID). 6 chars = 62^6 ≈ 56B URLs.</li><li>Database: short_code (PK) → original_url + created_at + user_id</li><li>Cache: Redis with short_code → URL (99%+ cache hit rate expected)</li><li>Redirect: HTTP 301 (permanent, browser caches) or 302 (temporary, tracks clicks)</li><li>Scale reads: Redis cluster, CDN for redirect responses</li></ul></div></div>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">Design a distributed rate limiter for an API. <span><span class="difficulty diff-hard">Hard</span><span class="arrow">▼</span></span></div><div class="qa-answer"><p><strong>Algorithms:</strong></p><ul><li><strong>Token Bucket:</strong> Bucket refills at fixed rate. Allows bursting up to bucket size. Simple with Redis INCR + TTL.</li><li><strong>Sliding Window Log:</strong> Store timestamps of requests in sorted set. Count requests in last window. Accurate but memory-heavy.</li><li><strong>Fixed Window Counter:</strong> Count per time window. Simple but allows 2x burst at window boundary.</li></ul><p><strong>Redis implementation:</strong></p><pre>-- Lua script (atomic)
+local count = redis.call('INCR', key)
+if count == 1 then
+  redis.call('EXPIRE', key, window_seconds)
+end
+return count</pre><p><strong>Scale:</strong> Redis Cluster for multi-node. Rate limit by user_id + API_key. Return Retry-After header on 429.</p></div></div>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">What is the CAP theorem and how does it apply to real systems? <span><span class="difficulty diff-hard">Hard</span><span class="arrow">▼</span></span></div><div class="qa-answer"><p>CAP theorem: A distributed system can only guarantee 2 of 3: Consistency (all nodes see same data), Availability (every request gets a response), Partition Tolerance (system works despite network partitions).</p><p>Network partitions are unavoidable in distributed systems, so you must choose between C and A during a partition:</p><ul><li><strong>CP systems:</strong> Reject requests during partition to maintain consistency. HBase, ZooKeeper, etcd.</li><li><strong>AP systems:</strong> Serve potentially stale data to remain available. Cassandra, CouchDB, DynamoDB (eventually consistent).</li></ul><p>Real systems: Most cloud databases are tunable (DynamoDB: eventual vs strong consistency per read, Cassandra: consistency level per operation).</p></div></div>
+  </div>
+
+  <!-- ===== BEHAVIORAL ===== -->
+  <div id="cat-behavioral" class="iq-category">
+    <h2>💼 Behavioral Questions</h2>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">Tell me about a time you had to deal with a critical production incident. <span><span class="difficulty diff-med">Medium</span><span class="arrow">▼</span></span></div><div class="qa-answer"><p><strong>STAR method (Situation, Task, Action, Result):</strong></p><p>Structure your answer to cover: What was the incident? What was your role? What steps did you take to diagnose and fix it? What was the outcome? What did you learn?</p><p><strong>Key points to hit:</strong> How you stayed calm, how you communicated with stakeholders, the technical troubleshooting steps, how you prevented recurrence (post-mortem, monitoring improvements, runbooks).</p><p><strong>Example framework:</strong> "Our payment service was returning 500s affecting X% of users. I [action]. After Y minutes we resolved it by [fix]. We implemented Z to prevent recurrence."</p></div></div>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">How do you handle disagreements with teammates about technical decisions? <span><span class="difficulty diff-easy">Easy</span><span class="arrow">▼</span></span></div><div class="qa-answer"><ul><li>Listen to understand their perspective first — they may have context you don't</li><li>Focus on data and technical merit, not personalities</li><li>Propose a proof-of-concept or benchmark to resolve factual disagreements</li><li>Document the trade-offs of both approaches objectively</li><li>If still unresolved, escalate to tech lead or use RFC process</li><li>Once a decision is made, commit fully regardless of who "won"</li><li>Learn from outcomes — note if your or their approach proved better for future decisions</li></ul></div></div>
+
+    <div class="qa-item"><div class="qa-question" onclick="toggle(this)">How do you prioritize when you have multiple urgent tasks? <span><span class="difficulty diff-easy">Easy</span><span class="arrow">▼</span></span></div><div class="qa-answer"><ul><li><strong>Assess impact and urgency:</strong> Eisenhower Matrix — Is it urgent AND important?</li><li><strong>Clarify with stakeholders:</strong> "If I can only do one of X or Y today, which matters more?"</li><li><strong>Tackle blockers first:</strong> Unblock teammates before individual work</li><li><strong>Time-box:</strong> Set time limits to avoid over-investing in one task</li><li><strong>Communicate proactively:</strong> If something will slip, tell stakeholders early with a new ETA</li><li><strong>Learn patterns:</strong> If urgent tasks are always popping up, address the root cause (better planning, on-call rotation)</li></ul></div></div>
+  </div>
+</div>
+
+<div id="footer-placeholder"></div>
+
+<script src="../assets/js/store.js"></script>
+<script src="../assets/js/utils.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/partials.js"></script>
+<script>
+function showCat(id) {
+  document.querySelectorAll('.iq-category').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.iq-tab').forEach(el => el.classList.remove('active'));
+  document.getElementById('cat-' + id).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+function toggle(el) {
+  el.closest('.qa-item').classList.toggle('open');
+}
+</script>
+</body>
+</html>
