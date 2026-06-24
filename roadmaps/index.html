@@ -9,40 +9,43 @@
   <link rel="stylesheet" href="../assets/css/layout.css">
   <link rel="stylesheet" href="../assets/css/components.css">
   <style>
-    .rm-tabs { display:flex; flex-wrap:wrap; gap:var(--gap-sm); margin-bottom:var(--gap-xl); }
-    .rm-tab { padding:0.5rem 1.1rem; border-radius:var(--radius); border:1px solid var(--border); background:var(--bg-card); cursor:pointer; font-size:var(--text-sm); transition:all 0.2s; }
-    .rm-tab.active, .rm-tab:hover { background:var(--accent,#00d4ff); color:#000; border-color:var(--accent,#00d4ff); }
-    .rm-track { display:none; }
-    .rm-track.active { display:block; }
-    .cert-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:var(--gap-lg); margin-top:var(--gap-lg); }
-    .cert-card { border:1px solid var(--border); border-radius:var(--radius); padding:1.25rem; background:var(--bg-card); position:relative; }
-    .cert-card::before { content:''; display:block; height:4px; border-radius:4px 4px 0 0; margin:-1.25rem -1.25rem 1rem; }
-    .cert-card.lvl-entry::before { background:var(--green,#39d353); }
-    .cert-card.lvl-assoc::before { background:var(--blue,#4d9fff); }
-    .cert-card.lvl-prof::before { background:var(--orange,#ff9900); }
-    .cert-card.lvl-expert::before { background:var(--red,#ff4d6d); }
-    .cert-name { font-size:1.05rem; font-weight:700; margin-bottom:0.35rem; }
-    .cert-code { font-size:var(--text-sm); color:var(--accent,#00d4ff); font-weight:600; margin-bottom:0.75rem; }
-    .cert-meta { display:flex; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.75rem; }
-    .cert-badge { padding:0.2rem 0.6rem; border-radius:20px; font-size:0.7rem; font-weight:700; background:var(--bg); border:1px solid var(--border); }
-    .cert-desc { font-size:var(--text-sm); color:var(--text-dim); margin-bottom:0.75rem; line-height:1.6; }
-    .cert-resources { margin-top:0.75rem; padding-top:0.75rem; border-top:1px solid var(--border); }
-    .cert-resources h5 { font-size:var(--text-sm); color:var(--text-dim); margin-bottom:0.4rem; }
-    .cert-resources ul { list-style:none; padding:0; }
-    .cert-resources li { font-size:var(--text-sm); color:var(--text-dim); padding:0.15rem 0; }
-    .cert-resources li::before { content:'📚 '; }
-    .roadmap-path { display:flex; flex-direction:column; gap:var(--gap-lg); margin-top:var(--gap-lg); }
-    .path-level { border-left:3px solid var(--accent,#00d4ff); padding-left:var(--gap-lg); }
-    .path-level h3 { color:var(--accent,#00d4ff); margin-bottom:var(--gap-md); }
-    .stats-bar { display:flex; gap:var(--gap-lg); margin-bottom:var(--gap-xl); padding:1rem 1.5rem; background:var(--bg-card); border-radius:var(--radius); border:1px solid var(--border); flex-wrap:wrap; }
-    .stat { text-align:center; }
-    .stat__num { font-size:1.8rem; font-weight:800; color:var(--accent,#00d4ff); }
-    .stat__label { font-size:var(--text-sm); color:var(--text-dim); }
-    .level-badge { display:inline-block; padding:0.25rem 0.75rem; border-radius:20px; font-size:0.72rem; font-weight:700; margin-bottom:var(--gap-sm); }
-    .lb-entry { background:#39d35322; color:#39d353; }
-    .lb-assoc { background:#4d9fff22; color:#4d9fff; }
-    .lb-prof { background:#ff990022; color:#ff9900; }
-    .lb-expert { background:#ff4d6d22; color:#ff4d6d; }
+    .rm-tabs{display:flex;flex-wrap:wrap;gap:var(--gap-sm);margin-bottom:var(--gap-xl)}
+    .rm-tab{padding:0.5rem 1.1rem;border-radius:var(--radius);border:1px solid var(--border);background:var(--bg-card);cursor:pointer;font-size:var(--text-sm);font-weight:600;transition:all 0.2s}
+    .rm-tab.active,.rm-tab:hover{background:var(--accent,#00d4ff);color:#000;border-color:var(--accent,#00d4ff)}
+    .rm-track{display:none}
+    .rm-track.active{display:block}
+    .cert-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:var(--gap-lg);margin-top:var(--gap-lg)}
+    .cert-card{border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;background:var(--bg-card);position:relative;display:flex;flex-direction:column}
+    .cert-card::before{content:'';display:block;height:4px;border-radius:4px 4px 0 0;margin:-1.25rem -1.25rem 1rem}
+    .cert-card.lvl-entry::before{background:#39d353}
+    .cert-card.lvl-assoc::before{background:#4d9fff}
+    .cert-card.lvl-prof::before{background:#ff9900}
+    .cert-card.lvl-expert::before{background:#ff4d6d}
+    .cert-name{font-size:1.05rem;font-weight:700;margin-bottom:0.35rem}
+    .cert-code{font-size:var(--text-sm);color:var(--accent,#00d4ff);font-weight:600;margin-bottom:0.75rem}
+    .cert-meta{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.75rem}
+    .cert-badge{padding:0.2rem 0.6rem;border-radius:20px;font-size:0.7rem;font-weight:700;background:var(--bg);border:1px solid var(--border)}
+    .cert-desc{font-size:var(--text-sm);color:var(--text-dim);margin-bottom:0.75rem;line-height:1.6;flex:1}
+    .cert-resources{margin-top:auto;padding-top:0.75rem;border-top:1px solid var(--border)}
+    .cert-resources h5{font-size:var(--text-sm);color:var(--text-dim);margin-bottom:0.4rem}
+    .cert-resources ul{list-style:none;padding:0}
+    .cert-resources li{font-size:var(--text-sm);color:var(--text-dim);padding:0.15rem 0}
+    .cert-resources li::before{content:'📚 '}
+    .roadmap-path{display:flex;flex-direction:column;gap:var(--gap-xl);margin-top:var(--gap-lg)}
+    .path-level{border-left:3px solid var(--accent,#00d4ff);padding-left:var(--gap-lg)}
+    .path-level h3{color:var(--accent,#00d4ff);margin-bottom:var(--gap-md)}
+    .stats-bar{display:flex;gap:var(--gap-lg);margin-bottom:var(--gap-xl);padding:1rem 1.5rem;background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border);flex-wrap:wrap}
+    .stat{text-align:center}
+    .stat__num{font-size:1.8rem;font-weight:800;color:var(--accent,#00d4ff)}
+    .stat__label{font-size:var(--text-sm);color:var(--text-dim)}
+    .level-badge{display:inline-block;padding:0.25rem 0.75rem;border-radius:20px;font-size:0.72rem;font-weight:700;margin-bottom:var(--gap-sm)}
+    .lb-entry{background:#39d35322;color:#39d353}
+    .lb-assoc{background:#4d9fff22;color:#4d9fff}
+    .lb-prof{background:#ff990022;color:#ff9900}
+    .lb-expert{background:#ff4d6d22;color:#ff4d6d}
+    .track-intro{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:var(--gap-lg);margin-bottom:var(--gap-lg)}
+    .track-intro p{color:var(--text-dim);font-size:var(--text-sm);line-height:1.7;margin:0}
+    .path-arrow{text-align:center;font-size:1.5rem;color:var(--accent,#00d4ff);margin:0.5rem 0}
   </style>
 </head>
 <body class="page-body">
@@ -53,25 +56,30 @@
   <p style="color:var(--text-dim);font-size:var(--text-lg);margin-bottom:var(--gap-xl)">Structured certification paths from entry-level to expert. Pick your track and follow the path.</p>
 
   <div class="stats-bar">
-    <div class="stat"><div class="stat__num">35+</div><div class="stat__label">Certifications</div></div>
-    <div class="stat"><div class="stat__num">7</div><div class="stat__label">Career Tracks</div></div>
+    <div class="stat"><div class="stat__num">60+</div><div class="stat__label">Certifications</div></div>
+    <div class="stat"><div class="stat__num">10</div><div class="stat__label">Career Tracks</div></div>
     <div class="stat"><div class="stat__num">4</div><div class="stat__label">Levels</div></div>
+    <div class="stat"><div class="stat__num">$70–$1,499</div><div class="stat__label">Price Range</div></div>
     <div class="stat"><div class="stat__num">∞</div><div class="stat__label">Career Growth</div></div>
   </div>
 
   <div class="rm-tabs">
-    <button class="rm-tab active" onclick="showTrack('network')">🌐 Networking</button>
-    <button class="rm-tab" onclick="showTrack('linux')">🐧 Linux/RHEL</button>
-    <button class="rm-tab" onclick="showTrack('aws')">☁️ AWS Cloud</button>
-    <button class="rm-tab" onclick="showTrack('devops')">⚙️ DevOps/K8s</button>
-    <button class="rm-tab" onclick="showTrack('security')">🔒 Security</button>
-    <button class="rm-tab" onclick="showTrack('azure')">🔷 Azure</button>
-    <button class="rm-tab" onclick="showTrack('aiml')">🤖 AI/ML</button>
+    <button class="rm-tab active" onclick="showTrack('network',this)">🌐 Networking</button>
+    <button class="rm-tab" onclick="showTrack('linux',this)">🐧 Linux/RHEL</button>
+    <button class="rm-tab" onclick="showTrack('aws',this)">☁️ AWS Cloud</button>
+    <button class="rm-tab" onclick="showTrack('devops',this)">⚙️ DevOps/K8s</button>
+    <button class="rm-tab" onclick="showTrack('security',this)">🔒 Security/VAPT</button>
+    <button class="rm-tab" onclick="showTrack('devsecops',this)">🔐 DevSecOps</button>
+    <button class="rm-tab" onclick="showTrack('azure',this)">🔷 Azure</button>
+    <button class="rm-tab" onclick="showTrack('gcp',this)">🟡 GCP</button>
+    <button class="rm-tab" onclick="showTrack('data',this)">📊 Data Eng.</button>
+    <button class="rm-tab" onclick="showTrack('aiml',this)">🤖 AI/ML</button>
   </div>
 
   <!-- ===== NETWORKING TRACK ===== -->
   <div id="track-network" class="rm-track active">
     <h2>🌐 Networking / CompTIA Track</h2>
+    <div class="track-intro"><p>Start with CompTIA fundamentals then advance to Cisco CCNA → CCNP → CCIE. Networking is the foundation of all cloud, security, and DevOps work. Estimated path: 6–24 months depending on experience.</p></div>
     <div class="roadmap-path">
       <div class="path-level">
         <h3>Entry Level — Start Here</h3>
@@ -86,10 +94,9 @@
               <span class="cert-badge">⏱️ 60 min</span>
               <span class="cert-badge">✅ 65% pass</span>
             </div>
-            <div class="cert-desc">Non-technical entry-level cert. IT concepts, infrastructure, applications, software development, database fundamentals, security.</div>
+            <div class="cert-desc">Non-technical entry-level cert. IT concepts, infrastructure, applications, software development, database fundamentals, security. Skip if already in IT.</div>
             <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Professor Messer Free Course (YouTube)</li><li>CompTIA Official Study Guide</li><li>ExamCompass Practice Tests</li></ul></div>
           </div>
-
           <div class="cert-card lvl-entry">
             <div class="level-badge lb-entry">Entry Level</div>
             <div class="cert-name">CompTIA A+</div>
@@ -100,12 +107,11 @@
               <span class="cert-badge">⏱️ 90 min</span>
               <span class="cert-badge">✅ 675/900</span>
             </div>
-            <div class="cert-desc">Industry-standard IT support certification. Hardware, OS (Windows/Linux/macOS), networking, cloud, virtualization, security, troubleshooting.</div>
-            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Professor Messer A+ Course (Free)</li><li>Mike Meyers All-in-One Guide</li><li>Jason Dion Practice Exams (Udemy)</li></ul></div>
+            <div class="cert-desc">Industry-standard IT support certification. Hardware, OS (Windows/Linux/macOS), networking, cloud, virtualization, security, troubleshooting. DoD 8570 approved.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Professor Messer A+ Course (Free) ⭐</li><li>Mike Meyers All-in-One Guide</li><li>Jason Dion Practice Exams (Udemy)</li></ul></div>
           </div>
         </div>
       </div>
-
       <div class="path-level">
         <h3>Associate Level</h3>
         <div class="cert-grid">
@@ -119,26 +125,24 @@
               <span class="cert-badge">⏱️ 90 min</span>
               <span class="cert-badge">✅ 720/900</span>
             </div>
-            <div class="cert-desc">Covers networking concepts, infrastructure, network operations, security, and troubleshooting. Vendor-neutral baseline for all IT networking roles.</div>
-            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Professor Messer Network+ N10-009</li><li>Mike Meyers Network+ Guide</li><li>CompTIA CertMaster Practice</li></ul></div>
+            <div class="cert-desc">Vendor-neutral baseline for all IT networking roles. Networking concepts, infrastructure, operations, security, troubleshooting. DoD 8570 approved.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Professor Messer Network+ N10-009 ⭐</li><li>Mike Meyers Network+ Guide</li><li>CompTIA CertMaster Practice</li></ul></div>
           </div>
-
           <div class="cert-card lvl-assoc">
             <div class="level-badge lb-assoc">Associate</div>
             <div class="cert-name">Cisco CCNA</div>
             <div class="cert-code">200-301</div>
             <div class="cert-meta">
               <span class="cert-badge">💰 $330</span>
-              <span class="cert-badge">📝 100-120 Q</span>
+              <span class="cert-badge">📝 100–120 Q</span>
               <span class="cert-badge">⏱️ 120 min</span>
               <span class="cert-badge">✅ ~825/1000</span>
             </div>
-            <div class="cert-desc">Industry gold standard for network engineers. IP services, security fundamentals, automation, programmability, switching, routing.</div>
-            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Jeremy's IT Lab (Free YouTube)</li><li>Neil Anderson CCNA Course (Udemy)</li><li>Boson ExSim Practice Exams</li></ul></div>
+            <div class="cert-desc">Industry gold standard for network engineers. IP services, security fundamentals, automation, programmability, VLANs, STP, OSPF, EIGRP, NAT, QoS.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Jeremy's IT Lab (Free YouTube) ⭐</li><li>Neil Anderson CCNA Course (Udemy)</li><li>Boson ExSim Practice Exams</li></ul></div>
           </div>
         </div>
       </div>
-
       <div class="path-level">
         <h3>Professional Level</h3>
         <div class="cert-grid">
@@ -148,12 +152,43 @@
             <div class="cert-code">ENCOR 350-401 + Concentration</div>
             <div class="cert-meta">
               <span class="cert-badge">💰 $400×2</span>
-              <span class="cert-badge">📝 90-110 Q</span>
+              <span class="cert-badge">📝 90–110 Q</span>
               <span class="cert-badge">⏱️ 120 min</span>
               <span class="cert-badge">✅ ~750/1000</span>
             </div>
-            <div class="cert-desc">Advanced enterprise networking. SD-WAN, Wireless, OSPF/EIGRP/BGP deep, QoS, virtualization, security, network automation.</div>
-            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>INE CCNP Enterprise Training</li><li>Kevin Wallace CCNP Study Guide</li><li>Cisco Learning Network</li></ul></div>
+            <div class="cert-desc">Advanced enterprise networking. SD-WAN, Wireless, OSPF/EIGRP/BGP deep, QoS, virtualization, security, network automation with Python/Ansible/RESTCONF.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>INE CCNP Enterprise Training</li><li>Kevin Wallace CCNP Study Guide</li><li>Cisco Learning Network + DevNet Sandbox</li></ul></div>
+          </div>
+          <div class="cert-card lvl-prof">
+            <div class="level-badge lb-prof">Professional</div>
+            <div class="cert-name">Cisco CCNP Security</div>
+            <div class="cert-code">SCOR 350-701 + Concentration</div>
+            <div class="cert-meta">
+              <span class="cert-badge">💰 $400×2</span>
+              <span class="cert-badge">📝 90–110 Q</span>
+              <span class="cert-badge">⏱️ 120 min</span>
+              <span class="cert-badge">✅ ~750/1000</span>
+            </div>
+            <div class="cert-desc">Network security at scale. Firewall (FTD/ASA), IPS, VPN (IKEv2/SSL), identity (ISE), cloud security, automation, threat intelligence, zero-trust.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>INE CCNP Security Training</li><li>Cisco dCloud Lab environment</li><li>Omar Santos CCNP Security resources</li></ul></div>
+          </div>
+        </div>
+      </div>
+      <div class="path-level">
+        <h3>Expert Level</h3>
+        <div class="cert-grid">
+          <div class="cert-card lvl-expert">
+            <div class="level-badge lb-expert">Expert</div>
+            <div class="cert-name">Cisco CCIE Enterprise Infrastructure</div>
+            <div class="cert-code">CCIE EI</div>
+            <div class="cert-meta">
+              <span class="cert-badge">💰 $450 (written) + $1,600 (lab)</span>
+              <span class="cert-badge">📝 Written + 8hr lab</span>
+              <span class="cert-badge">⏱️ 8 hrs lab</span>
+              <span class="cert-badge">✅ Cisco graded</span>
+            </div>
+            <div class="cert-desc">The pinnacle of networking certifications. 8-hour hands-on lab in a Cisco facility. Held by fewer than 4% of Cisco-certified professionals globally.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>INE CCIE Enterprise training</li><li>Narbik Kocharians workbooks</li><li>Cisco Learning Network study groups</li></ul></div>
           </div>
         </div>
       </div>
@@ -163,6 +198,7 @@
   <!-- ===== LINUX/RHEL TRACK ===== -->
   <div id="track-linux" class="rm-track">
     <h2>🐧 Linux / Red Hat Track</h2>
+    <div class="track-intro"><p>Linux is the foundation of all servers, containers, and cloud. Path: Linux basics → LFCS → RHCSA → RHCE → RHCA. Fully performance-based exams — no multiple choice. Estimated path: 6–18 months.</p></div>
     <div class="roadmap-path">
       <div class="path-level">
         <h3>Entry Level</h3>
@@ -176,10 +212,9 @@
               <span class="cert-badge">📝 Self-paced</span>
               <span class="cert-badge">⏱️ 40 hrs</span>
             </div>
-            <div class="cert-desc">Introduction to Linux from Linux Foundation. Command line basics, text editing, file systems, user management. Prerequisite for LFCS.</div>
-            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>edX LFS101x (Free)</li><li>The Linux Command Line book (free PDF)</li><li>Linux Journey (linuxjourney.com)</li></ul></div>
+            <div class="cert-desc">Introduction to Linux from the Linux Foundation. Command line basics, text editing, file systems, user management. Prerequisite for LFCS.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>edX LFS101x (Free)</li><li>The Linux Command Line (free PDF)</li><li>Linux Journey (linuxjourney.com)</li></ul></div>
           </div>
-
           <div class="cert-card lvl-entry">
             <div class="level-badge lb-entry">Entry Level</div>
             <div class="cert-name">CompTIA Linux+</div>
@@ -190,12 +225,11 @@
               <span class="cert-badge">⏱️ 90 min</span>
               <span class="cert-badge">✅ 720/900</span>
             </div>
-            <div class="cert-desc">Vendor-neutral Linux administration cert. Shell scripting, system management, security, cloud, containers. Replaces LPI LPIC-1 + 2.</div>
+            <div class="cert-desc">Vendor-neutral Linux admin cert. Shell scripting, system management, security, cloud, containers. Covers both LPIC-1 and LPIC-2 objectives.</div>
             <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Jason Dion Linux+ Course (Udemy)</li><li>CompTIA Linux+ Study Guide (Wiley)</li><li>Professor Messer Linux+</li></ul></div>
           </div>
         </div>
       </div>
-
       <div class="path-level">
         <h3>Associate Level</h3>
         <div class="cert-grid">
@@ -209,12 +243,24 @@
               <span class="cert-badge">⏱️ 2 hrs</span>
               <span class="cert-badge">✅ 66%</span>
             </div>
-            <div class="cert-desc">Hands-on exam in a live Linux environment. User/group management, storage, networking, services, containers. No multiple choice — prove it.</div>
-            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>KodeKloud LFCS Course</li><li>A Cloud Guru LFCS Prep</li><li>practice with VMs (Ubuntu/CentOS)</li></ul></div>
+            <div class="cert-desc">Hands-on exam in a live Linux environment. User/group management, storage, networking, services, containers (Podman). No multiple choice — prove it.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>KodeKloud LFCS Course ⭐</li><li>A Cloud Guru LFCS Prep</li><li>Practice with VMs (Ubuntu/CentOS)</li></ul></div>
+          </div>
+          <div class="cert-card lvl-assoc">
+            <div class="level-badge lb-assoc">Associate</div>
+            <div class="cert-name">LPIC-1 Linux Administrator</div>
+            <div class="cert-code">101-500 + 102-500</div>
+            <div class="cert-meta">
+              <span class="cert-badge">💰 $200×2</span>
+              <span class="cert-badge">📝 60 Q each</span>
+              <span class="cert-badge">⏱️ 90 min</span>
+              <span class="cert-badge">✅ 500/800</span>
+            </div>
+            <div class="cert-desc">LPI distribution-neutral certification. System architecture, Linux installation, GNU/Unix commands, devices, filesystems, shells, scripting, networking.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Linux Professional Institute study materials</li><li>LPIC-1 exam objectives (lpi.org)</li><li>KodeKloud Linux labs</li></ul></div>
           </div>
         </div>
       </div>
-
       <div class="path-level">
         <h3>Professional Level</h3>
         <div class="cert-grid">
@@ -228,10 +274,9 @@
               <span class="cert-badge">⏱️ 3 hrs</span>
               <span class="cert-badge">✅ 210/300</span>
             </div>
-            <div class="cert-desc">Most respected Linux cert for enterprise. Pure hands-on: 15-20 tasks in a live RHEL VM. SELinux, systemd, containers (Podman), storage, NFS.</div>
-            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Sander van Vugt RHCSA 9 (O'Reilly)</li><li>KodeKloud RHCSA Labs</li><li>Linux Foundation Training</li></ul></div>
+            <div class="cert-desc">Most respected Linux cert for enterprise. Pure hands-on: 15–20 tasks in a live RHEL 9 VM. SELinux, systemd, containers (Podman), LVM, NFS, firewalld.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Sander van Vugt RHCSA 9 (O'Reilly) ⭐</li><li>KodeKloud RHCSA Labs</li><li>Red Hat Learning Subscription</li></ul></div>
           </div>
-
           <div class="cert-card lvl-prof">
             <div class="level-badge lb-prof">Professional</div>
             <div class="cert-name">Red Hat Certified Engineer</div>
@@ -241,9 +286,27 @@
               <span class="cert-badge">📝 Performance-based (Ansible)</span>
               <span class="cert-badge">⏱️ 4 hrs</span>
               <span class="cert-badge">✅ 210/300</span>
+              <span class="cert-badge">⚠️ Requires RHCSA</span>
             </div>
-            <div class="cert-desc">Builds on RHCSA. Ansible automation focus: playbooks, roles, collections, Ansible Vault, managing RHEL systems at scale.</div>
-            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Sander van Vugt RHCE 9</li><li>Red Hat Training DO294</li><li>Ansible documentation + practice labs</li></ul></div>
+            <div class="cert-desc">Builds on RHCSA. Pure Ansible automation: playbooks, roles, collections, Ansible Vault, managing RHEL hosts, handlers, templates, facts, conditionals.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Sander van Vugt RHCE 9 ⭐</li><li>Red Hat Training DO294</li><li>Ansible documentation + practice labs</li></ul></div>
+          </div>
+        </div>
+      </div>
+      <div class="path-level">
+        <h3>Expert Level</h3>
+        <div class="cert-grid">
+          <div class="cert-card lvl-expert">
+            <div class="level-badge lb-expert">Expert</div>
+            <div class="cert-name">Red Hat Certified Architect</div>
+            <div class="cert-code">RHCA</div>
+            <div class="cert-meta">
+              <span class="cert-badge">💰 $400 per exam (5 needed)</span>
+              <span class="cert-badge">📝 Performance-based each</span>
+              <span class="cert-badge">⚠️ Requires RHCE</span>
+            </div>
+            <div class="cert-desc">Red Hat's highest certification. Earn 5 additional Red Hat certs (e.g. EX288 OpenShift Dev, EX316 OpenShift Admin, EX447 Ansible Advanced, EX415 Security, EX380 GitOps).</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Red Hat Learning Subscription</li><li>KodeKloud OpenShift courses</li><li>Red Hat official exam objectives</li></ul></div>
           </div>
         </div>
       </div>
@@ -253,9 +316,10 @@
   <!-- ===== AWS TRACK ===== -->
   <div id="track-aws" class="rm-track">
     <h2>☁️ AWS Cloud Track</h2>
+    <div class="track-intro"><p>AWS holds ~33% of cloud market share. Recommended path: skip CCP and go straight to SAA-C03. Then specialize in Security, DevOps, or Data Analytics. Estimated path: 3–18 months.</p></div>
     <div class="roadmap-path">
       <div class="path-level">
-        <h3>Entry Level</h3>
+        <h3>Entry Level (Optional)</h3>
         <div class="cert-grid">
           <div class="cert-card lvl-entry">
             <div class="level-badge lb-entry">Entry Level</div>
@@ -267,14 +331,13 @@
               <span class="cert-badge">⏱️ 90 min</span>
               <span class="cert-badge">✅ 700/1000</span>
             </div>
-            <div class="cert-desc">High-level AWS overview for non-technical roles. Cloud concepts, billing, security, core services. Good starting point; not required to skip to Associate.</div>
+            <div class="cert-desc">High-level AWS overview. Cloud concepts, billing, pricing, shared responsibility, core services. Good for non-technical roles. Technical people can skip to SAA.</div>
             <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Stephane Maarek AWS CCP (Udemy)</li><li>AWS Skill Builder (free content)</li><li>ExamTopics practice questions</li></ul></div>
           </div>
         </div>
       </div>
-
       <div class="path-level">
-        <h3>Associate Level</h3>
+        <h3>Associate Level — Pick One or All Three</h3>
         <div class="cert-grid">
           <div class="cert-card lvl-assoc">
             <div class="level-badge lb-assoc">Associate</div>
@@ -286,10 +349,9 @@
               <span class="cert-badge">⏱️ 130 min</span>
               <span class="cert-badge">✅ 720/1000</span>
             </div>
-            <div class="cert-desc">Most popular AWS cert. Designing resilient, secure, cost-optimized architectures. IAM, EC2, VPC, S3, RDS, Lambda, CloudFront, Route53, Well-Architected.</div>
-            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Stephane Maarek SAA (Udemy) ⭐</li><li>Jon Bonso Practice Exams (Udemy)</li><li>AWS Whitepapers + FAQs</li></ul></div>
+            <div class="cert-desc">Most popular AWS cert (1M+ holders). Resilient, secure, cost-optimized architecture design. IAM, EC2, VPC, S3, RDS, Lambda, CloudFront, Route53, Well-Architected.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Stephane Maarek SAA (Udemy) ⭐</li><li>Jon Bonso Practice Exams (Udemy)</li><li>Adrian Cantrill SAA Course</li></ul></div>
           </div>
-
           <div class="cert-card lvl-assoc">
             <div class="level-badge lb-assoc">Associate</div>
             <div class="cert-name">AWS Developer Associate</div>
@@ -300,10 +362,9 @@
               <span class="cert-badge">⏱️ 130 min</span>
               <span class="cert-badge">✅ 720/1000</span>
             </div>
-            <div class="cert-desc">Application development on AWS. Lambda, DynamoDB, API Gateway, Cognito, SQS/SNS, CodePipeline/CodeDeploy, CloudFormation, X-Ray debugging.</div>
-            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Stephane Maarek DVA (Udemy)</li><li>TutorialsDojo Practice Tests</li><li>AWS SDK documentation</li></ul></div>
+            <div class="cert-desc">Application development on AWS. Lambda, DynamoDB, API Gateway, Cognito, SQS/SNS, CodePipeline/CodeDeploy, CloudFormation, X-Ray, Elastic Beanstalk.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Stephane Maarek DVA (Udemy)</li><li>TutorialsDojo Practice Tests</li><li>AWS SDK + boto3 documentation</li></ul></div>
           </div>
-
           <div class="cert-card lvl-assoc">
             <div class="level-badge lb-assoc">Associate</div>
             <div class="cert-name">AWS SysOps Administrator Associate</div>
@@ -314,12 +375,11 @@
               <span class="cert-badge">⏱️ 180 min</span>
               <span class="cert-badge">✅ 720/1000</span>
             </div>
-            <div class="cert-desc">Operations focus. Has exam lab section (hands-on). CloudWatch, Systems Manager, CloudFormation, HA/fault tolerance, cost optimization.</div>
+            <div class="cert-desc">Operations focus with hands-on exam lab. CloudWatch, Systems Manager, CloudFormation StackSets, HA/fault tolerance, cost optimization, monitoring at scale.</div>
             <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Stephane Maarek SOA (Udemy)</li><li>Adrian Cantrill SOA Course</li><li>AWS Console hands-on practice</li></ul></div>
           </div>
         </div>
       </div>
-
       <div class="path-level">
         <h3>Professional / Specialty Level</h3>
         <div class="cert-grid">
@@ -332,11 +392,25 @@
               <span class="cert-badge">📝 75 Q</span>
               <span class="cert-badge">⏱️ 180 min</span>
               <span class="cert-badge">✅ 750/1000</span>
+              <span class="cert-badge">⚠️ Requires SAA</span>
             </div>
-            <div class="cert-desc">The hardest AWS cert. Complex enterprise architectures, migrations, hybrid networking, multi-account Organizations, advanced cost optimization.</div>
+            <div class="cert-desc">The hardest AWS cert. Complex enterprise architectures, migrations, hybrid networking, multi-account Organizations, advanced cost optimization, HA design patterns.</div>
             <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Adrian Cantrill SAP Course ⭐</li><li>Stephane Maarek SAP (Udemy)</li><li>TutorialsDojo SAP practice tests</li></ul></div>
           </div>
-
+          <div class="cert-card lvl-prof">
+            <div class="level-badge lb-prof">Professional</div>
+            <div class="cert-name">AWS DevOps Engineer Professional</div>
+            <div class="cert-code">DOP-C02</div>
+            <div class="cert-meta">
+              <span class="cert-badge">💰 $300</span>
+              <span class="cert-badge">📝 75 Q</span>
+              <span class="cert-badge">⏱️ 180 min</span>
+              <span class="cert-badge">✅ 750/1000</span>
+              <span class="cert-badge">⚠️ Requires DVA or SOA</span>
+            </div>
+            <div class="cert-desc">CI/CD, infrastructure as code, monitoring, incident response, high availability, event-driven automation on AWS. CodePipeline, CodeBuild, CodeDeploy, CloudFormation advanced.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Stephane Maarek DOP (Udemy)</li><li>TutorialsDojo DOP practice tests</li><li>AWS DevOps whitepapers</li></ul></div>
+          </div>
           <div class="cert-card lvl-prof">
             <div class="level-badge lb-prof">Specialty</div>
             <div class="cert-name">AWS Security Specialty</div>
@@ -347,8 +421,21 @@
               <span class="cert-badge">⏱️ 170 min</span>
               <span class="cert-badge">✅ 750/1000</span>
             </div>
-            <div class="cert-desc">Advanced AWS security. KMS, CloudHSM, Macie, GuardDuty, Inspector, WAF, Shield, detective controls, incident response, organizations SCPs.</div>
-            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Stephane Maarek Security Specialty</li><li>A Cloud Guru SCS Course</li><li>AWS Security whitepapers</li></ul></div>
+            <div class="cert-desc">Advanced AWS security. KMS, CloudHSM, Macie, GuardDuty, Inspector, WAF, Shield, detective controls, incident response, SCPs, IAM conditions, network security.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Stephane Maarek Security Specialty ⭐</li><li>A Cloud Guru SCS Course</li><li>AWS Security whitepapers + re:Invent talks</li></ul></div>
+          </div>
+          <div class="cert-card lvl-prof">
+            <div class="level-badge lb-prof">Specialty</div>
+            <div class="cert-name">AWS Data Analytics Specialty</div>
+            <div class="cert-code">DAS-C01</div>
+            <div class="cert-meta">
+              <span class="cert-badge">💰 $300</span>
+              <span class="cert-badge">📝 65 Q</span>
+              <span class="cert-badge">⏱️ 180 min</span>
+              <span class="cert-badge">✅ 750/1000</span>
+            </div>
+            <div class="cert-desc">Data collection, storage, processing, analysis and visualization on AWS. Kinesis, Glue, EMR, Redshift, Athena, QuickSight, Lake Formation, OpenSearch.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Frank Kane DAS Course (Udemy)</li><li>A Cloud Guru DAS-C01</li><li>AWS Analytics whitepapers</li></ul></div>
           </div>
         </div>
       </div>
@@ -358,9 +445,10 @@
   <!-- ===== DEVOPS/K8S TRACK ===== -->
   <div id="track-devops" class="rm-track">
     <h2>⚙️ DevOps / Kubernetes Track</h2>
+    <div class="track-intro"><p>Container orchestration and DevOps automation are the fastest-growing skills in the industry. Path: KCNA → CKA → CKAD → CKS + Terraform + GitOps. All K8s exams are performance-based in live clusters. Estimated path: 6–18 months.</p></div>
     <div class="roadmap-path">
       <div class="path-level">
-        <h3>Associate Level</h3>
+        <h3>Associate Level — Foundation</h3>
         <div class="cert-grid">
           <div class="cert-card lvl-assoc">
             <div class="level-badge lb-assoc">Associate</div>
@@ -372,14 +460,26 @@
               <span class="cert-badge">⏱️ 90 min</span>
               <span class="cert-badge">✅ 75%</span>
             </div>
-            <div class="cert-desc">Entry-point for Kubernetes. Containers, orchestration concepts, Kubernetes fundamentals, cloud native architecture. Good before CKA.</div>
-            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>KodeKloud KCNA Course</li><li>CNCF Landscape overview</li><li>Kubernetes.io documentation</li></ul></div>
+            <div class="cert-desc">Entry-point for Kubernetes. Container fundamentals, K8s architecture, cloud native concepts (CNCF landscape), GitOps, observability basics. Good before CKA.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>KodeKloud KCNA Course</li><li>CNCF Landscape overview (landscape.cncf.io)</li><li>Kubernetes.io documentation</li></ul></div>
+          </div>
+          <div class="cert-card lvl-assoc">
+            <div class="level-badge lb-assoc">Associate</div>
+            <div class="cert-name">HashiCorp Terraform Associate</div>
+            <div class="cert-code">003</div>
+            <div class="cert-meta">
+              <span class="cert-badge">💰 $70</span>
+              <span class="cert-badge">📝 57 Q</span>
+              <span class="cert-badge">⏱️ 60 min</span>
+              <span class="cert-badge">✅ 70%</span>
+            </div>
+            <div class="cert-desc">IaC fundamentals with Terraform. Providers, state management, modules, workspaces, Terraform Cloud/Enterprise, plan/apply/destroy lifecycle, remote backends.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Bryan Krausen Terraform Associate (Udemy) ⭐</li><li>HashiCorp Learn (developer.hashicorp.com)</li><li>KodeKloud Terraform Labs</li></ul></div>
           </div>
         </div>
       </div>
-
       <div class="path-level">
-        <h3>Professional Level</h3>
+        <h3>Professional Level — Core K8s</h3>
         <div class="cert-grid">
           <div class="cert-card lvl-prof">
             <div class="level-badge lb-prof">Professional</div>
@@ -391,10 +491,9 @@
               <span class="cert-badge">⏱️ 2 hrs</span>
               <span class="cert-badge">✅ 66%</span>
             </div>
-            <div class="cert-desc">Hands-on K8s administration in a live cluster. Scheduling, storage, networking, security, cluster maintenance, troubleshooting. No MCQ.</div>
-            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Mumshad Mannambeth CKA (Udemy) ⭐</li><li>KodeKloud CKA Labs</li><li>killer.sh practice exams (included)</li></ul></div>
+            <div class="cert-desc">Hands-on K8s administration in a live cluster. Scheduling, storage (PV/PVC/StorageClass), networking, RBAC, security, cluster maintenance, etcd backup, troubleshooting.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Mumshad Mannambeth CKA (Udemy) ⭐</li><li>KodeKloud CKA Labs</li><li>killer.sh practice exams (2 included in exam)</li></ul></div>
           </div>
-
           <div class="cert-card lvl-prof">
             <div class="level-badge lb-prof">Professional</div>
             <div class="cert-name">Certified Kubernetes Application Developer</div>
@@ -405,26 +504,24 @@
               <span class="cert-badge">⏱️ 2 hrs</span>
               <span class="cert-badge">✅ 66%</span>
             </div>
-            <div class="cert-desc">Developer focus: deploying apps, ConfigMaps/Secrets, probes, multi-container pods, services, ingress, RBAC for apps, CRDs.</div>
-            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Mumshad Mannambeth CKAD (Udemy)</li><li>KodeKloud CKAD Labs</li><li>dgkanatsios GitHub CKAD exercises</li></ul></div>
+            <div class="cert-desc">Developer perspective: deploying apps, ConfigMaps/Secrets, probes (liveness/readiness/startup), multi-container pods, services, ingress, RBAC, HPA, CRDs, Helm.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Mumshad Mannambeth CKAD (Udemy)</li><li>KodeKloud CKAD Labs</li><li>dgkanatsios GitHub CKAD exercises ⭐</li></ul></div>
           </div>
-
           <div class="cert-card lvl-prof">
             <div class="level-badge lb-prof">Professional</div>
-            <div class="cert-name">HashiCorp Terraform Associate</div>
-            <div class="cert-code">003</div>
+            <div class="cert-name">GitLab Certified CI/CD Associate</div>
+            <div class="cert-code">GitLab CI/CD</div>
             <div class="cert-meta">
-              <span class="cert-badge">💰 $70</span>
-              <span class="cert-badge">📝 57 Q</span>
+              <span class="cert-badge">💰 $650</span>
+              <span class="cert-badge">📝 40 Q</span>
               <span class="cert-badge">⏱️ 60 min</span>
               <span class="cert-badge">✅ 70%</span>
             </div>
-            <div class="cert-desc">Infrastructure as Code fundamentals with Terraform. Providers, state management, modules, workspaces, Terraform Cloud, plan/apply/destroy lifecycle.</div>
-            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Bryan Krausen Terraform Associate (Udemy)</li><li>HashiCorp Learn (developer.hashicorp.com)</li><li>KodeKloud Terraform Labs</li></ul></div>
+            <div class="cert-desc">GitLab pipelines, runners, environments, review apps, SAST/DAST integration, artifact management, deployment strategies, GitOps with GitLab Agent.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>GitLab CI/CD documentation</li><li>GitLab Learn (free courses)</li><li>GitLab.com free tier for hands-on</li></ul></div>
           </div>
         </div>
       </div>
-
       <div class="path-level">
         <h3>Expert Level</h3>
         <div class="cert-grid">
@@ -437,10 +534,23 @@
               <span class="cert-badge">📝 Performance-based</span>
               <span class="cert-badge">⏱️ 2 hrs</span>
               <span class="cert-badge">✅ 67%</span>
-              <span class="cert-badge">⚠️ Requires CKA</span>
+              <span class="cert-badge">⚠️ Requires active CKA</span>
             </div>
-            <div class="cert-desc">Advanced K8s security. Cluster hardening, network policies, admission controllers (OPA Gatekeeper), image security (Trivy, Falco), supply chain security.</div>
-            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Kim Wüstkamp CKS (Udemy)</li><li>KodeKloud CKS Course</li><li>killer.sh CKS simulator</li></ul></div>
+            <div class="cert-desc">Advanced K8s security. Cluster hardening, minimizing attack surface, supply chain security, runtime security (Falco), network policies, OPA Gatekeeper, AppArmor/seccomp.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Kim Wüstkamp CKS (Udemy) ⭐</li><li>KodeKloud CKS Course</li><li>killer.sh CKS simulator</li></ul></div>
+          </div>
+          <div class="cert-card lvl-expert">
+            <div class="level-badge lb-expert">Expert</div>
+            <div class="cert-name">HashiCorp Vault Associate</div>
+            <div class="cert-code">Vault 002</div>
+            <div class="cert-meta">
+              <span class="cert-badge">💰 $70</span>
+              <span class="cert-badge">📝 57 Q</span>
+              <span class="cert-badge">⏱️ 60 min</span>
+              <span class="cert-badge">✅ 70%</span>
+            </div>
+            <div class="cert-desc">Secrets management fundamentals. Vault architecture, authentication methods, secrets engines (KV, PKI, database dynamic secrets), policies, leases, token management.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>HashiCorp Learn Vault tutorials</li><li>Bryan Krausen Vault Associate (Udemy)</li><li>KodeKloud Vault labs</li></ul></div>
           </div>
         </div>
       </div>
@@ -450,9 +560,10 @@
   <!-- ===== SECURITY TRACK ===== -->
   <div id="track-security" class="rm-track">
     <h2>🔒 Security / VAPT Track</h2>
+    <div class="track-intro"><p>Cybersecurity is the #1 talent-shortage field globally. Path: Security+ → CEH/eJPT → eCPPT → OSCP → OSED/OSEP. Offensive certifications require hands-on lab practice — TryHackMe and HackTheBox are essential. Estimated path: 12–36 months to OSCP.</p></div>
     <div class="roadmap-path">
       <div class="path-level">
-        <h3>Entry Level</h3>
+        <h3>Entry Level — Blue Team Foundation</h3>
         <div class="cert-grid">
           <div class="cert-card lvl-entry">
             <div class="level-badge lb-entry">Entry Level</div>
@@ -464,29 +575,28 @@
               <span class="cert-badge">⏱️ 90 min</span>
               <span class="cert-badge">✅ 750/900</span>
             </div>
-            <div class="cert-desc">DoD 8570 compliant. Security fundamentals, threats, cryptography, PKI, network security, compliance, incident response. Industry baseline.</div>
-            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Professor Messer Security+ SY0-701 ⭐</li><li>Jason Dion Security+ (Udemy)</li><li>Darril Gibson Study Guide</li></ul></div>
+            <div class="cert-desc">DoD 8570/8140 compliant. Security fundamentals, threats, cryptography, PKI, network security, identity, compliance, incident response. Industry baseline for all security roles.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Professor Messer Security+ SY0-701 ⭐ (free)</li><li>Jason Dion Security+ (Udemy)</li><li>Darril Gibson Study Guide</li></ul></div>
+          </div>
+          <div class="cert-card lvl-entry">
+            <div class="level-badge lb-entry">Entry Level</div>
+            <div class="cert-name">CompTIA CySA+ (Cybersecurity Analyst)</div>
+            <div class="cert-code">CS0-003</div>
+            <div class="cert-meta">
+              <span class="cert-badge">💰 $404</span>
+              <span class="cert-badge">📝 85 Q</span>
+              <span class="cert-badge">⏱️ 165 min</span>
+              <span class="cert-badge">✅ 750/900</span>
+              <span class="cert-badge">⚠️ Recommended: Security+</span>
+            </div>
+            <div class="cert-desc">Blue team / SOC analyst cert. Threat detection, vulnerability management, incident response, SIEM, log analysis, threat intelligence, security operations. DoD 8570 compliant.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Jason Dion CySA+ (Udemy)</li><li>Professor Messer CySA+</li><li>CompTIA CertMaster Labs</li></ul></div>
           </div>
         </div>
       </div>
-
       <div class="path-level">
-        <h3>Professional Level</h3>
+        <h3>Professional Level — Red Team Entry</h3>
         <div class="cert-grid">
-          <div class="cert-card lvl-prof">
-            <div class="level-badge lb-prof">Professional</div>
-            <div class="cert-name">Certified Ethical Hacker</div>
-            <div class="cert-code">CEH v13</div>
-            <div class="cert-meta">
-              <span class="cert-badge">💰 $950</span>
-              <span class="cert-badge">📝 125 Q</span>
-              <span class="cert-badge">⏱️ 4 hrs</span>
-              <span class="cert-badge">✅ 70%</span>
-            </div>
-            <div class="cert-desc">EC-Council hacking methodology. 20 modules: footprinting, scanning, enumeration, exploitation, post-exploitation. AI-infused (v13). Good for SOC/Red team entry.</div>
-            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>EC-Council Official Courseware</li><li>Matt Walker CEH All-in-One</li><li>TryHackMe CEH learning path</li></ul></div>
-          </div>
-
           <div class="cert-card lvl-prof">
             <div class="level-badge lb-prof">Professional</div>
             <div class="cert-name">eJPT (Junior Penetration Tester)</div>
@@ -497,27 +607,209 @@
               <span class="cert-badge">⏱️ 48 hrs</span>
               <span class="cert-badge">✅ 70%</span>
             </div>
-            <div class="cert-desc">INE/eLearnSecurity. Best entry pentesting cert — fully practical lab exam. Nmap, Metasploit, BurpSuite, web hacking, pivoting. Great first pentest cert.</div>
-            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>INE Starter Pass (includes eJPT prep)</li><li>TryHackMe Jr Penetration Tester path</li><li>HackTheBox Starting Point</li></ul></div>
+            <div class="cert-desc">Best entry pentesting cert — fully practical lab exam. Nmap, Metasploit, BurpSuite, web hacking, network pivoting, host discovery. Great first pentest certification.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>INE Starter Pass (includes eJPT prep) ⭐</li><li>TryHackMe Jr Penetration Tester path</li><li>HackTheBox Starting Point machines</li></ul></div>
+          </div>
+          <div class="cert-card lvl-prof">
+            <div class="level-badge lb-prof">Professional</div>
+            <div class="cert-name">Certified Ethical Hacker</div>
+            <div class="cert-code">CEH v13</div>
+            <div class="cert-meta">
+              <span class="cert-badge">💰 $950</span>
+              <span class="cert-badge">📝 125 Q</span>
+              <span class="cert-badge">⏱️ 4 hrs</span>
+              <span class="cert-badge">✅ 70%</span>
+            </div>
+            <div class="cert-desc">EC-Council hacking methodology. 20 modules: footprinting, scanning, enumeration, exploitation, post-exploitation. AI-infused (v13). Good for SOC/Red team entry. DoD 8570 approved.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>EC-Council Official Courseware</li><li>Matt Walker CEH All-in-One</li><li>TryHackMe CEH learning path</li></ul></div>
+          </div>
+          <div class="cert-card lvl-prof">
+            <div class="level-badge lb-prof">Professional</div>
+            <div class="cert-name">eCPPTv2 (Certified Professional Penetration Tester)</div>
+            <div class="cert-code">eCPPTv2</div>
+            <div class="cert-meta">
+              <span class="cert-badge">💰 $400</span>
+              <span class="cert-badge">📝 7-day practical</span>
+              <span class="cert-badge">⏱️ 7 days exam + report</span>
+              <span class="cert-badge">✅ Pass/Fail</span>
+            </div>
+            <div class="cert-desc">Intermediate practical pentest: network pivoting, web app testing, buffer overflow, Active Directory basics, post-exploitation. Strong OSCP stepping stone.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>INE eCPPT course</li><li>TCM Security PEH course (great prep)</li><li>HackTheBox Pro Labs (Offshore/RastaLabs)</li></ul></div>
           </div>
         </div>
       </div>
-
       <div class="path-level">
-        <h3>Expert Level</h3>
+        <h3>Expert Level — Elite Offensive Security</h3>
         <div class="cert-grid">
           <div class="cert-card lvl-expert">
             <div class="level-badge lb-expert">Expert</div>
-            <div class="cert-name">Offensive Security Certified Professional</div>
-            <div class="cert-code">OSCP (PEN-200)</div>
+            <div class="cert-name">OSCP (Offensive Security Certified Professional)</div>
+            <div class="cert-code">PEN-200</div>
             <div class="cert-meta">
               <span class="cert-badge">💰 $1,499</span>
               <span class="cert-badge">📝 5 target machines</span>
-              <span class="cert-badge">⏱️ 24 hrs exam</span>
+              <span class="cert-badge">⏱️ 24 hr exam + report</span>
               <span class="cert-badge">✅ 70 pts / 100</span>
             </div>
-            <div class="cert-desc">Gold standard pentesting cert. 24-hour practical exam — compromise 3-5 machines, write professional report. Buffer overflows, AD, web exploitation, pivoting.</div>
-            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>OffSec PEN-200 course (included)</li><li>TJ_Null HackTheBox OSCP-like list</li><li>TCM Security Practical Ethical Hacking</li></ul></div>
+            <div class="cert-desc">Gold standard pentesting cert. 24-hour practical: compromise machines + Active Directory set, write professional report. Buffer overflows, web exploitation, AD attacks, pivoting.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>OffSec PEN-200 course (included) ⭐</li><li>TJ_Null HackTheBox OSCP-like list</li><li>TCM Security Practical Ethical Hacking</li></ul></div>
+          </div>
+          <div class="cert-card lvl-expert">
+            <div class="level-badge lb-expert">Expert</div>
+            <div class="cert-name">OSEP (Advanced Evasion Techniques)</div>
+            <div class="cert-code">PEN-300</div>
+            <div class="cert-meta">
+              <span class="cert-badge">💰 $1,499</span>
+              <span class="cert-badge">📝 48-hr practical</span>
+              <span class="cert-badge">⚠️ Requires OSCP</span>
+              <span class="cert-badge">✅ Pass/Fail</span>
+            </div>
+            <div class="cert-desc">Advanced red team operations. AV/EDR evasion, C2 infrastructure, process injection, custom shellcode, Active Directory advanced attacks, living-off-the-land techniques.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>OffSec PEN-300 course</li><li>Sektor7 malware dev courses</li><li>VX-Underground resources</li></ul></div>
+          </div>
+          <div class="cert-card lvl-expert">
+            <div class="level-badge lb-expert">Expert</div>
+            <div class="cert-name">CISSP (Certified Information Systems Security Professional)</div>
+            <div class="cert-code">CISSP</div>
+            <div class="cert-meta">
+              <span class="cert-badge">💰 $749</span>
+              <span class="cert-badge">📝 125–175 Q (CAT)</span>
+              <span class="cert-badge">⏱️ Up to 4 hrs</span>
+              <span class="cert-badge">✅ 700/1000</span>
+              <span class="cert-badge">⚠️ 5 yrs experience</span>
+            </div>
+            <div class="cert-desc">Gold standard security management cert. 8 domains: Security &amp; Risk Management, Asset Security, Security Architecture, Network, IAM, Security Assessment, Security Ops, SDLC Security.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Destination CISSP (Luke Ahmed) ⭐</li><li>ISC2 official study guide</li><li>Boson practice exams</li></ul></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== DEVSECOPS TRACK ===== -->
+  <div id="track-devsecops" class="rm-track">
+    <h2>🔐 DevSecOps Track</h2>
+    <div class="track-intro"><p>DevSecOps integrates security into every stage of the software delivery pipeline. This is the fastest-growing specialization combining developer, operations, and security skills. Recommended prereqs: CompTIA Security+ + CKA or equivalent cloud experience. Estimated path: 12–24 months.</p></div>
+    <div class="roadmap-path">
+      <div class="path-level">
+        <h3>Entry Level — Security Foundations</h3>
+        <div class="cert-grid">
+          <div class="cert-card lvl-entry">
+            <div class="level-badge lb-entry">Entry Level</div>
+            <div class="cert-name">Certified DevSecOps Professional</div>
+            <div class="cert-code">CDP (Practical DevSecOps)</div>
+            <div class="cert-meta">
+              <span class="cert-badge">💰 $499</span>
+              <span class="cert-badge">📝 24-hr practical</span>
+              <span class="cert-badge">⏱️ 24 hrs</span>
+              <span class="cert-badge">✅ Pass/Fail</span>
+            </div>
+            <div class="cert-desc">Practical DevSecOps certification by Practical DevSecOps. SAST, DAST, SCA, container scanning, IaC security, secrets management integrated into CI/CD pipelines. Fully hands-on.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Practical DevSecOps free bootcamp ⭐</li><li>OWASP DevSecOps Guideline</li><li>DevSecOps.org resources</li></ul></div>
+          </div>
+          <div class="cert-card lvl-entry">
+            <div class="level-badge lb-entry">Entry Level</div>
+            <div class="cert-name">SC-200 Microsoft Security Operations Analyst</div>
+            <div class="cert-code">SC-200</div>
+            <div class="cert-meta">
+              <span class="cert-badge">💰 $165</span>
+              <span class="cert-badge">📝 40–60 Q</span>
+              <span class="cert-badge">⏱️ 120 min</span>
+              <span class="cert-badge">✅ 700/1000</span>
+            </div>
+            <div class="cert-desc">Microsoft Sentinel, Defender XDR, Defender for Cloud. Threat detection, KQL queries, incident response, threat hunting in Microsoft ecosystem. Excellent for SOC roles.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Microsoft Learn SC-200 path (free)</li><li>John Savill SC-200 study guide</li><li>Microsoft Sentinel ninja training</li></ul></div>
+          </div>
+        </div>
+      </div>
+      <div class="path-level">
+        <h3>Professional Level — Pipeline &amp; Cloud Security</h3>
+        <div class="cert-grid">
+          <div class="cert-card lvl-prof">
+            <div class="level-badge lb-prof">Professional</div>
+            <div class="cert-name">AWS Security Specialty</div>
+            <div class="cert-code">SCS-C02</div>
+            <div class="cert-meta">
+              <span class="cert-badge">💰 $300</span>
+              <span class="cert-badge">📝 65 Q</span>
+              <span class="cert-badge">⏱️ 170 min</span>
+              <span class="cert-badge">✅ 750/1000</span>
+            </div>
+            <div class="cert-desc">Cloud-native security on AWS. KMS encryption, Macie data discovery, GuardDuty threat detection, Inspector vulnerability management, WAF, Shield DDoS, Organizations SCPs.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Stephane Maarek Security Specialty</li><li>AWS Security best practices whitepapers</li><li>A Cloud Guru SCS-C02</li></ul></div>
+          </div>
+          <div class="cert-card lvl-prof">
+            <div class="level-badge lb-prof">Professional</div>
+            <div class="cert-name">Certified AppSec Practitioner</div>
+            <div class="cert-code">CAP (The SecOps Group)</div>
+            <div class="cert-meta">
+              <span class="cert-badge">💰 $99</span>
+              <span class="cert-badge">📝 60 Q</span>
+              <span class="cert-badge">⏱️ 60 min</span>
+              <span class="cert-badge">✅ 70%</span>
+            </div>
+            <div class="cert-desc">Application security fundamentals: OWASP Top 10 in-depth, secure SDLC, threat modeling, code review, SAST/DAST, API security, authentication flaws, cryptography misuse.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>The SecOps Group free resources</li><li>OWASP Testing Guide v4.2 (free)</li><li>PortSwigger Web Security Academy (free) ⭐</li></ul></div>
+          </div>
+          <div class="cert-card lvl-prof">
+            <div class="level-badge lb-prof">Professional</div>
+            <div class="cert-name">CKS (Certified Kubernetes Security Specialist)</div>
+            <div class="cert-code">CKS</div>
+            <div class="cert-meta">
+              <span class="cert-badge">💰 $395</span>
+              <span class="cert-badge">📝 Performance-based</span>
+              <span class="cert-badge">⏱️ 2 hrs</span>
+              <span class="cert-badge">⚠️ Requires active CKA</span>
+              <span class="cert-badge">✅ 67%</span>
+            </div>
+            <div class="cert-desc">Kubernetes security in a live cluster. Supply chain security (image signing, SBOM), runtime security (Falco), network policies, OPA Gatekeeper admission control, AppArmor.</desc>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Kim Wüstkamp CKS Course (Udemy) ⭐</li><li>KodeKloud CKS labs</li><li>killer.sh CKS simulator</li></ul></div>
+          </div>
+          <div class="cert-card lvl-prof">
+            <div class="level-badge lb-prof">Professional</div>
+            <div class="cert-name">Snyk Security Champion</div>
+            <div class="cert-code">Snyk Certification</div>
+            <div class="cert-meta">
+              <span class="cert-badge">💰 Free</span>
+              <span class="cert-badge">📝 Online exam</span>
+              <span class="cert-badge">⏱️ Self-paced</span>
+              <span class="cert-badge">✅ 80%</span>
+            </div>
+            <div class="cert-desc">SCA, container security, IaC security with Snyk. Fixing vulnerabilities in code, open-source dependencies, Docker images, and Terraform/Kubernetes manifests in CI/CD.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Snyk Learn (learn.snyk.io) ⭐ — free</li><li>Snyk documentation</li><li>Snyk free tier hands-on</li></ul></div>
+          </div>
+        </div>
+      </div>
+      <div class="path-level">
+        <h3>Expert Level — Architecture &amp; Governance</h3>
+        <div class="cert-grid">
+          <div class="cert-card lvl-expert">
+            <div class="level-badge lb-expert">Expert</div>
+            <div class="cert-name">CISSP (Certified Information Systems Security Professional)</div>
+            <div class="cert-code">CISSP</div>
+            <div class="cert-meta">
+              <span class="cert-badge">💰 $749</span>
+              <span class="cert-badge">📝 125–175 Q (CAT)</span>
+              <span class="cert-badge">⏱️ Up to 4 hrs</span>
+              <span class="cert-badge">⚠️ 5 yrs experience</span>
+              <span class="cert-badge">✅ 700/1000</span>
+            </div>
+            <div class="cert-desc">The gold standard security management certification. 8 domains covering security architecture, risk management, cryptography, identity, network security, SDLC security, and operations.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Destination CISSP by Luke Ahmed ⭐</li><li>ISC2 official study guide</li><li>Boson practice exams</li></ul></div>
+          </div>
+          <div class="cert-card lvl-expert">
+            <div class="level-badge lb-expert">Expert</div>
+            <div class="cert-name">CCSP (Certified Cloud Security Professional)</div>
+            <div class="cert-code">CCSP</div>
+            <div class="cert-meta">
+              <span class="cert-badge">💰 $599</span>
+              <span class="cert-badge">📝 125 Q</span>
+              <span class="cert-badge">⏱️ 4 hrs</span>
+              <span class="cert-badge">⚠️ 5 yrs exp + CISSP helps</span>
+              <span class="cert-badge">✅ 700/1000</span>
+            </div>
+            <div class="cert-desc">ISC2 cloud security architecture cert. Cloud concepts, data security, cloud platform security, application security, operations, legal/compliance across AWS/Azure/GCP.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Ben Malisow CCSP study guide</li><li>A Cloud Guru CCSP course</li><li>ISC2 official CCSP resources</li></ul></div>
           </div>
         </div>
       </div>
@@ -527,6 +819,7 @@
   <!-- ===== AZURE TRACK ===== -->
   <div id="track-azure" class="rm-track">
     <h2>🔷 Microsoft Azure Track</h2>
+    <div class="track-intro"><p>Azure holds ~23% cloud market share and dominates enterprise/Microsoft-shop environments. Path: AZ-900 → AZ-104 → AZ-305 or AZ-400 (DevOps). Microsoft exams are cheaper than AWS and have free Microsoft Learn content. Estimated path: 3–12 months.</p></div>
     <div class="roadmap-path">
       <div class="path-level">
         <h3>Entry Level</h3>
@@ -537,16 +830,15 @@
             <div class="cert-code">AZ-900</div>
             <div class="cert-meta">
               <span class="cert-badge">💰 $165</span>
-              <span class="cert-badge">📝 40-60 Q</span>
+              <span class="cert-badge">📝 40–60 Q</span>
               <span class="cert-badge">⏱️ 65 min</span>
               <span class="cert-badge">✅ 700/1000</span>
             </div>
-            <div class="cert-desc">Azure cloud concepts, core services, pricing, compliance, governance. Suitable for anyone entering the Azure ecosystem. Pairs well with role-based certs.</div>
-            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Microsoft Learn (free, official)</li><li>John Savill AZ-900 Study Cram (YouTube)</li><li>ExamTopics practice questions</li></ul></div>
+            <div class="cert-desc">Azure cloud concepts, core services, pricing, compliance, governance. Suitable for anyone entering the Azure ecosystem. Pairs well with role-based certs like AZ-104.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Microsoft Learn (free, official) ⭐</li><li>John Savill AZ-900 Study Cram (YouTube)</li><li>ExamTopics practice questions</li></ul></div>
           </div>
         </div>
       </div>
-
       <div class="path-level">
         <h3>Associate Level</h3>
         <div class="cert-grid">
@@ -556,30 +848,42 @@
             <div class="cert-code">AZ-104</div>
             <div class="cert-meta">
               <span class="cert-badge">💰 $165</span>
-              <span class="cert-badge">📝 40-60 Q</span>
+              <span class="cert-badge">📝 40–60 Q</span>
               <span class="cert-badge">⏱️ 120 min</span>
               <span class="cert-badge">✅ 700/1000</span>
             </div>
-            <div class="cert-desc">Azure admin skills. Identity (AAD/Entra ID), governance, storage, compute, networking, monitoring. Most popular Azure cert for sysadmins/DevOps.</div>
-            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>John Savill AZ-104 Course (YouTube)</li><li>A Cloud Guru AZ-104</li><li>Microsoft Learn AZ-104 path</li></ul></div>
+            <div class="cert-desc">Azure admin skills. Identity (Entra ID/AAD), governance, storage, compute (VMs, VMSS), networking (VNet, NSG, Load Balancer), monitoring. Most popular Azure cert.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>John Savill AZ-104 Course (YouTube) ⭐</li><li>A Cloud Guru AZ-104</li><li>Microsoft Learn AZ-104 path</li></ul></div>
           </div>
-
           <div class="cert-card lvl-assoc">
             <div class="level-badge lb-assoc">Associate</div>
             <div class="cert-name">Azure Developer Associate</div>
             <div class="cert-code">AZ-204</div>
             <div class="cert-meta">
               <span class="cert-badge">💰 $165</span>
-              <span class="cert-badge">📝 40-60 Q</span>
+              <span class="cert-badge">📝 40–60 Q</span>
               <span class="cert-badge">⏱️ 120 min</span>
               <span class="cert-badge">✅ 700/1000</span>
             </div>
-            <div class="cert-desc">Azure app development. App Service, Functions, Cosmos DB, Blob Storage, Auth (MSAL), Service Bus, API Management, CDN, Redis, Event Grid.</div>
-            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Pluralsight AZ-204 path</li><li>Alan Rodrigues AZ-204 (Udemy)</li><li>Microsoft Learn sandbox labs</li></ul></div>
+            <div class="cert-desc">Azure app development. App Service, Functions, Cosmos DB, Blob Storage, Auth (MSAL), Service Bus, API Management, CDN, Redis Cache, Event Grid, Key Vault.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Alan Rodrigues AZ-204 (Udemy)</li><li>Pluralsight AZ-204 path</li><li>Microsoft Learn sandbox labs</li></ul></div>
+          </div>
+          <div class="cert-card lvl-assoc">
+            <div class="level-badge lb-assoc">Associate</div>
+            <div class="cert-name">Azure DevOps Engineer Expert</div>
+            <div class="cert-code">AZ-400</div>
+            <div class="cert-meta">
+              <span class="cert-badge">💰 $165</span>
+              <span class="cert-badge">📝 40–60 Q</span>
+              <span class="cert-badge">⏱️ 120 min</span>
+              <span class="cert-badge">⚠️ Requires AZ-104 or AZ-204</span>
+              <span class="cert-badge">✅ 700/1000</span>
+            </div>
+            <div class="cert-desc">Azure DevOps pipelines, GitHub Actions, infrastructure as code (Bicep/Terraform), container strategies, release management, feature flags, dependency management, security.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>John Savill AZ-400 Course ⭐</li><li>Microsoft Learn AZ-400 path</li><li>Azure DevOps free tier hands-on</li></ul></div>
           </div>
         </div>
       </div>
-
       <div class="path-level">
         <h3>Expert Level</h3>
         <div class="cert-grid">
@@ -589,13 +893,269 @@
             <div class="cert-code">AZ-305</div>
             <div class="cert-meta">
               <span class="cert-badge">💰 $165</span>
-              <span class="cert-badge">📝 40-60 Q</span>
+              <span class="cert-badge">📝 40–60 Q</span>
               <span class="cert-badge">⏱️ 120 min</span>
               <span class="cert-badge">⚠️ Requires AZ-104</span>
               <span class="cert-badge">✅ 700/1000</span>
             </div>
-            <div class="cert-desc">Advanced Azure architecture. Identity governance, data storage design, business continuity, infrastructure, application design patterns at enterprise scale.</div>
-            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>John Savill AZ-305 Study Guide</li><li>Scott Duffy AZ-305 (Udemy)</li><li>Microsoft Architecture Center docs</li></ul></div>
+            <div class="cert-desc">Advanced Azure architecture. Identity governance, data storage design, business continuity (BCDR), infrastructure, application design patterns at enterprise scale.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>John Savill AZ-305 Study Guide ⭐</li><li>Scott Duffy AZ-305 (Udemy)</li><li>Microsoft Architecture Center</li></ul></div>
+          </div>
+          <div class="cert-card lvl-expert">
+            <div class="level-badge lb-expert">Expert</div>
+            <div class="cert-name">Azure Security Engineer Associate</div>
+            <div class="cert-code">AZ-500</div>
+            <div class="cert-meta">
+              <span class="cert-badge">💰 $165</span>
+              <span class="cert-badge">📝 40–60 Q</span>
+              <span class="cert-badge">⏱️ 120 min</span>
+              <span class="cert-badge">✅ 700/1000</span>
+            </div>
+            <div class="cert-desc">Azure security implementation. Entra ID PIM, Conditional Access, Defender for Cloud, Key Vault, network security (NSG, Azure Firewall, DDoS), storage security, monitoring.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Microsoft Learn AZ-500 path</li><li>Thomas Mitchell AZ-500 (Udemy)</li><li>John Savill AZ-500 study resources</li></ul></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== GCP TRACK ===== -->
+  <div id="track-gcp" class="rm-track">
+    <h2>🟡 Google Cloud Platform Track</h2>
+    <div class="track-intro"><p>GCP holds ~11% cloud market share but leads in data analytics, Kubernetes (GKE invented K8s), AI/ML (Vertex AI, BigQuery ML), and is dominant in data engineering. Path: CDL → ACE → Professional Cloud Architect or Data Engineer. Estimated path: 3–12 months.</p></div>
+    <div class="roadmap-path">
+      <div class="path-level">
+        <h3>Entry Level</h3>
+        <div class="cert-grid">
+          <div class="cert-card lvl-entry">
+            <div class="level-badge lb-entry">Entry Level</div>
+            <div class="cert-name">Google Cloud Digital Leader</div>
+            <div class="cert-code">CDL</div>
+            <div class="cert-meta">
+              <span class="cert-badge">💰 $200</span>
+              <span class="cert-badge">📝 60 Q</span>
+              <span class="cert-badge">⏱️ 90 min</span>
+              <span class="cert-badge">✅ 70%</span>
+            </div>
+            <div class="cert-desc">Broad GCP and AI overview. Vertex AI, BigQuery, cloud infrastructure, Workspace. Good complement for business + technical teams using GCP.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Google Cloud Skills Boost ⭐ (free tier)</li><li>Dan Sullivan CDL Study Guide</li><li>Coursera Google Cloud Fundamentals</li></ul></div>
+          </div>
+        </div>
+      </div>
+      <div class="path-level">
+        <h3>Associate Level</h3>
+        <div class="cert-grid">
+          <div class="cert-card lvl-assoc">
+            <div class="level-badge lb-assoc">Associate</div>
+            <div class="cert-name">Associate Cloud Engineer</div>
+            <div class="cert-code">ACE</div>
+            <div class="cert-meta">
+              <span class="cert-badge">💰 $200</span>
+              <span class="cert-badge">📝 50–60 Q</span>
+              <span class="cert-badge">⏱️ 120 min</span>
+              <span class="cert-badge">✅ 70%</span>
+            </div>
+            <div class="cert-desc">Deploy and manage GCP solutions. Compute Engine, GKE, App Engine, Cloud Storage, Cloud SQL, IAM, billing, monitoring (Cloud Operations). Hands-on gcloud CLI focus.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Dan Sullivan ACE Study Guide (O'Reilly)</li><li>Google Cloud Skills Boost ACE path</li><li>A Cloud Guru ACE Course</li></ul></div>
+          </div>
+        </div>
+      </div>
+      <div class="path-level">
+        <h3>Professional Level — Choose Your Specialization</h3>
+        <div class="cert-grid">
+          <div class="cert-card lvl-prof">
+            <div class="level-badge lb-prof">Professional</div>
+            <div class="cert-name">Professional Cloud Architect</div>
+            <div class="cert-code">PCA</div>
+            <div class="cert-meta">
+              <span class="cert-badge">💰 $200</span>
+              <span class="cert-badge">📝 60 Q</span>
+              <span class="cert-badge">⏱️ 120 min</span>
+              <span class="cert-badge">✅ 70%</span>
+            </div>
+            <div class="cert-desc">GCP's most prestigious cert. Design, develop, manage robust cloud solutions. Case studies (MountKirk Games, Dress4Win, TerramEarth). VPC, hybrid networking, security, HA.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Dan Sullivan PCA Study Guide ⭐</li><li>Google Cloud Architecture Center</li><li>A Cloud Guru PCA Course</li></ul></div>
+          </div>
+          <div class="cert-card lvl-prof">
+            <div class="level-badge lb-prof">Professional</div>
+            <div class="cert-name">Professional Data Engineer</div>
+            <div class="cert-code">PDE</div>
+            <div class="cert-meta">
+              <span class="cert-badge">💰 $200</span>
+              <span class="cert-badge">📝 60 Q</span>
+              <span class="cert-badge">⏱️ 120 min</span>
+              <span class="cert-badge">✅ 70%</span>
+            </div>
+            <div class="cert-desc">Data engineering on GCP. BigQuery, Dataflow (Apache Beam), Pub/Sub, Dataproc (Spark/Hadoop), Cloud Composer (Airflow), Vertex AI, data governance with Dataplex.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Coursera GCP Professional Data Engineer ⭐</li><li>Google Cloud Skills Boost PDE path</li><li>BigQuery + Dataflow hands-on labs</li></ul></div>
+          </div>
+          <div class="cert-card lvl-prof">
+            <div class="level-badge lb-prof">Professional</div>
+            <div class="cert-name">Professional Cloud DevOps Engineer</div>
+            <div class="cert-code">PCDE</div>
+            <div class="cert-meta">
+              <span class="cert-badge">💰 $200</span>
+              <span class="cert-badge">📝 60 Q</span>
+              <span class="cert-badge">⏱️ 120 min</span>
+              <span class="cert-badge">✅ 70%</span>
+            </div>
+            <div class="cert-desc">SRE and DevOps on GCP. Cloud Build CI/CD, GKE deployment strategies, SLO/SLI/error budgets, Cloud Operations (Monitoring, Logging, Trace), Anthos service mesh.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Google Cloud Skills Boost DevOps path</li><li>GCP DevOps whitepapers + SRE book (free)</li><li>A Cloud Guru PCDE Course</li></ul></div>
+          </div>
+          <div class="cert-card lvl-prof">
+            <div class="level-badge lb-prof">Professional</div>
+            <div class="cert-name">Professional Cloud Security Engineer</div>
+            <div class="cert-code">PCSE</div>
+            <div class="cert-meta">
+              <span class="cert-badge">💰 $200</span>
+              <span class="cert-badge">📝 60 Q</span>
+              <span class="cert-badge">⏱️ 120 min</span>
+              <span class="cert-badge">✅ 70%</span>
+            </div>
+            <div class="cert-desc">GCP security architecture. IAM policies, VPC Service Controls, Binary Authorization, Cloud Armor, Security Command Center, DLP API, Customer-Managed Encryption Keys (CMEK).</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Google Cloud Security best practices</li><li>Cloud Skills Boost Security Engineer path</li><li>GCP security whitepapers</li></ul></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== DATA ENGINEERING TRACK ===== -->
+  <div id="track-data" class="rm-track">
+    <h2>📊 Data Engineering Track</h2>
+    <div class="track-intro"><p>Data Engineering is one of the highest-paying tech specializations. Build pipelines, data lakes, warehouses, and real-time streaming systems. Foundation: Python + SQL → cloud certifications → platform certifications. Estimated path: 12–24 months to senior level.</p></div>
+    <div class="roadmap-path">
+      <div class="path-level">
+        <h3>Entry Level — Foundation Skills</h3>
+        <div class="cert-grid">
+          <div class="cert-card lvl-entry">
+            <div class="level-badge lb-entry">Entry Level</div>
+            <div class="cert-name">Google Professional Data Engineer</div>
+            <div class="cert-code">GCP PDE</div>
+            <div class="cert-meta">
+              <span class="cert-badge">💰 $200</span>
+              <span class="cert-badge">📝 60 Q</span>
+              <span class="cert-badge">⏱️ 120 min</span>
+              <span class="cert-badge">✅ 70%</span>
+            </div>
+            <div class="cert-desc">Most recognized data engineering cloud cert. BigQuery, Dataflow, Pub/Sub, Dataproc, Cloud Composer (Airflow), Vertex AI pipelines, data governance, streaming vs batch.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Coursera GCP Professional Data Engineer ⭐</li><li>Google Cloud Skills Boost</li><li>BigQuery sandbox (free tier)</li></ul></div>
+          </div>
+          <div class="cert-card lvl-entry">
+            <div class="level-badge lb-entry">Entry Level</div>
+            <div class="cert-name">AWS Data Analytics Specialty</div>
+            <div class="cert-code">DAS-C01</div>
+            <div class="cert-meta">
+              <span class="cert-badge">💰 $300</span>
+              <span class="cert-badge">📝 65 Q</span>
+              <span class="cert-badge">⏱️ 180 min</span>
+              <span class="cert-badge">✅ 750/1000</span>
+            </div>
+            <div class="cert-desc">Data engineering on AWS. Kinesis (streaming), Glue (ETL), EMR (Spark), Redshift (warehouse), Athena (serverless SQL), Lake Formation, QuickSight, OpenSearch.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Frank Kane DAS Course (Udemy)</li><li>A Cloud Guru DAS-C01</li><li>AWS Analytics whitepapers</li></ul></div>
+          </div>
+        </div>
+      </div>
+      <div class="path-level">
+        <h3>Professional Level — Platform Certifications</h3>
+        <div class="cert-grid">
+          <div class="cert-card lvl-prof">
+            <div class="level-badge lb-prof">Professional</div>
+            <div class="cert-name">Databricks Certified Data Engineer Associate</div>
+            <div class="cert-code">Databricks DE Associate</div>
+            <div class="cert-meta">
+              <span class="cert-badge">💰 $200</span>
+              <span class="cert-badge">📝 45 Q</span>
+              <span class="cert-badge">⏱️ 90 min</span>
+              <span class="cert-badge">✅ 70%</span>
+            </div>
+            <div class="cert-desc">Apache Spark fundamentals on Databricks. Delta Lake ACID transactions, Delta Live Tables (DLT) pipelines, Unity Catalog data governance, Databricks workflows, Photon engine.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Databricks Academy (free courses) ⭐</li><li>Databricks community edition (free cluster)</li><li>Delta Lake documentation</li></ul></div>
+          </div>
+          <div class="cert-card lvl-prof">
+            <div class="level-badge lb-prof">Professional</div>
+            <div class="cert-name">Databricks Certified Data Engineer Professional</div>
+            <div class="cert-code">Databricks DE Professional</div>
+            <div class="cert-meta">
+              <span class="cert-badge">💰 $200</span>
+              <span class="cert-badge">📝 60 Q</span>
+              <span class="cert-badge">⏱️ 120 min</span>
+              <span class="cert-badge">⚠️ Requires DE Associate</span>
+              <span class="cert-badge">✅ 70%</span>
+            </div>
+            <div class="cert-desc">Advanced Spark, complex Delta Lake architectures, performance optimization (partitioning, Z-ordering, caching), streaming with Structured Streaming, production pipeline management.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Databricks Academy Professional path</li><li>Apache Spark The Definitive Guide (O'Reilly)</li><li>Databricks blog engineering posts</li></ul></div>
+          </div>
+          <div class="cert-card lvl-prof">
+            <div class="level-badge lb-prof">Professional</div>
+            <div class="cert-name">Snowflake SnowPro Core</div>
+            <div class="cert-code">SnowPro Core</div>
+            <div class="cert-meta">
+              <span class="cert-badge">💰 $175</span>
+              <span class="cert-badge">📝 100 Q</span>
+              <span class="cert-badge">⏱️ 115 min</span>
+              <span class="cert-badge">✅ 750/1000</span>
+            </div>
+            <div class="cert-desc">Snowflake cloud data warehouse. Virtual warehouses, micro-partitioning, Time Travel, Fail-safe, data sharing, cloning, Snowpipe (streaming ingest), data governance, semi-structured data.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Snowflake University (free) ⭐</li><li>Udemy SnowPro Core prep courses</li><li>Snowflake Hands-On Essentials (free)</li></ul></div>
+          </div>
+          <div class="cert-card lvl-prof">
+            <div class="level-badge lb-prof">Professional</div>
+            <div class="cert-name">dbt Analytics Engineering Certification</div>
+            <div class="cert-code">dbt Certification</div>
+            <div class="cert-meta">
+              <span class="cert-badge">💰 $200</span>
+              <span class="cert-badge">📝 65 Q</span>
+              <span class="cert-badge">⏱️ 120 min</span>
+              <span class="cert-badge">✅ 65%</span>
+            </div>
+            <div class="cert-desc">Analytics engineering with dbt. Models, tests, documentation, sources, snapshots, seeds, macros (Jinja), packages, incremental models, dbt Cloud vs Core, CI/CD with dbt.</desc>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>dbt Learn (courses.getdbt.com) ⭐ — free</li><li>dbt documentation (docs.getdbt.com)</li><li>The Analytics Engineering Guide (dbt blog)</li></ul></div>
+          </div>
+        </div>
+      </div>
+      <div class="path-level">
+        <h3>Expert Level — Streaming &amp; Architecture</h3>
+        <div class="cert-grid">
+          <div class="cert-card lvl-expert">
+            <div class="level-badge lb-expert">Expert</div>
+            <div class="cert-name">Confluent Certified Developer for Apache Kafka</div>
+            <div class="cert-code">CCDAK</div>
+            <div class="cert-meta">
+              <span class="cert-badge">💰 $150</span>
+              <span class="cert-badge">📝 60 Q</span>
+              <span class="cert-badge">⏱️ 90 min</span>
+              <span class="cert-badge">✅ 70%</span>
+            </div>
+            <div class="cert-desc">Apache Kafka architecture: producers, consumers, brokers, topics, partitions, replication, consumer groups, Kafka Streams, ksqlDB, Kafka Connect, Schema Registry, exactly-once semantics.</desc>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Stephane Maarek Apache Kafka (Udemy) ⭐</li><li>Confluent Developer tutorials (free)</li><li>Kafka: The Definitive Guide (free PDF)</li></ul></div>
+          </div>
+          <div class="cert-card lvl-expert">
+            <div class="level-badge lb-expert">Expert</div>
+            <div class="cert-name">Apache Airflow Astronomer Certification</div>
+            <div class="cert-code">DAG Authoring for Apache Airflow</div>
+            <div class="cert-meta">
+              <span class="cert-badge">💰 $250</span>
+              <span class="cert-badge">📝 75 Q</span>
+              <span class="cert-badge">⏱️ 90 min</span>
+              <span class="cert-badge">✅ 70%</span>
+            </div>
+            <div class="cert-desc">Airflow DAG authoring, TaskFlow API, XComs, sensors, hooks, connections, pools, DAG dependencies, branching, dynamic DAG generation, testing, best practices.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Astronomer Academy (free) ⭐</li><li>Marc Lamberti Airflow courses (Udemy)</li><li>Apache Airflow documentation</li></ul></div>
+          </div>
+          <div class="cert-card lvl-expert">
+            <div class="level-badge lb-expert">Expert</div>
+            <div class="cert-name">SnowPro Advanced: Data Engineer</div>
+            <div class="cert-code">SnowPro Advanced DE</div>
+            <div class="cert-meta">
+              <span class="cert-badge">💰 $375</span>
+              <span class="cert-badge">📝 65 Q</span>
+              <span class="cert-badge">⏱️ 115 min</span>
+              <span class="cert-badge">⚠️ Requires SnowPro Core</span>
+              <span class="cert-badge">✅ 750/1000</span>
+            </div>
+            <div class="cert-desc">Advanced Snowflake: performance optimization, dynamic tables, Snowpark (Python/Java/Scala UDFs), external tables, data governance with tags/masking policies, cost management.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Snowflake University Advanced courses</li><li>Snowflake documentation (advanced topics)</li><li>Snowflake community blog</li></ul></div>
           </div>
         </div>
       </div>
@@ -605,9 +1165,10 @@
   <!-- ===== AI/ML TRACK ===== -->
   <div id="track-aiml" class="rm-track">
     <h2>🤖 AI / Machine Learning Track</h2>
+    <div class="track-intro"><p>AI/ML is the defining technology of this decade. Path: cloud AI fundamentals → ML specialty → deep learning (TensorFlow/PyTorch) → MLOps (SageMaker/Vertex AI). Strong Python + statistics foundation required. Estimated path: 12–36 months to senior ML engineer.</p></div>
     <div class="roadmap-path">
       <div class="path-level">
-        <h3>Entry Level</h3>
+        <h3>Entry Level — AI Foundations</h3>
         <div class="cert-grid">
           <div class="cert-card lvl-entry">
             <div class="level-badge lb-entry">Entry Level</div>
@@ -619,28 +1180,39 @@
               <span class="cert-badge">⏱️ 90 min</span>
               <span class="cert-badge">✅ 700/1000</span>
             </div>
-            <div class="cert-desc">New AWS cert (2024). AI/ML concepts, generative AI, foundation models, responsible AI, AWS AI services (Bedrock, SageMaker, Rekognition, Comprehend).</div>
+            <div class="cert-desc">New AWS cert (2024). AI/ML concepts, generative AI, foundation models, responsible AI, prompt engineering, AWS AI services (Bedrock, SageMaker, Rekognition, Comprehend, Textract).</div>
             <div class="cert-resources"><h5>Study Resources:</h5><ul><li>AWS Skill Builder AI Practitioner</li><li>Stephane Maarek AIF-C01 prep</li><li>AWS AI/ML documentation</li></ul></div>
           </div>
-
           <div class="cert-card lvl-entry">
             <div class="level-badge lb-entry">Entry Level</div>
-            <div class="cert-name">Google Cloud Digital Leader</div>
-            <div class="cert-code">CDL</div>
+            <div class="cert-name">Azure AI Fundamentals</div>
+            <div class="cert-code">AI-900</div>
+            <div class="cert-meta">
+              <span class="cert-badge">💰 $165</span>
+              <span class="cert-badge">📝 40–60 Q</span>
+              <span class="cert-badge">⏱️ 65 min</span>
+              <span class="cert-badge">✅ 700/1000</span>
+            </div>
+            <div class="cert-desc">AI concepts, ML fundamentals, computer vision, NLP, generative AI on Azure. Azure AI Services (Cognitive Services, Azure OpenAI, Bot Service, Document Intelligence).</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Microsoft Learn AI-900 path (free)</li><li>John Savill AI-900 study guide</li><li>Azure AI documentation</li></ul></div>
+          </div>
+          <div class="cert-card lvl-entry">
+            <div class="level-badge lb-entry">Entry Level</div>
+            <div class="cert-name">Databricks Certified ML Associate</div>
+            <div class="cert-code">Databricks ML Associate</div>
             <div class="cert-meta">
               <span class="cert-badge">💰 $200</span>
-              <span class="cert-badge">📝 60 Q</span>
+              <span class="cert-badge">📝 45 Q</span>
               <span class="cert-badge">⏱️ 90 min</span>
               <span class="cert-badge">✅ 70%</span>
             </div>
-            <div class="cert-desc">Broad GCP and AI overview. Vertex AI, BigQuery, cloud infrastructure. Good complement for teams using Google Workspace/GCP.</div>
-            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Google Cloud Skills Boost</li><li>Dan Sullivan CDL Study Guide</li><li>Coursera Google Cloud Fundamentals</li></ul></div>
+            <div class="cert-desc">ML with Databricks and MLflow. Experiment tracking, model registry, feature engineering with Feature Store, AutoML, Spark ML, MLflow model serving, distributed training.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Databricks Academy ML courses (free)</li><li>MLflow documentation</li><li>Databricks community edition</li></ul></div>
           </div>
         </div>
       </div>
-
       <div class="path-level">
-        <h3>Professional Level</h3>
+        <h3>Professional Level — ML Engineering</h3>
         <div class="cert-grid">
           <div class="cert-card lvl-prof">
             <div class="level-badge lb-prof">Professional</div>
@@ -652,22 +1224,78 @@
               <span class="cert-badge">⏱️ 180 min</span>
               <span class="cert-badge">✅ 750/1000</span>
             </div>
-            <div class="cert-desc">Data engineering, exploratory analysis, feature engineering, ML modeling, deployment (SageMaker), MLOps, generative AI with Bedrock.</div>
+            <div class="cert-desc">Data engineering, EDA, feature engineering, ML modeling, SageMaker training/tuning/deployment, MLOps pipelines, generative AI with Bedrock, model monitoring.</div>
             <div class="cert-resources"><h5>Study Resources:</h5><ul><li>A Cloud Guru MLS Course</li><li>Chandra Lingam MLS (Udemy)</li><li>AWS SageMaker Developer Guide</li></ul></div>
           </div>
-
+          <div class="cert-card lvl-prof">
+            <div class="level-badge lb-prof">Professional</div>
+            <div class="cert-name">Google Professional ML Engineer</div>
+            <div class="cert-code">GCP PMLE</div>
+            <div class="cert-meta">
+              <span class="cert-badge">💰 $200</span>
+              <span class="cert-badge">📝 60 Q</span>
+              <span class="cert-badge">⏱️ 120 min</span>
+              <span class="cert-badge">✅ 70%</span>
+            </div>
+            <div class="cert-desc">ML on GCP. Vertex AI (Training, Pipelines, Feature Store, Model Registry), BigQuery ML, TensorFlow Extended (TFX), responsible AI, model explainability, MLOps at scale.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Google Cloud Skills Boost ML Engineer path ⭐</li><li>Coursera ML on GCP specialization</li><li>Vertex AI documentation</li></ul></div>
+          </div>
           <div class="cert-card lvl-prof">
             <div class="level-badge lb-prof">Professional</div>
             <div class="cert-name">TensorFlow Developer Certificate</div>
             <div class="cert-code">TF Dev Cert</div>
             <div class="cert-meta">
               <span class="cert-badge">💰 $100</span>
-              <span class="cert-badge">📝 5 hrs coding exam</span>
+              <span class="cert-badge">📝 5-hr coding exam</span>
               <span class="cert-badge">⏱️ 5 hrs</span>
-              <span class="cert-badge">✅ Practical</span>
+              <span class="cert-badge">✅ Practical scoring</span>
             </div>
-            <div class="cert-desc">Practical ML with TensorFlow. Build models for image classification, NLP, time series. Exam in PyCharm — build and submit 5 working models.</div>
-            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Coursera DeepLearning.AI TF Developer</li><li>Nicholas Renotte YouTube tutorials</li><li>TensorFlow documentation + Colab</li></ul></div>
+            <div class="cert-desc">Practical ML with TensorFlow. Build and submit 5 working models: image classification (CNN), NLP (LSTM/Transformer), time series prediction. Exam in PyCharm IDE.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Coursera DeepLearning.AI TF Developer ⭐</li><li>Nicholas Renotte YouTube tutorials</li><li>TensorFlow documentation + Google Colab</li></ul></div>
+          </div>
+          <div class="cert-card lvl-prof">
+            <div class="level-badge lb-prof">Professional</div>
+            <div class="cert-name">Azure AI Engineer Associate</div>
+            <div class="cert-code">AI-102</div>
+            <div class="cert-meta">
+              <span class="cert-badge">💰 $165</span>
+              <span class="cert-badge">📝 40–60 Q</span>
+              <span class="cert-badge">⏱️ 120 min</span>
+              <span class="cert-badge">✅ 700/1000</span>
+            </div>
+            <div class="cert-desc">Azure AI Services implementation. Computer Vision, Speech, Language (CLU, NER, QnA), Form Recognizer, Azure OpenAI (GPT-4, embeddings, RAG), Bot Framework, knowledge mining.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Microsoft Learn AI-102 path (free)</li><li>Azure AI documentation</li><li>Pluralsight Azure AI Engineer</li></ul></div>
+          </div>
+        </div>
+      </div>
+      <div class="path-level">
+        <h3>Expert Level — Deep Learning &amp; LLMs</h3>
+        <div class="cert-grid">
+          <div class="cert-card lvl-expert">
+            <div class="level-badge lb-expert">Expert</div>
+            <div class="cert-name">DeepLearning.AI Deep Learning Specialization</div>
+            <div class="cert-code">Coursera Specialization</div>
+            <div class="cert-meta">
+              <span class="cert-badge">💰 ~$49/month</span>
+              <span class="cert-badge">📝 5 courses</span>
+              <span class="cert-badge">⏱️ ~3 months</span>
+              <span class="cert-badge">✅ Assignment-based</span>
+            </div>
+            <div class="cert-desc">Andrew Ng's foundational DL curriculum. Neural networks, CNNs, RNNs, LSTMs, Transformers, hyperparameter tuning, regularization, optimization, sequence models. Industry gold standard.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>Coursera Deep Learning Specialization ⭐</li><li>fast.ai Practical Deep Learning (free)</li><li>Andrej Karpathy Neural Networks (YouTube)</li></ul></div>
+          </div>
+          <div class="cert-card lvl-expert">
+            <div class="level-badge lb-expert">Expert</div>
+            <div class="cert-name">DeepLearning.AI LLMOps + GenAI for Developers</div>
+            <div class="cert-code">Short Courses</div>
+            <div class="cert-meta">
+              <span class="cert-badge">💰 Free</span>
+              <span class="cert-badge">📝 Multiple short courses</span>
+              <span class="cert-badge">⏱️ 1–4 hrs each</span>
+              <span class="cert-badge">✅ Completion cert</span>
+            </div>
+            <div class="cert-desc">LLM fine-tuning with LoRA/QLoRA, RAG systems, function calling, LangChain, LangGraph, vector databases (Pinecone, Weaviate, ChromaDB), LLMOps, prompt engineering.</div>
+            <div class="cert-resources"><h5>Study Resources:</h5><ul><li>DeepLearning.AI short courses (free) ⭐</li><li>Hugging Face NLP course (free)</li><li>LangChain documentation + cookbook</li></ul></div>
           </div>
         </div>
       </div>
@@ -682,11 +1310,11 @@
 <script src="../assets/js/auth.js"></script>
 <script src="../assets/js/partials.js"></script>
 <script>
-function showTrack(id) {
+function showTrack(id, btn) {
   document.querySelectorAll('.rm-track').forEach(el => el.classList.remove('active'));
   document.querySelectorAll('.rm-tab').forEach(el => el.classList.remove('active'));
   document.getElementById('track-' + id).classList.add('active');
-  event.currentTarget.classList.add('active');
+  if (btn) btn.classList.add('active');
 }
 </script>
 </body>
