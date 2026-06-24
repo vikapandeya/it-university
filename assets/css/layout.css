@@ -228,24 +228,92 @@
 
 @media (max-width: 768px) {
   .portal-layout { grid-template-columns: 1fr; }
+
+  /* Sidebar slides in from left as an overlay */
   .sidebar {
     position: fixed;
     top: var(--header-h);
-    left: -100%;
-    width: var(--sidebar-w);
+    left: -290px;
+    width: 280px;
     height: calc(100vh - var(--header-h));
     z-index: 900;
-    transition: left var(--transition-slow);
+    transition: left 0.3s ease;
+    box-shadow: none;
+    overflow-y: auto;
   }
-  .sidebar.open { left: 0; }
+  .sidebar.open {
+    left: 0;
+    box-shadow: 6px 0 30px rgba(0,0,0,0.6);
+  }
+
+  /* Dim backdrop when sidebar is open */
+  .sidebar-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    top: var(--header-h);
+    background: rgba(0,0,0,0.55);
+    z-index: 850;
+    cursor: pointer;
+  }
+  .sidebar-backdrop.open { display: block; }
+
   .site-header__nav { display: none; }
   .hamburger { display: flex; }
-  .site-header__search input { width: 150px; }
+  .site-header__search input { width: 140px; }
   .content { padding: var(--gap-lg) var(--gap); }
+
+  /* Hamburger → X animation */
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* Touch-friendly sidebar links */
+  .sidebar__link { padding: 12px var(--gap); min-height: 44px; }
+  .sidebar__heading { padding: 8px var(--gap) 6px; }
+
+  /* Card improvements on mobile */
+  .portal-card { padding: var(--gap); }
+  .portal-card__icon { font-size: 2rem; }
+
+  /* Lesson block header stacks */
+  .lesson-block__header { flex-direction: column; align-items: flex-start; gap: var(--gap-sm); }
+
+  /* Tables scroll on mobile */
+  .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  table { min-width: 500px; }
+
+  /* Cert badges wrap */
+  .cert-meta { gap: 4px; }
+  .cert-badge { font-size: 0.65rem; }
 }
 
 @media (max-width: 480px) {
   .site-header__search { display: none; }
+  .site-header { padding: 0 var(--gap); gap: var(--gap-sm); }
+  .site-header__logo { font-size: var(--text-base); }
+
+  .content { padding: var(--gap) var(--gap-sm); }
+  .content h1 { font-size: var(--text-2xl); }
+  .content h2 { font-size: var(--text-xl); }
+
+  /* Roadmap tab buttons compact */
+  .rm-tabs { gap: 4px; }
+  .rm-tab { padding: 0.4rem 0.7rem; font-size: 0.7rem; }
+  .cert-grid { grid-template-columns: 1fr !important; }
+
+  /* Grid collapse */
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+
+  /* Stats bar wrap */
+  .stats-bar { gap: var(--gap); }
+  .stat__num { font-size: 1.4rem; }
+
+  /* Quiz full width */
+  .quiz-option { padding: 12px; }
+
+  /* Buttons full width on forms */
+  .btn--block-mobile { width: 100%; justify-content: center; }
 }
 
 /* ── Reduced motion (accessibility) ──────── */
