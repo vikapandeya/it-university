@@ -883,9 +883,9 @@ cat app.log | jq -c 'select(.level=="ERROR") | {ts:.timestamp, msg:.message}'</c
     </section>
 
     <!-- ═══════════════════════════════════════════════════════ -->
-    <section id="quiz-section">
+    <section id="quiz-section-wrapper">
       <h2>🧠 Tools Quiz</h2>
-      <div id="quiz-container" data-portal="tools-ide"></div>
+      <div id="quiz-section"></div>
     </section>
 
   </main>
