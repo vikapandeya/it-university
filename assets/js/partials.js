@@ -75,23 +75,46 @@
     }
   });
 
-  // Hamburger toggle with body scroll lock (prevents page scrolling behind open sidebar)
+  // Mobile sidebar — backdrop + hamburger X animation wired here because
+  // partials.js is the earliest point the header is guaranteed in the DOM.
   const ham = document.getElementById('hamburger');
   const sidebar = document.querySelector('.sidebar');
   if (ham && sidebar) {
+    // Inject backdrop once
+    let backdrop = document.querySelector('.sidebar-backdrop');
+    if (!backdrop) {
+      backdrop = document.createElement('div');
+      backdrop.className = 'sidebar-backdrop';
+      document.body.appendChild(backdrop);
+    }
+
+    function openSidebar() {
+      sidebar.classList.add('open');
+      backdrop.classList.add('open');
+      ham.classList.add('open');
+      ham.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeSidebar() {
+      sidebar.classList.remove('open');
+      backdrop.classList.remove('open');
+      ham.classList.remove('open');
+      ham.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+
     ham.addEventListener('click', () => {
-      const isOpen = sidebar.classList.toggle('open');
-      document.body.style.overflow = isOpen ? 'hidden' : '';
-      ham.setAttribute('aria-expanded', String(isOpen));
+      sidebar.classList.contains('open') ? closeSidebar() : openSidebar();
     });
-    // Close when clicking outside
-    document.addEventListener('click', function(e) {
-      if (sidebar.classList.contains('open') && !sidebar.contains(e.target) && !ham.contains(e.target)) {
-        sidebar.classList.remove('open');
-        document.body.style.overflow = '';
-        ham.setAttribute('aria-expanded', 'false');
-      }
+    backdrop.addEventListener('click', closeSidebar);
+
+    // Close on sidebar link tap (mobile)
+    sidebar.querySelectorAll('.sidebar__link').forEach(a => {
+      a.addEventListener('click', () => { if (window.innerWidth <= 768) closeSidebar(); });
     });
+
+    // Close on resize to desktop
+    window.addEventListener('resize', () => { if (window.innerWidth > 768) closeSidebar(); });
   }
 
   renderAuthNav();
