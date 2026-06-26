@@ -89,7 +89,7 @@
 }
 
 /* ── Page Body ───────────────────────────── */
-.page-body { padding-top: var(--header-h); min-height: 100vh; }
+.page-body { padding-top: var(--header-h); min-height: 100vh; overflow-x: hidden; }
 
 /* ── Portal Layout ───────────────────────── */
 .portal-layout {
@@ -220,6 +220,17 @@
 }
 .site-footer a { color: var(--accent); }
 
+/* ── Backdrop (desktop: always hidden) ───── */
+.sidebar-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  top: var(--header-h);
+  background: rgba(0,0,0,0.55);
+  z-index: 850;
+  cursor: pointer;
+}
+
 /* ── Responsive ──────────────────────────── */
 @media (max-width: 1100px) {
   .portal-layout { grid-template-columns: var(--sidebar-w) 1fr; }
@@ -247,21 +258,16 @@
   }
 
   /* Dim backdrop when sidebar is open */
-  .sidebar-backdrop {
-    display: none;
-    position: fixed;
-    inset: 0;
-    top: var(--header-h);
-    background: rgba(0,0,0,0.55);
-    z-index: 850;
-    cursor: pointer;
-  }
   .sidebar-backdrop.open { display: block; }
 
   .site-header__nav { display: none; }
   .hamburger { display: flex; }
-  .site-header__search input { width: 140px; }
-  .content { padding: var(--gap-lg) var(--gap); }
+  .site-header__search input { width: 130px; }
+  .site-header__auth { display: none; }
+  .content { padding: var(--gap-lg) var(--gap); max-width: 100%; }
+
+  /* Prevent horizontal overflow on portal content */
+  .content pre { max-width: 100%; overflow-x: auto; }
 
   /* Hamburger → X animation */
   .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
@@ -272,9 +278,10 @@
   .sidebar__link { padding: 12px var(--gap); min-height: 44px; }
   .sidebar__heading { padding: 8px var(--gap) 6px; }
 
-  /* Card improvements on mobile */
+  /* Card & grid improvements on mobile */
   .portal-card { padding: var(--gap); }
   .portal-card__icon { font-size: 2rem; }
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
 
   /* Lesson block header stacks */
   .lesson-block__header { flex-direction: column; align-items: flex-start; gap: var(--gap-sm); }
@@ -298,12 +305,9 @@
   .content h2 { font-size: var(--text-xl); }
 
   /* Roadmap tab buttons compact */
-  .rm-tabs { gap: 4px; }
+  .rm-tabs { gap: 4px; flex-wrap: wrap; }
   .rm-tab { padding: 0.4rem 0.7rem; font-size: 0.7rem; }
   .cert-grid { grid-template-columns: 1fr !important; }
-
-  /* Grid collapse */
-  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
 
   /* Stats bar wrap */
   .stats-bar { gap: var(--gap); }
