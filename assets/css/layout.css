@@ -238,7 +238,7 @@
 }
 
 @media (max-width: 768px) {
-  .portal-layout { grid-template-columns: 1fr; }
+  .portal-layout { grid-template-columns: minmax(0, 1fr); overflow-x: hidden; }
 
   /* Sidebar slides in from left as an overlay */
   .sidebar {
@@ -264,10 +264,10 @@
   .hamburger { display: flex; }
   .site-header__search input { width: 130px; }
   .site-header__auth { display: none; }
-  .content { padding: var(--gap-lg) var(--gap); max-width: 100%; }
+  .content { padding: var(--gap-lg) var(--gap); max-width: 100%; width: 100%; box-sizing: border-box; overflow-x: hidden; }
 
-  /* Prevent horizontal overflow on portal content */
-  .content pre { max-width: 100%; overflow-x: auto; }
+  /* Code blocks scroll horizontally within their own box */
+  .content pre { max-width: 100%; overflow-x: auto; box-sizing: border-box; }
 
   /* Hamburger → X animation */
   .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
