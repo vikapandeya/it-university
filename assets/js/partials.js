@@ -103,10 +103,11 @@
       document.body.style.overflow = '';
     }
 
-    ham.addEventListener('click', () => {
+    ham.addEventListener('click', (e) => {
+      e.stopPropagation();
       sidebar.classList.contains('open') ? closeSidebar() : openSidebar();
     });
-    backdrop.addEventListener('click', closeSidebar);
+    backdrop.addEventListener('click', (e) => { e.stopPropagation(); closeSidebar(); });
 
     // Close on sidebar link tap (mobile)
     sidebar.querySelectorAll('.sidebar__link').forEach(a => {
