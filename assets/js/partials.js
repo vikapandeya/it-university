@@ -120,6 +120,17 @@
 
   renderAuthNav();
 
+  // Back-to-top button
+  const btt = document.createElement('button');
+  btt.className = 'back-to-top';
+  btt.setAttribute('aria-label', 'Back to top');
+  btt.innerHTML = '&#8679;';
+  document.body.appendChild(btt);
+  window.addEventListener('scroll', () => {
+    btt.classList.toggle('visible', window.scrollY > 300);
+  }, { passive: true });
+  btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
   // Init search after partials are in the DOM (replaces the double-init in search.js)
   if (window.search && typeof search.init === 'function') search.init();
 })();
