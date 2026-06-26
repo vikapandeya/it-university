@@ -260,7 +260,23 @@
   /* Dim backdrop when sidebar is open */
   .sidebar-backdrop.open { display: block; }
 
-  .site-header__nav { display: none; }
+  /* Nav hidden by default; .open shows it as a full-width dropdown */
+  .site-header__nav {
+    display: none;
+    position: fixed;
+    top: var(--header-h);
+    left: 0; right: 0;
+    background: rgba(10,14,26,0.98);
+    flex-direction: column;
+    align-items: stretch;
+    padding: var(--gap-sm) 0 var(--gap);
+    z-index: 900;
+    border-bottom: 1px solid var(--border);
+    max-height: calc(100vh - var(--header-h));
+    overflow-y: auto;
+  }
+  .site-header__nav.open { display: flex; }
+  .site-header__nav a { padding: 12px var(--gap-lg); font-size: var(--text-base); border-radius: 0; }
   .hamburger { display: flex; }
   .site-header__search input { width: 130px; }
   .site-header__auth { display: none; }

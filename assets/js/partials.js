@@ -75,12 +75,13 @@
     }
   });
 
-  // Mobile sidebar — backdrop + hamburger X animation wired here because
-  // partials.js is the earliest point the header is guaranteed in the DOM.
+  // Mobile nav wiring — runs after header is guaranteed in DOM.
   const ham = document.getElementById('hamburger');
   const sidebar = document.querySelector('.sidebar');
-  if (ham && sidebar) {
-    // Inject backdrop once
+  const headerNav = document.querySelector('.site-header__nav');
+
+  if (ham) {
+    // Shared backdrop
     let backdrop = document.querySelector('.sidebar-backdrop');
     if (!backdrop) {
       backdrop = document.createElement('div');
@@ -88,15 +89,19 @@
       document.body.appendChild(backdrop);
     }
 
-    function openSidebar() {
-      sidebar.classList.add('open');
+    // Portal pages: hamburger opens the sidebar panel
+    // Non-portal pages (index, hub): hamburger opens the header nav as a dropdown
+    const panel = sidebar || headerNav;
+
+    function openPanel() {
+      panel.classList.add('open');
       backdrop.classList.add('open');
       ham.classList.add('open');
       ham.setAttribute('aria-expanded', 'true');
       document.body.style.overflow = 'hidden';
     }
-    function closeSidebar() {
-      sidebar.classList.remove('open');
+    function closePanel() {
+      panel.classList.remove('open');
       backdrop.classList.remove('open');
       ham.classList.remove('open');
       ham.setAttribute('aria-expanded', 'false');
@@ -105,17 +110,17 @@
 
     ham.addEventListener('click', (e) => {
       e.stopPropagation();
-      sidebar.classList.contains('open') ? closeSidebar() : openSidebar();
+      panel.classList.contains('open') ? closePanel() : openPanel();
     });
-    backdrop.addEventListener('click', (e) => { e.stopPropagation(); closeSidebar(); });
+    backdrop.addEventListener('click', (e) => { e.stopPropagation(); closePanel(); });
 
-    // Close on sidebar link tap (mobile)
-    sidebar.querySelectorAll('.sidebar__link').forEach(a => {
-      a.addEventListener('click', () => { if (window.innerWidth <= 768) closeSidebar(); });
+    // Close on link tap (mobile)
+    panel.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => { if (window.innerWidth <= 768) closePanel(); });
     });
 
     // Close on resize to desktop
-    window.addEventListener('resize', () => { if (window.innerWidth > 768) closeSidebar(); });
+    window.addEventListener('resize', () => { if (window.innerWidth > 768) closePanel(); });
   }
 
   renderAuthNav();
