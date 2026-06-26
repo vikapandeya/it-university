@@ -93,7 +93,15 @@
     // Non-portal pages (index, hub): hamburger opens the header nav as a dropdown
     const panel = sidebar || headerNav;
 
+    // For non-portal pages, headerNav needs explicit style override since
+    // it has display:none from the media query and no sidebar to replace it.
+    const isNavPanel = panel === headerNav;
+
     function openPanel() {
+      if (isNavPanel) {
+        panel.style.cssText = 'display:flex!important;flex-direction:column;position:fixed;top:var(--header-h);left:0;right:0;background:rgba(10,14,26,0.98);z-index:900;padding:8px 0 16px;border-bottom:1px solid var(--border);max-height:calc(100vh - var(--header-h));overflow-y:auto;';
+        panel.querySelectorAll('a').forEach(a => { a.style.padding = '13px 24px'; a.style.fontSize = '1rem'; a.style.borderRadius = '0'; });
+      }
       panel.classList.add('open');
       backdrop.classList.add('open');
       ham.classList.add('open');
@@ -101,6 +109,10 @@
       document.body.style.overflow = 'hidden';
     }
     function closePanel() {
+      if (isNavPanel) {
+        panel.style.cssText = '';
+        panel.querySelectorAll('a').forEach(a => { a.style.padding = ''; a.style.fontSize = ''; a.style.borderRadius = ''; });
+      }
       panel.classList.remove('open');
       backdrop.classList.remove('open');
       ham.classList.remove('open');
