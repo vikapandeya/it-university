@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CompTIA Linux+ XK0-005 Cheat Sheet</title>
+<style>
+:root {
+  --bg:#F5F6F7; --surface:#FFFFFF; --border:#E2E4E8;
+  --navy:#0F1C2E; --navy2:#1A2E45;
+  --green:#1B7A4A; --green-soft:#E8F7EF;
+  --blue:#1A6FB5; --blue-soft:#EBF4FF;
+  --red:#B91C1C; --red-soft:#FEF2F2;
+  --purple:#6B21A8; --purple-soft:#F5F0FF;
+  --text:#1C2333; --text2:#4A5568; --text3:#718096;
+  --mono:'Consolas','Courier New',monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+}
+body { font-family:var(--sans); font-size:11px; background:var(--bg); color:var(--text); line-height:1.5; }
+.page { max-width:1280px; margin:0 auto; padding:20px 16px; }
+.header { background:var(--navy); border-radius:10px; padding:20px 24px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+.header-left h1 { font-size:22px; font-weight:800; color:#fff; } .header-left h1 span { color:#22C55E; }
+.header-left p { font-size:11px; color:#94A3B8; margin-top:3px; }
+.header-badges { display:flex; gap:8px; flex-wrap:wrap; }
+.badge { font-size:10px; font-weight:700; padding:4px 10px; border-radius:20px; letter-spacing:.5px; text-transform:uppercase; }
+.badge-green { background:#22C55E; color:#fff; } .badge-blue { background:#3B82F6; color:#fff; } .badge-red { background:#EF4444; color:#fff; }
+.grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:12px; }
+.grid-2 { grid-template-columns:repeat(2,1fr); } .grid-4 { grid-template-columns:repeat(4,1fr); }
+.card { background:var(--surface); border-radius:8px; border:1px solid var(--border); overflow:hidden; }
+.card-header { padding:8px 12px; display:flex; align-items:center; gap:8px; border-bottom:1px solid var(--border); }
+.card-header .icon { width:24px; height:24px; border-radius:5px; display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; }
+.card-header h2 { font-size:11.5px; font-weight:800; color:var(--navy); }
+.card-header .sub { font-size:9px; color:var(--text3); margin-left:auto; }
+.card-body { padding:10px 12px; }
+.section-label { font-size:8.5px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--text3); margin-bottom:5px; margin-top:9px; }
+.section-label:first-child { margin-top:0; }
+.row { display:flex; justify-content:space-between; align-items:baseline; padding:2px 0; border-bottom:1px solid #F1F3F5; gap:8px; }
+.row:last-child { border-bottom:none; }
+.row .key { font-family:var(--mono); font-size:10px; font-weight:600; color:var(--navy); white-space:nowrap; flex-shrink:0; }
+.row .val { font-size:10px; color:var(--text2); text-align:right; }
+.tags { display:flex; flex-wrap:wrap; gap:4px; margin-top:2px; }
+.tag { font-size:9.5px; padding:2px 7px; border-radius:4px; font-weight:600; font-family:var(--mono); }
+.tag-green { background:var(--green-soft); color:#166534; } .tag-blue { background:var(--blue-soft); color:#1E40AF; }
+.tag-red { background:var(--red-soft); color:#991B1B; } .tag-purple { background:var(--purple-soft); color:#6B21A8; }
+.tip-bar { background:var(--navy2); border-radius:8px; padding:10px 16px; margin-bottom:16px; display:flex; gap:24px; flex-wrap:wrap; }
+.tip-label { font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:#4ADE80; }
+.tip { font-size:10.5px; color:#CBD5E1; } .tip b { color:#fff; }
+.note { font-size:10px; color:var(--text2); padding:6px 8px; border-radius:4px; margin-top:4px; }
+.note-green { background:var(--green-soft); border-left:3px solid var(--green); }
+.note-blue { background:var(--blue-soft); border-left:3px solid var(--blue); }
+.note-red { background:var(--red-soft); border-left:3px solid var(--red); }
+.cmd { font-family:var(--mono); font-size:10px; background:#F1F3F5; padding:3px 7px; border-radius:4px; color:var(--navy); display:block; margin:2px 0; }
+@media print { body{background:#fff} .page{padding:0} }
+
+/* Domain bar */
+.domain-bar { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:16px; }
+.domain-item { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:10px 12px; }
+.domain-item .pct { font-size:20px; font-weight:800; color:var(--navy); font-variant-numeric:tabular-nums; }
+.domain-item .name { font-size:9.5px; color:var(--text2); margin-top:2px; }
+.domain-item .bar-wrap { height:4px; background:#E2E4E8; border-radius:2px; margin-top:6px; }
+.domain-item .bar-fill { height:4px; border-radius:2px; }
+.d1 .bar-fill { background:#3B82F6; width:32%; }
+.d2 .bar-fill { background:#EF4444; width:21%; }
+.d3 .bar-fill { background:#8B5CF6; width:19%; }
+.d4 .bar-fill { background:#F59E0B; width:28%; }
+.exam-meta { display:flex; gap:16px; flex-wrap:wrap; align-items:center; }
+.exam-stat { text-align:center; }
+.exam-stat .num { font-size:18px; font-weight:800; color:#22C55E; font-variant-numeric:tabular-nums; }
+.exam-stat .lbl { font-size:9px; color:#94A3B8; text-transform:uppercase; letter-spacing:.5px; }
+.divider-v { width:1px; background:#2D4A6B; align-self:stretch; }
+table.cmp { width:100%; border-collapse:collapse; font-size:10px; }
+table.cmp th { background:#F1F3F5; font-weight:700; text-align:left; padding:4px 6px; color:var(--navy); border-bottom:1px solid var(--border); }
+table.cmp td { padding:3px 6px; border-bottom:1px solid #F7F8FA; color:var(--text2); vertical-align:top; }
+table.cmp tr:last-child td { border-bottom:none; }
+.span-full { grid-column:1/-1; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <h1>CompTIA <span>Linux+</span> XK0-005</h1>
+      <p>Comprehensive exam reference — System Management · Security · Scripting &amp; Containers · Troubleshooting</p>
+    </div>
+    <div style="display:flex;gap:32px;align-items:center;flex-wrap:wrap;">
+      <div class="exam-meta">
+        <div class="exam-stat"><div class="num">90</div><div class="lbl">Questions</div></div>
+        <div class="divider-v"></div>
+        <div class="exam-stat"><div class="num">90</div><div class="lbl">Minutes</div></div>
+        <div class="divider-v"></div>
+        <div class="exam-stat"><div class="num">720</div><div class="lbl">Pass / 900</div></div>
+        <div class="divider-v"></div>
+        <div class="exam-stat"><div class="num">$369</div><div class="lbl">Exam Cost</div></div>
+      </div>
+      <div class="header-badges">
+        <span class="badge badge-green">XK0-005</span>
+        <span class="badge badge-blue">RHEL / Debian</span>
+        <span class="badge badge-red">Passing: 80%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOMAIN BARS -->
+  <div class="domain-bar">
+    <div class="domain-item d1">
+      <div class="pct">32%</div>
+      <div class="name">Domain 1 — System Management</div>
+      <div class="bar-wrap"><div class="bar-fill"></div></div>
+    </div>
+    <div class="domain-item d2">
+      <div class="pct">21%</div>
+      <div class="name">Domain 2 — Security</div>
+      <div class="bar-wrap"><div class="bar-fill"></div></div>
+    </div>
+    <div class="domain-item d3">
+      <div class="pct">19%</div>
+      <div class="name">Domain 3 — Scripting, Containers &amp; Automation</div>
+      <div class="bar-wrap"><div class="bar-fill"></div></div>
+    </div>
+    <div class="domain-item d4">
+      <div class="pct">28%</div>
+      <div class="name">Domain 4 — Troubleshooting</div>
+      <div class="bar-wrap"><div class="bar-fill"></div></div>
+    </div>
+  </div>
+
+  <!-- TIP BAR 1 -->
+  <div class="tip-bar">
+    <div><div class="tip-label">Key Tip</div><div class="tip"><b>systemd vs SysV:</b> Know both <code style="font-family:var(--mono);color:#4ADE80">systemctl</code> and legacy init. XK0-005 is systemd-first but SysV may appear.</div></div>
+    <div><div class="tip-label">File Systems</div><div class="tip"><b>XFS cannot shrink</b> — ext4 can. btrfs has snapshots. Know which <code style="font-family:var(--mono);color:#4ADE80">mkfs</code> tool matches each FS type.</div></div>
+    <div><div class="tip-label">LVM Order</div><div class="tip"><b>Create order:</b> pv → vg → lv. <b>Remove order:</b> lv → vg → pv. Never reverse this sequence.</div></div>
+    <div><div class="tip-label">Permissions</div><div class="tip"><b>SUID on binary</b> = runs as owner. <b>SGID on dir</b> = new files inherit group. <b>Sticky on dir</b> = only owner can delete.</div></div>
+  </div>
+
+  <!-- ROW 1: systemd + File Systems + LVM -->
+  <div class="grid">
+
+    <!-- systemd -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#EBF4FF;">⚙️</div>
+        <h2>systemd &amp; Services</h2>
+        <span class="sub">Domain 1</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Service Control</div>
+        <span class="cmd">systemctl start nginx</span>
+        <span class="cmd">systemctl stop nginx</span>
+        <span class="cmd">systemctl restart nginx</span>
+        <span class="cmd">systemctl reload nginx</span>
+        <span class="cmd">systemctl enable nginx</span>
+        <span class="cmd">systemctl disable nginx</span>
+        <span class="cmd">systemctl status nginx</span>
+        <span class="cmd">systemctl is-active nginx</span>
+        <span class="cmd">systemctl is-enabled nginx</span>
+
+        <div class="section-label">Listing &amp; Querying</div>
+        <span class="cmd">systemctl list-units --type=service</span>
+        <span class="cmd">systemctl list-units --state=failed</span>
+        <span class="cmd">systemctl list-unit-files --type=service</span>
+        <span class="cmd">systemctl daemon-reload</span>
+        <span class="cmd">systemctl mask nginx</span>
+        <span class="cmd">systemctl unmask nginx</span>
+
+        <div class="section-label">journalctl Logs</div>
+        <span class="cmd">journalctl -u nginx</span>
+        <span class="cmd">journalctl -u nginx -f</span>
+        <span class="cmd">journalctl -u nginx -n 50</span>
+        <span class="cmd">journalctl -u nginx --since "1 hour ago"</span>
+        <span class="cmd">journalctl -u nginx --since today</span>
+        <span class="cmd">journalctl -xe</span>
+        <span class="cmd">journalctl -b</span>
+        <span class="cmd">journalctl -p err</span>
+
+        <div class="section-label">Unit File Structure</div>
+        <div class="note note-blue">
+          Location: <code style="font-family:var(--mono)">/etc/systemd/system/myapp.service</code><br>
+          Override: <code style="font-family:var(--mono)">/etc/systemd/system/nginx.service.d/override.conf</code>
+        </div>
+        <span class="cmd">[Unit]</span>
+        <span class="cmd">Description=My App Service</span>
+        <span class="cmd">After=network.target</span>
+        <span class="cmd">Requires=postgresql.service</span>
+        <span class="cmd">&nbsp;</span>
+        <span class="cmd">[Service]</span>
+        <span class="cmd">Type=simple</span>
+        <span class="cmd">ExecStart=/usr/bin/myapp --config /etc/myapp.conf</span>
+        <span class="cmd">ExecStop=/usr/bin/myapp --stop</span>
+        <span class="cmd">Restart=on-failure</span>
+        <span class="cmd">RestartSec=5s</span>
+        <span class="cmd">User=myapp</span>
+        <span class="cmd">WorkingDirectory=/opt/myapp</span>
+        <span class="cmd">&nbsp;</span>
+        <span class="cmd">[Install]</span>
+        <span class="cmd">WantedBy=multi-user.target</span>
+
+        <div class="section-label">Service Types</div>
+        <div class="row"><span class="key">Type=simple</span><span class="val">Default; process stays foreground</span></div>
+        <div class="row"><span class="key">Type=forking</span><span class="val">Process forks to background</span></div>
+        <div class="row"><span class="key">Type=oneshot</span><span class="val">Runs once, exits when done</span></div>
+        <div class="row"><span class="key">Type=notify</span><span class="val">Process sends ready notification</span></div>
+        <div class="row"><span class="key">WantedBy=multi-user.target</span><span class="val">Enables at runlevel 3 equiv.</span></div>
+
+        <div class="note note-green" style="margin-top:6px;">After editing unit files always run <code style="font-family:var(--mono)">systemctl daemon-reload</code> before restarting the service.</div>
+      </div>
+    </div>
+
+    <!-- File Systems -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#E8F7EF;">💾</div>
+        <h2>File Systems</h2>
+        <span class="sub">Domain 1</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">FS Comparison</div>
+        <div style="overflow-x:auto;">
+          <table class="cmp">
+            <thead>
+              <tr><th>FS</th><th>Max Size</th><th>Journal</th><th>Features</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><b>ext4</b></td><td>1 EiB</td><td>Yes</td><td>Stable, can shrink, widely supported</td></tr>
+              <tr><td><b>xfs</b></td><td>8 EiB</td><td>Yes</td><td>High perf, cannot shrink, RHEL default</td></tr>
+              <tr><td><b>btrfs</b></td><td>16 EiB</td><td>CoW</td><td>Snapshots, subvolumes, RAID built-in</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="section-label">Create File Systems</div>
+        <span class="cmd">mkfs.ext4 /dev/sdb1</span>
+        <span class="cmd">mkfs.ext4 -L "datadisk" /dev/sdb1</span>
+        <span class="cmd">mkfs.xfs /dev/sdb1</span>
+        <span class="cmd">mkfs.xfs -L "xfsdata" /dev/sdb1</span>
+        <span class="cmd">mkfs.btrfs /dev/sdb1</span>
+
+        <div class="section-label">Mount &amp; Unmount</div>
+        <span class="cmd">mount /dev/sdb1 /mnt/data</span>
+        <span class="cmd">mount -t xfs /dev/sdb1 /mnt/data</span>
+        <span class="cmd">mount -t ext4 -o ro /dev/sdb1 /mnt</span>
+        <span class="cmd">mount -o remount,rw /mnt/data</span>
+        <span class="cmd">umount /mnt/data</span>
+        <span class="cmd">umount -l /mnt/data</span>
+        <span class="cmd">mount -a</span>
+
+        <div class="section-label">/etc/fstab Fields</div>
+        <div class="note note-blue">Format: <code style="font-family:var(--mono)">device  mountpoint  fstype  options  dump  pass</code></div>
+        <span class="cmd">UUID=abc123  /mnt/data  ext4  defaults  0  2</span>
+        <div class="row"><span class="key">dump</span><span class="val">0=skip backup, 1=include in dump</span></div>
+        <div class="row"><span class="key">pass</span><span class="val">0=skip fsck, 1=root, 2=other</span></div>
+        <div class="row"><span class="key">defaults</span><span class="val">rw,suid,dev,exec,auto,nouser,async</span></div>
+        <div class="row"><span class="key">blkid</span><span class="val">Show UUID for device → use in fstab</span></div>
+
+        <div class="section-label">Disk Usage &amp; Info</div>
+        <span class="cmd">df -h</span>
+        <span class="cmd">df -hT</span>
+        <span class="cmd">du -sh /var/log</span>
+        <span class="cmd">du -sh * | sort -rh | head -10</span>
+        <span class="cmd">lsblk</span>
+        <span class="cmd">lsblk -f</span>
+        <span class="cmd">blkid</span>
+        <span class="cmd">fdisk -l</span>
+        <span class="cmd">parted /dev/sdb print</span>
+
+        <div class="section-label">FS Maintenance</div>
+        <span class="cmd">tune2fs -l /dev/sdb1</span>
+        <span class="cmd">tune2fs -L "newlabel" /dev/sdb1</span>
+        <span class="cmd">tune2fs -c 30 /dev/sdb1</span>
+        <span class="cmd">e2fsck -f /dev/sdb1</span>
+        <span class="cmd">fsck.ext4 /dev/sdb1</span>
+        <span class="cmd">xfs_repair /dev/sdb1</span>
+        <span class="cmd">xfs_info /mnt/data</span>
+
+        <div class="note note-red">Run fsck/xfs_repair only on <b>unmounted</b> filesystems. xfs_repair requires the FS is not mounted.</div>
+      </div>
+    </div>
+
+    <!-- LVM -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#F5F0FF;">📦</div>
+        <h2>LVM — Logical Volume Manager</h2>
+        <span class="sub">Domain 1</span>
+      </div>
+      <div class="card-body">
+        <div class="note note-blue">Create order: <b>PV → VG → LV</b> &nbsp;|&nbsp; Remove order: <b>LV → VG → PV</b></div>
+
+        <div class="section-label">Physical Volumes (PV)</div>
+        <span class="cmd">pvcreate /dev/sdb</span>
+        <span class="cmd">pvcreate /dev/sdb1 /dev/sdc1</span>
+        <span class="cmd">pvs</span>
+        <span class="cmd">pvdisplay</span>
+        <span class="cmd">pvdisplay /dev/sdb</span>
+        <span class="cmd">pvremove /dev/sdb</span>
+        <span class="cmd">pvmove /dev/sdb</span>
+
+        <div class="section-label">Volume Groups (VG)</div>
+        <span class="cmd">vgcreate vg0 /dev/sdb</span>
+        <span class="cmd">vgcreate vg_data /dev/sdb /dev/sdc</span>
+        <span class="cmd">vgs</span>
+        <span class="cmd">vgdisplay</span>
+        <span class="cmd">vgextend vg0 /dev/sdc</span>
+        <span class="cmd">vgreduce vg0 /dev/sdc</span>
+        <span class="cmd">vgremove vg0</span>
+        <span class="cmd">vgrename vg0 vg_new</span>
+
+        <div class="section-label">Logical Volumes (LV)</div>
+        <span class="cmd">lvcreate -L 10G -n lv0 vg0</span>
+        <span class="cmd">lvcreate -l 100%FREE -n lv_data vg0</span>
+        <span class="cmd">lvcreate -l +50%FREE -n lv_data vg0</span>
+        <span class="cmd">lvs</span>
+        <span class="cmd">lvdisplay</span>
+        <span class="cmd">lvrename vg0 lv0 lv_new</span>
+        <span class="cmd">lvremove /dev/vg0/lv0</span>
+
+        <div class="section-label">Extend LV + Resize FS</div>
+        <span class="cmd">lvextend -L +5G /dev/vg0/lv0</span>
+        <span class="cmd">lvextend -l +100%FREE /dev/vg0/lv0</span>
+        <span class="cmd">resize2fs /dev/vg0/lv0</span>
+        <span class="cmd">xfs_growfs /mount/point</span>
+        <span class="cmd">lvextend -r -L +5G /dev/vg0/lv0</span>
+
+        <div class="note note-green"><code style="font-family:var(--mono)">lvextend -r</code> resizes the filesystem automatically. For ext4: <code style="font-family:var(--mono)">resize2fs</code>. For XFS: <code style="font-family:var(--mono)">xfs_growfs</code> (XFS cannot shrink).</div>
+
+        <div class="section-label">Snapshots</div>
+        <span class="cmd">lvcreate -L 2G -s -n snap0 /dev/vg0/lv0</span>
+        <span class="cmd">lvconvert --merge /dev/vg0/snap0</span>
+
+        <div class="section-label">Device Paths</div>
+        <div class="row"><span class="key">/dev/vg0/lv0</span><span class="val">Symlink form</span></div>
+        <div class="row"><span class="key">/dev/mapper/vg0-lv0</span><span class="val">Device mapper form</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 2: Package Mgmt + Users & Groups -->
+  <div class="grid grid-2">
+
+    <!-- Package Management -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#FEF2F2;">📥</div>
+        <h2>Package Management</h2>
+        <span class="sub">Domain 1 — RHEL &amp; Debian</span>
+      </div>
+      <div class="card-body">
+        <div class="grid grid-2" style="gap:10px;margin-bottom:0;">
+          <div>
+            <div class="section-label">RPM (RHEL/CentOS/Fedora)</div>
+            <span class="cmd">rpm -qa</span>
+            <span class="cmd">rpm -qa | grep nginx</span>
+            <span class="cmd">rpm -qi nginx</span>
+            <span class="cmd">rpm -ql nginx</span>
+            <span class="cmd">rpm -qf /etc/nginx/nginx.conf</span>
+            <span class="cmd">rpm -qp package.rpm</span>
+            <span class="cmd">rpm -ivh package.rpm</span>
+            <span class="cmd">rpm -Uvh package.rpm</span>
+            <span class="cmd">rpm -e nginx</span>
+            <span class="cmd">rpm --import GPG-KEY</span>
+
+            <div class="section-label">YUM / DNF</div>
+            <span class="cmd">dnf install nginx</span>
+            <span class="cmd">dnf install -y nginx httpd</span>
+            <span class="cmd">dnf remove nginx</span>
+            <span class="cmd">dnf update</span>
+            <span class="cmd">dnf update nginx</span>
+            <span class="cmd">dnf search nginx</span>
+            <span class="cmd">dnf info nginx</span>
+            <span class="cmd">dnf list installed</span>
+            <span class="cmd">dnf list available</span>
+            <span class="cmd">dnf group list</span>
+            <span class="cmd">dnf group install "Development Tools"</span>
+            <span class="cmd">dnf repolist</span>
+            <span class="cmd">dnf repolist all</span>
+            <span class="cmd">dnf config-manager --add-repo URL</span>
+            <span class="cmd">dnf clean all</span>
+            <span class="cmd">dnf history</span>
+            <span class="cmd">dnf history undo 3</span>
+            <span class="cmd">yum install nginx</span>
+
+            <div class="section-label">RHEL Repo Config</div>
+            <div class="note note-blue">Repo files: <code style="font-family:var(--mono)">/etc/yum.repos.d/*.repo</code></div>
+            <span class="cmd">[myrepo]</span>
+            <span class="cmd">name=My Custom Repo</span>
+            <span class="cmd">baseurl=http://repo.example.com/</span>
+            <span class="cmd">enabled=1</span>
+            <span class="cmd">gpgcheck=1</span>
+            <span class="cmd">gpgkey=http://repo.example.com/RPM-GPG-KEY</span>
+          </div>
+          <div>
+            <div class="section-label">DPKG (Debian/Ubuntu)</div>
+            <span class="cmd">dpkg -l</span>
+            <span class="cmd">dpkg -l | grep nginx</span>
+            <span class="cmd">dpkg -i package.deb</span>
+            <span class="cmd">dpkg -r nginx</span>
+            <span class="cmd">dpkg -P nginx</span>
+            <span class="cmd">dpkg -L nginx</span>
+            <span class="cmd">dpkg -S /etc/nginx/nginx.conf</span>
+            <span class="cmd">dpkg --get-selections</span>
+            <span class="cmd">dpkg-reconfigure nginx</span>
+
+            <div class="section-label">APT</div>
+            <span class="cmd">apt install nginx</span>
+            <span class="cmd">apt install -y nginx</span>
+            <span class="cmd">apt remove nginx</span>
+            <span class="cmd">apt purge nginx</span>
+            <span class="cmd">apt update</span>
+            <span class="cmd">apt upgrade</span>
+            <span class="cmd">apt full-upgrade</span>
+            <span class="cmd">apt search nginx</span>
+            <span class="cmd">apt-cache show nginx</span>
+            <span class="cmd">apt-cache depends nginx</span>
+            <span class="cmd">apt list --installed</span>
+            <span class="cmd">apt autoremove</span>
+            <span class="cmd">apt clean</span>
+            <span class="cmd">add-apt-repository ppa:name/repo</span>
+
+            <div class="section-label">Debian Repo Config</div>
+            <div class="note note-blue">Sources: <code style="font-family:var(--mono)">/etc/apt/sources.list</code> and <code style="font-family:var(--mono)">/etc/apt/sources.list.d/</code></div>
+            <span class="cmd">deb http://deb.debian.org/debian bookworm main contrib</span>
+            <span class="cmd">deb-src http://deb.debian.org/debian bookworm main</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Users & Groups -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#E8F7EF;">👤</div>
+        <h2>Users &amp; Groups</h2>
+        <span class="sub">Domain 2 — Security</span>
+      </div>
+      <div class="card-body">
+        <div class="grid grid-2" style="gap:10px;margin-bottom:0;">
+          <div>
+            <div class="section-label">User Management</div>
+            <span class="cmd">useradd username</span>
+            <span class="cmd">useradd -m -s /bin/bash username</span>
+            <span class="cmd">useradd -m -s /bin/bash -G wheel,docker username</span>
+            <span class="cmd">useradd -u 1500 -g 1000 username</span>
+            <span class="cmd">useradd -r svcaccount</span>
+            <span class="cmd">usermod -aG groupname username</span>
+            <span class="cmd">usermod -s /bin/zsh username</span>
+            <span class="cmd">usermod -L username</span>
+            <span class="cmd">usermod -U username</span>
+            <span class="cmd">usermod -e 2025-12-31 username</span>
+            <span class="cmd">userdel username</span>
+            <span class="cmd">userdel -r username</span>
+            <span class="cmd">passwd username</span>
+            <span class="cmd">passwd -l username</span>
+            <span class="cmd">passwd -u username</span>
+            <span class="cmd">passwd -d username</span>
+
+            <div class="section-label">Password Aging (chage)</div>
+            <span class="cmd">chage -l username</span>
+            <span class="cmd">chage -E 2025-12-31 username</span>
+            <span class="cmd">chage -M 90 username</span>
+            <span class="cmd">chage -m 7 username</span>
+            <span class="cmd">chage -W 14 username</span>
+            <span class="cmd">chage -I 30 username</span>
+            <span class="cmd">chage -d 0 username</span>
+
+            <div class="section-label">Switch &amp; Elevate</div>
+            <span class="cmd">su - username</span>
+            <span class="cmd">su -c "command" username</span>
+            <span class="cmd">sudo -i</span>
+            <span class="cmd">sudo -u username command</span>
+            <span class="cmd">sudo -l</span>
+            <span class="cmd">visudo</span>
+            <div class="note note-blue">/etc/sudoers format:<br><code style="font-family:var(--mono)">username ALL=(ALL:ALL) ALL</code><br><code style="font-family:var(--mono)">%wheel ALL=(ALL) NOPASSWD:ALL</code></div>
+          </div>
+          <div>
+            <div class="section-label">Group Management</div>
+            <span class="cmd">groupadd developers</span>
+            <span class="cmd">groupadd -g 2000 developers</span>
+            <span class="cmd">groupdel developers</span>
+            <span class="cmd">groupmod -n newname oldname</span>
+            <span class="cmd">groupmod -g 2001 developers</span>
+            <span class="cmd">groups username</span>
+            <span class="cmd">id username</span>
+            <span class="cmd">id</span>
+            <span class="cmd">whoami</span>
+            <span class="cmd">w</span>
+            <span class="cmd">who</span>
+            <span class="cmd">last</span>
+            <span class="cmd">lastlog</span>
+            <span class="cmd">last username</span>
+
+            <div class="section-label">/etc/passwd Format</div>
+            <div class="note note-green">
+              <code style="font-family:var(--mono)">user:x:uid:gid:comment:home:shell</code><br>
+              <code style="font-family:var(--mono)">root:x:0:0:root:/root:/bin/bash</code>
+            </div>
+            <div class="row"><span class="key">x</span><span class="val">Password in /etc/shadow</span></div>
+            <div class="row"><span class="key">uid</span><span class="val">0=root, 1-999=system, 1000+=regular</span></div>
+
+            <div class="section-label">/etc/shadow Fields</div>
+            <div class="note note-green">
+              <code style="font-family:var(--mono)">user:hash:lastchange:min:max:warn:inactive:expire:reserved</code>
+            </div>
+            <div class="row"><span class="key">lastchange</span><span class="val">Days since epoch of last pw change</span></div>
+            <div class="row"><span class="key">min</span><span class="val">Min days between changes</span></div>
+            <div class="row"><span class="key">max</span><span class="val">Max days before must change</span></div>
+            <div class="row"><span class="key">warn</span><span class="val">Days before expiry to warn</span></div>
+            <div class="row"><span class="key">inactive</span><span class="val">Days after expiry account locked</span></div>
+
+            <div class="section-label">/etc/group Format</div>
+            <div class="note note-green">
+              <code style="font-family:var(--mono)">groupname:x:gid:member1,member2</code>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIP BAR 2 -->
+  <div class="tip-bar">
+    <div><div class="tip-label">Permissions Tip</div><div class="tip"><b>umask 022</b> → files get 644, dirs get 755. umask 027 → files 640, dirs 750. Default is subtracted from 666(files)/777(dirs).</div></div>
+    <div><div class="tip-label">ACL Tip</div><div class="tip"><b>setfacl -m</b> modifies, <b>-x</b> removes entry, <b>-b</b> removes ALL ACLs. A <code style="font-family:var(--mono);color:#4ADE80">+</code> in <code style="font-family:var(--mono);color:#4ADE80">ls -l</code> means ACLs exist.</div></div>
+    <div><div class="tip-label">SELinux Tip</div><div class="tip"><b>restorecon</b> fixes wrong context. <b>semanage fcontext</b> makes it permanent. Changes in /etc/selinux/config require reboot.</div></div>
+    <div><div class="tip-label">Firewall Tip</div><div class="tip">firewall-cmd changes are <b>runtime only</b> without <b>--permanent</b>. Always reload after permanent changes: <code style="font-family:var(--mono);color:#4ADE80">--reload</code>.</div></div>
+  </div>
+
+  <!-- ROW 3: Permissions + Networking + Scripting -->
+  <div class="grid">
+
+    <!-- Permissions -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#FEF2F2;">🔐</div>
+        <h2>Permissions &amp; ACLs</h2>
+        <span class="sub">Domain 2 — Security</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">chmod Numeric</div>
+        <div class="row"><span class="key">chmod 755 file</span><span class="val">rwxr-xr-x</span></div>
+        <div class="row"><span class="key">chmod 644 file</span><span class="val">rw-r--r--</span></div>
+        <div class="row"><span class="key">chmod 600 file</span><span class="val">rw------- (private key)</span></div>
+        <div class="row"><span class="key">chmod 700 dir</span><span class="val">rwx------ (private dir)</span></div>
+        <div class="row"><span class="key">chmod 777 file</span><span class="val">rwxrwxrwx (avoid!)</span></div>
+        <div class="row"><span class="key">chmod -R 755 /dir</span><span class="val">Recursive</span></div>
+
+        <div class="section-label">chmod Symbolic</div>
+        <span class="cmd">chmod u+x file</span>
+        <span class="cmd">chmod g-w file</span>
+        <span class="cmd">chmod o=r file</span>
+        <span class="cmd">chmod u+x,g-w,o=r file</span>
+        <span class="cmd">chmod a+x file</span>
+        <span class="cmd">chmod a-x file</span>
+
+        <div class="section-label">Ownership</div>
+        <span class="cmd">chown user:group file</span>
+        <span class="cmd">chown user file</span>
+        <span class="cmd">chown :group file</span>
+        <span class="cmd">chown -R user:group /dir</span>
+        <span class="cmd">chgrp group file</span>
+        <span class="cmd">chgrp -R group /dir</span>
+
+        <div class="section-label">Special Bits</div>
+        <div class="row"><span class="key">chmod u+s file</span><span class="val">SUID — runs as owner</span></div>
+        <div class="row"><span class="key">chmod 4755 file</span><span class="val">SUID numeric (4xxx)</span></div>
+        <div class="row"><span class="key">chmod g+s dir</span><span class="val">SGID — inherit group</span></div>
+        <div class="row"><span class="key">chmod 2755 dir</span><span class="val">SGID numeric (2xxx)</span></div>
+        <div class="row"><span class="key">chmod +t dir</span><span class="val">Sticky — only owner deletes</span></div>
+        <div class="row"><span class="key">chmod 1777 /tmp</span><span class="val">Sticky numeric (1xxx)</span></div>
+        <div class="note note-red">SUID on <b>files</b>: runs as file owner. SGID on <b>dirs</b>: new files inherit dir group. Sticky on <b>dirs</b>: only file owner can delete.</div>
+
+        <div class="section-label">umask</div>
+        <span class="cmd">umask</span>
+        <span class="cmd">umask 022</span>
+        <span class="cmd">umask 027</span>
+        <div class="row"><span class="key">File base: 666</span><span class="val">Dir base: 777</span></div>
+        <div class="row"><span class="key">umask 022 → file</span><span class="val">666-022=644</span></div>
+        <div class="row"><span class="key">umask 022 → dir</span><span class="val">777-022=755</span></div>
+
+        <div class="section-label">Attributes (chattr/lsattr)</div>
+        <span class="cmd">lsattr file</span>
+        <span class="cmd">chattr +i file</span>
+        <span class="cmd">chattr -i file</span>
+        <span class="cmd">chattr +a logfile</span>
+        <div class="row"><span class="key">+i (immutable)</span><span class="val">Cannot modify/delete/rename</span></div>
+        <div class="row"><span class="key">+a (append-only)</span><span class="val">Only append allowed</span></div>
+
+        <div class="section-label">ACLs</div>
+        <span class="cmd">getfacl file</span>
+        <span class="cmd">setfacl -m u:alice:rwx file</span>
+        <span class="cmd">setfacl -m g:devs:rx file</span>
+        <span class="cmd">setfacl -m o::r file</span>
+        <span class="cmd">setfacl -x u:alice file</span>
+        <span class="cmd">setfacl -b file</span>
+        <span class="cmd">setfacl -d -m u:alice:rwx dir</span>
+        <span class="cmd">setfacl -R -m u:alice:rwx dir</span>
+        <div class="note note-blue"><code style="font-family:var(--mono)">-d</code> sets default ACL (inherited by new files). <code style="font-family:var(--mono)">-b</code> removes all ACLs. A <code style="font-family:var(--mono)">+</code> in <code style="font-family:var(--mono)">ls -l</code> output indicates ACLs exist.</div>
+      </div>
+    </div>
+
+    <!-- Networking -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#EBF4FF;">🌐</div>
+        <h2>Networking</h2>
+        <span class="sub">Domain 1</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">ip — Address Management</div>
+        <span class="cmd">ip addr show</span>
+        <span class="cmd">ip addr show eth0</span>
+        <span class="cmd">ip addr add 192.168.1.100/24 dev eth0</span>
+        <span class="cmd">ip addr del 192.168.1.100/24 dev eth0</span>
+        <span class="cmd">ip -4 addr show</span>
+        <span class="cmd">ip -6 addr show</span>
+
+        <div class="section-label">ip — Routing</div>
+        <span class="cmd">ip route show</span>
+        <span class="cmd">ip route add default via 192.168.1.1</span>
+        <span class="cmd">ip route add 10.0.0.0/8 via 192.168.1.1</span>
+        <span class="cmd">ip route del default</span>
+        <span class="cmd">ip route get 8.8.8.8</span>
+
+        <div class="section-label">ip — Link Control</div>
+        <span class="cmd">ip link show</span>
+        <span class="cmd">ip link set eth0 up</span>
+        <span class="cmd">ip link set eth0 down</span>
+        <span class="cmd">ip link set eth0 mtu 9000</span>
+
+        <div class="section-label">ss / netstat — Sockets</div>
+        <span class="cmd">ss -tulnp</span>
+        <span class="cmd">ss -tulnp | grep :80</span>
+        <span class="cmd">ss -s</span>
+        <span class="cmd">ss -anp</span>
+        <span class="cmd">netstat -tulnp</span>
+        <span class="cmd">netstat -rn</span>
+        <div class="row"><span class="key">-t</span><span class="val">TCP</span></div>
+        <div class="row"><span class="key">-u</span><span class="val">UDP</span></div>
+        <div class="row"><span class="key">-l</span><span class="val">Listening only</span></div>
+        <div class="row"><span class="key">-n</span><span class="val">Numeric (no DNS)</span></div>
+        <div class="row"><span class="key">-p</span><span class="val">Show PID/program</span></div>
+
+        <div class="section-label">NetworkManager (nmcli)</div>
+        <span class="cmd">nmcli con show</span>
+        <span class="cmd">nmcli dev status</span>
+        <span class="cmd">nmcli con up "Wired connection 1"</span>
+        <span class="cmd">nmcli con down "Wired connection 1"</span>
+        <span class="cmd">nmcli con add type ethernet ifname eth0</span>
+        <span class="cmd">nmcli con mod "eth0" ipv4.addresses 192.168.1.10/24</span>
+        <span class="cmd">nmcli con mod "eth0" ipv4.gateway 192.168.1.1</span>
+        <span class="cmd">nmcli con mod "eth0" ipv4.dns "8.8.8.8 8.8.4.4"</span>
+        <span class="cmd">nmcli con mod "eth0" ipv4.method manual</span>
+        <span class="cmd">nmcli con reload</span>
+        <span class="cmd">nmtui</span>
+
+        <div class="section-label">DNS &amp; Name Resolution</div>
+        <span class="cmd">cat /etc/hosts</span>
+        <span class="cmd">cat /etc/resolv.conf</span>
+        <span class="cmd">ping -c 4 google.com</span>
+        <span class="cmd">traceroute google.com</span>
+        <span class="cmd">tracepath google.com</span>
+        <span class="cmd">nslookup google.com</span>
+        <span class="cmd">dig google.com</span>
+        <span class="cmd">dig @8.8.8.8 google.com</span>
+        <span class="cmd">dig google.com MX</span>
+        <span class="cmd">host google.com</span>
+        <div class="note note-blue">
+          <b>/etc/resolv.conf:</b><br>
+          <code style="font-family:var(--mono)">nameserver 8.8.8.8</code><br>
+          <code style="font-family:var(--mono)">nameserver 8.8.4.4</code><br>
+          <code style="font-family:var(--mono)">search example.com</code>
+        </div>
+        <div class="note note-green">RHEL interface configs: <code style="font-family:var(--mono)">/etc/sysconfig/network-scripts/ifcfg-eth0</code></div>
+      </div>
+    </div>
+
+    <!-- Shell Scripting -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#F5F0FF;">📜</div>
+        <h2>Shell Scripting (bash)</h2>
+        <span class="sub">Domain 3</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Basics</div>
+        <span class="cmd">#!/bin/bash</span>
+        <span class="cmd">NAME="World"</span>
+        <span class="cmd">echo "Hello $NAME"</span>
+        <span class="cmd">echo "Hello ${NAME}!"</span>
+        <span class="cmd">readonly PI=3.14</span>
+        <span class="cmd">export MYVAR="value"</span>
+        <span class="cmd">unset MYVAR</span>
+
+        <div class="section-label">Positional Parameters</div>
+        <div class="row"><span class="key">$0</span><span class="val">Script name</span></div>
+        <div class="row"><span class="key">$1 $2 $3</span><span class="val">Positional arguments</span></div>
+        <div class="row"><span class="key">$#</span><span class="val">Number of arguments</span></div>
+        <div class="row"><span class="key">$@</span><span class="val">All arguments (quoted individually)</span></div>
+        <div class="row"><span class="key">$*</span><span class="val">All arguments (single string)</span></div>
+        <div class="row"><span class="key">$?</span><span class="val">Exit status of last command</span></div>
+        <div class="row"><span class="key">$$</span><span class="val">Current process PID</span></div>
+        <div class="row"><span class="key">$!</span><span class="val">PID of last background command</span></div>
+
+        <div class="section-label">Test Operators</div>
+        <div class="row"><span class="key">-f file</span><span class="val">File exists (regular)</span></div>
+        <div class="row"><span class="key">-d file</span><span class="val">Directory exists</span></div>
+        <div class="row"><span class="key">-e file</span><span class="val">Any file/dir exists</span></div>
+        <div class="row"><span class="key">-r -w -x</span><span class="val">Readable / Writable / Executable</span></div>
+        <div class="row"><span class="key">-z str</span><span class="val">String is empty</span></div>
+        <div class="row"><span class="key">-n str</span><span class="val">String is non-empty</span></div>
+        <div class="row"><span class="key">-eq -ne</span><span class="val">Equal / Not equal (numeric)</span></div>
+        <div class="row"><span class="key">-lt -gt</span><span class="val">Less than / Greater than</span></div>
+        <div class="row"><span class="key">-le -ge</span><span class="val">Less/Greater than or equal</span></div>
+
+        <div class="section-label">Conditionals</div>
+        <span class="cmd">if [ -f /etc/passwd ]; then</span>
+        <span class="cmd">  echo "File exists"</span>
+        <span class="cmd">elif [ -d /etc ]; then</span>
+        <span class="cmd">  echo "Is directory"</span>
+        <span class="cmd">else</span>
+        <span class="cmd">  echo "Not found"</span>
+        <span class="cmd">fi</span>
+        <span class="cmd">if [[ $VAR == "hello" ]]; then echo yes; fi</span>
+        <span class="cmd">[ -f file ] && echo "exists" || echo "missing"</span>
+
+        <div class="section-label">Loops</div>
+        <span class="cmd">for i in 1 2 3 4 5; do</span>
+        <span class="cmd">  echo "Number: $i"</span>
+        <span class="cmd">done</span>
+        <span class="cmd">for i in {1..10}; do echo $i; done</span>
+        <span class="cmd">for f in /etc/*.conf; do echo "$f"; done</span>
+        <span class="cmd">for i in $(seq 1 5); do echo $i; done</span>
+        <span class="cmd">&nbsp;</span>
+        <span class="cmd">COUNT=0</span>
+        <span class="cmd">while [ $COUNT -lt 5 ]; do</span>
+        <span class="cmd">  echo $COUNT; COUNT=$((COUNT+1))</span>
+        <span class="cmd">done</span>
+        <span class="cmd">while read line; do echo "$line"; done &lt; file.txt</span>
+
+        <div class="section-label">Case / Functions / Arrays</div>
+        <span class="cmd">case "$VAR" in</span>
+        <span class="cmd">  start) echo "Starting" ;;</span>
+        <span class="cmd">  stop)  echo "Stopping" ;;</span>
+        <span class="cmd">  *)     echo "Unknown"  ;;</span>
+        <span class="cmd">esac</span>
+        <span class="cmd">&nbsp;</span>
+        <span class="cmd">greet() { echo "Hello, $1"; }</span>
+        <span class="cmd">greet "World"</span>
+        <span class="cmd">&nbsp;</span>
+        <span class="cmd">arr=("one" "two" "three")</span>
+        <span class="cmd">echo "${arr[0]}"</span>
+        <span class="cmd">echo "${arr[@]}"</span>
+        <span class="cmd">echo "${#arr[@]}"</span>
+        <span class="cmd">arr+=("four")</span>
+
+        <div class="section-label">Misc</div>
+        <span class="cmd">read -p "Enter name: " NAME</span>
+        <span class="cmd">RESULT=$(ls /etc | wc -l)</span>
+        <span class="cmd">RESULT=`command`</span>
+        <span class="cmd">cat &lt;&lt;EOF</span>
+        <span class="cmd">Line one</span>
+        <span class="cmd">Line two</span>
+        <span class="cmd">EOF</span>
+        <span class="cmd">set -e</span>
+        <span class="cmd">set -x</span>
+        <span class="cmd">trap 'echo error at $LINENO' ERR</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 4: Cron + Containers + SELinux -->
+  <div class="grid">
+
+    <!-- Cron -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#FEF2F2;">⏰</div>
+        <h2>Cron &amp; Scheduled Tasks</h2>
+        <span class="sub">Domain 3</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Crontab Commands</div>
+        <span class="cmd">crontab -e</span>
+        <span class="cmd">crontab -l</span>
+        <span class="cmd">crontab -r</span>
+        <span class="cmd">crontab -u username -e</span>
+        <span class="cmd">crontab -u username -l</span>
+
+        <div class="section-label">Cron Field Order</div>
+        <div class="note note-blue">
+          <code style="font-family:var(--mono)">MIN HOUR DOM MON DOW COMMAND</code><br>
+          <code style="font-family:var(--mono)"> *    *   *   *   *  /path/to/cmd</code>
+        </div>
+        <div class="row"><span class="key">MIN</span><span class="val">0–59 (minute)</span></div>
+        <div class="row"><span class="key">HOUR</span><span class="val">0–23 (hour)</span></div>
+        <div class="row"><span class="key">DOM</span><span class="val">1–31 (day of month)</span></div>
+        <div class="row"><span class="key">MON</span><span class="val">1–12 or jan–dec</span></div>
+        <div class="row"><span class="key">DOW</span><span class="val">0–7 (0 and 7 = Sun) or sun–sat</span></div>
+
+        <div class="section-label">Cron Examples</div>
+        <span class="cmd">0 2 * * * /usr/bin/backup.sh</span>
+        <span class="cmd">*/5 * * * * /usr/bin/check.sh</span>
+        <span class="cmd">0 9-17 * * 1-5 /usr/bin/workday.sh</span>
+        <span class="cmd">0 0 1 * * /usr/bin/monthly.sh</span>
+        <span class="cmd">30 4 * * 0 /usr/bin/weekly.sh</span>
+
+        <div class="section-label">Special Strings</div>
+        <div class="row"><span class="key">@reboot</span><span class="val">Run once at startup</span></div>
+        <div class="row"><span class="key">@daily / @midnight</span><span class="val">0 0 * * *</span></div>
+        <div class="row"><span class="key">@weekly</span><span class="val">0 0 * * 0</span></div>
+        <div class="row"><span class="key">@monthly</span><span class="val">0 0 1 * *</span></div>
+        <div class="row"><span class="key">@hourly</span><span class="val">0 * * * *</span></div>
+        <div class="row"><span class="key">@yearly / @annually</span><span class="val">0 0 1 1 *</span></div>
+
+        <div class="section-label">Cron Directories &amp; Files</div>
+        <div class="row"><span class="key">/etc/cron.d/</span><span class="val">System cron job files</span></div>
+        <div class="row"><span class="key">/etc/cron.daily/</span><span class="val">Scripts run daily</span></div>
+        <div class="row"><span class="key">/etc/cron.hourly/</span><span class="val">Scripts run hourly</span></div>
+        <div class="row"><span class="key">/etc/cron.weekly/</span><span class="val">Scripts run weekly</span></div>
+        <div class="row"><span class="key">/etc/cron.monthly/</span><span class="val">Scripts run monthly</span></div>
+        <div class="row"><span class="key">/var/spool/cron/</span><span class="val">User crontab files</span></div>
+        <div class="row"><span class="key">/etc/cron.allow</span><span class="val">Users allowed to use cron</span></div>
+        <div class="row"><span class="key">/etc/cron.deny</span><span class="val">Users denied cron access</span></div>
+
+        <div class="section-label">at — One-time Scheduling</div>
+        <span class="cmd">at now + 2 hours</span>
+        <span class="cmd">at 14:30</span>
+        <span class="cmd">at midnight</span>
+        <span class="cmd">at 9am tomorrow</span>
+        <span class="cmd">at 2pm Jul 25</span>
+        <span class="cmd">atq</span>
+        <span class="cmd">atrm 3</span>
+        <span class="cmd">at -l</span>
+        <div class="note note-green">Type commands after the <code style="font-family:var(--mono)">at&gt;</code> prompt, finish with <b>Ctrl+D</b>. Check /etc/at.allow and /etc/at.deny for access control.</div>
+      </div>
+    </div>
+
+    <!-- Containers -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#EBF4FF;">🐳</div>
+        <h2>Containers — Docker &amp; Podman</h2>
+        <span class="sub">Domain 3</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Docker — Container Lifecycle</div>
+        <span class="cmd">docker run nginx</span>
+        <span class="cmd">docker run -d -p 80:80 --name web nginx</span>
+        <span class="cmd">docker run -d -p 8080:80 -v /data:/usr/share/nginx/html nginx</span>
+        <span class="cmd">docker run -it --rm ubuntu bash</span>
+        <span class="cmd">docker run -e MYSQL_ROOT_PASSWORD=pass mysql</span>
+        <span class="cmd">docker ps</span>
+        <span class="cmd">docker ps -a</span>
+        <span class="cmd">docker stop web</span>
+        <span class="cmd">docker start web</span>
+        <span class="cmd">docker restart web</span>
+        <span class="cmd">docker rm web</span>
+        <span class="cmd">docker rm -f web</span>
+        <span class="cmd">docker inspect web</span>
+        <span class="cmd">docker stats</span>
+
+        <div class="section-label">Docker — Images</div>
+        <span class="cmd">docker images</span>
+        <span class="cmd">docker pull nginx:latest</span>
+        <span class="cmd">docker pull ubuntu:22.04</span>
+        <span class="cmd">docker push myuser/myimage:tag</span>
+        <span class="cmd">docker rmi nginx</span>
+        <span class="cmd">docker tag nginx myrepo/nginx:v1</span>
+        <span class="cmd">docker build -t myapp:1.0 .</span>
+        <span class="cmd">docker build -t myapp:1.0 -f Dockerfile.prod .</span>
+        <span class="cmd">docker history myapp:1.0</span>
+
+        <div class="section-label">Docker — Exec, Logs, Copy</div>
+        <span class="cmd">docker exec -it web bash</span>
+        <span class="cmd">docker exec web ls /etc/nginx</span>
+        <span class="cmd">docker logs web</span>
+        <span class="cmd">docker logs -f web</span>
+        <span class="cmd">docker logs --tail 50 web</span>
+        <span class="cmd">docker cp web:/etc/nginx/nginx.conf ./nginx.conf</span>
+        <span class="cmd">docker cp ./nginx.conf web:/etc/nginx/nginx.conf</span>
+
+        <div class="section-label">Dockerfile Instructions</div>
+        <span class="cmd">FROM ubuntu:22.04</span>
+        <span class="cmd">MAINTAINER name@example.com</span>
+        <span class="cmd">ENV APP_DIR=/opt/app</span>
+        <span class="cmd">WORKDIR /opt/app</span>
+        <span class="cmd">RUN apt-get update && apt-get install -y python3</span>
+        <span class="cmd">COPY . .</span>
+        <span class="cmd">COPY requirements.txt /opt/app/</span>
+        <span class="cmd">ADD archive.tar.gz /opt/app/</span>
+        <span class="cmd">EXPOSE 8080</span>
+        <span class="cmd">VOLUME ["/data"]</span>
+        <span class="cmd">USER appuser</span>
+        <span class="cmd">ENTRYPOINT ["python3", "app.py"]</span>
+        <span class="cmd">CMD ["--port", "8080"]</span>
+        <div class="note note-blue"><b>ENTRYPOINT</b> defines the executable. <b>CMD</b> provides default args to ENTRYPOINT, or default command if no ENTRYPOINT.</div>
+
+        <div class="section-label">Docker Compose</div>
+        <span class="cmd">docker-compose up -d</span>
+        <span class="cmd">docker-compose down</span>
+        <span class="cmd">docker-compose ps</span>
+        <span class="cmd">docker-compose logs -f</span>
+        <span class="cmd">docker-compose build</span>
+        <span class="cmd">docker-compose pull</span>
+        <span class="cmd">docker-compose restart web</span>
+
+        <div class="section-label">Podman — Drop-in Replacement</div>
+        <div class="note note-green">Podman is daemonless and rootless. Commands are identical to Docker.</div>
+        <span class="cmd">podman run -d -p 80:80 --name web nginx</span>
+        <span class="cmd">podman ps -a</span>
+        <span class="cmd">podman images</span>
+        <span class="cmd">podman stop web</span>
+        <span class="cmd">podman rm web</span>
+        <span class="cmd">podman exec -it web bash</span>
+        <span class="cmd">podman logs web</span>
+        <span class="cmd">podman generate systemd --name web</span>
+
+        <div class="section-label">Buildah — Image Building</div>
+        <span class="cmd">buildah from ubuntu:22.04</span>
+        <span class="cmd">buildah run container -- apt-get install -y nginx</span>
+        <span class="cmd">buildah copy container /app /opt/app</span>
+        <span class="cmd">buildah commit container myimage:tag</span>
+        <span class="cmd">buildah push myimage:tag</span>
+        <span class="cmd">buildah images</span>
+      </div>
+    </div>
+
+    <!-- SELinux -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#FEF2F2;">🛡️</div>
+        <h2>SELinux</h2>
+        <span class="sub">Domain 2 — Security</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Status &amp; Modes</div>
+        <span class="cmd">getenforce</span>
+        <span class="cmd">sestatus</span>
+        <span class="cmd">sestatus -v</span>
+        <span class="cmd">setenforce 0</span>
+        <span class="cmd">setenforce 1</span>
+        <div class="row"><span class="key">Enforcing</span><span class="val">Policy enforced, denials logged</span></div>
+        <div class="row"><span class="key">Permissive</span><span class="val">Denials logged only (not enforced)</span></div>
+        <div class="row"><span class="key">Disabled</span><span class="val">SELinux turned off (requires reboot)</span></div>
+
+        <div class="section-label">Config File</div>
+        <div class="note note-blue"><code style="font-family:var(--mono)">/etc/selinux/config</code> — permanent mode change requires reboot</div>
+        <span class="cmd">SELINUX=enforcing</span>
+        <span class="cmd">SELINUX=permissive</span>
+        <span class="cmd">SELINUX=disabled</span>
+        <span class="cmd">SELINUXTYPE=targeted</span>
+
+        <div class="section-label">File Contexts</div>
+        <span class="cmd">ls -Z /var/www/html/</span>
+        <span class="cmd">chcon -t httpd_sys_content_t /var/www/html/index.html</span>
+        <span class="cmd">chcon -R -t httpd_sys_content_t /var/www/html/</span>
+        <span class="cmd">restorecon -v /var/www/html/index.html</span>
+        <span class="cmd">restorecon -Rv /var/www/html/</span>
+        <span class="cmd">semanage fcontext -l</span>
+        <span class="cmd">semanage fcontext -a -t httpd_sys_content_t '/data/web(/.*)?'</span>
+        <span class="cmd">semanage fcontext -d '/data/web(/.*)?'</span>
+        <div class="note note-green"><b>chcon</b> = temporary context change. <b>restorecon</b> = restore to policy default. <b>semanage fcontext + restorecon</b> = permanent.</div>
+
+        <div class="section-label">Process Contexts</div>
+        <span class="cmd">ps -Z</span>
+        <span class="cmd">ps -eZ | grep httpd</span>
+        <span class="cmd">id -Z</span>
+
+        <div class="section-label">Booleans</div>
+        <span class="cmd">getsebool -a</span>
+        <span class="cmd">getsebool httpd_can_network_connect</span>
+        <span class="cmd">setsebool httpd_can_network_connect on</span>
+        <span class="cmd">setsebool -P httpd_can_network_connect on</span>
+        <span class="cmd">setsebool -P httpd_enable_homedirs on</span>
+        <span class="cmd">semanage boolean -l</span>
+        <div class="note note-blue"><code style="font-family:var(--mono)">-P</code> makes the boolean change persistent across reboots.</div>
+
+        <div class="section-label">Ports</div>
+        <span class="cmd">semanage port -l</span>
+        <span class="cmd">semanage port -l | grep http</span>
+        <span class="cmd">semanage port -a -t http_port_t -p tcp 8080</span>
+        <span class="cmd">semanage port -d -t http_port_t -p tcp 8080</span>
+
+        <div class="section-label">Troubleshooting &amp; Audit</div>
+        <span class="cmd">cat /var/log/audit/audit.log</span>
+        <span class="cmd">ausearch -m avc</span>
+        <span class="cmd">ausearch -m avc -ts recent</span>
+        <span class="cmd">ausearch -m avc | audit2allow</span>
+        <span class="cmd">ausearch -m avc | audit2allow -M mypolicy</span>
+        <span class="cmd">semodule -i mypolicy.pp</span>
+        <span class="cmd">audit2why &lt; /var/log/audit/audit.log</span>
+        <span class="cmd">sealert -a /var/log/audit/audit.log</span>
+        <div class="note note-red">Before using audit2allow to allow a denial, understand <b>why</b> it was denied. Never blindly allow all AVC denials.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIP BAR 3 -->
+  <div class="tip-bar">
+    <div><div class="tip-label">SSH Tip</div><div class="tip"><b>ed25519</b> keys are preferred over RSA. Always set <code style="font-family:var(--mono);color:#4ADE80">PermitRootLogin no</code> and <code style="font-family:var(--mono);color:#4ADE80">PasswordAuthentication no</code> in sshd_config.</div></div>
+    <div><div class="tip-label">Troubleshoot Flow</div><div class="tip"><b>Boot issues:</b> dmesg → journalctl -b. <b>Service:</b> systemctl status → journalctl -u. <b>Network:</b> ip addr → ss -tulnp → ping.</div></div>
+    <div><div class="tip-label">Scripting Tip</div><div class="tip"><b>Always quote variables</b>: <code style="font-family:var(--mono);color:#4ADE80">"$VAR"</code> not <code style="font-family:var(--mono);color:#4ADE80">$VAR</code>. Use <code style="font-family:var(--mono);color:#4ADE80">[[</code> not <code style="font-family:var(--mono);color:#4ADE80">[</code> for comparisons. <code style="font-family:var(--mono);color:#4ADE80">set -e</code> exits on error.</div></div>
+    <div><div class="tip-label">Containers Tip</div><div class="tip"><b>Podman</b> = Docker API compatible, no daemon, rootless. <b>buildah</b> builds images without Docker daemon. Both preferred in RHEL environments.</div></div>
+  </div>
+
+  <!-- ROW 5: Firewall + SSH + Troubleshooting -->
+  <div class="grid">
+
+    <!-- Firewall -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#FEF2F2;">🔥</div>
+        <h2>Firewall (firewalld &amp; iptables)</h2>
+        <span class="sub">Domain 2 — Security</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">firewall-cmd — Status &amp; Info</div>
+        <span class="cmd">firewall-cmd --state</span>
+        <span class="cmd">firewall-cmd --list-all</span>
+        <span class="cmd">firewall-cmd --list-all-zones</span>
+        <span class="cmd">firewall-cmd --get-default-zone</span>
+        <span class="cmd">firewall-cmd --get-active-zones</span>
+        <span class="cmd">firewall-cmd --get-zones</span>
+        <span class="cmd">firewall-cmd --get-services</span>
+        <span class="cmd">firewall-cmd --info-service=http</span>
+
+        <div class="section-label">firewall-cmd — Services &amp; Ports</div>
+        <span class="cmd">firewall-cmd --add-service=http --permanent</span>
+        <span class="cmd">firewall-cmd --add-service=https --permanent</span>
+        <span class="cmd">firewall-cmd --remove-service=http --permanent</span>
+        <span class="cmd">firewall-cmd --add-port=8080/tcp --permanent</span>
+        <span class="cmd">firewall-cmd --add-port=5000-5010/tcp --permanent</span>
+        <span class="cmd">firewall-cmd --remove-port=8080/tcp --permanent</span>
+        <span class="cmd">firewall-cmd --reload</span>
+
+        <div class="section-label">firewall-cmd — Zones &amp; Sources</div>
+        <span class="cmd">firewall-cmd --set-default-zone=public</span>
+        <span class="cmd">firewall-cmd --zone=public --add-source=192.168.1.0/24 --permanent</span>
+        <span class="cmd">firewall-cmd --zone=trusted --add-interface=eth1 --permanent</span>
+        <span class="cmd">firewall-cmd --zone=public --add-rich-rule='rule family=ipv4 source address=10.0.0.0/8 accept' --permanent</span>
+        <span class="cmd">firewall-cmd --query-service=http</span>
+
+        <div class="note note-green">Always use <code style="font-family:var(--mono)">--permanent</code> for persistent rules, then <code style="font-family:var(--mono)">--reload</code> to apply. Without <code style="font-family:var(--mono)">--permanent</code>, rules are lost on restart.</div>
+
+        <div class="section-label">iptables</div>
+        <span class="cmd">iptables -L</span>
+        <span class="cmd">iptables -L -n -v</span>
+        <span class="cmd">iptables -L INPUT -n -v --line-numbers</span>
+        <span class="cmd">iptables -A INPUT -p tcp --dport 22 -j ACCEPT</span>
+        <span class="cmd">iptables -A INPUT -p tcp --dport 80 -j ACCEPT</span>
+        <span class="cmd">iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT</span>
+        <span class="cmd">iptables -A INPUT -j DROP</span>
+        <span class="cmd">iptables -I INPUT 1 -p tcp --dport 443 -j ACCEPT</span>
+        <span class="cmd">iptables -D INPUT -p tcp --dport 80 -j ACCEPT</span>
+        <span class="cmd">iptables -F</span>
+        <span class="cmd">iptables-save &gt; /etc/iptables/rules.v4</span>
+        <span class="cmd">iptables-restore &lt; /etc/iptables/rules.v4</span>
+
+        <div class="section-label">iptables Chains &amp; Targets</div>
+        <div class="row"><span class="key">INPUT</span><span class="val">Incoming to local process</span></div>
+        <div class="row"><span class="key">OUTPUT</span><span class="val">Outgoing from local process</span></div>
+        <div class="row"><span class="key">FORWARD</span><span class="val">Routing through host</span></div>
+        <div class="row"><span class="key">ACCEPT</span><span class="val">Allow packet</span></div>
+        <div class="row"><span class="key">DROP</span><span class="val">Silently discard packet</span></div>
+        <div class="row"><span class="key">REJECT</span><span class="val">Discard with error reply</span></div>
+        <div class="row"><span class="key">LOG</span><span class="val">Log packet and continue</span></div>
+      </div>
+    </div>
+
+    <!-- SSH -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#E8F7EF;">🔑</div>
+        <h2>SSH &amp; Remote Access</h2>
+        <span class="sub">Domain 2 — Security</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Key Generation</div>
+        <span class="cmd">ssh-keygen -t ed25519 -C "admin@example.com"</span>
+        <span class="cmd">ssh-keygen -t rsa -b 4096 -C "comment"</span>
+        <span class="cmd">ssh-keygen -t ecdsa -b 521</span>
+        <span class="cmd">ssh-keygen -f ~/.ssh/mykey -t ed25519</span>
+        <span class="cmd">ssh-keygen -p -f ~/.ssh/id_ed25519</span>
+
+        <div class="section-label">Key Deployment</div>
+        <span class="cmd">ssh-copy-id user@host</span>
+        <span class="cmd">ssh-copy-id -i ~/.ssh/mykey.pub user@host</span>
+        <span class="cmd">ssh-copy-id -p 2222 user@host</span>
+        <div class="note note-blue">Key files: <code style="font-family:var(--mono)">~/.ssh/authorized_keys</code> (700 dir, 600 file required)</div>
+        <span class="cmd">chmod 700 ~/.ssh</span>
+        <span class="cmd">chmod 600 ~/.ssh/authorized_keys</span>
+        <span class="cmd">chmod 600 ~/.ssh/id_ed25519</span>
+        <span class="cmd">chmod 644 ~/.ssh/id_ed25519.pub</span>
+
+        <div class="section-label">ssh Client Config (~/.ssh/config)</div>
+        <span class="cmd">Host bastion</span>
+        <span class="cmd">  HostName 203.0.113.10</span>
+        <span class="cmd">  User admin</span>
+        <span class="cmd">  IdentityFile ~/.ssh/id_ed25519</span>
+        <span class="cmd">  Port 2222</span>
+        <span class="cmd">&nbsp;</span>
+        <span class="cmd">Host internal</span>
+        <span class="cmd">  HostName 10.0.1.50</span>
+        <span class="cmd">  User ubuntu</span>
+        <span class="cmd">  ProxyJump bastion</span>
+
+        <div class="section-label">sshd Server Config (/etc/ssh/sshd_config)</div>
+        <span class="cmd">Port 2222</span>
+        <span class="cmd">PermitRootLogin no</span>
+        <span class="cmd">PasswordAuthentication no</span>
+        <span class="cmd">PubkeyAuthentication yes</span>
+        <span class="cmd">AllowUsers alice bob</span>
+        <span class="cmd">AllowGroups sshusers</span>
+        <span class="cmd">DenyUsers root guest</span>
+        <span class="cmd">MaxAuthTries 3</span>
+        <span class="cmd">ClientAliveInterval 300</span>
+        <span class="cmd">X11Forwarding no</span>
+        <span class="cmd">Banner /etc/ssh/banner.txt</span>
+        <span class="cmd">systemctl restart sshd</span>
+
+        <div class="section-label">SSH Agent</div>
+        <span class="cmd">eval $(ssh-agent)</span>
+        <span class="cmd">ssh-add ~/.ssh/id_ed25519</span>
+        <span class="cmd">ssh-add -l</span>
+        <span class="cmd">ssh-add -d ~/.ssh/id_ed25519</span>
+
+        <div class="section-label">File Transfer</div>
+        <span class="cmd">scp file.txt user@host:/remote/path/</span>
+        <span class="cmd">scp -r /local/dir user@host:/remote/</span>
+        <span class="cmd">scp -P 2222 file.txt user@host:/path/</span>
+        <span class="cmd">sftp user@host</span>
+        <span class="cmd">sftp -P 2222 user@host</span>
+        <span class="cmd">rsync -avz /local/dir/ user@host:/remote/dir/</span>
+        <span class="cmd">rsync -avz --delete /local/ user@host:/remote/</span>
+        <span class="cmd">rsync -avz -e "ssh -p 2222" /local/ user@host:/remote/</span>
+        <span class="cmd">rsync -avz --exclude='.git' /local/ user@host:/remote/</span>
+
+        <div class="section-label">Port Forwarding</div>
+        <span class="cmd">ssh -L 8080:localhost:80 user@host</span>
+        <span class="cmd">ssh -R 9090:localhost:3000 user@host</span>
+        <span class="cmd">ssh -D 1080 user@host</span>
+        <span class="cmd">ssh -N -f -L 5432:db:5432 user@bastion</span>
+      </div>
+    </div>
+
+    <!-- Troubleshooting -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#FEF3C7; color:#92400E;">🔍</div>
+        <h2>Troubleshooting</h2>
+        <span class="sub">Domain 4 — 28% of Exam</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Boot &amp; Kernel Messages</div>
+        <span class="cmd">dmesg</span>
+        <span class="cmd">dmesg | tail -50</span>
+        <span class="cmd">dmesg -T</span>
+        <span class="cmd">dmesg | grep -i error</span>
+        <span class="cmd">dmesg | grep -i disk</span>
+        <span class="cmd">journalctl -b</span>
+        <span class="cmd">journalctl -b -1</span>
+        <span class="cmd">journalctl --list-boots</span>
+        <span class="cmd">journalctl -xe</span>
+
+        <div class="section-label">Log Files</div>
+        <div class="row"><span class="key">/var/log/messages</span><span class="val">General system messages (RHEL)</span></div>
+        <div class="row"><span class="key">/var/log/syslog</span><span class="val">General messages (Debian)</span></div>
+        <div class="row"><span class="key">/var/log/auth.log</span><span class="val">Auth events (Debian)</span></div>
+        <div class="row"><span class="key">/var/log/secure</span><span class="val">Auth events (RHEL)</span></div>
+        <div class="row"><span class="key">/var/log/kern.log</span><span class="val">Kernel messages</span></div>
+        <div class="row"><span class="key">/var/log/boot.log</span><span class="val">Boot process log</span></div>
+        <div class="row"><span class="key">/var/log/cron</span><span class="val">Cron job execution log</span></div>
+        <div class="row"><span class="key">/var/log/audit/audit.log</span><span class="val">SELinux / audit events</span></div>
+        <div class="row"><span class="key">/var/log/dmesg</span><span class="val">Kernel ring buffer</span></div>
+
+        <div class="section-label">Process Troubleshooting</div>
+        <span class="cmd">top</span>
+        <span class="cmd">htop</span>
+        <span class="cmd">ps aux</span>
+        <span class="cmd">ps aux | grep nginx</span>
+        <span class="cmd">ps -ef</span>
+        <span class="cmd">ps -eo pid,ppid,cmd,%cpu,%mem --sort=-%cpu | head</span>
+        <span class="cmd">pgrep nginx</span>
+        <span class="cmd">pstree</span>
+        <span class="cmd">strace -p 1234</span>
+        <span class="cmd">strace -e open,read,write -p 1234</span>
+        <span class="cmd">ltrace -p 1234</span>
+
+        <div class="section-label">Open Files &amp; Sockets</div>
+        <span class="cmd">lsof -p 1234</span>
+        <span class="cmd">lsof -u username</span>
+        <span class="cmd">lsof -i :80</span>
+        <span class="cmd">lsof -i tcp:80</span>
+        <span class="cmd">lsof /var/log/messages</span>
+        <span class="cmd">fuser 80/tcp</span>
+        <span class="cmd">fuser -k 80/tcp</span>
+
+        <div class="section-label">Kill Processes</div>
+        <span class="cmd">kill 1234</span>
+        <span class="cmd">kill -9 1234</span>
+        <span class="cmd">kill -15 1234</span>
+        <span class="cmd">killall nginx</span>
+        <span class="cmd">pkill nginx</span>
+        <span class="cmd">pkill -u username</span>
+        <div class="row"><span class="key">SIGTERM (15)</span><span class="val">Graceful terminate (default)</span></div>
+        <div class="row"><span class="key">SIGKILL (9)</span><span class="val">Force kill (cannot be caught)</span></div>
+        <div class="row"><span class="key">SIGHUP (1)</span><span class="val">Reload config (many daemons)</span></div>
+        <div class="row"><span class="key">SIGINT (2)</span><span class="val">Ctrl+C interrupt</span></div>
+
+        <div class="section-label">Memory &amp; CPU</div>
+        <span class="cmd">free -h</span>
+        <span class="cmd">free -m</span>
+        <span class="cmd">vmstat 1 5</span>
+        <span class="cmd">vmstat -s</span>
+        <span class="cmd">uptime</span>
+        <span class="cmd">cat /proc/loadavg</span>
+        <span class="cmd">cat /proc/meminfo</span>
+        <span class="cmd">cat /proc/cpuinfo</span>
+        <span class="cmd">nproc</span>
+        <span class="cmd">lscpu</span>
+        <span class="cmd">sar -u 1 5</span>
+        <span class="cmd">sar -r 1 5</span>
+        <span class="cmd">sar -d 1 5</span>
+
+        <div class="section-label">Disk I/O</div>
+        <span class="cmd">iostat</span>
+        <span class="cmd">iostat -x 1 5</span>
+        <span class="cmd">iotop</span>
+        <span class="cmd">hdparm -tT /dev/sda</span>
+        <span class="cmd">badblocks -v /dev/sdb1</span>
+        <span class="cmd">smartctl -a /dev/sda</span>
+
+        <div class="section-label">Login History &amp; Users</div>
+        <span class="cmd">last</span>
+        <span class="cmd">last username</span>
+        <span class="cmd">last reboot</span>
+        <span class="cmd">lastlog</span>
+        <span class="cmd">lastb</span>
+        <span class="cmd">w</span>
+        <span class="cmd">who</span>
+        <span class="cmd">finger username</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FINAL TIP BAR -->
+  <div class="tip-bar">
+    <div><div class="tip-label">Exam Strategy</div><div class="tip"><b>PBQ first:</b> Performance-based questions appear at the start. Flag and return if stuck — they take more time than multiple choice.</div></div>
+    <div><div class="tip-label">Key Files to Know</div><div class="tip"><code style="font-family:var(--mono);color:#4ADE80">/etc/fstab</code> <code style="font-family:var(--mono);color:#4ADE80">/etc/passwd</code> <code style="font-family:var(--mono);color:#4ADE80">/etc/shadow</code> <code style="font-family:var(--mono);color:#4ADE80">/etc/group</code> <code style="font-family:var(--mono);color:#4ADE80">/etc/sudoers</code> <code style="font-family:var(--mono);color:#4ADE80">/etc/hosts</code> <code style="font-family:var(--mono);color:#4ADE80">/etc/resolv.conf</code> — know each field.</div></div>
+    <div><div class="tip-label">Domain 4 Weight</div><div class="tip">Troubleshooting is <b>28%</b> of the exam. Master journalctl, dmesg, strace, lsof, and log file locations for both RHEL and Debian systems.</div></div>
+    <div><div class="tip-label">RHEL vs Debian</div><div class="tip">Know package tool differences: <b>dnf/rpm</b> vs <b>apt/dpkg</b>. Log paths differ: <code style="font-family:var(--mono);color:#4ADE80">/var/log/secure</code> vs <code style="font-family:var(--mono);color:#4ADE80">/var/log/auth.log</code>.</div></div>
+  </div>
+
+  <!-- QUICK REFERENCE BOTTOM ROW -->
+  <div class="grid grid-4">
+
+    <!-- Runlevels / Targets -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#EBF4FF;">🎯</div>
+        <h2>systemd Targets</h2>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Target ↔ Runlevel Map</div>
+        <div class="row"><span class="key">poweroff.target</span><span class="val">Runlevel 0</span></div>
+        <div class="row"><span class="key">rescue.target</span><span class="val">Runlevel 1</span></div>
+        <div class="row"><span class="key">multi-user.target</span><span class="val">Runlevel 3</span></div>
+        <div class="row"><span class="key">graphical.target</span><span class="val">Runlevel 5</span></div>
+        <div class="row"><span class="key">reboot.target</span><span class="val">Runlevel 6</span></div>
+        <div class="section-label">Commands</div>
+        <span class="cmd">systemctl get-default</span>
+        <span class="cmd">systemctl set-default multi-user.target</span>
+        <span class="cmd">systemctl isolate rescue.target</span>
+        <span class="cmd">systemctl reboot</span>
+        <span class="cmd">systemctl poweroff</span>
+        <span class="cmd">shutdown -h now</span>
+        <span class="cmd">shutdown -r +5 "Rebooting in 5min"</span>
+        <span class="cmd">init 6</span>
+      </div>
+    </div>
+
+    <!-- Kernel & Boot -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#F5F0FF;">🧠</div>
+        <h2>Kernel &amp; Modules</h2>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Kernel Info</div>
+        <span class="cmd">uname -r</span>
+        <span class="cmd">uname -a</span>
+        <span class="cmd">cat /proc/version</span>
+        <span class="cmd">hostnamectl</span>
+        <div class="section-label">Kernel Modules</div>
+        <span class="cmd">lsmod</span>
+        <span class="cmd">modinfo ext4</span>
+        <span class="cmd">modprobe ext4</span>
+        <span class="cmd">modprobe -r ext4</span>
+        <span class="cmd">rmmod ext4</span>
+        <span class="cmd">insmod module.ko</span>
+        <div class="section-label">Kernel Parameters</div>
+        <span class="cmd">sysctl -a</span>
+        <span class="cmd">sysctl net.ipv4.ip_forward</span>
+        <span class="cmd">sysctl -w net.ipv4.ip_forward=1</span>
+        <div class="note note-blue">Persist in <code style="font-family:var(--mono)">/etc/sysctl.conf</code> or <code style="font-family:var(--mono)">/etc/sysctl.d/*.conf</code></div>
+        <span class="cmd">sysctl -p</span>
+        <div class="section-label">GRUB2</div>
+        <span class="cmd">grub2-mkconfig -o /boot/grub2/grub.cfg</span>
+        <span class="cmd">grub-mkconfig -o /boot/grub/grub.cfg</span>
+        <span class="cmd">/etc/default/grub</span>
+        <span class="cmd">/etc/grub.d/</span>
+      </div>
+    </div>
+
+    <!-- Text Processing -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#E8F7EF;">📝</div>
+        <h2>Text Processing</h2>
+      </div>
+      <div class="card-body">
+        <div class="section-label">grep</div>
+        <span class="cmd">grep "pattern" file</span>
+        <span class="cmd">grep -i "pattern" file</span>
+        <span class="cmd">grep -r "pattern" /dir</span>
+        <span class="cmd">grep -v "pattern" file</span>
+        <span class="cmd">grep -n "pattern" file</span>
+        <span class="cmd">grep -c "pattern" file</span>
+        <span class="cmd">grep -E "pat1|pat2" file</span>
+        <span class="cmd">grep -l "pattern" /dir/*</span>
+        <div class="section-label">sed &amp; awk</div>
+        <span class="cmd">sed 's/old/new/g' file</span>
+        <span class="cmd">sed -i 's/old/new/g' file</span>
+        <span class="cmd">sed -n '5,10p' file</span>
+        <span class="cmd">sed '/pattern/d' file</span>
+        <span class="cmd">awk '{print $1}' file</span>
+        <span class="cmd">awk -F: '{print $1,$3}' /etc/passwd</span>
+        <span class="cmd">awk '/pattern/{print $0}' file</span>
+        <span class="cmd">awk '{sum+=$1} END{print sum}' file</span>
+        <div class="section-label">cut / sort / uniq / wc</div>
+        <span class="cmd">cut -d: -f1 /etc/passwd</span>
+        <span class="cmd">cut -c1-10 file</span>
+        <span class="cmd">sort file</span>
+        <span class="cmd">sort -rn file</span>
+        <span class="cmd">sort -t: -k3 -n /etc/passwd</span>
+        <span class="cmd">uniq -c file</span>
+        <span class="cmd">wc -l file</span>
+        <span class="cmd">wc -w file</span>
+        <span class="cmd">tr 'a-z' 'A-Z' &lt; file</span>
+      </div>
+    </div>
+
+    <!-- Storage & Archiving -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#FEF2F2;">🗄️</div>
+        <h2>Archives &amp; Storage</h2>
+      </div>
+      <div class="card-body">
+        <div class="section-label">tar</div>
+        <span class="cmd">tar -cvf archive.tar /dir</span>
+        <span class="cmd">tar -czvf archive.tar.gz /dir</span>
+        <span class="cmd">tar -cjvf archive.tar.bz2 /dir</span>
+        <span class="cmd">tar -xvf archive.tar</span>
+        <span class="cmd">tar -xzvf archive.tar.gz</span>
+        <span class="cmd">tar -xvf archive.tar -C /dest</span>
+        <span class="cmd">tar -tvf archive.tar</span>
+        <span class="cmd">tar -czvf backup.tar.gz --exclude='*.log' /dir</span>
+        <div class="row"><span class="key">-c</span><span class="val">Create</span></div>
+        <div class="row"><span class="key">-x</span><span class="val">Extract</span></div>
+        <div class="row"><span class="key">-t</span><span class="val">List contents</span></div>
+        <div class="row"><span class="key">-v</span><span class="val">Verbose</span></div>
+        <div class="row"><span class="key">-f</span><span class="val">File name (must be last flag)</span></div>
+        <div class="row"><span class="key">-z</span><span class="val">gzip</span></div>
+        <div class="row"><span class="key">-j</span><span class="val">bzip2</span></div>
+        <div class="row"><span class="key">-J</span><span class="val">xz</span></div>
+        <div class="section-label">gzip / bzip2 / zip</div>
+        <span class="cmd">gzip file</span>
+        <span class="cmd">gzip -d file.gz</span>
+        <span class="cmd">gunzip file.gz</span>
+        <span class="cmd">bzip2 file</span>
+        <span class="cmd">bunzip2 file.bz2</span>
+        <span class="cmd">zip -r archive.zip /dir</span>
+        <span class="cmd">unzip archive.zip</span>
+        <div class="section-label">Disk Partitioning</div>
+        <span class="cmd">fdisk /dev/sdb</span>
+        <span class="cmd">gdisk /dev/sdb</span>
+        <span class="cmd">parted /dev/sdb</span>
+        <span class="cmd">parted /dev/sdb mklabel gpt</span>
+        <span class="cmd">parted /dev/sdb mkpart primary ext4 1MiB 10GiB</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center;color:var(--text3);font-size:9.5px;margin-top:12px;padding-bottom:8px;">
+    CompTIA Linux+ XK0-005 Cheat Sheet &nbsp;|&nbsp; IT University &nbsp;|&nbsp; All commands verified for RHEL 9 / Ubuntu 22.04 &nbsp;|&nbsp; Exam code XK0-005
+  </div>
+
+</div>
+</body>
+</html>

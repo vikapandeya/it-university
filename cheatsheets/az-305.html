@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AZ-305 Azure Solutions Architect Expert — Cheat Sheet</title>
+<meta name="description" content="Complete AZ-305 Azure Solutions Architect Expert certification cheat sheet covering identity, governance, storage, compute, networking, BCDR, and decision matrices.">
+<style>
+:root {
+  --bg:#F5F6F7; --surface:#FFFFFF; --border:#E2E4E8;
+  --navy:#0F1C2E; --navy2:#1A2E45;
+  --purple:#6B21A8; --purple-soft:#F5F0FF;
+  --azure:#0078D4; --azure-soft:#EFF6FF;
+  --blue:#1A6FB5; --blue-soft:#EBF4FF;
+  --green:#1B7A4A; --green-soft:#E8F7EF;
+  --red:#B91C1C; --red-soft:#FEF2F2;
+  --orange:#EA580C; --orange-soft:#FFF7ED;
+  --text:#1C2333; --text2:#4A5568; --text3:#718096;
+  --mono:'Consolas','Courier New',monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+}
+body{font-family:var(--sans);font-size:11px;background:var(--bg);color:var(--text);line-height:1.5;margin:0}
+.page{max-width:1280px;margin:0 auto;padding:20px 16px}
+.header{background:var(--navy);border-radius:10px;padding:20px 24px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.header-left h1{font-size:22px;font-weight:800;color:#fff}.header-left h1 span{color:#60A5FA}
+.header-left p{font-size:11px;color:#94A3B8;margin-top:3px}
+.header-badges{display:flex;gap:8px;flex-wrap:wrap}
+.badge{font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:.5px;text-transform:uppercase}
+.badge-purple{background:#A855F7;color:#fff}.badge-azure{background:#0078D4;color:#fff}.badge-blue{background:#3B82F6;color:#fff}.badge-green{background:#22C55E;color:#fff}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px}
+.grid-2{grid-template-columns:repeat(2,1fr)}.grid-4{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--surface);border-radius:8px;border:1px solid var(--border);overflow:hidden}
+.card-header{padding:8px 12px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border)}
+.card-header .icon{width:24px;height:24px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.card-header h2{font-size:11.5px;font-weight:800;color:var(--navy)}
+.card-header .sub{font-size:9px;color:var(--text3);margin-left:auto}
+.card-body{padding:10px 12px}
+.section-label{font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--text3);margin-bottom:5px;margin-top:9px}
+.section-label:first-child{margin-top:0}
+.row{display:flex;justify-content:space-between;align-items:baseline;padding:2px 0;border-bottom:1px solid #F1F3F5;gap:8px}
+.row:last-child{border-bottom:none}
+.row .key{font-family:var(--mono);font-size:10px;font-weight:600;color:var(--navy);white-space:nowrap;flex-shrink:0}
+.row .val{font-size:10px;color:var(--text2);text-align:right}
+.tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px}
+.tag{font-size:9.5px;padding:2px 7px;border-radius:4px;font-weight:600;font-family:var(--mono)}
+.tag-purple{background:var(--purple-soft);color:#6B21A8}.tag-azure{background:var(--azure-soft);color:#1D4ED8}
+.tag-blue{background:var(--blue-soft);color:#1E40AF}.tag-green{background:var(--green-soft);color:#166534}.tag-orange{background:var(--orange-soft);color:#9A3412}
+.tip-bar{background:var(--navy2);border-radius:8px;padding:10px 16px;margin-bottom:16px;display:flex;gap:24px;flex-wrap:wrap}
+.tip-label{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#A78BFA}
+.tip{font-size:10.5px;color:#CBD5E1}.tip b{color:#fff}
+.note{font-size:10px;color:var(--text2);padding:6px 8px;border-radius:4px;margin-top:4px}
+.note-purple{background:var(--purple-soft);border-left:3px solid var(--purple)}
+.note-azure{background:var(--azure-soft);border-left:3px solid var(--azure)}
+.note-blue{background:var(--blue-soft);border-left:3px solid var(--blue)}
+.note-green{background:var(--green-soft);border-left:3px solid var(--green)}
+.cmd{font-family:var(--mono);font-size:10px;background:#F1F3F5;padding:3px 7px;border-radius:4px;color:var(--navy);display:block;margin:2px 0}
+@media print{body{background:#fff}.page{padding:0}}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <h1>AZ-<span>305</span></h1>
+      <p>Azure Solutions Architect Expert — Certification Cheat Sheet</p>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+      <div class="header-badges">
+        <span class="badge badge-azure">AZ-305</span>
+        <span class="badge badge-azure">Expert Level</span>
+        <span class="badge badge-azure">700/1000 Pass</span>
+        <span class="badge badge-azure">$165</span>
+      </div>
+      <div style="font-size:10px;color:#94A3B8">Requires AZ-104 to achieve certification</div>
+    </div>
+  </div>
+
+  <!-- TIP BAR -->
+  <div class="tip-bar">
+    <div>
+      <div class="tip-label">Format</div>
+      <div class="tip">Scenario-based questions with multiple correct options — pick the <b>BEST</b> answer</div>
+    </div>
+    <div>
+      <div class="tip-label">Mindset</div>
+      <div class="tip">Always consider <b>cost + HA + security + scalability</b> trade-offs together</div>
+    </div>
+    <div>
+      <div class="tip-label">Decisions</div>
+      <div class="tip">Know decision matrices: <b>VM vs AKS vs App Service vs Functions</b></div>
+    </div>
+    <div>
+      <div class="tip-label">Prereq</div>
+      <div class="tip"><b>AZ-104</b> knowledge assumed — strong foundation in Azure fundamentals required</div>
+    </div>
+  </div>
+
+  <!-- ROW 1: 3-col -->
+  <div class="grid">
+
+    <!-- CARD 1: Domain Weights + Architect Mindset -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--azure-soft)">📊</div>
+        <h2>Domain Weights &amp; Architect Mindset</h2>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Domain Weights</div>
+        <div class="row"><span class="key">Design Identity Governance &amp; Monitoring</span><span class="val">25–30%</span></div>
+        <div class="row"><span class="key">Design Data Storage Solutions</span><span class="val">20–25%</span></div>
+        <div class="row"><span class="key">Design Business Continuity</span><span class="val">15–20%</span></div>
+        <div class="row"><span class="key">Design Infrastructure Solutions</span><span class="val">30–35%</span></div>
+
+        <div class="section-label">Requirements Framework</div>
+        <div class="row"><span class="key">Functional</span><span class="val">What the system must do (features)</span></div>
+        <div class="row"><span class="key">Non-functional</span><span class="val">Performance, scalability, availability, security</span></div>
+        <div class="row"><span class="key">Constraints</span><span class="val">Budget, timeline, regulatory, existing tech</span></div>
+        <div class="row"><span class="key">Assumptions</span><span class="val">Document what you assume to be true</span></div>
+
+        <div class="section-label">Well-Architected Pillars</div>
+        <div class="row"><span class="key">Reliability</span><span class="val">HA, fault tolerance, recovery, redundancy</span></div>
+        <div class="row"><span class="key">Security</span><span class="val">Identity, protection, detection, response</span></div>
+        <div class="row"><span class="key">Cost Optimization</span><span class="val">Right-sizing, reserved, spot, lifecycle</span></div>
+        <div class="row"><span class="key">Operational Excellence</span><span class="val">Monitoring, automation, DevOps practices</span></div>
+        <div class="row"><span class="key">Performance Efficiency</span><span class="val">Scaling, caching, async, right services</span></div>
+
+        <div class="note note-azure">In exam scenarios: if cost-conscious → Reserved Instances + right-size. If HA → zone-redundant + paired regions. If compliance → Private Link + CMK encryption.</div>
+      </div>
+    </div>
+
+    <!-- CARD 2: Identity Design — Entra ID -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--azure-soft)">🔐</div>
+        <h2>Identity Design — Entra ID</h2>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Hybrid Identity (AD Connect)</div>
+        <div class="row"><span class="key">Password Hash Sync</span><span class="val">Hashes synced to Entra ID — simplest</span></div>
+        <div class="row"><span class="key">Pass-Through Auth</span><span class="val">Auth forwarded to on-prem AD</span></div>
+        <div class="row"><span class="key">Federation (AD FS)</span><span class="val">On-prem IdP handles auth — most complex</span></div>
+        <div class="row"><span class="key">Seamless SSO</span><span class="val">Auto sign-in for domain-joined devices</span></div>
+
+        <div class="section-label">Conditional Access</div>
+        <div class="row"><span class="key">Conditions</span><span class="val">User/group, app, location, device, sign-in risk</span></div>
+        <div class="row"><span class="key">Grant Controls</span><span class="val">MFA, compliant device, hybrid join, approved app</span></div>
+        <div class="row"><span class="key">Session Controls</span><span class="val">Sign-in frequency, persistent browser, app-enforced</span></div>
+
+        <div class="section-label">Entra ID Governance</div>
+        <div class="row"><span class="key">Access Reviews</span><span class="val">Periodic review of group/app/role membership</span></div>
+        <div class="row"><span class="key">Entitlement Management</span><span class="val">Access packages, request/approval workflows</span></div>
+        <div class="row"><span class="key">PIM</span><span class="val">JIT role activation, time-limited privileged access</span></div>
+        <div class="row"><span class="key">Lifecycle Workflows</span><span class="val">Joiner/mover/leaver automation</span></div>
+
+        <div class="section-label">External Identities</div>
+        <div class="row"><span class="key">B2B</span><span class="val">Guest users from partner orgs (Entra ID)</span></div>
+        <div class="row"><span class="key">B2C</span><span class="val">Customer identity, user flows, custom policies</span></div>
+        <div class="row"><span class="key">External ID</span><span class="val">Unified B2B+B2C platform (new)</span></div>
+        <div class="row"><span class="key">SSPR</span><span class="val">Self-service password reset, multiple auth methods</span></div>
+
+        <div class="note note-azure">Choose PHS for simplest hybrid setup with good security. Use PTA when passwords must NOT leave on-prem. Use AD FS only for complex claims/legacy apps.</div>
+      </div>
+    </div>
+
+    <!-- CARD 3: Governance Design -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--blue-soft)">🏛️</div>
+        <h2>Governance Design</h2>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Management Hierarchy</div>
+        <div class="row"><span class="key">Tenant Root Group</span><span class="val">Top-level management group</span></div>
+        <div class="row"><span class="key">Management Groups</span><span class="val">Organize subscriptions (up to 6 levels)</span></div>
+        <div class="row"><span class="key">Subscriptions</span><span class="val">Billing + trust boundary</span></div>
+        <div class="row"><span class="key">Resource Groups</span><span class="val">Lifecycle and permission boundary</span></div>
+        <div class="row"><span class="key">Resources</span><span class="val">Individual services</span></div>
+
+        <div class="section-label">Azure Policy</div>
+        <div class="row"><span class="key">Effect: Deny</span><span class="val">Block non-compliant resource creation</span></div>
+        <div class="row"><span class="key">Effect: Audit</span><span class="val">Log but allow non-compliant resources</span></div>
+        <div class="row"><span class="key">Effect: DeployIfNotExists</span><span class="val">Auto-deploy compliant config</span></div>
+        <div class="row"><span class="key">Effect: Modify</span><span class="val">Add/replace tags, properties</span></div>
+        <div class="row"><span class="key">Initiatives</span><span class="val">Group related policies (policy sets)</span></div>
+        <div class="row"><span class="key">Remediation tasks</span><span class="val">Fix existing non-compliant resources</span></div>
+
+        <div class="section-label">Landing Zone &amp; Blueprints</div>
+        <div class="row"><span class="key">Cloud Adoption Framework</span><span class="val">Landing zone for enterprise Azure setup</span></div>
+        <div class="row"><span class="key">Azure Blueprints</span><span class="val">Artifacts: Policy + RBAC + ARM + RG</span></div>
+        <div class="row"><span class="key">Blueprints vs ARM</span><span class="val">Blueprints track assignment + lock resources</span></div>
+
+        <div class="section-label">Cost Management</div>
+        <div class="row"><span class="key">Budgets</span><span class="val">Alert at % of spend (e.g., 80%, 100%)</span></div>
+        <div class="row"><span class="key">Cost alerts</span><span class="val">Anomaly detection, invoice alerts</span></div>
+        <div class="row"><span class="key">Tags strategy</span><span class="val">Enforce via policy: CostCenter, Env, Owner</span></div>
+        <div class="row"><span class="key">Chargeback</span><span class="val">Allocate costs to BUs using tags</span></div>
+
+        <div class="note note-blue">Subscription design patterns: single sub (small org), multiple subs (isolation/limits), management groups (policy inheritance at scale). Always apply policies at management group level.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 2: 3-col -->
+  <div class="grid">
+
+    <!-- CARD 4: Monitoring Design -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--blue-soft)">📡</div>
+        <h2>Monitoring Design</h2>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Azure Monitor</div>
+        <div class="row"><span class="key">Metrics</span><span class="val">Numerical time-series data (CPU, requests)</span></div>
+        <div class="row"><span class="key">Logs</span><span class="val">Log Analytics workspace — KQL queries</span></div>
+        <div class="row"><span class="key">Alerts</span><span class="val">Metric/log/activity log alerts → action groups</span></div>
+        <div class="row"><span class="key">Action Groups</span><span class="val">Email/SMS/webhook/ITSM/runbook/Logic App</span></div>
+
+        <div class="section-label">Log Analytics Workspace Design</div>
+        <div class="row"><span class="key">Single workspace</span><span class="val">Most orgs — simplest, centralized view</span></div>
+        <div class="row"><span class="key">Multiple workspaces</span><span class="val">Data sovereignty, compliance boundaries</span></div>
+        <div class="row"><span class="key">Data retention</span><span class="val">30d free, up to 730d (hot), archive to cold</span></div>
+        <div class="row"><span class="key">Workspace insights</span><span class="val">LAWorkspaceInsights workbook</span></div>
+
+        <div class="section-label">Application Insights</div>
+        <div class="row"><span class="key">Sampling</span><span class="val">Reduce data volume: adaptive/fixed-rate/ingestion</span></div>
+        <div class="row"><span class="key">Smart Detection</span><span class="val">Auto-detect anomalies (failure rate, latency)</span></div>
+        <div class="row"><span class="key">Availability Tests</span><span class="val">URL ping / multi-step web tests from regions</span></div>
+        <div class="row"><span class="key">Live Metrics</span><span class="val">Real-time telemetry streaming</span></div>
+
+        <div class="section-label">SIEM &amp; Security Monitoring</div>
+        <div class="row"><span class="key">Microsoft Sentinel</span><span class="val">SIEM+SOAR: data connectors, analytics rules, playbooks</span></div>
+        <div class="row"><span class="key">Defender for Cloud</span><span class="val">Secure Score, recommendations, Defender plans</span></div>
+        <div class="row"><span class="key">Workbooks</span><span class="val">Interactive dashboards in Monitor + Sentinel</span></div>
+
+        <div class="note note-blue">Design rule: one Log Analytics workspace per region unless compliance requires separate. Enable Diagnostic Settings for ALL resources. Sentinel uses same workspace.</div>
+      </div>
+    </div>
+
+    <!-- CARD 5: Storage Design -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--blue-soft)">🗄️</div>
+        <h2>Storage Design</h2>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Blob Storage Tiers</div>
+        <div class="row"><span class="key">Hot</span><span class="val">Frequent access — highest storage cost, lowest access cost</span></div>
+        <div class="row"><span class="key">Cool</span><span class="val">Infrequent (30d+) — lower storage, higher access</span></div>
+        <div class="row"><span class="key">Cold</span><span class="val">Rare access (90d+) — even lower storage cost</span></div>
+        <div class="row"><span class="key">Archive</span><span class="val">Offline (180d+) — rehydrate hours before access</span></div>
+
+        <div class="section-label">Blob Features</div>
+        <div class="row"><span class="key">Lifecycle policies</span><span class="val">Auto-tier or delete based on age/last access</span></div>
+        <div class="row"><span class="key">Immutable storage</span><span class="val">WORM: time-based retention + legal hold</span></div>
+        <div class="row"><span class="key">Versioning</span><span class="val">Keep previous versions on overwrite/delete</span></div>
+        <div class="row"><span class="key">Replication</span><span class="val">Object replication to another account/region</span></div>
+
+        <div class="section-label">Storage Redundancy</div>
+        <div class="row"><span class="key">LRS</span><span class="val">3 copies, single datacenter — 99.999999999%</span></div>
+        <div class="row"><span class="key">ZRS</span><span class="val">3 copies, 3 zones — recommended for HA</span></div>
+        <div class="row"><span class="key">GRS</span><span class="val">LRS + async copy to paired region</span></div>
+        <div class="row"><span class="key">GZRS</span><span class="val">ZRS + async copy to paired region — highest</span></div>
+
+        <div class="section-label">Storage Decision Tree</div>
+        <div class="row"><span class="key">Unstructured data/blobs</span><span class="val">Azure Blob Storage</span></div>
+        <div class="row"><span class="key">File shares (SMB/NFS)</span><span class="val">Azure Files + Azure File Sync</span></div>
+        <div class="row"><span class="key">VM disks</span><span class="val">Azure Managed Disks (Premium SSD/Ultra)</span></div>
+        <div class="row"><span class="key">Big data/analytics</span><span class="val">Azure Data Lake Storage Gen2</span></div>
+        <div class="row"><span class="key">High-perf NFS</span><span class="val">Azure NetApp Files</span></div>
+
+        <div class="note note-blue">Azure File Sync: tier cold files to cloud, keep hot files on-prem. ZRS is the default recommendation for new storage accounts in regions that support it.</div>
+      </div>
+    </div>
+
+    <!-- CARD 6: Database Design -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--green-soft)">🛢️</div>
+        <h2>Database Design</h2>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Azure SQL Options</div>
+        <div class="row"><span class="key">General Purpose</span><span class="val">Most workloads — 5.4 GB/vCore, remote SSD</span></div>
+        <div class="row"><span class="key">Business Critical</span><span class="val">Low latency — local SSD, 3-replica HA, read replica</span></div>
+        <div class="row"><span class="key">Hyperscale</span><span class="val">Up to 100TB, rapid scale, multiple replicas</span></div>
+        <div class="row"><span class="key">Serverless</span><span class="val">Auto-pause, billed per second — variable workloads</span></div>
+        <div class="row"><span class="key">Elastic Pool</span><span class="val">Shared DTU/vCore — multi-tenant, cost sharing</span></div>
+        <div class="row"><span class="key">vCore vs DTU</span><span class="val">vCore = predictable, DTU = simple bundled metric</span></div>
+
+        <div class="section-label">Cosmos DB — Consistency Levels</div>
+        <div class="row"><span class="key">Eventual</span><span class="val">Lowest latency, highest throughput, weakest guarantee</span></div>
+        <div class="row"><span class="key">Consistent Prefix</span><span class="val">No out-of-order reads, but can be stale</span></div>
+        <div class="row"><span class="key">Session</span><span class="val">Default — strong within client session</span></div>
+        <div class="row"><span class="key">Bounded Staleness</span><span class="val">Lag by K versions or T seconds</span></div>
+        <div class="row"><span class="key">Strong</span><span class="val">Linearizable reads — single region or global write</span></div>
+
+        <div class="section-label">Cosmos DB — Partitioning &amp; Global</div>
+        <div class="row"><span class="key">Partition key</span><span class="val">High cardinality, even distribution critical</span></div>
+        <div class="row"><span class="key">Global distribution</span><span class="val">Add/remove regions dynamically</span></div>
+        <div class="row"><span class="key">Multi-write</span><span class="val">Write to any region — automatic conflict resolution</span></div>
+
+        <div class="section-label">Caching</div>
+        <div class="row"><span class="key">Azure Cache for Redis</span><span class="val">Session, leaderboard, pub/sub, data cache</span></div>
+        <div class="row"><span class="key">Redis tiers</span><span class="val">Basic/Standard/Premium/Enterprise/Enterprise Flash</span></div>
+        <div class="row"><span class="key">CDN</span><span class="val">Static content caching at edge — Front Door or CDN</span></div>
+
+        <div class="section-label">Migration</div>
+        <div class="row"><span class="key">Azure DMS</span><span class="val">Online (minimal downtime) or offline migration</span></div>
+        <div class="row"><span class="key">Targets</span><span class="val">SQL MI, Azure SQL DB, MySQL, PostgreSQL, Cosmos</span></div>
+
+        <div class="note note-green">Cosmos DB partition key is the most important design decision. Bad partition key = hot partition = throttling. For SQL: Business Critical = read scale-out free, Hyperscale = unique architecture for large DBs.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 3: 3-col -->
+  <div class="grid">
+
+    <!-- CARD 7: Business Continuity Design -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--green-soft)">🛡️</div>
+        <h2>Business Continuity Design</h2>
+      </div>
+      <div class="card-body">
+        <div class="section-label">BCDR Fundamentals</div>
+        <div class="row"><span class="key">RTO</span><span class="val">Recovery Time Objective — max downtime acceptable</span></div>
+        <div class="row"><span class="key">RPO</span><span class="val">Recovery Point Objective — max data loss acceptable</span></div>
+        <div class="row"><span class="key">SLA → RTO/RPO</span><span class="val">Higher SLA tier = lower RTO/RPO achievable</span></div>
+        <div class="row"><span class="key">Active-Passive</span><span class="val">Secondary warm/cold standby — lower cost</span></div>
+        <div class="row"><span class="key">Active-Active</span><span class="val">Both regions serve traffic — zero downtime</span></div>
+
+        <div class="section-label">Azure Backup</div>
+        <div class="row"><span class="key">VM backup</span><span class="val">Daily/weekly/monthly/yearly retention policies</span></div>
+        <div class="row"><span class="key">Soft delete</span><span class="val">14-day recovery after backup deletion</span></div>
+        <div class="row"><span class="key">Cross-region restore</span><span class="val">Restore VM to paired region from GRS vault</span></div>
+        <div class="row"><span class="key">MARS agent</span><span class="val">On-prem files/folders to Recovery Services vault</span></div>
+        <div class="row"><span class="key">Backup Center</span><span class="val">Unified backup management across workloads</span></div>
+
+        <div class="section-label">Azure Site Recovery (ASR)</div>
+        <div class="row"><span class="key">RPO for Azure VMs</span><span class="val">30 seconds (continuous replication)</span></div>
+        <div class="row"><span class="key">Failover</span><span class="val">Test failover (no impact) → planned → unplanned</span></div>
+        <div class="row"><span class="key">Failback</span><span class="val">Replicate back and fail back to primary</span></div>
+        <div class="row"><span class="key">Runbooks</span><span class="val">Automation runbooks for orchestrated failover</span></div>
+        <div class="row"><span class="key">On-prem to Azure</span><span class="val">Hyper-V, VMware, physical server replication</span></div>
+
+        <div class="section-label">Traffic Routing — Decision</div>
+        <div class="row"><span class="key">Traffic Manager</span><span class="val">DNS-based global LB — priority/weighted/performance/geo</span></div>
+        <div class="row"><span class="key">Azure Front Door</span><span class="val">Layer 7 global LB + WAF + caching + SSL offload</span></div>
+        <div class="row"><span class="key">App Gateway</span><span class="val">Regional Layer 7 LB + WAF — within VNet</span></div>
+        <div class="row"><span class="key">Azure Load Balancer</span><span class="val">Layer 4 regional — VMs, VMSS within region</span></div>
+
+        <div class="note note-green">Traffic Manager is DNS-level only — no connection failover. Front Door = global L7. Use both together: Front Door for web apps, Traffic Manager for non-HTTP globally distributed services.</div>
+      </div>
+    </div>
+
+    <!-- CARD 8: Compute Design -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--azure-soft)">⚡</div>
+        <h2>Compute Design</h2>
+      </div>
+      <div class="card-body">
+        <div class="section-label">VM Design Considerations</div>
+        <div class="row"><span class="key">Reserved Instances</span><span class="val">1 or 3 year commit — up to 72% savings</span></div>
+        <div class="row"><span class="key">Spot VMs</span><span class="val">Interruptible — batch, stateless workloads</span></div>
+        <div class="row"><span class="key">Proximity Placement</span><span class="val">Co-locate VMs for ultra-low latency</span></div>
+        <div class="row"><span class="key">Dedicated Hosts</span><span class="val">Physical isolation — compliance/licensing</span></div>
+        <div class="row"><span class="key">Availability Zones</span><span class="val">99.99% SLA — spread across zones</span></div>
+        <div class="row"><span class="key">Availability Sets</span><span class="val">99.95% SLA — fault + update domain separation</span></div>
+
+        <div class="section-label">VMSS (VM Scale Sets)</div>
+        <div class="row"><span class="key">Orchestration modes</span><span class="val">Uniform (same VM) / Flexible (mix VM types)</span></div>
+        <div class="row"><span class="key">Autoscaling</span><span class="val">Metric-based or schedule-based rules</span></div>
+        <div class="row"><span class="key">Update policy</span><span class="val">Manual / Automatic / Rolling</span></div>
+
+        <div class="section-label">AKS Design</div>
+        <div class="row"><span class="key">System node pool</span><span class="val">Runs kube-system pods — dedicated</span></div>
+        <div class="row"><span class="key">User node pool</span><span class="val">Application workloads — can scale to 0</span></div>
+        <div class="row"><span class="key">Networking</span><span class="val">Kubenet (simple) vs Azure CNI (VNet IPs)</span></div>
+        <div class="row"><span class="key">Private cluster</span><span class="val">API server on private IP — no public endpoint</span></div>
+        <div class="row"><span class="key">RBAC</span><span class="val">Entra ID integration for K8s RBAC</span></div>
+        <div class="row"><span class="key">Monitoring</span><span class="val">Container Insights → Log Analytics</span></div>
+
+        <div class="section-label">App Service &amp; Functions</div>
+        <div class="row"><span class="key">Premium plan</span><span class="val">VNet integration, no cold start, larger instances</span></div>
+        <div class="row"><span class="key">Deployment slots</span><span class="val">Staging → swap to prod (zero downtime)</span></div>
+        <div class="row"><span class="key">Functions: Consumption</span><span class="val">Scale to zero, cold start, pay-per-execution</span></div>
+        <div class="row"><span class="key">Functions: Premium</span><span class="val">Pre-warmed instances, VNet, longer timeout</span></div>
+        <div class="row"><span class="key">Durable Functions</span><span class="val">Stateful workflows: fan-out, chaining, human approval</span></div>
+
+        <div class="note note-azure">Decision: VM = full control/lift-and-shift. App Service = web apps/APIs without infra. AKS = containerized microservices. Functions = event-driven/serverless. Always justify with requirements.</div>
+      </div>
+    </div>
+
+    <!-- CARD 9: Network Design -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--blue-soft)">🌐</div>
+        <h2>Network Design</h2>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Hub-Spoke Topology</div>
+        <div class="row"><span class="key">Hub VNet</span><span class="val">Azure Firewall + VPN/ExpressRoute gateway + DNS</span></div>
+        <div class="row"><span class="key">Spoke VNets</span><span class="val">Workload VNets peered to hub</span></div>
+        <div class="row"><span class="key">VNet Peering</span><span class="val">Non-transitive — spokes cannot talk directly</span></div>
+        <div class="row"><span class="key">Azure vWAN</span><span class="val">Microsoft-managed hub for large-scale transit</span></div>
+
+        <div class="section-label">Hybrid Connectivity</div>
+        <div class="row"><span class="key">VPN Gateway</span><span class="val">Site-to-site IPsec/IKE — up to 10 Gbps</span></div>
+        <div class="row"><span class="key">ExpressRoute</span><span class="val">Private dedicated circuit — 50Mbps to 10Gbps</span></div>
+        <div class="row"><span class="key">ExpressRoute Global Reach</span><span class="val">Connect on-prem sites via Microsoft backbone</span></div>
+        <div class="row"><span class="key">VPN + ExpressRoute</span><span class="val">VPN as failover for ExpressRoute HA</span></div>
+
+        <div class="section-label">Network Security Layers</div>
+        <div class="row"><span class="key">NSG</span><span class="val">L4 stateful — subnet + NIC level</span></div>
+        <div class="row"><span class="key">ASG</span><span class="val">Logical VM groups in NSG rules</span></div>
+        <div class="row"><span class="key">Azure Firewall</span><span class="val">L7 FQDN filtering, IDPS (Premium), threat intel</span></div>
+        <div class="row"><span class="key">WAF</span><span class="val">L7 web protection — App Gateway or Front Door</span></div>
+        <div class="row"><span class="key">DDoS Standard</span><span class="val">Enhanced protection, adaptive tuning, rapid response</span></div>
+
+        <div class="section-label">Private Link vs Service Endpoints</div>
+        <div class="row"><span class="key">Private Endpoint</span><span class="val">Private IP from VNet for PaaS — fully private</span></div>
+        <div class="row"><span class="key">Service Endpoint</span><span class="val">Optimized route + service firewall — no private IP</span></div>
+        <div class="row"><span class="key">Private Link</span><span class="val">Recommended for new designs — eliminates public IP</span></div>
+
+        <div class="section-label">DNS Design</div>
+        <div class="row"><span class="key">Azure DNS Private Zones</span><span class="val">Private name resolution within VNet</span></div>
+        <div class="row"><span class="key">Auto-registration</span><span class="val">VMs auto-register A records</span></div>
+        <div class="row"><span class="key">Custom DNS</span><span class="val">Forward to Azure DNS for hybrid resolution</span></div>
+        <div class="row"><span class="key">DNS for Private Link</span><span class="val">Private zone linked to VNet (*.privatelink.*)</span></div>
+
+        <div class="note note-blue">Hub-spoke is the default enterprise architecture. Use Azure Firewall Premium for IDPS. Private Link &gt; Service Endpoints for security. Virtual WAN for global multi-region hub topology.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 4: 2-col for wider cards -->
+  <div class="grid grid-2">
+
+    <!-- CARD 10: API & Integration Design -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--purple-soft)">🔗</div>
+        <h2>API &amp; Integration Design</h2>
+      </div>
+      <div class="card-body">
+        <div class="section-label">API Management</div>
+        <div class="row"><span class="key">Products</span><span class="val">Bundle APIs for subscription access control</span></div>
+        <div class="row"><span class="key">Policies</span><span class="val">Transform requests/responses: rate-limit, cache, auth</span></div>
+        <div class="row"><span class="key">Subscriptions</span><span class="val">API keys issued per product subscription</span></div>
+        <div class="row"><span class="key">Developer portal</span><span class="val">Auto-generated docs and test console</span></div>
+        <div class="row"><span class="key">Tiers</span><span class="val">Consumption/Developer/Basic/Standard/Premium</span></div>
+
+        <div class="section-label">Messaging &amp; Events Decision</div>
+        <div class="row"><span class="key">Service Bus Queues</span><span class="val">Enterprise messaging, ordered, sessions, dead-letter</span></div>
+        <div class="row"><span class="key">Service Bus Topics</span><span class="val">Pub/sub, multiple subscribers, filters</span></div>
+        <div class="row"><span class="key">Event Hubs</span><span class="val">Big data streaming, Kafka protocol, partitions</span></div>
+        <div class="row"><span class="key">Event Grid</span><span class="val">Reactive events, serverless triggers, HTTP webhooks</span></div>
+        <div class="row"><span class="key">Storage Queue</span><span class="val">Simple, large volume, loose coupling, AT-LEAST-ONCE</span></div>
+
+        <div class="section-label">Service Bus Details</div>
+        <div class="row"><span class="key">Sessions</span><span class="val">Group related messages, guaranteed order</span></div>
+        <div class="row"><span class="key">Dead-letter queue</span><span class="val">Undeliverable messages, max delivery count</span></div>
+        <div class="row"><span class="key">Duplicate detection</span><span class="val">Idempotent deduplication window</span></div>
+        <div class="row"><span class="key">Message lock</span><span class="val">Peek-lock pattern for at-least-once delivery</span></div>
+
+        <div class="section-label">Logic Apps vs Functions</div>
+        <div class="row"><span class="key">Logic Apps</span><span class="val">Visual designer, 400+ connectors, low-code integration</span></div>
+        <div class="row"><span class="key">Functions</span><span class="val">Code-first, any language, lightweight compute</span></div>
+        <div class="row"><span class="key">Durable Functions</span><span class="val">Long-running, stateful workflows in code</span></div>
+        <div class="row"><span class="key">Logic Apps Standard</span><span class="val">Runs in App Service — VNet integration</span></div>
+
+        <div class="section-label">Microservices Patterns</div>
+        <div class="tags">
+          <span class="tag tag-purple">CQRS</span>
+          <span class="tag tag-purple">Event Sourcing</span>
+          <span class="tag tag-purple">Saga</span>
+          <span class="tag tag-purple">Strangler Fig</span>
+          <span class="tag tag-purple">Sidecar</span>
+          <span class="tag tag-purple">Circuit Breaker</span>
+          <span class="tag tag-purple">Outbox Pattern</span>
+        </div>
+
+        <div class="note note-purple">Event Hubs = high-throughput ingestion (IoT/telemetry). Service Bus = reliable messaging (orders/transactions). Event Grid = event-driven reactions (blob created, VM stopped).</div>
+      </div>
+    </div>
+
+    <!-- CARD 11: Decision Matrices -->
+    <div class="card" style="background:var(--navy2)">
+      <div class="card-header" style="background:var(--navy2);border-bottom:1px solid rgba(255,255,255,0.1)">
+        <div class="icon" style="background:rgba(255,255,255,0.1)">⚖️</div>
+        <h2 style="color:#fff">Decision Matrices</h2>
+        <span class="sub" style="color:#94A3B8">Exam Quick Reference</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label" style="color:#A78BFA">Compute Decision</div>
+        <div class="row" style="border-bottom-color:rgba(255,255,255,0.07)">
+          <span class="key" style="color:#93C5FD">Full control, Windows/Linux, lift-and-shift</span>
+          <span class="val" style="color:#CBD5E1">Azure VM + VMSS</span>
+        </div>
+        <div class="row" style="border-bottom-color:rgba(255,255,255,0.07)">
+          <span class="key" style="color:#93C5FD">Web/API app, no container, managed runtime</span>
+          <span class="val" style="color:#CBD5E1">Azure App Service</span>
+        </div>
+        <div class="row" style="border-bottom-color:rgba(255,255,255,0.07)">
+          <span class="key" style="color:#93C5FD">Containerized microservices, K8s orchestration</span>
+          <span class="val" style="color:#CBD5E1">AKS</span>
+        </div>
+        <div class="row" style="border-bottom-color:rgba(255,255,255,0.07)">
+          <span class="key" style="color:#93C5FD">Event-driven, serverless, short-lived functions</span>
+          <span class="val" style="color:#CBD5E1">Azure Functions</span>
+        </div>
+        <div class="row" style="border-bottom-color:rgba(255,255,255,0.07)">
+          <span class="key" style="color:#93C5FD">Long-running stateful workflows</span>
+          <span class="val" style="color:#CBD5E1">Durable Functions / Logic Apps</span>
+        </div>
+
+        <div class="section-label" style="color:#A78BFA">Database Decision</div>
+        <div class="row" style="border-bottom-color:rgba(255,255,255,0.07)">
+          <span class="key" style="color:#93C5FD">Relational, SQL Server workloads</span>
+          <span class="val" style="color:#CBD5E1">Azure SQL DB / SQL Managed Instance</span>
+        </div>
+        <div class="row" style="border-bottom-color:rgba(255,255,255,0.07)">
+          <span class="key" style="color:#93C5FD">Relational, variable/auto-pause workloads</span>
+          <span class="val" style="color:#CBD5E1">Azure SQL Serverless</span>
+        </div>
+        <div class="row" style="border-bottom-color:rgba(255,255,255,0.07)">
+          <span class="key" style="color:#93C5FD">Global distribution, multi-model, any scale</span>
+          <span class="val" style="color:#CBD5E1">Azure Cosmos DB</span>
+        </div>
+        <div class="row" style="border-bottom-color:rgba(255,255,255,0.07)">
+          <span class="key" style="color:#93C5FD">Open source relational (Postgres/MySQL/MariaDB)</span>
+          <span class="val" style="color:#CBD5E1">Azure DB for PostgreSQL/MySQL</span>
+        </div>
+        <div class="row" style="border-bottom-color:rgba(255,255,255,0.07)">
+          <span class="key" style="color:#93C5FD">Analytical / data warehouse</span>
+          <span class="val" style="color:#CBD5E1">Azure Synapse Analytics</span>
+        </div>
+
+        <div class="section-label" style="color:#A78BFA">Load Balancing Decision</div>
+        <div class="row" style="border-bottom-color:rgba(255,255,255,0.07)">
+          <span class="key" style="color:#93C5FD">Global DNS-based, non-HTTP traffic</span>
+          <span class="val" style="color:#CBD5E1">Traffic Manager</span>
+        </div>
+        <div class="row" style="border-bottom-color:rgba(255,255,255,0.07)">
+          <span class="key" style="color:#93C5FD">Global HTTP/S, WAF, caching, SSL offload</span>
+          <span class="val" style="color:#CBD5E1">Azure Front Door</span>
+        </div>
+        <div class="row" style="border-bottom-color:rgba(255,255,255,0.07)">
+          <span class="key" style="color:#93C5FD">Regional HTTP/S, WAF, URL routing, VNet</span>
+          <span class="val" style="color:#CBD5E1">Application Gateway</span>
+        </div>
+        <div class="row" style="border-bottom-color:rgba(255,255,255,0.07)">
+          <span class="key" style="color:#93C5FD">Regional Layer 4, VMs/VMSS</span>
+          <span class="val" style="color:#CBD5E1">Azure Load Balancer (Standard)</span>
+        </div>
+
+        <div class="section-label" style="color:#A78BFA">Storage Decision</div>
+        <div class="row" style="border-bottom-color:rgba(255,255,255,0.07)">
+          <span class="key" style="color:#93C5FD">Object storage, blobs, backups</span>
+          <span class="val" style="color:#CBD5E1">Azure Blob Storage</span>
+        </div>
+        <div class="row" style="border-bottom-color:rgba(255,255,255,0.07)">
+          <span class="key" style="color:#93C5FD">File shares (SMB/NFS), on-prem integration</span>
+          <span class="val" style="color:#CBD5E1">Azure Files + File Sync</span>
+        </div>
+        <div class="row" style="border-bottom-color:rgba(255,255,255,0.07)">
+          <span class="key" style="color:#93C5FD">VM operating system and data disks</span>
+          <span class="val" style="color:#CBD5E1">Azure Managed Disks</span>
+        </div>
+        <div class="row" style="border-bottom-color:rgba(255,255,255,0.07)">
+          <span class="key" style="color:#93C5FD">Analytics, big data, hierarchical namespace</span>
+          <span class="val" style="color:#CBD5E1">Azure Data Lake Gen2</span>
+        </div>
+        <div class="row" style="border-bottom-color:rgba(255,255,255,0.07)">
+          <span class="key" style="color:#93C5FD">High-perf enterprise NFS/SMB</span>
+          <span class="val" style="color:#CBD5E1">Azure NetApp Files</span>
+        </div>
+
+        <div class="note" style="background:rgba(255,255,255,0.07);border-left:3px solid #60A5FA;color:#CBD5E1">In exam: always justify with NFRs. HA required → zones. Global users → Front Door or Traffic Manager. Compliance → Private Link + CMK + Defender plans.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CEH v13 Cheat Sheet — Certified Ethical Hacker</title>
+<meta name="description" content="Comprehensive CEH v13 cheat sheet covering all 20 modules: reconnaissance, scanning, exploitation, web attacks, wireless, cloud, and cryptography.">
+<style>
+:root {
+  --bg:#F5F6F7; --surface:#FFFFFF; --border:#E2E4E8;
+  --navy:#0F1C2E; --navy2:#1A2E45;
+  --red:#B91C1C; --red-soft:#FEF2F2;
+  --orange:#EA580C; --orange-soft:#FFF7ED;
+  --blue:#1A6FB5; --blue-soft:#EBF4FF;
+  --green:#1B7A4A; --green-soft:#E8F7EF;
+  --purple:#6B21A8; --purple-soft:#F5F0FF;
+  --text:#1C2333; --text2:#4A5568; --text3:#718096;
+  --mono:'Consolas','Courier New',monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body { font-family:var(--sans); font-size:11px; background:var(--bg); color:var(--text); line-height:1.5; }
+.page { max-width:1280px; margin:0 auto; padding:20px 16px; }
+.header { background:var(--navy); border-radius:10px; padding:20px 24px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+.header-left h1 { font-size:22px; font-weight:800; color:#fff; }
+.header-left h1 span { color:#F87171; }
+.header-left p { font-size:11px; color:#94A3B8; margin-top:3px; }
+.header-badges { display:flex; gap:8px; flex-wrap:wrap; }
+.badge { font-size:10px; font-weight:700; padding:4px 10px; border-radius:20px; letter-spacing:.5px; text-transform:uppercase; }
+.badge-red { background:#EF4444; color:#fff; }
+.badge-orange { background:#F97316; color:#fff; }
+.badge-purple { background:#A855F7; color:#fff; }
+.grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:12px; }
+.grid-2 { grid-template-columns:repeat(2,1fr); }
+.grid-4 { grid-template-columns:repeat(4,1fr); }
+.card { background:var(--surface); border-radius:8px; border:1px solid var(--border); overflow:hidden; }
+.card-header { padding:8px 12px; display:flex; align-items:center; gap:8px; border-bottom:1px solid var(--border); }
+.card-header .icon { width:24px; height:24px; border-radius:5px; display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; }
+.card-header h2 { font-size:11.5px; font-weight:800; color:var(--navy); }
+.card-header .sub { font-size:9px; color:var(--text3); margin-left:auto; }
+.card-body { padding:10px 12px; }
+.section-label { font-size:8.5px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--text3); margin-bottom:5px; margin-top:9px; }
+.section-label:first-child { margin-top:0; }
+.row { display:flex; justify-content:space-between; align-items:baseline; padding:2px 0; border-bottom:1px solid #F1F3F5; gap:8px; }
+.row:last-child { border-bottom:none; }
+.row .key { font-family:var(--mono); font-size:10px; font-weight:600; color:var(--navy); white-space:nowrap; flex-shrink:0; }
+.row .val { font-size:10px; color:var(--text2); text-align:right; }
+.tags { display:flex; flex-wrap:wrap; gap:4px; margin-top:2px; }
+.tag { font-size:9.5px; padding:2px 7px; border-radius:4px; font-weight:600; font-family:var(--mono); }
+.tag-red { background:var(--red-soft); color:#991B1B; }
+.tag-orange { background:var(--orange-soft); color:#9A3412; }
+.tag-blue { background:var(--blue-soft); color:#1E40AF; }
+.tag-purple { background:var(--purple-soft); color:#6B21A8; }
+.tag-green { background:var(--green-soft); color:#166534; }
+.tip-bar { background:var(--navy2); border-radius:8px; padding:10px 16px; margin-bottom:16px; display:flex; gap:24px; flex-wrap:wrap; }
+.tip-label { font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:#F87171; }
+.tip { font-size:10.5px; color:#CBD5E1; }
+.tip b { color:#fff; }
+.note { font-size:10px; color:var(--text2); padding:6px 8px; border-radius:4px; margin-top:4px; }
+.note-red { background:var(--red-soft); border-left:3px solid var(--red); }
+.note-orange { background:var(--orange-soft); border-left:3px solid var(--orange); }
+.note-blue { background:var(--blue-soft); border-left:3px solid var(--blue); }
+.note-green { background:var(--green-soft); border-left:3px solid var(--green); }
+.cmd { font-family:var(--mono); font-size:10px; background:#F1F3F5; padding:3px 7px; border-radius:4px; color:var(--navy); display:block; margin:2px 0; }
+.span-2 { grid-column:span 2; }
+.span-3 { grid-column:span 3; }
+@media print { body{background:#fff} .page{padding:0} }
+@media (max-width:900px) { .grid { grid-template-columns:repeat(2,1fr); } .grid-4 { grid-template-columns:repeat(2,1fr); } }
+@media (max-width:600px) { .grid,.grid-2,.grid-4 { grid-template-columns:1fr; } .span-2,.span-3{grid-column:span 1;} }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <h1>CEH <span>v13</span> Cheat Sheet</h1>
+      <p>EC-Council Certified Ethical Hacker — All 20 Modules | Exam Reference</p>
+    </div>
+    <div class="header-badges">
+      <span class="badge badge-red">125 Questions</span>
+      <span class="badge badge-orange">4 Hours</span>
+      <span class="badge badge-purple">70% Pass · $950</span>
+    </div>
+  </div>
+
+  <!-- EXAM TIPS BAR -->
+  <div class="tip-bar">
+    <div>
+      <div class="tip-label">Exam Strategy</div>
+      <div class="tip"><b>ECC Exam</b> — online proctored or VUE test center. Flag unsure questions, return at end.</div>
+    </div>
+    <div>
+      <div class="tip-label">Question Style</div>
+      <div class="tip"><b>Scenario-based:</b> pick the <b>best</b> answer. Two options often both work — choose the most complete.</div>
+    </div>
+    <div>
+      <div class="tip-label">High-Weight Domains</div>
+      <div class="tip"><b>Web Hacking, System Hacking, Malware, Footprinting</b> — allocate ~60% of study time.</div>
+    </div>
+    <div>
+      <div class="tip-label">Tools Focus</div>
+      <div class="tip">Know <b>exact tool names</b> per phase: nmap → scanning, Metasploit → exploitation, Wireshark → sniffing.</div>
+    </div>
+    <div>
+      <div class="tip-label">Time Tip</div>
+      <div class="tip"><b>1 min 55 sec</b> per question. Skip long scenarios first pass; return with remaining time.</div>
+    </div>
+  </div>
+
+  <!-- ROW 1: Foundations & Reconnaissance -->
+  <div class="grid">
+
+    <!-- M01: Intro to Ethical Hacking -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--blue-soft)">&#128274;</div>
+        <h2>M01 — Intro to Ethical Hacking</h2>
+        <span class="sub">Foundation</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">CIA Triad</div>
+        <div class="row"><span class="key">Confidentiality</span><span class="val">Prevent unauthorized disclosure</span></div>
+        <div class="row"><span class="key">Integrity</span><span class="val">Prevent unauthorized modification</span></div>
+        <div class="row"><span class="key">Availability</span><span class="val">Ensure access when needed</span></div>
+
+        <div class="section-label">Hacking Phases (in order)</div>
+        <div class="row"><span class="key">1. Reconnaissance</span><span class="val">Passive/active info gathering</span></div>
+        <div class="row"><span class="key">2. Scanning</span><span class="val">Identify live hosts, ports, services</span></div>
+        <div class="row"><span class="key">3. Gaining Access</span><span class="val">Exploit vulnerabilities</span></div>
+        <div class="row"><span class="key">4. Maintaining Access</span><span class="val">Backdoors, rootkits, persistence</span></div>
+        <div class="row"><span class="key">5. Covering Tracks</span><span class="val">Clear logs, hide artifacts</span></div>
+
+        <div class="section-label">Hacker Types</div>
+        <div class="tags">
+          <span class="tag tag-green">White Hat (Ethical)</span>
+          <span class="tag tag-orange">Grey Hat</span>
+          <span class="tag tag-red">Black Hat (Malicious)</span>
+          <span class="tag tag-purple">Script Kiddie</span>
+          <span class="tag tag-blue">Hacktivist</span>
+          <span class="tag tag-red">State-Sponsored</span>
+        </div>
+
+        <div class="section-label">Key Concepts</div>
+        <div class="row"><span class="key">Vulnerability</span><span class="val">Weakness in system/design</span></div>
+        <div class="row"><span class="key">Threat</span><span class="val">Potential danger exploiting vuln</span></div>
+        <div class="row"><span class="key">Risk</span><span class="val">Threat × Vulnerability × Impact</span></div>
+        <div class="row"><span class="key">Zero-day</span><span class="val">Unknown vuln, no patch available</span></div>
+        <div class="row"><span class="key">Daisy Chaining</span><span class="val">Gain access → use as pivot to next</span></div>
+      </div>
+    </div>
+
+    <!-- M02: Footprinting & Reconnaissance -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--orange-soft)">&#128269;</div>
+        <h2>M02 — Footprinting &amp; Recon</h2>
+        <span class="sub">Module 2</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">OSINT Sources</div>
+        <div class="row"><span class="key">whois</span><span class="val">Domain registrar, contacts, dates</span></div>
+        <div class="row"><span class="key">nslookup / dig</span><span class="val">DNS records: A, MX, NS, TXT, CNAME</span></div>
+        <div class="row"><span class="key">Shodan</span><span class="val">Internet-connected device search</span></div>
+        <div class="row"><span class="key">Maltego</span><span class="val">Link analysis / relationship mapping</span></div>
+        <div class="row"><span class="key">theHarvester</span><span class="val">Emails, subdomains, IPs from OSINT</span></div>
+        <div class="row"><span class="key">GHDB</span><span class="val">Google Hacking Database (exploit-db)</span></div>
+
+        <div class="section-label">Google Dorks</div>
+        <span class="cmd">site:target.com filetype:pdf</span>
+        <span class="cmd">inurl:admin intitle:"index of"</span>
+        <span class="cmd">inurl:login filetype:php</span>
+        <span class="cmd">site:target.com -www</span>
+
+        <div class="section-label">DNS Record Types</div>
+        <div class="row"><span class="key">A</span><span class="val">IPv4 address</span></div>
+        <div class="row"><span class="key">AAAA</span><span class="val">IPv6 address</span></div>
+        <div class="row"><span class="key">MX</span><span class="val">Mail exchange server</span></div>
+        <div class="row"><span class="key">NS</span><span class="val">Authoritative name server</span></div>
+        <div class="row"><span class="key">CNAME</span><span class="val">Canonical name alias</span></div>
+        <div class="row"><span class="key">TXT/SPF</span><span class="val">Email auth, verification</span></div>
+        <div class="note note-blue">Zone Transfer: <code>dig axfr @ns1.target.com target.com</code> — reveals all DNS records if misconfigured</div>
+      </div>
+    </div>
+
+    <!-- M03: Scanning Networks -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--red-soft)">&#128246;</div>
+        <h2>M03 — Scanning Networks</h2>
+        <span class="sub">Module 3</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Nmap Scan Types</div>
+        <div class="row"><span class="key">-sS</span><span class="val">SYN (stealth) scan — default</span></div>
+        <div class="row"><span class="key">-sT</span><span class="val">TCP Connect scan — full 3-way</span></div>
+        <div class="row"><span class="key">-sU</span><span class="val">UDP scan — slow, stealthy</span></div>
+        <div class="row"><span class="key">-sN</span><span class="val">NULL scan — no flags set</span></div>
+        <div class="row"><span class="key">-sF</span><span class="val">FIN scan — FIN flag only</span></div>
+        <div class="row"><span class="key">-sX</span><span class="val">Xmas scan — FIN+PSH+URG</span></div>
+        <div class="row"><span class="key">-sA</span><span class="val">ACK scan — firewall mapping</span></div>
+        <div class="row"><span class="key">-sV</span><span class="val">Version detection</span></div>
+        <div class="row"><span class="key">-O</span><span class="val">OS fingerprinting</span></div>
+        <div class="row"><span class="key">-p-</span><span class="val">All 65535 ports</span></div>
+        <div class="row"><span class="key">-A</span><span class="val">Aggressive: OS+version+scripts</span></div>
+
+        <div class="section-label">Banner Grabbing</div>
+        <span class="cmd">nc -vn 192.168.1.1 80</span>
+        <span class="cmd">telnet 192.168.1.1 25</span>
+
+        <div class="section-label">Hping3 Examples</div>
+        <span class="cmd">hping3 -S -p 80 target.com</span>
+        <span class="cmd">hping3 --udp -p 53 target.com</span>
+
+        <div class="note note-orange">NULL, FIN, Xmas scans: Open port = no response; Closed port = RST. Works only on Unix/Linux targets — Windows ignores these scans.</div>
+      </div>
+    </div>
+
+  </div><!-- /grid row 1 -->
+
+  <!-- ROW 2: Enumeration, Vulnerability, System Hacking -->
+  <div class="grid">
+
+    <!-- M04: Enumeration -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--purple-soft)">&#128196;</div>
+        <h2>M04 — Enumeration</h2>
+        <span class="sub">Module 4</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">NetBIOS / SMB</div>
+        <span class="cmd">nbtstat -A 192.168.1.1</span>
+        <span class="cmd">enum4linux -a 192.168.1.1</span>
+        <div class="row"><span class="key">Port 139/445</span><span class="val">SMB / NetBIOS over TCP</span></div>
+
+        <div class="section-label">SNMP</div>
+        <span class="cmd">snmpwalk -v2c -c public 192.168.1.1</span>
+        <div class="row"><span class="key">public</span><span class="val">Default read community string</span></div>
+        <div class="row"><span class="key">private</span><span class="val">Default write community string</span></div>
+        <div class="row"><span class="key">Port 161/162</span><span class="val">SNMP agent / trap receiver</span></div>
+
+        <div class="section-label">LDAP</div>
+        <span class="cmd">ldapsearch -x -h 192.168.1.1 -b "dc=domain,dc=com"</span>
+        <div class="row"><span class="key">Port 389</span><span class="val">LDAP (cleartext)</span></div>
+        <div class="row"><span class="key">Port 636</span><span class="val">LDAPS (TLS)</span></div>
+
+        <div class="section-label">SMTP User Enumeration</div>
+        <div class="row"><span class="key">VRFY user</span><span class="val">Verify if user exists</span></div>
+        <div class="row"><span class="key">EXPN list</span><span class="val">Expand mailing list</span></div>
+        <div class="row"><span class="key">RCPT TO</span><span class="val">Attempt to mail — check response</span></div>
+
+        <div class="section-label">NTP Enumeration</div>
+        <span class="cmd">ntpdc -n -c monlist 192.168.1.1</span>
+        <div class="row"><span class="key">Port 123 UDP</span><span class="val">NTP — monlist reveals clients</span></div>
+      </div>
+    </div>
+
+    <!-- M05: Vulnerability Analysis -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--orange-soft)">&#9888;&#65039;</div>
+        <h2>M05 — Vulnerability Analysis</h2>
+        <span class="sub">Module 5</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">CVSS v3 Score Ranges</div>
+        <div class="row"><span class="key">0.0</span><span class="val">None</span></div>
+        <div class="row"><span class="key">0.1 – 3.9</span><span class="val">Low</span></div>
+        <div class="row"><span class="key">4.0 – 6.9</span><span class="val">Medium</span></div>
+        <div class="row"><span class="key">7.0 – 8.9</span><span class="val">High</span></div>
+        <div class="row"><span class="key">9.0 – 10.0</span><span class="val">Critical</span></div>
+
+        <div class="section-label">CVSS v3 Metrics</div>
+        <div class="row"><span class="key">AV</span><span class="val">Attack Vector (N/A/L/P)</span></div>
+        <div class="row"><span class="key">AC</span><span class="val">Attack Complexity (L/H)</span></div>
+        <div class="row"><span class="key">PR</span><span class="val">Privileges Required (N/L/H)</span></div>
+        <div class="row"><span class="key">UI</span><span class="val">User Interaction (N/R)</span></div>
+        <div class="row"><span class="key">S</span><span class="val">Scope (U/C)</span></div>
+
+        <div class="section-label">Databases &amp; Tools</div>
+        <div class="row"><span class="key">CVE</span><span class="val">Common Vulnerabilities &amp; Exposures</span></div>
+        <div class="row"><span class="key">NVD</span><span class="val">National Vulnerability Database</span></div>
+        <div class="row"><span class="key">CWE</span><span class="val">Common Weakness Enumeration</span></div>
+        <div class="row"><span class="key">Nessus</span><span class="val">Commercial vuln scanner (Tenable)</span></div>
+        <div class="row"><span class="key">OpenVAS</span><span class="val">Open-source vuln scanner</span></div>
+        <div class="row"><span class="key">Nexpose</span><span class="val">Rapid7 vulnerability mgmt</span></div>
+        <div class="note note-orange">Vulnerability Assessment ≠ Penetration Test. VA identifies; pentest exploits.</div>
+      </div>
+    </div>
+
+    <!-- M06: System Hacking -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--red-soft)">&#128187;</div>
+        <h2>M06 — System Hacking</h2>
+        <span class="sub">Module 6</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Password Cracking</div>
+        <div class="row"><span class="key">Dictionary</span><span class="val">Wordlist attack (fast)</span></div>
+        <div class="row"><span class="key">Brute Force</span><span class="val">All combinations (slow, thorough)</span></div>
+        <div class="row"><span class="key">Rainbow Table</span><span class="val">Precomputed hash lookup</span></div>
+        <div class="row"><span class="key">Hybrid</span><span class="val">Dictionary + brute-force mutations</span></div>
+        <div class="row"><span class="key">Online</span><span class="val">Against live auth (detectable)</span></div>
+        <div class="row"><span class="key">Offline</span><span class="val">Against captured hash dump</span></div>
+
+        <div class="section-label">Tools</div>
+        <div class="row"><span class="key">John the Ripper</span><span class="val">Password hash cracker</span></div>
+        <div class="row"><span class="key">Hashcat</span><span class="val">GPU-accelerated cracking</span></div>
+        <div class="row"><span class="key">Ophcrack</span><span class="val">LM/NTLM rainbow tables</span></div>
+        <div class="row"><span class="key">Mimikatz</span><span class="val">Windows credential dump</span></div>
+        <div class="row"><span class="key">Metasploit</span><span class="val">Exploitation framework</span></div>
+
+        <div class="section-label">Privilege Escalation</div>
+        <div class="row"><span class="key">Horizontal</span><span class="val">Same-level user to user</span></div>
+        <div class="row"><span class="key">Vertical</span><span class="val">User → admin/root</span></div>
+
+        <div class="section-label">Steganography Tools</div>
+        <div class="tags">
+          <span class="tag tag-blue">steghide</span>
+          <span class="tag tag-blue">OpenStego</span>
+          <span class="tag tag-blue">SteganographX</span>
+          <span class="tag tag-purple">snow (whitespace)</span>
+        </div>
+        <div class="note note-red">Covering Tracks: clear event logs, modify timestamps, delete .bash_history, use rootkits to hide files/processes.</div>
+      </div>
+    </div>
+
+  </div><!-- /grid row 2 -->
+
+  <!-- ROW 3: Malware, Sniffing, Social Engineering, DoS -->
+  <div class="grid grid-4">
+
+    <!-- M07: Malware -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--red-soft)">&#128027;</div>
+        <h2>M07 — Malware Threats</h2>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Malware Types</div>
+        <div class="row"><span class="key">Virus</span><span class="val">Attaches to files; needs host</span></div>
+        <div class="row"><span class="key">Worm</span><span class="val">Self-replicates; no host needed</span></div>
+        <div class="row"><span class="key">Trojan</span><span class="val">Disguised as legitimate software</span></div>
+        <div class="row"><span class="key">Ransomware</span><span class="val">Encrypts files; demands ransom</span></div>
+        <div class="row"><span class="key">Rootkit</span><span class="val">Hides attacker at kernel level</span></div>
+        <div class="row"><span class="key">Botnet</span><span class="val">Network of compromised bots</span></div>
+        <div class="row"><span class="key">Spyware</span><span class="val">Monitors &amp; exfils user data</span></div>
+        <div class="row"><span class="key">Adware</span><span class="val">Unwanted ads; tracks behavior</span></div>
+        <div class="row"><span class="key">Keylogger</span><span class="val">Records keystrokes</span></div>
+
+        <div class="section-label">Malware Analysis</div>
+        <div class="row"><span class="key">Static</span><span class="val">strings, PE headers, disassembly</span></div>
+        <div class="row"><span class="key">Dynamic</span><span class="val">Sandbox, Process Monitor, Wireshark</span></div>
+
+        <div class="section-label">APT Lifecycle</div>
+        <div class="tags">
+          <span class="tag tag-red">Recon</span>
+          <span class="tag tag-red">Intrusion</span>
+          <span class="tag tag-red">Establish Foothold</span>
+          <span class="tag tag-red">Escalate</span>
+          <span class="tag tag-red">Move Laterally</span>
+          <span class="tag tag-red">Exfiltrate</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- M08: Sniffing -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--blue-soft)">&#127758;</div>
+        <h2>M08 — Sniffing</h2>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Wireshark Filters</div>
+        <span class="cmd">tcp</span>
+        <span class="cmd">udp</span>
+        <span class="cmd">http</span>
+        <span class="cmd">ip.addr == 192.168.1.1</span>
+        <span class="cmd">tcp.port == 443</span>
+        <span class="cmd">http.request.method == "POST"</span>
+        <span class="cmd">dns</span>
+        <span class="cmd">ftp</span>
+        <span class="cmd">tcp contains "password"</span>
+
+        <div class="section-label">Attacks</div>
+        <div class="row"><span class="key">ARP Poisoning</span><span class="val">arpspoof / Ettercap</span></div>
+        <div class="row"><span class="key">MAC Flooding</span><span class="val">Overflow CAM table → hub mode</span></div>
+        <div class="row"><span class="key">MITM</span><span class="val">Intercept &amp; modify traffic</span></div>
+        <div class="row"><span class="key">SSL Stripping</span><span class="val">Downgrade HTTPS → HTTP</span></div>
+        <div class="row"><span class="key">DHCP Starvation</span><span class="val">Exhaust IPs; rogue DHCP server</span></div>
+        <span class="cmd">arpspoof -i eth0 -t victim gw</span>
+        <div class="note note-blue">Passive sniffing (hub) vs Active sniffing (switch — requires ARP poison or MAC flood).</div>
+      </div>
+    </div>
+
+    <!-- M09: Social Engineering -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--orange-soft)">&#128104;</div>
+        <h2>M09 — Social Engineering</h2>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Attack Types</div>
+        <div class="row"><span class="key">Phishing</span><span class="val">Bulk deceptive email campaign</span></div>
+        <div class="row"><span class="key">Spear Phishing</span><span class="val">Targeted, personalized phishing</span></div>
+        <div class="row"><span class="key">Whaling</span><span class="val">Targets C-level executives</span></div>
+        <div class="row"><span class="key">Vishing</span><span class="val">Voice/phone social engineering</span></div>
+        <div class="row"><span class="key">Smishing</span><span class="val">SMS-based phishing</span></div>
+        <div class="row"><span class="key">Tailgating</span><span class="val">Follow auth person through door</span></div>
+        <div class="row"><span class="key">Piggybacking</span><span class="val">Victim holds door knowingly</span></div>
+        <div class="row"><span class="key">Baiting</span><span class="val">Infected USB/media left as trap</span></div>
+        <div class="row"><span class="key">Pretexting</span><span class="val">Fabricated scenario for info</span></div>
+        <div class="row"><span class="key">Quid Pro Quo</span><span class="val">Service offered for info</span></div>
+
+        <div class="section-label">Tools</div>
+        <div class="row"><span class="key">SET</span><span class="val">Social Engineering Toolkit</span></div>
+        <div class="row"><span class="key">Gophish</span><span class="val">Open-source phishing framework</span></div>
+
+        <div class="note note-orange">Countermeasure: Security awareness training is the #1 defense against SE attacks.</div>
+      </div>
+    </div>
+
+    <!-- M10: DoS/DDoS -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--red-soft)">&#128308;</div>
+        <h2>M10 — DoS / DDoS</h2>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Attack Types</div>
+        <div class="row"><span class="key">SYN Flood</span><span class="val">Half-open connections exhaust state</span></div>
+        <div class="row"><span class="key">UDP Flood</span><span class="val">Random UDP packets overwhelm host</span></div>
+        <div class="row"><span class="key">HTTP Flood</span><span class="val">Layer 7 GET/POST volume attack</span></div>
+        <div class="row"><span class="key">Smurf Attack</span><span class="val">ICMP broadcast amplification</span></div>
+        <div class="row"><span class="key">Ping of Death</span><span class="val">Oversized ICMP packet crash</span></div>
+        <div class="row"><span class="key">Teardrop</span><span class="val">Malformed fragmented packets</span></div>
+        <div class="row"><span class="key">Amplification</span><span class="val">DNS/NTP reflect &amp; amplify traffic</span></div>
+        <div class="row"><span class="key">Slowloris</span><span class="val">Keep HTTP connections open</span></div>
+
+        <div class="section-label">DDoS Tools</div>
+        <div class="tags">
+          <span class="tag tag-red">LOIC</span>
+          <span class="tag tag-red">HOIC</span>
+          <span class="tag tag-orange">Hping3</span>
+          <span class="tag tag-orange">GoldenEye</span>
+        </div>
+
+        <div class="section-label">Mitigation</div>
+        <div class="row"><span class="key">Rate Limiting</span><span class="val">Throttle incoming connections</span></div>
+        <div class="row"><span class="key">CDN / Anycast</span><span class="val">Distribute &amp; absorb traffic</span></div>
+        <div class="row"><span class="key">Scrubbing</span><span class="val">Blackhole / sinkhole bad traffic</span></div>
+        <div class="row"><span class="key">SYN Cookies</span><span class="val">Stateless SYN handling</span></div>
+      </div>
+    </div>
+
+  </div><!-- /grid row 3 -->
+
+  <!-- ROW 4: Session Hijacking + IDS/IPS Evasion + Web Server -->
+  <div class="grid">
+
+    <!-- M11: Session Hijacking -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--purple-soft)">&#128279;</div>
+        <h2>M11 — Session Hijacking</h2>
+        <span class="sub">Module 11</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Techniques</div>
+        <div class="row"><span class="key">TCP Hijacking</span><span class="val">Predict ISN, inject into stream</span></div>
+        <div class="row"><span class="key">Cookie Theft</span><span class="val">XSS, sniffing, predictable IDs</span></div>
+        <div class="row"><span class="key">Session Fixation</span><span class="val">Force victim to use known SID</span></div>
+        <div class="row"><span class="key">CSRF</span><span class="val">Trick browser to make auth request</span></div>
+        <div class="row"><span class="key">Man-in-Browser</span><span class="val">Malware in browser intercepts</span></div>
+
+        <div class="section-label">Tools</div>
+        <div class="row"><span class="key">Burp Suite</span><span class="val">Intercept &amp; manipulate requests</span></div>
+        <div class="row"><span class="key">Hamster &amp; Ferret</span><span class="val">Cookie hijacking over WiFi</span></div>
+        <div class="row"><span class="key">OWASP ZAP</span><span class="val">Session token analysis</span></div>
+
+        <div class="section-label">Countermeasures</div>
+        <div class="row"><span class="key">HTTPS everywhere</span><span class="val">Encrypt session tokens in transit</span></div>
+        <div class="row"><span class="key">HTTPOnly flag</span><span class="val">Blocks JS access to cookies</span></div>
+        <div class="row"><span class="key">Secure flag</span><span class="val">Cookie sent only over HTTPS</span></div>
+        <div class="row"><span class="key">SameSite</span><span class="val">Mitigates CSRF</span></div>
+        <div class="row"><span class="key">Token rotation</span><span class="val">Regenerate SID after login</span></div>
+        <div class="note note-blue">Sequence Number Prediction: Attacker spoofs IP + guesses TCP ISN to inject data without completing 3-way handshake.</div>
+      </div>
+    </div>
+
+    <!-- M12: IDS/IPS/Firewall Evasion -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--orange-soft)">&#128737;&#65039;</div>
+        <h2>M12 — IDS/IPS/Firewall Evasion</h2>
+        <span class="sub">Module 12</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">IDS Types</div>
+        <div class="row"><span class="key">NIDS</span><span class="val">Network-based IDS (monitors traffic)</span></div>
+        <div class="row"><span class="key">HIDS</span><span class="val">Host-based IDS (monitors host)</span></div>
+        <div class="row"><span class="key">Signature-based</span><span class="val">Known pattern matching</span></div>
+        <div class="row"><span class="key">Anomaly-based</span><span class="val">Baseline deviation detection</span></div>
+
+        <div class="section-label">Evasion Techniques</div>
+        <div class="row"><span class="key">Fragmentation</span><span class="val">Split packets to avoid signature match</span></div>
+        <div class="row"><span class="key">TTL Manipulation</span><span class="val">Packets reach IDS but not target</span></div>
+        <div class="row"><span class="key">Decoy Scan</span><span class="val">nmap -D RND:10 — hide in decoys</span></div>
+        <div class="row"><span class="key">Source Port Spoof</span><span class="val">Use trusted port (80, 443, 53)</span></div>
+        <div class="row"><span class="key">Obfuscation</span><span class="val">URL encoding, Unicode bypasses</span></div>
+        <div class="row"><span class="key">Tunneling</span><span class="val">DNS/HTTP tunnel through firewall</span></div>
+        <div class="row"><span class="key">Session Splicing</span><span class="val">Split payload across TCP segments</span></div>
+        <div class="row"><span class="key">Slow Scan</span><span class="val">Reduce rate to avoid threshold</span></div>
+
+        <div class="section-label">Nmap Evasion Flags</div>
+        <span class="cmd">nmap -D RND:10 target</span>
+        <span class="cmd">nmap -f target    # fragment packets</span>
+        <span class="cmd">nmap --source-port 53 target</span>
+        <span class="cmd">nmap -T0 target   # paranoid timing</span>
+      </div>
+    </div>
+
+    <!-- M13: Web Server Hacking -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--blue-soft)">&#127760;</div>
+        <h2>M13 — Web Server Hacking</h2>
+        <span class="sub">Module 13</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Common Vulnerabilities</div>
+        <div class="row"><span class="key">Directory Traversal</span><span class="val">../../../etc/passwd path escape</span></div>
+        <div class="row"><span class="key">Web Cache Poisoning</span><span class="val">Inject malicious cached responses</span></div>
+        <div class="row"><span class="key">HTTP Response Splitting</span><span class="val">Inject CRLF into headers</span></div>
+        <div class="row"><span class="key">Banner Grabbing</span><span class="val">Reveal server version info</span></div>
+        <div class="row"><span class="key">Default Credentials</span><span class="val">admin/admin on web consoles</span></div>
+        <div class="row"><span class="key">HTTP Methods</span><span class="val">PUT/DELETE enabled on server</span></div>
+        <div class="row"><span class="key">Misconfiguration</span><span class="val">Directory listing, verbose errors</span></div>
+
+        <div class="section-label">IIS vs Apache</div>
+        <div class="row"><span class="key">IIS</span><span class="val">Windows; .asp/.aspx; web.config</span></div>
+        <div class="row"><span class="key">Apache</span><span class="val">Linux; .htaccess; mod_rewrite</span></div>
+
+        <div class="section-label">Tools</div>
+        <div class="tags">
+          <span class="tag tag-blue">Nikto</span>
+          <span class="tag tag-blue">Metasploit</span>
+          <span class="tag tag-blue">DirBuster</span>
+          <span class="tag tag-blue">Gobuster</span>
+          <span class="tag tag-orange">w3af</span>
+        </div>
+        <span class="cmd">nikto -h http://target.com</span>
+        <div class="note note-orange">Patch management, disable server banners, remove default pages, restrict HTTP methods.</div>
+      </div>
+    </div>
+
+  </div><!-- /grid row 4 -->
+
+  <!-- ROW 5: OWASP Top 10 + SQL Injection (span 2) -->
+  <div class="grid grid-2">
+
+    <!-- M14: Web Application Hacking / OWASP -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--blue-soft)">&#128249;</div>
+        <h2>M14 — Web Application Hacking</h2>
+        <span class="sub">OWASP Top 10 (2021)</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">OWASP Top 10 — 2021</div>
+        <div class="row"><span class="key">A01 Broken Access Control</span><span class="val">Moved up to #1 — most critical</span></div>
+        <div class="row"><span class="key">A02 Cryptographic Failures</span><span class="val">Weak encryption; cleartext data</span></div>
+        <div class="row"><span class="key">A03 Injection</span><span class="val">SQL, LDAP, OS, NoSQL injection</span></div>
+        <div class="row"><span class="key">A04 Insecure Design</span><span class="val">Missing security controls at design</span></div>
+        <div class="row"><span class="key">A05 Security Misconfiguration</span><span class="val">Default creds, exposed configs</span></div>
+        <div class="row"><span class="key">A06 Vulnerable Components</span><span class="val">Outdated libraries/frameworks</span></div>
+        <div class="row"><span class="key">A07 Auth Failures</span><span class="val">Broken auth, weak credentials</span></div>
+        <div class="row"><span class="key">A08 Integrity Failures</span><span class="val">Insecure deserialization, CI/CD</span></div>
+        <div class="row"><span class="key">A09 Logging Failures</span><span class="val">Insufficient logging &amp; monitoring</span></div>
+        <div class="row"><span class="key">A10 SSRF</span><span class="val">Server-side request forgery</span></div>
+
+        <div class="section-label">Burp Suite Workflow</div>
+        <div class="row"><span class="key">Proxy</span><span class="val">Intercept &amp; modify HTTP(S) traffic</span></div>
+        <div class="row"><span class="key">Spider / Crawler</span><span class="val">Map app &amp; discover endpoints</span></div>
+        <div class="row"><span class="key">Scanner</span><span class="val">Auto-detect vulns (Pro feature)</span></div>
+        <div class="row"><span class="key">Intruder</span><span class="val">Automated fuzzing &amp; brute-force</span></div>
+        <div class="row"><span class="key">Repeater</span><span class="val">Manual request manipulation</span></div>
+        <div class="row"><span class="key">Decoder</span><span class="val">Encode/decode Base64, URL, HTML</span></div>
+        <div class="row"><span class="key">Sequencer</span><span class="val">Analyze token randomness</span></div>
+
+        <div class="section-label">Common XSS Types</div>
+        <div class="row"><span class="key">Reflected</span><span class="val">Payload in URL, not stored</span></div>
+        <div class="row"><span class="key">Stored</span><span class="val">Persisted in DB, served to all</span></div>
+        <div class="row"><span class="key">DOM-based</span><span class="val">Manipulates DOM client-side</span></div>
+        <div class="note note-blue">SSRF target: <code>http://169.254.169.254/latest/meta-data/</code> — AWS instance metadata endpoint.</div>
+      </div>
+    </div>
+
+    <!-- M15: SQL Injection -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--red-soft)">&#128202;</div>
+        <h2>M15 — SQL Injection</h2>
+        <span class="sub">Module 15</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">SQLi Types</div>
+        <div class="row"><span class="key">Error-based</span><span class="val">Extract data via DB error messages</span></div>
+        <div class="row"><span class="key">Union-based</span><span class="val">UNION SELECT to pull extra data</span></div>
+        <div class="row"><span class="key">Boolean Blind</span><span class="val">Infer data from true/false responses</span></div>
+        <div class="row"><span class="key">Time-based Blind</span><span class="val">SLEEP() / WAITFOR DELAY inference</span></div>
+        <div class="row"><span class="key">Out-of-Band</span><span class="val">DNS/HTTP channel exfiltration</span></div>
+        <div class="row"><span class="key">Stacked Queries</span><span class="val">Execute multiple statements</span></div>
+
+        <div class="section-label">Classic Payloads</div>
+        <span class="cmd">' OR '1'='1</span>
+        <span class="cmd">' OR 1=1--</span>
+        <span class="cmd">admin'--</span>
+        <span class="cmd">'; DROP TABLE users;--</span>
+        <span class="cmd">1 UNION SELECT null,username,password FROM users--</span>
+        <span class="cmd">1 AND SLEEP(5)--</span>
+
+        <div class="section-label">sqlmap Commands</div>
+        <span class="cmd">sqlmap -u "http://target/page?id=1" --dbs</span>
+        <span class="cmd">sqlmap -u URL -D dbname --tables</span>
+        <span class="cmd">sqlmap -u URL -D db -T users --dump</span>
+        <span class="cmd">sqlmap -u URL --forms --crawl=2</span>
+        <span class="cmd">sqlmap -u URL --tamper=space2comment</span>
+
+        <div class="section-label">WAF Bypass Techniques</div>
+        <div class="row"><span class="key">Case variation</span><span class="val">SeLeCt, UnIoN</span></div>
+        <div class="row"><span class="key">Comment injection</span><span class="val">UN/**/ION SE/**/LECT</span></div>
+        <div class="row"><span class="key">URL encoding</span><span class="val">%27 for quote, %20 for space</span></div>
+        <div class="row"><span class="key">Double encoding</span><span class="val">%2527 (encoded %)</span></div>
+        <div class="row"><span class="key">Tamper scripts</span><span class="val">sqlmap --tamper options</span></div>
+        <div class="note note-red">Countermeasures: Parameterized queries / prepared statements — this is the ONLY reliable fix for SQLi.</div>
+      </div>
+    </div>
+
+  </div><!-- /grid row 5 -->
+
+  <!-- ROW 6: Wireless + Mobile + IoT -->
+  <div class="grid">
+
+    <!-- M16: Wireless Hacking -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--blue-soft)">&#128225;</div>
+        <h2>M16 — Wireless Hacking</h2>
+        <span class="sub">Module 16</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Encryption Standards</div>
+        <div class="row"><span class="key">WEP</span><span class="val">RC4 cipher; 24-bit IV; broken</span></div>
+        <div class="row"><span class="key">WPA</span><span class="val">TKIP; MSCHAPV2; deprecated</span></div>
+        <div class="row"><span class="key">WPA2</span><span class="val">AES-CCMP; 4-way handshake</span></div>
+        <div class="row"><span class="key">WPA3</span><span class="val">SAE (Dragonfly); forward secrecy</span></div>
+
+        <div class="section-label">Aircrack-ng Suite</div>
+        <span class="cmd">airmon-ng start wlan0</span>
+        <span class="cmd">airodump-ng wlan0mon</span>
+        <span class="cmd">airodump-ng -c 6 --bssid AA:BB:CC:DD:EE:FF -w cap wlan0mon</span>
+        <span class="cmd">aireplay-ng -0 10 -a BSSID -c CLIENT wlan0mon</span>
+        <span class="cmd">aircrack-ng -w wordlist.txt cap-01.cap</span>
+
+        <div class="section-label">Attack Types</div>
+        <div class="row"><span class="key">Evil Twin AP</span><span class="val">Rogue AP with same SSID</span></div>
+        <div class="row"><span class="key">Rogue AP</span><span class="val">Unauthorized AP on corp network</span></div>
+        <div class="row"><span class="key">Deauth Attack</span><span class="val">Kick client; capture re-auth handshake</span></div>
+        <div class="row"><span class="key">IV Attack</span><span class="val">Collect WEP IVs; crack key (60k pkts)</span></div>
+        <div class="row"><span class="key">PMKID Attack</span><span class="val">WPA2 — no client needed</span></div>
+        <div class="row"><span class="key">WPS PIN</span><span class="val">Reaver brute-forces 8-digit PIN</span></div>
+        <div class="note note-orange">WEP can be cracked in minutes. WPA2-Personal: capture 4-way handshake, then dictionary attack offline.</div>
+      </div>
+    </div>
+
+    <!-- M17: Mobile Hacking -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--green-soft)">&#128241;</div>
+        <h2>M17 — Mobile Platform Hacking</h2>
+        <span class="sub">Module 17</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Android Attack Surface</div>
+        <div class="row"><span class="key">ADB</span><span class="val">Android Debug Bridge — shell access</span></div>
+        <div class="row"><span class="key">APK Reverse Eng.</span><span class="val">apktool, jadx, dex2jar decompile</span></div>
+        <div class="row"><span class="key">Rooting</span><span class="val">Gain root; bypass sandboxing</span></div>
+        <div class="row"><span class="key">Drozer</span><span class="val">Android security assessment framework</span></div>
+        <span class="cmd">adb shell</span>
+        <span class="cmd">adb pull /data/data/com.app/databases/</span>
+        <span class="cmd">apktool d target.apk</span>
+
+        <div class="section-label">iOS Attack Surface</div>
+        <div class="row"><span class="key">Jailbreaking</span><span class="val">Remove iOS sandbox restrictions</span></div>
+        <div class="row"><span class="key">Cydia</span><span class="val">App store for jailbroken devices</span></div>
+        <div class="row"><span class="key">SSL Kill Switch</span><span class="val">Bypass certificate pinning</span></div>
+
+        <div class="section-label">OWASP Mobile Top 10</div>
+        <div class="row"><span class="key">M1</span><span class="val">Improper Platform Usage</span></div>
+        <div class="row"><span class="key">M2</span><span class="val">Insecure Data Storage</span></div>
+        <div class="row"><span class="key">M3</span><span class="val">Insecure Communication</span></div>
+        <div class="row"><span class="key">M4</span><span class="val">Insecure Authentication</span></div>
+        <div class="row"><span class="key">M5</span><span class="val">Insufficient Cryptography</span></div>
+        <div class="row"><span class="key">M6</span><span class="val">Insecure Authorization</span></div>
+        <div class="row"><span class="key">M7</span><span class="val">Client Code Quality</span></div>
+        <div class="row"><span class="key">M8</span><span class="val">Code Tampering</span></div>
+        <div class="row"><span class="key">M9</span><span class="val">Reverse Engineering</span></div>
+        <div class="row"><span class="key">M10</span><span class="val">Extraneous Functionality</span></div>
+      </div>
+    </div>
+
+    <!-- M18: IoT Hacking -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--purple-soft)">&#127968;</div>
+        <h2>M18 — IoT Hacking</h2>
+        <span class="sub">Module 18</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">IoT Attack Surface</div>
+        <div class="row"><span class="key">Default Creds</span><span class="val">admin/admin on routers, cameras</span></div>
+        <div class="row"><span class="key">Firmware</span><span class="val">Unencrypted; contains secrets</span></div>
+        <div class="row"><span class="key">Insecure Updates</span><span class="val">No signature verification</span></div>
+        <div class="row"><span class="key">Physical Access</span><span class="val">JTAG, UART, SPI debug ports</span></div>
+        <div class="row"><span class="key">Weak Protocols</span><span class="val">MQTT, CoAP often unauthenticated</span></div>
+
+        <div class="section-label">Firmware Analysis</div>
+        <span class="cmd">binwalk -e firmware.bin</span>
+        <span class="cmd">binwalk -M -e firmware.bin   # recursive</span>
+        <span class="cmd">strings firmware.bin | grep -i pass</span>
+        <div class="row"><span class="key">Firmwalker</span><span class="val">Search extracted firmware for creds</span></div>
+
+        <div class="section-label">MQTT Protocol</div>
+        <div class="row"><span class="key">Port 1883</span><span class="val">MQTT (cleartext)</span></div>
+        <div class="row"><span class="key">Port 8883</span><span class="val">MQTT over TLS</span></div>
+        <div class="row"><span class="key">Topic #</span><span class="val">Subscribe to all topics (wildcard)</span></div>
+        <span class="cmd">mosquitto_sub -h broker -t "#"</span>
+
+        <div class="section-label">Discovery</div>
+        <span class="cmd">shodan search "default password" port:23</span>
+        <span class="cmd">shodan search "webcamXP" country:US</span>
+        <div class="note note-red">Mirai Botnet: infected 600k+ IoT devices using 60 default credential pairs for massive DDoS.</div>
+      </div>
+    </div>
+
+  </div><!-- /grid row 6 -->
+
+  <!-- ROW 7: Cloud + Cryptography -->
+  <div class="grid grid-2">
+
+    <!-- M19: Cloud Hacking -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--blue-soft)">&#9729;&#65039;</div>
+        <h2>M19 — Cloud Computing Threats</h2>
+        <span class="sub">Module 19</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Cloud Service Models</div>
+        <div class="row"><span class="key">IaaS</span><span class="val">Infrastructure — EC2, Azure VM</span></div>
+        <div class="row"><span class="key">PaaS</span><span class="val">Platform — Elastic Beanstalk, Heroku</span></div>
+        <div class="row"><span class="key">SaaS</span><span class="val">Software — Office 365, Salesforce</span></div>
+        <div class="row"><span class="key">FaaS</span><span class="val">Functions — AWS Lambda, Azure Fn</span></div>
+
+        <div class="section-label">Common Attacks</div>
+        <div class="row"><span class="key">S3 Misconfiguration</span><span class="val">Public buckets leaking sensitive data</span></div>
+        <div class="row"><span class="key">IAM Priv Escalation</span><span class="val">Overpermissioned roles; assume-role</span></div>
+        <div class="row"><span class="key">Metadata SSRF</span><span class="val">169.254.169.254 — IAM temp creds</span></div>
+        <div class="row"><span class="key">Container Escape</span><span class="val">Breakout from Docker/K8s sandbox</span></div>
+        <div class="row"><span class="key">Subdomain Takeover</span><span class="val">Dangling DNS → unclaimed service</span></div>
+        <div class="row"><span class="key">API Key Exposure</span><span class="val">Keys in GitHub repos / env vars</span></div>
+        <div class="row"><span class="key">Cross-Tenant</span><span class="val">VM escape in shared hypervisor</span></div>
+
+        <div class="section-label">AWS Recon Commands</div>
+        <span class="cmd">aws s3 ls s3://target-bucket --no-sign-request</span>
+        <span class="cmd">aws iam get-account-authorization-details</span>
+        <span class="cmd">curl http://169.254.169.254/latest/meta-data/iam/security-credentials/</span>
+        <span class="cmd">aws sts get-caller-identity</span>
+
+        <div class="section-label">Tools</div>
+        <div class="tags">
+          <span class="tag tag-blue">ScoutSuite</span>
+          <span class="tag tag-blue">Prowler</span>
+          <span class="tag tag-blue">Pacu (AWS exploit)</span>
+          <span class="tag tag-orange">CloudMapper</span>
+          <span class="tag tag-green">Trivy</span>
+        </div>
+        <div class="note note-red">Shared Responsibility: CSP secures the cloud infrastructure; customer secures data, config, access, apps.</div>
+      </div>
+    </div>
+
+    <!-- M20: Cryptography -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--green-soft)">&#128272;</div>
+        <h2>M20 — Cryptography</h2>
+        <span class="sub">Module 20</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Symmetric Encryption</div>
+        <div class="row"><span class="key">DES</span><span class="val">56-bit key; insecure — broken</span></div>
+        <div class="row"><span class="key">3DES</span><span class="val">168-bit; DES × 3; deprecated</span></div>
+        <div class="row"><span class="key">AES</span><span class="val">128/192/256-bit; current standard</span></div>
+        <div class="row"><span class="key">Blowfish</span><span class="val">64-bit block; 32–448-bit key</span></div>
+        <div class="row"><span class="key">RC4</span><span class="val">Stream cipher; used in WEP/SSL (broken)</span></div>
+        <div class="row"><span class="key">Twofish</span><span class="val">AES finalist; 128-bit block</span></div>
+
+        <div class="section-label">Asymmetric Encryption</div>
+        <div class="row"><span class="key">RSA</span><span class="val">2048+ bit; encrypt &amp; sign</span></div>
+        <div class="row"><span class="key">ECC</span><span class="val">Elliptic curve; smaller keys, fast</span></div>
+        <div class="row"><span class="key">DH</span><span class="val">Diffie-Hellman key exchange</span></div>
+        <div class="row"><span class="key">DSA</span><span class="val">Digital Signature Algorithm</span></div>
+        <div class="row"><span class="key">ElGamal</span><span class="val">Encryption + signatures</span></div>
+
+        <div class="section-label">Hashing Algorithms</div>
+        <div class="row"><span class="key">MD5</span><span class="val">128-bit; broken; collision-prone</span></div>
+        <div class="row"><span class="key">SHA-1</span><span class="val">160-bit; deprecated; broken</span></div>
+        <div class="row"><span class="key">SHA-256</span><span class="val">256-bit; current standard</span></div>
+        <div class="row"><span class="key">SHA-3</span><span class="val">Keccak; latest NIST standard</span></div>
+        <div class="row"><span class="key">HMAC</span><span class="val">Hash + secret key; integrity+auth</span></div>
+        <div class="row"><span class="key">bcrypt</span><span class="val">Slow hash; adaptive work factor</span></div>
+
+        <div class="section-label">PKI &amp; SSL/TLS</div>
+        <div class="row"><span class="key">CA</span><span class="val">Certificate Authority; issues certs</span></div>
+        <div class="row"><span class="key">RA</span><span class="val">Registration Authority; verifies identity</span></div>
+        <div class="row"><span class="key">CRL</span><span class="val">Certificate Revocation List</span></div>
+        <div class="row"><span class="key">OCSP</span><span class="val">Online Certificate Status Protocol</span></div>
+        <div class="row"><span class="key">TLS 1.3</span><span class="val">Current; removed weak ciphers</span></div>
+
+        <div class="section-label">Steganography vs Cryptography</div>
+        <div class="row"><span class="key">Cryptography</span><span class="val">Hides message content (unreadable)</span></div>
+        <div class="row"><span class="key">Steganography</span><span class="val">Hides message existence (invisible)</span></div>
+        <div class="note note-green">Digital Signature: Hash the message → encrypt hash with sender's private key → recipient decrypts with sender's public key to verify integrity &amp; authenticity.</div>
+      </div>
+    </div>
+
+  </div><!-- /grid row 7 -->
+
+  <!-- ROW 8: Quick Reference — Ports + Attack-Tool Matrix -->
+  <div class="grid grid-2">
+
+    <!-- Ports Reference -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--navy2); color:#fff; font-size:10px; font-weight:800;">PORT</div>
+        <h2>Key Ports Quick Reference</h2>
+        <span class="sub">CEH Exam Favorites</span>
+      </div>
+      <div class="card-body">
+        <div class="grid grid-2" style="gap:0">
+          <div>
+            <div class="section-label">TCP — Common</div>
+            <div class="row"><span class="key">20/21</span><span class="val">FTP data / control</span></div>
+            <div class="row"><span class="key">22</span><span class="val">SSH / SFTP / SCP</span></div>
+            <div class="row"><span class="key">23</span><span class="val">Telnet (cleartext)</span></div>
+            <div class="row"><span class="key">25</span><span class="val">SMTP</span></div>
+            <div class="row"><span class="key">53</span><span class="val">DNS (TCP for zone)</span></div>
+            <div class="row"><span class="key">80</span><span class="val">HTTP</span></div>
+            <div class="row"><span class="key">110</span><span class="val">POP3</span></div>
+            <div class="row"><span class="key">143</span><span class="val">IMAP</span></div>
+            <div class="row"><span class="key">443</span><span class="val">HTTPS</span></div>
+            <div class="row"><span class="key">445</span><span class="val">SMB (direct)</span></div>
+            <div class="row"><span class="key">1433</span><span class="val">MSSQL</span></div>
+            <div class="row"><span class="key">1521</span><span class="val">Oracle DB</span></div>
+            <div class="row"><span class="key">3306</span><span class="val">MySQL</span></div>
+            <div class="row"><span class="key">3389</span><span class="val">RDP</span></div>
+            <div class="row"><span class="key">5432</span><span class="val">PostgreSQL</span></div>
+            <div class="row"><span class="key">8080</span><span class="val">HTTP alternate / proxy</span></div>
+          </div>
+          <div>
+            <div class="section-label">UDP — Common</div>
+            <div class="row"><span class="key">53</span><span class="val">DNS queries</span></div>
+            <div class="row"><span class="key">67/68</span><span class="val">DHCP server/client</span></div>
+            <div class="row"><span class="key">69</span><span class="val">TFTP</span></div>
+            <div class="row"><span class="key">123</span><span class="val">NTP</span></div>
+            <div class="row"><span class="key">137/138</span><span class="val">NetBIOS name/datagram</span></div>
+            <div class="row"><span class="key">139</span><span class="val">NetBIOS session (TCP)</span></div>
+            <div class="row"><span class="key">161/162</span><span class="val">SNMP agent / trap</span></div>
+            <div class="row"><span class="key">500</span><span class="val">ISAKMP / IKE (VPN)</span></div>
+            <div class="row"><span class="key">514</span><span class="val">Syslog</span></div>
+            <div class="row"><span class="key">1701</span><span class="val">L2TP</span></div>
+            <div class="row"><span class="key">1883</span><span class="val">MQTT</span></div>
+            <div class="row"><span class="key">4500</span><span class="val">IPSec NAT-T</span></div>
+            <div class="section-label">Security-Specific</div>
+            <div class="row"><span class="key">88</span><span class="val">Kerberos (TCP/UDP)</span></div>
+            <div class="row"><span class="key">389</span><span class="val">LDAP</span></div>
+            <div class="row"><span class="key">636</span><span class="val">LDAPS</span></div>
+            <div class="row"><span class="key">8443</span><span class="val">HTTPS alternate</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Attack-Tool-Phase Matrix -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--red-soft)">&#127919;</div>
+        <h2>Tool → Phase Matrix</h2>
+        <span class="sub">Know exact tool per phase for exam</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Reconnaissance</div>
+        <div class="tags" style="margin-bottom:4px">
+          <span class="tag tag-blue">Maltego</span>
+          <span class="tag tag-blue">theHarvester</span>
+          <span class="tag tag-blue">Shodan</span>
+          <span class="tag tag-blue">Recon-ng</span>
+          <span class="tag tag-blue">FOCA</span>
+        </div>
+        <div class="section-label">Scanning</div>
+        <div class="tags" style="margin-bottom:4px">
+          <span class="tag tag-orange">nmap</span>
+          <span class="tag tag-orange">Hping3</span>
+          <span class="tag tag-orange">Nessus</span>
+          <span class="tag tag-orange">OpenVAS</span>
+          <span class="tag tag-orange">Angry IP Scanner</span>
+        </div>
+        <div class="section-label">Enumeration</div>
+        <div class="tags" style="margin-bottom:4px">
+          <span class="tag tag-purple">enum4linux</span>
+          <span class="tag tag-purple">snmpwalk</span>
+          <span class="tag tag-purple">ldapsearch</span>
+          <span class="tag tag-purple">nbtstat</span>
+        </div>
+        <div class="section-label">Exploitation / Access</div>
+        <div class="tags" style="margin-bottom:4px">
+          <span class="tag tag-red">Metasploit</span>
+          <span class="tag tag-red">John the Ripper</span>
+          <span class="tag tag-red">Hashcat</span>
+          <span class="tag tag-red">SQLmap</span>
+          <span class="tag tag-red">Hydra</span>
+          <span class="tag tag-red">Mimikatz</span>
+        </div>
+        <div class="section-label">Post-Exploitation / Persistence</div>
+        <div class="tags" style="margin-bottom:4px">
+          <span class="tag tag-red">Netcat</span>
+          <span class="tag tag-red">Meterpreter</span>
+          <span class="tag tag-orange">PowerShell Empire</span>
+          <span class="tag tag-orange">Cobalt Strike</span>
+        </div>
+        <div class="section-label">Sniffing / MITM</div>
+        <div class="tags" style="margin-bottom:4px">
+          <span class="tag tag-blue">Wireshark</span>
+          <span class="tag tag-blue">Ettercap</span>
+          <span class="tag tag-blue">arpspoof</span>
+          <span class="tag tag-blue">tcpdump</span>
+        </div>
+        <div class="section-label">Web App Testing</div>
+        <div class="tags" style="margin-bottom:4px">
+          <span class="tag tag-purple">Burp Suite</span>
+          <span class="tag tag-purple">OWASP ZAP</span>
+          <span class="tag tag-purple">Nikto</span>
+          <span class="tag tag-purple">DirBuster</span>
+          <span class="tag tag-purple">w3af</span>
+        </div>
+        <div class="section-label">Wireless</div>
+        <div class="tags">
+          <span class="tag tag-green">aircrack-ng</span>
+          <span class="tag tag-green">airmon-ng</span>
+          <span class="tag tag-green">airodump-ng</span>
+          <span class="tag tag-green">aireplay-ng</span>
+          <span class="tag tag-green">Reaver</span>
+          <span class="tag tag-green">Kismet</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /grid row 8 -->
+
+  <!-- ROW 9: Exam-Day Quick Hits -->
+  <div class="grid">
+
+    <!-- Pen Test Methodologies -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--green-soft)">&#128196;</div>
+        <h2>Pentest Types &amp; Methodologies</h2>
+        <span class="sub">Know for exam scenarios</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Engagement Types</div>
+        <div class="row"><span class="key">Black Box</span><span class="val">Zero prior knowledge; full recon</span></div>
+        <div class="row"><span class="key">White Box</span><span class="val">Full access: code, architecture, creds</span></div>
+        <div class="row"><span class="key">Grey Box</span><span class="val">Partial info: IP ranges, user accounts</span></div>
+
+        <div class="section-label">Pentest Phases (CEH)</div>
+        <div class="row"><span class="key">Pre-Attack</span><span class="val">Recon, scanning, enumeration</span></div>
+        <div class="row"><span class="key">Attack</span><span class="val">Gain + maintain access, escalate</span></div>
+        <div class="row"><span class="key">Post-Attack</span><span class="val">Report, remediation, cleanup</span></div>
+
+        <div class="section-label">Frameworks</div>
+        <div class="row"><span class="key">OWASP</span><span class="val">Web app testing guide</span></div>
+        <div class="row"><span class="key">PTES</span><span class="val">Pentest Execution Standard</span></div>
+        <div class="row"><span class="key">NIST SP 800-115</span><span class="val">Technical security testing guide</span></div>
+        <div class="row"><span class="key">MITRE ATT&amp;CK</span><span class="val">Adversary tactic &amp; technique matrix</span></div>
+
+        <div class="section-label">Legal &amp; Scope</div>
+        <div class="row"><span class="key">ROE</span><span class="val">Rules of Engagement document</span></div>
+        <div class="row"><span class="key">NDA</span><span class="val">Non-Disclosure Agreement</span></div>
+        <div class="row"><span class="key">Scope</span><span class="val">IP ranges, systems in-scope/out</span></div>
+        <div class="note note-green">Always get written authorization before testing. Unauthorized testing is illegal even if well-intentioned.</div>
+      </div>
+    </div>
+
+    <!-- Incident Response & Forensics -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--orange-soft)">&#128269;</div>
+        <h2>Incident Response &amp; Forensics</h2>
+        <span class="sub">CEH supporting knowledge</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">IR Phases</div>
+        <div class="row"><span class="key">Preparation</span><span class="val">Policies, tools, team training</span></div>
+        <div class="row"><span class="key">Identification</span><span class="val">Detect &amp; confirm incident</span></div>
+        <div class="row"><span class="key">Containment</span><span class="val">Isolate affected systems</span></div>
+        <div class="row"><span class="key">Eradication</span><span class="val">Remove malware, patch vuln</span></div>
+        <div class="row"><span class="key">Recovery</span><span class="val">Restore from clean backup</span></div>
+        <div class="row"><span class="key">Lessons Learned</span><span class="val">Post-mortem; improve controls</span></div>
+
+        <div class="section-label">Evidence Handling</div>
+        <div class="row"><span class="key">Chain of Custody</span><span class="val">Document all evidence handling</span></div>
+        <div class="row"><span class="key">Order of Volatility</span><span class="val">RAM → swap → disk → archive</span></div>
+        <div class="row"><span class="key">Write Blocker</span><span class="val">Prevent evidence modification</span></div>
+        <div class="row"><span class="key">Hash Verification</span><span class="val">MD5/SHA1 before &amp; after imaging</span></div>
+
+        <div class="section-label">Forensics Tools</div>
+        <div class="tags">
+          <span class="tag tag-blue">Autopsy</span>
+          <span class="tag tag-blue">FTK (Forensic Toolkit)</span>
+          <span class="tag tag-blue">Volatility</span>
+          <span class="tag tag-orange">dd (disk image)</span>
+          <span class="tag tag-orange">Sleuth Kit</span>
+        </div>
+        <div class="note note-orange">Locard's Exchange Principle: Every contact leaves a trace — attackers always leave evidence if you know where to look.</div>
+      </div>
+    </div>
+
+    <!-- Countermeasures Summary -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--green-soft)">&#128737;</div>
+        <h2>Key Countermeasures</h2>
+        <span class="sub">Defense answers for exam scenarios</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Against Common Attacks</div>
+        <div class="row"><span class="key">SQLi</span><span class="val">Parameterized queries / PrepStmt</span></div>
+        <div class="row"><span class="key">XSS</span><span class="val">Input validation + output encoding</span></div>
+        <div class="row"><span class="key">CSRF</span><span class="val">SameSite cookies + CSRF tokens</span></div>
+        <div class="row"><span class="key">Brute Force</span><span class="val">Account lockout + MFA + CAPTCHA</span></div>
+        <div class="row"><span class="key">Phishing</span><span class="val">Security awareness + email filters</span></div>
+        <div class="row"><span class="key">ARP Poisoning</span><span class="val">Dynamic ARP Inspection (DAI)</span></div>
+        <div class="row"><span class="key">MAC Flooding</span><span class="val">Port Security on managed switches</span></div>
+        <div class="row"><span class="key">Sniffing</span><span class="val">Encrypt all traffic (TLS/SSH/VPN)</span></div>
+        <div class="row"><span class="key">Password</span><span class="val">Salted bcrypt/Argon2; MFA</span></div>
+        <div class="row"><span class="key">MITM</span><span class="val">Certificate pinning + HSTS</span></div>
+
+        <div class="section-label">Network Controls</div>
+        <div class="row"><span class="key">IDS/IPS</span><span class="val">Snort, Suricata — detect/block</span></div>
+        <div class="row"><span class="key">Firewall</span><span class="val">Packet filter, stateful, proxy</span></div>
+        <div class="row"><span class="key">WAF</span><span class="val">ModSecurity, Cloudflare — web layer</span></div>
+        <div class="row"><span class="key">SIEM</span><span class="val">Splunk, QRadar — log correlation</span></div>
+        <div class="row"><span class="key">DLP</span><span class="val">Data Loss Prevention — exfil block</span></div>
+        <div class="note note-green">Defense in Depth: Layer controls so a single point of failure does not compromise the whole system.</div>
+      </div>
+    </div>
+
+  </div><!-- /grid row 9 -->
+
+  <!-- FOOTER NOTE -->
+  <div style="text-align:center; padding:10px 0; font-size:9px; color:var(--text3);">
+    CEH v13 Cheat Sheet &mdash; EC-Council Certified Ethical Hacker &mdash; All 20 Modules &mdash; For educational and exam prep purposes only &mdash; Always obtain written authorization before any testing activity
+  </div>
+
+</div><!-- /.page -->
+</body>
+</html>

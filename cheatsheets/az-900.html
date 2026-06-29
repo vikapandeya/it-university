@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AZ-900 Azure Fundamentals — Cheat Sheet</title>
+<meta name="description" content="Comprehensive AZ-900 Azure Fundamentals certification cheat sheet covering Cloud Concepts, Azure Architecture, Services, and Governance.">
+<style>
+:root {
+  --bg:#F5F6F7; --surface:#FFFFFF; --border:#E2E4E8;
+  --navy:#0F1C2E; --navy2:#1A2E45;
+  --azure:#0078D4; --azure-soft:#EFF6FF;
+  --blue:#1A6FB5; --blue-soft:#EBF4FF;
+  --green:#1B7A4A; --green-soft:#E8F7EF;
+  --red:#B91C1C; --red-soft:#FEF2F2;
+  --purple:#6B21A8; --purple-soft:#F5F0FF;
+  --text:#1C2333; --text2:#4A5568; --text3:#718096;
+  --mono:'Consolas','Courier New',monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+}
+body { font-family:var(--sans); font-size:11px; background:var(--bg); color:var(--text); line-height:1.5; }
+.page { max-width:1280px; margin:0 auto; padding:20px 16px; }
+.header { background:var(--navy); border-radius:10px; padding:20px 24px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+.header-left h1 { font-size:22px; font-weight:800; color:#fff; } .header-left h1 span { color:#60A5FA; }
+.header-left p { font-size:11px; color:#94A3B8; margin-top:3px; }
+.header-badges { display:flex; gap:8px; flex-wrap:wrap; }
+.badge { font-size:10px; font-weight:700; padding:4px 10px; border-radius:20px; letter-spacing:.5px; text-transform:uppercase; }
+.badge-azure { background:#0078D4; color:#fff; } .badge-blue { background:#3B82F6; color:#fff; } .badge-purple { background:#A855F7; color:#fff; }
+.grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:12px; }
+.grid-2 { grid-template-columns:repeat(2,1fr); } .grid-4 { grid-template-columns:repeat(4,1fr); }
+.card { background:var(--surface); border-radius:8px; border:1px solid var(--border); overflow:hidden; }
+.card-header { padding:8px 12px; display:flex; align-items:center; gap:8px; border-bottom:1px solid var(--border); }
+.card-header .icon { width:24px; height:24px; border-radius:5px; display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; }
+.card-header h2 { font-size:11.5px; font-weight:800; color:var(--navy); }
+.card-header .sub { font-size:9px; color:var(--text3); margin-left:auto; }
+.card-body { padding:10px 12px; }
+.section-label { font-size:8.5px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--text3); margin-bottom:5px; margin-top:9px; }
+.section-label:first-child { margin-top:0; }
+.row { display:flex; justify-content:space-between; align-items:baseline; padding:2px 0; border-bottom:1px solid #F1F3F5; gap:8px; }
+.row:last-child { border-bottom:none; }
+.row .key { font-family:var(--mono); font-size:10px; font-weight:600; color:var(--navy); white-space:nowrap; flex-shrink:0; }
+.row .val { font-size:10px; color:var(--text2); text-align:right; }
+.tags { display:flex; flex-wrap:wrap; gap:4px; margin-top:2px; }
+.tag { font-size:9.5px; padding:2px 7px; border-radius:4px; font-weight:600; font-family:var(--mono); }
+.tag-azure { background:var(--azure-soft); color:#1D4ED8; } .tag-blue { background:var(--blue-soft); color:#1E40AF; }
+.tag-green { background:var(--green-soft); color:#166534; } .tag-purple { background:var(--purple-soft); color:#6B21A8; }
+.tip-bar { background:var(--navy2); border-radius:8px; padding:10px 16px; margin-bottom:16px; display:flex; gap:24px; flex-wrap:wrap; }
+.tip-label { font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:#60A5FA; }
+.tip { font-size:10.5px; color:#CBD5E1; } .tip b { color:#fff; }
+.note { font-size:10px; color:var(--text2); padding:6px 8px; border-radius:4px; margin-top:4px; }
+.note-azure { background:var(--azure-soft); border-left:3px solid var(--azure); }
+.note-blue { background:var(--blue-soft); border-left:3px solid var(--blue); }
+.note-green { background:var(--green-soft); border-left:3px solid var(--green); }
+/* Extra layout utilities */
+.col-span-2 { grid-column: span 2; }
+.col-span-3 { grid-column: span 3; }
+.col-span-4 { grid-column: span 4; }
+.domain-bar { display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap; }
+.domain-pill { display:flex; align-items:center; gap:6px; background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:5px 12px; }
+.domain-pill .pct { font-size:13px; font-weight:800; color:var(--azure); font-family:var(--mono); }
+.domain-pill .name { font-size:10px; color:var(--text2); font-weight:600; }
+.exam-meta { display:flex; gap:16px; flex-wrap:wrap; align-items:center; margin-bottom:12px; }
+.meta-item { display:flex; align-items:center; gap:6px; background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:5px 10px; }
+.meta-item .mlabel { font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; color:var(--text3); }
+.meta-item .mval { font-size:11px; font-weight:800; color:var(--navy); font-family:var(--mono); }
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.three-col { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; }
+.svc-block { margin-bottom:8px; }
+.svc-block:last-child { margin-bottom:0; }
+.svc-title { font-size:10px; font-weight:800; color:var(--navy); margin-bottom:3px; padding-bottom:2px; border-bottom:1px solid #F1F3F5; }
+.svc-row { display:flex; gap:6px; align-items:baseline; padding:1px 0; }
+.svc-row .sk { font-family:var(--mono); font-size:9.5px; font-weight:600; color:var(--azure); flex-shrink:0; }
+.svc-row .sv { font-size:9.5px; color:var(--text2); }
+.pill-row { display:flex; flex-wrap:wrap; gap:4px; margin-top:3px; }
+.sla-table { width:100%; border-collapse:collapse; margin-top:2px; }
+.sla-table th { font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; color:var(--text3); padding:3px 6px; text-align:left; border-bottom:1px solid var(--border); }
+.sla-table td { font-size:9.5px; padding:3px 6px; border-bottom:1px solid #F1F3F5; color:var(--text2); vertical-align:top; }
+.sla-table td:first-child { font-family:var(--mono); font-weight:600; color:var(--navy); white-space:nowrap; }
+.sla-table tr:last-child td { border-bottom:none; }
+.support-table { width:100%; border-collapse:collapse; margin-top:2px; }
+.support-table th { font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; color:var(--text3); padding:3px 6px; text-align:left; border-bottom:1px solid var(--border); }
+.support-table td { font-size:9.5px; padding:3px 6px; border-bottom:1px solid #F1F3F5; color:var(--text2); vertical-align:top; }
+.support-table td:first-child { font-family:var(--mono); font-weight:700; color:var(--navy); white-space:nowrap; }
+.support-table tr:last-child td { border-bottom:none; }
+.icon-azure { background:var(--azure-soft); }
+.icon-blue { background:var(--blue-soft); }
+.icon-green { background:var(--green-soft); }
+.icon-purple { background:var(--purple-soft); }
+.icon-red { background:var(--red-soft); }
+.icon-navy { background:#E8EDF4; }
+@media print { body{background:#fff} .page{padding:0} }
+@media (max-width:900px) { .grid { grid-template-columns:1fr 1fr; } .grid-4 { grid-template-columns:1fr 1fr; } }
+@media (max-width:600px) { .grid,.grid-2,.grid-4 { grid-template-columns:1fr; } .col-span-2,.col-span-3,.col-span-4 { grid-column:span 1; } }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <h1>AZ-900 <span>Azure Fundamentals</span></h1>
+      <p>Microsoft Azure Certification — Comprehensive Cheat Sheet &nbsp;|&nbsp; All exam domains covered</p>
+    </div>
+    <div class="header-badges">
+      <span class="badge badge-azure">Azure Certified</span>
+      <span class="badge badge-blue">Exam Ready</span>
+      <span class="badge badge-purple">AZ-900</span>
+    </div>
+  </div>
+
+  <!-- EXAM META -->
+  <div class="exam-meta">
+    <div class="meta-item"><span class="mlabel">Questions</span><span class="mval">40–60</span></div>
+    <div class="meta-item"><span class="mlabel">Duration</span><span class="mval">60 min</span></div>
+    <div class="meta-item"><span class="mlabel">Passing Score</span><span class="mval">700 / 1000</span></div>
+    <div class="meta-item"><span class="mlabel">Exam Cost</span><span class="mval">$165</span></div>
+  </div>
+
+  <!-- DOMAIN WEIGHTS -->
+  <div class="domain-bar">
+    <div class="domain-pill"><span class="pct">25%</span><span class="name">Cloud Concepts</span></div>
+    <div class="domain-pill"><span class="pct">35%</span><span class="name">Azure Architecture &amp; Services</span></div>
+    <div class="domain-pill"><span class="pct">30%</span><span class="name">Azure Management &amp; Governance</span></div>
+  </div>
+
+  <!-- TIP BAR -->
+  <div class="tip-bar">
+    <div>
+      <div class="tip-label">Exam Strategy</div>
+      <div class="tip"><b>AZ-900 is conceptual</b> — know WHEN to use each service, not HOW to configure it. Focus on differences between similar services (e.g., VPN Gateway vs ExpressRoute, ACI vs AKS, Availability Zones vs Availability Sets).</div>
+    </div>
+    <div>
+      <div class="tip-label">Key Theme</div>
+      <div class="tip"><b>Shared Responsibility Model</b> — who manages what shifts by IaaS/PaaS/SaaS. Know it cold. Also memorize SLAs: zones=99.99%, sets=99.95%, single premium SSD=99.9%.</div>
+    </div>
+  </div>
+
+  <!-- ROW 1: Cloud Concepts + Azure Infrastructure -->
+  <div class="grid grid-2" style="margin-bottom:12px;">
+
+    <!-- Cloud Concepts -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-azure">&#9729;</div>
+        <h2>Cloud Concepts</h2>
+        <span class="sub">25% of exam</span>
+      </div>
+      <div class="card-body">
+        <div class="two-col">
+          <div>
+            <div class="section-label">Service Models</div>
+            <div class="svc-block">
+              <div class="svc-row"><span class="sk">IaaS</span><span class="sv">VMs, networking, storage. You manage OS+</span></div>
+              <div class="svc-row"><span class="sk">PaaS</span><span class="sv">App Service, Azure SQL. Provider manages infra</span></div>
+              <div class="svc-row"><span class="sk">SaaS</span><span class="sv">Office 365, Dynamics 365. Fully managed</span></div>
+            </div>
+            <div class="note note-azure" style="margin-top:4px;">Shared responsibility: customer responsibility decreases IaaS → PaaS → SaaS. Provider takes on more each step.</div>
+
+            <div class="section-label">Deployment Models</div>
+            <div class="row"><span class="key">Public</span><span class="val">Azure-owned, shared, pay-per-use</span></div>
+            <div class="row"><span class="key">Private</span><span class="val">On-prem, org-owned, full control</span></div>
+            <div class="row"><span class="key">Hybrid</span><span class="val">Azure Arc, Azure Stack HCI</span></div>
+            <div class="row"><span class="key">Multi-cloud</span><span class="val">Multiple cloud providers</span></div>
+          </div>
+          <div>
+            <div class="section-label">Cloud Benefits</div>
+            <div class="row"><span class="key">High Availability</span><span class="val">Uptime guarantees via SLA</span></div>
+            <div class="row"><span class="key">Scalability</span><span class="val">Scale out/in or up/down</span></div>
+            <div class="row"><span class="key">Elasticity</span><span class="val">Auto-scale on demand</span></div>
+            <div class="row"><span class="key">Agility</span><span class="val">Fast deploy, rapid iteration</span></div>
+            <div class="row"><span class="key">Geo-Distribution</span><span class="val">Deploy near users globally</span></div>
+            <div class="row"><span class="key">Disaster Recovery</span><span class="val">RTO/RPO, geo-redundancy</span></div>
+
+            <div class="section-label">Cost Model</div>
+            <div class="row"><span class="key">CapEx</span><span class="val">Upfront infra investment (on-prem)</span></div>
+            <div class="row"><span class="key">OpEx</span><span class="val">Cloud = pay-as-you-go consumption</span></div>
+            <div class="row"><span class="key">Economies of Scale</span><span class="val">MS buys cheaper, passes savings on</span></div>
+
+            <div class="tags" style="margin-top:6px;">
+              <span class="tag tag-azure">Consumption-based</span>
+              <span class="tag tag-green">No CapEx required</span>
+              <span class="tag tag-blue">Predictable OpEx</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Azure Global Infrastructure -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-blue">&#127758;</div>
+        <h2>Azure Global Infrastructure</h2>
+        <span class="sub">35% of exam</span>
+      </div>
+      <div class="card-body">
+        <div class="two-col">
+          <div>
+            <div class="section-label">Geographic Scope</div>
+            <div class="row"><span class="key">Regions</span><span class="val">60+ worldwide</span></div>
+            <div class="row"><span class="key">Geography</span><span class="val">Compliance boundary (US, Europe…)</span></div>
+            <div class="row"><span class="key">Region Pairs</span><span class="val">Auto-failover partner (East US ↔ West US)</span></div>
+            <div class="row"><span class="key">Sovereign</span><span class="val">Azure Gov, China 21Vianet</span></div>
+            <div class="row"><span class="key">Edge Zones</span><span class="val">Reduced latency specific locations</span></div>
+
+            <div class="section-label">Region Pair Rules</div>
+            <div class="svc-row"><span class="sk">&#8250;</span><span class="sv">Updates staged — not both at once</span></div>
+            <div class="svc-row"><span class="sk">&#8250;</span><span class="sv">Data residency maintained in same geography</span></div>
+            <div class="svc-row"><span class="sk">&#8250;</span><span class="sv">GRS replication targets paired region</span></div>
+          </div>
+          <div>
+            <div class="section-label">Resiliency Constructs</div>
+            <div class="svc-block">
+              <div class="svc-title">Availability Zones (AZ)</div>
+              <div class="svc-row"><span class="sk">What</span><span class="sv">3+ physically separate DCs per region</span></div>
+              <div class="svc-row"><span class="sk">Protects</span><span class="sv">Datacenter-level failures</span></div>
+              <div class="svc-row"><span class="sk">SLA</span><span class="sv">99.99% for VMs</span></div>
+            </div>
+            <div class="svc-block" style="margin-top:6px;">
+              <div class="svc-title">Availability Sets</div>
+              <div class="svc-row"><span class="sk">What</span><span class="sv">Fault domains (2–3) + Update domains (5–20)</span></div>
+              <div class="svc-row"><span class="sk">Protects</span><span class="sv">Rack failures &amp; planned maintenance</span></div>
+              <div class="svc-row"><span class="sk">Scope</span><span class="sv">VMs only, within one datacenter</span></div>
+              <div class="svc-row"><span class="sk">Cost</span><span class="sv">No extra charge</span></div>
+              <div class="svc-row"><span class="sk">SLA</span><span class="sv">99.95% for VMs</span></div>
+            </div>
+            <div class="note note-blue" style="margin-top:6px;">AZs = datacenter failure protection. Availability Sets = rack/update failure within one DC. Not interchangeable.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 2: Compute (wide) -->
+  <div class="grid" style="grid-template-columns:1fr; margin-bottom:12px;">
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-azure">&#9881;</div>
+        <h2>Compute Services</h2>
+        <span class="sub">Azure Architecture &amp; Services — 35%</span>
+      </div>
+      <div class="card-body">
+        <div class="three-col">
+          <!-- VMs -->
+          <div>
+            <div class="section-label">Virtual Machines</div>
+            <div class="svc-row"><span class="sk">OS</span><span class="sv">Windows / Linux, full control</span></div>
+            <div class="svc-row"><span class="sk">IaaS</span><span class="sv">You manage OS, patches, runtime</span></div>
+            <div class="section-label" style="margin-top:6px;">VM Series</div>
+            <div class="row"><span class="key">B-series</span><span class="val">Burstable, dev/test</span></div>
+            <div class="row"><span class="key">D-series</span><span class="val">General purpose</span></div>
+            <div class="row"><span class="key">F-series</span><span class="val">Compute-optimized</span></div>
+            <div class="row"><span class="key">M-series</span><span class="val">Memory-optimized</span></div>
+            <div class="row"><span class="key">N-series</span><span class="val">GPU (AI/ML/rendering)</span></div>
+            <div class="section-label" style="margin-top:6px;">Pricing Options</div>
+            <div class="row"><span class="key">Pay-as-you-go</span><span class="val">Default, per-second billing</span></div>
+            <div class="row"><span class="key">Reserved VMs</span><span class="val">1–3 yr commitment, up to 72% savings</span></div>
+            <div class="row"><span class="key">Spot VMs</span><span class="val">Up to 90% off, can be evicted</span></div>
+            <div class="row"><span class="key">Hybrid Benefit</span><span class="val">Reuse existing Win Server/SQL licenses</span></div>
+            <div class="tags" style="margin-top:6px;">
+              <span class="tag tag-azure">VMSS</span>
+              <span class="tag tag-blue">Scale Sets</span>
+              <span class="tag tag-green">Bastion</span>
+            </div>
+          </div>
+          <!-- App Service + Functions -->
+          <div>
+            <div class="section-label">App Service (PaaS)</div>
+            <div class="svc-row"><span class="sk">Runtimes</span><span class="sv">.NET, Node.js, Python, Java, PHP, Ruby</span></div>
+            <div class="svc-row"><span class="sk">OS</span><span class="sv">Windows or Linux hosts</span></div>
+            <div class="section-label" style="margin-top:6px;">App Service Plans</div>
+            <div class="row"><span class="key">Free / Shared</span><span class="val">Dev only, shared infra, no SLA</span></div>
+            <div class="row"><span class="key">Basic</span><span class="val">Dedicated, manual scale, no staging</span></div>
+            <div class="row"><span class="key">Standard</span><span class="val">Auto-scale, 5 deployment slots</span></div>
+            <div class="row"><span class="key">Premium</span><span class="val">Enhanced perf, VNet integration</span></div>
+            <div class="row"><span class="key">Isolated</span><span class="val">App Service Env (ASE), dedicated VNet</span></div>
+            <div class="svc-row"><span class="sk">Slots</span><span class="sv">Swap dev→staging→prod, zero downtime</span></div>
+
+            <div class="section-label" style="margin-top:6px;">Azure Functions (Serverless)</div>
+            <div class="row"><span class="key">Model</span><span class="val">Event-driven, auto-scale to zero</span></div>
+            <div class="row"><span class="key">Consumption</span><span class="val">Pay per execution &amp; duration</span></div>
+            <div class="row"><span class="key">Premium</span><span class="val">Always warm, VNet, unlimited duration</span></div>
+            <div class="row"><span class="key">Dedicated</span><span class="val">Run on existing App Service plan</span></div>
+            <div class="section-label" style="margin-top:4px;">Triggers</div>
+            <div class="tags">
+              <span class="tag tag-azure">HTTP</span>
+              <span class="tag tag-azure">Timer</span>
+              <span class="tag tag-blue">Blob</span>
+              <span class="tag tag-blue">Queue</span>
+              <span class="tag tag-green">Cosmos DB</span>
+              <span class="tag tag-purple">Service Bus</span>
+            </div>
+          </div>
+          <!-- Containers -->
+          <div>
+            <div class="section-label">Container Instances (ACI)</div>
+            <div class="svc-row"><span class="sk">Model</span><span class="sv">Serverless containers, no orchestration</span></div>
+            <div class="svc-row"><span class="sk">Billing</span><span class="sv">Per-second (CPU + memory)</span></div>
+            <div class="svc-row"><span class="sk">Use</span><span class="sv">Fastest way to run a container on Azure</span></div>
+            <div class="svc-row"><span class="sk">Limit</span><span class="sv">Single container group, not for microservices</span></div>
+
+            <div class="section-label" style="margin-top:6px;">Azure Kubernetes Service (AKS)</div>
+            <div class="svc-row"><span class="sk">Model</span><span class="sv">Managed Kubernetes cluster</span></div>
+            <div class="svc-row"><span class="sk">Control plane</span><span class="sv">Free (managed by Azure)</span></div>
+            <div class="svc-row"><span class="sk">Nodes</span><span class="sv">Node pools, pay for VM nodes</span></div>
+            <div class="svc-row"><span class="sk">Features</span><span class="sv">Autoscaling, RBAC, AAD integration</span></div>
+            <div class="svc-row"><span class="sk">Use</span><span class="sv">Microservices, complex orchestration</span></div>
+
+            <div class="section-label" style="margin-top:6px;">Other Compute</div>
+            <div class="row"><span class="key">Azure Batch</span><span class="val">Large-scale parallel job processing</span></div>
+            <div class="row"><span class="key">Azure VMware</span><span class="val">Run VMware workloads natively in Azure</span></div>
+            <div class="row"><span class="key">Azure Virtual Desktop</span><span class="val">Cloud-based Windows desktop VDI</span></div>
+            <div class="note note-green" style="margin-top:6px;">ACI = quick single container. AKS = full orchestration platform. App Service = PaaS web apps. Functions = serverless event processing.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 3: Storage + Databases -->
+  <div class="grid grid-2" style="margin-bottom:12px;">
+
+    <!-- Storage -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-green">&#128190;</div>
+        <h2>Storage Services</h2>
+        <span class="sub">Azure Architecture &amp; Services</span>
+      </div>
+      <div class="card-body">
+        <div class="two-col">
+          <div>
+            <div class="section-label">Azure Blob Storage</div>
+            <div class="row"><span class="key">Block blobs</span><span class="val">Files, backups, streaming</span></div>
+            <div class="row"><span class="key">Append blobs</span><span class="val">Log files only (append operations)</span></div>
+            <div class="row"><span class="key">Page blobs</span><span class="val">VHD disks, random read/write</span></div>
+
+            <div class="section-label">Access Tiers</div>
+            <div class="row"><span class="key">Hot</span><span class="val">Frequent access, higher storage cost</span></div>
+            <div class="row"><span class="key">Cool</span><span class="val">30-day min, lower storage cost</span></div>
+            <div class="row"><span class="key">Cold</span><span class="val">90-day min, rarely accessed</span></div>
+            <div class="row"><span class="key">Archive</span><span class="val">180-day min, offline, hours to rehydrate</span></div>
+            <div class="note note-azure" style="margin-top:4px;">Hot → Archive: storage cost decreases, access cost increases. Archive is cheapest to store, most expensive to retrieve.</div>
+
+            <div class="section-label">Storage Account Types</div>
+            <div class="row"><span class="key">Standard GPv2</span><span class="val">All storage types, recommended default</span></div>
+            <div class="row"><span class="key">Premium Block Blobs</span><span class="val">High-throughput, low-latency blobs</span></div>
+            <div class="row"><span class="key">Premium File Shares</span><span class="val">High-perf SMB/NFS shares</span></div>
+            <div class="row"><span class="key">Premium Page Blobs</span><span class="val">High-perf VHD/managed disks</span></div>
+          </div>
+          <div>
+            <div class="section-label">Redundancy Options</div>
+            <div class="row"><span class="key">LRS</span><span class="val">3 copies, same datacenter</span></div>
+            <div class="row"><span class="key">ZRS</span><span class="val">3 copies across zones, same region</span></div>
+            <div class="row"><span class="key">GRS</span><span class="val">LRS + async copy to paired region</span></div>
+            <div class="row"><span class="key">GZRS</span><span class="val">ZRS + async copy to paired region</span></div>
+            <div class="row"><span class="key">RA-GRS</span><span class="val">GRS + read access to secondary</span></div>
+            <div class="row"><span class="key">RA-GZRS</span><span class="val">GZRS + read access to secondary</span></div>
+            <div class="note note-blue" style="margin-top:4px;">LRS cheapest, least durable. GZRS most resilient (survives zone + regional outage). GRS/GZRS secondary is read-only unless failover.</div>
+
+            <div class="section-label">Other Storage Services</div>
+            <div class="row"><span class="key">Azure Files</span><span class="val">SMB/NFS shares, mountable to OS</span></div>
+            <div class="row"><span class="key">Azure Queue</span><span class="val">Messages up to 64KB, async decoupling</span></div>
+            <div class="row"><span class="key">Azure Table</span><span class="val">NoSQL key-value, schemaless</span></div>
+            <div class="row"><span class="key">Azure Disk</span><span class="val">Managed disks for VMs (HDD/SSD/Ultra)</span></div>
+            <div class="row"><span class="key">Storage Explorer</span><span class="val">GUI tool to manage storage accounts</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Databases -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-purple">&#128200;</div>
+        <h2>Database Services</h2>
+        <span class="sub">Azure Architecture &amp; Services</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Relational (SQL)</div>
+        <div class="svc-block">
+          <div class="svc-title">Azure SQL Database — PaaS</div>
+          <div class="svc-row"><span class="sk">Type</span><span class="sv">Fully managed SQL Server, built-in HA</span></div>
+          <div class="svc-row"><span class="sk">Models</span><span class="sv">Single DB, Elastic Pool, Serverless</span></div>
+          <div class="svc-row"><span class="sk">Backups</span><span class="sv">Automatic, point-in-time restore</span></div>
+        </div>
+        <div class="svc-block" style="margin-top:6px;">
+          <div class="svc-title">Azure SQL Managed Instance</div>
+          <div class="svc-row"><span class="sk">Compat</span><span class="sv">Near 100% SQL Server compatibility</span></div>
+          <div class="svc-row"><span class="sk">Network</span><span class="sv">VNet injection, private endpoint</span></div>
+          <div class="svc-row"><span class="sk">Use</span><span class="sv">Lift-and-shift from on-prem SQL Server</span></div>
+        </div>
+
+        <div class="section-label">NoSQL / Distributed</div>
+        <div class="svc-block">
+          <div class="svc-title">Azure Cosmos DB</div>
+          <div class="svc-row"><span class="sk">APIs</span><span class="sv">SQL (Core), MongoDB, Cassandra, Gremlin, Table</span></div>
+          <div class="svc-row"><span class="sk">Distribution</span><span class="sv">Global multi-region write/read</span></div>
+          <div class="svc-row"><span class="sk">SLA</span><span class="sv">99.999% availability</span></div>
+          <div class="svc-row"><span class="sk">Consistency</span><span class="sv">5 levels: Strong → Eventual</span></div>
+          <div class="svc-row"><span class="sk">Latency</span><span class="sv">&lt;10ms reads, &lt;15ms writes (P99)</span></div>
+        </div>
+
+        <div class="section-label">Open-Source Managed</div>
+        <div class="row"><span class="key">Azure DB for MySQL</span><span class="val">Managed MySQL, Flexible Server</span></div>
+        <div class="row"><span class="key">Azure DB for PostgreSQL</span><span class="val">Managed PostgreSQL, Flexible Server</span></div>
+        <div class="row"><span class="key">Azure DB for MariaDB</span><span class="val">Managed MariaDB</span></div>
+
+        <div class="section-label">Caching / In-Memory</div>
+        <div class="row"><span class="key">Azure Cache for Redis</span><span class="val">In-memory cache, sub-ms latency, sessions</span></div>
+
+        <div class="note note-green" style="margin-top:6px;">SQL Managed Instance = max compatibility for lift &amp; shift. SQL Database = cloud-native PaaS. Cosmos DB = globally distributed NoSQL. Redis = caching layer.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 4: Networking (full width) -->
+  <div class="grid" style="grid-template-columns:1fr; margin-bottom:12px;">
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-blue">&#127760;</div>
+        <h2>Networking Services</h2>
+        <span class="sub">Azure Architecture &amp; Services — 35%</span>
+      </div>
+      <div class="card-body">
+        <div class="three-col">
+          <!-- Core networking -->
+          <div>
+            <div class="section-label">Core Virtual Networking</div>
+            <div class="svc-block">
+              <div class="svc-title">Virtual Network (VNet)</div>
+              <div class="svc-row"><span class="sk">What</span><span class="sv">Isolated private network in Azure</span></div>
+              <div class="svc-row"><span class="sk">Features</span><span class="sv">Subnets, NSGs, private IP ranges (RFC 1918)</span></div>
+              <div class="svc-row"><span class="sk">Scope</span><span class="sv">Region-scoped, spans zones</span></div>
+            </div>
+            <div class="svc-block" style="margin-top:6px;">
+              <div class="svc-title">VNet Peering</div>
+              <div class="svc-row"><span class="sk">Type</span><span class="sv">Regional (same) or Global (cross-region)</span></div>
+              <div class="svc-row"><span class="sk">Traffic</span><span class="sv">Microsoft backbone, low latency</span></div>
+              <div class="svc-row"><span class="sk">Note</span><span class="sv">Non-transitive — hub-spoke needs UDR</span></div>
+            </div>
+
+            <div class="section-label">Hybrid Connectivity</div>
+            <div class="svc-block">
+              <div class="svc-title">VPN Gateway</div>
+              <div class="svc-row"><span class="sk">S2S</span><span class="sv">Site-to-Site (on-prem to Azure)</span></div>
+              <div class="svc-row"><span class="sk">P2S</span><span class="sv">Point-to-Site (individual client)</span></div>
+              <div class="svc-row"><span class="sk">V2V</span><span class="sv">VNet-to-VNet (across regions)</span></div>
+              <div class="svc-row"><span class="sk">Medium</span><span class="sv">Encrypted over public internet</span></div>
+            </div>
+            <div class="svc-block" style="margin-top:6px;">
+              <div class="svc-title">ExpressRoute</div>
+              <div class="svc-row"><span class="sk">Medium</span><span class="sv">Private dedicated circuit (NOT internet)</span></div>
+              <div class="svc-row"><span class="sk">Speed</span><span class="sv">50Mbps to 100Gbps</span></div>
+              <div class="svc-row"><span class="sk">Use</span><span class="sv">Compliance, high bandwidth, consistent latency</span></div>
+            </div>
+            <div class="note note-azure" style="margin-top:4px;">ExpressRoute = private, fast, dedicated. VPN Gateway = encrypted over public internet. Use ExpressRoute for compliance or high bandwidth.</div>
+          </div>
+          <!-- Load balancing -->
+          <div>
+            <div class="section-label">Load Balancing &amp; Traffic</div>
+            <div class="svc-block">
+              <div class="svc-title">Load Balancer — Layer 4</div>
+              <div class="svc-row"><span class="sk">Protocol</span><span class="sv">TCP / UDP</span></div>
+              <div class="svc-row"><span class="sk">Scope</span><span class="sv">Internal (private) or Public</span></div>
+              <div class="svc-row"><span class="sk">Use</span><span class="sv">VM-level load balancing within region</span></div>
+            </div>
+            <div class="svc-block" style="margin-top:6px;">
+              <div class="svc-title">Application Gateway — Layer 7</div>
+              <div class="svc-row"><span class="sk">Protocol</span><span class="sv">HTTP / HTTPS</span></div>
+              <div class="svc-row"><span class="sk">Features</span><span class="sv">URL-based routing, WAF, SSL termination</span></div>
+              <div class="svc-row"><span class="sk">WAF</span><span class="sv">OWASP rules, bot protection</span></div>
+            </div>
+            <div class="svc-block" style="margin-top:6px;">
+              <div class="svc-title">Azure Front Door</div>
+              <div class="svc-row"><span class="sk">Scope</span><span class="sv">Global HTTP LB + CDN + WAF</span></div>
+              <div class="svc-row"><span class="sk">Use</span><span class="sv">Multi-region web apps, latency routing</span></div>
+            </div>
+            <div class="svc-block" style="margin-top:6px;">
+              <div class="svc-title">Traffic Manager</div>
+              <div class="svc-row"><span class="sk">Type</span><span class="sv">DNS-based global load balancer</span></div>
+              <div class="svc-row"><span class="sv">Routing: Priority, Weighted, Geographic, Performance</span></div>
+            </div>
+
+            <div class="section-label">DNS</div>
+            <div class="row"><span class="key">Azure DNS</span><span class="val">Host public DNS zones, 100% SLA</span></div>
+            <div class="row"><span class="key">Private DNS</span><span class="val">Name resolution within VNets</span></div>
+          </div>
+          <!-- Security / CDN -->
+          <div>
+            <div class="section-label">Network Security</div>
+            <div class="svc-block">
+              <div class="svc-title">Azure Firewall</div>
+              <div class="svc-row"><span class="sk">Type</span><span class="sv">Managed stateful firewall</span></div>
+              <div class="svc-row"><span class="sk">Features</span><span class="sv">FQDN filtering, threat intelligence, DNAT</span></div>
+              <div class="svc-row"><span class="sk">Deploy</span><span class="sv">Hub VNet, centralized traffic inspection</span></div>
+            </div>
+            <div class="svc-block" style="margin-top:6px;">
+              <div class="svc-title">Network Security Groups (NSG)</div>
+              <div class="svc-row"><span class="sk">What</span><span class="sv">Stateful packet filter on subnet/NIC</span></div>
+              <div class="svc-row"><span class="sk">Rules</span><span class="sv">Allow/Deny by port, IP, protocol, priority</span></div>
+            </div>
+            <div class="svc-block" style="margin-top:6px;">
+              <div class="svc-title">DDoS Protection</div>
+              <div class="svc-row"><span class="sk">Basic</span><span class="sv">Free, automatic, always-on</span></div>
+              <div class="svc-row"><span class="sk">Standard</span><span class="sv">Advanced mitigation, ~$2,944/mo per VNet</span></div>
+              <div class="svc-row"><span class="sk">Extras</span><span class="sv">Rapid Response team, DDoS telemetry</span></div>
+            </div>
+
+            <div class="section-label">CDN &amp; Edge</div>
+            <div class="svc-block">
+              <div class="svc-title">Azure CDN</div>
+              <div class="svc-row"><span class="sk">What</span><span class="sv">Cache static content at edge globally</span></div>
+              <div class="svc-row"><span class="sk">Providers</span><span class="sv">Microsoft, Verizon, Akamai</span></div>
+              <div class="svc-row"><span class="sk">Use</span><span class="sv">Reduce latency for global users</span></div>
+            </div>
+            <div class="tags" style="margin-top:6px;">
+              <span class="tag tag-azure">WAF</span>
+              <span class="tag tag-blue">NSG</span>
+              <span class="tag tag-green">Private Endpoint</span>
+              <span class="tag tag-purple">Service Endpoint</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 5: Identity & Security + AI/IoT -->
+  <div class="grid grid-2" style="margin-bottom:12px;">
+
+    <!-- Identity & Security -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-purple">&#128274;</div>
+        <h2>Identity &amp; Security</h2>
+        <span class="sub">Azure Architecture &amp; Services</span>
+      </div>
+      <div class="card-body">
+        <div class="two-col">
+          <div>
+            <div class="section-label">Azure AD / Microsoft Entra ID</div>
+            <div class="svc-row"><span class="sk">What</span><span class="sv">Cloud identity platform (not Windows AD)</span></div>
+            <div class="svc-row"><span class="sk">Objects</span><span class="sv">Users, Groups, Apps, Service Principals</span></div>
+            <div class="svc-row"><span class="sk">Tenant</span><span class="sv">Isolated directory instance per org</span></div>
+            <div class="section-label" style="margin-top:6px;">Azure AD Tiers</div>
+            <div class="row"><span class="key">Free</span><span class="val">Basic SSO, 500K objects</span></div>
+            <div class="row"><span class="key">P1</span><span class="val">Conditional Access, hybrid identity</span></div>
+            <div class="row"><span class="key">P2</span><span class="val">Identity Protection, PIM, Access Reviews</span></div>
+
+            <div class="section-label">Authentication</div>
+            <div class="row"><span class="key">MFA</span><span class="val">Authenticator app, SMS, TOTP, call</span></div>
+            <div class="row"><span class="key">Passwordless</span><span class="val">FIDO2, Windows Hello, Authenticator</span></div>
+            <div class="row"><span class="key">SSO</span><span class="val">Federated sign-on to SaaS apps</span></div>
+            <div class="row"><span class="key">B2B</span><span class="val">External guest user access</span></div>
+            <div class="row"><span class="key">B2C</span><span class="val">Consumer identity (social logins)</span></div>
+
+            <div class="section-label">Conditional Access (P1 required)</div>
+            <div class="svc-row"><span class="sk">Conditions</span><span class="sv">Location, device, user risk, sign-in risk</span></div>
+            <div class="svc-row"><span class="sk">Controls</span><span class="sv">Require MFA, block, compliant device</span></div>
+          </div>
+          <div>
+            <div class="section-label">Authorization (RBAC)</div>
+            <div class="row"><span class="key">Owner</span><span class="val">Full access + assign roles</span></div>
+            <div class="row"><span class="key">Contributor</span><span class="val">Create/manage, cannot assign roles</span></div>
+            <div class="row"><span class="key">Reader</span><span class="val">View only, no changes</span></div>
+            <div class="row"><span class="key">Custom roles</span><span class="val">Fine-grained permissions, any scope</span></div>
+            <div class="svc-row"><span class="sk">Scopes</span><span class="sv">Mgmt group → Subscription → RG → Resource</span></div>
+            <div class="note note-azure" style="margin-top:4px;">RBAC is additive — most permissive role wins unless explicit Deny. Deny assignments override Allow.</div>
+
+            <div class="section-label">Azure Key Vault</div>
+            <div class="row"><span class="key">Secrets</span><span class="val">Connection strings, API keys, passwords</span></div>
+            <div class="row"><span class="key">Keys</span><span class="val">HSM-backed encryption keys</span></div>
+            <div class="row"><span class="key">Certs</span><span class="val">TLS/SSL certificate lifecycle</span></div>
+            <div class="row"><span class="key">Access</span><span class="val">RBAC or Vault Access Policies</span></div>
+
+            <div class="section-label">Microsoft Defender for Cloud</div>
+            <div class="row"><span class="key">Secure Score</span><span class="val">0–100%, security posture rating</span></div>
+            <div class="row"><span class="key">CSPM</span><span class="val">Cloud Security Posture Management</span></div>
+            <div class="row"><span class="key">Workload</span><span class="val">Threat protection for VMs, DBs, storage</span></div>
+            <div class="row"><span class="key">Plans</span><span class="val">Free (basic) + paid Defender plans per service</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Additional Services (AI, IoT, Migration) -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-navy">&#9889;</div>
+        <h2>AI, IoT &amp; Additional Services</h2>
+        <span class="sub">Azure Architecture &amp; Services</span>
+      </div>
+      <div class="card-body">
+        <div class="two-col">
+          <div>
+            <div class="section-label">AI &amp; Machine Learning</div>
+            <div class="row"><span class="key">Azure Machine Learning</span><span class="val">MLOps platform, model training/deployment</span></div>
+            <div class="row"><span class="key">Azure Cognitive Services</span><span class="val">Pre-built AI: Vision, Speech, Language, Search</span></div>
+            <div class="row"><span class="key">Azure OpenAI</span><span class="val">GPT-4, DALL-E, Whisper via API</span></div>
+            <div class="row"><span class="key">Bot Service</span><span class="val">Build conversational AI bots</span></div>
+
+            <div class="section-label">IoT Services</div>
+            <div class="row"><span class="key">IoT Hub</span><span class="val">Bidirectional device messaging, device mgmt</span></div>
+            <div class="row"><span class="key">IoT Central</span><span class="val">SaaS IoT application platform</span></div>
+            <div class="row"><span class="key">Azure Sphere</span><span class="val">Secured microcontroller + cloud service</span></div>
+            <div class="row"><span class="key">Digital Twins</span><span class="val">Model physical environments digitally</span></div>
+          </div>
+          <div>
+            <div class="section-label">Integration &amp; Messaging</div>
+            <div class="row"><span class="key">Service Bus</span><span class="val">Enterprise message broker, queues + topics</span></div>
+            <div class="row"><span class="key">Event Grid</span><span class="val">Event routing, pub/sub, reactive programming</span></div>
+            <div class="row"><span class="key">Event Hubs</span><span class="val">Big data streaming, Kafka-compatible</span></div>
+            <div class="row"><span class="key">Logic Apps</span><span class="val">Low-code workflow automation, 400+ connectors</span></div>
+            <div class="row"><span class="key">API Management</span><span class="val">API gateway, policies, developer portal</span></div>
+
+            <div class="section-label">DevOps &amp; Developer Tools</div>
+            <div class="row"><span class="key">Azure DevOps</span><span class="val">Boards, Repos, Pipelines, Artifacts, Test Plans</span></div>
+            <div class="row"><span class="key">GitHub Actions</span><span class="val">CI/CD integrated with GitHub</span></div>
+            <div class="row"><span class="key">Azure Arc</span><span class="val">Extend Azure mgmt to on-prem/other clouds</span></div>
+
+            <div class="section-label">Migration</div>
+            <div class="row"><span class="key">Azure Migrate</span><span class="val">Assess &amp; migrate servers, DBs, web apps</span></div>
+            <div class="row"><span class="key">Data Box</span><span class="val">Physical device to ship data to Azure offline</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 6: Cost Management & Governance (full width) -->
+  <div class="grid" style="grid-template-columns:1fr; margin-bottom:12px;">
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-green">&#128176;</div>
+        <h2>Cost Management &amp; Governance</h2>
+        <span class="sub">Azure Management &amp; Governance — 30%</span>
+      </div>
+      <div class="card-body">
+        <div class="three-col">
+          <!-- Pricing -->
+          <div>
+            <div class="section-label">Pricing Tools</div>
+            <div class="svc-block">
+              <div class="svc-title">Azure Pricing Calculator</div>
+              <div class="svc-row"><span class="sk">Use</span><span class="sv">Estimate cost for NEW Azure deployments</span></div>
+              <div class="svc-row"><span class="sk">Input</span><span class="sv">Services, region, tier, quantity</span></div>
+            </div>
+            <div class="svc-block" style="margin-top:6px;">
+              <div class="svc-title">TCO Calculator</div>
+              <div class="svc-row"><span class="sk">Use</span><span class="sv">Compare on-prem vs Azure costs</span></div>
+              <div class="svc-row"><span class="sk">Output</span><span class="sv">3-year savings estimate</span></div>
+            </div>
+            <div class="svc-block" style="margin-top:6px;">
+              <div class="svc-title">Azure Cost Management</div>
+              <div class="svc-row"><span class="sk">Use</span><span class="sv">Monitor &amp; analyze ACTUAL spend</span></div>
+              <div class="svc-row"><span class="sk">Features</span><span class="sv">Budgets, alerts, cost analysis, recommendations</span></div>
+            </div>
+
+            <div class="section-label">Savings Options</div>
+            <div class="row"><span class="key">Reserved Instances</span><span class="val">1 or 3 yr, up to 72% savings</span></div>
+            <div class="row"><span class="key">Savings Plans</span><span class="val">Flexible compute discount, 1–3 yr commit</span></div>
+            <div class="row"><span class="key">Azure Hybrid Benefit</span><span class="val">Reuse Win Server / SQL Server licenses</span></div>
+            <div class="row"><span class="key">Spot VMs</span><span class="val">Up to 90% off, interruptible workloads</span></div>
+            <div class="row"><span class="key">Dev/Test pricing</span><span class="val">Lower rates for non-prod environments</span></div>
+            <div class="note note-green" style="margin-top:4px;">Pricing Calculator = estimate future. TCO Calculator = justify migration. Cost Management = track current spend.</div>
+          </div>
+
+          <!-- Governance -->
+          <div>
+            <div class="section-label">Governance Hierarchy</div>
+            <div class="svc-block">
+              <div class="svc-title">Management Groups</div>
+              <div class="svc-row"><span class="sk">What</span><span class="sv">Container above subscriptions</span></div>
+              <div class="svc-row"><span class="sk">Use</span><span class="sv">Apply policies &amp; RBAC across multiple subs</span></div>
+              <div class="svc-row"><span class="sk">Depth</span><span class="sv">Up to 6 levels deep</span></div>
+            </div>
+            <div class="svc-block" style="margin-top:6px;">
+              <div class="svc-title">Subscriptions</div>
+              <div class="svc-row"><span class="sk">What</span><span class="sv">Billing unit, trust boundary for Azure AD</span></div>
+              <div class="svc-row"><span class="sk">Limits</span><span class="sv">Resource quotas apply per subscription</span></div>
+            </div>
+            <div class="svc-block" style="margin-top:6px;">
+              <div class="svc-title">Resource Groups</div>
+              <div class="svc-row"><span class="sk">What</span><span class="sv">Logical container for resources</span></div>
+              <div class="svc-row"><span class="sk">Scope</span><span class="sv">Policies/RBAC can be applied at RG level</span></div>
+              <div class="svc-row"><span class="sk">Note</span><span class="sv">Resource in only ONE RG; can span regions</span></div>
+            </div>
+
+            <div class="section-label">Policy &amp; Compliance</div>
+            <div class="svc-block">
+              <div class="svc-title">Azure Policy</div>
+              <div class="svc-row"><span class="sk">Effects</span><span class="sv">Audit, Deny, DeployIfNotExists, Append</span></div>
+              <div class="svc-row"><span class="sk">Initiative</span><span class="sv">Group of policies (Policy Set)</span></div>
+              <div class="svc-row"><span class="sk">Use</span><span class="sv">Enforce tagging, allowed locations, SKUs</span></div>
+            </div>
+            <div class="svc-block" style="margin-top:6px;">
+              <div class="svc-title">Azure Blueprints</div>
+              <div class="svc-row"><span class="sk">What</span><span class="sv">Package: Policy + RBAC + ARM templates</span></div>
+              <div class="svc-row"><span class="sk">Use</span><span class="sv">Repeatable, compliant env deployments</span></div>
+            </div>
+            <div class="svc-block" style="margin-top:6px;">
+              <div class="svc-title">Resource Locks</div>
+              <div class="svc-row"><span class="sk">CanNotDelete</span><span class="sv">Read &amp; update allowed, delete blocked</span></div>
+              <div class="svc-row"><span class="sk">ReadOnly</span><span class="sv">Only reads allowed, like Reader role</span></div>
+              <div class="svc-row"><span class="sk">Scope</span><span class="sv">Sub, RG, or individual resource; inherited</span></div>
+            </div>
+          </div>
+
+          <!-- Support + Monitoring -->
+          <div>
+            <div class="section-label">Support Plans</div>
+            <table class="support-table">
+              <thead>
+                <tr><th>Plan</th><th>Cost</th><th>Sev A Response</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Basic</td><td>Free</td><td>No technical support</td></tr>
+                <tr><td>Developer</td><td>$29/mo</td><td>Biz hours email, 1 biz day</td></tr>
+                <tr><td>Standard</td><td>$100/mo</td><td>24/7 phone+email, 1hr</td></tr>
+                <tr><td>Pro Direct</td><td>$1,000/mo</td><td>15 min, advisory services</td></tr>
+              </tbody>
+            </table>
+            <div class="note note-blue" style="margin-top:4px;">Severity A = critical business impact. Severity B = moderate impact. Basic = docs + community forums only.</div>
+
+            <div class="section-label">Monitoring &amp; Observability</div>
+            <div class="row"><span class="key">Azure Monitor</span><span class="val">Metrics + logs platform, alerts, dashboards</span></div>
+            <div class="row"><span class="key">Log Analytics</span><span class="val">Query logs with KQL (Kusto)</span></div>
+            <div class="row"><span class="key">App Insights</span><span class="val">APM: traces, exceptions, performance, usage</span></div>
+            <div class="row"><span class="key">Azure Advisor</span><span class="val">5 pillars: Cost, Security, Reliability, Perf, OpEx</span></div>
+            <div class="row"><span class="key">Service Health</span><span class="val">Platform issues, maintenance, health advisories</span></div>
+            <div class="row"><span class="key">Resource Health</span><span class="val">Health of your specific resources</span></div>
+
+            <div class="section-label">Tagging &amp; Organization</div>
+            <div class="svc-row"><span class="sk">Tags</span><span class="sv">Key-value metadata: cost allocation, environment, team</span></div>
+            <div class="svc-row"><span class="sk">Limit</span><span class="sv">50 tags per resource/RG, 512 chars per name</span></div>
+            <div class="svc-row"><span class="sk">Inherit</span><span class="sv">Tags do NOT inherit by default (use Azure Policy)</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 7: SLA Table + Key Comparisons -->
+  <div class="grid grid-2" style="margin-bottom:12px;">
+
+    <!-- SLA Reference -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-azure">&#128203;</div>
+        <h2>SLA Quick Reference</h2>
+        <span class="sub">Service Level Agreements</span>
+      </div>
+      <div class="card-body">
+        <div class="two-col">
+          <div>
+            <div class="section-label">Virtual Machines</div>
+            <table class="sla-table">
+              <thead>
+                <tr><th>Configuration</th><th>SLA</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Single VM + Premium SSD</td><td>99.9% (~8.7 hrs/yr downtime)</td></tr>
+                <tr><td>Availability Set (2+ VMs)</td><td>99.95% (~4.4 hrs/yr)</td></tr>
+                <tr><td>Availability Zones (2+ VMs)</td><td>99.99% (~52 min/yr)</td></tr>
+              </tbody>
+            </table>
+            <div class="note note-azure" style="margin-top:4px;">Free/Basic tiers: NO SLA. Single VM with Standard HDD/SSD: no SLA either. Premium SSD required for 99.9%.</div>
+
+            <div class="section-label" style="margin-top:8px;">Key Service SLAs</div>
+            <table class="sla-table">
+              <thead>
+                <tr><th>Service</th><th>SLA</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Azure SQL Database</td><td>99.99%</td></tr>
+                <tr><td>Cosmos DB (single region)</td><td>99.99%</td></tr>
+                <tr><td>Cosmos DB (multi-region)</td><td>99.999%</td></tr>
+                <tr><td>App Service</td><td>99.95%</td></tr>
+                <tr><td>Azure Storage</td><td>99.9% – 99.99%</td></tr>
+                <tr><td>Azure Kubernetes Service</td><td>99.95% – 99.99%</td></tr>
+                <tr><td>Azure Functions (Consumption)</td><td>99.95%</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <div class="section-label">SLA Math</div>
+            <div class="svc-row"><span class="sk">99.9%</span><span class="sv">~8.76 hrs downtime per year</span></div>
+            <div class="svc-row"><span class="sk">99.95%</span><span class="sv">~4.38 hrs downtime per year</span></div>
+            <div class="svc-row"><span class="sk">99.99%</span><span class="sv">~52.6 min downtime per year</span></div>
+            <div class="svc-row"><span class="sk">99.999%</span><span class="sv">~5.26 min downtime per year</span></div>
+            <div class="note note-blue" style="margin-top:4px;">Composite SLA: multiply individual SLAs. Two 99.9% services = 99.9% × 99.9% = 99.8% composite.</div>
+
+            <div class="section-label" style="margin-top:8px;">Improving SLA</div>
+            <div class="row"><span class="key">Active-Active</span><span class="val">Both regions serving traffic simultaneously</span></div>
+            <div class="row"><span class="key">Active-Passive</span><span class="val">Failover to standby on failure</span></div>
+            <div class="row"><span class="key">Geo-redundancy</span><span class="val">Deploy across paired regions</span></div>
+            <div class="row"><span class="key">Health probes</span><span class="val">LB removes unhealthy instances</span></div>
+            <div class="row"><span class="key">Retry policies</span><span class="val">Transient fault handling in code</span></div>
+
+            <div class="section-label" style="margin-top:8px;">Service Credits</div>
+            <div class="svc-row"><span class="sk">10–25%</span><span class="sv">Credit when uptime falls below SLA</span></div>
+            <div class="svc-row"><span class="sk">Note</span><span class="sv">Preview services have no SLA commitments</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Key Comparisons -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-red">&#9878;</div>
+        <h2>Key Service Comparisons</h2>
+        <span class="sub">Most-tested differentiators</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Connectivity: VPN vs ExpressRoute</div>
+        <table class="sla-table">
+          <thead><tr><th>Feature</th><th>VPN Gateway</th><th>ExpressRoute</th></tr></thead>
+          <tbody>
+            <tr><td>Path</td><td>Public internet (encrypted)</td><td>Private circuit (not internet)</td></tr>
+            <tr><td>Speed</td><td>Up to 10 Gbps</td><td>50 Mbps – 100 Gbps</td></tr>
+            <tr><td>Latency</td><td>Variable</td><td>Consistent, low</td></tr>
+            <tr><td>Use</td><td>Lower cost, quick setup</td><td>Compliance, high BW needs</td></tr>
+          </tbody>
+        </table>
+
+        <div class="section-label" style="margin-top:8px;">Containers: ACI vs AKS</div>
+        <table class="sla-table">
+          <thead><tr><th>Feature</th><th>ACI</th><th>AKS</th></tr></thead>
+          <tbody>
+            <tr><td>Orchestration</td><td>None</td><td>Full Kubernetes</td></tr>
+            <tr><td>Startup</td><td>Seconds</td><td>Minutes</td></tr>
+            <tr><td>Use</td><td>Simple, single containers</td><td>Microservices at scale</td></tr>
+            <tr><td>Cost</td><td>Per second</td><td>Pay for nodes (VMs)</td></tr>
+          </tbody>
+        </table>
+
+        <div class="section-label" style="margin-top:8px;">Azure AD vs On-Prem Active Directory</div>
+        <table class="sla-table">
+          <thead><tr><th>Feature</th><th>Azure AD / Entra ID</th><th>Active Directory DS</th></tr></thead>
+          <tbody>
+            <tr><td>Protocol</td><td>OAuth, OIDC, SAML</td><td>Kerberos, LDAP, NTLM</td></tr>
+            <tr><td>Scope</td><td>Cloud / internet identity</td><td>On-prem domain join</td></tr>
+            <tr><td>Querying</td><td>REST API</td><td>LDAP</td></tr>
+          </tbody>
+        </table>
+
+        <div class="section-label" style="margin-top:8px;">Monitoring Tools</div>
+        <table class="sla-table">
+          <thead><tr><th>Tool</th><th>Purpose</th></tr></thead>
+          <tbody>
+            <tr><td>Azure Monitor</td><td>Metrics + logs for all Azure resources</td></tr>
+            <tr><td>Application Insights</td><td>APM — app performance, errors, usage</td></tr>
+            <tr><td>Log Analytics</td><td>KQL queries over Monitor log data</td></tr>
+            <tr><td>Azure Advisor</td><td>Recommendations (not alerts)</td></tr>
+            <tr><td>Service Health</td><td>Azure platform status &amp; maintenance</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 8: Deployment Tools + Exam Quick Tips -->
+  <div class="grid grid-2" style="margin-bottom:12px;">
+
+    <!-- Deployment & Management Tools -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-navy">&#128295;</div>
+        <h2>Deployment &amp; Management Tools</h2>
+        <span class="sub">Azure Management &amp; Governance</span>
+      </div>
+      <div class="card-body">
+        <div class="two-col">
+          <div>
+            <div class="section-label">Azure Portal &amp; CLI</div>
+            <div class="row"><span class="key">Azure Portal</span><span class="val">Web GUI, all services, no scripting</span></div>
+            <div class="row"><span class="key">Azure CLI</span><span class="val">Cross-platform command-line, bash-style</span></div>
+            <div class="row"><span class="key">Azure PowerShell</span><span class="val">PowerShell cmdlets (Az module)</span></div>
+            <div class="row"><span class="key">Cloud Shell</span><span class="val">Browser-based CLI (Bash or PowerShell)</span></div>
+            <div class="row"><span class="key">Azure Mobile App</span><span class="val">Monitor resources on mobile</span></div>
+
+            <div class="section-label">Infrastructure as Code</div>
+            <div class="svc-block">
+              <div class="svc-title">ARM Templates</div>
+              <div class="svc-row"><span class="sk">Format</span><span class="sv">JSON declarative templates</span></div>
+              <div class="svc-row"><span class="sk">Idempotent</span><span class="sv">Re-run without side effects</span></div>
+            </div>
+            <div class="svc-block" style="margin-top:4px;">
+              <div class="svc-title">Bicep</div>
+              <div class="svc-row"><span class="sk">What</span><span class="sv">Azure-native DSL, compiles to ARM JSON</span></div>
+              <div class="svc-row"><span class="sk">Simpler</span><span class="sv">Less verbose than raw ARM templates</span></div>
+            </div>
+            <div class="svc-block" style="margin-top:4px;">
+              <div class="svc-title">Terraform</div>
+              <div class="svc-row"><span class="sk">What</span><span class="sv">Open-source IaC, multi-cloud HCL syntax</span></div>
+              <div class="svc-row"><span class="sk">Provider</span><span class="sv">Azure RM provider for Azure resources</span></div>
+            </div>
+          </div>
+          <div>
+            <div class="section-label">Azure Resource Manager (ARM)</div>
+            <div class="svc-row"><span class="sk">What</span><span class="sv">Deployment &amp; management service (control plane)</span></div>
+            <div class="svc-row"><span class="sk">All</span><span class="sv">Portal, CLI, PS, REST all go through ARM</span></div>
+            <div class="svc-row"><span class="sk">Features</span><span class="sv">Consistent auth, RBAC, tags, locks, templates</span></div>
+
+            <div class="section-label" style="margin-top:6px;">Azure Arc</div>
+            <div class="row"><span class="key">What</span><span class="val">Extend Azure management outside Azure</span></div>
+            <div class="row"><span class="key">Targets</span><span class="val">On-prem servers, other clouds, edge</span></div>
+            <div class="row"><span class="key">Features</span><span class="val">Apply Azure Policy, RBAC, Defender, Monitor</span></div>
+            <div class="row"><span class="key">Services</span><span class="val">Arc-enabled servers, AKS, SQL, App Service</span></div>
+
+            <div class="section-label" style="margin-top:6px;">Azure Service Trust Portal</div>
+            <div class="svc-row"><span class="sk">What</span><span class="sv">Compliance docs, audit reports, certifications</span></div>
+            <div class="svc-row"><span class="sk">Use</span><span class="sv">SOC2, ISO 27001, GDPR compliance artifacts</span></div>
+
+            <div class="section-label" style="margin-top:6px;">Microsoft Compliance Center</div>
+            <div class="row"><span class="key">Compliance Score</span><span class="val">Measures compliance posture</span></div>
+            <div class="row"><span class="key">Trust Center</span><span class="val">Privacy, security, compliance info</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exam Tips / Quick Recall -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-azure">&#127919;</div>
+        <h2>Exam Quick Recall</h2>
+        <span class="sub">High-frequency AZ-900 topics</span>
+      </div>
+      <div class="card-body">
+        <div class="two-col">
+          <div>
+            <div class="section-label">Always Choose These For…</div>
+            <div class="row"><span class="key">Private dedicated link</span><span class="val">&#8594; ExpressRoute</span></div>
+            <div class="row"><span class="key">Secure secrets/certs</span><span class="val">&#8594; Key Vault</span></div>
+            <div class="row"><span class="key">Cheapest storage tier</span><span class="val">&#8594; Archive (offline)</span></div>
+            <div class="row"><span class="key">3 copies, 3 zones</span><span class="val">&#8594; ZRS redundancy</span></div>
+            <div class="row"><span class="key">Global DB, 5 nines</span><span class="val">&#8594; Cosmos DB</span></div>
+            <div class="row"><span class="key">Serverless containers</span><span class="val">&#8594; ACI (not AKS)</span></div>
+            <div class="row"><span class="key">Event stream / Kafka</span><span class="val">&#8594; Event Hubs</span></div>
+            <div class="row"><span class="key">Event routing pub/sub</span><span class="val">&#8594; Event Grid</span></div>
+            <div class="row"><span class="key">Enterprise messaging</span><span class="val">&#8594; Service Bus</span></div>
+            <div class="row"><span class="key">Enforce org policies</span><span class="val">&#8594; Azure Policy</span></div>
+            <div class="row"><span class="key">Repeatable compliant env</span><span class="val">&#8594; Blueprints</span></div>
+            <div class="row"><span class="key">Prevent accidental delete</span><span class="val">&#8594; Resource Locks</span></div>
+            <div class="row"><span class="key">Cross-subscription policy</span><span class="val">&#8594; Management Groups</span></div>
+            <div class="row"><span class="key">Cost optimization advice</span><span class="val">&#8594; Azure Advisor</span></div>
+            <div class="row"><span class="key">Platform outage info</span><span class="val">&#8594; Service Health</span></div>
+          </div>
+          <div>
+            <div class="section-label">Common Traps to Avoid</div>
+            <div class="svc-row"><span class="sk">&#9888;</span><span class="sv">Azure AD &#8800; on-prem AD DS. No Kerberos/LDAP in Azure AD.</span></div>
+            <div class="svc-row"><span class="sk">&#9888;</span><span class="sv">Availability Sets protect within one DC, NOT across DCs.</span></div>
+            <div class="svc-row"><span class="sk">&#9888;</span><span class="sv">GRS secondary is read-only UNLESS you initiate failover.</span></div>
+            <div class="svc-row"><span class="sk">&#9888;</span><span class="sv">Tags don't auto-inherit to child resources by default.</span></div>
+            <div class="svc-row"><span class="sk">&#9888;</span><span class="sv">Free/Basic tiers have NO SLA guarantee.</span></div>
+            <div class="svc-row"><span class="sk">&#9888;</span><span class="sv">Azure Policy evaluates existing resources (audit), not just new.</span></div>
+            <div class="svc-row"><span class="sk">&#9888;</span><span class="sv">RBAC is additive; Deny assignments always override Allow.</span></div>
+            <div class="svc-row"><span class="sk">&#9888;</span><span class="sv">Composite SLA = multiply (not average) individual SLAs.</span></div>
+            <div class="svc-row"><span class="sk">&#9888;</span><span class="sv">Load Balancer = L4 (TCP/UDP). App Gateway = L7 (HTTP/HTTPS).</span></div>
+            <div class="svc-row"><span class="sk">&#9888;</span><span class="sv">Pricing Calculator &#8800; TCO Calculator. One is estimate, one is compare.</span></div>
+            <div class="svc-row"><span class="sk">&#9888;</span><span class="sv">Spot VMs CAN be evicted at any time — never for critical workloads.</span></div>
+
+            <div class="section-label" style="margin-top:6px;">Shared Responsibility Matrix</div>
+            <table class="sla-table">
+              <thead><tr><th>Responsibility</th><th>IaaS</th><th>PaaS</th><th>SaaS</th></tr></thead>
+              <tbody>
+                <tr><td>Physical datacenter</td><td>MS</td><td>MS</td><td>MS</td></tr>
+                <tr><td>Network controls</td><td>MS</td><td>MS</td><td>MS</td></tr>
+                <tr><td>Operating system</td><td>Customer</td><td>MS</td><td>MS</td></tr>
+                <tr><td>Applications</td><td>Customer</td><td>Customer</td><td>MS</td></tr>
+                <tr><td>Data &amp; identities</td><td>Customer</td><td>Customer</td><td>Customer</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER NOTE -->
+  <div class="tip-bar" style="margin-bottom:0;">
+    <div>
+      <div class="tip-label">Study Focus</div>
+      <div class="tip"><b>Cloud Concepts (25%):</b> IaaS/PaaS/SaaS differences, CapEx vs OpEx, cloud benefits. Know the shared responsibility model cold.</div>
+    </div>
+    <div>
+      <div class="tip-label">Highest Weight</div>
+      <div class="tip"><b>Azure Architecture &amp; Services (35%):</b> Know when to use each service. VMs vs App Service vs Functions vs ACI vs AKS. SQL vs Cosmos DB. VPN vs ExpressRoute.</div>
+    </div>
+    <div>
+      <div class="tip-label">Governance</div>
+      <div class="tip"><b>Management &amp; Governance (30%):</b> Policy vs Blueprints, Support plans, Pricing/TCO calculators, Advisor vs Monitor vs Service Health.</div>
+    </div>
+    <div>
+      <div class="tip-label">Passing Score</div>
+      <div class="tip"><b>700/1000</b> — roughly 70%. AZ-900 has multiple question types: multiple choice, multi-select, drag-drop, and scenario-based. Read each question fully.</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

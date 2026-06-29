@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TensorFlow Developer Certificate Cheat Sheet</title>
+<meta name="description" content="Complete reference for the Google TensorFlow Developer Certificate practical coding exam — models, layers, NLP, CNN, time series, and callbacks.">
+<style>
+:root {
+  --bg:#F5F6F7; --surface:#FFFFFF; --border:#E2E4E8;
+  --navy:#0F1C2E; --navy2:#1A2E45;
+  --purple:#6B21A8; --purple-soft:#F5F0FF;
+  --azure:#0078D4; --azure-soft:#EFF6FF;
+  --blue:#1A6FB5; --blue-soft:#EBF4FF;
+  --green:#1B7A4A; --green-soft:#E8F7EF;
+  --red:#B91C1C; --red-soft:#FEF2F2;
+  --orange:#EA580C; --orange-soft:#FFF7ED;
+  --text:#1C2333; --text2:#4A5568; --text3:#718096;
+  --mono:'Consolas','Courier New',monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+}
+body{font-family:var(--sans);font-size:11px;background:var(--bg);color:var(--text);line-height:1.5;margin:0}
+.page{max-width:1280px;margin:0 auto;padding:20px 16px}
+.header{background:var(--navy);border-radius:10px;padding:20px 24px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.header-left h1{font-size:22px;font-weight:800;color:#fff}.header-left h1 span{color:#FB923C}
+.header-left p{font-size:11px;color:#94A3B8;margin-top:3px}
+.header-badges{display:flex;gap:8px;flex-wrap:wrap}
+.badge{font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:.5px;text-transform:uppercase}
+.badge-purple{background:#A855F7;color:#fff}.badge-azure{background:#0078D4;color:#fff}.badge-blue{background:#3B82F6;color:#fff}.badge-green{background:#22C55E;color:#fff}.badge-orange{background:#F97316;color:#fff}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px}
+.grid-2{grid-template-columns:repeat(2,1fr)}.grid-4{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--surface);border-radius:8px;border:1px solid var(--border);overflow:hidden}
+.card-header{padding:8px 12px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border)}
+.card-header .icon{width:24px;height:24px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.card-header h2{font-size:11.5px;font-weight:800;color:var(--navy)}
+.card-header .sub{font-size:9px;color:var(--text3);margin-left:auto}
+.card-body{padding:10px 12px}
+.section-label{font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--text3);margin-bottom:5px;margin-top:9px}
+.section-label:first-child{margin-top:0}
+.row{display:flex;justify-content:space-between;align-items:baseline;padding:2px 0;border-bottom:1px solid #F1F3F5;gap:8px}
+.row:last-child{border-bottom:none}
+.row .key{font-family:var(--mono);font-size:10px;font-weight:600;color:var(--navy);white-space:nowrap;flex-shrink:0}
+.row .val{font-size:10px;color:var(--text2);text-align:right}
+.tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px}
+.tag{font-size:9.5px;padding:2px 7px;border-radius:4px;font-weight:600;font-family:var(--mono)}
+.tag-purple{background:var(--purple-soft);color:#6B21A8}.tag-azure{background:var(--azure-soft);color:#1D4ED8}
+.tag-blue{background:var(--blue-soft);color:#1E40AF}.tag-green{background:var(--green-soft);color:#166534}.tag-orange{background:var(--orange-soft);color:#9A3412}
+.tip-bar{background:var(--navy2);border-radius:8px;padding:10px 16px;margin-bottom:16px;display:flex;gap:24px;flex-wrap:wrap}
+.tip-label{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#A78BFA}
+.tip{font-size:10.5px;color:#CBD5E1}.tip b{color:#fff}
+.note{font-size:10px;color:var(--text2);padding:6px 8px;border-radius:4px;margin-top:4px}
+.note-purple{background:var(--purple-soft);border-left:3px solid var(--purple)}
+.note-azure{background:var(--azure-soft);border-left:3px solid var(--azure)}
+.note-blue{background:var(--blue-soft);border-left:3px solid var(--blue)}
+.note-green{background:var(--green-soft);border-left:3px solid var(--green)}
+.note-orange{background:var(--orange-soft);border-left:3px solid var(--orange)}
+.cmd{font-family:var(--mono);font-size:10px;background:#F1F3F5;padding:3px 7px;border-radius:4px;color:var(--navy);display:block;margin:2px 0}
+@media print{body{background:#fff}.page{padding:0}}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <h1>&lt;<span>TensorFlow</span>&gt; Developer</h1>
+      <p>Google TensorFlow Developer Certificate — Practical Coding Exam</p>
+    </div>
+    <div class="header-badges">
+      <span class="badge badge-orange">TF Developer</span>
+      <span class="badge badge-orange">Practical Exam</span>
+      <span class="badge badge-orange">$100</span>
+      <span class="badge badge-orange">3-Year Renewal</span>
+    </div>
+  </div>
+
+  <!-- TIP BAR -->
+  <div class="tip-bar">
+    <div>
+      <div class="tip-label">Format</div>
+      <div class="tip"><b>5-hour</b> Jupyter notebook exam in PyCharm IDE with internet access to TF docs</div>
+    </div>
+    <div>
+      <div class="tip-label">Grading</div>
+      <div class="tip"><b>5 model problems</b> — must achieve accuracy/MAE thresholds per task, not just run</div>
+    </div>
+    <div>
+      <div class="tip-label">Setup</div>
+      <div class="tip"><b>pip install tensorflow==2.x</b> — exam uses TF 2.x Keras API throughout</div>
+    </div>
+    <div>
+      <div class="tip-label">Practice</div>
+      <div class="tip">Complete <b>TF Developer Certificate prep course</b> on Coursera before exam</div>
+    </div>
+    <div>
+      <div class="tip-label">Key Skill</div>
+      <div class="tip">You write <b>real working code</b> — memorize model.compile/fit/evaluate patterns cold</div>
+    </div>
+  </div>
+
+  <!-- ROW 1: Cards 1, 2, 3 — 3-col grid -->
+  <div class="grid">
+
+    <!-- CARD 1: Exam Overview & Setup -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--orange-soft)">📋</div>
+        <h2>Exam Overview &amp; Setup</h2>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Exam Format</div>
+        <div class="row"><span class="key">Duration</span><span class="val">5 hours — time is tight, practice speed</span></div>
+        <div class="row"><span class="key">IDE</span><span class="val">PyCharm (provided) with TF pre-installed</span></div>
+        <div class="row"><span class="key">Internet</span><span class="val">TensorFlow docs allowed — no Stack Overflow</span></div>
+        <div class="row"><span class="key">Problems</span><span class="val">5 model tasks — each saved as .h5 file</span></div>
+        <div class="row"><span class="key">Grading</span><span class="val">Automated accuracy threshold check per model</span></div>
+
+        <div class="section-label">Domain Weights</div>
+        <div class="row"><span class="key">TF Basics &amp; Image Classification</span><span class="val">~33%</span></div>
+        <div class="row"><span class="key">Image Classification with CNNs</span><span class="val">~33%</span></div>
+        <div class="row"><span class="key">NLP with TensorFlow</span><span class="val">~17%</span></div>
+        <div class="row"><span class="key">Sequences &amp; Time Series</span><span class="val">~17%</span></div>
+
+        <div class="section-label">Setup Code</div>
+        <span class="cmd">import tensorflow as tf</span>
+        <span class="cmd">from tensorflow import keras</span>
+        <span class="cmd">from tensorflow.keras import layers</span>
+        <span class="cmd">print(tf.__version__)  # verify 2.x</span>
+        <span class="cmd">model.save('model.h5')  # save each model</span>
+
+        <div class="section-label">Accuracy Targets (approximate)</div>
+        <div class="row"><span class="key">Binary classification</span><span class="val">≥80% validation accuracy</span></div>
+        <div class="row"><span class="key">Multiclass CNN</span><span class="val">≥80% validation accuracy</span></div>
+        <div class="row"><span class="key">NLP sentiment</span><span class="val">≥80% validation accuracy</span></div>
+        <div class="row"><span class="key">Time series / regression</span><span class="val">Minimize MAE — lower is better</span></div>
+        <div class="row"><span class="key">Text generation</span><span class="val">Model must train and predict plausibly</span></div>
+
+        <div class="note note-orange">Save your model as .h5 after EVERY problem before moving on. The exam grades the saved file — if you forget to save, the model doesn't exist. Use <code>model.save('category_model.h5')</code>.</div>
+      </div>
+    </div>
+
+    <!-- CARD 2: TF/Keras Model API -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--orange-soft)">🧠</div>
+        <h2>TF/Keras Model API</h2>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Sequential API</div>
+        <span class="cmd">model = tf.keras.Sequential([</span>
+        <span class="cmd">&nbsp;&nbsp;layers.Dense(128, activation='relu', input_shape=(784,)),</span>
+        <span class="cmd">&nbsp;&nbsp;layers.Dropout(0.2),</span>
+        <span class="cmd">&nbsp;&nbsp;layers.Dense(10, activation='softmax')</span>
+        <span class="cmd">])</span>
+
+        <div class="section-label">Functional API</div>
+        <span class="cmd">inputs = tf.keras.Input(shape=(224, 224, 3))</span>
+        <span class="cmd">x = layers.Conv2D(32, 3, activation='relu')(inputs)</span>
+        <span class="cmd">x = layers.GlobalAveragePooling2D()(x)</span>
+        <span class="cmd">outputs = layers.Dense(1, activation='sigmoid')(x)</span>
+        <span class="cmd">model = tf.keras.Model(inputs, outputs)</span>
+
+        <div class="section-label">model.compile</div>
+        <span class="cmd">model.compile(</span>
+        <span class="cmd">&nbsp;&nbsp;optimizer='adam',  # or tf.keras.optimizers.Adam(lr=1e-3)</span>
+        <span class="cmd">&nbsp;&nbsp;loss='binary_crossentropy',  # or categorical / sparse_cat / mse</span>
+        <span class="cmd">&nbsp;&nbsp;metrics=['accuracy']  # or ['mae'] for regression</span>
+        <span class="cmd">)</span>
+
+        <div class="section-label">model.fit</div>
+        <span class="cmd">history = model.fit(</span>
+        <span class="cmd">&nbsp;&nbsp;x_train, y_train,</span>
+        <span class="cmd">&nbsp;&nbsp;epochs=20,</span>
+        <span class="cmd">&nbsp;&nbsp;batch_size=32,</span>
+        <span class="cmd">&nbsp;&nbsp;validation_split=0.2,  # or validation_data=(x_val, y_val)</span>
+        <span class="cmd">&nbsp;&nbsp;callbacks=[early_stop, checkpoint]</span>
+        <span class="cmd">)</span>
+
+        <div class="section-label">Evaluate &amp; Save</div>
+        <span class="cmd">loss, acc = model.evaluate(x_test, y_test)</span>
+        <span class="cmd">predictions = model.predict(x_new)</span>
+        <span class="cmd">model.save('my_model.h5')</span>
+        <span class="cmd">model = tf.keras.models.load_model('my_model.h5')</span>
+      </div>
+    </div>
+
+    <!-- CARD 3: Layers & Activations -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--blue-soft)">🔢</div>
+        <h2>Layers &amp; Activations</h2>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Dense &amp; Regularization</div>
+        <span class="cmd">layers.Dense(64, activation='relu')</span>
+        <span class="cmd">layers.Dense(64, activation='relu', kernel_regularizer=tf.keras.regularizers.l2(0.01))</span>
+        <span class="cmd">layers.Dropout(rate=0.3)  # zeros out 30% of activations, training only</span>
+        <span class="cmd">layers.BatchNormalization()  # normalize activations — add after Dense/Conv</span>
+        <span class="cmd">layers.Flatten()  # convert multi-dim tensor to 1D</span>
+
+        <div class="section-label">Activation Functions</div>
+        <div class="row"><span class="key">relu</span><span class="val">max(0, x) — standard for hidden layers</span></div>
+        <div class="row"><span class="key">sigmoid</span><span class="val">1/(1+e^-x) — binary output [0,1]</span></div>
+        <div class="row"><span class="key">softmax</span><span class="val">sum to 1 — multiclass output probabilities</span></div>
+        <div class="row"><span class="key">tanh</span><span class="val">[-1,1] — recurrent layers, older models</span></div>
+        <div class="row"><span class="key">linear</span><span class="val">f(x) = x — regression output layer</span></div>
+
+        <div class="section-label">Output Layer by Task</div>
+        <div class="row"><span class="key">Binary classification</span><span class="val">Dense(1, activation='sigmoid')</span></div>
+        <div class="row"><span class="key">Multiclass (one-hot)</span><span class="val">Dense(n_classes, activation='softmax')</span></div>
+        <div class="row"><span class="key">Multiclass (integer labels)</span><span class="val">Dense(n_classes, activation='softmax') + sparse_cat loss</span></div>
+        <div class="row"><span class="key">Regression / time series</span><span class="val">Dense(1) — linear activation (default)</span></div>
+        <div class="row"><span class="key">Multi-output regression</span><span class="val">Dense(n_outputs) — linear</span></div>
+
+        <div class="section-label">Common Layer Patterns</div>
+        <div class="row"><span class="key">Dense→BN→ReLU</span><span class="val">BatchNorm before activation — modern pattern</span></div>
+        <div class="row"><span class="key">Dense→ReLU→Dropout</span><span class="val">Dropout after activation — classic pattern</span></div>
+        <div class="row"><span class="key">BN in inference</span><span class="val">Uses running mean/var — behavior differs from training</span></div>
+
+        <div class="note note-blue">BatchNormalization: add after Dense/Conv2D, before activation. It stabilizes training and allows higher learning rates. For small models in the exam, it may not always help — test both.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 2: Cards 4, 5 — 2-col grid (wider content) -->
+  <div class="grid grid-2">
+
+    <!-- CARD 4: CNN — Image Classification -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--orange-soft)">🖼️</div>
+        <h2>CNN — Image Classification</h2>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Standard CNN Architecture</div>
+        <span class="cmd">model = tf.keras.Sequential([</span>
+        <span class="cmd">&nbsp;&nbsp;layers.Conv2D(32, (3,3), activation='relu', input_shape=(150,150,3)),</span>
+        <span class="cmd">&nbsp;&nbsp;layers.MaxPooling2D(2,2),</span>
+        <span class="cmd">&nbsp;&nbsp;layers.Conv2D(64, (3,3), activation='relu'),</span>
+        <span class="cmd">&nbsp;&nbsp;layers.MaxPooling2D(2,2),</span>
+        <span class="cmd">&nbsp;&nbsp;layers.Conv2D(128, (3,3), activation='relu'),</span>
+        <span class="cmd">&nbsp;&nbsp;layers.MaxPooling2D(2,2),</span>
+        <span class="cmd">&nbsp;&nbsp;layers.Flatten(),</span>
+        <span class="cmd">&nbsp;&nbsp;layers.Dense(512, activation='relu'),</span>
+        <span class="cmd">&nbsp;&nbsp;layers.Dense(1, activation='sigmoid')  # or Dense(n, 'softmax')</span>
+        <span class="cmd">])</span>
+
+        <div class="section-label">Conv2D Key Arguments</div>
+        <div class="row"><span class="key">filters</span><span class="val">Number of feature maps (32, 64, 128...)</span></div>
+        <div class="row"><span class="key">kernel_size</span><span class="val">(3,3) standard — captures local patterns</span></div>
+        <div class="row"><span class="key">padding='same'</span><span class="val">Output same size as input (zero-pad)</span></div>
+        <div class="row"><span class="key">padding='valid'</span><span class="val">Default — shrinks spatial dimensions</span></div>
+        <div class="row"><span class="key">strides</span><span class="val">Default (1,1) — controls downsampling</span></div>
+
+        <div class="section-label">Pooling Alternatives</div>
+        <div class="row"><span class="key">MaxPooling2D(2,2)</span><span class="val">Keep max value — retains strong features</span></div>
+        <div class="row"><span class="key">AveragePooling2D</span><span class="val">Average value — smoother, less common</span></div>
+        <div class="row"><span class="key">GlobalAveragePooling2D</span><span class="val">Mean per channel — replaces Flatten, no params</span></div>
+
+        <div class="section-label">Loss &amp; Output by Task</div>
+        <div class="row"><span class="key">Binary (cats vs dogs)</span><span class="val">sigmoid output + binary_crossentropy</span></div>
+        <div class="row"><span class="key">Multiclass (one-hot)</span><span class="val">softmax + categorical_crossentropy</span></div>
+        <div class="row"><span class="key">Multiclass (integer)</span><span class="val">softmax + sparse_categorical_crossentropy</span></div>
+
+        <div class="note note-orange">Rule of thumb: increase filters as you go deeper (32→64→128). MaxPooling halves spatial dims. GlobalAveragePooling2D is parameter-free — use it after last Conv block when you don't need Flatten+Dense.</div>
+      </div>
+    </div>
+
+    <!-- CARD 5: Data Augmentation & Generators -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--green-soft)">📂</div>
+        <h2>Data Augmentation &amp; Generators</h2>
+      </div>
+      <div class="card-body">
+        <div class="section-label">ImageDataGenerator (Classic API)</div>
+        <span class="cmd">train_gen = ImageDataGenerator(</span>
+        <span class="cmd">&nbsp;&nbsp;rescale=1./255,</span>
+        <span class="cmd">&nbsp;&nbsp;rotation_range=40,</span>
+        <span class="cmd">&nbsp;&nbsp;width_shift_range=0.2, height_shift_range=0.2,</span>
+        <span class="cmd">&nbsp;&nbsp;shear_range=0.2, zoom_range=0.2,</span>
+        <span class="cmd">&nbsp;&nbsp;horizontal_flip=True, fill_mode='nearest'</span>
+        <span class="cmd">)</span>
+        <span class="cmd">val_gen = ImageDataGenerator(rescale=1./255)  # validation: rescale only</span>
+
+        <div class="section-label">flow_from_directory</div>
+        <span class="cmd">train_generator = train_gen.flow_from_directory(</span>
+        <span class="cmd">&nbsp;&nbsp;'data/train',</span>
+        <span class="cmd">&nbsp;&nbsp;target_size=(150, 150),  # resize all images</span>
+        <span class="cmd">&nbsp;&nbsp;batch_size=32,</span>
+        <span class="cmd">&nbsp;&nbsp;class_mode='binary'  # or 'categorical' for multiclass</span>
+        <span class="cmd">)</span>
+        <span class="cmd"># fit: steps_per_epoch = n_images // batch_size</span>
+        <span class="cmd">model.fit(train_generator, epochs=15, steps_per_epoch=100, validation_data=val_generator, validation_steps=50)</span>
+
+        <div class="section-label">tf.data.Dataset (Modern API)</div>
+        <span class="cmd">ds = tf.data.Dataset.from_tensor_slices((images, labels))</span>
+        <span class="cmd">ds = ds.map(preprocess).cache().shuffle(1000).batch(32).prefetch(tf.data.AUTOTUNE)</span>
+
+        <div class="section-label">Augmentation Layers (TF 2.x)</div>
+        <span class="cmd">augment = tf.keras.Sequential([</span>
+        <span class="cmd">&nbsp;&nbsp;layers.RandomFlip('horizontal'),</span>
+        <span class="cmd">&nbsp;&nbsp;layers.RandomRotation(0.1),</span>
+        <span class="cmd">&nbsp;&nbsp;layers.RandomZoom(0.1),</span>
+        <span class="cmd">])</span>
+
+        <div class="note note-green">class_mode='binary' → labels [0,1]. class_mode='categorical' → one-hot labels. Directory structure: data/train/cats/*.jpg and data/train/dogs/*.jpg — ImageDataGenerator auto-infers classes from subdirectory names.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 3: Cards 6, 7 — 2-col grid -->
+  <div class="grid grid-2">
+
+    <!-- CARD 6: Transfer Learning -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--blue-soft)">🔄</div>
+        <h2>Transfer Learning</h2>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Feature Extraction (base frozen)</div>
+        <span class="cmd">base = tf.keras.applications.MobileNetV2(</span>
+        <span class="cmd">&nbsp;&nbsp;input_shape=(224,224,3),</span>
+        <span class="cmd">&nbsp;&nbsp;include_top=False,</span>
+        <span class="cmd">&nbsp;&nbsp;weights='imagenet'</span>
+        <span class="cmd">)</span>
+        <span class="cmd">base.trainable = False  # freeze all base layers</span>
+        <span class="cmd">x = base.output</span>
+        <span class="cmd">x = layers.GlobalAveragePooling2D()(x)</span>
+        <span class="cmd">x = layers.Dense(128, activation='relu')(x)</span>
+        <span class="cmd">outputs = layers.Dense(1, activation='sigmoid')(x)</span>
+        <span class="cmd">model = tf.keras.Model(base.input, outputs)</span>
+
+        <div class="section-label">Fine-Tuning (unfreeze top layers)</div>
+        <span class="cmd">base.trainable = True</span>
+        <span class="cmd"># Freeze bottom layers, unfreeze top N</span>
+        <span class="cmd">for layer in base.layers[:-20]:  # freeze all but last 20</span>
+        <span class="cmd">&nbsp;&nbsp;layer.trainable = False</span>
+        <span class="cmd"># Recompile with LOW learning rate</span>
+        <span class="cmd">model.compile(optimizer=tf.keras.optimizers.Adam(1e-5), loss='binary_crossentropy', metrics=['accuracy'])</span>
+        <span class="cmd">model.fit(train_gen, epochs=10, ...)  # train more epochs</span>
+
+        <div class="section-label">Available Pretrained Models</div>
+        <div class="row"><span class="key">MobileNetV2</span><span class="val">Lightweight — best for exam (fast to train)</span></div>
+        <div class="row"><span class="key">InceptionV3</span><span class="val">input_shape=(299,299,3) — larger</span></div>
+        <div class="row"><span class="key">VGG16</span><span class="val">Simple architecture, large model</span></div>
+        <div class="row"><span class="key">ResNet50</span><span class="val">Residual connections, strong baseline</span></div>
+        <div class="row"><span class="key">EfficientNetB0-B7</span><span class="val">State of art — scaling compound</span></div>
+
+        <div class="section-label">When to Fine-tune vs Feature Extract</div>
+        <div class="row"><span class="key">Small dataset + similar domain</span><span class="val">Feature extraction (frozen base)</span></div>
+        <div class="row"><span class="key">Large dataset or different domain</span><span class="val">Fine-tune (unfreeze top layers)</span></div>
+        <div class="row"><span class="key">Always</span><span class="val">Start frozen, then unfreeze top layers progressively</span></div>
+
+        <div class="note note-blue">Critical: preprocess inputs for each model. MobileNetV2 expects tf.keras.applications.mobilenet_v2.preprocess_input (values in [-1,1]). VGG16: preprocess_input (caffe mode). Don't just divide by 255 for transfer learning.</div>
+      </div>
+    </div>
+
+    <!-- CARD 7: NLP — Text Processing -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--purple-soft)">📝</div>
+        <h2>NLP — Text Processing</h2>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Tokenizer (Classic)</div>
+        <span class="cmd">from tensorflow.keras.preprocessing.text import Tokenizer</span>
+        <span class="cmd">from tensorflow.keras.preprocessing.sequence import pad_sequences</span>
+        <span class="cmd">tokenizer = Tokenizer(num_words=10000, oov_token='&lt;OOV&gt;')</span>
+        <span class="cmd">tokenizer.fit_on_texts(train_sentences)</span>
+        <span class="cmd">sequences = tokenizer.texts_to_sequences(sentences)</span>
+        <span class="cmd">padded = pad_sequences(sequences, maxlen=120, padding='post', truncating='post')</span>
+        <span class="cmd">word_index = tokenizer.word_index  # {'the': 1, 'a': 2, ...}</span>
+
+        <div class="section-label">pad_sequences Arguments</div>
+        <div class="row"><span class="key">maxlen</span><span class="val">Truncate/pad to this length (e.g., 120, 200)</span></div>
+        <div class="row"><span class="key">padding='post'</span><span class="val">Add zeros at end — default for conv/RNN</span></div>
+        <div class="row"><span class="key">padding='pre'</span><span class="val">Add zeros at start (LSTM prefers this sometimes)</span></div>
+        <div class="row"><span class="key">truncating='post'</span><span class="val">Cut excess from end</span></div>
+        <div class="row"><span class="key">truncating='pre'</span><span class="val">Cut excess from start</span></div>
+
+        <div class="section-label">TextVectorization (Modern)</div>
+        <span class="cmd">vectorizer = layers.TextVectorization(</span>
+        <span class="cmd">&nbsp;&nbsp;max_tokens=10000,</span>
+        <span class="cmd">&nbsp;&nbsp;output_mode='int',</span>
+        <span class="cmd">&nbsp;&nbsp;output_sequence_length=120</span>
+        <span class="cmd">)</span>
+        <span class="cmd">vectorizer.adapt(train_dataset)  # learn vocab from data</span>
+        <span class="cmd"># Use as first layer in model</span>
+
+        <div class="section-label">Pre-trained Embeddings (GloVe)</div>
+        <span class="cmd"># Load GloVe: glove.6B.100d.txt</span>
+        <span class="cmd">embedding_matrix = np.zeros((vocab_size, 100))</span>
+        <span class="cmd">for word, i in word_index.items():</span>
+        <span class="cmd">&nbsp;&nbsp;if word in glove_embeddings:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;embedding_matrix[i] = glove_embeddings[word]</span>
+        <span class="cmd">Embedding(vocab_size, 100, weights=[embedding_matrix], trainable=False)</span>
+
+        <div class="note note-purple">Always save tokenizer config with your model — exam may require consistent tokenization. tokenizer.get_config() or pickle it. OOV token handles unseen words at inference time.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 4: Cards 8, 9 — 2-col grid -->
+  <div class="grid grid-2">
+
+    <!-- CARD 8: NLP — Model Architectures -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--purple-soft)">🔤</div>
+        <h2>NLP — Model Architectures</h2>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Embedding Layer</div>
+        <span class="cmd">layers.Embedding(</span>
+        <span class="cmd">&nbsp;&nbsp;input_dim=vocab_size + 1,  # +1 for padding token 0</span>
+        <span class="cmd">&nbsp;&nbsp;output_dim=64,             # embedding dimensions</span>
+        <span class="cmd">&nbsp;&nbsp;input_length=max_length    # padded sequence length</span>
+        <span class="cmd">)</span>
+
+        <div class="section-label">Simple Baseline (Dense)</div>
+        <span class="cmd">model = tf.keras.Sequential([</span>
+        <span class="cmd">&nbsp;&nbsp;layers.Embedding(vocab_size+1, 16, input_length=120),</span>
+        <span class="cmd">&nbsp;&nbsp;layers.GlobalAveragePooling1D(),  # or Flatten()</span>
+        <span class="cmd">&nbsp;&nbsp;layers.Dense(24, activation='relu'),</span>
+        <span class="cmd">&nbsp;&nbsp;layers.Dense(1, activation='sigmoid')</span>
+        <span class="cmd">])</span>
+
+        <div class="section-label">LSTM &amp; Bidirectional</div>
+        <span class="cmd">layers.LSTM(64)  # last hidden state only</span>
+        <span class="cmd">layers.LSTM(64, return_sequences=True)  # all states (stacked LSTM)</span>
+        <span class="cmd">layers.Bidirectional(layers.LSTM(64))  # forward + backward</span>
+        <span class="cmd">layers.GRU(64)  # faster than LSTM, often comparable</span>
+
+        <div class="section-label">Conv1D for NLP</div>
+        <span class="cmd">layers.Conv1D(128, 5, activation='relu'),</span>
+        <span class="cmd">layers.GlobalMaxPooling1D(),</span>
+
+        <div class="section-label">Full Architecture (Sentiment)</div>
+        <span class="cmd">model = tf.keras.Sequential([</span>
+        <span class="cmd">&nbsp;&nbsp;layers.Embedding(vocab_size+1, 64, input_length=120),</span>
+        <span class="cmd">&nbsp;&nbsp;layers.Bidirectional(layers.LSTM(64)),</span>
+        <span class="cmd">&nbsp;&nbsp;layers.Dense(64, activation='relu'),</span>
+        <span class="cmd">&nbsp;&nbsp;layers.Dense(1, activation='sigmoid')</span>
+        <span class="cmd">])</span>
+
+        <div class="section-label">Multiclass NLP</div>
+        <div class="row"><span class="key">Output</span><span class="val">Dense(num_classes, activation='softmax')</span></div>
+        <div class="row"><span class="key">Loss</span><span class="val">sparse_categorical_crossentropy (int labels)</span></div>
+        <div class="row"><span class="key">Loss</span><span class="val">categorical_crossentropy (one-hot labels)</span></div>
+        <div class="row"><span class="key">Metric</span><span class="val">accuracy</span></div>
+
+        <div class="note note-purple">LSTM return_sequences=True: output shape is (batch, timesteps, units). return_sequences=False: output shape is (batch, units). Need return_sequences=True only if stacking another LSTM/GRU on top.</div>
+      </div>
+    </div>
+
+    <!-- CARD 9: Time Series & Sequences -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--orange-soft)">📈</div>
+        <h2>Time Series &amp; Sequences</h2>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Windowed Dataset Helper</div>
+        <span class="cmd">def windowed_dataset(series, window_size, batch_size, shuffle_buffer):</span>
+        <span class="cmd">&nbsp;&nbsp;dataset = tf.data.Dataset.from_tensor_slices(series)</span>
+        <span class="cmd">&nbsp;&nbsp;dataset = dataset.window(window_size + 1, shift=1, drop_remainder=True)</span>
+        <span class="cmd">&nbsp;&nbsp;dataset = dataset.flat_map(lambda w: w.batch(window_size + 1))</span>
+        <span class="cmd">&nbsp;&nbsp;dataset = dataset.shuffle(shuffle_buffer)</span>
+        <span class="cmd">&nbsp;&nbsp;dataset = dataset.map(lambda w: (w[:-1], w[-1:]))</span>
+        <span class="cmd">&nbsp;&nbsp;return dataset.batch(batch_size).prefetch(1)</span>
+
+        <div class="section-label">Train/Val Split for Time Series</div>
+        <span class="cmd">split_time = 1000  # time index, NOT random split</span>
+        <span class="cmd">time_train = time[:split_time]</span>
+        <span class="cmd">x_train = series[:split_time]</span>
+        <span class="cmd">time_valid = time[split_time:]</span>
+        <span class="cmd">x_valid = series[split_time:]</span>
+
+        <div class="section-label">DNN Baseline</div>
+        <span class="cmd">model = tf.keras.Sequential([</span>
+        <span class="cmd">&nbsp;&nbsp;layers.Dense(10, activation='relu', input_shape=[window_size]),</span>
+        <span class="cmd">&nbsp;&nbsp;layers.Dense(10, activation='relu'),</span>
+        <span class="cmd">&nbsp;&nbsp;layers.Dense(1)</span>
+        <span class="cmd">])</span>
+
+        <div class="section-label">LSTM for Time Series</div>
+        <span class="cmd">model = tf.keras.Sequential([</span>
+        <span class="cmd">&nbsp;&nbsp;layers.Lambda(lambda x: tf.expand_dims(x, axis=-1), input_shape=[None]),</span>
+        <span class="cmd">&nbsp;&nbsp;layers.LSTM(64, return_sequences=True),</span>
+        <span class="cmd">&nbsp;&nbsp;layers.LSTM(32),</span>
+        <span class="cmd">&nbsp;&nbsp;layers.Dense(1)</span>
+        <span class="cmd">])</span>
+
+        <div class="section-label">Conv1D for Time Series</div>
+        <span class="cmd">layers.Conv1D(filters=32, kernel_size=5, padding='causal', activation='relu')</span>
+
+        <div class="section-label">Key Concepts</div>
+        <div class="row"><span class="key">Normalization</span><span class="val">Subtract mean, divide std — helps convergence</span></div>
+        <div class="row"><span class="key">Huber loss</span><span class="val">Robust to outliers vs MSE — use for TS</span></div>
+        <div class="row"><span class="key">MAE metric</span><span class="val">Mean Absolute Error — main TS metric</span></div>
+        <div class="row"><span class="key">LR scheduling</span><span class="val">LRScheduler callback to find optimal LR</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 5: Cards 10, 11 — 2-col grid -->
+  <div class="grid grid-2">
+
+    <!-- CARD 10: Callbacks & Training Techniques -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--green-soft)">⚙️</div>
+        <h2>Callbacks &amp; Training Techniques</h2>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Essential Callbacks</div>
+        <span class="cmd">early_stop = tf.keras.callbacks.EarlyStopping(</span>
+        <span class="cmd">&nbsp;&nbsp;monitor='val_loss', patience=5,</span>
+        <span class="cmd">&nbsp;&nbsp;restore_best_weights=True</span>
+        <span class="cmd">)</span>
+        <span class="cmd">checkpoint = tf.keras.callbacks.ModelCheckpoint(</span>
+        <span class="cmd">&nbsp;&nbsp;filepath='best_model.h5',</span>
+        <span class="cmd">&nbsp;&nbsp;monitor='val_accuracy',</span>
+        <span class="cmd">&nbsp;&nbsp;save_best_only=True</span>
+        <span class="cmd">)</span>
+        <span class="cmd">reduce_lr = tf.keras.callbacks.ReduceLROnPlateau(</span>
+        <span class="cmd">&nbsp;&nbsp;monitor='val_loss', factor=0.5,</span>
+        <span class="cmd">&nbsp;&nbsp;patience=3, min_lr=1e-7</span>
+        <span class="cmd">)</span>
+
+        <div class="section-label">Learning Rate Scheduler</div>
+        <span class="cmd">lr_schedule = tf.keras.callbacks.LearningRateScheduler(</span>
+        <span class="cmd">&nbsp;&nbsp;lambda epoch: 1e-8 * 10**(epoch / 20)</span>
+        <span class="cmd">)</span>
+        <span class="cmd"># After training: plot lr vs loss to find optimal LR</span>
+
+        <div class="section-label">Handling Class Imbalance</div>
+        <span class="cmd">class_weight = {0: 1.0, 1: 10.0}  # 10x weight for minority class</span>
+        <span class="cmd">model.fit(X, y, class_weight=class_weight, ...)</span>
+
+        <div class="section-label">Overfitting Solutions</div>
+        <div class="row"><span class="key">More data</span><span class="val">Best solution — data augmentation for images</span></div>
+        <div class="row"><span class="key">Dropout</span><span class="val">rate=0.3–0.5 — regularize dense/LSTM layers</span></div>
+        <div class="row"><span class="key">L2 regularization</span><span class="val">kernel_regularizer=tf.keras.regularizers.l2()</span></div>
+        <div class="row"><span class="key">Batch Normalization</span><span class="val">Regularizing effect + faster convergence</span></div>
+        <div class="row"><span class="key">Early Stopping</span><span class="val">Stop before overfitting — restore_best_weights</span></div>
+        <div class="row"><span class="key">Simpler model</span><span class="val">Reduce layers or units</span></div>
+
+        <div class="section-label">Accuracy Not Improving</div>
+        <div class="row"><span class="key">Check learning rate</span><span class="val">Too high → unstable. Too low → slow.</span></div>
+        <div class="row"><span class="key">Check normalization</span><span class="val">Input pixels should be [0,1] or [-1,1]</span></div>
+        <div class="row"><span class="key">Check labels</span><span class="val">Verify label encoding matches loss function</span></div>
+        <div class="row"><span class="key">Check architecture</span><span class="val">Model may be too simple for the task</span></div>
+
+        <div class="note note-green">restore_best_weights=True in EarlyStopping restores the model to its best epoch when training stops. Without this, the model keeps the weights from the last (potentially worse) epoch.</div>
+      </div>
+    </div>
+
+    <!-- CARD 11: Exam Practice Tasks -->
+    <div class="card" style="background:var(--navy2);border-color:#2D4263">
+      <div class="card-header" style="background:var(--navy);border-bottom-color:#2D4263">
+        <div class="icon" style="background:rgba(251,146,60,0.2)">🎯</div>
+        <h2 style="color:#fff">Exam Practice Tasks</h2>
+      </div>
+      <div class="card-body">
+        <div class="section-label" style="color:#94A3B8">Task 1 — Binary Image Classification</div>
+        <div class="row" style="border-bottom-color:#2D4263"><span class="key" style="color:#FB923C">Dataset</span><span class="val" style="color:#CBD5E1">Cats vs Dogs (or similar binary)</span></div>
+        <div class="row" style="border-bottom-color:#2D4263"><span class="key" style="color:#FB923C">Architecture</span><span class="val" style="color:#CBD5E1">CNN: Conv2D→MaxPool→Conv2D→MaxPool→Dense→sigmoid</span></div>
+        <div class="row" style="border-bottom-color:#2D4263"><span class="key" style="color:#FB923C">Augmentation</span><span class="val" style="color:#CBD5E1">ImageDataGenerator with rotation/flip/zoom</span></div>
+        <div class="row" style="border-bottom-color:#2D4263"><span class="key" style="color:#FB923C">Advanced</span><span class="val" style="color:#CBD5E1">MobileNetV2 transfer learning + fine-tune</span></div>
+        <div class="row" style="border-bottom-color:#2D4263"><span class="key" style="color:#FB923C">Target</span><span class="val" style="color:#CBD5E1">≥80% val accuracy</span></div>
+
+        <div class="section-label" style="color:#94A3B8">Task 2 — Multiclass Image Classification</div>
+        <div class="row" style="border-bottom-color:#2D4263"><span class="key" style="color:#60A5FA">Dataset</span><span class="val" style="color:#CBD5E1">Rock-Paper-Scissors (3 classes)</span></div>
+        <div class="row" style="border-bottom-color:#2D4263"><span class="key" style="color:#60A5FA">Architecture</span><span class="val" style="color:#CBD5E1">MobileNetV2 base + GlobalAvgPool + Dense(3, softmax)</span></div>
+        <div class="row" style="border-bottom-color:#2D4263"><span class="key" style="color:#60A5FA">Loss</span><span class="val" style="color:#CBD5E1">categorical_crossentropy (one-hot) or sparse_cat</span></div>
+        <div class="row" style="border-bottom-color:#2D4263"><span class="key" style="color:#60A5FA">Target</span><span class="val" style="color:#CBD5E1">≥80% val accuracy</span></div>
+
+        <div class="section-label" style="color:#94A3B8">Task 3 — NLP Sentiment Analysis</div>
+        <div class="row" style="border-bottom-color:#2D4263"><span class="key" style="color:#C084FC">Dataset</span><span class="val" style="color:#CBD5E1">IMDB / sentiment dataset</span></div>
+        <div class="row" style="border-bottom-color:#2D4263"><span class="key" style="color:#C084FC">Architecture</span><span class="val" style="color:#CBD5E1">Embedding + Bidirectional(LSTM) + Dense(sigmoid)</span></div>
+        <div class="row" style="border-bottom-color:#2D4263"><span class="key" style="color:#C084FC">Preprocessing</span><span class="val" style="color:#CBD5E1">Tokenizer + pad_sequences(maxlen=120)</span></div>
+        <div class="row" style="border-bottom-color:#2D4263"><span class="key" style="color:#C084FC">Target</span><span class="val" style="color:#CBD5E1">≥80% val accuracy</span></div>
+
+        <div class="section-label" style="color:#94A3B8">Task 4 — NLP Text Generation</div>
+        <div class="row" style="border-bottom-color:#2D4263"><span class="key" style="color:#34D399">Task</span><span class="val" style="color:#CBD5E1">Next-word prediction from corpus</span></div>
+        <div class="row" style="border-bottom-color:#2D4263"><span class="key" style="color:#34D399">Preprocessing</span><span class="val" style="color:#CBD5E1">N-gram sequences from text, pad to max_len</span></div>
+        <div class="row" style="border-bottom-color:#2D4263"><span class="key" style="color:#34D399">Architecture</span><span class="val" style="color:#CBD5E1">Embedding + LSTM + Dense(vocab_size, softmax)</span></div>
+        <div class="row" style="border-bottom-color:#2D4263"><span class="key" style="color:#34D399">Generation</span><span class="val" style="color:#CBD5E1">Predict token, append, repeat for N words</span></div>
+
+        <div class="section-label" style="color:#94A3B8">Task 5 — Time Series Forecast</div>
+        <div class="row" style="border-bottom-color:#2D4263"><span class="key" style="color:#FBBF24">Dataset</span><span class="val" style="color:#CBD5E1">Sunspots or synthetic periodic signal</span></div>
+        <div class="row" style="border-bottom-color:#2D4263"><span class="key" style="color:#FBBF24">Architecture</span><span class="val" style="color:#CBD5E1">Windowed dataset + Conv1D/LSTM/DNN</span></div>
+        <div class="row" style="border-bottom-color:#2D4263"><span class="key" style="color:#FBBF24">Loss</span><span class="val" style="color:#CBD5E1">Huber loss — robust to outliers</span></div>
+        <div class="row" style="border-bottom-color:#2D4263;border-bottom:none"><span class="key" style="color:#FBBF24">Metric</span><span class="val" style="color:#CBD5E1">MAE — minimize it, no fixed threshold</span></div>
+
+        <div class="note" style="background:rgba(255,255,255,0.07);border-left:3px solid #FB923C;color:#CBD5E1;margin-top:8px">Exam tip: get all 5 models running and saving first — then go back and improve accuracy. A working 75% model beats a broken 95% model that errors on save.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

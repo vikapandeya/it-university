@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cisco CCNP Enterprise · ENCOR 350-401 Cheat Sheet</title>
+<meta name="description" content="Dense reference cheat sheet for the Cisco CCNP Enterprise ENCOR 350-401 exam covering all 6 domains.">
+<style>
+:root {
+  --bg:#F5F6F7; --surface:#FFFFFF; --border:#E2E4E8;
+  --navy:#0F1C2E; --navy2:#1A2E45;
+  --blue:#1A6FB5; --blue-soft:#EBF4FF;
+  --green:#1B7A4A; --green-soft:#E8F7EF;
+  --red:#B91C1C; --red-soft:#FEF2F2;
+  --purple:#6B21A8; --purple-soft:#F5F0FF;
+  --cyan:#0891B2; --cyan-soft:#ECFEFF;
+  --text:#1C2333; --text2:#4A5568; --text3:#718096;
+  --accent:#1A6FB5;
+  --mono:'Consolas','Courier New',monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+}
+body { font-family:var(--sans); font-size:11px; background:var(--bg); color:var(--text); line-height:1.5; }
+.page { max-width:1280px; margin:0 auto; padding:20px 16px; }
+.header { background:var(--navy); border-radius:10px; padding:20px 24px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+.header-left h1 { font-size:22px; font-weight:800; color:#fff; } .header-left h1 span { color:#1A6FB5; }
+.header-left p { font-size:11px; color:#94A3B8; margin-top:3px; }
+.header-badges { display:flex; gap:8px; flex-wrap:wrap; }
+.badge { font-size:10px; font-weight:700; padding:4px 10px; border-radius:20px; letter-spacing:.5px; text-transform:uppercase; }
+.badge-blue { background:#3B82F6; color:#fff; } .badge-green { background:#22C55E; color:#fff; } .badge-cyan { background:var(--cyan); color:#fff; }
+.grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:12px; }
+.grid-2 { grid-template-columns:repeat(2,1fr); } .grid-4 { grid-template-columns:repeat(4,1fr); }
+.card { background:var(--surface); border-radius:8px; border:1px solid var(--border); overflow:hidden; }
+.card-header { padding:8px 12px; display:flex; align-items:center; gap:8px; border-bottom:1px solid var(--border); }
+.card-header .icon { width:24px; height:24px; border-radius:5px; display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; }
+.card-header h2 { font-size:11.5px; font-weight:800; color:var(--navy); }
+.card-header .sub { font-size:9px; color:var(--text3); margin-left:auto; }
+.card-body { padding:10px 12px; }
+.section-label { font-size:8.5px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--text3); margin-bottom:5px; margin-top:9px; }
+.section-label:first-child { margin-top:0; }
+.row { display:flex; justify-content:space-between; align-items:baseline; padding:2px 0; border-bottom:1px solid #F1F3F5; gap:8px; }
+.row:last-child { border-bottom:none; }
+.row .key { font-family:var(--mono); font-size:10px; font-weight:600; color:var(--navy); white-space:nowrap; flex-shrink:0; }
+.row .val { font-size:10px; color:var(--text2); text-align:right; }
+.tags { display:flex; flex-wrap:wrap; gap:4px; margin-top:2px; }
+.tag { font-size:9.5px; padding:2px 7px; border-radius:4px; font-weight:600; font-family:var(--mono); }
+.tag-blue { background:var(--blue-soft); color:#1E40AF; } .tag-green { background:var(--green-soft); color:#166534; }
+.tag-red { background:var(--red-soft); color:#991B1B; } .tag-cyan { background:var(--cyan-soft); color:#0E7490; }
+.tip-bar { background:var(--navy2); border-radius:8px; padding:10px 16px; margin-bottom:16px; display:flex; gap:24px; flex-wrap:wrap; }
+.tip-label { font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:#60A5FA; }
+.tip { font-size:10.5px; color:#CBD5E1; } .tip b { color:#fff; }
+.note { font-size:10px; color:var(--text2); padding:6px 8px; border-radius:4px; margin-top:4px; }
+.note-blue { background:var(--blue-soft); border-left:3px solid var(--blue); }
+.note-green { background:var(--green-soft); border-left:3px solid var(--green); }
+.note-red { background:var(--red-soft); border-left:3px solid var(--red); }
+@media print { body{background:#fff} .page{padding:0} }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <h1>Cisco CCNP <span>Enterprise</span></h1>
+      <p>ENCOR 350-401 Certification Cheat Sheet &middot; Exam Reference Guide</p>
+    </div>
+    <div class="header-badges">
+      <span class="badge badge-blue">350-401</span>
+      <span class="badge badge-green">750/1000 Pass</span>
+      <span class="badge badge-cyan">120 Min</span>
+    </div>
+  </div>
+
+  <!-- TIP BAR -->
+  <div class="tip-bar">
+    <div>
+      <div class="tip-label">Exam Format</div>
+      <div class="tip"><b>90–100 questions</b> &nbsp;|&nbsp; <b>120 minutes</b> &nbsp;|&nbsp; Passing score <b>750/1000</b> &nbsp;|&nbsp; Cost <b>$400 USD</b></div>
+    </div>
+    <div>
+      <div class="tip-label">Domain Weights</div>
+      <div class="tip">
+        <b>Architecture 15%</b> &nbsp;&bull;&nbsp;
+        <b>Virtualization 10%</b> &nbsp;&bull;&nbsp;
+        <b>Infrastructure 30%</b> &nbsp;&bull;&nbsp;
+        <b>Network Assurance 10%</b> &nbsp;&bull;&nbsp;
+        <b>Security 20%</b> &nbsp;&bull;&nbsp;
+        <b>Automation 15%</b>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 1: Domain Weights + OSPF + EIGRP -->
+  <div class="grid">
+
+    <!-- DOMAIN WEIGHTS -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#EBF4FF;">&#127775;</div>
+        <h2>Exam Domain Weights</h2>
+        <span class="sub">6 Domains</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Domain Distribution</div>
+        <div class="row"><span class="key">1. Architecture</span><span class="val">15%</span></div>
+        <div class="row"><span class="key">2. Virtualization</span><span class="val">10%</span></div>
+        <div class="row"><span class="key">3. Infrastructure</span><span class="val">30% &#9650;</span></div>
+        <div class="row"><span class="key">4. Network Assurance</span><span class="val">10%</span></div>
+        <div class="row"><span class="key">5. Security</span><span class="val">20%</span></div>
+        <div class="row"><span class="key">6. Automation</span><span class="val">15%</span></div>
+        <div class="section-label">Key Infrastructure Sub-Topics</div>
+        <div class="row"><span class="key">OSPF / EIGRP / BGP</span><span class="val">Routing protocols</span></div>
+        <div class="row"><span class="key">STP / RSTP / MSTP</span><span class="val">Switching</span></div>
+        <div class="row"><span class="key">QoS</span><span class="val">Traffic management</span></div>
+        <div class="row"><span class="key">Wireless 802.11</span><span class="val">WLC + AP modes</span></div>
+        <div class="section-label">Prerequisites</div>
+        <div class="row"><span class="key">CCNA 200-301</span><span class="val">Recommended</span></div>
+        <div class="row"><span class="key">3+ yrs enterprise</span><span class="val">Experience</span></div>
+        <div class="note note-blue" style="margin-top:6px;">Infrastructure is 30% of exam — highest weighted domain. Focus on OSPF, EIGRP, BGP, and STP deeply.</div>
+      </div>
+    </div>
+
+    <!-- ADVANCED OSPF -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#E8F7EF;">&#128279;</div>
+        <h2>Advanced OSPF</h2>
+        <span class="sub">Multi-area &amp; LSA Types</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Multi-Area Roles</div>
+        <div class="row"><span class="key">Area 0</span><span class="val">Backbone — all areas connect here</span></div>
+        <div class="row"><span class="key">ABR</span><span class="val">Area Border Router — connects areas</span></div>
+        <div class="row"><span class="key">ASBR</span><span class="val">Connects external routing domains</span></div>
+        <div class="row"><span class="key">LSDB</span><span class="val">Same within area; Dijkstra on LSDB</span></div>
+        <div class="section-label">LSA Types</div>
+        <div class="row"><span class="key">Type 1 Router</span><span class="val">All routers; flooded within area</span></div>
+        <div class="row"><span class="key">Type 2 Network</span><span class="val">DR on multi-access networks</span></div>
+        <div class="row"><span class="key">Type 3 Summary</span><span class="val">ABR generates inter-area routes</span></div>
+        <div class="row"><span class="key">Type 4 ASBR Sum</span><span class="val">ABR advertises ASBR location</span></div>
+        <div class="row"><span class="key">Type 5 External</span><span class="val">ASBR; flooded everywhere</span></div>
+        <div class="row"><span class="key">Type 7 NSSA Ext</span><span class="val">Like T5 but only in NSSA; → T5 at ABR</span></div>
+        <div class="section-label">Area Types</div>
+        <div class="row"><span class="key">Stub</span><span class="val">Blocks T5; default from ABR</span></div>
+        <div class="row"><span class="key">Totally Stub</span><span class="val">Blocks T3+T5; Cisco proprietary</span></div>
+        <div class="row"><span class="key">NSSA</span><span class="val">Allows ext via T7; blocks T5</span></div>
+        <div class="row"><span class="key">Totally NSSA</span><span class="val">Blocks T3+T5; allows T7</span></div>
+        <div class="section-label">Path Selection &amp; Misc</div>
+        <div class="row"><span class="key">O &gt; O IA &gt; O E1 &gt; O E2</span><span class="val">Route preference order</span></div>
+        <div class="row"><span class="key">Virtual Link</span><span class="val">Non-contiguous Area 0; transit area</span></div>
+        <div class="row"><span class="key">redistribute</span><span class="val">metric + metric-type required</span></div>
+      </div>
+    </div>
+
+    <!-- ADVANCED EIGRP -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#F5F0FF;">&#9889;</div>
+        <h2>Advanced EIGRP</h2>
+        <span class="sub">DUAL Algorithm</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">DUAL Terminology</div>
+        <div class="row"><span class="key">DUAL</span><span class="val">Diffusing Update Algorithm; loop-free</span></div>
+        <div class="row"><span class="key">Successor</span><span class="val">Best path — lowest FD to destination</span></div>
+        <div class="row"><span class="key">Feasible Successor</span><span class="val">Backup path meeting FC</span></div>
+        <div class="row"><span class="key">FC (Feasibility)</span><span class="val">RD &lt; FD of current best path</span></div>
+        <div class="row"><span class="key">FD (Feasible Dist)</span><span class="val">Best metric from local router</span></div>
+        <div class="row"><span class="key">RD (Reported Dist)</span><span class="val">Neighbor's metric to destination</span></div>
+        <div class="row"><span class="key">SIA (Stuck in Active)</span><span class="val">Query timeout &gt;3 min → neighbor reset</span></div>
+        <div class="section-label">Metric Formula</div>
+        <div class="row"><span class="key">Default K-values</span><span class="val">K1=1, K2=0, K3=1, K4=0, K5=0</span></div>
+        <div class="row"><span class="key">Simplified metric</span><span class="val">256 × (10⁷/BW_kbps + delay_10µs)</span></div>
+        <div class="row"><span class="key">Full formula</span><span class="val">[K1*BW+(K2*BW)/(256-load)+K3*delay]</span></div>
+        <div class="section-label">Tables &amp; Neighbor Requirements</div>
+        <div class="row"><span class="key">Neighbor table</span><span class="val">Active adjacencies</span></div>
+        <div class="row"><span class="key">Topology table</span><span class="val">All paths (successor + FS)</span></div>
+        <div class="row"><span class="key">Routing table</span><span class="val">Best paths only</span></div>
+        <div class="row"><span class="key">Neighbor reqs</span><span class="val">Same AS, K-values, auth, subnet</span></div>
+        <div class="section-label">Named Mode</div>
+        <div class="row"><span class="key">Named EIGRP</span><span class="val">address-family; IPv4+IPv6 single process</span></div>
+        <div class="row"><span class="key">Classic mode</span><span class="val">router eigrp &lt;AS&gt; per address family</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 2: BGP (wide) + MPLS -->
+  <div class="grid grid-2">
+
+    <!-- BGP -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#ECFEFF;">&#127760;</div>
+        <h2>BGP — Border Gateway Protocol</h2>
+        <span class="sub">Path Vector · TCP 179</span>
+      </div>
+      <div class="card-body">
+        <div class="grid grid-2" style="gap:8px;margin:0;">
+          <div>
+            <div class="section-label">Session Types</div>
+            <div class="row"><span class="key">eBGP</span><span class="val">Different AS · AD=20 · TTL=1</span></div>
+            <div class="row"><span class="key">iBGP</span><span class="val">Same AS · AD=200 · full mesh/RR</span></div>
+            <div class="row"><span class="key">TCP port</span><span class="val">179</span></div>
+            <div class="row"><span class="key">States</span><span class="val">Idle→Connect→Active→OpenSent→OpenConfirm→Established</span></div>
+            <div class="section-label">Attributes — Well-Known Mandatory</div>
+            <div class="row"><span class="key">AS-Path</span><span class="val">Loop prevention + path selection</span></div>
+            <div class="row"><span class="key">Next-Hop</span><span class="val">IP of next-hop router</span></div>
+            <div class="row"><span class="key">Origin</span><span class="val">IGP(i) &lt; EGP(e) &lt; Incomplete(?)</span></div>
+            <div class="section-label">Attributes — Well-Known Discretionary</div>
+            <div class="row"><span class="key">Local Preference</span><span class="val">Default 100; higher=preferred; iBGP scope</span></div>
+            <div class="row"><span class="key">Atomic Aggregate</span><span class="val">Marks summarized routes</span></div>
+            <div class="section-label">Attributes — Optional Transitive</div>
+            <div class="row"><span class="key">Community</span><span class="val">Tag routes for policy (32-bit value)</span></div>
+            <div class="row"><span class="key">Aggregator</span><span class="val">Router that performed aggregation</span></div>
+            <div class="section-label">Attributes — Optional Non-Transitive</div>
+            <div class="row"><span class="key">MED</span><span class="val">Multi-Exit Discriminator; lower=preferred</span></div>
+            <div class="row"><span class="key">Originator-ID</span><span class="val">Route Reflector loop prevention</span></div>
+            <div class="row"><span class="key">Cluster-List</span><span class="val">RR cluster loop prevention</span></div>
+          </div>
+          <div>
+            <div class="section-label">BGP Path Selection (in order)</div>
+            <div class="row"><span class="key">1. Weight</span><span class="val">Cisco proprietary · local · higher wins</span></div>
+            <div class="row"><span class="key">2. Local Pref</span><span class="val">Higher wins · iBGP scope · default 100</span></div>
+            <div class="row"><span class="key">3. Locally orig</span><span class="val">network / aggregate commands</span></div>
+            <div class="row"><span class="key">4. AS-Path</span><span class="val">Shortest wins</span></div>
+            <div class="row"><span class="key">5. Origin</span><span class="val">IGP &lt; EGP &lt; Incomplete</span></div>
+            <div class="row"><span class="key">6. MED</span><span class="val">Lowest wins · same AS only</span></div>
+            <div class="row"><span class="key">7. eBGP &gt; iBGP</span><span class="val">Prefer external over internal</span></div>
+            <div class="row"><span class="key">8. IGP metric</span><span class="val">Lowest metric to next-hop</span></div>
+            <div class="row"><span class="key">9. Oldest eBGP</span><span class="val">Stable route preferred</span></div>
+            <div class="row"><span class="key">10. Lowest RID</span><span class="val">Cluster list len → Neighbor IP</span></div>
+            <div class="section-label">Scalability</div>
+            <div class="row"><span class="key">Route Reflector</span><span class="val">Solves iBGP full-mesh; reflects routes</span></div>
+            <div class="row"><span class="key">Confederation</span><span class="val">Split AS into sub-AS; eBGP between</span></div>
+            <div class="row"><span class="key">Full mesh req</span><span class="val">n(n-1)/2 sessions without RR</span></div>
+            <div class="note note-blue" style="margin-top:6px;">Mnemonic: <b>W-L-L-A-O-M-E-I-O-R</b> — Weight, Local-Pref, Locally-originated, AS-path, Origin, MED, External, IGP, Oldest, Router-ID</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MPLS -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#FEF2F2;">&#127981;</div>
+        <h2>MPLS &amp; MPLS VPN</h2>
+        <span class="sub">Label Switching · VRF</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Label Structure (32-bit shim)</div>
+        <div class="row"><span class="key">Label field</span><span class="val">20 bits — forwarding value</span></div>
+        <div class="row"><span class="key">TC / EXP</span><span class="val">3 bits — QoS / traffic class</span></div>
+        <div class="row"><span class="key">S (Bottom of Stack)</span><span class="val">1 bit — last label indicator</span></div>
+        <div class="row"><span class="key">TTL</span><span class="val">8 bits — hop-count limit</span></div>
+        <div class="section-label">Router Roles</div>
+        <div class="row"><span class="key">PE (Provider Edge)</span><span class="val">Attaches/removes labels; VRF-aware</span></div>
+        <div class="row"><span class="key">P (Provider Core)</span><span class="val">Swaps labels only; no VRF</span></div>
+        <div class="row"><span class="key">CE (Customer Edge)</span><span class="val">Customer router; no MPLS awareness</span></div>
+        <div class="section-label">Label Operations</div>
+        <div class="row"><span class="key">Push</span><span class="val">Add label — ingress PE</span></div>
+        <div class="row"><span class="key">Swap</span><span class="val">Replace label — P router</span></div>
+        <div class="row"><span class="key">Pop</span><span class="val">Remove label — egress PE or PHP</span></div>
+        <div class="row"><span class="key">PHP</span><span class="val">Penultimate Hop Popping — removes label one hop before egress PE</span></div>
+        <div class="section-label">MPLS VPN Components</div>
+        <div class="row"><span class="key">LDP</span><span class="val">Label Distribution Protocol · TCP 646</span></div>
+        <div class="row"><span class="key">VRF</span><span class="val">Separate RIBs per customer on PE</span></div>
+        <div class="row"><span class="key">VPNv4</span><span class="val">BGP address family carrying VPN routes</span></div>
+        <div class="row"><span class="key">RD (Route Dist.)</span><span class="val">8-byte; makes IPv4 unique in BGP (not policy)</span></div>
+        <div class="row"><span class="key">RT (Route Target)</span><span class="val">Import/export policy for VRF exchange</span></div>
+        <div class="note note-green" style="margin-top:6px;">RD makes routes unique; RT controls which VRFs import/export routes. These are commonly confused on the exam.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 3: SD-WAN + STP + High Availability -->
+  <div class="grid">
+
+    <!-- SD-WAN -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#EBF4FF;">&#9729;</div>
+        <h2>Cisco SD-WAN</h2>
+        <span class="sub">vManage · vSmart · vBond · vEdge</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Control Plane Components</div>
+        <div class="row"><span class="key">vManage</span><span class="val">Centralized GUI/mgmt; policy creation</span></div>
+        <div class="row"><span class="key">vSmart</span><span class="val">Control plane; distributes OMP routes/policy</span></div>
+        <div class="row"><span class="key">vBond</span><span class="val">Orchestration; authenticates vEdge to fabric</span></div>
+        <div class="row"><span class="key">vEdge/cEdge</span><span class="val">Data plane at branch/DC sites</span></div>
+        <div class="section-label">Protocols &amp; Transport</div>
+        <div class="row"><span class="key">OMP</span><span class="val">Overlay Mgmt Protocol · TCP 12346</span></div>
+        <div class="row"><span class="key">TLOC</span><span class="val">system-IP + color + encapsulation</span></div>
+        <div class="row"><span class="key">BFD</span><span class="val">Tunnel liveness detection between vEdges</span></div>
+        <div class="row"><span class="key">DTLS/TLS</span><span class="val">Control plane encryption</span></div>
+        <div class="section-label">Policy Types</div>
+        <div class="row"><span class="key">Centralized policy</span><span class="val">Defined on vManage; pushed via vSmart</span></div>
+        <div class="row"><span class="key">Localized policy</span><span class="val">Applied directly on vEdge device</span></div>
+        <div class="row"><span class="key">Data policy</span><span class="val">Traffic steering; app-aware routing</span></div>
+        <div class="row"><span class="key">Control policy</span><span class="val">Route/TLOC filtering on vSmart</span></div>
+        <div class="section-label">Zero-Touch Provisioning</div>
+        <div class="row"><span class="key">ZTP flow</span><span class="val">Device → vBond → vManage → config push</span></div>
+        <div class="row"><span class="key">Cert-based auth</span><span class="val">WAN Edge devices pre-authorized</span></div>
+        <div class="note note-blue" style="margin-top:6px;">vSmart is control plane; vManage is management plane; vEdge is data plane. vBond is the orchestration/NAT traversal point.</div>
+      </div>
+    </div>
+
+    <!-- ADVANCED STP -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#E8F7EF;">&#128260;</div>
+        <h2>Advanced STP</h2>
+        <span class="sub">MSTP · Protection Features</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">MSTP 802.1s</div>
+        <div class="row"><span class="key">MSTP</span><span class="val">Maps multiple VLANs to instances</span></div>
+        <div class="row"><span class="key">IST (Instance 0)</span><span class="val">Internal Spanning Tree; external regions</span></div>
+        <div class="row"><span class="key">MSTI</span><span class="val">Multiple STP Instance 1–4094</span></div>
+        <div class="row"><span class="key">Region</span><span class="val">Same name, revision, VLAN-map = same region</span></div>
+        <div class="row"><span class="key">CST</span><span class="val">Common Spanning Tree across regions</span></div>
+        <div class="section-label">STP Protection Features</div>
+        <div class="row"><span class="key">Root Guard</span><span class="val">Prevents port becoming root port → root-inconsistent</span></div>
+        <div class="row"><span class="key">Loop Guard</span><span class="val">Prevents alt/backup becoming desig. if BPDUs stop</span></div>
+        <div class="row"><span class="key">BPDU Guard</span><span class="val">Err-disables if BPDU received on PortFast port</span></div>
+        <div class="row"><span class="key">BPDU Filter</span><span class="val">Suppresses BPDUs — use with caution</span></div>
+        <div class="section-label">Legacy Features (deprecated in RSTP)</div>
+        <div class="row"><span class="key">UplinkFast</span><span class="val">Fast access-layer failover (RSTP equiv: proposal/agreement)</span></div>
+        <div class="row"><span class="key">BackboneFast</span><span class="val">Indirect link failure recovery</span></div>
+        <div class="section-label">RSTP Port Roles &amp; States</div>
+        <div class="row"><span class="key">Roles</span><span class="val">Root · Designated · Alternate · Backup</span></div>
+        <div class="row"><span class="key">States</span><span class="val">Discarding · Learning · Forwarding</span></div>
+        <div class="row"><span class="key">P/A mechanism</span><span class="val">Proposal/Agreement replaces 30-s delay</span></div>
+        <div class="note note-red" style="margin-top:6px;">Root Guard on designated ports; Loop Guard on root/alternate ports. They are mutually exclusive on the same port.</div>
+      </div>
+    </div>
+
+    <!-- HIGH AVAILABILITY -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#F5F0FF;">&#128274;</div>
+        <h2>High Availability</h2>
+        <span class="sub">StackWise · VSS · NSF/NSR · SSO</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Switch Stacking / Virtual Switching</div>
+        <div class="row"><span class="key">StackWise</span><span class="val">Single logical switch · 480 Gbps ring · IOS XE</span></div>
+        <div class="row"><span class="key">VSS</span><span class="val">Two Cat6500/4500 as one logical switch; VSL link</span></div>
+        <div class="row"><span class="key">VSF</span><span class="val">HPE equivalent of StackWise</span></div>
+        <div class="row"><span class="key">StackWise-480</span><span class="val">480 Gbps stacking bandwidth</span></div>
+        <div class="section-label">Routing High Availability</div>
+        <div class="row"><span class="key">SSO</span><span class="val">Stateful Switchover — active/standby RP sync</span></div>
+        <div class="row"><span class="key">NSF</span><span class="val">Non-Stop Forwarding — continues forwarding during RP switchover</span></div>
+        <div class="row"><span class="key">NSR</span><span class="val">Non-Stop Routing — protocols maintain state during switchover</span></div>
+        <div class="row"><span class="key">GR</span><span class="val">Graceful Restart — protocol-level adjacency maintenance</span></div>
+        <div class="section-label">First-Hop Redundancy (FHRP)</div>
+        <div class="row"><span class="key">HSRP</span><span class="val">Cisco proprietary · virtual IP/MAC · active/standby</span></div>
+        <div class="row"><span class="key">VRRP</span><span class="val">RFC 5798 · master/backup · open standard</span></div>
+        <div class="row"><span class="key">GLBP</span><span class="val">Load balances across multiple gateways</span></div>
+        <div class="row"><span class="key">HSRP preempt</span><span class="val">Higher priority takes active on return</span></div>
+        <div class="note note-green" style="margin-top:6px;">NSF requires NSR or GR helper support on neighbors. SSO is the foundation — NSF/NSR build on top of SSO.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 4: QoS + Wireless + Security -->
+  <div class="grid">
+
+    <!-- QoS -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#ECFEFF;">&#9878;</div>
+        <h2>Quality of Service (QoS)</h2>
+        <span class="sub">MQC · DSCP · LLQ</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Classification Methods</div>
+        <div class="row"><span class="key">CoS (L2)</span><span class="val">802.1Q 3-bit field (0–7)</span></div>
+        <div class="row"><span class="key">DSCP (L3)</span><span class="val">6-bit field in ToS byte (0–63)</span></div>
+        <div class="row"><span class="key">ACL</span><span class="val">Match on src/dst IP, port, protocol</span></div>
+        <div class="row"><span class="key">NBAR</span><span class="val">Application-aware — L4–L7 inspection</span></div>
+        <div class="section-label">Key DSCP Values</div>
+        <div class="row"><span class="key">CS0 / BE</span><span class="val">DSCP 0 — Best Effort (default)</span></div>
+        <div class="row"><span class="key">CS1 / AF11</span><span class="val">8 / 10 — Scavenger / Low data</span></div>
+        <div class="row"><span class="key">AF21 / AF31</span><span class="val">18 / 26 — Data classes</span></div>
+        <div class="row"><span class="key">CS4 / AF41</span><span class="val">32 / 34 — Video</span></div>
+        <div class="row"><span class="key">EF</span><span class="val">DSCP 46 — Expedited Forwarding (voice)</span></div>
+        <div class="row"><span class="key">CS7</span><span class="val">DSCP 56 — Network control</span></div>
+        <div class="section-label">Queuing Mechanisms</div>
+        <div class="row"><span class="key">FIFO</span><span class="val">Simple · no differentiation</span></div>
+        <div class="row"><span class="key">WFQ</span><span class="val">Weighted Fair Queuing · auto classify</span></div>
+        <div class="row"><span class="key">CBWFQ</span><span class="val">Class-Based WFQ · user classes · BW guarantee</span></div>
+        <div class="row"><span class="key">LLQ</span><span class="val">Strict priority queue + CBWFQ (voice/video)</span></div>
+        <div class="section-label">Congestion Avoidance &amp; Traffic Shaping</div>
+        <div class="row"><span class="key">WRED</span><span class="val">Weighted RED · drops before queue full</span></div>
+        <div class="row"><span class="key">Policing</span><span class="val">Drops/re-marks excess · two-rate three-color</span></div>
+        <div class="row"><span class="key">Shaping</span><span class="val">Buffers excess · smooths traffic · token bucket</span></div>
+        <div class="note note-blue" style="margin-top:6px;">Voice = EF (DSCP 46); Video = AF41 (DSCP 34); Critical data = AF31; LLQ = priority queue for real-time traffic.</div>
+      </div>
+    </div>
+
+    <!-- WIRELESS -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#EBF4FF;">&#128225;</div>
+        <h2>Advanced Wireless</h2>
+        <span class="sub">CAPWAP · RRM · 802.11r/k/v</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">CAPWAP Tunneling</div>
+        <div class="row"><span class="key">UDP 5246</span><span class="val">Control channel (DTLS encrypted)</span></div>
+        <div class="row"><span class="key">UDP 5247</span><span class="val">Data channel</span></div>
+        <div class="row"><span class="key">DTLS</span><span class="val">Datagram TLS — control channel encryption</span></div>
+        <div class="section-label">AP Modes</div>
+        <div class="row"><span class="key">Local mode</span><span class="val">Default · all traffic tunneled to WLC</span></div>
+        <div class="row"><span class="key">FlexConnect</span><span class="val">Local switch/auth when WLC unreachable</span></div>
+        <div class="row"><span class="key">Monitor mode</span><span class="val">Passive scanning only; no client service</span></div>
+        <div class="row"><span class="key">Rogue Detector</span><span class="val">Detects rogue APs on wired network</span></div>
+        <div class="section-label">RRM — Radio Resource Management</div>
+        <div class="row"><span class="key">TPC</span><span class="val">Transmit Power Control — auto power adjust</span></div>
+        <div class="row"><span class="key">DCA</span><span class="val">Dynamic Channel Assignment — auto channel</span></div>
+        <div class="row"><span class="key">CleanAir</span><span class="val">Cisco spectrum intelligence; non-WiFi interference</span></div>
+        <div class="section-label">802.11 Amendments (Roaming)</div>
+        <div class="row"><span class="key">802.11r (FT)</span><span class="val">Fast BSS Transition; pre-auth with target AP</span></div>
+        <div class="row"><span class="key">802.11k (RRM)</span><span class="val">Neighbor reports for assisted roaming</span></div>
+        <div class="row"><span class="key">802.11v (BSS TM)</span><span class="val">Network-directed roaming (BSS transition mgmt)</span></div>
+        <div class="section-label">Additional Features</div>
+        <div class="row"><span class="key">mDNS/Bonjour GW</span><span class="val">Bridges mDNS between VLANs/subnets on WLC</span></div>
+        <div class="row"><span class="key">WPA3</span><span class="val">SAE replaces PSK · PMF mandatory</span></div>
+        <div class="row"><span class="key">802.1X/EAP</span><span class="val">Enterprise auth · RADIUS backend</span></div>
+      </div>
+    </div>
+
+    <!-- SECURITY -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#FEF2F2;">&#128737;</div>
+        <h2>Advanced Security</h2>
+        <span class="sub">CoPP · uRPF · TrustSec · AAA</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Control Plane Protection</div>
+        <div class="row"><span class="key">CoPP</span><span class="val">Protects router CPU from DoS; rate-limits CP traffic</span></div>
+        <div class="row"><span class="key">CPPr</span><span class="val">Control Plane Protection — subinterface-based</span></div>
+        <div class="row"><span class="key">uRPF</span><span class="val">Anti-spoofing; strict (CEF check) / loose mode</span></div>
+        <div class="section-label">IPv6 Security</div>
+        <div class="row"><span class="key">RA Guard</span><span class="val">Blocks unauthorized Router Advertisement msgs</span></div>
+        <div class="row"><span class="key">DHCPv6 Guard</span><span class="val">Validates DHCPv6 msgs; trusted/untrusted ports</span></div>
+        <div class="row"><span class="key">IPv6 Source Guard</span><span class="val">Validates IPv6 source addresses</span></div>
+        <div class="row"><span class="key">SEND</span><span class="val">Secure Neighbor Discovery — cryptographic NDP</span></div>
+        <div class="section-label">Zone-Based Firewall &amp; Encryption</div>
+        <div class="row"><span class="key">ZBFW</span><span class="val">Interface-based zones; policy between zones</span></div>
+        <div class="row"><span class="key">MACsec 802.1AE</span><span class="val">Hop-by-hop L2 encryption; line-rate; MKA keying</span></div>
+        <div class="section-label">Identity &amp; Access</div>
+        <div class="row"><span class="key">TrustSec / SGT</span><span class="val">Security Group Tags; SGACL enforcement</span></div>
+        <div class="row"><span class="key">ISE</span><span class="val">Identity Services Engine; 802.1X, posture, SGT</span></div>
+        <div class="section-label">AAA Protocols</div>
+        <div class="row"><span class="key">TACACS+</span><span class="val">TCP 49 · encrypts all · Cisco · device admin</span></div>
+        <div class="row"><span class="key">RADIUS</span><span class="val">UDP 1812/1813 · encrypts password only · standard</span></div>
+        <div class="note note-red" style="margin-top:6px;">TACACS+ separates Authentication, Authorization, Accounting. RADIUS combines Auth+Authz. TACACS+ preferred for device admin; RADIUS for network access.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 5: Virtualization + Network Assurance + Automation -->
+  <div class="grid">
+
+    <!-- NETWORK VIRTUALIZATION -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#F5F0FF;">&#128230;</div>
+        <h2>Network Virtualization</h2>
+        <span class="sub">VRF · VXLAN · GRE · DMVPN</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">VRF (Virtual Routing &amp; Forwarding)</div>
+        <div class="row"><span class="key">VRF</span><span class="val">Virtual routers; separate RIBs on one device</span></div>
+        <div class="row"><span class="key">VRF-lite</span><span class="val">No MPLS required; manual route leaking</span></div>
+        <div class="row"><span class="key">Route leaking</span><span class="val">import vrf / export vrf between VRFs</span></div>
+        <div class="section-label">VXLAN (L2 over L3)</div>
+        <div class="row"><span class="key">Protocol</span><span class="val">UDP 4789 · 24-bit VNI (16M segments)</span></div>
+        <div class="row"><span class="key">VTEP</span><span class="val">VXLAN Tunnel Endpoint — encap/decap</span></div>
+        <div class="row"><span class="key">BGP EVPN</span><span class="val">Control plane for VXLAN; MAC/IP distribution</span></div>
+        <div class="row"><span class="key">Multicast flood</span><span class="val">BUM traffic handling — multicast or IR</span></div>
+        <div class="section-label">Tunneling</div>
+        <div class="row"><span class="key">GRE</span><span class="val">IP protocol 47 · P2P · no encryption</span></div>
+        <div class="row"><span class="key">GRE + IPSec</span><span class="val">Encryption added; most common combo</span></div>
+        <div class="row"><span class="key">DMVPN</span><span class="val">Dynamic Multipoint VPN · hub-spoke + spoke-to-spoke</span></div>
+        <div class="section-label">DMVPN Phases</div>
+        <div class="row"><span class="key">Phase 1</span><span class="val">Hub-to-spoke only · spokes can't talk directly</span></div>
+        <div class="row"><span class="key">Phase 2</span><span class="val">Spoke-to-spoke via NHRP · no summarization</span></div>
+        <div class="row"><span class="key">Phase 3</span><span class="val">Summarization at hub · NHRP redirects</span></div>
+        <div class="row"><span class="key">NHRP</span><span class="val">Next Hop Resolution Protocol · mGRE mapping</span></div>
+        <div class="note note-blue" style="margin-top:6px;">VXLAN solves L2 scale (4096 VLANs → 16M VNIs). BGP EVPN is the preferred control plane for datacenter fabrics.</div>
+      </div>
+    </div>
+
+    <!-- NETWORK ASSURANCE -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#E8F7EF;">&#128200;</div>
+        <h2>Network Assurance</h2>
+        <span class="sub">IP SLA · NetFlow · SPAN · EEM</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">IP SLA</div>
+        <div class="row"><span class="key">IP SLA</span><span class="val">Active monitoring; synthetic traffic generation</span></div>
+        <div class="row"><span class="key">ICMP echo</span><span class="val">Basic reachability testing</span></div>
+        <div class="row"><span class="key">UDP jitter</span><span class="val">Delay · jitter · packet loss for voice quality</span></div>
+        <div class="row"><span class="key">HTTP</span><span class="val">Application-level response monitoring</span></div>
+        <div class="section-label">NetFlow Versions</div>
+        <div class="row"><span class="key">v5</span><span class="val">Fixed 7-tuple format; IPv4 only</span></div>
+        <div class="row"><span class="key">v9</span><span class="val">Flexible template-based; IPv6 support</span></div>
+        <div class="row"><span class="key">IPFIX</span><span class="val">IETF standard based on v9 (RFC 7011)</span></div>
+        <div class="row"><span class="key">Flexible NF</span><span class="val">Customizable flow keys and non-key fields</span></div>
+        <div class="row"><span class="key">7-tuple</span><span class="val">src/dst IP + ports + protocol + ToS + interface</span></div>
+        <div class="section-label">Port Mirroring (SPAN)</div>
+        <div class="row"><span class="key">SPAN</span><span class="val">Same switch only</span></div>
+        <div class="row"><span class="key">RSPAN</span><span class="val">Across switches via dedicated VLAN</span></div>
+        <div class="row"><span class="key">ERSPAN</span><span class="val">Across L3 boundaries via GRE encapsulation</span></div>
+        <div class="section-label">EEM (Embedded Event Manager)</div>
+        <div class="row"><span class="key">Applets</span><span class="val">Simple event-action pairs; CLI config</span></div>
+        <div class="row"><span class="key">Scripts</span><span class="val">Tcl-based automation; complex logic</span></div>
+        <div class="row"><span class="key">Detectors</span><span class="val">syslog · CLI · SNMP · OIR · timer · track</span></div>
+        <div class="section-label">Model-Driven Programmability</div>
+        <div class="row"><span class="key">NETCONF</span><span class="val">RFC 6241 · SSH port 830 · XML RPCs</span></div>
+        <div class="row"><span class="key">RESTCONF</span><span class="val">RFC 8040 · HTTP/HTTPS · JSON or XML · stateless</span></div>
+        <div class="row"><span class="key">gRPC/gNMI</span><span class="val">Streaming telemetry; model-driven</span></div>
+      </div>
+    </div>
+
+    <!-- AUTOMATION -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#ECFEFF;">&#129302;</div>
+        <h2>Automation &amp; Programmability</h2>
+        <span class="sub">Python · YANG · DNA Center</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Python Libraries</div>
+        <div class="row"><span class="key">netmiko</span><span class="val">SSH connections · multi-vendor · send_command</span></div>
+        <div class="row"><span class="key">paramiko</span><span class="val">Low-level SSH · basis for netmiko</span></div>
+        <div class="row"><span class="key">ncclient</span><span class="val">NETCONF operations · Python client</span></div>
+        <div class="row"><span class="key">requests</span><span class="val">REST API calls · GET/POST/PUT/DELETE</span></div>
+        <div class="row"><span class="key">napalm</span><span class="val">Multi-vendor abstraction layer · getters</span></div>
+        <div class="section-label">Data Formats</div>
+        <div class="row"><span class="key">JSON</span><span class="val">Key-value · arrays · human-readable · REST APIs</span></div>
+        <div class="row"><span class="key">XML</span><span class="val">Hierarchical · NETCONF transport · verbose</span></div>
+        <div class="row"><span class="key">YAML</span><span class="val">Human-readable · Ansible playbooks</span></div>
+        <div class="row"><span class="key">YANG</span><span class="val">Data modeling · modules/containers/lists/leaves</span></div>
+        <div class="section-label">NETCONF Operations</div>
+        <div class="tags" style="margin-bottom:6px;">
+          <span class="tag tag-blue">get</span>
+          <span class="tag tag-blue">get-config</span>
+          <span class="tag tag-blue">edit-config</span>
+          <span class="tag tag-blue">lock</span>
+          <span class="tag tag-blue">unlock</span>
+          <span class="tag tag-blue">commit</span>
+          <span class="tag tag-blue">validate</span>
+          <span class="tag tag-blue">copy-config</span>
+        </div>
+        <div class="section-label">Cisco DNA Center</div>
+        <div class="row"><span class="key">Intent-based</span><span class="val">Business intent → network config automation</span></div>
+        <div class="row"><span class="key">REST API NB</span><span class="val">Northbound for integration/automation</span></div>
+        <div class="row"><span class="key">Assurance</span><span class="val">AI/ML analytics · issue detection · trending</span></div>
+        <div class="row"><span class="key">ZTP/Template</span><span class="val">Zero-touch provisioning · template deployer</span></div>
+        <div class="row"><span class="key">SD-Access</span><span class="val">Fabric underlay/overlay automation</span></div>
+        <div class="note note-green" style="margin-top:6px;">RESTCONF path: <b>/restconf/data/&lt;module&gt;:&lt;container&gt;</b> — stateless HTTP, no locking required unlike NETCONF.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 6: Quick Reference Cards (4-col grid) -->
+  <div class="grid grid-4">
+
+    <!-- OSPF Quick Ref -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#E8F7EF;">&#128205;</div>
+        <h2>OSPF Quick Ref</h2>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Timers &amp; AD</div>
+        <div class="row"><span class="key">Hello (broadcast)</span><span class="val">10s</span></div>
+        <div class="row"><span class="key">Hello (NBMA)</span><span class="val">30s</span></div>
+        <div class="row"><span class="key">Dead interval</span><span class="val">4× Hello</span></div>
+        <div class="row"><span class="key">AD (OSPF)</span><span class="val">110</span></div>
+        <div class="row"><span class="key">Metric</span><span class="val">Cost = 10⁸/BW</span></div>
+        <div class="section-label">Network Types</div>
+        <div class="row"><span class="key">Broadcast</span><span class="val">DR/BDR · Multicast</span></div>
+        <div class="row"><span class="key">NBMA</span><span class="val">DR/BDR · Unicast</span></div>
+        <div class="row"><span class="key">P2P</span><span class="val">No DR · 10s hello</span></div>
+        <div class="row"><span class="key">P2MP</span><span class="val">No DR · 30s hello</span></div>
+        <div class="row"><span class="key">Loopback</span><span class="val">Always /32 host route</span></div>
+        <div class="section-label">Router Types</div>
+        <div class="row"><span class="key">Internal</span><span class="val">All ifaces same area</span></div>
+        <div class="row"><span class="key">Backbone</span><span class="val">Has Area 0 interface</span></div>
+        <div class="row"><span class="key">ABR</span><span class="val">2+ areas including Area 0</span></div>
+        <div class="row"><span class="key">ASBR</span><span class="val">Redistributes external</span></div>
+      </div>
+    </div>
+
+    <!-- Protocol AD Values -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#EBF4FF;">&#127919;</div>
+        <h2>Protocol AD Values</h2>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Administrative Distance</div>
+        <div class="row"><span class="key">Connected</span><span class="val">0</span></div>
+        <div class="row"><span class="key">Static</span><span class="val">1</span></div>
+        <div class="row"><span class="key">eBGP</span><span class="val">20</span></div>
+        <div class="row"><span class="key">EIGRP summary</span><span class="val">5</span></div>
+        <div class="row"><span class="key">EIGRP internal</span><span class="val">90</span></div>
+        <div class="row"><span class="key">IGRP</span><span class="val">100</span></div>
+        <div class="row"><span class="key">OSPF</span><span class="val">110</span></div>
+        <div class="row"><span class="key">IS-IS</span><span class="val">115</span></div>
+        <div class="row"><span class="key">RIP</span><span class="val">120</span></div>
+        <div class="row"><span class="key">EIGRP external</span><span class="val">170</span></div>
+        <div class="row"><span class="key">iBGP</span><span class="val">200</span></div>
+        <div class="row"><span class="key">Unreachable</span><span class="val">255</span></div>
+        <div class="section-label">Note</div>
+        <div class="note note-blue">Lower AD = more trusted. If two protocols have same AD, metric decides. Floating static = higher AD than routing protocol.</div>
+      </div>
+    </div>
+
+    <!-- IPv6 Quick Ref -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#ECFEFF;">&#127758;</div>
+        <h2>IPv6 Quick Reference</h2>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Address Types</div>
+        <div class="row"><span class="key">Unicast Global</span><span class="val">2000::/3</span></div>
+        <div class="row"><span class="key">Link-local</span><span class="val">FE80::/10</span></div>
+        <div class="row"><span class="key">Unique local</span><span class="val">FC00::/7</span></div>
+        <div class="row"><span class="key">Multicast</span><span class="val">FF00::/8</span></div>
+        <div class="row"><span class="key">Loopback</span><span class="val">::1/128</span></div>
+        <div class="row"><span class="key">Unspecified</span><span class="val">::/128</span></div>
+        <div class="section-label">Multicast Groups</div>
+        <div class="row"><span class="key">All nodes</span><span class="val">FF02::1</span></div>
+        <div class="row"><span class="key">All routers</span><span class="val">FF02::2</span></div>
+        <div class="row"><span class="key">All OSPF</span><span class="val">FF02::5 / ::6</span></div>
+        <div class="row"><span class="key">All EIGRP</span><span class="val">FF02::A</span></div>
+        <div class="row"><span class="key">Solicited-node</span><span class="val">FF02::1:FFxx:xxxx</span></div>
+        <div class="section-label">NDP (replaces ARP)</div>
+        <div class="row"><span class="key">RS/RA</span><span class="val">Router Solicitation/Advertisement</span></div>
+        <div class="row"><span class="key">NS/NA</span><span class="val">Neighbor Solicitation/Advertisement</span></div>
+        <div class="row"><span class="key">SLAAC</span><span class="val">Stateless Address Autoconfiguration</span></div>
+      </div>
+    </div>
+
+    <!-- Wireless Standards -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#F5F0FF;">&#128246;</div>
+        <h2>802.11 Standards</h2>
+      </div>
+      <div class="card-body">
+        <div class="section-label">IEEE 802.11 Amendments</div>
+        <div class="row"><span class="key">802.11a</span><span class="val">5 GHz · 54 Mbps · OFDM</span></div>
+        <div class="row"><span class="key">802.11b</span><span class="val">2.4 GHz · 11 Mbps · DSSS</span></div>
+        <div class="row"><span class="key">802.11g</span><span class="val">2.4 GHz · 54 Mbps · OFDM</span></div>
+        <div class="row"><span class="key">802.11n (Wi-Fi 4)</span><span class="val">2.4/5 GHz · 600 Mbps · MIMO</span></div>
+        <div class="row"><span class="key">802.11ac (Wi-Fi 5)</span><span class="val">5 GHz · 6.9 Gbps · MU-MIMO</span></div>
+        <div class="row"><span class="key">802.11ax (Wi-Fi 6)</span><span class="val">2.4/5/6 GHz · OFDMA · BSS Color</span></div>
+        <div class="section-label">Channel Planning (2.4 GHz)</div>
+        <div class="row"><span class="key">Non-overlapping</span><span class="val">Channels 1, 6, 11</span></div>
+        <div class="row"><span class="key">Channel width</span><span class="val">20 MHz standard</span></div>
+        <div class="section-label">5 GHz Channels</div>
+        <div class="row"><span class="key">UNII-1</span><span class="val">36–48 (indoor)</span></div>
+        <div class="row"><span class="key">UNII-2</span><span class="val">52–64 (DFS required)</span></div>
+        <div class="row"><span class="key">UNII-3</span><span class="val">149–165 (outdoor)</span></div>
+        <div class="row"><span class="key">DFS</span><span class="val">Dynamic Frequency Selection (radar)</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 7: Architecture + Misc Reference -->
+  <div class="grid grid-2">
+
+    <!-- ENTERPRISE ARCHITECTURE -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#EBF4FF;">&#127963;</div>
+        <h2>Enterprise Architecture</h2>
+        <span class="sub">Design Models · SD-Access · Cloud</span>
+      </div>
+      <div class="card-body">
+        <div class="grid grid-2" style="gap:8px;margin:0;">
+          <div>
+            <div class="section-label">Three-Tier Hierarchical Model</div>
+            <div class="row"><span class="key">Access Layer</span><span class="val">End-user connectivity · PoE · VLANs</span></div>
+            <div class="row"><span class="key">Distribution</span><span class="val">Policy · routing · redundancy · FHRP</span></div>
+            <div class="row"><span class="key">Core Layer</span><span class="val">High-speed forwarding · no policy</span></div>
+            <div class="section-label">Two-Tier (Collapsed Core)</div>
+            <div class="row"><span class="key">Collapsed Core</span><span class="val">Distribution + Core merged · smaller campus</span></div>
+            <div class="row"><span class="key">Spine-Leaf</span><span class="val">DC fabric · any-to-any 2-hop · ECMP</span></div>
+            <div class="section-label">SD-Access Fabric</div>
+            <div class="row"><span class="key">Underlay</span><span class="val">IS-IS routed access · physical IP reachability</span></div>
+            <div class="row"><span class="key">Overlay</span><span class="val">VXLAN + LISP for host mobility</span></div>
+            <div class="row"><span class="key">LISP</span><span class="val">Locator/ID Separation Protocol · map/encap</span></div>
+            <div class="row"><span class="key">Control plane node</span><span class="val">LISP map server/resolver</span></div>
+            <div class="row"><span class="key">Edge node</span><span class="val">xTR · LISP ingress/egress tunnel router</span></div>
+            <div class="row"><span class="key">Border node</span><span class="val">Connects fabric to external (WAN/DC/internet)</span></div>
+          </div>
+          <div>
+            <div class="section-label">Cloud Deployment Models</div>
+            <div class="row"><span class="key">Public cloud</span><span class="val">AWS / Azure / GCP · shared infra</span></div>
+            <div class="row"><span class="key">Private cloud</span><span class="val">On-prem · dedicated resources</span></div>
+            <div class="row"><span class="key">Hybrid cloud</span><span class="val">Public + private interconnected</span></div>
+            <div class="row"><span class="key">Community cloud</span><span class="val">Shared by org. with common interest</span></div>
+            <div class="section-label">Service Models</div>
+            <div class="row"><span class="key">IaaS</span><span class="val">VMs · storage · networking (you manage OS)</span></div>
+            <div class="row"><span class="key">PaaS</span><span class="val">Platform + runtime (you manage app)</span></div>
+            <div class="row"><span class="key">SaaS</span><span class="val">Full app delivery (you manage data)</span></div>
+            <div class="section-label">WAN Technologies</div>
+            <div class="row"><span class="key">MPLS WAN</span><span class="val">Guaranteed SLA · private · expensive</span></div>
+            <div class="row"><span class="key">SD-WAN</span><span class="val">Transport-agnostic · application-aware</span></div>
+            <div class="row"><span class="key">MetroE</span><span class="val">Ethernet WAN · P2P or multipoint</span></div>
+            <div class="row"><span class="key">DMVPN</span><span class="val">IPSec over public internet · dynamic</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONFIGURATION COMMANDS QUICK REF -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#F5F0FF;">&#128187;</div>
+        <h2>IOS-XE Configuration Reference</h2>
+        <span class="sub">CLI Commands Quick Reference</span>
+      </div>
+      <div class="card-body">
+        <div class="grid grid-2" style="gap:8px;margin:0;">
+          <div>
+            <div class="section-label">OSPF Configuration</div>
+            <div class="row"><span class="key">router ospf 1</span><span class="val">Start OSPF process</span></div>
+            <div class="row"><span class="key">network x.x.x.x w a</span><span class="val">Enable on interface (wildcard area)</span></div>
+            <div class="row"><span class="key">area 1 stub</span><span class="val">Configure stub area</span></div>
+            <div class="row"><span class="key">area 1 nssa</span><span class="val">Configure NSSA area</span></div>
+            <div class="row"><span class="key">area 0 virtual-link</span><span class="val">Create virtual link</span></div>
+            <div class="row"><span class="key">redistribute eigrp 1</span><span class="val">Redistribute EIGRP into OSPF</span></div>
+            <div class="section-label">BGP Configuration</div>
+            <div class="row"><span class="key">router bgp 65001</span><span class="val">Start BGP with local AS</span></div>
+            <div class="row"><span class="key">neighbor x.x.x.x remote-as</span><span class="val">Define peer</span></div>
+            <div class="row"><span class="key">neighbor x update-source Lo0</span><span class="val">iBGP loopback peering</span></div>
+            <div class="row"><span class="key">neighbor x ebgp-multihop 2</span><span class="val">eBGP over non-direct link</span></div>
+            <div class="row"><span class="key">neighbor x route-reflector-client</span><span class="val">Enable RR client</span></div>
+            <div class="row"><span class="key">network x.x.x.x mask y.y.y.y</span><span class="val">Advertise prefix</span></div>
+            <div class="section-label">VRF Configuration</div>
+            <div class="row"><span class="key">vrf definition CUST_A</span><span class="val">Create VRF</span></div>
+            <div class="row"><span class="key">rd 65001:100</span><span class="val">Set Route Distinguisher</span></div>
+            <div class="row"><span class="key">route-target export/import</span><span class="val">Set RT for VPN</span></div>
+          </div>
+          <div>
+            <div class="section-label">EIGRP Named Mode</div>
+            <div class="row"><span class="key">router eigrp ENTERPRISE</span><span class="val">Named mode</span></div>
+            <div class="row"><span class="key">address-family ipv4 as 100</span><span class="val">AF config</span></div>
+            <div class="row"><span class="key">eigrp stub connected</span><span class="val">Stub with connected routes</span></div>
+            <div class="section-label">QoS MQC</div>
+            <div class="row"><span class="key">class-map match-any VOICE</span><span class="val">Define class</span></div>
+            <div class="row"><span class="key">match dscp ef</span><span class="val">Match DSCP EF</span></div>
+            <div class="row"><span class="key">policy-map WAN-OUT</span><span class="val">Define policy</span></div>
+            <div class="row"><span class="key">class VOICE</span><span class="val">Apply to class</span></div>
+            <div class="row"><span class="key">priority 512</span><span class="val">LLQ — strict priority 512kbps</span></div>
+            <div class="row"><span class="key">bandwidth percent 25</span><span class="val">CBWFQ bandwidth allocation</span></div>
+            <div class="row"><span class="key">service-policy output WAN-OUT</span><span class="val">Apply to interface</span></div>
+            <div class="section-label">Useful show Commands</div>
+            <div class="row"><span class="key">show ip ospf neighbor</span><span class="val">OSPF adjacencies</span></div>
+            <div class="row"><span class="key">show ip eigrp topology</span><span class="val">DUAL topology table</span></div>
+            <div class="row"><span class="key">show bgp summary</span><span class="val">BGP session state</span></div>
+            <div class="row"><span class="key">show policy-map interface</span><span class="val">QoS counters</span></div>
+            <div class="row"><span class="key">show mpls forwarding</span><span class="val">LFIB table</span></div>
+            <div class="row"><span class="key">show vrf</span><span class="val">VRF list and interfaces</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 8: Final dense reference row -->
+  <div class="grid">
+
+    <!-- MULTICAST -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#E8F7EF;">&#128256;</div>
+        <h2>IP Multicast</h2>
+        <span class="sub">PIM · IGMP · RP</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Multicast Addressing</div>
+        <div class="row"><span class="key">IPv4 multicast</span><span class="val">224.0.0.0/4 (Class D)</span></div>
+        <div class="row"><span class="key">Link-local range</span><span class="val">224.0.0.0/24 — not routed</span></div>
+        <div class="row"><span class="key">Global range</span><span class="val">224.0.1.0–239.255.255.255</span></div>
+        <div class="row"><span class="key">Admin-scoped</span><span class="val">239.0.0.0/8 (org-local)</span></div>
+        <div class="section-label">IGMP</div>
+        <div class="row"><span class="key">IGMPv1</span><span class="val">Join only; router queries</span></div>
+        <div class="row"><span class="key">IGMPv2</span><span class="val">Leave group message added</span></div>
+        <div class="row"><span class="key">IGMPv3</span><span class="val">Source-specific (SSM) support</span></div>
+        <div class="row"><span class="key">IGMP Snooping</span><span class="val">L2 optimization; switch tracks groups</span></div>
+        <div class="section-label">PIM Modes</div>
+        <div class="row"><span class="key">PIM-DM</span><span class="val">Dense Mode · flood and prune</span></div>
+        <div class="row"><span class="key">PIM-SM</span><span class="val">Sparse Mode · explicit join · RP required</span></div>
+        <div class="row"><span class="key">PIM-SSM</span><span class="val">Source-Specific Multicast · no RP · 232.x</span></div>
+        <div class="row"><span class="key">PIM-BiDir</span><span class="val">Bidirectional PIM · many-to-many</span></div>
+        <div class="section-label">Rendezvous Point</div>
+        <div class="row"><span class="key">Static RP</span><span class="val">Manual config on all routers</span></div>
+        <div class="row"><span class="key">Auto-RP</span><span class="val">Cisco proprietary · RP Announce/Discovery</span></div>
+        <div class="row"><span class="key">BSR</span><span class="val">Bootstrap Router · RFC standard · dynamic RP</span></div>
+        <div class="row"><span class="key">Anycast RP</span><span class="val">Multiple RPs with same IP · MSDP or PIM</span></div>
+      </div>
+    </div>
+
+    <!-- SWITCHING ADVANCED -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#FEF2F2;">&#9654;</div>
+        <h2>Advanced Switching</h2>
+        <span class="sub">VLANs · EtherChannel · DHCP Snooping</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">VLAN &amp; Trunking</div>
+        <div class="row"><span class="key">802.1Q</span><span class="val">4-byte tag · 12-bit VLAN ID (1–4094)</span></div>
+        <div class="row"><span class="key">Native VLAN</span><span class="val">Untagged on trunk · must match both sides</span></div>
+        <div class="row"><span class="key">VTP</span><span class="val">VLAN Trunking Protocol · Server/Client/Transparent</span></div>
+        <div class="row"><span class="key">VTPv3</span><span class="val">Extended VLAN support · MST + private VLAN</span></div>
+        <div class="section-label">EtherChannel</div>
+        <div class="row"><span class="key">LACP (802.3ad)</span><span class="val">IEEE standard · Active/Passive modes</span></div>
+        <div class="row"><span class="key">PAgP</span><span class="val">Cisco proprietary · Desirable/Auto modes</span></div>
+        <div class="row"><span class="key">Static (on)</span><span class="val">No negotiation · both sides must be "on"</span></div>
+        <div class="row"><span class="key">Load balance</span><span class="val">src-mac / dst-ip / src-dst-ip (default)</span></div>
+        <div class="section-label">Switch Security</div>
+        <div class="row"><span class="key">Port Security</span><span class="val">Limit MACs · shutdown/restrict/protect</span></div>
+        <div class="row"><span class="key">DHCP Snooping</span><span class="val">Trusted/untrusted ports · DHCP binding table</span></div>
+        <div class="row"><span class="key">DAI</span><span class="val">Dynamic ARP Inspection · validates ARP vs. binding</span></div>
+        <div class="row"><span class="key">IP Source Guard</span><span class="val">Validates src IP against DHCP snooping table</span></div>
+        <div class="section-label">Private VLANs</div>
+        <div class="row"><span class="key">Primary VLAN</span><span class="val">Carries all traffic within domain</span></div>
+        <div class="row"><span class="key">Isolated</span><span class="val">Port talks only to promiscuous port</span></div>
+        <div class="row"><span class="key">Community</span><span class="val">Ports in same community talk to each other</span></div>
+        <div class="row"><span class="key">Promiscuous</span><span class="val">Talks to all (router/firewall uplink)</span></div>
+      </div>
+    </div>
+
+    <!-- EXAM TIPS -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#ECFEFF;">&#9989;</div>
+        <h2>Exam Tips &amp; Mnemonics</h2>
+        <span class="sub">High-Yield Focus Areas</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">BGP Path Selection Mnemonic</div>
+        <div class="note note-blue"><b>W-L-L-A-O-M-E-I-O-R</b><br>"We Like Locally Achieving Our Maximum External IGP Old Routes"<br>Weight · Local-Pref · Locally-originated · AS-path · Origin · MED · External · IGP · Oldest · Router-ID</div>
+        <div class="section-label">OSPF LSA Quick Memory</div>
+        <div class="row"><span class="key">T1=Router</span><span class="val">T2=Network (DR) T3=ABR-sum</span></div>
+        <div class="row"><span class="key">T4=ASBR-loc</span><span class="val">T5=External T7=NSSA-ext</span></div>
+        <div class="section-label">High-Frequency Exam Topics</div>
+        <div class="row"><span class="key">BGP attributes</span><span class="val">Type + scope of each attribute</span></div>
+        <div class="row"><span class="key">OSPF area types</span><span class="val">What each blocks/allows</span></div>
+        <div class="row"><span class="key">EIGRP DUAL</span><span class="val">Feasibility condition formula</span></div>
+        <div class="row"><span class="key">DSCP values</span><span class="val">EF=46, AF41=34, CS0=0</span></div>
+        <div class="row"><span class="key">CAPWAP ports</span><span class="val">5246 control, 5247 data</span></div>
+        <div class="row"><span class="key">SD-WAN planes</span><span class="val">vManage/vSmart/vBond roles</span></div>
+        <div class="row"><span class="key">VXLAN VNI</span><span class="val">24-bit = 16M segments UDP 4789</span></div>
+        <div class="row"><span class="key">NETCONF port</span><span class="val">SSH 830; RESTCONF = HTTP/HTTPS</span></div>
+        <div class="section-label">Common Traps</div>
+        <div class="row"><span class="key">RD vs RT</span><span class="val">RD = unique; RT = import/export policy</span></div>
+        <div class="row"><span class="key">Root Guard vs Loop Guard</span><span class="val">Different port placement</span></div>
+        <div class="row"><span class="key">NSF vs NSR</span><span class="val">NSF=forwarding; NSR=routing protocol state</span></div>
+        <div class="row"><span class="key">TACACS+ vs RADIUS</span><span class="val">T+: TCP/full encrypt; R: UDP/password only</span></div>
+        <div class="note note-red" style="margin-top:6px;">Infrastructure = 30% of exam. Spend 60%+ of study time on routing (OSPF/EIGRP/BGP), switching (STP/VLANs), and QoS.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

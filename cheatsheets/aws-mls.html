@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AWS ML Specialty MLS-C01 Cheat Sheet</title>
+<meta name="description" content="Complete AWS Machine Learning Specialty MLS-C01 exam cheat sheet covering all domains, SageMaker, algorithms, and MLOps.">
+<style>
+:root {
+  --bg:#F5F6F7; --surface:#FFFFFF; --border:#E2E4E8;
+  --navy:#0F1C2E; --navy2:#1A2E45;
+  --green:#1B7A4A; --green-soft:#E8F7EF;
+  --blue:#1A6FB5; --blue-soft:#EBF4FF;
+  --orange:#FF9900; --orange-soft:#FFF4DC;
+  --red:#B91C1C; --red-soft:#FEF2F2;
+  --purple:#6B21A8; --purple-soft:#F5F0FF;
+  --text:#1C2333; --text2:#4A5568; --text3:#718096;
+  --mono:'Consolas','Courier New',monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+}
+body{font-family:var(--sans);font-size:11px;background:var(--bg);color:var(--text);line-height:1.5;margin:0}
+.page{max-width:1280px;margin:0 auto;padding:20px 16px}
+.header{background:var(--navy);border-radius:10px;padding:20px 24px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.header-left h1{font-size:22px;font-weight:800;color:#fff}.header-left h1 span{color:var(--orange)}
+.header-left p{font-size:11px;color:#94A3B8;margin-top:3px}
+.header-badges{display:flex;gap:8px;flex-wrap:wrap}
+.badge{font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:.5px;text-transform:uppercase}
+.badge-orange{background:var(--orange);color:var(--navy)}.badge-green{background:#22C55E;color:#fff}.badge-blue{background:#3B82F6;color:#fff}.badge-red{background:#EF4444;color:#fff}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px}
+.grid-2{grid-template-columns:repeat(2,1fr)}.grid-4{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--surface);border-radius:8px;border:1px solid var(--border);overflow:hidden}
+.card-header{padding:8px 12px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border)}
+.card-header .icon{width:24px;height:24px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.card-header h2{font-size:11.5px;font-weight:800;color:var(--navy)}
+.card-header .sub{font-size:9px;color:var(--text3);margin-left:auto}
+.card-body{padding:10px 12px}
+.section-label{font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--text3);margin-bottom:5px;margin-top:9px}
+.section-label:first-child{margin-top:0}
+.row{display:flex;justify-content:space-between;align-items:baseline;padding:2px 0;border-bottom:1px solid #F1F3F5;gap:8px}
+.row:last-child{border-bottom:none}
+.row .key{font-family:var(--mono);font-size:10px;font-weight:600;color:var(--navy);white-space:nowrap;flex-shrink:0}
+.row .val{font-size:10px;color:var(--text2);text-align:right}
+.tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px}
+.tag{font-size:9.5px;padding:2px 7px;border-radius:4px;font-weight:600;font-family:var(--mono)}
+.tag-orange{background:var(--orange-soft);color:#92400E}.tag-blue{background:var(--blue-soft);color:#1E40AF}
+.tag-green{background:var(--green-soft);color:#166534}.tag-red{background:var(--red-soft);color:#991B1B}.tag-purple{background:var(--purple-soft);color:#6B21A8}
+.tip-bar{background:var(--navy2);border-radius:8px;padding:10px 16px;margin-bottom:16px;display:flex;gap:24px;flex-wrap:wrap}
+.tip-label{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--orange)}
+.tip{font-size:10.5px;color:#CBD5E1}.tip b{color:#fff}
+.note{font-size:10px;color:var(--text2);padding:6px 8px;border-radius:4px;margin-top:4px}
+.note-orange{background:var(--orange-soft);border-left:3px solid var(--orange)}
+.note-blue{background:var(--blue-soft);border-left:3px solid var(--blue)}
+.note-green{background:var(--green-soft);border-left:3px solid var(--green)}
+.note-red{background:var(--red-soft);border-left:3px solid var(--red)}
+.cmd{font-family:var(--mono);font-size:10px;background:#F1F3F5;padding:3px 7px;border-radius:4px;color:var(--navy);display:block;margin:2px 0}
+@media print{body{background:#fff}.page{padding:0}}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <h1><span>AWS</span> ML Specialty</h1>
+      <p>Amazon Web Services — Machine Learning Specialty Certification Reference</p>
+    </div>
+    <div class="header-badges">
+      <span class="badge badge-orange">MLS-C01</span>
+      <span class="badge badge-blue">65 Questions</span>
+      <span class="badge badge-green">750/1000 Pass</span>
+      <span class="badge badge-red">$300</span>
+    </div>
+  </div>
+
+  <!-- TIP BAR -->
+  <div class="tip-bar">
+    <div>
+      <div class="tip-label">Exam Format</div>
+      <div class="tip"><b>3hr exam</b> | 65 questions | ~2.8 min/question</div>
+    </div>
+    <div>
+      <div class="tip-label">Knowledge Scope</div>
+      <div class="tip"><b>ML concepts + maths knowledge required</b> — not just AWS services</div>
+    </div>
+    <div>
+      <div class="tip-label">Key Skill</div>
+      <div class="tip"><b>Hands-on SageMaker experience essential</b> — know the API, not just the console</div>
+    </div>
+  </div>
+
+  <!-- DOMAIN WEIGHTS — 4-col grid -->
+  <div class="grid grid-4" style="margin-bottom:12px">
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--blue-soft)">&#x1F4E6;</div>
+        <h2>Data Engineering</h2>
+        <span class="sub">Domain 1</span>
+      </div>
+      <div class="card-body" style="text-align:center;padding:16px 12px">
+        <div style="font-size:36px;font-weight:900;color:var(--blue)">20%</div>
+        <div style="font-size:10px;color:var(--text3);margin-top:4px">of exam score</div>
+        <div class="tags" style="justify-content:center;margin-top:8px">
+          <span class="tag tag-blue">S3</span>
+          <span class="tag tag-blue">Glue</span>
+          <span class="tag tag-blue">Kinesis</span>
+          <span class="tag tag-blue">EMR</span>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--green-soft)">&#x1F50D;</div>
+        <h2>Exploratory Data Analysis</h2>
+        <span class="sub">Domain 2</span>
+      </div>
+      <div class="card-body" style="text-align:center;padding:16px 12px">
+        <div style="font-size:36px;font-weight:900;color:var(--green)">24%</div>
+        <div style="font-size:10px;color:var(--text3);margin-top:4px">of exam score</div>
+        <div class="tags" style="justify-content:center;margin-top:8px">
+          <span class="tag tag-green">Feature Eng</span>
+          <span class="tag tag-green">Stats</span>
+          <span class="tag tag-green">Viz</span>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--orange-soft)">&#x1F9E0;</div>
+        <h2>Modeling</h2>
+        <span class="sub">Domain 3</span>
+      </div>
+      <div class="card-body" style="text-align:center;padding:16px 12px">
+        <div style="font-size:36px;font-weight:900;color:var(--orange)">36%</div>
+        <div style="font-size:10px;color:var(--text3);margin-top:4px">of exam score &mdash; largest!</div>
+        <div class="tags" style="justify-content:center;margin-top:8px">
+          <span class="tag tag-orange">SageMaker</span>
+          <span class="tag tag-orange">DL</span>
+          <span class="tag tag-orange">Tuning</span>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--purple-soft)">&#x2699;</div>
+        <h2>ML Implementation &amp; Ops</h2>
+        <span class="sub">Domain 4</span>
+      </div>
+      <div class="card-body" style="text-align:center;padding:16px 12px">
+        <div style="font-size:36px;font-weight:900;color:var(--purple)">20%</div>
+        <div style="font-size:10px;color:var(--text3);margin-top:4px">of exam score</div>
+        <div class="tags" style="justify-content:center;margin-top:8px">
+          <span class="tag tag-purple">Deploy</span>
+          <span class="tag tag-purple">Monitor</span>
+          <span class="tag tag-purple">MLOps</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 2: Data Engineering + EDA -->
+  <div class="grid grid-2">
+
+    <!-- CARD: Data Engineering -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--blue-soft)">&#x1F4E6;</div>
+        <h2>Data Engineering</h2>
+        <span class="sub">Domain 1 &mdash; 20%</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Storage &amp; Lake</div>
+        <div class="row"><span class="key">S3</span><span class="val">Primary ML data lake; storage classes; versioning; encryption; S3 Select; event triggers</span></div>
+        <div class="row"><span class="key">Glue</span><span class="val">ETL jobs (PySpark/Python); Data Catalog; Crawlers; Glue Studio; DataBrew no-code transforms</span></div>
+        <div class="row"><span class="key">Lake Formation</span><span class="val">Fine-grained access; column/row-level security; blueprints; governed tables</span></div>
+        <div class="row"><span class="key">Athena</span><span class="val">Serverless SQL on S3; Parquet/ORC for cost; partition pruning; federated queries; CTAS</span></div>
+
+        <div class="section-label">Streaming Ingestion</div>
+        <div class="row"><span class="key">Kinesis Data Streams</span><span class="val">Real-time ingestion; shards (1MB/s in, 2MB/s out); retention 24h&ndash;7d; Enhanced fan-out</span></div>
+        <div class="row"><span class="key">Kinesis Firehose</span><span class="val">Managed delivery to S3/Redshift/ES/Splunk; buffer size/interval; Lambda transformations</span></div>
+        <div class="row"><span class="key">Kinesis Analytics</span><span class="val">SQL/Flink on streaming data; sliding/tumbling/stagger windows; real-time analytics</span></div>
+
+        <div class="section-label">Compute &amp; Batch Processing</div>
+        <div class="row"><span class="key">EMR</span><span class="val">Spark/Hadoop on EC2; bootstrap actions; core/task nodes; EMRFS for S3; Spot instance mix</span></div>
+        <div class="row"><span class="key">AWS Batch</span><span class="val">Fully managed batch; job queues/definitions; multi-node parallel jobs; ECS under the hood</span></div>
+
+        <div class="note note-blue" style="margin-top:6px">
+          <b>KDS vs Firehose:</b> KDS for custom consumers &amp; real-time processing. Firehose for simple S3/Redshift delivery with no custom consumer code. Firehose has built-in retry.
+        </div>
+        <div class="note note-orange" style="margin-top:4px">
+          <b>Formats:</b> Parquet/ORC &rarr; columnar, best for Athena/Glue cost. RecordIO/Protobuf &rarr; SageMaker built-in algos prefer these over CSV for speed and memory efficiency.
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD: Exploratory Data Analysis -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--green-soft)">&#x1F50D;</div>
+        <h2>Exploratory Data Analysis</h2>
+        <span class="sub">Domain 2 &mdash; 24%</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Distributions &amp; Statistics</div>
+        <div class="row"><span class="key">Central Tendency</span><span class="val">mean / median / mode &mdash; use median for skewed data</span></div>
+        <div class="row"><span class="key">Spread</span><span class="val">variance / std dev &mdash; std = sqrt(variance)</span></div>
+        <div class="row"><span class="key">Shape</span><span class="val">skewness (asymmetry) / kurtosis (tail weight)</span></div>
+        <div class="row"><span class="key">Distributions</span><span class="val">normal / binomial / Poisson / exponential</span></div>
+
+        <div class="section-label">Feature Engineering</div>
+        <div class="row"><span class="key">Normalization</span><span class="val">(x&minus;min)/(max&minus;min) &rarr; [0,1]; use for KNN, neural nets, bounded input</span></div>
+        <div class="row"><span class="key">Standardization</span><span class="val">z-score = (x&minus;mean)/std; use for linear models, SVM, PCA</span></div>
+        <div class="row"><span class="key">Encoding</span><span class="val">One-Hot (nominal), Label (ordinal), Target, Embeddings (high cardinality)</span></div>
+        <div class="row"><span class="key">Binning</span><span class="val">continuous &rarr; categorical; equal-width vs equal-frequency bucketing</span></div>
+
+        <div class="section-label">Missing Data Handling</div>
+        <div class="row"><span class="key">Imputation</span><span class="val">Mean/median/mode, KNN imputation, MICE (multiple imputation by chained equations)</span></div>
+        <div class="row"><span class="key">Tools</span><span class="val">sklearn SimpleImputer; SageMaker DataWrangler; Glue DataBrew no-code</span></div>
+        <div class="row"><span class="key">MCAR / MAR / MNAR</span><span class="val">Missing at random types affect which imputation strategy is statistically valid</span></div>
+
+        <div class="section-label">Imbalanced Datasets</div>
+        <div class="row"><span class="key">Oversample</span><span class="val">SMOTE (synthetic minority oversampling), ADASYN; random oversampling</span></div>
+        <div class="row"><span class="key">Undersample</span><span class="val">Random undersampling of majority class; Tomek links; near-miss</span></div>
+        <div class="row"><span class="key">Class Weights</span><span class="val">class_weight='balanced' in sklearn; weighted loss functions in deep learning</span></div>
+        <div class="row"><span class="key">Reframe</span><span class="val">Treat as anomaly detection; use PR-AUC instead of ROC-AUC for imbalanced</span></div>
+
+        <div class="section-label">Dimensionality Reduction</div>
+        <div class="row"><span class="key">PCA</span><span class="val">Linear; keep explained variance threshold; unsupervised; fast preprocessing</span></div>
+        <div class="row"><span class="key">t-SNE</span><span class="val">Non-linear; visualization ONLY &mdash; do NOT use as features for training models</span></div>
+        <div class="row"><span class="key">UMAP</span><span class="val">Faster than t-SNE; preserves global structure better; can be used as features</span></div>
+        <div class="row"><span class="key">LDA</span><span class="val">Supervised dimensionality reduction; maximizes class separability; needs labels</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 3: Built-in Algorithms + Model Evaluation -->
+  <div class="grid grid-2" style="margin-top:0">
+
+    <!-- CARD: SageMaker Built-in Algorithms -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--orange-soft)">&#x1F916;</div>
+        <h2>SageMaker Built-in Algorithms</h2>
+        <span class="sub">Domain 3 &mdash; Modeling</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Supervised Learning</div>
+        <div class="row"><span class="key">Linear Learner</span><span class="val">regression + multi-class classification; L1/L2 regularization; automatic normalization</span></div>
+        <div class="row"><span class="key">XGBoost</span><span class="val">gradient boosted trees; most versatile; CSV or libsvm input; GPU support; regularization params</span></div>
+        <div class="row"><span class="key">DeepAR</span><span class="val">probabilistic time-series forecasting; LSTM-based; cold-start with covariates; quantile output</span></div>
+        <div class="row"><span class="key">BlazingText</span><span class="val">Word2Vec (cbow/skipgram) + text classification; very fast; large vocabulary support</span></div>
+        <div class="row"><span class="key">Image Classification</span><span class="val">ResNet; transfer learning from ImageNet; multi-label; RecordIO or image format input</span></div>
+        <div class="row"><span class="key">Object Detection</span><span class="val">SSD/ResNet; bounding boxes; RecordIO input; supports incremental training</span></div>
+        <div class="row"><span class="key">Semantic Segmentation</span><span class="val">FCN/PSPNet/DeepLabV3; pixel-level labels; large GPU memory required</span></div>
+        <div class="row"><span class="key">KNN</span><span class="val">classification + regression; index-based fast lookup; reduce dims first for accuracy</span></div>
+
+        <div class="section-label">Unsupervised Learning</div>
+        <div class="row"><span class="key">K-Means</span><span class="val">clustering; mini-batch updates; k via elbow method or silhouette score; web-scale</span></div>
+        <div class="row"><span class="key">PCA</span><span class="val">dimensionality reduction; regular vs randomized mode (randomized for high dims)</span></div>
+        <div class="row"><span class="key">Factorization Machines</span><span class="val">sparse data; recommendations; click prediction; low memory for large sparse matrices</span></div>
+        <div class="row"><span class="key">NTM</span><span class="val">Neural Topic Model; unsupervised topic modeling; neural equivalent of LDA algorithm</span></div>
+        <div class="row"><span class="key">LDA (SageMaker)</span><span class="val">Latent Dirichlet Allocation; topic modeling &mdash; NOT Linear Discriminant Analysis</span></div>
+
+        <div class="section-label">NLP &amp; Anomaly Detection</div>
+        <div class="row"><span class="key">Object2Vec</span><span class="val">general-purpose embeddings for pairs; sentence similarity; recommendation systems</span></div>
+        <div class="row"><span class="key">IP Insights</span><span class="val">detect anomalous account/IP combinations; unsupervised; security threat detection</span></div>
+        <div class="row"><span class="key">Random Cut Forest</span><span class="val">anomaly detection; unsupervised; streaming data; real-time scoring; no labels needed</span></div>
+
+        <div class="note note-orange" style="margin-top:6px">
+          <b>Input formats:</b> Most built-in algos: CSV (first col = label) or RecordIO-Protobuf. XGBoost: CSV or libsvm. Vision algos: RecordIO or raw images. Use RecordIO for best performance.
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD: Model Evaluation Metrics -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--red-soft)">&#x1F4CA;</div>
+        <h2>Model Evaluation Metrics</h2>
+        <span class="sub">Domain 3 &mdash; Modeling</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Classification Metrics</div>
+        <div class="row"><span class="key">Accuracy</span><span class="val">(TP+TN)/total &mdash; misleading for imbalanced datasets; avoid as sole metric</span></div>
+        <div class="row"><span class="key">Precision</span><span class="val">TP/(TP+FP) &mdash; minimize false positives (spam detection, fraud flagging)</span></div>
+        <div class="row"><span class="key">Recall/Sensitivity</span><span class="val">TP/(TP+FN) &mdash; minimize false negatives (cancer screening, fraud detection)</span></div>
+        <div class="row"><span class="key">F1 Score</span><span class="val">2*(P*R)/(P+R) &mdash; harmonic mean; balanced metric for imbalanced classes</span></div>
+        <div class="row"><span class="key">AUC-ROC</span><span class="val">model discrimination; 0.5=random, 1.0=perfect; threshold-independent metric</span></div>
+        <div class="row"><span class="key">PR-AUC</span><span class="val">better than ROC-AUC for highly imbalanced data; focuses on minority class performance</span></div>
+        <div class="row"><span class="key">Specificity</span><span class="val">TN/(TN+FP) &mdash; true negative rate; complements recall in medical diagnostics</span></div>
+
+        <div class="section-label">Regression Metrics</div>
+        <div class="row"><span class="key">MAE</span><span class="val">mean absolute error; robust to outliers; interpretable in same units as target</span></div>
+        <div class="row"><span class="key">MSE / RMSE</span><span class="val">penalizes large errors more; RMSE in same units; sensitive to outliers</span></div>
+        <div class="row"><span class="key">MAPE</span><span class="val">mean absolute percentage error; scale-independent; fails when target near zero</span></div>
+        <div class="row"><span class="key">R&sup2;</span><span class="val">proportion of variance explained; 1.0=perfect; can be negative for very bad models</span></div>
+
+        <div class="section-label">Bias-Variance Tradeoff</div>
+        <div class="row"><span class="key">High Bias</span><span class="val">underfitting &mdash; model too simple; increase complexity, add features, reduce regularization</span></div>
+        <div class="row"><span class="key">High Variance</span><span class="val">overfitting &mdash; too complex; regularize, add more data, dropout, early stopping</span></div>
+        <div class="row"><span class="key">L1 (Lasso)</span><span class="val">zeros out features; sparse solution; built-in feature selection capability</span></div>
+        <div class="row"><span class="key">L2 (Ridge)</span><span class="val">shrinks all coefficients; no elimination; handles multicollinearity</span></div>
+        <div class="row"><span class="key">ElasticNet</span><span class="val">combination of L1+L2; tune with alpha and l1_ratio hyperparameters</span></div>
+
+        <div class="section-label">Cross-Validation</div>
+        <div class="row"><span class="key">k-Fold</span><span class="val">k=5 or 10 typical; rotate test fold through all k partitions; average score</span></div>
+        <div class="row"><span class="key">Stratified k-Fold</span><span class="val">preserves class ratio in each fold; use for imbalanced classification tasks</span></div>
+        <div class="row"><span class="key">Leave-One-Out</span><span class="val">k = n samples; high variance estimate; use only for very small datasets</span></div>
+
+        <div class="note note-red" style="margin-top:6px">
+          <b>Precision vs Recall tradeoff:</b> Raising classification threshold &rarr; increases precision, lowers recall. Lowering threshold does the opposite. F1 balances both at a given threshold.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 4: Deep Learning + SageMaker Training -->
+  <div class="grid grid-2" style="margin-top:0">
+
+    <!-- CARD: Deep Learning -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--purple-soft)">&#x1F9EC;</div>
+        <h2>Deep Learning</h2>
+        <span class="sub">Domain 3 &mdash; Modeling</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Architectures</div>
+        <div class="row"><span class="key">CNN</span><span class="val">Conv layers (feature maps), pooling (max/avg), fully connected; images &amp; spatial patterns</span></div>
+        <div class="row"><span class="key">RNN / LSTM</span><span class="val">sequential data; LSTM gates (input/forget/output/cell); solves vanishing gradient of plain RNN</span></div>
+        <div class="row"><span class="key">Transformer</span><span class="val">self-attention; positional encoding; BERT (encoder) / GPT (decoder) / T5 (encoder-decoder)</span></div>
+        <div class="row"><span class="key">Attention (Q/K/V)</span><span class="val">multi-head attention; scaled dot-product; O(n&sup2;) memory; foundation of modern NLP</span></div>
+        <div class="row"><span class="key">GAN</span><span class="val">Generator + Discriminator adversarial training; image synthesis; data augmentation</span></div>
+        <div class="row"><span class="key">Autoencoder</span><span class="val">encoder-decoder; latent space; anomaly detection; unsupervised dimensionality reduction</span></div>
+
+        <div class="section-label">Activation Functions</div>
+        <div class="row"><span class="key">ReLU</span><span class="val">max(0,x); fast computation; dying ReLU problem &rarr; use LeakyReLU or ELU instead</span></div>
+        <div class="row"><span class="key">Sigmoid</span><span class="val">[0,1] output; binary classification final layer; vanishing gradient at extreme values</span></div>
+        <div class="row"><span class="key">Tanh</span><span class="val">[-1,1]; zero-centered; better than sigmoid for hidden layers; still vanishes</span></div>
+        <div class="row"><span class="key">Softmax</span><span class="val">multi-class output probabilities; outputs sum to 1; pair with categorical cross-entropy</span></div>
+
+        <div class="section-label">Regularization Techniques</div>
+        <div class="row"><span class="key">Dropout</span><span class="val">randomly zero activations during training; typical rate 0.2&ndash;0.5; OFF at inference time</span></div>
+        <div class="row"><span class="key">Batch Normalization</span><span class="val">normalize per mini-batch; faster convergence; acts as implicit regularizer</span></div>
+        <div class="row"><span class="key">L1 / L2 Weight Reg</span><span class="val">add penalty to loss function; L1 sparsity, L2 smooth shrinkage</span></div>
+        <div class="row"><span class="key">Data Augmentation</span><span class="val">flip/rotate/crop/color jitter; expand effective training set; prevents overfitting</span></div>
+
+        <div class="section-label">Optimizers</div>
+        <div class="row"><span class="key">SGD</span><span class="val">stochastic gradient descent; momentum helps escape local minima; needs careful lr tuning</span></div>
+        <div class="row"><span class="key">Adam</span><span class="val">adaptive lr; combines momentum + RMSProp; most popular default; lr=1e-3 typical start</span></div>
+        <div class="row"><span class="key">RMSProp</span><span class="val">good for RNNs; adaptive lr per parameter; divides by moving avg of squared gradients</span></div>
+
+        <div class="section-label">Training Stability</div>
+        <div class="row"><span class="key">Vanishing Gradient</span><span class="val">use ReLU activations, batch norm, residual (skip) connections, LSTM gating</span></div>
+        <div class="row"><span class="key">Exploding Gradient</span><span class="val">gradient clipping (by value or norm); lower learning rate; weight initialization</span></div>
+        <div class="row"><span class="key">LR too high</span><span class="val">loss diverges / NaN values; reduce lr or use warmup &rarr; cosine decay schedule</span></div>
+        <div class="row"><span class="key">Batch size</span><span class="val">larger &rarr; stable gradients; smaller &rarr; regularizing effect; constrained by GPU memory (VRAM)</span></div>
+      </div>
+    </div>
+
+    <!-- CARD: SageMaker Training & Tuning -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--orange-soft)">&#x26A1;</div>
+        <h2>SageMaker Training &amp; Tuning</h2>
+        <span class="sub">Domain 3 &amp; 4</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Training Jobs</div>
+        <div class="row"><span class="key">Estimator</span><span class="val">framework (TF/PyTorch/sklearn), entry_point script, instance_type, hyperparameters dict</span></div>
+        <div class="row"><span class="key">Input channels</span><span class="val">TrainingInput(s3_data, content_type); File mode (download first) vs Pipe mode (stream)</span></div>
+        <div class="row"><span class="key">Spot Training</span><span class="val">use_spot_instances=True; checkpoint_s3_uri required to resume; saves up to 90% cost</span></div>
+        <div class="row"><span class="key">Distributed</span><span class="val">data parallelism (SageMaker Distributed) vs model parallelism (large models across GPUs)</span></div>
+        <div class="row"><span class="key">Debugger</span><span class="val">hooks capture tensors mid-training; built-in rules: vanishing_gradient, overfitting, loss_not_decreasing</span></div>
+        <span class="cmd">estimator.fit({'train': s3_train, 'validation': s3_val})</span>
+
+        <div class="section-label">Hyperparameter Optimization (HPO)</div>
+        <div class="row"><span class="key">Parameter Types</span><span class="val">IntegerParameter / ContinuousParameter / CategoricalParameter</span></div>
+        <div class="row"><span class="key">Bayesian Strategy</span><span class="val">uses history of results; smarter sequential search; best for expensive training jobs</span></div>
+        <div class="row"><span class="key">Random Strategy</span><span class="val">parallel-friendly; no prior knowledge used; good baseline; fast with many parallel jobs</span></div>
+        <div class="row"><span class="key">Hyperband Strategy</span><span class="val">early stopping of poor configs; resource-efficient; fast convergence on large search spaces</span></div>
+        <div class="row"><span class="key">Warm Start</span><span class="val">IDENTICAL &mdash; HP ranges must match exactly; TRANSFER &mdash; ranges/algo can differ; reuses history</span></div>
+        <div class="row"><span class="key">objective_metric</span><span class="val">must match regex pattern in training job CloudWatch logs; set maximize or minimize direction</span></div>
+
+        <div class="section-label">Studio &amp; MLOps Features</div>
+        <div class="row"><span class="key">SageMaker Studio</span><span class="val">full IDE; Experiments + trials; auto artifact tracking; JupyterLab-based; collaborative</span></div>
+        <div class="row"><span class="key">Feature Store</span><span class="val">online (low-latency DynamoDB-backed) vs offline (S3 batch); feature groups; point-in-time queries</span></div>
+        <div class="row"><span class="key">Model Registry</span><span class="val">version models; approve/reject workflow; cross-account; triggers CI/CD deployment pipeline</span></div>
+        <div class="row"><span class="key">Pipelines</span><span class="val">DAG: Processing &rarr; Training &rarr; Evaluation &rarr; Condition &rarr; RegisterModel &rarr; Transform</span></div>
+        <div class="row"><span class="key">Model Cards</span><span class="val">documentation artifact; intended use; training details; bias metrics; governance record</span></div>
+
+        <div class="note note-green" style="margin-top:6px">
+          <b>Pipe mode:</b> Streams data directly from S3 &mdash; faster startup for large datasets, no EBS disk needed. File mode downloads everything first &mdash; better for small data or random-access patterns.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 5: Deployment + AI Services -->
+  <div class="grid grid-2" style="margin-top:0">
+
+    <!-- CARD: ML Deployment -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--blue-soft)">&#x1F680;</div>
+        <h2>ML Deployment</h2>
+        <span class="sub">Domain 4 &mdash; ML Impl &amp; Ops</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Inference Options</div>
+        <div class="row"><span class="key">Real-time Endpoint</span><span class="val">persistent; low latency; auto-scaling; invoke_endpoint(); health checks; p99 SLA</span></div>
+        <div class="row"><span class="key">Batch Transform</span><span class="val">no endpoint needed; S3 in/out; large datasets; SplitType + AssembleWith config params</span></div>
+        <div class="row"><span class="key">Async Inference</span><span class="val">queue-based; large payloads up to 1GB; SNS notification on completion; video/large docs</span></div>
+        <div class="row"><span class="key">Serverless Inference</span><span class="val">cold start latency; pay-per-request; max 6GB memory; bursty/infrequent traffic ideal</span></div>
+        <div class="row"><span class="key">Multi-Model Endpoints</span><span class="val">host 100s of models on one endpoint; lazy loading; cost savings; same framework required</span></div>
+
+        <div class="section-label">Model Monitor</div>
+        <div class="row"><span class="key">DataQualityMonitor</span><span class="val">input data drift vs baseline statistics; detects schema changes, distribution shift</span></div>
+        <div class="row"><span class="key">ModelQualityMonitor</span><span class="val">prediction quality vs ground truth labels; requires label ingestion pipeline</span></div>
+        <div class="row"><span class="key">ModelBiasMonitor</span><span class="val">fairness metrics drift; Clarify integration; DPSD and DI metrics over time</span></div>
+        <div class="row"><span class="key">ModelExplainMonitor</span><span class="val">SHAP values drift; detects feature attribution changes over time</span></div>
+        <div class="row"><span class="key">Violation Action</span><span class="val">constraint violation &rarr; CloudWatch alarm &rarr; SNS &rarr; trigger retraining pipeline</span></div>
+
+        <div class="section-label">SageMaker Clarify</div>
+        <div class="row"><span class="key">Pre-training Bias</span><span class="val">class imbalance, DPL (diff in positive proportions); detected before model training</span></div>
+        <div class="row"><span class="key">Post-training Bias</span><span class="val">DPSD (diff in positive pred proportions), DI (disparate impact); model output analysis</span></div>
+        <div class="row"><span class="key">Explainability</span><span class="val">SHAP values per feature; partial dependence plots; global + local explanations</span></div>
+        <div class="row"><span class="key">Bias Report</span><span class="val">in Studio; integrated with Pipelines; human review via SageMaker A2I</span></div>
+
+        <div class="section-label">Deployment Strategies</div>
+        <div class="row"><span class="key">Production Variants</span><span class="val">A/B test with traffic weights; canary (5% new &rarr; ramp up); instantaneous variant switch</span></div>
+        <div class="row"><span class="key">Blue/Green</span><span class="val">Route53 or ALB weighted routing; full environment swap; zero downtime rollout</span></div>
+        <div class="row"><span class="key">Shadow Mode</span><span class="val">mirror traffic to new model; compare outputs without serving them; safe validation method</span></div>
+
+        <div class="note note-blue" style="margin-top:6px">
+          <b>Auto Scaling:</b> Real-time endpoints use Application Auto Scaling on InvocationsPerInstance metric. Set scale-in cooldown longer than scale-out to avoid thrashing.
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD: AWS AI Services -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--green-soft)">&#x2728;</div>
+        <h2>AWS AI Services</h2>
+        <span class="sub">Managed ML APIs &mdash; No Training Required</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Computer Vision</div>
+        <div class="row"><span class="key">Rekognition</span><span class="val">object/scene detection, facial analysis/comparison, celebrity, content moderation, PPE, stored+streaming video</span></div>
+        <div class="row"><span class="key">Textract</span><span class="val">OCR + layout understanding; Forms (key-value pairs); Tables; Queries API; async for large docs</span></div>
+
+        <div class="section-label">Natural Language Processing</div>
+        <div class="row"><span class="key">Comprehend</span><span class="val">sentiment, entities, key phrases, language detection, custom classification/NER, PII detection, topics (LDA)</span></div>
+        <div class="row"><span class="key">Translate</span><span class="val">neural MT; custom terminology files; batch translation; active custom translation feedback</span></div>
+        <div class="row"><span class="key">Transcribe</span><span class="val">streaming + async ASR; speaker diarization; custom vocabulary; medical variant; PII redaction</span></div>
+        <div class="row"><span class="key">Polly</span><span class="val">60+ languages TTS; SSML markup; custom lexicons; neural TTS (NTTS); Speech Marks sync</span></div>
+
+        <div class="section-label">Intelligence &amp; Forecasting Services</div>
+        <div class="row"><span class="key">Forecast</span><span class="val">time series; CNN-QR/DeepAR+/NPTS/Prophet/ETS/ARIMA; cold start with item metadata; AutoPredictor</span></div>
+        <div class="row"><span class="key">Personalize</span><span class="val">real-time recommendations; User-Personalization/HRNN/Popularity-Count recipes; event tracking; ~2h training</span></div>
+        <div class="row"><span class="key">Kendra</span><span class="val">intelligent enterprise search; connectors (S3/SharePoint/Salesforce/RDS); relevance tuning; incremental</span></div>
+        <div class="row"><span class="key">Lex</span><span class="val">ASR + NLU (Alexa tech); intents/slots/fulfillment; Lambda integration; multi-turn dialog; DTMF</span></div>
+        <div class="row"><span class="key">Bedrock</span><span class="val">managed foundation models (Claude/Titan/Llama/Stable Diffusion); Agents; Knowledge Bases (RAG)</span></div>
+
+        <div class="section-label">Augmented AI &amp; ML DevOps</div>
+        <div class="row"><span class="key">A2I (Augmented AI)</span><span class="val">human review workflows; Mechanical Turk or private workforce; confidence threshold triggers</span></div>
+        <div class="row"><span class="key">CodeGuru Reviewer</span><span class="val">ML-based code review; finds bugs/security issues; PR integration; Java &amp; Python support</span></div>
+        <div class="row"><span class="key">DevOps Guru</span><span class="val">ML-powered operational insights; anomaly detection for AWS resources; CloudWatch integrated</span></div>
+
+        <div class="note note-green" style="margin-top:6px">
+          <b>Service selection:</b> Text analysis &rarr; Comprehend. Image/video analysis &rarr; Rekognition. Document extraction (forms/tables) &rarr; Textract. Time series &rarr; Forecast. Recommendations &rarr; Personalize.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 6: Instance Types + Security + Gotchas — 3-col -->
+  <div class="grid" style="margin-top:0">
+
+    <!-- CARD: Instance Types & Frameworks -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--orange-soft)">&#x1F4BB;</div>
+        <h2>Instance Types &amp; Frameworks</h2>
+        <span class="sub">Domain 4 &mdash; Ops</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">GPU Instances (Training)</div>
+        <div class="row"><span class="key">p3.2xlarge</span><span class="val">1x V100 GPU &mdash; entry-level deep learning training</span></div>
+        <div class="row"><span class="key">p3.16xlarge</span><span class="val">8x V100 &mdash; distributed DL training; NVLink GPU interconnect</span></div>
+        <div class="row"><span class="key">p4d.24xlarge</span><span class="val">8x A100 &mdash; large model training; 400Gbps EFA networking</span></div>
+        <div class="row"><span class="key">g4dn.xlarge</span><span class="val">T4 GPU &mdash; cost-effective inference; smaller DL models training</span></div>
+
+        <div class="section-label">Specialized &amp; CPU Instances</div>
+        <div class="row"><span class="key">inf1 (Inferentia)</span><span class="val">AWS Inferentia chip &mdash; cheapest production inference; requires Neuron SDK</span></div>
+        <div class="row"><span class="key">c5.4xlarge</span><span class="val">compute-optimized CPU &mdash; sklearn, XGBoost, feature processing jobs</span></div>
+        <div class="row"><span class="key">m5.4xlarge</span><span class="val">general purpose CPU &mdash; general training, preprocessing, small models</span></div>
+        <div class="row"><span class="key">r5.4xlarge</span><span class="val">memory-optimized &mdash; large in-memory datasets, Spark executor nodes</span></div>
+
+        <div class="section-label">Managed Framework Containers</div>
+        <div class="tags">
+          <span class="tag tag-blue">TensorFlow</span>
+          <span class="tag tag-blue">PyTorch</span>
+          <span class="tag tag-blue">MXNet</span>
+          <span class="tag tag-green">Scikit-learn</span>
+          <span class="tag tag-green">Spark ML</span>
+          <span class="tag tag-orange">Hugging Face</span>
+          <span class="tag tag-orange">XGBoost</span>
+        </div>
+
+        <div class="section-label">BYOC (Bring Your Own Container)</div>
+        <div class="row"><span class="key">Directory structure</span><span class="val">/opt/ml/input, /opt/ml/output, /opt/ml/model required by SageMaker</span></div>
+        <div class="row"><span class="key">Entrypoints</span><span class="val">train (training job), serve (inference); must handle SIGTERM gracefully for spot</span></div>
+        <div class="row"><span class="key">Registry</span><span class="val">push to ECR; reference via image_uri in Estimator; must be in same region</span></div>
+        <span class="cmd">docker build -t my-algo . &amp;&amp; docker push &lt;account&gt;.dkr.ecr.&lt;region&gt;.amazonaws.com/my-algo</span>
+
+        <div class="section-label">SageMaker Neo (Model Compilation)</div>
+        <div class="row"><span class="key">Purpose</span><span class="val">compile for target hardware: ARM, x86, NVIDIA GPU, Inferentia chips</span></div>
+        <div class="row"><span class="key">Speedup</span><span class="val">up to 2x faster inference; smaller footprint; optimized kernel fusion</span></div>
+        <div class="row"><span class="key">Frameworks</span><span class="val">TensorFlow, PyTorch, MXNet, XGBoost, sklearn supported for compilation</span></div>
+      </div>
+    </div>
+
+    <!-- CARD: Security, Networking & Cost -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--red-soft)">&#x1F512;</div>
+        <h2>Security, Networking &amp; Cost</h2>
+        <span class="sub">Domain 4 &mdash; Ops</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">IAM &amp; Access Control</div>
+        <div class="row"><span class="key">Execution Role</span><span class="val">SageMaker needs IAM role with S3 + ECR access; pass role to Estimator constructor</span></div>
+        <div class="row"><span class="key">Resource Policies</span><span class="val">S3 bucket policy; ECR repository policy; KMS key policy for encryption grants</span></div>
+        <div class="row"><span class="key">Lake Formation</span><span class="val">column/row-level security on Glue Data Catalog; granular beyond S3 bucket policies</span></div>
+        <div class="row"><span class="key">VPC Endpoints</span><span class="val">SageMaker in VPC needs: S3 Gateway EP + ECR Interface EP + SageMaker API Interface EP</span></div>
+
+        <div class="section-label">Encryption</div>
+        <div class="row"><span class="key">At Rest</span><span class="val">S3 SSE-S3 / SSE-KMS / SSE-C; EBS volume encryption for training job instances</span></div>
+        <div class="row"><span class="key">In Transit</span><span class="val">TLS 1.2+; inter-container traffic encryption required for distributed training compliance</span></div>
+        <div class="row"><span class="key">KMS CMK</span><span class="val">customer managed key; audit via CloudTrail; annual rotation; cross-account key sharing</span></div>
+
+        <div class="section-label">Networking</div>
+        <div class="row"><span class="key">Private VPC</span><span class="val">training/inference in VPC; no internet access; use VPC endpoints for all AWS services</span></div>
+        <div class="row"><span class="key">Network Isolation</span><span class="val">enable_network_isolation=True; container has no outbound network; pre-download all deps</span></div>
+        <div class="row"><span class="key">EFA</span><span class="val">Elastic Fabric Adapter; low-latency inter-node comms; required for p4d distributed training</span></div>
+
+        <div class="section-label">Cost Optimization</div>
+        <div class="row"><span class="key">Spot Instances</span><span class="val">up to 90% savings for training; must implement checkpointing; use max_wait timeout</span></div>
+        <div class="row"><span class="key">Serverless Inference</span><span class="val">pay-per-request; zero cost when idle; perfect for bursty/infrequent prediction workloads</span></div>
+        <div class="row"><span class="key">Multi-Model EP</span><span class="val">share compute across models; lazy-load model on first call; lower cost for many infrequent models</span></div>
+        <div class="row"><span class="key">Savings Plans</span><span class="val">compute savings plans apply to SageMaker training; 1yr or 3yr commitment discount</span></div>
+        <div class="row"><span class="key">S3 Lifecycle</span><span class="val">move old artifacts to Glacier; Intelligent-Tiering for unpredictable access patterns</span></div>
+
+        <div class="section-label">Monitoring &amp; Audit</div>
+        <div class="row"><span class="key">CloudWatch</span><span class="val">training metrics, endpoint invocations, latency, error rates; custom metrics via SDK</span></div>
+        <div class="row"><span class="key">CloudTrail</span><span class="val">API call audit log; who created/deleted endpoint; compliance evidence; S3 data events</span></div>
+        <div class="row"><span class="key">SageMaker Experiments</span><span class="val">auto-log hyperparams, metrics, artifacts per trial run; compare across runs in Studio</span></div>
+      </div>
+    </div>
+
+    <!-- CARD: Common Gotchas & Quick Reference -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--navy2);color:var(--orange);font-size:14px">!</div>
+        <h2>Common Gotchas &amp; Quick Reference</h2>
+        <span class="sub">Exam Traps</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">SageMaker Gotchas</div>
+        <div class="note note-orange">
+          <b>Pipe vs File mode:</b> Pipe streams from S3 directly (no EBS, fast startup for large data). File mode downloads to EBS first &mdash; use only for small datasets or random-access patterns.
+        </div>
+        <div class="note note-red" style="margin-top:4px">
+          <b>RecordIO vs CSV:</b> Built-in algos prefer RecordIO-Protobuf for speed. XGBoost uses CSV or libsvm. Convert to RecordIO if performance/memory is a concern on large datasets.
+        </div>
+        <div class="note note-blue" style="margin-top:4px">
+          <b>Warm Start:</b> IDENTICAL type &mdash; HP ranges must be exactly same (continue tuning). TRANSFER type &mdash; ranges/algorithm can differ (new search space exploration).
+        </div>
+        <div class="note note-green" style="margin-top:4px">
+          <b>VPC checklist:</b> SageMaker in VPC requires (1) S3 VPC Gateway Endpoint, (2) ECR VPC Interface Endpoint, (3) SageMaker API Interface Endpoint. Missing any causes job failure.
+        </div>
+
+        <div class="section-label">Algorithm Selection Guide</div>
+        <div class="row"><span class="key">Tabular supervised</span><span class="val">XGBoost first choice; Linear Learner for speed/interpretability</span></div>
+        <div class="row"><span class="key">Time series</span><span class="val">DeepAR for probabilistic output; Forecast service for AutoML/managed TS</span></div>
+        <div class="row"><span class="key">Text classification</span><span class="val">BlazingText (fast/custom); Comprehend custom (no-code managed)</span></div>
+        <div class="row"><span class="key">Recommendations</span><span class="val">Factorization Machines (sparse explicit); Personalize (managed implicit)</span></div>
+        <div class="row"><span class="key">Anomaly detection</span><span class="val">Random Cut Forest (streaming real-time); Isolation Forest (offline batch)</span></div>
+        <div class="row"><span class="key">Topic modeling</span><span class="val">LDA or NTM in SageMaker; Comprehend topics for managed no-code</span></div>
+        <div class="row"><span class="key">Image tasks</span><span class="val">Rekognition (no-code); SageMaker Image Classification/OD (custom labels)</span></div>
+
+        <div class="section-label">Key Formulas</div>
+        <div class="row"><span class="key">F1</span><span class="val">2 &times; (Precision &times; Recall) / (Precision + Recall)</span></div>
+        <div class="row"><span class="key">Precision</span><span class="val">TP / (TP + FP) &mdash; positive predictive value</span></div>
+        <div class="row"><span class="key">Recall</span><span class="val">TP / (TP + FN) &mdash; sensitivity / true positive rate</span></div>
+        <div class="row"><span class="key">Accuracy</span><span class="val">(TP + TN) / (TP + TN + FP + FN)</span></div>
+        <div class="row"><span class="key">z-score</span><span class="val">(x &minus; &mu;) / &sigma; &mdash; standardization formula</span></div>
+        <div class="row"><span class="key">Min-Max</span><span class="val">(x &minus; min) / (max &minus; min) &mdash; normalization to [0,1]</span></div>
+        <div class="row"><span class="key">RMSE</span><span class="val">&radic;(&Sigma;(y&shy;i &minus; &ycirc;&shy;i)&sup2; / n) &mdash; root mean squared error</span></div>
+
+        <div class="section-label">Pipeline Patterns</div>
+        <span class="cmd">S3 &rarr; Glue Crawler &rarr; Data Catalog &rarr; Glue ETL &rarr; S3 (processed)</span>
+        <span class="cmd">Kinesis &rarr; Lambda transform &rarr; S3 &rarr; Athena query &rarr; SageMaker</span>
+        <span class="cmd">SM Pipeline: Processing &rarr; Training &rarr; Eval &rarr; Condition &rarr; Register</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div style="text-align:center;padding:12px 0;font-size:9px;color:var(--text3)">
+    AWS ML Specialty MLS-C01 Cheat Sheet &nbsp;&bull;&nbsp; IT University &nbsp;&bull;&nbsp; For exam preparation only &mdash; verify against official AWS documentation at docs.aws.amazon.com
+  </div>
+
+</div>
+</body>
+</html>

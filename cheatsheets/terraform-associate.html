@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terraform Associate 003 — Cheat Sheet</title>
+<meta name="description" content="HashiCorp Terraform Associate 003 certification cheat sheet covering IaC concepts, HCL syntax, state management, CLI commands, modules, and Terraform Cloud.">
+<style>
+:root {
+  --bg:#F5F6F7; --surface:#FFFFFF; --border:#E2E4E8;
+  --navy:#0F1C2E; --navy2:#1A2E45;
+  --purple:#6B21A8; --purple-soft:#F5F0FF;
+  --azure:#0078D4; --azure-soft:#EFF6FF;
+  --blue:#1A6FB5; --blue-soft:#EBF4FF;
+  --green:#1B7A4A; --green-soft:#E8F7EF;
+  --red:#B91C1C; --red-soft:#FEF2F2;
+  --orange:#EA580C; --orange-soft:#FFF7ED;
+  --text:#1C2333; --text2:#4A5568; --text3:#718096;
+  --mono:'Consolas','Courier New',monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+}
+body{font-family:var(--sans);font-size:11px;background:var(--bg);color:var(--text);line-height:1.5;margin:0}
+.page{max-width:1280px;margin:0 auto;padding:20px 16px}
+.header{background:var(--navy);border-radius:10px;padding:20px 24px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.header-left h1{font-size:22px;font-weight:800;color:#fff}.header-left h1 span{color:#A78BFA}
+.header-left p{font-size:11px;color:#94A3B8;margin-top:3px}
+.header-badges{display:flex;gap:8px;flex-wrap:wrap}
+.badge{font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:.5px;text-transform:uppercase}
+.badge-purple{background:#A855F7;color:#fff}.badge-azure{background:#0078D4;color:#fff}.badge-blue{background:#3B82F6;color:#fff}.badge-green{background:#22C55E;color:#fff}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px}
+.grid-2{grid-template-columns:repeat(2,1fr)}.grid-4{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--surface);border-radius:8px;border:1px solid var(--border);overflow:hidden}
+.card-header{padding:8px 12px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border)}
+.card-header .icon{width:24px;height:24px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.card-header h2{font-size:11.5px;font-weight:800;color:var(--navy)}
+.card-header .sub{font-size:9px;color:var(--text3);margin-left:auto}
+.card-body{padding:10px 12px}
+.section-label{font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--text3);margin-bottom:5px;margin-top:9px}
+.section-label:first-child{margin-top:0}
+.row{display:flex;justify-content:space-between;align-items:baseline;padding:2px 0;border-bottom:1px solid #F1F3F5;gap:8px}
+.row:last-child{border-bottom:none}
+.row .key{font-family:var(--mono);font-size:10px;font-weight:600;color:var(--navy);white-space:nowrap;flex-shrink:0}
+.row .val{font-size:10px;color:var(--text2);text-align:right}
+.tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px}
+.tag{font-size:9.5px;padding:2px 7px;border-radius:4px;font-weight:600;font-family:var(--mono)}
+.tag-purple{background:var(--purple-soft);color:#6B21A8}.tag-azure{background:var(--azure-soft);color:#1D4ED8}
+.tag-blue{background:var(--blue-soft);color:#1E40AF}.tag-green{background:var(--green-soft);color:#166534}.tag-orange{background:var(--orange-soft);color:#9A3412}
+.tip-bar{background:var(--navy2);border-radius:8px;padding:10px 16px;margin-bottom:16px;display:flex;gap:24px;flex-wrap:wrap}
+.tip-label{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#A78BFA}
+.tip{font-size:10.5px;color:#CBD5E1}.tip b{color:#fff}
+.note{font-size:10px;color:var(--text2);padding:6px 8px;border-radius:4px;margin-top:4px}
+.note-purple{background:var(--purple-soft);border-left:3px solid var(--purple)}
+.note-azure{background:var(--azure-soft);border-left:3px solid var(--azure)}
+.note-blue{background:var(--blue-soft);border-left:3px solid var(--blue)}
+.note-green{background:var(--green-soft);border-left:3px solid var(--green)}
+.cmd{font-family:var(--mono);font-size:10px;background:#F1F3F5;padding:3px 7px;border-radius:4px;color:var(--navy);display:block;margin:2px 0}
+@media print{body{background:#fff}.page{padding:0}}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <h1>Terraform <span>Associate</span></h1>
+      <p>HashiCorp Terraform Associate 003 — Certification Cheat Sheet</p>
+    </div>
+    <div class="header-badges">
+      <span class="badge badge-purple">003</span>
+      <span class="badge badge-purple">57 Questions</span>
+      <span class="badge badge-purple">70% Passing</span>
+      <span class="badge badge-purple">$70</span>
+      <span class="badge badge-purple">2-Year Renewal</span>
+    </div>
+  </div>
+
+  <!-- TIP BAR -->
+  <div class="tip-bar">
+    <div>
+      <div class="tip-label">Format</div>
+      <div class="tip">All answers are <b>multiple choice</b> (no hands-on lab component)</div>
+    </div>
+    <div>
+      <div class="tip-label">HCL</div>
+      <div class="tip"><b>HCL syntax</b> is tested heavily — know block types and arguments</div>
+    </div>
+    <div>
+      <div class="tip-label">State</div>
+      <div class="tip"><b>State management</b> is critical — understand backends, locking, remote state</div>
+    </div>
+    <div>
+      <div class="tip-label">Rules</div>
+      <div class="tip">Open book <b>NOT allowed</b> — memorize key concepts and CLI commands</div>
+    </div>
+  </div>
+
+  <!-- ROW 1: Cards 1, 2, 3 -->
+  <div class="grid">
+
+    <!-- CARD 1: Domain Weights + IaC Concepts -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--purple-soft)">📊</div>
+        <h2>Domain Weights + IaC Concepts</h2>
+        <span class="sub">Exam Blueprint</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Domain Weights</div>
+        <div class="row"><span class="key">Understand IaC Concepts</span><span class="val">16%</span></div>
+        <div class="row"><span class="key">Understand Terraform's Purpose</span><span class="val">8%</span></div>
+        <div class="row"><span class="key">Understand Terraform Basics</span><span class="val">36%</span></div>
+        <div class="row"><span class="key">Use Terraform Outside Core Workflow</span><span class="val">22%</span></div>
+        <div class="row"><span class="key">Interact with Terraform Modules</span><span class="val">12%</span></div>
+        <div class="row"><span class="key">Navigate Terraform Workflow</span><span class="val">6%</span></div>
+
+        <div class="section-label">IaC Benefits</div>
+        <div class="row"><span class="key">Automation</span><span class="val">Consistent, repeatable deployments</span></div>
+        <div class="row"><span class="key">Versioning</span><span class="val">Track infra changes in Git like code</span></div>
+        <div class="row"><span class="key">Reuse</span><span class="val">Modules for DRY infrastructure</span></div>
+        <div class="row"><span class="key">Self-documenting</span><span class="val">Code describes what exists</span></div>
+
+        <div class="section-label">IaC Approaches</div>
+        <div class="row"><span class="key">Declarative</span><span class="val">Define end state (Terraform, CloudFormation)</span></div>
+        <div class="row"><span class="key">Procedural</span><span class="val">Define steps (Ansible playbooks, scripts)</span></div>
+        <div class="row"><span class="key">Immutable</span><span class="val">Replace infra instead of modifying</span></div>
+        <div class="row"><span class="key">Mutable</span><span class="val">Modify existing infra in-place</span></div>
+
+        <div class="note note-purple">Terraform = declarative + immutable. Ansible = procedural + mutable (config mgmt). Terraform provisions infra; Ansible configures it.</div>
+      </div>
+    </div>
+
+    <!-- CARD 2: HCL Syntax — Core Blocks -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--purple-soft)">📝</div>
+        <h2>HCL Syntax — Core Blocks</h2>
+        <span class="sub">Block Types</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">terraform block</div>
+        <code class="cmd">terraform { required_version = "&gt;= 1.5" }</code>
+        <code class="cmd">required_providers { aws = { source = "hashicorp/aws" version = "~&gt; 5.0" } }</code>
+
+        <div class="section-label">provider block</div>
+        <code class="cmd">provider "aws" { region = "us-east-1" alias = "east" }</code>
+
+        <div class="section-label">resource block</div>
+        <code class="cmd">resource "aws_instance" "web" { ami = var.ami_id instance_type = "t3.micro" }</code>
+
+        <div class="section-label">data source block</div>
+        <code class="cmd">data "aws_ami" "latest" { most_recent = true owners = ["amazon"] }</code>
+
+        <div class="section-label">Block Reference</div>
+        <div class="row"><span class="key">terraform {}</span><span class="val">required_version, required_providers, backend</span></div>
+        <div class="row"><span class="key">provider {}</span><span class="val">source, version, alias, config args</span></div>
+        <div class="row"><span class="key">resource {}</span><span class="val">type, name, arguments, meta-args</span></div>
+        <div class="row"><span class="key">data {}</span><span class="val">source type, name, filters → read-only</span></div>
+        <div class="row"><span class="key">variable {}</span><span class="val">type, default, description, validation, sensitive</span></div>
+        <div class="row"><span class="key">output {}</span><span class="val">value, description, sensitive, depends_on</span></div>
+        <div class="row"><span class="key">locals {}</span><span class="val">computed values, avoid repetition</span></div>
+        <div class="row"><span class="key">module {}</span><span class="val">source, version, input vars</span></div>
+
+        <div class="note note-purple">Reference syntax: resource → aws_instance.web.id | data → data.aws_ami.latest.id | var → var.ami_id | local → local.name | module → module.vpc.subnet_id</div>
+      </div>
+    </div>
+
+    <!-- CARD 3: Resource Meta-Arguments -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--purple-soft)">⚙️</div>
+        <h2>Resource Meta-Arguments</h2>
+        <span class="sub">count · for_each · lifecycle</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">depends_on</div>
+        <code class="cmd">depends_on = [aws_iam_role_policy.policy]</code>
+        <div class="row"><span class="key">Use when</span><span class="val">Implicit deps not detected by Terraform</span></div>
+
+        <div class="section-label">count</div>
+        <code class="cmd">count = 3</code>
+        <code class="cmd">name = "server-${count.index}"</code>
+        <div class="row"><span class="key">Reference</span><span class="val">aws_instance.web[0].id</span></div>
+        <div class="row"><span class="key">Iterate</span><span class="val">count.index (0-based)</span></div>
+
+        <div class="section-label">for_each</div>
+        <code class="cmd">for_each = var.instance_map</code>
+        <code class="cmd">name = each.key</code>
+        <div class="row"><span class="key">Accepts</span><span class="val">map or set of strings</span></div>
+        <div class="row"><span class="key">Reference</span><span class="val">each.key / each.value</span></div>
+        <div class="row"><span class="key">Address</span><span class="val">aws_instance.web["name"].id</span></div>
+
+        <div class="section-label">lifecycle</div>
+        <code class="cmd">lifecycle { create_before_destroy = true prevent_destroy = true ignore_changes = [tags] replace_triggered_by = [aws_instance.other] }</code>
+
+        <div class="section-label">provisioner</div>
+        <div class="row"><span class="key">local-exec</span><span class="val">Runs command on machine running Terraform</span></div>
+        <div class="row"><span class="key">remote-exec</span><span class="val">Runs command on remote resource via SSH/WinRM</span></div>
+        <div class="row"><span class="key">Warning</span><span class="val">Use sparingly — breaks declarative model</span></div>
+      </div>
+    </div>
+
+  </div><!-- end row 1 -->
+
+  <!-- ROW 2: Cards 4, 5 (2-col) -->
+  <div class="grid grid-2">
+
+    <!-- CARD 4: Variable Types & Expressions -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--purple-soft)">🔤</div>
+        <h2>Variable Types &amp; Expressions</h2>
+        <span class="sub">Types · Validation · Expressions</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Primitive Types</div>
+        <div class="row"><span class="key">string</span><span class="val">"hello" — text values</span></div>
+        <div class="row"><span class="key">number</span><span class="val">42 / 3.14 — integers and floats</span></div>
+        <div class="row"><span class="key">bool</span><span class="val">true / false</span></div>
+
+        <div class="section-label">Complex Types</div>
+        <div class="row"><span class="key">list(type)</span><span class="val">Ordered, indexed ["a","b","c"]</span></div>
+        <div class="row"><span class="key">set(type)</span><span class="val">Unordered, unique values</span></div>
+        <div class="row"><span class="key">map(type)</span><span class="val">Key-value pairs {k="v"}</span></div>
+        <div class="row"><span class="key">object({...})</span><span class="val">Named attribute schema</span></div>
+        <div class="row"><span class="key">tuple([...])</span><span class="val">Fixed-length mixed types</span></div>
+        <div class="row"><span class="key">any</span><span class="val">Dynamic type (use sparingly)</span></div>
+
+        <div class="section-label">Variable Validation</div>
+        <code class="cmd">validation { condition = length(var.name) &gt; 0 error_message = "Name cannot be empty." }</code>
+
+        <div class="section-label">Key Expressions</div>
+        <div class="row"><span class="key">Ternary</span><span class="val">condition ? true_val : false_val</span></div>
+        <div class="row"><span class="key">For (list)</span><span class="val">[ for x in list : x.id if x.active ]</span></div>
+        <div class="row"><span class="key">For (map)</span><span class="val">{ for k,v in map : k =&gt; upper(v) }</span></div>
+        <div class="row"><span class="key">Splat</span><span class="val">aws_instance.web[*].id</span></div>
+        <div class="row"><span class="key">Interpolation</span><span class="val">"Hello ${var.name}"</span></div>
+        <div class="row"><span class="key">Heredoc</span><span class="val">&lt;&lt;EOF ... EOF</span></div>
+
+        <div class="note note-purple">sensitive = true hides value in plan/apply output and state. Always use for passwords, tokens, keys.</div>
+      </div>
+    </div>
+
+    <!-- CARD 5: Built-in Functions -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--purple-soft)">🔧</div>
+        <h2>Built-in Functions</h2>
+        <span class="sub">String · Collection · Encoding · Numeric</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">String Functions</div>
+        <div class="tags">
+          <span class="tag tag-purple">join</span>
+          <span class="tag tag-purple">split</span>
+          <span class="tag tag-purple">upper</span>
+          <span class="tag tag-purple">lower</span>
+          <span class="tag tag-purple">replace</span>
+          <span class="tag tag-purple">format</span>
+          <span class="tag tag-purple">trimspace</span>
+          <span class="tag tag-purple">chomp</span>
+          <span class="tag tag-purple">startswith</span>
+          <span class="tag tag-purple">endswith</span>
+        </div>
+        <div class="row" style="margin-top:4px"><span class="key">join(",", list)</span><span class="val">"a,b,c"</span></div>
+        <div class="row"><span class="key">split(",", str)</span><span class="val">["a","b"]</span></div>
+        <div class="row"><span class="key">format("%s-%d", s, n)</span><span class="val">"name-1"</span></div>
+        <div class="row"><span class="key">replace(str, old, new)</span><span class="val">string substitution</span></div>
+        <div class="row"><span class="key">startswith(str, prefix)</span><span class="val">true/false</span></div>
+
+        <div class="section-label">Collection Functions</div>
+        <div class="tags">
+          <span class="tag tag-blue">length</span>
+          <span class="tag tag-blue">merge</span>
+          <span class="tag tag-blue">lookup</span>
+          <span class="tag tag-blue">keys</span>
+          <span class="tag tag-blue">values</span>
+          <span class="tag tag-blue">toset</span>
+          <span class="tag tag-blue">tolist</span>
+          <span class="tag tag-blue">tomap</span>
+          <span class="tag tag-blue">flatten</span>
+          <span class="tag tag-blue">distinct</span>
+          <span class="tag tag-blue">concat</span>
+          <span class="tag tag-blue">contains</span>
+          <span class="tag tag-blue">element</span>
+          <span class="tag tag-blue">zipmap</span>
+        </div>
+        <div class="row" style="margin-top:4px"><span class="key">merge(map1, map2)</span><span class="val">Merge maps (later wins)</span></div>
+        <div class="row"><span class="key">lookup(map, key, default)</span><span class="val">Safe map access</span></div>
+        <div class="row"><span class="key">flatten([[1],[2,3]])</span><span class="val">[1,2,3]</span></div>
+        <div class="row"><span class="key">zipmap(keys, vals)</span><span class="val">Create map from two lists</span></div>
+
+        <div class="section-label">Encoding &amp; Filesystem</div>
+        <div class="tags">
+          <span class="tag tag-green">jsonencode</span>
+          <span class="tag tag-green">jsondecode</span>
+          <span class="tag tag-green">base64encode</span>
+          <span class="tag tag-green">yamlencode</span>
+          <span class="tag tag-green">yamldecode</span>
+          <span class="tag tag-green">file</span>
+          <span class="tag tag-green">filebase64</span>
+          <span class="tag tag-green">templatefile</span>
+        </div>
+        <div class="row" style="margin-top:4px"><span class="key">templatefile(path, vars)</span><span class="val">Render template with variables</span></div>
+        <div class="row"><span class="key">jsonencode(object)</span><span class="val">Encode HCL value to JSON string</span></div>
+
+        <div class="section-label">Numeric &amp; Hash</div>
+        <div class="tags">
+          <span class="tag tag-orange">max</span>
+          <span class="tag tag-orange">min</span>
+          <span class="tag tag-orange">abs</span>
+          <span class="tag tag-orange">ceil</span>
+          <span class="tag tag-orange">floor</span>
+          <span class="tag tag-orange">md5</span>
+          <span class="tag tag-orange">sha256</span>
+          <span class="tag tag-orange">bcrypt</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end row 2 -->
+
+  <!-- ROW 3: Cards 6, 7 (2-col) -->
+  <div class="grid grid-2">
+
+    <!-- CARD 6: State Management -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--blue-soft)">💾</div>
+        <h2>State Management</h2>
+        <span class="sub">Backends · Locking · Commands</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">State File</div>
+        <div class="row"><span class="key">Default location</span><span class="val">terraform.tfstate (local JSON)</span></div>
+        <div class="row"><span class="key">Purpose</span><span class="val">Maps real resources to config</span></div>
+        <div class="row"><span class="key">Sensitive data</span><span class="val">Stored in plaintext — secure your backend!</span></div>
+        <div class="row"><span class="key">terraform.tfstate.backup</span><span class="val">Previous state auto-saved</span></div>
+
+        <div class="section-label">Remote Backends</div>
+        <div class="row"><span class="key">S3 + DynamoDB</span><span class="val">State in S3, locking via DynamoDB</span></div>
+        <div class="row"><span class="key">Terraform Cloud</span><span class="val">Remote runs + state + teams</span></div>
+        <div class="row"><span class="key">Azure Blob</span><span class="val">azurerm backend, supports locking</span></div>
+        <div class="row"><span class="key">GCS</span><span class="val">Google Cloud Storage backend</span></div>
+
+        <code class="cmd" style="margin-top:6px">terraform { backend "s3" { bucket = "my-tf-state" key = "prod/terraform.tfstate" region = "us-east-1" dynamodb_table = "tf-lock" encrypt = true } }</code>
+
+        <div class="section-label">State Commands</div>
+        <div class="row"><span class="key">terraform state list</span><span class="val">List all resources in state</span></div>
+        <div class="row"><span class="key">terraform state show ADDR</span><span class="val">Show resource attributes</span></div>
+        <div class="row"><span class="key">terraform state mv SRC DST</span><span class="val">Rename/move resource in state</span></div>
+        <div class="row"><span class="key">terraform state rm ADDR</span><span class="val">Remove resource from state (no destroy)</span></div>
+        <div class="row"><span class="key">terraform state pull</span><span class="val">Download remote state</span></div>
+        <div class="row"><span class="key">terraform state push</span><span class="val">Upload state to backend</span></div>
+        <div class="row"><span class="key">terraform import ADDR ID</span><span class="val">Import existing resource into state</span></div>
+
+        <div class="note note-blue">State locking prevents concurrent terraform apply runs. Always use DynamoDB (AWS), leases (Azure/GCS), or TFC for team environments.</div>
+      </div>
+    </div>
+
+    <!-- CARD 7: Core Workflow Commands -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--green-soft)">▶️</div>
+        <h2>Core Workflow Commands</h2>
+        <span class="sub">init · plan · apply · destroy</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">terraform init</div>
+        <div class="row"><span class="key">Downloads providers</span><span class="val">Specified in required_providers</span></div>
+        <div class="row"><span class="key">Initializes backend</span><span class="val">Configures remote state backend</span></div>
+        <div class="row"><span class="key">Downloads modules</span><span class="val">From registry or local paths</span></div>
+        <div class="row"><span class="key">-upgrade flag</span><span class="val">Upgrade providers/modules to latest allowed</span></div>
+
+        <div class="section-label">terraform plan</div>
+        <code class="cmd">terraform plan -out=plan.tfplan</code>
+        <code class="cmd">terraform plan -var="env=prod"</code>
+        <code class="cmd">terraform plan -var-file=prod.tfvars</code>
+        <code class="cmd">terraform plan -target=aws_instance.web</code>
+        <code class="cmd">terraform plan -refresh=false</code>
+        <code class="cmd">terraform plan -destroy</code>
+
+        <div class="section-label">terraform apply</div>
+        <code class="cmd">terraform apply</code>
+        <code class="cmd">terraform apply plan.tfplan</code>
+        <code class="cmd">terraform apply -auto-approve</code>
+        <code class="cmd">terraform apply -target=aws_instance.web</code>
+
+        <div class="section-label">terraform destroy</div>
+        <code class="cmd">terraform destroy</code>
+        <code class="cmd">terraform destroy -target=aws_instance.web</code>
+        <code class="cmd">terraform destroy -auto-approve</code>
+
+        <div class="section-label">Other Commands</div>
+        <div class="row"><span class="key">terraform fmt</span><span class="val">Format HCL files (recursive: -recursive)</span></div>
+        <div class="row"><span class="key">terraform validate</span><span class="val">Validate syntax and config</span></div>
+        <div class="row"><span class="key">terraform show</span><span class="val">Human-readable state or plan</span></div>
+        <div class="row"><span class="key">terraform graph</span><span class="val">Output DOT dependency graph</span></div>
+        <div class="row"><span class="key">terraform output</span><span class="val">Display output values</span></div>
+        <div class="row"><span class="key">terraform console</span><span class="val">Interactive expression evaluator</span></div>
+        <div class="row"><span class="key">terraform taint</span><span class="val">Force replacement (deprecated → use -replace)</span></div>
+        <div class="row"><span class="key">terraform apply -replace=ADDR</span><span class="val">Force resource replacement</span></div>
+      </div>
+    </div>
+
+  </div><!-- end row 3 -->
+
+  <!-- ROW 4: Cards 8, 9, 10 (3-col) -->
+  <div class="grid">
+
+    <!-- CARD 8: Workspaces -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--purple-soft)">🗂️</div>
+        <h2>Workspaces</h2>
+        <span class="sub">Isolation · Commands · Best Use</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Workspace Commands</div>
+        <code class="cmd">terraform workspace new staging</code>
+        <code class="cmd">terraform workspace list</code>
+        <code class="cmd">terraform workspace select staging</code>
+        <code class="cmd">terraform workspace show</code>
+        <code class="cmd">terraform workspace delete staging</code>
+
+        <div class="section-label">Using Workspace in Config</div>
+        <code class="cmd">resource "aws_s3_bucket" "app" { bucket = "myapp-${terraform.workspace}" }</code>
+
+        <div class="section-label">Key Facts</div>
+        <div class="row"><span class="key">Default workspace</span><span class="val">Always exists, cannot delete</span></div>
+        <div class="row"><span class="key">State isolation</span><span class="val">Each workspace has separate state file</span></div>
+        <div class="row"><span class="key">NOT for prod/staging</span><span class="val">Use separate backends/configs instead</span></div>
+        <div class="row"><span class="key">Best for</span><span class="val">Feature branches, dev variants, testing</span></div>
+        <div class="row"><span class="key">terraform.workspace</span><span class="val">Interpolation variable with current name</span></div>
+
+        <div class="note note-purple">Workspaces share the same backend config. For true environment isolation (prod vs staging), use separate state backends or different Terraform directories.</div>
+      </div>
+    </div>
+
+    <!-- CARD 9: Terraform Modules -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--blue-soft)">📦</div>
+        <h2>Terraform Modules</h2>
+        <span class="sub">Sources · Versioning · Structure</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Module Sources</div>
+        <div class="row"><span class="key">Local path</span><span class="val">./modules/vpc</span></div>
+        <div class="row"><span class="key">Terraform Registry</span><span class="val">hashicorp/vpc/aws</span></div>
+        <div class="row"><span class="key">GitHub</span><span class="val">git::https://github.com/org/repo.git</span></div>
+        <div class="row"><span class="key">GitHub (SSH)</span><span class="val">git@github.com:org/repo.git//modules/vpc</span></div>
+        <div class="row"><span class="key">S3 bucket</span><span class="val">s3::https://bucket.s3.amazonaws.com/module.zip</span></div>
+        <div class="row"><span class="key">HTTP archive</span><span class="val">https://example.com/vpc.zip</span></div>
+
+        <div class="section-label">Version Constraints</div>
+        <div class="row"><span class="key">~&gt; 1.0.0</span><span class="val">&gt;= 1.0.0 AND &lt; 1.1.0 (patch only)</span></div>
+        <div class="row"><span class="key">~&gt; 1.0</span><span class="val">&gt;= 1.0 AND &lt; 2.0 (minor+patch)</span></div>
+        <div class="row"><span class="key">&gt;= 1.0, &lt; 2.0</span><span class="val">Explicit range</span></div>
+        <div class="row"><span class="key">= 1.0.0</span><span class="val">Exact version pin</span></div>
+
+        <div class="section-label">Module Usage</div>
+        <code class="cmd">module "vpc" { source = "terraform-aws-modules/vpc/aws" version = "~&gt; 5.0" cidr = "10.0.0.0/16" }</code>
+        <div class="row"><span class="key">Input vars</span><span class="val">Defined in module's variables.tf</span></div>
+        <div class="row"><span class="key">Pass values</span><span class="val">As arguments in module block</span></div>
+        <div class="row"><span class="key">Outputs</span><span class="val">module.vpc.vpc_id, module.vpc.subnet_ids</span></div>
+        <div class="row"><span class="key">Child module</span><span class="val">Can call other modules (nested)</span></div>
+
+        <div class="section-label">Published Module Structure</div>
+        <div class="tags">
+          <span class="tag tag-blue">main.tf</span>
+          <span class="tag tag-blue">variables.tf</span>
+          <span class="tag tag-blue">outputs.tf</span>
+          <span class="tag tag-blue">README.md</span>
+          <span class="tag tag-blue">versions.tf</span>
+          <span class="tag tag-blue">examples/</span>
+        </div>
+
+        <div class="note note-blue">Always pin module versions in production. Use terraform get to download modules without init. Root module = the directory where you run terraform commands.</div>
+      </div>
+    </div>
+
+    <!-- CARD 10: Terraform Cloud vs OSS -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--purple-soft)">☁️</div>
+        <h2>Terraform Cloud vs OSS</h2>
+        <span class="sub">Features · Sentinel · Tiers</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">OSS (Open Source)</div>
+        <div class="row"><span class="key">State</span><span class="val">Local or self-managed backend</span></div>
+        <div class="row"><span class="key">Runs</span><span class="val">Local machine only</span></div>
+        <div class="row"><span class="key">Collaboration</span><span class="val">Manual state sharing</span></div>
+        <div class="row"><span class="key">Policies</span><span class="val">None built-in</span></div>
+        <div class="row"><span class="key">Cost</span><span class="val">Free</span></div>
+
+        <div class="section-label">Terraform Cloud Features</div>
+        <div class="row"><span class="key">Remote state</span><span class="val">Managed, encrypted, versioned</span></div>
+        <div class="row"><span class="key">Remote runs</span><span class="val">Plans/applies run in TFC workers</span></div>
+        <div class="row"><span class="key">VCS integration</span><span class="val">Auto-plan on PR, auto-apply on merge</span></div>
+        <div class="row"><span class="key">Team access</span><span class="val">RBAC: owner/admin/write/plan/read</span></div>
+        <div class="row"><span class="key">Cost estimation</span><span class="val">Preview monthly cost in plan</span></div>
+        <div class="row"><span class="key">Private registry</span><span class="val">Host internal modules and providers</span></div>
+
+        <div class="section-label">Sentinel (Policy as Code)</div>
+        <div class="row"><span class="key">enforcement_level</span><span class="val">hard-mandatory / soft-mandatory / advisory</span></div>
+        <div class="row"><span class="key">hard-mandatory</span><span class="val">Blocks apply, cannot override</span></div>
+        <div class="row"><span class="key">soft-mandatory / advisory</span><span class="val">Warn or override with justification</span></div>
+        <div class="row"><span class="key">Policy sets</span><span class="val">Attached to workspaces/organizations</span></div>
+
+        <div class="section-label">TFC Tiers</div>
+        <div class="row"><span class="key">Free</span><span class="val">Up to 5 users, limited features</span></div>
+        <div class="row"><span class="key">Plus</span><span class="val">SSO, audit logs, self-hosted agents</span></div>
+        <div class="row"><span class="key">Enterprise</span><span class="val">Terraform Enterprise (self-hosted TFC)</span></div>
+
+        <div class="note note-purple">Terraform Enterprise = self-hosted version of Terraform Cloud. Same features, runs in your own infrastructure. Sentinel is not available in TFC Free.</div>
+      </div>
+    </div>
+
+  </div><!-- end row 4 -->
+
+  <!-- ROW 5: Card 11 (full-width via grid-2 spanning or single card row) -->
+  <div class="grid grid-2">
+
+    <!-- CARD 11: Provider Locking & Versioning -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--green-soft)">🔒</div>
+        <h2>Provider Locking &amp; Versioning</h2>
+        <span class="sub">Lock File · Constraints · Aliases</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Lock File</div>
+        <div class="row"><span class="key">.terraform.lock.hcl</span><span class="val">Auto-generated, commit to Git</span></div>
+        <div class="row"><span class="key">terraform providers lock</span><span class="val">Pre-populate lock for multiple platforms</span></div>
+        <div class="row"><span class="key">Purpose</span><span class="val">Ensures team uses same provider versions</span></div>
+        <div class="row"><span class="key">-upgrade flag</span><span class="val">Updates lock file to newer allowed versions</span></div>
+
+        <div class="section-label">Version Constraint Operators</div>
+        <div class="row"><span class="key">= 1.0.0</span><span class="val">Exact version only</span></div>
+        <div class="row"><span class="key">!= 1.0.0</span><span class="val">Exclude this version</span></div>
+        <div class="row"><span class="key">&gt; 1.0, &lt; 2.0</span><span class="val">Range constraint</span></div>
+        <div class="row"><span class="key">&gt;= 1.0.0</span><span class="val">This version or higher</span></div>
+        <div class="row"><span class="key">~&gt; 1.0.0</span><span class="val">Pessimistic: &gt;= 1.0.0, &lt; 1.1.0</span></div>
+        <div class="row"><span class="key">~&gt; 1.0</span><span class="val">Pessimistic: &gt;= 1.0, &lt; 2.0</span></div>
+
+        <div class="section-label">Provider Configuration</div>
+        <code class="cmd">terraform { required_providers { aws = { source = "registry.terraform.io/hashicorp/aws" version = "~&gt; 5.0" } } }</code>
+        <div class="row"><span class="key">Provider source</span><span class="val">registry.terraform.io/namespace/type</span></div>
+        <div class="row"><span class="key">Default registry</span><span class="val">registry.terraform.io (can omit prefix)</span></div>
+
+        <div class="section-label">Provider Aliases</div>
+        <code class="cmd">provider "aws" { alias = "west" region = "us-west-2" }</code>
+        <code class="cmd">provider = aws.west</code>
+        <div class="row"><span class="key">Use case</span><span class="val">Multiple regions or accounts</span></div>
+        <div class="row"><span class="key">In module</span><span class="val">Pass via configuration_aliases in required_providers</span></div>
+
+        <div class="note note-green">Always commit .terraform.lock.hcl. Run terraform providers lock -platform=linux_amd64 -platform=darwin_amd64 in CI to ensure cross-platform consistency.</div>
+      </div>
+    </div>
+
+    <!-- Quick Reference Card (bonus) -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--azure-soft)">⚡</div>
+        <h2>Quick Reference — Key Concepts</h2>
+        <span class="sub">Exam Tips &amp; Gotchas</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Variable Precedence (highest → lowest)</div>
+        <div class="row"><span class="key">1. -var flag</span><span class="val">terraform apply -var="name=val"</span></div>
+        <div class="row"><span class="key">2. -var-file flag</span><span class="val">terraform apply -var-file=prod.tfvars</span></div>
+        <div class="row"><span class="key">3. *.auto.tfvars</span><span class="val">Auto-loaded alphabetically</span></div>
+        <div class="row"><span class="key">4. terraform.tfvars</span><span class="val">Auto-loaded if present</span></div>
+        <div class="row"><span class="key">5. TF_VAR_name</span><span class="val">Environment variable</span></div>
+        <div class="row"><span class="key">6. default value</span><span class="val">Defined in variable block</span></div>
+
+        <div class="section-label">Terraform Refresh &amp; Plan Symbols</div>
+        <div class="row"><span class="key">+ (green)</span><span class="val">Resource will be created</span></div>
+        <div class="row"><span class="key">- (red)</span><span class="val">Resource will be destroyed</span></div>
+        <div class="row"><span class="key">~ (yellow)</span><span class="val">Resource will be updated in-place</span></div>
+        <div class="row"><span class="key">-/+ (red/green)</span><span class="val">Resource will be destroyed and re-created</span></div>
+        <div class="row"><span class="key">&lt;= (cyan)</span><span class="val">Data source will be read</span></div>
+
+        <div class="section-label">Important File Names</div>
+        <div class="row"><span class="key">main.tf</span><span class="val">Primary configuration (convention)</span></div>
+        <div class="row"><span class="key">variables.tf</span><span class="val">Input variable declarations</span></div>
+        <div class="row"><span class="key">outputs.tf</span><span class="val">Output value declarations</span></div>
+        <div class="row"><span class="key">versions.tf</span><span class="val">Provider version constraints</span></div>
+        <div class="row"><span class="key">terraform.tfvars</span><span class="val">Variable values (auto-loaded)</span></div>
+        <div class="row"><span class="key">.terraform/</span><span class="val">Plugin cache dir — do NOT commit</span></div>
+        <div class="row"><span class="key">.terraform.lock.hcl</span><span class="val">Lock file — COMMIT to Git</span></div>
+        <div class="row"><span class="key">terraform.tfstate</span><span class="val">State file — do NOT commit (use remote)</span></div>
+
+        <div class="section-label">Common Exam Gotchas</div>
+        <div class="row"><span class="key">terraform.tfstate</span><span class="val">Never commit to Git — use remote backend</span></div>
+        <div class="row"><span class="key">count vs for_each</span><span class="val">for_each preferred — handles deletions better</span></div>
+        <div class="row"><span class="key">terraform taint</span><span class="val">Deprecated — use terraform apply -replace</span></div>
+        <div class="row"><span class="key">terraform refresh</span><span class="val">Deprecated standalone — use plan -refresh-only</span></div>
+        <div class="row"><span class="key">Backend changes</span><span class="val">Require terraform init -reconfigure</span></div>
+        <div class="row"><span class="key">No "terraform push"</span><span class="val">Use TFC VCS integration instead</span></div>
+
+        <div class="note note-azure">The terraform.tfvars file and any *.auto.tfvars files are automatically loaded. Files with other names must be explicitly passed with -var-file. TF_VAR_ env vars are the lowest explicit override.</div>
+      </div>
+    </div>
+
+  </div><!-- end row 5 -->
+
+</div><!-- end .page -->
+</body>
+</html>

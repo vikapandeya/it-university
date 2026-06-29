@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AWS Developer DVA-C02 Cheat Sheet</title>
+<meta name="description" content="Comprehensive AWS Developer Associate DVA-C02 exam cheat sheet covering all domains, limits, and key exam tips.">
+<style>
+:root {
+  --bg:#F5F6F7; --surface:#FFFFFF; --border:#E2E4E8;
+  --navy:#0F1C2E; --navy2:#1A2E45;
+  --orange:#FF9900; --orange-soft:#FFF4DC;
+  --blue:#1A6FB5; --blue-soft:#EBF4FF;
+  --green:#1B7A4A; --green-soft:#E8F7EF;
+  --red:#B91C1C; --red-soft:#FEF2F2;
+  --purple:#6B21A8; --purple-soft:#F5F0FF;
+  --text:#1C2333; --text2:#4A5568; --text3:#718096;
+  --mono:'Consolas','Courier New',monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+}
+body { font-family:var(--sans); font-size:11px; background:var(--bg); color:var(--text); line-height:1.5; }
+.page { max-width:1280px; margin:0 auto; padding:20px 16px; }
+.header { background:var(--navy); border-radius:10px; padding:20px 24px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+.header-left h1 { font-size:22px; font-weight:800; color:#fff; } .header-left h1 span { color:var(--orange); }
+.header-left p { font-size:11px; color:#94A3B8; margin-top:3px; }
+.header-badges { display:flex; gap:8px; flex-wrap:wrap; }
+.badge { font-size:10px; font-weight:700; padding:4px 10px; border-radius:20px; letter-spacing:.5px; text-transform:uppercase; }
+.badge-orange { background:var(--orange); color:var(--navy); }
+.badge-blue { background:#3B82F6; color:#fff; }
+.badge-green { background:#22C55E; color:#fff; }
+.grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:12px; }
+.grid-2 { grid-template-columns:repeat(2,1fr); }
+.grid-4 { grid-template-columns:repeat(4,1fr); }
+.card { background:var(--surface); border-radius:8px; border:1px solid var(--border); overflow:hidden; }
+.card-header { padding:8px 12px; display:flex; align-items:center; gap:8px; border-bottom:1px solid var(--border); }
+.card-header .icon { width:24px; height:24px; border-radius:5px; display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; }
+.card-header h2 { font-size:11.5px; font-weight:800; color:var(--navy); }
+.card-header .sub { font-size:9px; color:var(--text3); margin-left:auto; }
+.card-body { padding:10px 12px; }
+.section-label { font-size:8.5px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--text3); margin-bottom:5px; margin-top:9px; }
+.section-label:first-child { margin-top:0; }
+.row { display:flex; justify-content:space-between; align-items:baseline; padding:2px 0; border-bottom:1px solid #F1F3F5; gap:8px; }
+.row:last-child { border-bottom:none; }
+.row .key { font-family:var(--mono); font-size:10px; font-weight:600; color:var(--navy); white-space:nowrap; flex-shrink:0; }
+.row .val { font-size:10px; color:var(--text2); text-align:right; }
+.tags { display:flex; flex-wrap:wrap; gap:4px; margin-top:2px; }
+.tag { font-size:9.5px; padding:2px 7px; border-radius:4px; font-weight:600; font-family:var(--mono); }
+.tag-orange { background:var(--orange-soft); color:#92400E; }
+.tag-blue { background:var(--blue-soft); color:#1E40AF; }
+.tag-green { background:var(--green-soft); color:#166534; }
+.tag-red { background:var(--red-soft); color:#991B1B; }
+.tag-purple { background:var(--purple-soft); color:#6B21A8; }
+.tip-bar { background:var(--navy2); border-radius:8px; padding:10px 16px; margin-bottom:16px; display:flex; gap:24px; flex-wrap:wrap; }
+.tip-label { font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--orange); }
+.tip { font-size:10.5px; color:#CBD5E1; }
+.tip b { color:#fff; }
+.note { font-size:10px; color:var(--text2); padding:6px 8px; border-radius:4px; margin-top:4px; }
+.note-orange { background:var(--orange-soft); border-left:3px solid var(--orange); }
+.note-blue { background:var(--blue-soft); border-left:3px solid var(--blue); }
+.note-green { background:var(--green-soft); border-left:3px solid var(--green); }
+.note-red { background:var(--red-soft); border-left:3px solid var(--red); }
+.span-2 { grid-column: span 2; }
+.span-3 { grid-column: span 3; }
+@media print { body{background:#fff} .page{padding:0} }
+@media (max-width:900px) { .grid { grid-template-columns:repeat(2,1fr); } .grid-4 { grid-template-columns:repeat(2,1fr); } }
+@media (max-width:600px) { .grid,.grid-2,.grid-4 { grid-template-columns:1fr; } .span-2,.span-3 { grid-column:span 1; } }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <h1>AWS Developer <span>DVA</span>-C02</h1>
+      <p>DVA-C02 &mdash; Associate Exam Cheat Sheet &mdash; All Domains Covered</p>
+    </div>
+    <div class="header-badges">
+      <span class="badge badge-orange">Associate</span>
+      <span class="badge badge-blue">65 Questions</span>
+      <span class="badge badge-green">720 / 1000 Pass</span>
+    </div>
+  </div>
+
+  <!-- QUICK TIPS BAR -->
+  <div class="tip-bar">
+    <div>
+      <div class="tip-label">Time</div>
+      <div class="tip"><b>130 minutes</b></div>
+    </div>
+    <div>
+      <div class="tip-label">Questions</div>
+      <div class="tip"><b>65</b> — multiple choice + multiple response</div>
+    </div>
+    <div>
+      <div class="tip-label">Passing Score</div>
+      <div class="tip"><b>720 / 1000</b> (72%)</div>
+    </div>
+    <div>
+      <div class="tip-label">Cost</div>
+      <div class="tip"><b>$150 USD</b></div>
+    </div>
+    <div>
+      <div class="tip-label">Renewal</div>
+      <div class="tip"><b>3 years</b> — higher cert also renews</div>
+    </div>
+  </div>
+
+  <!-- ROW 1: Exam Overview + Domain Weights -->
+  <div class="grid grid-2" style="margin-bottom:12px;">
+
+    <!-- Exam Overview -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--orange-soft);">📋</div>
+        <h2>Exam Overview</h2>
+        <span class="sub">DVA-C02</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Domain Weights</div>
+        <div class="row"><span class="key">Domain 1 — Development with AWS Services</span><span class="val" style="color:var(--orange);font-weight:700;">32%</span></div>
+        <div class="row"><span class="key">Domain 2 — Security</span><span class="val" style="color:var(--blue);font-weight:700;">26%</span></div>
+        <div class="row"><span class="key">Domain 3 — Deployment</span><span class="val" style="color:var(--green);font-weight:700;">24%</span></div>
+        <div class="row"><span class="key">Domain 4 — Troubleshooting &amp; Optimization</span><span class="val" style="color:var(--purple);font-weight:700;">18%</span></div>
+        <div class="section-label">Key Services Tested</div>
+        <div class="row"><span class="key">Compute</span><span class="val">Lambda, EC2, Elastic Beanstalk, ECS, EKS</span></div>
+        <div class="row"><span class="key">Storage</span><span class="val">S3, DynamoDB, ElastiCache, RDS</span></div>
+        <div class="row"><span class="key">Messaging</span><span class="val">SQS, SNS, Kinesis, EventBridge</span></div>
+        <div class="row"><span class="key">CI/CD</span><span class="val">CodeCommit, CodeBuild, CodeDeploy, CodePipeline</span></div>
+        <div class="row"><span class="key">Security</span><span class="val">IAM, KMS, Cognito, Secrets Manager, STS</span></div>
+        <div class="row"><span class="key">Observability</span><span class="val">CloudWatch, X-Ray, CloudTrail</span></div>
+        <div class="row"><span class="key">IaC</span><span class="val">CloudFormation, SAM, CDK</span></div>
+        <div class="note note-orange">Focus heaviest on Lambda, DynamoDB, SQS/SNS, and IAM — they appear in all domains.</div>
+      </div>
+    </div>
+
+    <!-- Quick Reference Limits -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--blue-soft);">⚡</div>
+        <h2>Quick Reference — Hard Limits</h2>
+        <span class="sub">Memorize These</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Lambda Limits</div>
+        <div class="row"><span class="key">Lambda timeout</span><span class="val">max <b>15 min</b></span></div>
+        <div class="row"><span class="key">Lambda memory</span><span class="val">128 MB – 10,240 MB</span></div>
+        <div class="row"><span class="key">Lambda /tmp storage</span><span class="val">512 MB – 10,240 MB</span></div>
+        <div class="row"><span class="key">Lambda concurrent executions</span><span class="val">1,000 (soft, per region)</span></div>
+        <div class="row"><span class="key">Lambda deployment package</span><span class="val">50 MB zip / 250 MB unzip / 10 GB container</span></div>
+        <div class="section-label">SQS Limits</div>
+        <div class="row"><span class="key">SQS message size</span><span class="val">256 KB max</span></div>
+        <div class="row"><span class="key">SQS visibility timeout</span><span class="val">30s default, 12 hrs max</span></div>
+        <div class="row"><span class="key">SQS retention</span><span class="val">4 days default, 14 days max</span></div>
+        <div class="row"><span class="key">SQS FIFO throughput</span><span class="val">300 msg/s (3,000 with batching)</span></div>
+        <div class="section-label">DynamoDB Limits</div>
+        <div class="row"><span class="key">DynamoDB item size</span><span class="val">400 KB max</span></div>
+        <div class="row"><span class="key">DynamoDB RCU</span><span class="val">1 unit = 4 KB strongly consistent read</span></div>
+        <div class="row"><span class="key">DynamoDB WCU</span><span class="val">1 unit = 1 KB write per second</span></div>
+        <div class="section-label">API Gateway Limits</div>
+        <div class="row"><span class="key">API GW payload (REST)</span><span class="val">10 MB</span></div>
+        <div class="row"><span class="key">API GW payload (WebSocket)</span><span class="val">128 KB</span></div>
+        <div class="row"><span class="key">API GW integration timeout</span><span class="val"><b>29 seconds max</b></span></div>
+        <div class="section-label">Other</div>
+        <div class="row"><span class="key">Kinesis shard</span><span class="val">1 MB/s in, 2 MB/s out</span></div>
+        <div class="row"><span class="key">S3 event → Lambda</span><span class="val">async invocation</span></div>
+        <div class="row"><span class="key">SQS → Lambda</span><span class="val">sync invocation (Lambda polls)</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 2: Development Domain — Lambda + API GW -->
+  <div class="grid" style="margin-bottom:12px;">
+
+    <!-- Lambda -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--orange-soft);">λ</div>
+        <h2>Lambda</h2>
+        <span class="sub">Domain 1 — 32%</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Invocation Types</div>
+        <div class="row"><span class="key">Synchronous</span><span class="val">API GW, ALB, Cognito, Alexa — caller waits for response</span></div>
+        <div class="row"><span class="key">Asynchronous</span><span class="val">S3, SNS, EventBridge — retries 2x, DLQ supported</span></div>
+        <div class="row"><span class="key">Poll-based</span><span class="val">SQS, DynamoDB Streams, Kinesis — Lambda polls source</span></div>
+        <div class="section-label">Event Sources</div>
+        <div class="row"><span class="key">S3</span><span class="val">async; triggers on object create/delete/restore</span></div>
+        <div class="row"><span class="key">DynamoDB Streams</span><span class="val">sync poll; processes stream records in order per shard</span></div>
+        <div class="row"><span class="key">SQS</span><span class="val">sync poll; batch size 1–10,000; error → DLQ</span></div>
+        <div class="row"><span class="key">Kinesis</span><span class="val">sync poll; 1 concurrent per shard (default)</span></div>
+        <div class="row"><span class="key">API Gateway</span><span class="val">sync; proxy or custom integration</span></div>
+        <div class="section-label">Key Concepts</div>
+        <div class="row"><span class="key">Execution role</span><span class="val">IAM role Lambda assumes — grants AWS permissions</span></div>
+        <div class="row"><span class="key">Resource policy</span><span class="val">Who can invoke Lambda (e.g., API GW, S3)</span></div>
+        <div class="row"><span class="key">Layers</span><span class="val">Shared libraries/dependencies; up to 5 layers; 250 MB limit</span></div>
+        <div class="row"><span class="key">Versions</span><span class="val">Immutable snapshots; $LATEST = mutable</span></div>
+        <div class="row"><span class="key">Aliases</span><span class="val">Pointer to version; supports traffic splitting (canary)</span></div>
+        <div class="row"><span class="key">ENV variables</span><span class="val">Key-value config; encrypted at rest with KMS</span></div>
+        <div class="row"><span class="key">/tmp</span><span class="val">Ephemeral storage 512 MB–10 GB; shared within execution env</span></div>
+        <div class="section-label">Concurrency</div>
+        <div class="row"><span class="key">Reserved concurrency</span><span class="val">Hard cap — throttles function at N; 0 = disable function</span></div>
+        <div class="row"><span class="key">Provisioned concurrency</span><span class="val">Pre-warmed instances; eliminates cold starts; costs more</span></div>
+        <div class="row"><span class="key">Burst limit</span><span class="val">Initial burst: 500–3000 depending on region, then +500/min</span></div>
+        <div class="note note-orange">Cold start = init duration; avoid with Provisioned Concurrency or keep-warm pings. SnapStart for Java.</div>
+        <div class="tags">
+          <span class="tag tag-orange">Lambda</span>
+          <span class="tag tag-orange">Serverless</span>
+          <span class="tag tag-blue">Event-Driven</span>
+          <span class="tag tag-green">Concurrency</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- API Gateway -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--blue-soft);">🔗</div>
+        <h2>API Gateway</h2>
+        <span class="sub">REST · HTTP · WebSocket</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">API Types</div>
+        <div class="row"><span class="key">REST API</span><span class="val">Full features; usage plans; caching; mapping templates</span></div>
+        <div class="row"><span class="key">HTTP API</span><span class="val">Lower cost (~70%), lower latency; JWT auth; no usage plans</span></div>
+        <div class="row"><span class="key">WebSocket API</span><span class="val">Persistent bidirectional; routes ($connect, $disconnect, $default)</span></div>
+        <div class="section-label">Integrations</div>
+        <div class="row"><span class="key">Lambda Proxy</span><span class="val">Passes full request to Lambda; response must be structured JSON</span></div>
+        <div class="row"><span class="key">Lambda Custom</span><span class="val">Mapping templates transform request/response (VTL)</span></div>
+        <div class="row"><span class="key">HTTP Proxy</span><span class="val">Forwards to HTTP backend as-is</span></div>
+        <div class="row"><span class="key">AWS Service</span><span class="val">Direct integration (e.g., SQS, DynamoDB) without Lambda</span></div>
+        <div class="section-label">Stages &amp; Deployment</div>
+        <div class="row"><span class="key">Stages</span><span class="val">dev / staging / prod; each stage has own URL + config</span></div>
+        <div class="row"><span class="key">Stage variables</span><span class="val">Like env vars for API GW; reference Lambda aliases</span></div>
+        <div class="row"><span class="key">Canary deployment</span><span class="val">% of traffic to new stage before full deploy</span></div>
+        <div class="section-label">Throttling &amp; Caching</div>
+        <div class="row"><span class="key">Account limit</span><span class="val">10,000 rps default (soft); 5,000 burst</span></div>
+        <div class="row"><span class="key">Per-method throttle</span><span class="val">Override at stage/method level</span></div>
+        <div class="row"><span class="key">Usage plans</span><span class="val">Throttle + quota per API key; associate with stage</span></div>
+        <div class="row"><span class="key">Caching</span><span class="val">TTL 0–3600s (default 300s); per stage; invalidate with Cache-Control: max-age=0</span></div>
+        <div class="section-label">Security</div>
+        <div class="row"><span class="key">IAM auth</span><span class="val">Sig V4; use for internal AWS services</span></div>
+        <div class="row"><span class="key">Cognito authorizer</span><span class="val">Validates Cognito JWT tokens automatically</span></div>
+        <div class="row"><span class="key">Lambda authorizer</span><span class="val">Custom auth logic; returns IAM policy; TTL cacheable</span></div>
+        <div class="row"><span class="key">API keys</span><span class="val">Pass in x-api-key header; for usage plans NOT security</span></div>
+        <div class="section-label">Error Codes</div>
+        <div class="row"><span class="key">400</span><span class="val">Bad request (malformed)</span></div>
+        <div class="row"><span class="key">403</span><span class="val">Access denied / WAF filtered</span></div>
+        <div class="row"><span class="key">429</span><span class="val">Too many requests (throttled)</span></div>
+        <div class="row"><span class="key">502</span><span class="val">Bad Gateway — Lambda unhandled exception</span></div>
+        <div class="row"><span class="key">504</span><span class="val">Gateway Timeout — Lambda &gt; 29s integration timeout</span></div>
+        <div class="tags">
+          <span class="tag tag-blue">API-Gateway</span>
+          <span class="tag tag-blue">REST</span>
+          <span class="tag tag-blue">WebSocket</span>
+          <span class="tag tag-orange">Throttling</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- DynamoDB -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--green-soft);">🗄️</div>
+        <h2>DynamoDB</h2>
+        <span class="sub">NoSQL Key-Value + Document</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Data Model</div>
+        <div class="row"><span class="key">Simple primary key</span><span class="val">Partition key only (hash)</span></div>
+        <div class="row"><span class="key">Composite primary key</span><span class="val">Partition key + Sort key</span></div>
+        <div class="row"><span class="key">Item size limit</span><span class="val">400 KB max per item</span></div>
+        <div class="row"><span class="key">Attribute types</span><span class="val">S (string), N (number), B (binary), BOOL, NULL, L (list), M (map), SS, NS, BS</span></div>
+        <div class="section-label">Read Consistency</div>
+        <div class="row"><span class="key">Eventually consistent</span><span class="val">Half the RCU cost; stale reads possible</span></div>
+        <div class="row"><span class="key">Strongly consistent</span><span class="val">Full RCU cost; always latest data; ConsistentRead=true</span></div>
+        <div class="row"><span class="key">Transactional read</span><span class="val">2x RCU; ACID across multiple items/tables</span></div>
+        <div class="section-label">Capacity Modes</div>
+        <div class="row"><span class="key">Provisioned</span><span class="val">Set RCU/WCU; auto-scaling available; cheaper at steady load</span></div>
+        <div class="row"><span class="key">On-demand</span><span class="val">Pay per request; scales instantly; 2.5x more expensive</span></div>
+        <div class="row"><span class="key">RCU formula</span><span class="val">Ceil(item/4KB) × reads/s; ÷2 for eventual consistency</span></div>
+        <div class="row"><span class="key">WCU formula</span><span class="val">Ceil(item/1KB) × writes/s</span></div>
+        <div class="section-label">Indexes</div>
+        <div class="row"><span class="key">LSI (Local)</span><span class="val">Same partition key, different sort key; <b>created at table creation only</b>; shares table capacity</span></div>
+        <div class="row"><span class="key">GSI (Global)</span><span class="val">Any partition/sort key; <b>can add after creation</b>; own capacity; eventual consistency only</span></div>
+        <div class="section-label">Advanced Features</div>
+        <div class="row"><span class="key">DynamoDB Streams</span><span class="val">Ordered item-level changes; 24hr retention; triggers Lambda</span></div>
+        <div class="row"><span class="key">TTL</span><span class="val">Auto-delete items based on epoch timestamp attribute; free; ~48hr delay</span></div>
+        <div class="row"><span class="key">Transactions</span><span class="val">TransactWriteItems / TransactGetItems; up to 100 items; 2x cost</span></div>
+        <div class="row"><span class="key">DAX</span><span class="val">In-memory cache; microsecond reads; write-through; no Streams support</span></div>
+        <div class="row"><span class="key">Batch operations</span><span class="val">BatchGetItem (up to 100) / BatchWriteItem (up to 25); unprocessed items returned</span></div>
+        <div class="row"><span class="key">Global Tables</span><span class="val">Multi-region active-active; requires Streams; eventual consistency cross-region</span></div>
+        <div class="note note-green">Hot partition fix: add random prefix/suffix to partition key to spread load across shards.</div>
+        <div class="tags">
+          <span class="tag tag-green">DynamoDB</span>
+          <span class="tag tag-green">DAX</span>
+          <span class="tag tag-blue">Streams</span>
+          <span class="tag tag-orange">GSI/LSI</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 3: SQS + SNS + Kinesis -->
+  <div class="grid" style="margin-bottom:12px;">
+
+    <!-- SQS -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--orange-soft);">📨</div>
+        <h2>SQS — Simple Queue Service</h2>
+        <span class="sub">Decoupling</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Queue Types</div>
+        <div class="row"><span class="key">Standard</span><span class="val">At-least-once delivery; best-effort ordering; nearly unlimited TPS</span></div>
+        <div class="row"><span class="key">FIFO</span><span class="val">Exactly-once processing; strict order; 300 msg/s (3,000 batching)</span></div>
+        <div class="section-label">Key Settings</div>
+        <div class="row"><span class="key">Visibility timeout</span><span class="val">30s default; 0s–12 hrs; message hidden during processing</span></div>
+        <div class="row"><span class="key">Message retention</span><span class="val">4 days default; 1 min – 14 days</span></div>
+        <div class="row"><span class="key">Max message size</span><span class="val">256 KB (use S3 + Extended Client for larger)</span></div>
+        <div class="row"><span class="key">Delay queues</span><span class="val">Delay 0–15 min; hides message from consumers on arrival</span></div>
+        <div class="row"><span class="key">Long polling</span><span class="val">WaitTimeSeconds 1–20s; reduces empty responses &amp; cost</span></div>
+        <div class="section-label">FIFO Specifics</div>
+        <div class="row"><span class="key">MessageGroupId</span><span class="val">Required; messages in same group processed in order</span></div>
+        <div class="row"><span class="key">MessageDeduplicationId</span><span class="val">5-min dedup window; OR content-based dedup enabled</span></div>
+        <div class="row"><span class="key">FIFO queue name</span><span class="val">Must end with .fifo</span></div>
+        <div class="section-label">Dead Letter Queue (DLQ)</div>
+        <div class="row"><span class="key">DLQ</span><span class="val">Messages moved after maxReceiveCount exceeded</span></div>
+        <div class="row"><span class="key">DLQ type</span><span class="val">Standard DLQ for Standard queue; FIFO DLQ for FIFO queue</span></div>
+        <div class="row"><span class="key">Redrive policy</span><span class="val">Set maxReceiveCount and targetQueueArn on source queue</span></div>
+        <div class="section-label">Lambda Integration</div>
+        <div class="row"><span class="key">Trigger type</span><span class="val">Sync (Lambda polls SQS); batches 1–10,000 messages</span></div>
+        <div class="row"><span class="key">Partial batch failure</span><span class="val">Use ReportBatchItemFailures; only failed items returned to queue</span></div>
+        <div class="note note-orange">SQS + Lambda: if Lambda errors, entire batch returns to queue unless partial batch response used.</div>
+        <div class="tags">
+          <span class="tag tag-orange">SQS</span>
+          <span class="tag tag-orange">FIFO</span>
+          <span class="tag tag-red">DLQ</span>
+          <span class="tag tag-blue">Decoupling</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SNS + Kinesis -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--purple-soft);">📢</div>
+        <h2>SNS &amp; Kinesis</h2>
+        <span class="sub">Pub/Sub &amp; Streaming</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">SNS — Simple Notification Service</div>
+        <div class="row"><span class="key">Model</span><span class="val">Pub/Sub; one publisher → many subscribers (fan-out)</span></div>
+        <div class="row"><span class="key">Message size</span><span class="val">256 KB max</span></div>
+        <div class="row"><span class="key">Subscribers</span><span class="val">Lambda, SQS, HTTP/S, Email, SMS, Mobile push, Firehose</span></div>
+        <div class="row"><span class="key">Fan-out pattern</span><span class="val">SNS topic → multiple SQS queues (decoupled + parallel)</span></div>
+        <div class="row"><span class="key">FIFO Topics</span><span class="val">Ordered delivery; only SQS FIFO subscribers; dedup support</span></div>
+        <div class="row"><span class="key">Message filtering</span><span class="val">Filter policy (JSON) per subscription; route by attribute</span></div>
+        <div class="row"><span class="key">Message attributes</span><span class="val">Key-value metadata; used in filter policies</span></div>
+        <div class="row"><span class="key">Retention</span><span class="val">No persistence — fire and forget; use SQS for durability</span></div>
+        <div class="section-label">Kinesis Data Streams</div>
+        <div class="row"><span class="key">Shards</span><span class="val">1 MB/s write, 2 MB/s read per shard; scale by adding shards</span></div>
+        <div class="row"><span class="key">Data retention</span><span class="val">24 hrs default; up to 7 days (365 days long-term)</span></div>
+        <div class="row"><span class="key">Partition key</span><span class="val">Determines which shard; same key → same shard (ordering)</span></div>
+        <div class="row"><span class="key">GetRecords</span><span class="val">Pull model; up to 2 MB/s per shard; 5 reads/s per shard</span></div>
+        <div class="row"><span class="key">Enhanced Fan-Out</span><span class="val">Push 2 MB/s per consumer per shard; HTTP/2; lower latency</span></div>
+        <div class="row"><span class="key">Shard iterator types</span><span class="val">TRIM_HORIZON, LATEST, AT_SEQUENCE, AFTER_SEQUENCE, AT_TIMESTAMP</span></div>
+        <div class="row"><span class="key">Kinesis vs SQS</span><span class="val">Kinesis = ordered streaming analytics; SQS = decoupled task queues</span></div>
+        <div class="section-label">Kinesis Data Firehose</div>
+        <div class="row"><span class="key">Purpose</span><span class="val">Managed delivery to S3, Redshift, OpenSearch, Splunk, HTTP</span></div>
+        <div class="row"><span class="key">Near real-time</span><span class="val">Buffer by size (1–128 MB) or time (60–900s); not real-time</span></div>
+        <div class="row"><span class="key">Lambda transform</span><span class="val">Invoke Lambda to transform records before delivery</span></div>
+        <div class="note note-purple" style="background:var(--purple-soft);border-left:3px solid var(--purple);">SNS does NOT persist messages. Always add SQS subscriber for reliable delivery. SNS FIFO → SQS FIFO only.</div>
+        <div class="tags">
+          <span class="tag tag-purple">SNS</span>
+          <span class="tag tag-blue">Kinesis</span>
+          <span class="tag tag-orange">Fan-out</span>
+          <span class="tag tag-green">Streaming</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ElastiCache + S3 -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--red-soft);">🚀</div>
+        <h2>ElastiCache &amp; S3</h2>
+        <span class="sub">Caching &amp; Object Storage</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">ElastiCache — Redis vs Memcached</div>
+        <div class="row"><span class="key">Redis</span><span class="val">Persistence (RDB/AOF); pub/sub; sorted sets; multi-AZ; replicas; geospatial</span></div>
+        <div class="row"><span class="key">Memcached</span><span class="val">Multi-threaded; no persistence; no replication; simpler; horizontal scale</span></div>
+        <div class="row"><span class="key">Redis Cluster</span><span class="val">Data sharding across nodes; up to 500 nodes</span></div>
+        <div class="row"><span class="key">Use Redis when</span><span class="val">Need persistence, pub/sub, Lua scripting, complex data structures</span></div>
+        <div class="section-label">Caching Patterns</div>
+        <div class="row"><span class="key">Lazy loading</span><span class="val">Read: check cache → miss → load DB → write cache; stale data possible</span></div>
+        <div class="row"><span class="key">Write-through</span><span class="val">Write: update DB + cache simultaneously; always fresh; unused data cached</span></div>
+        <div class="row"><span class="key">Cache-aside</span><span class="val">App manages cache explicitly (same as lazy loading)</span></div>
+        <div class="row"><span class="key">TTL</span><span class="val">Set expiry to prevent stale data; balance freshness vs performance</span></div>
+        <div class="section-label">S3 Key Facts</div>
+        <div class="row"><span class="key">Object size</span><span class="val">0 bytes – 5 TB; multipart for &gt;100 MB</span></div>
+        <div class="row"><span class="key">Strong consistency</span><span class="val">Read-after-write consistent (since Dec 2020)</span></div>
+        <div class="row"><span class="key">Event notifications</span><span class="val">→ Lambda (async), SQS, SNS, EventBridge</span></div>
+        <div class="row"><span class="key">Presigned URLs</span><span class="val">Temp access using creator's credentials; max 7 days</span></div>
+        <div class="row"><span class="key">S3 Select</span><span class="val">SQL query on object content; reduces data transferred</span></div>
+        <div class="row"><span class="key">Versioning</span><span class="val">Enable per bucket; MFA Delete; delete marker on versioned delete</span></div>
+        <div class="row"><span class="key">CORS</span><span class="val">Configure on bucket for cross-origin browser requests</span></div>
+        <div class="row"><span class="key">Encryption</span><span class="val">SSE-S3 (default), SSE-KMS (audit trail), SSE-C (customer key), Client-side</span></div>
+        <div class="note note-blue">S3 → Lambda always async. Lambda may need to retry — ensure idempotent handlers.</div>
+        <div class="tags">
+          <span class="tag tag-red">ElastiCache</span>
+          <span class="tag tag-red">Redis</span>
+          <span class="tag tag-blue">S3</span>
+          <span class="tag tag-green">Caching</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 4: Security Domain -->
+  <div class="grid" style="margin-bottom:12px;">
+
+    <!-- IAM + STS -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--red-soft);">🔐</div>
+        <h2>IAM &amp; STS</h2>
+        <span class="sub">Domain 2 — Security 26%</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Policy Types</div>
+        <div class="row"><span class="key">Identity-based</span><span class="val">Attached to user/role/group; what they can do</span></div>
+        <div class="row"><span class="key">Resource-based</span><span class="val">Attached to resource (S3, Lambda, KMS); who can access</span></div>
+        <div class="row"><span class="key">Permission boundary</span><span class="val">Max permissions an entity can have; does not grant access</span></div>
+        <div class="row"><span class="key">Session policy</span><span class="val">Passed during AssumeRole; further restricts session</span></div>
+        <div class="row"><span class="key">SCPs (Orgs)</span><span class="val">Max permissions for accounts in OU; does not grant</span></div>
+        <div class="section-label">Policy Evaluation Logic</div>
+        <div class="row"><span class="key">1. Explicit DENY</span><span class="val">Always wins — overrides any Allow</span></div>
+        <div class="row"><span class="key">2. Explicit ALLOW</span><span class="val">Required; default is DENY</span></div>
+        <div class="row"><span class="key">3. Default DENY</span><span class="val">If no explicit Allow → DENY</span></div>
+        <div class="row"><span class="key">Cross-account</span><span class="val">Need Allow in both: identity policy + resource policy (or AssumeRole)</span></div>
+        <div class="section-label">STS — Security Token Service</div>
+        <div class="row"><span class="key">AssumeRole</span><span class="val">Get temp creds for IAM role; cross-account access</span></div>
+        <div class="row"><span class="key">AssumeRoleWithWebIdentity</span><span class="val">Federate via OIDC (Google, Cognito); Cognito preferred</span></div>
+        <div class="row"><span class="key">AssumeRoleWithSAML</span><span class="val">Federate via SAML 2.0 (Active Directory)</span></div>
+        <div class="row"><span class="key">GetSessionToken</span><span class="val">MFA-protected API calls; temp creds for IAM user</span></div>
+        <div class="row"><span class="key">Temp cred duration</span><span class="val">15 min – 36 hours (AssumeRole: 15 min – 12 hrs default)</span></div>
+        <div class="section-label">Best Practices</div>
+        <div class="row"><span class="key">EC2/Lambda</span><span class="val">Use IAM roles, NEVER hardcode access keys</span></div>
+        <div class="row"><span class="key">Least privilege</span><span class="val">Grant only what's needed; review with IAM Access Analyzer</span></div>
+        <div class="row"><span class="key">MFA Delete</span><span class="val">Require MFA to delete S3 versions; root account only enables</span></div>
+        <div class="note note-red">Cross-account DynamoDB access: use IAM role + AssumeRole. DynamoDB has no resource-based policies for cross-account.</div>
+        <div class="tags">
+          <span class="tag tag-red">IAM</span>
+          <span class="tag tag-red">STS</span>
+          <span class="tag tag-orange">Roles</span>
+          <span class="tag tag-blue">Policies</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cognito + KMS -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--blue-soft);">🔑</div>
+        <h2>Cognito &amp; KMS</h2>
+        <span class="sub">Auth &amp; Encryption</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Cognito User Pools</div>
+        <div class="row"><span class="key">Purpose</span><span class="val">Authentication — who you are; issues JWT tokens</span></div>
+        <div class="row"><span class="key">Features</span><span class="val">Sign-up/sign-in, MFA, email/phone verify, Hosted UI</span></div>
+        <div class="row"><span class="key">Federation</span><span class="val">Social (Google, Facebook, Apple) + SAML/OIDC providers</span></div>
+        <div class="row"><span class="key">Tokens issued</span><span class="val">ID token (user info), Access token (scopes), Refresh token</span></div>
+        <div class="row"><span class="key">Triggers</span><span class="val">Lambda triggers: Pre-signup, Post-confirmation, Pre-auth, Post-auth, Custom message</span></div>
+        <div class="row"><span class="key">User groups</span><span class="val">Assign IAM roles to group members via Identity Pool</span></div>
+        <div class="section-label">Cognito Identity Pools</div>
+        <div class="row"><span class="key">Purpose</span><span class="val">Authorization — what you can do in AWS; grants temp AWS creds</span></div>
+        <div class="row"><span class="key">Sources</span><span class="val">User Pool, Social IdP, SAML, OpenID, Custom developer</span></div>
+        <div class="row"><span class="key">Unauthenticated</span><span class="val">Allow guest access with minimal IAM role; must be enabled</span></div>
+        <div class="row"><span class="key">Flow</span><span class="val">Authenticate with User Pool → get JWT → exchange for AWS creds via Identity Pool</span></div>
+        <div class="section-label">KMS — Key Management Service</div>
+        <div class="row"><span class="key">AWS Managed CMK</span><span class="val">Free; auto-rotated yearly; managed by AWS for services</span></div>
+        <div class="row"><span class="key">Customer Managed CMK</span><span class="val">$1/month; manual or auto rotation; full control; audit via CloudTrail</span></div>
+        <div class="row"><span class="key">AWS Owned CMK</span><span class="val">Shared across accounts; not visible to customer</span></div>
+        <div class="row"><span class="key">Envelope encryption</span><span class="val">GenerateDataKey → plaintext data key encrypts data → CMK encrypts data key</span></div>
+        <div class="row"><span class="key">Key policies</span><span class="val">Resource-based policy on CMK; root account must have access</span></div>
+        <div class="row"><span class="key">Grants</span><span class="val">Delegate CMK access to AWS services/principals; programmatic</span></div>
+        <div class="row"><span class="key">Key rotation</span><span class="val">Customer managed: manual or auto-rotate every year; AWS managed: auto only</span></div>
+        <div class="row"><span class="key">Asymmetric CMK</span><span class="val">RSA/ECC; public key downloadable; sign/verify; encrypt outside AWS</span></div>
+        <div class="note note-blue">Cognito User Pool = who are you (authenticate). Identity Pool = what AWS can you access (authorize).</div>
+        <div class="tags">
+          <span class="tag tag-blue">Cognito</span>
+          <span class="tag tag-orange">KMS</span>
+          <span class="tag tag-green">Encryption</span>
+          <span class="tag tag-purple">JWT</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Secrets Manager + Parameter Store -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--green-soft);">🛡️</div>
+        <h2>Secrets Manager &amp; SSM</h2>
+        <span class="sub">Secrets &amp; Config</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">AWS Secrets Manager</div>
+        <div class="row"><span class="key">Purpose</span><span class="val">Store, rotate, manage secrets (DB passwords, API keys)</span></div>
+        <div class="row"><span class="key">Auto rotation</span><span class="val">Built-in Lambda rotation for RDS, Redshift, DocumentDB; schedule in days</span></div>
+        <div class="row"><span class="key">Cross-account</span><span class="val">Resource policy on secret + IAM policy in target account</span></div>
+        <div class="row"><span class="key">Encryption</span><span class="val">Always encrypted with KMS (AWS managed or customer CMK)</span></div>
+        <div class="row"><span class="key">Versioning</span><span class="val">AWSCURRENT, AWSPREVIOUS, AWSPENDING labels; smooth rotation</span></div>
+        <div class="row"><span class="key">Cost</span><span class="val">$0.40/secret/month + $0.05/10,000 API calls</span></div>
+        <div class="section-label">SSM Parameter Store</div>
+        <div class="row"><span class="key">Standard tier</span><span class="val">Free; 10,000 params; 4 KB size limit; no auto-rotation</span></div>
+        <div class="row"><span class="key">Advanced tier</span><span class="val">$0.05/param/month; 8 KB; parameter policies (TTL, notification)</span></div>
+        <div class="row"><span class="key">SecureString</span><span class="val">Encrypted with KMS; good for secrets without rotation needs</span></div>
+        <div class="row"><span class="key">String / StringList</span><span class="val">Plaintext; use for config, non-secret values</span></div>
+        <div class="row"><span class="key">Hierarchy</span><span class="val">/myapp/dev/db-password; use GetParametersByPath to fetch tree</span></div>
+        <div class="section-label">When to Use Which</div>
+        <div class="row"><span class="key">Secrets Manager</span><span class="val">Need auto-rotation; RDS integration; willing to pay</span></div>
+        <div class="row"><span class="key">Parameter Store</span><span class="val">Config + secrets; cost-sensitive; manual rotation OK</span></div>
+        <div class="section-label">Lambda Integration</div>
+        <div class="row"><span class="key">Env variables</span><span class="val">Simple config; KMS encrypted at rest; visible in console</span></div>
+        <div class="row"><span class="key">SSM at runtime</span><span class="val">Fetch via SDK on cold start; cache result; more secure</span></div>
+        <div class="row"><span class="key">Lambda extension</span><span class="val">AWS Parameters and Secrets Lambda extension; local cache</span></div>
+        <div class="note note-green">Prefer Secrets Manager when DB password must rotate automatically. Use Parameter Store for app config hierarchy.</div>
+        <div class="tags">
+          <span class="tag tag-green">Secrets-Manager</span>
+          <span class="tag tag-blue">SSM</span>
+          <span class="tag tag-orange">Rotation</span>
+          <span class="tag tag-purple">KMS</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 5: Deployment Domain -->
+  <div class="grid" style="margin-bottom:12px;">
+
+    <!-- CI/CD Pipeline -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--orange-soft);">🔄</div>
+        <h2>CI/CD — CodePipeline Stack</h2>
+        <span class="sub">Domain 3 — Deployment 24%</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">CodeCommit</div>
+        <div class="row"><span class="key">Type</span><span class="val">Managed private Git repositories on AWS</span></div>
+        <div class="row"><span class="key">Auth</span><span class="val">HTTPS (GRC) or SSH; IAM users/roles; no root user SSH</span></div>
+        <div class="row"><span class="key">Triggers</span><span class="val">SNS/Lambda on push; CloudWatch Events for PRs</span></div>
+        <div class="row"><span class="key">Note</span><span class="val">Being retired Aug 2024 — still tested on DVA-C02</span></div>
+        <div class="section-label">CodeBuild</div>
+        <div class="row"><span class="key">Purpose</span><span class="val">Managed build/test service; no servers to manage</span></div>
+        <div class="row"><span class="key">buildspec.yml</span><span class="val">In source root; phases: install → pre_build → build → post_build</span></div>
+        <div class="row"><span class="key">Artifacts</span><span class="val">Uploaded to S3; encrypted with KMS</span></div>
+        <div class="row"><span class="key">Env vars</span><span class="val">Plaintext, SSM Parameter Store, Secrets Manager references</span></div>
+        <div class="row"><span class="key">VPC</span><span class="val">Can run inside VPC to access private resources (RDS, ElastiCache)</span></div>
+        <div class="row"><span class="key">Docker</span><span class="val">Supports Docker; publish images to ECR in build phase</span></div>
+        <div class="section-label">CodeDeploy</div>
+        <div class="row"><span class="key">Targets</span><span class="val">EC2/On-Premises, Lambda, ECS</span></div>
+        <div class="row"><span class="key">appspec.yml</span><span class="val">In source root; defines files + lifecycle event hooks</span></div>
+        <div class="row"><span class="key">EC2 deployment types</span><span class="val">In-place (rolling); Blue/Green (new ASG, switch traffic, requires ELB)</span></div>
+        <div class="row"><span class="key">Lambda deployment</span><span class="val">Traffic shifting; Canary, Linear, AllAtOnce configs</span></div>
+        <div class="row"><span class="key">Canary10Percent5Minutes</span><span class="val">10% traffic → wait 5 min → 90% traffic; auto rollback on errors</span></div>
+        <div class="row"><span class="key">Linear10PercentEvery1Minute</span><span class="val">Shift 10% every 1 min; 10 steps to 100%</span></div>
+        <div class="row"><span class="key">Lifecycle hooks</span><span class="val">BeforeInstall → AfterInstall → ApplicationStart → ValidateService</span></div>
+        <div class="section-label">CodePipeline</div>
+        <div class="row"><span class="key">Purpose</span><span class="val">Orchestrate CI/CD; stages → actions → transitions</span></div>
+        <div class="row"><span class="key">Source</span><span class="val">CodeCommit, S3, GitHub, Bitbucket, ECR</span></div>
+        <div class="row"><span class="key">Build</span><span class="val">CodeBuild, Jenkins</span></div>
+        <div class="row"><span class="key">Deploy</span><span class="val">CodeDeploy, Beanstalk, CloudFormation, ECS, S3</span></div>
+        <div class="row"><span class="key">Manual approval</span><span class="val">Action type = Approval; sends SNS notification; blocks pipeline</span></div>
+        <div class="row"><span class="key">Artifacts</span><span class="val">Stored in S3 between stages; encrypted with KMS</span></div>
+        <div class="note note-orange">CodeDeploy Blue/Green on EC2 requires a load balancer. For Lambda, it uses alias traffic shifting — no load balancer needed.</div>
+        <div class="tags">
+          <span class="tag tag-orange">CodePipeline</span>
+          <span class="tag tag-orange">CodeBuild</span>
+          <span class="tag tag-orange">CodeDeploy</span>
+          <span class="tag tag-blue">CI/CD</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CloudFormation + SAM -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--blue-soft);">📐</div>
+        <h2>CloudFormation &amp; SAM</h2>
+        <span class="sub">Infrastructure as Code</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">CloudFormation Template Sections</div>
+        <div class="row"><span class="key">AWSTemplateFormatVersion</span><span class="val">Optional; "2010-09-09" is only valid value</span></div>
+        <div class="row"><span class="key">Description</span><span class="val">Optional; string describing the template</span></div>
+        <div class="row"><span class="key">Parameters</span><span class="val">Runtime inputs; Ref to use; types: String, Number, AWS-specific</span></div>
+        <div class="row"><span class="key">Mappings</span><span class="val">Static lookup tables; FindInMap function; e.g., AMI per region</span></div>
+        <div class="row"><span class="key">Conditions</span><span class="val">If/Else logic; use in resources/properties; condition functions</span></div>
+        <div class="row"><span class="key">Resources*</span><span class="val">Only required section; defines AWS resources to create</span></div>
+        <div class="row"><span class="key">Outputs</span><span class="val">Export values; cross-stack references with ImportValue</span></div>
+        <div class="section-label">CloudFormation Key Features</div>
+        <div class="row"><span class="key">ChangeSet</span><span class="val">Preview changes before executing stack update; safe review</span></div>
+        <div class="row"><span class="key">Drift detection</span><span class="val">Detect manual changes outside CloudFormation</span></div>
+        <div class="row"><span class="key">DependsOn</span><span class="val">Explicit resource ordering; use when Ref/GetAtt not sufficient</span></div>
+        <div class="row"><span class="key">DeletionPolicy</span><span class="val">Delete (default), Retain, Snapshot; set per resource</span></div>
+        <div class="row"><span class="key">cfn-init</span><span class="val">EC2 helper; reads AWS::CloudFormation::Init metadata</span></div>
+        <div class="row"><span class="key">cfn-signal</span><span class="val">Signal stack with success/failure; used with CreationPolicy</span></div>
+        <div class="row"><span class="key">Nested stacks</span><span class="val">Reuse templates; AWS::CloudFormation::Stack resource type</span></div>
+        <div class="row"><span class="key">Stack DELETE_FAILED</span><span class="val">Usually S3 bucket not empty or DeletionPolicy: Retain</span></div>
+        <div class="section-label">SAM — Serverless Application Model</div>
+        <div class="row"><span class="key">Transform</span><span class="val">Transform: AWS::Serverless-2016-10-31 (required in template)</span></div>
+        <div class="row"><span class="key">Resource types</span><span class="val">AWS::Serverless::Function, ::Api, ::SimpleTable, ::Application, ::HttpApi</span></div>
+        <div class="row"><span class="key">sam build</span><span class="val">Compile/package; resolves dependencies; creates .aws-sam/</span></div>
+        <div class="row"><span class="key">sam deploy</span><span class="val">Package + deploy via CloudFormation; --guided for first run</span></div>
+        <div class="row"><span class="key">sam local</span><span class="val">invoke, start-api, start-lambda; local testing with Docker</span></div>
+        <div class="row"><span class="key">Globals section</span><span class="val">Shared settings across all functions (timeout, memory, env)</span></div>
+        <div class="row"><span class="key">sam sync</span><span class="val">Fast incremental deploys for development; hot-swap capable</span></div>
+        <div class="note note-blue">SAM is a superset of CloudFormation. SAM templates become valid CF templates after transform. Use samconfig.toml for deploy defaults.</div>
+        <div class="tags">
+          <span class="tag tag-blue">CloudFormation</span>
+          <span class="tag tag-blue">SAM</span>
+          <span class="tag tag-green">IaC</span>
+          <span class="tag tag-orange">Serverless</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Elastic Beanstalk -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--green-soft);">🌱</div>
+        <h2>Elastic Beanstalk</h2>
+        <span class="sub">PaaS — Managed Deployment</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Core Concepts</div>
+        <div class="row"><span class="key">Application</span><span class="val">Logical collection of environments and versions</span></div>
+        <div class="row"><span class="key">Environment</span><span class="val">Running app version; Web Server or Worker tier</span></div>
+        <div class="row"><span class="key">App version</span><span class="val">Source bundle (ZIP/WAR) stored in S3</span></div>
+        <div class="row"><span class="key">Platform</span><span class="val">Node.js, Python, Java, PHP, Ruby, Go, .NET, Docker</span></div>
+        <div class="section-label">Environment Tiers</div>
+        <div class="row"><span class="key">Web server tier</span><span class="val">ELB + EC2 + ASG; serves HTTP requests; standard web app</span></div>
+        <div class="row"><span class="key">Worker tier</span><span class="val">SQS + EC2; processes background tasks; no ELB</span></div>
+        <div class="row"><span class="key">cron.yaml</span><span class="val">Schedule periodic tasks in Worker tier; sends to SQS</span></div>
+        <div class="section-label">Deployment Policies</div>
+        <div class="row"><span class="key">All at once</span><span class="val">Fastest; downtime; OK for dev</span></div>
+        <div class="row"><span class="key">Rolling</span><span class="val">Update in batches; reduced capacity during deploy; no downtime</span></div>
+        <div class="row"><span class="key">Rolling with batch</span><span class="val">Launch new instances first; maintain full capacity; no downtime</span></div>
+        <div class="row"><span class="key">Immutable</span><span class="val">New ASG with new instances; swap if healthy; safest; slowest</span></div>
+        <div class="row"><span class="key">Blue/Green</span><span class="val">New environment; swap CNAMEs (URL swap); not built-in Beanstalk concept</span></div>
+        <div class="row"><span class="key">Traffic splitting</span><span class="val">Canary; % to new instances; monitor for errors; auto rollback</span></div>
+        <div class="section-label">Configuration</div>
+        <div class="row"><span class="key">.ebextensions/</span><span class="val">YAML/JSON config files (.config); customize Beanstalk (packages, files, commands, services)</span></div>
+        <div class="row"><span class="key">env.yaml</span><span class="val">Environment manifest; define environment name, platform, tier</span></div>
+        <div class="row"><span class="key">Saved configs</span><span class="val">Reusable environment templates stored in S3</span></div>
+        <div class="row"><span class="key">Custom platform</span><span class="val">Use Packer to create custom AMI-based platform</span></div>
+        <div class="section-label">Monitoring &amp; Lifecycle</div>
+        <div class="row"><span class="key">Health checks</span><span class="val">Basic (HTTP 200) or Enhanced (full app metrics); CloudWatch integration</span></div>
+        <div class="row"><span class="key">Managed updates</span><span class="val">Auto apply platform updates during maintenance window</span></div>
+        <div class="row"><span class="key">App version lifecycle</span><span class="val">Auto delete old versions based on count or age</span></div>
+        <div class="note note-green">Beanstalk Blue/Green = swap environment URLs (CNAME swap). NOT the same as CodeDeploy Blue/Green. Immutable = safest for prod.</div>
+        <div class="tags">
+          <span class="tag tag-green">Beanstalk</span>
+          <span class="tag tag-blue">PaaS</span>
+          <span class="tag tag-orange">Deployment</span>
+          <span class="tag tag-red">Blue/Green</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 6: Troubleshooting & Optimization -->
+  <div class="grid" style="margin-bottom:12px;">
+
+    <!-- X-Ray + CloudWatch -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--purple-soft);">🔭</div>
+        <h2>X-Ray &amp; CloudWatch</h2>
+        <span class="sub">Domain 4 — Observability 18%</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">X-Ray — Distributed Tracing</div>
+        <div class="row"><span class="key">Segments</span><span class="val">Work done by your application; one per service</span></div>
+        <div class="row"><span class="key">Subsegments</span><span class="val">Downstream calls (DB, HTTP, AWS services) within a segment</span></div>
+        <div class="row"><span class="key">Annotations</span><span class="val">Key-value pairs; <b>indexed</b>; searchable in filter expressions; use for filtering</span></div>
+        <div class="row"><span class="key">Metadata</span><span class="val">Key-value pairs; NOT indexed; stored but not searchable; use for debugging</span></div>
+        <div class="row"><span class="key">Service map</span><span class="val">Visual graph of services and connections; shows latency/errors</span></div>
+        <div class="row"><span class="key">X-Ray daemon</span><span class="val">Runs on UDP port 2000; buffers + sends trace data to X-Ray API</span></div>
+        <div class="row"><span class="key">SDK integration</span><span class="val">Lambda: enable active tracing; EC2: install daemon; ECS: sidecar</span></div>
+        <div class="section-label">Sampling</div>
+        <div class="row"><span class="key">Default rule</span><span class="val">1 req/sec + 5% of additional requests</span></div>
+        <div class="row"><span class="key">Custom rules</span><span class="val">Service, URL, method-based rules; fixed rate or reservoir</span></div>
+        <div class="row"><span class="key">Not tracing all?</span><span class="val">Check sampling rules; increase fixed rate; check IAM permissions</span></div>
+        <div class="section-label">CloudWatch — Metrics &amp; Logs</div>
+        <div class="row"><span class="key">Default metrics</span><span class="val">5-minute intervals; EC2: CPU, Network, Disk (NOT memory/disk space)</span></div>
+        <div class="row"><span class="key">Detailed monitoring</span><span class="val">1-minute intervals; enabled per resource; extra cost</span></div>
+        <div class="row"><span class="key">Custom metrics</span><span class="val">PutMetricData API; standard (1 min) or high-res (1 sec); StorageResolution</span></div>
+        <div class="row"><span class="key">Log groups</span><span class="val">Container for log streams; set retention (1 day – 10 years)</span></div>
+        <div class="row"><span class="key">Log streams</span><span class="val">Sequence of events from one source (e.g., one Lambda instance)</span></div>
+        <div class="row"><span class="key">Logs Insights</span><span class="val">Query language; filter, fields, stats, sort, limit; interactive</span></div>
+        <div class="row"><span class="key">Alarms</span><span class="val">States: OK, ALARM, INSUFFICIENT_DATA; actions: SNS, Auto Scaling, EC2</span></div>
+        <div class="row"><span class="key">Composite alarms</span><span class="val">AND/OR logic of multiple alarms; reduce alarm noise</span></div>
+        <div class="row"><span class="key">EventBridge</span><span class="val">Schedule crons; event-driven rules; route events to Lambda/SQS/SNS</span></div>
+        <div class="note note-purple" style="background:var(--purple-soft);border-left:3px solid var(--purple);">Annotations are indexed — use for filter expressions in X-Ray console. Metadata is NOT indexed — use for rich debug data only.</div>
+        <div class="tags">
+          <span class="tag tag-purple">X-Ray</span>
+          <span class="tag tag-blue">CloudWatch</span>
+          <span class="tag tag-green">Tracing</span>
+          <span class="tag tag-orange">Sampling</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lambda + DynamoDB Optimization -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--orange-soft);">⚙️</div>
+        <h2>Performance Optimization</h2>
+        <span class="sub">Lambda + DynamoDB + API GW</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Lambda Performance</div>
+        <div class="row"><span class="key">Cold start</span><span class="val">Init duration: download + unpack + init runtime + init handler</span></div>
+        <div class="row"><span class="key">Reduce cold starts</span><span class="val">Smaller packages, arm64 arch, Provisioned Concurrency, SnapStart (Java)</span></div>
+        <div class="row"><span class="key">Memory ↑ = CPU ↑</span><span class="val">Lambda CPU scales linearly with memory; tune for cost vs speed</span></div>
+        <div class="row"><span class="key">Execution context reuse</span><span class="val">Initialize SDK clients outside handler; DB connections; /tmp files</span></div>
+        <div class="row"><span class="key">Provisioned Concurrency</span><span class="val">Pre-warm N instances; no cold start; billed even when idle</span></div>
+        <div class="row"><span class="key">Response streaming</span><span class="val">Stream response as it's generated; reduces TTFB; max 20 MB</span></div>
+        <div class="row"><span class="key">Lambda Power Tuning</span><span class="val">Step Functions tool to find optimal memory setting</span></div>
+        <div class="section-label">DynamoDB Optimization</div>
+        <div class="row"><span class="key">Hot partitions</span><span class="val">Add random suffix to partition key; write sharding</span></div>
+        <div class="row"><span class="key">Projection expressions</span><span class="val">Return only needed attributes; reduce RCU consumption</span></div>
+        <div class="row"><span class="key">Sparse indexes</span><span class="val">Only items with the GSI attribute are indexed; cost-efficient</span></div>
+        <div class="row"><span class="key">Batch operations</span><span class="val">BatchGetItem / BatchWriteItem; reduce round trips; partial success possible</span></div>
+        <div class="row"><span class="key">DAX</span><span class="val">In-memory cache; microsecond reads; transparent to app; VPC required</span></div>
+        <div class="row"><span class="key">Adaptive capacity</span><span class="val">Auto-balances traffic to hot partitions; not instant</span></div>
+        <div class="section-label">API Gateway Optimization</div>
+        <div class="row"><span class="key">Response caching</span><span class="val">Cache on stage; 0.5 GB–237 GB; TTL 0–3600s; per method config</span></div>
+        <div class="row"><span class="key">Cache invalidation</span><span class="val">Header: Cache-Control: max-age=0; requires InvalidateCache policy</span></div>
+        <div class="row"><span class="key">Edge-optimized</span><span class="val">CloudFront in front; best for geographically distributed clients</span></div>
+        <div class="row"><span class="key">Regional</span><span class="val">Same region as clients; can add own CloudFront; lower latency internally</span></div>
+        <div class="row"><span class="key">Private</span><span class="val">VPC endpoint only; internal microservices; resource policy required</span></div>
+        <div class="section-label">ECS / Container Optimization</div>
+        <div class="row"><span class="key">Fargate</span><span class="val">Serverless containers; right-size CPU/memory; no EC2 management</span></div>
+        <div class="row"><span class="key">ECR</span><span class="val">Private Docker registry; pull through cache for public images</span></div>
+        <div class="row"><span class="key">Task definition</span><span class="val">Blueprint: image, CPU, memory, port, env vars, IAM task role</span></div>
+        <div class="note note-orange">Always initialize SDK clients OUTSIDE the Lambda handler to reuse across warm invocations. Biggest easy win.</div>
+        <div class="tags">
+          <span class="tag tag-orange">Lambda</span>
+          <span class="tag tag-green">DynamoDB</span>
+          <span class="tag tag-blue">Caching</span>
+          <span class="tag tag-purple">Performance</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exam Tips -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--red-soft);">🎯</div>
+        <h2>Exam Tips &amp; Patterns</h2>
+        <span class="sub">Key Decision Rules</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Keyword → Service Mapping</div>
+        <div class="row"><span class="key">"Decouple"</span><span class="val">→ SQS (queue between components)</span></div>
+        <div class="row"><span class="key">"Fan-out"</span><span class="val">→ SNS topic → multiple SQS queues</span></div>
+        <div class="row"><span class="key">"Real-time streaming"</span><span class="val">→ Kinesis Data Streams</span></div>
+        <div class="row"><span class="key">"Ordered messages"</span><span class="val">→ SQS FIFO or Kinesis (same shard)</span></div>
+        <div class="row"><span class="key">"Exactly once"</span><span class="val">→ SQS FIFO with deduplication</span></div>
+        <div class="row"><span class="key">"Cache DB reads"</span><span class="val">→ ElastiCache (Redis for complex) or DAX (DynamoDB only)</span></div>
+        <div class="row"><span class="key">"Secrets rotation"</span><span class="val">→ Secrets Manager (not Parameter Store)</span></div>
+        <div class="row"><span class="key">"Distributed tracing"</span><span class="val">→ X-Ray</span></div>
+        <div class="row"><span class="key">"Canary deployment Lambda"</span><span class="val">→ CodeDeploy with Lambda alias traffic shifting</span></div>
+        <div class="section-label">Common Traps</div>
+        <div class="row"><span class="key">LSI vs GSI timing</span><span class="val">LSI: create time only; GSI: anytime (but eventually consistent)</span></div>
+        <div class="row"><span class="key">Beanstalk Blue/Green</span><span class="val">Not native B/G — done via URL/CNAME swap between environments</span></div>
+        <div class="row"><span class="key">API GW 504 vs 502</span><span class="val">504 = Lambda timeout (&gt;29s); 502 = unhandled exception in Lambda</span></div>
+        <div class="row"><span class="key">SQS → Lambda type</span><span class="val">It's SYNCHRONOUS (Lambda polls) even though SQS is async queue</span></div>
+        <div class="row"><span class="key">S3 → Lambda type</span><span class="val">ASYNCHRONOUS invocation; S3 fires event, Lambda processes</span></div>
+        <div class="row"><span class="key">DynamoDB cross-account</span><span class="val">Use IAM role + AssumeRole; NOT DynamoDB resource policy</span></div>
+        <div class="row"><span class="key">CodeDeploy appspec hooks</span><span class="val">BeforeInstall → AfterInstall → ApplicationStart → ValidateService</span></div>
+        <div class="row"><span class="key">CloudFormation DELETE_FAILED</span><span class="val">S3 bucket not empty or DeletionPolicy: Retain set on resource</span></div>
+        <div class="section-label">Tuning Decisions</div>
+        <div class="row"><span class="key">High Lambda cost</span><span class="val">Reduce memory + optimize code; check reserved concurrency bottlenecks</span></div>
+        <div class="row"><span class="key">DynamoDB 400 errors</span><span class="val">ProvisionedThroughputExceededException → add capacity or use exponential backoff</span></div>
+        <div class="row"><span class="key">Lambda throttling</span><span class="val">429 error → increase reserved concurrency or account limit</span></div>
+        <div class="row"><span class="key">X-Ray missing traces</span><span class="val">Check sampling rules; verify daemon running; check IAM write permissions</span></div>
+        <div class="note note-red">Read the question carefully — "most cost-effective" and "most secure" often have different answers. Eliminate clearly wrong options first.</div>
+        <div class="tags">
+          <span class="tag tag-red">Exam Tips</span>
+          <span class="tag tag-orange">Patterns</span>
+          <span class="tag tag-blue">Traps</span>
+          <span class="tag tag-green">Keywords</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 7: Additional Services -->
+  <div class="grid grid-2" style="margin-bottom:12px;">
+
+    <!-- ECS + ECR + Containers -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--blue-soft);">🐳</div>
+        <h2>ECS, ECR &amp; Containers</h2>
+        <span class="sub">Container Deployment</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">ECS Core Concepts</div>
+        <div class="row"><span class="key">Cluster</span><span class="val">Logical grouping of tasks/services; EC2 or Fargate launch type</span></div>
+        <div class="row"><span class="key">Task definition</span><span class="val">Blueprint: Docker image, CPU, memory, networking, IAM role, env vars, volumes</span></div>
+        <div class="row"><span class="key">Task</span><span class="val">Running instance of a task definition; one-time or part of service</span></div>
+        <div class="row"><span class="key">Service</span><span class="val">Maintains N running tasks; integrates with ELB; rolling/blue-green deploy</span></div>
+        <div class="row"><span class="key">EC2 launch type</span><span class="val">You manage EC2 instances; ECS Agent on each instance; more control</span></div>
+        <div class="row"><span class="key">Fargate launch type</span><span class="val">Serverless; AWS manages infra; pay per task CPU/memory second</span></div>
+        <div class="section-label">ECS IAM Roles</div>
+        <div class="row"><span class="key">Task role</span><span class="val">IAM role the task/container assumes; for calling AWS services</span></div>
+        <div class="row"><span class="key">Task execution role</span><span class="val">ECS agent uses this; pull ECR images, write CloudWatch logs, get secrets</span></div>
+        <div class="row"><span class="key">Instance profile</span><span class="val">EC2 launch type only; for ECS agent itself</span></div>
+        <div class="section-label">ECR — Elastic Container Registry</div>
+        <div class="row"><span class="key">Private registry</span><span class="val">Per-account per-region; lifecycle policies; image scanning</span></div>
+        <div class="row"><span class="key">Public registry</span><span class="val">gallery.ecr.aws; public images; pull through cache</span></div>
+        <div class="row"><span class="key">Cross-region</span><span class="val">Replicate images; ECR replication rules; or push to multiple regions</span></div>
+        <div class="row"><span class="key">Image scanning</span><span class="val">Basic (on push) or Enhanced (continuous via Inspector); CVE detection</span></div>
+        <div class="section-label">ECS Networking Modes</div>
+        <div class="row"><span class="key">awsvpc</span><span class="val">Each task gets own ENI + private IP; required for Fargate; security groups per task</span></div>
+        <div class="row"><span class="key">bridge</span><span class="val">Docker virtual network; static or dynamic host port mapping; EC2 only</span></div>
+        <div class="row"><span class="key">host</span><span class="val">Container uses host network directly; EC2 only; no port mapping</span></div>
+        <div class="section-label">ECS Service Deployment</div>
+        <div class="row"><span class="key">Rolling update</span><span class="val">Min healthy % and max % controls; gradual replacement</span></div>
+        <div class="row"><span class="key">Blue/Green (CodeDeploy)</span><span class="val">New task set; traffic shifting via ALB; requires CodeDeploy</span></div>
+        <div class="note note-blue">Fargate: always use awsvpc networking mode. Task role = container permissions. Execution role = infrastructure permissions (pull image, write logs).</div>
+        <div class="tags">
+          <span class="tag tag-blue">ECS</span>
+          <span class="tag tag-blue">Fargate</span>
+          <span class="tag tag-blue">ECR</span>
+          <span class="tag tag-orange">Containers</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step Functions + EventBridge + AppSync -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--green-soft);">🔀</div>
+        <h2>Step Functions, EventBridge &amp; More</h2>
+        <span class="sub">Orchestration &amp; Integration</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Step Functions</div>
+        <div class="row"><span class="key">Purpose</span><span class="val">Visual workflow orchestration; serverless state machine; ASL (Amazon States Language)</span></div>
+        <div class="row"><span class="key">Standard workflow</span><span class="val">Exactly-once; up to 1 year; async; auditable history</span></div>
+        <div class="row"><span class="key">Express workflow</span><span class="val">At-least-once; up to 5 min; high volume; sync or async</span></div>
+        <div class="row"><span class="key">State types</span><span class="val">Task, Choice, Wait, Parallel, Map, Pass, Succeed, Fail</span></div>
+        <div class="row"><span class="key">Error handling</span><span class="val">Retry (exponential backoff) + Catch; per state configuration</span></div>
+        <div class="row"><span class="key">Activity workers</span><span class="val">External workers poll for tasks; decouple long-running work</span></div>
+        <div class="section-label">Amazon EventBridge</div>
+        <div class="row"><span class="key">Default event bus</span><span class="val">AWS service events; all accounts have one</span></div>
+        <div class="row"><span class="key">Custom event bus</span><span class="val">Your app events; cross-account event sharing</span></div>
+        <div class="row"><span class="key">Partner event bus</span><span class="val">3rd party SaaS (Zendesk, Datadog, GitHub, etc.)</span></div>
+        <div class="row"><span class="key">Rules</span><span class="val">Match events with pattern or schedule; route to targets</span></div>
+        <div class="row"><span class="key">Schema registry</span><span class="val">Discover and store event schemas; generate code bindings</span></div>
+        <div class="row"><span class="key">Pipes</span><span class="val">Point-to-point integrations; filter + enrich + route; simplified</span></div>
+        <div class="section-label">AppSync</div>
+        <div class="row"><span class="key">Purpose</span><span class="val">Managed GraphQL API; real-time subscriptions; offline sync</span></div>
+        <div class="row"><span class="key">Data sources</span><span class="val">DynamoDB, Lambda, RDS, Elasticsearch, HTTP endpoints</span></div>
+        <div class="row"><span class="key">Resolvers</span><span class="val">Map GraphQL operations to data sources; VTL or JS resolvers</span></div>
+        <div class="section-label">Amplify</div>
+        <div class="row"><span class="key">Purpose</span><span class="val">Full-stack web/mobile framework; wraps AWS services</span></div>
+        <div class="row"><span class="key">Amplify Studio</span><span class="val">Visual development; Figma integration; component generation</span></div>
+        <div class="row"><span class="key">Hosting</span><span class="val">CI/CD + CloudFront hosting; branch previews; custom domains</span></div>
+        <div class="section-label">SWF vs Step Functions</div>
+        <div class="row"><span class="key">Step Functions</span><span class="val">Preferred for new workloads; visual; serverless; JSON state machine</span></div>
+        <div class="row"><span class="key">SWF</span><span class="val">Legacy; use only if need external signals or child workflows with activities</span></div>
+        <div class="note note-green">Step Functions Standard = long-running auditable; Express = high-throughput short workflows. Express does NOT guarantee exactly-once.</div>
+        <div class="tags">
+          <span class="tag tag-green">Step-Functions</span>
+          <span class="tag tag-blue">EventBridge</span>
+          <span class="tag tag-orange">AppSync</span>
+          <span class="tag tag-purple">Orchestration</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 8: Full-width Exam Cheat Summary -->
+  <div class="grid" style="margin-bottom:0;">
+    <div class="card span-3">
+      <div class="card-header">
+        <div class="icon" style="background:var(--navy2);color:var(--orange);">★</div>
+        <h2>Final Exam Cheat Summary — Read Before Test</h2>
+        <span class="sub">Top 20 Must-Know Facts</span>
+      </div>
+      <div class="card-body" style="display:grid;grid-template-columns:repeat(3,1fr);gap:0 16px;">
+        <div>
+          <div class="section-label">Service Limits (Memorize)</div>
+          <div class="row"><span class="key">Lambda max timeout</span><span class="val">15 minutes</span></div>
+          <div class="row"><span class="key">API GW integration timeout</span><span class="val">29 seconds (hard limit)</span></div>
+          <div class="row"><span class="key">SQS FIFO max TPS</span><span class="val">300/s or 3,000/s with batching</span></div>
+          <div class="row"><span class="key">DynamoDB max item size</span><span class="val">400 KB</span></div>
+          <div class="row"><span class="key">Kinesis shard write</span><span class="val">1 MB/s or 1,000 records/s</span></div>
+          <div class="row"><span class="key">SNS + SQS message max</span><span class="val">256 KB each</span></div>
+          <div class="row"><span class="key">Lambda concurrent default</span><span class="val">1,000 (soft limit per region)</span></div>
+          <div class="row"><span class="key">SQS visibility timeout max</span><span class="val">12 hours</span></div>
+          <div class="section-label">Architecture Patterns</div>
+          <div class="row"><span class="key">Async + decouple</span><span class="val">SQS between services; prevents cascade failures</span></div>
+          <div class="row"><span class="key">Fan-out</span><span class="val">SNS → multiple SQS; all get copy; parallel processing</span></div>
+          <div class="row"><span class="key">Reliable fan-out</span><span class="val">SNS FIFO → SQS FIFO; ordered + durable</span></div>
+        </div>
+        <div>
+          <div class="section-label">Security Quick Rules</div>
+          <div class="row"><span class="key">Explicit DENY</span><span class="val">Always wins over any Allow in any policy</span></div>
+          <div class="row"><span class="key">Cognito User Pool</span><span class="val">= Authentication (who you are, JWT tokens)</span></div>
+          <div class="row"><span class="key">Cognito Identity Pool</span><span class="val">= Authorization (AWS credentials, what you can do)</span></div>
+          <div class="row"><span class="key">Envelope encryption</span><span class="val">Data key encrypts data; CMK encrypts data key</span></div>
+          <div class="row"><span class="key">Auto-rotate secrets</span><span class="val">Use Secrets Manager (not Parameter Store)</span></div>
+          <div class="row"><span class="key">EC2/Lambda auth</span><span class="val">Always use IAM roles, never hardcode keys</span></div>
+          <div class="section-label">Deployment Quick Rules</div>
+          <div class="row"><span class="key">Safest EC2 deploy</span><span class="val">Immutable (new ASG) or Blue/Green</span></div>
+          <div class="row"><span class="key">Beanstalk B/G</span><span class="val">URL swap (CNAME), not built-in feature</span></div>
+          <div class="row"><span class="key">Lambda canary deploy</span><span class="val">CodeDeploy + alias traffic shifting</span></div>
+          <div class="row"><span class="key">SAM transform header</span><span class="val">Transform: AWS::Serverless-2016-10-31</span></div>
+        </div>
+        <div>
+          <div class="section-label">Troubleshooting Quick Rules</div>
+          <div class="row"><span class="key">API GW 502</span><span class="val">Lambda unhandled exception (bad response format)</span></div>
+          <div class="row"><span class="key">API GW 504</span><span class="val">Lambda exceeded 29s integration timeout</span></div>
+          <div class="row"><span class="key">CF DELETE_FAILED</span><span class="val">S3 bucket not empty OR DeletionPolicy: Retain</span></div>
+          <div class="row"><span class="key">DynamoDB hot partition</span><span class="val">Add random suffix/prefix to partition key</span></div>
+          <div class="row"><span class="key">X-Ray annotations</span><span class="val">Indexed — use for filter expressions</span></div>
+          <div class="row"><span class="key">X-Ray metadata</span><span class="val">NOT indexed — for debug data only</span></div>
+          <div class="section-label">Must-Know Combos</div>
+          <div class="row"><span class="key">LSI</span><span class="val">Created at table creation; same partition key</span></div>
+          <div class="row"><span class="key">GSI</span><span class="val">Added anytime; any keys; eventual consistency only</span></div>
+          <div class="row"><span class="key">SQS → Lambda</span><span class="val">Sync invocation; Lambda polls; on failure → DLQ</span></div>
+          <div class="row"><span class="key">S3 → Lambda</span><span class="val">Async invocation; auto retries 2x; DLQ for failures</span></div>
+          <div class="note note-orange" style="margin-top:8px;">Good luck! Focus on Lambda, DynamoDB, SQS/SNS, IAM, and CI/CD — they cover ~70% of questions.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

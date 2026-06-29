@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>CISSP Cheat Sheet — All 8 CBK Domains</title>
+<meta name="description" content="Comprehensive CISSP (ISC2) cheat sheet covering all 8 CBK domains: risk management, cryptography, IAM, network security, and more."/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:#F5F6F7; --surface:#FFFFFF; --border:#E2E4E8;
+    --navy:#0F1C2E; --navy2:#1A2E45;
+    --red:#B91C1C; --red-soft:#FEF2F2;
+    --orange:#EA580C; --orange-soft:#FFF7ED;
+    --blue:#1A6FB5; --blue-soft:#EBF4FF;
+    --green:#1B7A4A; --green-soft:#E8F7EF;
+    --purple:#6B21A8; --purple-soft:#F5F0FF;
+    --text:#1C2333; --text2:#4A5568; --text3:#718096;
+    --mono:'Consolas','Courier New',monospace;
+    --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+  }
+  body { font-family:var(--sans); font-size:11px; background:var(--bg); color:var(--text); line-height:1.5; }
+  .page { max-width:1280px; margin:0 auto; padding:20px 16px; }
+  .header { background:var(--navy); border-radius:10px; padding:20px 24px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+  .header-left h1 { font-size:22px; font-weight:800; color:#fff; }
+  .header-left h1 span { color:#F87171; }
+  .header-left p { font-size:11px; color:#94A3B8; margin-top:3px; }
+  .header-badges { display:flex; gap:8px; flex-wrap:wrap; }
+  .badge { font-size:10px; font-weight:700; padding:4px 10px; border-radius:20px; letter-spacing:.5px; text-transform:uppercase; }
+  .badge-red { background:#EF4444; color:#fff; }
+  .badge-orange { background:#F97316; color:#fff; }
+  .badge-purple { background:#A855F7; color:#fff; }
+  .badge-blue { background:#3B82F6; color:#fff; }
+  .badge-green { background:#22C55E; color:#fff; }
+  .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:12px; }
+  .grid-2 { grid-template-columns:repeat(2,1fr); }
+  .grid-4 { grid-template-columns:repeat(4,1fr); }
+  .grid-1 { grid-template-columns:1fr; }
+  .card { background:var(--surface); border-radius:8px; border:1px solid var(--border); overflow:hidden; }
+  .card-header { padding:8px 12px; display:flex; align-items:center; gap:8px; border-bottom:1px solid var(--border); }
+  .card-header .icon { width:24px; height:24px; border-radius:5px; display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; }
+  .card-header h2 { font-size:11.5px; font-weight:800; color:var(--navy); }
+  .card-header .sub { font-size:9px; color:var(--text3); margin-left:auto; white-space:nowrap; }
+  .card-body { padding:10px 12px; }
+  .section-label { font-size:8.5px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--text3); margin-bottom:5px; margin-top:9px; }
+  .section-label:first-child { margin-top:0; }
+  .row { display:flex; justify-content:space-between; align-items:baseline; padding:2px 0; border-bottom:1px solid #F1F3F5; gap:8px; }
+  .row:last-child { border-bottom:none; }
+  .row .key { font-family:var(--mono); font-size:10px; font-weight:600; color:var(--navy); white-space:nowrap; flex-shrink:0; }
+  .row .val { font-size:10px; color:var(--text2); text-align:right; }
+  .tags { display:flex; flex-wrap:wrap; gap:4px; margin-top:2px; }
+  .tag { font-size:9.5px; padding:2px 7px; border-radius:4px; font-weight:600; font-family:var(--mono); }
+  .tag-red { background:var(--red-soft); color:#991B1B; }
+  .tag-orange { background:var(--orange-soft); color:#9A3412; }
+  .tag-blue { background:var(--blue-soft); color:#1E40AF; }
+  .tag-purple { background:var(--purple-soft); color:#6B21A8; }
+  .tag-green { background:var(--green-soft); color:#166534; }
+  .tag-navy { background:#E8EDF3; color:var(--navy); }
+  .tip-bar { background:var(--navy2); border-radius:8px; padding:10px 16px; margin-bottom:16px; display:flex; gap:24px; flex-wrap:wrap; }
+  .tip-label { font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:#F87171; }
+  .tip { font-size:10.5px; color:#CBD5E1; }
+  .tip b { color:#fff; }
+  .note { font-size:10px; color:var(--text2); padding:6px 8px; border-radius:4px; margin-top:4px; }
+  .note-red { background:var(--red-soft); border-left:3px solid var(--red); }
+  .note-orange { background:var(--orange-soft); border-left:3px solid var(--orange); }
+  .note-blue { background:var(--blue-soft); border-left:3px solid var(--blue); }
+  .note-green { background:var(--green-soft); border-left:3px solid var(--green); }
+  .note-purple { background:var(--purple-soft); border-left:3px solid var(--purple); }
+  .cmd { font-family:var(--mono); font-size:10px; background:#F1F3F5; padding:3px 7px; border-radius:4px; color:var(--navy); display:block; margin:2px 0; }
+  .domain-strip { display:grid; grid-template-columns:repeat(8,1fr); gap:4px; margin-bottom:16px; }
+  .domain-pill { background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:6px 8px; text-align:center; }
+  .domain-pill .d-num { font-size:8px; font-weight:800; color:var(--text3); text-transform:uppercase; letter-spacing:.5px; }
+  .domain-pill .d-pct { font-size:16px; font-weight:900; color:var(--navy); font-variant-numeric:tabular-nums; line-height:1.1; }
+  .domain-pill .d-name { font-size:8px; color:var(--text2); line-height:1.3; margin-top:2px; }
+  .formula-box { background:#F8F9FC; border:1px solid var(--border); border-radius:6px; padding:8px 10px; margin-top:5px; }
+  .formula { font-family:var(--mono); font-size:10.5px; font-weight:700; color:var(--navy); }
+  .formula-sub { font-size:9.5px; color:var(--text2); margin-top:3px; }
+  .two-col { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  .three-col { display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px; }
+  .mini-card { background:#F8F9FC; border-radius:5px; padding:6px 8px; border:1px solid var(--border); }
+  .mini-card .mc-title { font-size:9px; font-weight:800; color:var(--navy); margin-bottom:3px; text-transform:uppercase; letter-spacing:.5px; }
+  .mini-card .mc-body { font-size:9.5px; color:var(--text2); }
+  .osi-table { width:100%; border-collapse:collapse; font-size:9.5px; margin-top:4px; }
+  .osi-table th { background:#F1F3F5; font-size:8.5px; font-weight:800; text-transform:uppercase; letter-spacing:.5px; color:var(--text3); padding:4px 6px; text-align:left; border-bottom:1px solid var(--border); }
+  .osi-table td { padding:3px 6px; border-bottom:1px solid #F5F6F7; vertical-align:top; }
+  .osi-table tr:last-child td { border-bottom:none; }
+  .osi-table .l-num { font-family:var(--mono); font-weight:700; color:var(--navy); }
+  @media print { body{background:#fff} .page{padding:0} }
+  @media (max-width:900px) { .grid { grid-template-columns:repeat(2,1fr); } .grid-4 { grid-template-columns:repeat(2,1fr); } .domain-strip { grid-template-columns:repeat(4,1fr); } }
+  @media (max-width:600px) { .grid,.grid-2,.grid-4 { grid-template-columns:1fr; } .domain-strip { grid-template-columns:repeat(2,1fr); } }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <h1>CISSP <span>Cheat Sheet</span></h1>
+      <p>ISC2 Certified Information Systems Security Professional — All 8 CBK Domains</p>
+    </div>
+    <div class="header-badges">
+      <span class="badge badge-red">CAT Exam</span>
+      <span class="badge badge-orange">125–175 Questions</span>
+      <span class="badge badge-purple">700/1000 to Pass</span>
+      <span class="badge badge-blue">$749 Fee</span>
+      <span class="badge badge-green">5-Year Cycle</span>
+    </div>
+  </div>
+
+  <!-- MINDSET TIP BAR -->
+  <div class="tip-bar">
+    <div>
+      <div class="tip-label">CISSP Mindset</div>
+      <div class="tip"><b>Think like a manager,</b> not a technician. Choose governance and risk management answers over technical fixes.</div>
+    </div>
+    <div>
+      <div class="tip-label">Exam Strategy</div>
+      <div class="tip"><b>Address risk first.</b> When two answers seem right, pick the one that handles risk at the highest level first.</div>
+    </div>
+    <div>
+      <div class="tip-label">Understand the "Why"</div>
+      <div class="tip"><b>Know concepts, not just facts.</b> CISSP tests reasoning and application — memorizing definitions alone will not pass.</div>
+    </div>
+    <div>
+      <div class="tip-label">Experience Req.</div>
+      <div class="tip"><b>5 years paid experience</b> in 2+ domains (or 4 yrs + degree). Endorsed by ISC2 member within 9 months of passing.</div>
+    </div>
+  </div>
+
+  <!-- DOMAIN WEIGHTS STRIP -->
+  <div class="domain-strip">
+    <div class="domain-pill">
+      <div class="d-num">Domain 1</div>
+      <div class="d-pct">15%</div>
+      <div class="d-name">Security &amp; Risk Mgmt</div>
+    </div>
+    <div class="domain-pill">
+      <div class="d-num">Domain 2</div>
+      <div class="d-pct">10%</div>
+      <div class="d-name">Asset Security</div>
+    </div>
+    <div class="domain-pill">
+      <div class="d-num">Domain 3</div>
+      <div class="d-pct">13%</div>
+      <div class="d-name">Security Architecture</div>
+    </div>
+    <div class="domain-pill">
+      <div class="d-num">Domain 4</div>
+      <div class="d-pct">13%</div>
+      <div class="d-name">Network Security</div>
+    </div>
+    <div class="domain-pill">
+      <div class="d-num">Domain 5</div>
+      <div class="d-pct">13%</div>
+      <div class="d-name">IAM</div>
+    </div>
+    <div class="domain-pill">
+      <div class="d-num">Domain 6</div>
+      <div class="d-pct">12%</div>
+      <div class="d-name">Assessment &amp; Testing</div>
+    </div>
+    <div class="domain-pill">
+      <div class="d-num">Domain 7</div>
+      <div class="d-pct">13%</div>
+      <div class="d-name">Security Operations</div>
+    </div>
+    <div class="domain-pill">
+      <div class="d-num">Domain 8</div>
+      <div class="d-pct">11%</div>
+      <div class="d-name">Software Dev Security</div>
+    </div>
+  </div>
+
+  <!-- ROW 1: Domain 1 + Domain 2 + Exam Info -->
+  <div class="grid">
+
+    <!-- DOMAIN 1: Security & Risk Management -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#FEE2E2;">🛡️</div>
+        <h2>D1 · Security &amp; Risk Management</h2>
+        <span class="sub">15%</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Risk Formulas (Quantitative)</div>
+        <div class="formula-box">
+          <div class="formula">ALE = SLE × ARO</div>
+          <div class="formula-sub">Annual Loss Expectancy = Single Loss Expectancy × Annual Rate of Occurrence</div>
+        </div>
+        <div class="formula-box" style="margin-top:4px;">
+          <div class="formula">SLE = AV × EF</div>
+          <div class="formula-sub">Single Loss Expectancy = Asset Value × Exposure Factor</div>
+        </div>
+        <div class="formula-box" style="margin-top:4px;">
+          <div class="formula">Safeguard Value = ALE(before) − ALE(after) − Cost</div>
+          <div class="formula-sub">Positive value = safeguard is cost-effective</div>
+        </div>
+
+        <div class="section-label">Risk Responses</div>
+        <div class="row"><span class="key">Accept</span><span class="val">Acknowledge &amp; tolerate; document residual risk</span></div>
+        <div class="row"><span class="key">Transfer</span><span class="val">Shift to third party (insurance, contracts)</span></div>
+        <div class="row"><span class="key">Avoid</span><span class="val">Eliminate the activity causing the risk</span></div>
+        <div class="row"><span class="key">Mitigate</span><span class="val">Reduce likelihood or impact with controls</span></div>
+
+        <div class="section-label">Risk Assessment Methods</div>
+        <div class="row"><span class="key">Quantitative</span><span class="val">Numeric values (ALE, SLE, ARO)</span></div>
+        <div class="row"><span class="key">Qualitative</span><span class="val">Risk matrix: likelihood × impact ratings</span></div>
+        <div class="row"><span class="key">Semi-quant</span><span class="val">Ordinal scales (High/Med/Low + numeric)</span></div>
+
+        <div class="section-label">Policy Hierarchy</div>
+        <div class="row"><span class="key">Policy</span><span class="val">High-level management directive; mandatory</span></div>
+        <div class="row"><span class="key">Standard</span><span class="val">Specific mandatory requirements supporting policy</span></div>
+        <div class="row"><span class="key">Guideline</span><span class="val">Recommended, non-mandatory best practices</span></div>
+        <div class="row"><span class="key">Procedure</span><span class="val">Step-by-step instructions to achieve policy</span></div>
+
+        <div class="section-label">Key Concepts</div>
+        <div class="row"><span class="key">Due Care</span><span class="val">Doing the right thing; prudent action taken</span></div>
+        <div class="row"><span class="key">Due Diligence</span><span class="val">Researching &amp; maintaining due care continuously</span></div>
+        <div class="row"><span class="key">Threat</span><span class="val">Potential cause of an unwanted incident</span></div>
+        <div class="row"><span class="key">Vulnerability</span><span class="val">Weakness that can be exploited by a threat</span></div>
+
+        <div class="section-label">Regulations &amp; Frameworks</div>
+        <div class="tags">
+          <span class="tag tag-red">GDPR</span>
+          <span class="tag tag-red">HIPAA</span>
+          <span class="tag tag-orange">PCI-DSS</span>
+          <span class="tag tag-orange">SOX</span>
+          <span class="tag tag-blue">FISMA</span>
+          <span class="tag tag-blue">FERPA</span>
+          <span class="tag tag-purple">ISO 27001</span>
+          <span class="tag tag-navy">NIST CSF</span>
+        </div>
+
+        <div class="section-label">ISC2 Code of Ethics (Priority Order)</div>
+        <div class="row"><span class="key">1st</span><span class="val">Protect society, the common good, public trust</span></div>
+        <div class="row"><span class="key">2nd</span><span class="val">Act honorably, honestly, justly, responsibly</span></div>
+        <div class="row"><span class="key">3rd</span><span class="val">Provide diligent &amp; competent service</span></div>
+        <div class="row"><span class="key">4th</span><span class="val">Advance and protect the profession</span></div>
+        <div class="note note-orange">Ethics priority order IS tested. Society always comes before individual clients or employer.</div>
+      </div>
+    </div>
+
+    <!-- DOMAIN 2: Asset Security -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#E8F7EF;">🗂️</div>
+        <h2>D2 · Asset Security</h2>
+        <span class="sub">10%</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Commercial Data Classification</div>
+        <div class="row"><span class="key">Public</span><span class="val">No harm if disclosed; marketing materials</span></div>
+        <div class="row"><span class="key">Private</span><span class="val">Internal use; no specific sensitivity</span></div>
+        <div class="row"><span class="key">Confidential</span><span class="val">Sensitive; limited need-to-know</span></div>
+        <div class="row"><span class="key">Top Secret</span><span class="val">Critical IP; severe damage if exposed</span></div>
+
+        <div class="section-label">Government Classification</div>
+        <div class="row"><span class="key">Unclassified</span><span class="val">No harm to national security</span></div>
+        <div class="row"><span class="key">CUI</span><span class="val">Controlled Unclassified Information</span></div>
+        <div class="row"><span class="key">Confidential</span><span class="val">Could damage national security</span></div>
+        <div class="row"><span class="key">Secret</span><span class="val">Could seriously damage national security</span></div>
+        <div class="row"><span class="key">Top Secret</span><span class="val">Grave damage to national security</span></div>
+
+        <div class="section-label">Data Ownership Roles</div>
+        <div class="row"><span class="key">Owner</span><span class="val">Senior mgmt; accountable; sets classification</span></div>
+        <div class="row"><span class="key">Custodian</span><span class="val">IT/admin; day-to-day protection &amp; backups</span></div>
+        <div class="row"><span class="key">User</span><span class="val">Accesses data per approved authorization</span></div>
+        <div class="row"><span class="key">Controller</span><span class="val">GDPR: determines purpose &amp; means of processing</span></div>
+        <div class="row"><span class="key">Processor</span><span class="val">GDPR: processes data on behalf of controller</span></div>
+
+        <div class="section-label">Data States</div>
+        <div class="row"><span class="key">At Rest</span><span class="val">Stored data — encrypt with AES-256, BitLocker</span></div>
+        <div class="row"><span class="key">In Transit</span><span class="val">Moving data — TLS 1.3, IPSec, SFTP</span></div>
+        <div class="row"><span class="key">In Use</span><span class="val">Being processed — memory encryption, TEE</span></div>
+
+        <div class="section-label">Data Destruction Methods</div>
+        <div class="row"><span class="key">Clearing</span><span class="val">Overwrite; same classification reuse only</span></div>
+        <div class="row"><span class="key">Purging</span><span class="val">Degaussing; suitable for lower classification</span></div>
+        <div class="row"><span class="key">Destruction</span><span class="val">Shredding, incineration; no recovery possible</span></div>
+
+        <div class="section-label">Privacy Principles</div>
+        <div class="row"><span class="key">Data Minimization</span><span class="val">Collect only what's necessary for purpose</span></div>
+        <div class="row"><span class="key">Purpose Limitation</span><span class="val">Use data only for stated original purpose</span></div>
+        <div class="row"><span class="key">Retention</span><span class="val">Keep only as long as legally/operationally needed</span></div>
+        <div class="row"><span class="key">Right to Erasure</span><span class="val">GDPR Art. 17 — right to be forgotten</span></div>
+        <div class="note note-blue">Owner sets classification; Custodian implements controls. This distinction is frequently tested.</div>
+      </div>
+    </div>
+
+    <!-- EXAM INFO + SECURITY MODELS -->
+    <div style="display:flex; flex-direction:column; gap:12px;">
+      <div class="card">
+        <div class="card-header">
+          <div class="icon" style="background:#EBF4FF;">📋</div>
+          <h2>Exam &amp; Certification Facts</h2>
+        </div>
+        <div class="card-body">
+          <div class="section-label">Exam Format (CAT)</div>
+          <div class="row"><span class="key">Format</span><span class="val">Computerized Adaptive Testing (CAT)</span></div>
+          <div class="row"><span class="key">Questions</span><span class="val">125–175 (first 125 scored; up to 50 pretest)</span></div>
+          <div class="row"><span class="key">Duration</span><span class="val">4 hours maximum</span></div>
+          <div class="row"><span class="key">Passing</span><span class="val">700 out of 1000 points</span></div>
+          <div class="row"><span class="key">Cost</span><span class="val">$749 USD</span></div>
+          <div class="row"><span class="key">Language</span><span class="val">English (linear 6-hr exam in other languages)</span></div>
+
+          <div class="section-label">Requirements</div>
+          <div class="row"><span class="key">Experience</span><span class="val">5 years in 2+ of 8 domains (paid work)</span></div>
+          <div class="row"><span class="key">Degree Waiver</span><span class="val">4 years with bachelor's/master's degree</span></div>
+          <div class="row"><span class="key">Endorsement</span><span class="val">ISC2 member endorses within 9 months</span></div>
+          <div class="row"><span class="key">CPE Credits</span><span class="val">120 CPEs over 3-year maintenance cycle</span></div>
+          <div class="row"><span class="key">Renewal</span><span class="val">Every 3 years (5-year certification period)</span></div>
+          <div class="note note-blue">If no endorser available, ISC2 can endorse. Associate of ISC2 status for those without experience.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="icon" style="background:#F5F0FF;">🔒</div>
+          <h2>CIA Triad &amp; Security Concepts</h2>
+        </div>
+        <div class="card-body">
+          <div class="three-col" style="gap:6px;">
+            <div class="mini-card">
+              <div class="mc-title" style="color:#B91C1C;">Confidentiality</div>
+              <div class="mc-body">Only authorized parties access data. Controls: encryption, access controls, classification.</div>
+            </div>
+            <div class="mini-card">
+              <div class="mc-title" style="color:#1B7A4A;">Integrity</div>
+              <div class="mc-body">Data accuracy &amp; completeness. Controls: hashing, digital signatures, version control.</div>
+            </div>
+            <div class="mini-card">
+              <div class="mc-title" style="color:#1A6FB5;">Availability</div>
+              <div class="mc-body">Systems accessible when needed. Controls: redundancy, RAID, backups, DDoS protection.</div>
+            </div>
+          </div>
+          <div class="section-label" style="margin-top:8px;">Additional Properties</div>
+          <div class="row"><span class="key">Authenticity</span><span class="val">Data source is genuine and verified</span></div>
+          <div class="row"><span class="key">Non-repudiation</span><span class="val">Cannot deny performing an action (digital signatures)</span></div>
+          <div class="row"><span class="key">Accountability</span><span class="val">Actions traceable to individuals (audit logs)</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end row 1 -->
+
+  <!-- ROW 2: Domain 3 Security Architecture (wide) -->
+  <div class="grid">
+
+    <!-- Security Models -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#F5F0FF;">🏛️</div>
+        <h2>D3 · Security Models</h2>
+        <span class="sub">Architecture &amp; Engineering — 13%</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Formal Security Models</div>
+        <div class="row"><span class="key">Bell-LaPadula</span><span class="val">Confidentiality: no read up (simple), no write down (*-property)</span></div>
+        <div class="row"><span class="key">Biba</span><span class="val">Integrity: no read down, no write up (opposite of BLP)</span></div>
+        <div class="row"><span class="key">Clark-Wilson</span><span class="val">Integrity via well-formed transactions &amp; separation of duties</span></div>
+        <div class="row"><span class="key">Brewer-Nash</span><span class="val">Chinese Wall: prevents conflict of interest across clients</span></div>
+        <div class="row"><span class="key">Graham-Denning</span><span class="val">8 protection rights: create/delete objects &amp; subjects, read/grant/delete/transfer rights</span></div>
+        <div class="note note-purple">BLP protects confidentiality (military). Biba protects integrity (financial). Clark-Wilson used in commercial environments.</div>
+
+        <div class="section-label">Trusted Computing</div>
+        <div class="row"><span class="key">TCB</span><span class="val">Trusted Computing Base: all hardware/software/firmware protecting the system</span></div>
+        <div class="row"><span class="key">Reference Monitor</span><span class="val">Abstract machine mediating all access; must be complete, isolated, verifiable</span></div>
+        <div class="row"><span class="key">Security Kernel</span><span class="val">Hardware/software implementing reference monitor concept</span></div>
+        <div class="row"><span class="key">Security Perimeter</span><span class="val">Boundary separating TCB from rest of system</span></div>
+        <div class="row"><span class="key">Open System</span><span class="val">Standards-based; interoperable</span></div>
+        <div class="row"><span class="key">Closed System</span><span class="val">Proprietary; vendor-specific</span></div>
+      </div>
+    </div>
+
+    <!-- Cryptography - Symmetric & Asymmetric -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#EBF4FF;">🔑</div>
+        <h2>D3 · Cryptography — Keys &amp; Algorithms</h2>
+        <span class="sub">Architecture &amp; Engineering — 13%</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Symmetric Encryption (same key)</div>
+        <div class="row"><span class="key">DES</span><span class="val">56-bit key, 64-bit block — broken, do not use</span></div>
+        <div class="row"><span class="key">3DES</span><span class="val">112/168-bit effective — being phased out</span></div>
+        <div class="row"><span class="key">AES</span><span class="val">128/192/256-bit — current standard (Rijndael)</span></div>
+        <div class="row"><span class="key">Blowfish/Twofish</span><span class="val">64/128-bit block, variable key — fast</span></div>
+        <div class="row"><span class="key">RC4</span><span class="val">Stream cipher — deprecated (WEP/early TLS)</span></div>
+        <div class="row"><span class="key">ChaCha20</span><span class="val">Stream cipher — used in TLS 1.3</span></div>
+
+        <div class="section-label">Asymmetric Encryption (key pair)</div>
+        <div class="row"><span class="key">RSA</span><span class="val">Security based on factoring large primes; 2048+ bits</span></div>
+        <div class="row"><span class="key">ECC</span><span class="val">Elliptic Curve — smaller keys, same strength (256-bit ≈ RSA 3072)</span></div>
+        <div class="row"><span class="key">DH/ECDH</span><span class="val">Key exchange only (not encryption); forward secrecy</span></div>
+        <div class="row"><span class="key">El-Gamal</span><span class="val">Based on discrete logarithm; doubles ciphertext size</span></div>
+        <div class="row"><span class="key">DSA/ECDSA</span><span class="val">Digital signatures only</span></div>
+
+        <div class="section-label">Hashing Algorithms</div>
+        <div class="row"><span class="key">MD5</span><span class="val">128-bit output — cryptographically broken, collisions found</span></div>
+        <div class="row"><span class="key">SHA-1</span><span class="val">160-bit — deprecated; collision demonstrated 2017</span></div>
+        <div class="row"><span class="key">SHA-256</span><span class="val">SHA-2 family; 256-bit — widely used standard</span></div>
+        <div class="row"><span class="key">SHA-512</span><span class="val">SHA-2 family; 512-bit — highest SHA-2 output</span></div>
+        <div class="row"><span class="key">SHA-3</span><span class="val">Keccak sponge construction; NIST standard 2015</span></div>
+        <div class="row"><span class="key">HMAC</span><span class="val">Hash + shared secret key for message authentication</span></div>
+        <div class="note note-red">Hashing is one-way — cannot decrypt. Used for integrity, not confidentiality.</div>
+      </div>
+    </div>
+
+    <!-- PKI & Digital Signatures + Physical Security -->
+    <div style="display:flex; flex-direction:column; gap:12px;">
+      <div class="card">
+        <div class="card-header">
+          <div class="icon" style="background:#E8F7EF;">🏅</div>
+          <h2>D3 · PKI &amp; Digital Signatures</h2>
+        </div>
+        <div class="card-body">
+          <div class="section-label">PKI Hierarchy</div>
+          <div class="row"><span class="key">Root CA</span><span class="val">Self-signed; offline; trust anchor</span></div>
+          <div class="row"><span class="key">Intermediate CA</span><span class="val">Online; issues end-entity certs; limits Root exposure</span></div>
+          <div class="row"><span class="key">End Entity</span><span class="val">Server/user/device certificates</span></div>
+          <div class="row"><span class="key">CRL</span><span class="val">Certificate Revocation List; periodic; CA-published</span></div>
+          <div class="row"><span class="key">OCSP</span><span class="val">Online real-time revocation check</span></div>
+          <div class="row"><span class="key">Cert Pinning</span><span class="val">App embeds expected cert/key; bypasses CA chain</span></div>
+
+          <div class="section-label">Digital Signatures</div>
+          <div class="row"><span class="key">Sign</span><span class="val">Hash the message → encrypt hash with sender's PRIVATE key</span></div>
+          <div class="row"><span class="key">Verify</span><span class="val">Decrypt with sender's PUBLIC key → compare to hash</span></div>
+          <div class="note note-blue">Signatures provide authentication, integrity, and non-repudiation. They do NOT encrypt the message content.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="icon" style="background:#FFF7ED;">🏗️</div>
+          <h2>D3 · Physical Security</h2>
+        </div>
+        <div class="card-body">
+          <div class="row"><span class="key">CPTED</span><span class="val">Crime Prevention Through Environmental Design</span></div>
+          <div class="row"><span class="key">Mantrap</span><span class="val">Two-door airlock; prevents tailgating/piggybacking</span></div>
+          <div class="row"><span class="key">Faraday Cage</span><span class="val">Blocks EM signals; prevents TEMPEST attacks</span></div>
+          <div class="row"><span class="key">Biometric FAR</span><span class="val">False Accept Rate — security error</span></div>
+          <div class="row"><span class="key">Biometric FRR</span><span class="val">False Reject Rate — usability error</span></div>
+          <div class="row"><span class="key">CER</span><span class="val">Crossover Error Rate: FAR = FRR; lower = better</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end row 2 -->
+
+  <!-- ROW 3: Domain 4 Network + Domain 5 IAM -->
+  <div class="grid">
+
+    <!-- Domain 4: Network Security -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#EBF4FF;">🌐</div>
+        <h2>D4 · Communication &amp; Network Security</h2>
+        <span class="sub">13%</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">OSI Model &amp; Security Controls</div>
+        <div style="overflow-x:auto;">
+          <table class="osi-table">
+            <thead>
+              <tr><th>Layer</th><th>Name</th><th>Protocols / Attacks</th><th>Security Controls</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="l-num">7</td><td>Application</td><td>HTTP, SMTP, DNS, FTP</td><td>WAF, NGFW, DLP, App proxy</td></tr>
+              <tr><td class="l-num">6</td><td>Presentation</td><td>SSL/TLS, encoding</td><td>TLS inspection, encryption</td></tr>
+              <tr><td class="l-num">5</td><td>Session</td><td>NetBIOS, RPC, SIP</td><td>Session tokens, timeout</td></tr>
+              <tr><td class="l-num">4</td><td>Transport</td><td>TCP, UDP; SYN flood</td><td>Stateful FW, rate limiting</td></tr>
+              <tr><td class="l-num">3</td><td>Network</td><td>IP, ICMP; routing attacks</td><td>Packet filter FW, IPSec, ACLs</td></tr>
+              <tr><td class="l-num">2</td><td>Data Link</td><td>ARP, MAC; VLAN hop, ARP spoof</td><td>802.1X, DAI, DHCP snooping</td></tr>
+              <tr><td class="l-num">1</td><td>Physical</td><td>Cable tapping, jamming</td><td>Physical access controls, EMI</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="section-label">Firewall Types</div>
+        <div class="row"><span class="key">Packet Filtering</span><span class="val">L3/L4 — IP/port rules; stateless; fast but limited</span></div>
+        <div class="row"><span class="key">Stateful Inspection</span><span class="val">Tracks TCP state; blocks unsolicited responses</span></div>
+        <div class="row"><span class="key">Application Proxy</span><span class="val">Full protocol awareness; breaks connection; slower</span></div>
+        <div class="row"><span class="key">NGFW</span><span class="val">DPI, IPS, identity-aware, SSL inspection</span></div>
+
+        <div class="section-label">VPN Protocols</div>
+        <div class="row"><span class="key">IPSec — AH</span><span class="val">Authentication Header: integrity + auth, no encryption</span></div>
+        <div class="row"><span class="key">IPSec — ESP</span><span class="val">Encapsulating Security Payload: encryption + auth</span></div>
+        <div class="row"><span class="key">IKE</span><span class="val">Internet Key Exchange: negotiates SA parameters</span></div>
+        <div class="row"><span class="key">SSL/TLS VPN</span><span class="val">Browser-based; port 443; easier firewall traversal</span></div>
+        <div class="row"><span class="key">PPTP</span><span class="val">Deprecated — MS-CHAPv2 vulnerable; avoid</span></div>
+
+        <div class="section-label">Wireless Security Standards</div>
+        <div class="row"><span class="key">WEP</span><span class="val">RC4 stream cipher; broken — IV reuse attack</span></div>
+        <div class="row"><span class="key">WPA</span><span class="val">TKIP (RC4 + per-packet key); temporary fix</span></div>
+        <div class="row"><span class="key">WPA2</span><span class="val">CCMP/AES-128; current minimum; vulnerable to KRACK</span></div>
+        <div class="row"><span class="key">WPA3</span><span class="val">SAE (Dragonfly); 192-bit enterprise mode; forward secrecy</span></div>
+
+        <div class="section-label">Network Attacks</div>
+        <div class="tags">
+          <span class="tag tag-red">ARP Spoofing</span>
+          <span class="tag tag-red">DNS Poisoning</span>
+          <span class="tag tag-red">BGP Hijacking</span>
+          <span class="tag tag-orange">VLAN Hopping</span>
+          <span class="tag tag-orange">STP Attack</span>
+          <span class="tag tag-orange">Smurf/Fraggle</span>
+          <span class="tag tag-blue">Man-in-Middle</span>
+          <span class="tag tag-blue">Replay Attack</span>
+        </div>
+
+        <div class="section-label">Secure Protocols</div>
+        <div class="row"><span class="key">HTTPS</span><span class="val">HTTP over TLS; port 443</span></div>
+        <div class="row"><span class="key">SFTP/SCP</span><span class="val">File transfer over SSH; port 22</span></div>
+        <div class="row"><span class="key">SNMPv3</span><span class="val">Adds auth + encryption to SNMP (v1/v2 = cleartext)</span></div>
+        <div class="row"><span class="key">DNSSEC</span><span class="val">Signs DNS records; prevents cache poisoning</span></div>
+        <div class="row"><span class="key">S/MIME</span><span class="val">Email signing/encryption; uses X.509 certs</span></div>
+        <div class="row"><span class="key">PGP/GPG</span><span class="val">Email encryption; web of trust model</span></div>
+      </div>
+    </div>
+
+    <!-- Domain 5: IAM -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#F5F0FF;">👤</div>
+        <h2>D5 · Identity &amp; Access Management (IAM)</h2>
+        <span class="sub">13%</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Authentication Factors</div>
+        <div class="row"><span class="key">Type 1 — Know</span><span class="val">Password, PIN, passphrase, security question</span></div>
+        <div class="row"><span class="key">Type 2 — Have</span><span class="val">Smart card, token, OTP device, phone</span></div>
+        <div class="row"><span class="key">Type 3 — Are</span><span class="val">Fingerprint, retina, iris, facial, voice</span></div>
+        <div class="row"><span class="key">Type 4 — Where</span><span class="val">GPS location, network location</span></div>
+        <div class="row"><span class="key">Type 5 — Do</span><span class="val">Keystroke dynamics, gait analysis</span></div>
+        <div class="note note-blue">MFA requires 2+ different factor types. Two passwords = single factor (both Type 1).</div>
+
+        <div class="section-label">Kerberos SSO Workflow</div>
+        <div class="row"><span class="key">1. AS Request</span><span class="val">Client → Authentication Server (proves identity)</span></div>
+        <div class="row"><span class="key">2. TGT Issued</span><span class="val">AS → Client: Ticket Granting Ticket (encrypted with KDC key)</span></div>
+        <div class="row"><span class="key">3. TGS Request</span><span class="val">Client → Ticket Granting Server (presents TGT)</span></div>
+        <div class="row"><span class="key">4. Service Ticket</span><span class="val">TGS → Client: service-specific ticket</span></div>
+        <div class="row"><span class="key">5. Service Access</span><span class="val">Client → Service: presents service ticket</span></div>
+
+        <div class="section-label">AAA Protocols</div>
+        <div class="row"><span class="key">RADIUS</span><span class="val">UDP 1812/1813; encrypts password only; combines AuthN+AuthZ</span></div>
+        <div class="row"><span class="key">TACACS+</span><span class="val">TCP 49; encrypts entire packet; separates AAA functions</span></div>
+        <div class="row"><span class="key">Diameter</span><span class="val">RADIUS successor; TCP/SCTP; mobile/carrier networks</span></div>
+
+        <div class="section-label">Federation &amp; SSO Standards</div>
+        <div class="row"><span class="key">SAML 2.0</span><span class="val">XML-based; IdP issues assertions; enterprise SSO standard</span></div>
+        <div class="row"><span class="key">OAuth 2.0</span><span class="val">Authorization framework (delegated access); NOT authentication</span></div>
+        <div class="row"><span class="key">OIDC</span><span class="val">OpenID Connect: authentication layer on top of OAuth 2.0</span></div>
+        <div class="row"><span class="key">WS-Federation</span><span class="val">Microsoft ecosystem federation (ADFS)</span></div>
+
+        <div class="section-label">Access Control Models</div>
+        <div class="row"><span class="key">DAC</span><span class="val">Discretionary: owner grants access; flexible but risky (Linux permissions)</span></div>
+        <div class="row"><span class="key">MAC</span><span class="val">Mandatory: labels/clearances; admin-controlled (SELinux, military)</span></div>
+        <div class="row"><span class="key">RBAC</span><span class="val">Role-Based: permissions assigned to roles; most enterprise systems</span></div>
+        <div class="row"><span class="key">ABAC</span><span class="val">Attribute-Based: dynamic policies; environment/context-aware (XACML)</span></div>
+        <div class="row"><span class="key">Rule-Based</span><span class="val">ACLs, firewall rules; condition-driven (not role-driven)</span></div>
+        <div class="row"><span class="key">RBAC Variant</span><span class="val">ReBAC (Relationship-Based): Google Zanzibar model</span></div>
+
+        <div class="section-label">Privileged Access Management</div>
+        <div class="row"><span class="key">Least Privilege</span><span class="val">Minimum rights needed to perform function</span></div>
+        <div class="row"><span class="key">Need to Know</span><span class="val">Access only to information required for job</span></div>
+        <div class="row"><span class="key">JIT Access</span><span class="val">Just-in-Time: temporary elevated access on request</span></div>
+        <div class="row"><span class="key">Session Recording</span><span class="val">Privileged sessions logged and monitored</span></div>
+        <div class="row"><span class="key">PAM Tools</span><span class="val">CyberArk, BeyondTrust, Delinea — vault credentials</span></div>
+
+        <div class="section-label">Identity Lifecycle</div>
+        <div class="tags">
+          <span class="tag tag-green">Provisioning</span>
+          <span class="tag tag-blue">Access Review</span>
+          <span class="tag tag-orange">Modification</span>
+          <span class="tag tag-red">Deprovisioning</span>
+        </div>
+        <div class="note note-orange">Deprovisioning on termination must be immediate. Accounts left active after separation are a major audit finding.</div>
+      </div>
+    </div>
+
+    <!-- Domain 6: Assessment & Testing -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#FEF2F2;">🔍</div>
+        <h2>D6 · Security Assessment &amp; Testing</h2>
+        <span class="sub">12%</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Testing Methodology</div>
+        <div class="row"><span class="key">Vulnerability Assessment</span><span class="val">Identify &amp; rank vulnerabilities; no exploitation</span></div>
+        <div class="row"><span class="key">Penetration Testing</span><span class="val">Actively exploit vulnerabilities; authorized</span></div>
+        <div class="row"><span class="key">Red Team</span><span class="val">Simulates real attacker; full adversarial simulation</span></div>
+        <div class="row"><span class="key">Blue Team</span><span class="val">Defenders monitoring &amp; responding</span></div>
+        <div class="row"><span class="key">Purple Team</span><span class="val">Red + Blue collaboration to improve defenses</span></div>
+
+        <div class="section-label">Pentest Knowledge Levels</div>
+        <div class="row"><span class="key">Black Box</span><span class="val">No prior knowledge; simulates external attacker</span></div>
+        <div class="row"><span class="key">Grey Box</span><span class="val">Partial knowledge; simulates insider or partner</span></div>
+        <div class="row"><span class="key">White Box</span><span class="val">Full knowledge; most thorough; internal review style</span></div>
+
+        <div class="section-label">Code Analysis Techniques</div>
+        <div class="row"><span class="key">SAST</span><span class="val">Static: analyze source without executing; in CI/CD pipeline</span></div>
+        <div class="row"><span class="key">DAST</span><span class="val">Dynamic: test running application from outside</span></div>
+        <div class="row"><span class="key">IAST</span><span class="val">Interactive: agent inside app during runtime testing</span></div>
+        <div class="row"><span class="key">Fuzzing</span><span class="val">Send random/malformed input; find edge cases &amp; crashes</span></div>
+        <div class="row"><span class="key">Code Review</span><span class="val">Manual or automated inspection of source code</span></div>
+
+        <div class="section-label">Audit Types</div>
+        <div class="row"><span class="key">SOC 1</span><span class="val">Financial reporting controls (SSAE 18)</span></div>
+        <div class="row"><span class="key">SOC 2</span><span class="val">Security, availability, processing integrity, confidentiality, privacy</span></div>
+        <div class="row"><span class="key">SOC 3</span><span class="val">SOC 2 summary; publicly shareable</span></div>
+        <div class="row"><span class="key">Type I</span><span class="val">Controls designed correctly at a point in time</span></div>
+        <div class="row"><span class="key">Type II</span><span class="val">Controls operating effectively over a period (preferred)</span></div>
+
+        <div class="section-label">Security Metrics</div>
+        <div class="row"><span class="key">MTTD</span><span class="val">Mean Time to Detect — how fast threats are found</span></div>
+        <div class="row"><span class="key">MTTR</span><span class="val">Mean Time to Repair/Remediate incidents</span></div>
+        <div class="row"><span class="key">Patch Compliance</span><span class="val">% of systems patched within SLA window</span></div>
+        <div class="row"><span class="key">Vuln Age</span><span class="val">Time from discovery to remediation</span></div>
+
+        <div class="section-label">OWASP Top 10 (2021) Key Items</div>
+        <div class="tags">
+          <span class="tag tag-red">Broken Access Control</span>
+          <span class="tag tag-red">Injection</span>
+          <span class="tag tag-orange">Cryptographic Failures</span>
+          <span class="tag tag-orange">Insecure Design</span>
+          <span class="tag tag-blue">Security Misconfiguration</span>
+          <span class="tag tag-blue">Vulnerable Components</span>
+          <span class="tag tag-purple">SSRF</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end row 3 -->
+
+  <!-- ROW 4: Domain 7 Security Operations + Domain 8 Software Dev -->
+  <div class="grid">
+
+    <!-- Domain 7: Security Operations -->
+    <div class="card" style="grid-column: span 2;">
+      <div class="card-header">
+        <div class="icon" style="background:#FFF7ED;">⚙️</div>
+        <h2>D7 · Security Operations</h2>
+        <span class="sub">13%</span>
+      </div>
+      <div class="card-body">
+        <div class="two-col">
+          <div>
+            <div class="section-label">Incident Response Lifecycle (NIST SP 800-61)</div>
+            <div class="row"><span class="key">1. Preparation</span><span class="val">Policies, tools, training, IR plan, playbooks</span></div>
+            <div class="row"><span class="key">2. Detection</span><span class="val">Identify indicators; SIEM alerts, IDS/IPS</span></div>
+            <div class="row"><span class="key">3. Analysis</span><span class="val">Triage, scope, determine nature of incident</span></div>
+            <div class="row"><span class="key">4. Containment</span><span class="val">Short-term (isolate) + long-term (patch/rebuild)</span></div>
+            <div class="row"><span class="key">5. Eradication</span><span class="val">Remove malware, close attack vector</span></div>
+            <div class="row"><span class="key">6. Recovery</span><span class="val">Restore systems; monitor for re-infection</span></div>
+            <div class="row"><span class="key">7. Lessons Learned</span><span class="val">Post-incident review; update procedures</span></div>
+
+            <div class="section-label">Digital Forensics</div>
+            <div class="row"><span class="key">Order of Volatility</span><span class="val">CPU regs/cache → RAM → swap/pagefile → disk → remote logs</span></div>
+            <div class="row"><span class="key">Chain of Custody</span><span class="val">Document every person who handles evidence</span></div>
+            <div class="row"><span class="key">Write Blockers</span><span class="val">Prevent any modification of evidence drive</span></div>
+            <div class="row"><span class="key">Hash Evidence</span><span class="val">MD5/SHA hash before &amp; after to prove no tampering</span></div>
+            <div class="row"><span class="key">Live Forensics</span><span class="val">Capture volatile data before powering off system</span></div>
+
+            <div class="section-label">SIEM &amp; Log Management</div>
+            <div class="row"><span class="key">SIEM</span><span class="val">Security Info &amp; Event Management: aggregation + correlation</span></div>
+            <div class="row"><span class="key">SOAR</span><span class="val">Security Orchestration, Automation &amp; Response</span></div>
+            <div class="row"><span class="key">Log Retention</span><span class="val">Typically 90 days online, 1 year archived (varies by regulation)</span></div>
+            <div class="row"><span class="key">NTP Sync</span><span class="val">Time synchronization critical for log correlation</span></div>
+          </div>
+          <div>
+            <div class="section-label">BCP / DRP Key Metrics</div>
+            <div class="formula-box">
+              <div class="formula">RTO — Recovery Time Objective</div>
+              <div class="formula-sub">Max acceptable downtime before recovery must complete</div>
+            </div>
+            <div class="formula-box" style="margin-top:4px;">
+              <div class="formula">RPO — Recovery Point Objective</div>
+              <div class="formula-sub">Max acceptable data loss measured in time</div>
+            </div>
+            <div class="formula-box" style="margin-top:4px;">
+              <div class="formula">MTD/MTO — Max Tolerable Downtime</div>
+              <div class="formula-sub">Longest acceptable outage before mission failure (RTO ≤ MTD)</div>
+            </div>
+            <div class="formula-box" style="margin-top:4px;">
+              <div class="formula">MTBF = Total Uptime ÷ # Failures</div>
+              <div class="formula-sub">Mean Time Between Failures — reliability metric</div>
+            </div>
+            <div class="formula-box" style="margin-top:4px;">
+              <div class="formula">MTTR = Total Downtime ÷ # Repairs</div>
+              <div class="formula-sub">Mean Time to Repair — maintainability metric</div>
+            </div>
+
+            <div class="section-label">Recovery Site Types</div>
+            <div class="row"><span class="key">Hot Site</span><span class="val">Fully operational; real-time replication; hours to activate</span></div>
+            <div class="row"><span class="key">Warm Site</span><span class="val">Hardware ready; data partially current; days to activate</span></div>
+            <div class="row"><span class="key">Cold Site</span><span class="val">Facility only; no equipment; weeks to activate; cheapest</span></div>
+            <div class="row"><span class="key">Mobile Site</span><span class="val">Trailer/vehicle; rapidly deployed anywhere</span></div>
+
+            <div class="section-label">DR Testing Methods (least → most disruptive)</div>
+            <div class="row"><span class="key">Tabletop</span><span class="val">Discussion only; walk through scenarios verbally</span></div>
+            <div class="row"><span class="key">Walkthrough</span><span class="val">Step through plan; no actual failover</span></div>
+            <div class="row"><span class="key">Simulation</span><span class="val">Practice response without switching to DR site</span></div>
+            <div class="row"><span class="key">Parallel Test</span><span class="val">Activate DR site; primary still operational</span></div>
+            <div class="row"><span class="key">Full Interruption</span><span class="val">Shut down primary; full failover; highest risk/realism</span></div>
+
+            <div class="section-label">BIA — Business Impact Analysis</div>
+            <div class="row"><span class="key">Purpose</span><span class="val">Identifies critical processes and quantifies impact of disruption</span></div>
+            <div class="row"><span class="key">Output</span><span class="val">MTD, RTO, RPO values per critical process</span></div>
+            <div class="note note-orange">BIA is performed BEFORE developing the BCP. It drives all recovery decisions. Senior management owns BCP.</div>
+          </div>
+        </div>
+
+        <div class="section-label" style="margin-top:8px;">Change Management Process</div>
+        <div class="tags">
+          <span class="tag tag-blue">Request for Change (RFC)</span>
+          <span class="tag tag-blue">Impact Assessment</span>
+          <span class="tag tag-blue">CAB Review &amp; Approval</span>
+          <span class="tag tag-orange">Implementation</span>
+          <span class="tag tag-orange">Testing/Validation</span>
+          <span class="tag tag-green">Closure &amp; Documentation</span>
+          <span class="tag tag-red">Emergency Change Process</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Domain 8: Software Development Security -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#E8F7EF;">💻</div>
+        <h2>D8 · Software Development Security</h2>
+        <span class="sub">11%</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">SDLC Phases &amp; Security Integration</div>
+        <div class="row"><span class="key">Planning</span><span class="val">Security requirements, risk appetite definition</span></div>
+        <div class="row"><span class="key">Requirements</span><span class="val">Security &amp; privacy requirements, compliance mapping</span></div>
+        <div class="row"><span class="key">Design</span><span class="val">Threat modeling (STRIDE/PASTA), secure architecture review</span></div>
+        <div class="row"><span class="key">Implementation</span><span class="val">Secure coding standards, code review, SAST</span></div>
+        <div class="row"><span class="key">Testing</span><span class="val">DAST, IAST, pentest, fuzzing, regression testing</span></div>
+        <div class="row"><span class="key">Deployment</span><span class="val">Security configs, code signing, change control</span></div>
+        <div class="row"><span class="key">Maintenance</span><span class="val">Vulnerability scanning, patching, monitoring</span></div>
+
+        <div class="section-label">STRIDE Threat Model</div>
+        <div class="row"><span class="key">S — Spoofing</span><span class="val">Impersonating a user or system</span></div>
+        <div class="row"><span class="key">T — Tampering</span><span class="val">Modifying data or code maliciously</span></div>
+        <div class="row"><span class="key">R — Repudiation</span><span class="val">Denying an action was performed</span></div>
+        <div class="row"><span class="key">I — Info Disclosure</span><span class="val">Exposing data to unauthorized parties</span></div>
+        <div class="row"><span class="key">D — DoS</span><span class="val">Making a system unavailable</span></div>
+        <div class="row"><span class="key">E — Elevation</span><span class="val">Gaining unauthorized higher privileges</span></div>
+
+        <div class="section-label">DREAD Scoring (1–10 each)</div>
+        <div class="row"><span class="key">D — Damage</span><span class="val">How severe is the damage if exploited?</span></div>
+        <div class="row"><span class="key">R — Reproducibility</span><span class="val">How easily can the attack be reproduced?</span></div>
+        <div class="row"><span class="key">E — Exploitability</span><span class="val">How much effort to exploit?</span></div>
+        <div class="row"><span class="key">A — Affected Users</span><span class="val">How many users are impacted?</span></div>
+        <div class="row"><span class="key">D — Discoverability</span><span class="val">How easily can the vulnerability be found?</span></div>
+
+        <div class="section-label">Software Vulnerabilities</div>
+        <div class="row"><span class="key">Buffer Overflow</span><span class="val">Overwrite adjacent memory; enables code execution</span></div>
+        <div class="row"><span class="key">Integer Overflow</span><span class="val">Arithmetic wraps; bypasses bounds checks</span></div>
+        <div class="row"><span class="key">SQL Injection</span><span class="val">Malicious SQL via unsanitized input</span></div>
+        <div class="row"><span class="key">XSS</span><span class="val">Inject scripts into pages served to other users</span></div>
+        <div class="row"><span class="key">Race Condition</span><span class="val">TOCTOU: state changes between check and use</span></div>
+        <div class="row"><span class="key">Insecure Deser.</span><span class="val">Malicious objects deserialized → code execution</span></div>
+
+        <div class="section-label">Secure Coding Practices</div>
+        <div class="tags">
+          <span class="tag tag-green">Input Validation</span>
+          <span class="tag tag-green">Parameterized Queries</span>
+          <span class="tag tag-green">Output Encoding</span>
+          <span class="tag tag-blue">Error Handling</span>
+          <span class="tag tag-blue">Least Privilege</span>
+          <span class="tag tag-blue">Fail Secure</span>
+          <span class="tag tag-purple">Secrets Mgmt</span>
+          <span class="tag tag-orange">Code Signing</span>
+        </div>
+
+        <div class="section-label">DevSecOps Pipeline</div>
+        <div class="row"><span class="key">Pre-commit</span><span class="val">IDE security plugins, secrets scanning (git-secrets)</span></div>
+        <div class="row"><span class="key">Build Stage</span><span class="val">SAST (SonarQube, Checkmarx), SCA (Snyk, OWASP Dependency-Check)</span></div>
+        <div class="row"><span class="key">Test Stage</span><span class="val">DAST (OWASP ZAP, Burp Suite), IAST agents</span></div>
+        <div class="row"><span class="key">Deploy Stage</span><span class="val">Image scanning, SBOM generation, policy enforcement</span></div>
+        <div class="row"><span class="key">Runtime</span><span class="val">RASP, WAF, monitoring, anomaly detection</span></div>
+
+        <div class="section-label">Change Control &amp; Governance</div>
+        <div class="row"><span class="key">Version Control</span><span class="val">Git; immutable audit trail of all code changes</span></div>
+        <div class="row"><span class="key">Code Signing</span><span class="val">Authenticate code origin; detect tampering</span></div>
+        <div class="row"><span class="key">Software Escrow</span><span class="val">Third party holds source; released if vendor fails</span></div>
+        <div class="row"><span class="key">SBOM</span><span class="val">Software Bill of Materials: inventory of all components</span></div>
+      </div>
+    </div>
+
+  </div><!-- end row 4 -->
+
+  <!-- BOTTOM ROW: Quick Reference Cards -->
+  <div class="grid grid-4" style="margin-bottom:0;">
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#FEF2F2;">⚡</div>
+        <h2>Common Exam Traps</h2>
+      </div>
+      <div class="card-body">
+        <div class="row"><span class="key">Risk = Threat × Vuln</span><span class="val">Asset value multiplied in ALE calculation</span></div>
+        <div class="row"><span class="key">BLP vs Biba</span><span class="val">BLP = confidentiality; Biba = integrity</span></div>
+        <div class="row"><span class="key">Public key usage</span><span class="val">Encrypt TO someone; verify their signature</span></div>
+        <div class="row"><span class="key">Private key usage</span><span class="val">Decrypt; CREATE digital signature</span></div>
+        <div class="row"><span class="key">RADIUS vs TACACS+</span><span class="val">TACACS+ = TCP + full encryption; network devices</span></div>
+        <div class="row"><span class="key">OAuth vs OIDC</span><span class="val">OAuth = authorization; OIDC = authentication</span></div>
+        <div class="row"><span class="key">RTO vs RPO</span><span class="val">RTO = downtime tolerance; RPO = data loss tolerance</span></div>
+        <div class="row"><span class="key">Due Care vs Diligence</span><span class="val">Care = doing it; Diligence = verifying it's done</span></div>
+        <div class="note note-red">CISSP favors comprehensive, process-oriented answers over quick technical fixes.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#E8F7EF;">📊</div>
+        <h2>Control Types &amp; Categories</h2>
+      </div>
+      <div class="card-body">
+        <div class="section-label">By Function</div>
+        <div class="row"><span class="key">Preventive</span><span class="val">Stop attack before it occurs (firewall, lock)</span></div>
+        <div class="row"><span class="key">Detective</span><span class="val">Identify attack during/after (IDS, audit log)</span></div>
+        <div class="row"><span class="key">Corrective</span><span class="val">Restore after incident (backup, patch)</span></div>
+        <div class="row"><span class="key">Deterrent</span><span class="val">Discourage attack (warning sign, legal notice)</span></div>
+        <div class="row"><span class="key">Compensating</span><span class="val">Alternative control when primary is infeasible</span></div>
+        <div class="row"><span class="key">Recovery</span><span class="val">Restore business functions (DR plan, hot site)</span></div>
+        <div class="section-label">By Nature</div>
+        <div class="row"><span class="key">Administrative</span><span class="val">Policies, procedures, training, background checks</span></div>
+        <div class="row"><span class="key">Technical</span><span class="val">Encryption, firewalls, access controls, IDS</span></div>
+        <div class="row"><span class="key">Physical</span><span class="val">Locks, fences, guards, CCTV, badges</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#EBF4FF;">🔐</div>
+        <h2>Crypto Modes &amp; Concepts</h2>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Block Cipher Modes</div>
+        <div class="row"><span class="key">ECB</span><span class="val">Electronic Codebook — insecure; patterns visible</span></div>
+        <div class="row"><span class="key">CBC</span><span class="val">Cipher Block Chaining — IV needed; sequential</span></div>
+        <div class="row"><span class="key">CTR</span><span class="val">Counter Mode — parallelizable; no padding needed</span></div>
+        <div class="row"><span class="key">GCM</span><span class="val">Galois/Counter Mode — authenticated encryption (AEAD)</span></div>
+        <div class="section-label">Key Concepts</div>
+        <div class="row"><span class="key">Perfect Fwd Secrecy</span><span class="val">Session keys not derived from long-term keys (DHE/ECDHE)</span></div>
+        <div class="row"><span class="key">Salting</span><span class="val">Random data added before hashing passwords</span></div>
+        <div class="row"><span class="key">Key Stretching</span><span class="val">PBKDF2, bcrypt, Argon2 — slow hash functions</span></div>
+        <div class="row"><span class="key">Steganography</span><span class="val">Hide data within other data (vs. cryptography)</span></div>
+        <div class="row"><span class="key">Obfuscation</span><span class="val">Make data hard to read but not truly encrypted</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#F5F0FF;">📌</div>
+        <h2>Key Numbers to Remember</h2>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Exam Numbers</div>
+        <div class="row"><span class="key">125–175</span><span class="val">CAT question range</span></div>
+        <div class="row"><span class="key">700/1000</span><span class="val">Minimum passing score</span></div>
+        <div class="row"><span class="key">4 hours</span><span class="val">CAT exam duration</span></div>
+        <div class="row"><span class="key">$749</span><span class="val">Exam fee (USD)</span></div>
+        <div class="row"><span class="key">9 months</span><span class="val">Endorsement window after passing</span></div>
+        <div class="row"><span class="key">120 CPEs</span><span class="val">Required per 3-year maintenance cycle</span></div>
+        <div class="section-label">Crypto Key Sizes</div>
+        <div class="row"><span class="key">AES-256</span><span class="val">Current gold standard symmetric</span></div>
+        <div class="row"><span class="key">RSA 2048+</span><span class="val">Minimum acceptable asymmetric</span></div>
+        <div class="row"><span class="key">ECC 256-bit</span><span class="val">≈ RSA 3072-bit security level</span></div>
+        <div class="row"><span class="key">SHA-256+</span><span class="val">Minimum acceptable hashing algorithm</span></div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end .page -->
+</body>
+</html>

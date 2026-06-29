@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AZ-500 Azure Security Engineer — Cheat Sheet</title>
+<meta name="description" content="Comprehensive AZ-500 Azure Security Engineer certification cheat sheet covering identity, networking, compute, storage, and security operations.">
+<style>
+:root {
+  --bg:#F5F6F7; --surface:#FFFFFF; --border:#E2E4E8;
+  --navy:#0F1C2E; --navy2:#1A2E45;
+  --azure:#0078D4; --azure-soft:#EFF6FF;
+  --blue:#1A6FB5; --blue-soft:#EBF4FF;
+  --green:#1B7A4A; --green-soft:#E8F7EF;
+  --red:#B91C1C; --red-soft:#FEF2F2;
+  --purple:#6B21A8; --purple-soft:#F5F0FF;
+  --text:#1C2333; --text2:#4A5568; --text3:#718096;
+  --mono:'Consolas','Courier New',monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+}
+body { font-family:var(--sans); font-size:11px; background:var(--bg); color:var(--text); line-height:1.5; }
+.page { max-width:1280px; margin:0 auto; padding:20px 16px; }
+.header { background:var(--navy); border-radius:10px; padding:20px 24px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+.header-left h1 { font-size:22px; font-weight:800; color:#fff; } .header-left h1 span { color:#60A5FA; }
+.header-left p { font-size:11px; color:#94A3B8; margin-top:3px; }
+.header-badges { display:flex; gap:8px; flex-wrap:wrap; }
+.badge { font-size:10px; font-weight:700; padding:4px 10px; border-radius:20px; letter-spacing:.5px; text-transform:uppercase; }
+.badge-azure { background:#0078D4; color:#fff; } .badge-blue { background:#3B82F6; color:#fff; } .badge-purple { background:#A855F7; color:#fff; }
+.badge-red { background:#DC2626; color:#fff; }
+.grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:12px; }
+.grid-2 { grid-template-columns:repeat(2,1fr); } .grid-4 { grid-template-columns:repeat(4,1fr); }
+.card { background:var(--surface); border-radius:8px; border:1px solid var(--border); overflow:hidden; }
+.card-header { padding:8px 12px; display:flex; align-items:center; gap:8px; border-bottom:1px solid var(--border); }
+.card-header .icon { width:24px; height:24px; border-radius:5px; display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; }
+.card-header h2 { font-size:11.5px; font-weight:800; color:var(--navy); }
+.card-header .sub { font-size:9px; color:var(--text3); margin-left:auto; }
+.card-body { padding:10px 12px; }
+.section-label { font-size:8.5px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--text3); margin-bottom:5px; margin-top:9px; }
+.section-label:first-child { margin-top:0; }
+.row { display:flex; justify-content:space-between; align-items:baseline; padding:2px 0; border-bottom:1px solid #F1F3F5; gap:8px; }
+.row:last-child { border-bottom:none; }
+.row .key { font-family:var(--mono); font-size:10px; font-weight:600; color:var(--navy); white-space:nowrap; flex-shrink:0; }
+.row .val { font-size:10px; color:var(--text2); text-align:right; }
+.tags { display:flex; flex-wrap:wrap; gap:4px; margin-top:2px; }
+.tag { font-size:9.5px; padding:2px 7px; border-radius:4px; font-weight:600; font-family:var(--mono); }
+.tag-azure { background:var(--azure-soft); color:#1D4ED8; } .tag-blue { background:var(--blue-soft); color:#1E40AF; }
+.tag-green { background:var(--green-soft); color:#166534; } .tag-purple { background:var(--purple-soft); color:#6B21A8; }
+.tag-red { background:var(--red-soft); color:var(--red); }
+.tip-bar { background:var(--navy2); border-radius:8px; padding:10px 16px; margin-bottom:16px; display:flex; gap:24px; flex-wrap:wrap; }
+.tip-label { font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:#60A5FA; }
+.tip { font-size:10.5px; color:#CBD5E1; } .tip b { color:#fff; }
+.note { font-size:10px; color:var(--text2); padding:6px 8px; border-radius:4px; margin-top:4px; }
+.note-azure { background:var(--azure-soft); border-left:3px solid var(--azure); }
+.note-blue { background:var(--blue-soft); border-left:3px solid var(--blue); }
+.note-green { background:var(--green-soft); border-left:3px solid var(--green); }
+.note-red { background:var(--red-soft); border-left:3px solid var(--red); }
+.code { font-family:var(--mono); font-size:9.5px; background:#F8F9FA; border:1px solid var(--border); border-radius:4px; padding:6px 8px; margin-top:4px; color:var(--navy); overflow-x:auto; white-space:pre; }
+@media print { body{background:#fff} .page{padding:0} }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <h1>AZ-500 <span>Azure Security Engineer</span></h1>
+      <p>Microsoft Azure Security Engineer Associate — Comprehensive Certification Cheat Sheet</p>
+    </div>
+    <div class="header-badges">
+      <span class="badge badge-azure">Azure</span>
+      <span class="badge badge-blue">40-60 Questions</span>
+      <span class="badge badge-purple">120 Minutes</span>
+      <span class="badge badge-red">Pass: 700/1000</span>
+      <span class="badge badge-azure">$165 USD</span>
+    </div>
+  </div>
+
+  <!-- TIP BAR -->
+  <div class="tip-bar">
+    <div>
+      <div class="tip-label">Exam Tip</div>
+      <div class="tip">AZ-500 focuses on <b>configuration details</b> — know exact policy settings, <b>KQL query patterns</b>, and when to use each Defender plan. Memorize <b>JIT</b>, <b>Secure Score</b>, and <b>Sentinel connector names</b>.</div>
+    </div>
+    <div>
+      <div class="tip-label">Domain Weights</div>
+      <div class="tip"><b>Identity &amp; Access</b> 25-30% &bull; <b>Secure Networking</b> 20-25% &bull; <b>Compute/Storage/DB</b> 20-25% &bull; <b>Security Operations</b> 25-30%</div>
+    </div>
+    <div>
+      <div class="tip-label">Key Focus</div>
+      <div class="tip">Know <b>Conditional Access</b> signal types, <b>PIM activation</b> settings, <b>Private vs Service Endpoints</b>, <b>Defender plan tiers &amp; costs</b>, and <b>Sentinel analytics rule types</b>.</div>
+    </div>
+  </div>
+
+  <!-- ROW 1: Exam Overview + Domain Map + Identity Quick Ref -->
+  <div class="grid grid-4" style="margin-bottom:12px;">
+
+    <!-- Exam Overview -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#DC2626;">🛡</div>
+        <h2>Exam Overview</h2>
+        <span class="sub">AZ-500</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Exam Details</div>
+        <div class="row"><span class="key">Questions</span><span class="val">40 – 60</span></div>
+        <div class="row"><span class="key">Duration</span><span class="val">120 minutes</span></div>
+        <div class="row"><span class="key">Passing Score</span><span class="val">700 / 1000</span></div>
+        <div class="row"><span class="key">Cost</span><span class="val">$165 USD</span></div>
+        <div class="row"><span class="key">Renewal</span><span class="val">Every year (free online)</span></div>
+        <div class="row"><span class="key">Format</span><span class="val">MCQ, drag-drop, case study</span></div>
+        <div class="section-label">Prerequisites (Recommended)</div>
+        <div class="row"><span class="key">Azure Fundamentals</span><span class="val">AZ-900</span></div>
+        <div class="row"><span class="key">Azure Administrator</span><span class="val">AZ-104</span></div>
+        <div class="row"><span class="key">Experience</span><span class="val">1-2 yrs security admin</span></div>
+        <div class="section-label">Earns Role</div>
+        <div class="tags">
+          <span class="tag tag-azure">Azure Security Engineer</span>
+          <span class="tag tag-red">Associate</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Domain Weights -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#7C3AED;">📊</div>
+        <h2>Domain Weights</h2>
+        <span class="sub">% of exam</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Domain 1 — Identity &amp; Access</div>
+        <div class="row"><span class="key">Weight</span><span class="val">25 – 30%</span></div>
+        <div class="row"><span class="key">Topics</span><span class="val">CA, MFA, PIM, IdP</span></div>
+        <div class="section-label">Domain 2 — Secure Networking</div>
+        <div class="row"><span class="key">Weight</span><span class="val">20 – 25%</span></div>
+        <div class="row"><span class="key">Topics</span><span class="val">NSG, Firewall, WAF, DDoS</span></div>
+        <div class="section-label">Domain 3 — Compute, Storage, DB</div>
+        <div class="row"><span class="key">Weight</span><span class="val">20 – 25%</span></div>
+        <div class="row"><span class="key">Topics</span><span class="val">Defender plans, KV, ADE</span></div>
+        <div class="section-label">Domain 4 — Security Operations</div>
+        <div class="row"><span class="key">Weight</span><span class="val">25 – 30%</span></div>
+        <div class="row"><span class="key">Topics</span><span class="val">Sentinel, Defender, KQL</span></div>
+        <div class="section-label">Pro Tip</div>
+        <div class="note note-red">Domains 1 &amp; 4 together = 50-60% of the exam. Master <b>Conditional Access + Sentinel KQL</b> first.</div>
+      </div>
+    </div>
+
+    <!-- Entra ID License Map -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#0078D4;">🪪</div>
+        <h2>Entra ID License Map</h2>
+        <span class="sub">Feature gating</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Free Tier</div>
+        <div class="row"><span class="key">Security Defaults</span><span class="val">Force MFA all users</span></div>
+        <div class="row"><span class="key">SSPR</span><span class="val">None (cloud users only P1)</span></div>
+        <div class="row"><span class="key">Basic CA</span><span class="val">Not available</span></div>
+        <div class="section-label">P1 License Features</div>
+        <div class="row"><span class="key">Conditional Access</span><span class="val">Full CA policies</span></div>
+        <div class="row"><span class="key">SSPR</span><span class="val">Self-service password reset</span></div>
+        <div class="row"><span class="key">Named Locations</span><span class="val">IP/Country-based</span></div>
+        <div class="row"><span class="key">Group-based licensing</span><span class="val">Dynamic groups</span></div>
+        <div class="section-label">P2 License Features</div>
+        <div class="row"><span class="key">Identity Protection</span><span class="val">Risk-based CA</span></div>
+        <div class="row"><span class="key">PIM</span><span class="val">Just-In-Time access</span></div>
+        <div class="row"><span class="key">Access Reviews</span><span class="val">Periodic review</span></div>
+        <div class="row"><span class="key">Entitlement Mgmt</span><span class="val">Access packages</span></div>
+        <div class="row"><span class="key">MFA Reg Policy</span><span class="val">Enforce MFA reg</span></div>
+      </div>
+    </div>
+
+    <!-- RBAC Quick Ref -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#1B7A4A;">🔑</div>
+        <h2>Azure RBAC Quick Ref</h2>
+        <span class="sub">Built-in security roles</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Scope Hierarchy</div>
+        <div class="row"><span class="key">Management Group</span><span class="val">Widest scope</span></div>
+        <div class="row"><span class="key">Subscription</span><span class="val">Billing boundary</span></div>
+        <div class="row"><span class="key">Resource Group</span><span class="val">Lifecycle grouping</span></div>
+        <div class="row"><span class="key">Resource</span><span class="val">Narrowest scope</span></div>
+        <div class="section-label">Key Security Roles</div>
+        <div class="row"><span class="key">Owner</span><span class="val">All + assign roles</span></div>
+        <div class="row"><span class="key">Contributor</span><span class="val">All except assign roles</span></div>
+        <div class="row"><span class="key">Security Admin</span><span class="val">Defender for Cloud</span></div>
+        <div class="row"><span class="key">Security Reader</span><span class="val">View only security</span></div>
+        <div class="row"><span class="key">Global Admin</span><span class="val">Entra ID full control</span></div>
+        <div class="row"><span class="key">KV Admin</span><span class="val">All Key Vault ops</span></div>
+        <div class="row"><span class="key">KV Crypto Officer</span><span class="val">Key operations</span></div>
+        <div class="row"><span class="key">KV Secrets User</span><span class="val">Read secrets</span></div>
+        <div class="section-label">Deny Assignments</div>
+        <div class="note note-red">Deny always overrides Allow. Set by Azure Blueprints or managed apps — not manually created via portal.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: IDENTITY & ACCESS — wide 2-col -->
+  <div class="grid grid-2" style="margin-bottom:12px;">
+
+    <!-- Conditional Access Deep Dive -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#0078D4;">🔒</div>
+        <h2>Conditional Access Deep Dive</h2>
+        <span class="sub">Entra ID P1/P2</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Signal Types (Conditions)</div>
+        <div class="row"><span class="key">User / Group</span><span class="val">Target specific users, groups, roles</span></div>
+        <div class="row"><span class="key">Cloud App</span><span class="val">All cloud apps or specific SaaS</span></div>
+        <div class="row"><span class="key">Device Platform</span><span class="val">iOS, Android, Windows, macOS</span></div>
+        <div class="row"><span class="key">Named Locations</span><span class="val">Trusted IP CIDR or country/region (GPS)</span></div>
+        <div class="row"><span class="key">Device State</span><span class="val">Compliant, Hybrid Azure AD joined</span></div>
+        <div class="row"><span class="key">Sign-in Risk</span><span class="val">Low / Medium / High (P2 only)</span></div>
+        <div class="row"><span class="key">User Risk</span><span class="val">Low / Medium / High (P2 only)</span></div>
+        <div class="row"><span class="key">Client App</span><span class="val">Browser, mobile/desktop, legacy auth</span></div>
+        <div class="section-label">Grant Controls (Actions)</div>
+        <div class="row"><span class="key">Block access</span><span class="val">Strongest — deny all</span></div>
+        <div class="row"><span class="key">Require MFA</span><span class="val">Always prompt for second factor</span></div>
+        <div class="row"><span class="key">Require compliant device</span><span class="val">Intune MDM enrolled + compliant</span></div>
+        <div class="row"><span class="key">Require HAADJ</span><span class="val">Hybrid Azure AD joined device</span></div>
+        <div class="row"><span class="key">Require app protection</span><span class="val">MAM policy (BYOD, no MDM needed)</span></div>
+        <div class="row"><span class="key">Require auth strength</span><span class="val">FIDO2, Windows Hello, Passkey</span></div>
+        <div class="row"><span class="key">Require T&amp;C</span><span class="val">Terms of use acceptance</span></div>
+        <div class="section-label">Session Controls</div>
+        <div class="row"><span class="key">Sign-in frequency</span><span class="val">Force re-auth after N hours/days</span></div>
+        <div class="row"><span class="key">Persistent browser session</span><span class="val">Allow/deny "Stay signed in"</span></div>
+        <div class="row"><span class="key">App enforced restrictions</span><span class="val">SharePoint/Exchange download control</span></div>
+        <div class="row"><span class="key">MCAS session control</span><span class="val">Defender for Cloud Apps proxy</span></div>
+        <div class="section-label">Special Scenarios</div>
+        <div class="row"><span class="key">Workload Identities CA</span><span class="val">Apply CA to SPs &amp; Managed Identities (Preview)</span></div>
+        <div class="row"><span class="key">Break-glass Accounts</span><span class="val">Exclude from ALL CA, monitor with alerts</span></div>
+        <div class="row"><span class="key">Report-only mode</span><span class="val">Test policy without enforcing — log what-if</span></div>
+        <div class="row"><span class="key">What-If tool</span><span class="val">Simulate CA policy evaluation for a user</span></div>
+        <div class="note note-azure">Policy evaluation order: All conditions must match → grant controls evaluated → session controls applied. Multiple grant controls can use AND/OR logic.</div>
+      </div>
+    </div>
+
+    <!-- MFA + PIM -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#7C3AED;">🛡</div>
+        <h2>MFA Configuration &amp; PIM</h2>
+        <span class="sub">Privileged Identity Management</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">MFA Methods (strongest → weakest)</div>
+        <div class="row"><span class="key">FIDO2 Security Key</span><span class="val">Phishing-resistant, hardware-bound</span></div>
+        <div class="row"><span class="key">Windows Hello for Business</span><span class="val">Phishing-resistant, biometric/PIN</span></div>
+        <div class="row"><span class="key">Passkey (Authenticator)</span><span class="val">Phishing-resistant, device-bound</span></div>
+        <div class="row"><span class="key">Authenticator App (push)</span><span class="val">Strong, approve notification</span></div>
+        <div class="row"><span class="key">Authenticator App (TOTP)</span><span class="val">Strong, 6-digit code</span></div>
+        <div class="row"><span class="key">Software OATH token</span><span class="val">TOTP, 3rd-party apps</span></div>
+        <div class="row"><span class="key">SMS / Voice call</span><span class="val">Weak — avoid for privileged accounts</span></div>
+        <div class="section-label">MFA Deployment Models</div>
+        <div class="row"><span class="key">Security Defaults</span><span class="val">Free, forces all users, disables legacy auth</span></div>
+        <div class="row"><span class="key">Per-user MFA</span><span class="val">Legacy — not recommended</span></div>
+        <div class="row"><span class="key">Conditional Access MFA</span><span class="val">P1 — granular, recommended</span></div>
+        <div class="row"><span class="key">Risk-based MFA</span><span class="val">P2 — trigger on risk events only</span></div>
+        <div class="row"><span class="key">MFA Reg Policy</span><span class="val">P2 — enforce registration before first use</span></div>
+        <div class="section-label">PIM — Privileged Identity Management (P2)</div>
+        <div class="row"><span class="key">Eligible Assignment</span><span class="val">User can activate role when needed</span></div>
+        <div class="row"><span class="key">Active Assignment</span><span class="val">Role is active continuously</span></div>
+        <div class="row"><span class="key">Max Activation Duration</span><span class="val">8 hours (default) – 24 hours (max)</span></div>
+        <div class="row"><span class="key">Require MFA on activate</span><span class="val">Enforce MFA at role activation</span></div>
+        <div class="row"><span class="key">Require justification</span><span class="val">Business reason required</span></div>
+        <div class="row"><span class="key">Require approval</span><span class="val">Designated approver must approve</span></div>
+        <div class="row"><span class="key">Require ticket</span><span class="val">ITSM ticket number at activation</span></div>
+        <div class="row"><span class="key">Access reviews</span><span class="val">Quarterly review for privileged roles</span></div>
+        <div class="section-label">PIM REST API Activation</div>
+        <div class="code">az rest --method POST \
+  --url "https://graph.microsoft.com/v1.0/roleManagement/
+         directory/roleAssignmentScheduleRequests" \
+  --body '{
+    "action": "selfActivate",
+    "principalId": "&lt;userId&gt;",
+    "roleDefinitionId": "&lt;roleId&gt;",
+    "directoryScopeId": "/",
+    "justification": "Need to perform emergency fix",
+    "scheduleInfo": {
+      "startDateTime": "2024-01-01T00:00:00Z",
+      "expiration": { "type": "afterDuration", "duration": "PT8H" }
+    }
+  }'</div>
+        <div class="section-label">PIM Alerts</div>
+        <div class="row"><span class="key">Roles not requiring MFA</span><span class="val">Alert: privileged roles missing MFA</span></div>
+        <div class="row"><span class="key">Stale eligible assignments</span><span class="val">Alert: unused eligible assignments 90d+</span></div>
+        <div class="row"><span class="key">Too many global admins</span><span class="val">Alert: more than 5 Global Admins</span></div>
+        <div class="row"><span class="key">Roles assigned outside PIM</span><span class="val">Alert: direct assignments bypass PIM</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Identity Protection + B2B -->
+  <div class="grid grid-2" style="margin-bottom:12px;">
+
+    <!-- Identity Protection -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#DC2626;">⚠</div>
+        <h2>Identity Protection (P2)</h2>
+        <span class="sub">Risk-based security</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Risk Detection Types</div>
+        <div class="row"><span class="key">Anonymous IP</span><span class="val">Sign-in from Tor/VPN/proxy</span></div>
+        <div class="row"><span class="key">Atypical travel</span><span class="val">Impossible travel speed between locations</span></div>
+        <div class="row"><span class="key">Malware-linked IP</span><span class="val">IP associated with malware C2</span></div>
+        <div class="row"><span class="key">Unfamiliar sign-in properties</span><span class="val">New device, browser, location</span></div>
+        <div class="row"><span class="key">Leaked credentials</span><span class="val">Credentials found on dark web (MSFT intel)</span></div>
+        <div class="row"><span class="key">Password spray</span><span class="val">Single password tried on many accounts</span></div>
+        <div class="row"><span class="key">Impossible travel</span><span class="val">Two locations geographically impossible</span></div>
+        <div class="row"><span class="key">New country</span><span class="val">Never-seen-before country for user</span></div>
+        <div class="section-label">Risk Levels</div>
+        <div class="row"><span class="key">Low</span><span class="val">Low confidence, low impact signal</span></div>
+        <div class="row"><span class="key">Medium</span><span class="val">Moderate confidence risk detected</span></div>
+        <div class="row"><span class="key">High</span><span class="val">High confidence, likely compromised</span></div>
+        <div class="section-label">Risk Policies</div>
+        <div class="row"><span class="key">User Risk Policy</span><span class="val">High → force password change + MFA</span></div>
+        <div class="row"><span class="key">Sign-in Risk Policy</span><span class="val">Medium/High → require MFA or block</span></div>
+        <div class="row"><span class="key">MFA Reg Policy</span><span class="val">Require MFA reg before risk event</span></div>
+        <div class="section-label">Remediation Actions</div>
+        <div class="row"><span class="key">Self-remediation</span><span class="val">User resets password or performs MFA</span></div>
+        <div class="row"><span class="key">Admin dismiss</span><span class="val">Mark risk as false positive</span></div>
+        <div class="row"><span class="key">Admin confirm compromise</span><span class="val">Confirm user is compromised</span></div>
+        <div class="row"><span class="key">Export to SIEM</span><span class="val">Risky users report → Sentinel connector</span></div>
+        <div class="note note-red">Risky users detected by Identity Protection can be automatically exported to Sentinel via the Azure AD connector for deeper investigation.</div>
+      </div>
+    </div>
+
+    <!-- B2B + Entitlement -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#1A6FB5;">🤝</div>
+        <h2>B2B Security &amp; Entitlement Management</h2>
+        <span class="sub">External collaboration</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Cross-Tenant Access Settings</div>
+        <div class="row"><span class="key">Inbound Trust</span><span class="val">Trust MFA/device compliance from partner tenant</span></div>
+        <div class="row"><span class="key">Outbound Trust</span><span class="val">Apply your CA to partner users</span></div>
+        <div class="row"><span class="key">B2B Direct Connect</span><span class="val">Shared channel Teams without guest accounts</span></div>
+        <div class="row"><span class="key">Default inbound</span><span class="val">All external tenants allowed (block by default recommended)</span></div>
+        <div class="section-label">External Collaboration Settings</div>
+        <div class="row"><span class="key">Guest invite restrictions</span><span class="val">Admin only / Member+Admin / Anyone</span></div>
+        <div class="row"><span class="key">Guest access restrictions</span><span class="val">Limit to own resources only</span></div>
+        <div class="row"><span class="key">Collaboration restrictions</span><span class="val">Allow/deny specific domains</span></div>
+        <div class="section-label">Entitlement Management (P2)</div>
+        <div class="row"><span class="key">Access Package</span><span class="val">Bundle of resource roles (Groups, Apps, SP, SharePoint)</span></div>
+        <div class="row"><span class="key">Catalog</span><span class="val">Container of access packages</span></div>
+        <div class="row"><span class="key">Access Policy</span><span class="val">Who can request, approval workflow, duration</span></div>
+        <div class="row"><span class="key">Approval workflow</span><span class="val">1-2 stage approval with designated approvers</span></div>
+        <div class="row"><span class="key">Time-limited access</span><span class="val">Auto-expire access after defined period</span></div>
+        <div class="row"><span class="key">Access reviews</span><span class="val">Periodic re-attestation of access</span></div>
+        <div class="row"><span class="key">Connected orgs</span><span class="val">Allow external users from partner tenants</span></div>
+        <div class="section-label">Managed Identities</div>
+        <div class="row"><span class="key">System-assigned</span><span class="val">Tied to resource lifecycle, auto-deleted</span></div>
+        <div class="row"><span class="key">User-assigned</span><span class="val">Independent lifecycle, share across resources</span></div>
+        <div class="row"><span class="key">Use case</span><span class="val">Replace stored credentials — app authenticates to KV/storage without secrets</span></div>
+        <div class="note note-green">Entitlement Management is the recommended way to manage external partner access at scale — eliminates ad-hoc guest invitations.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: NETWORK SECURITY -->
+  <div class="grid grid-2" style="margin-bottom:12px;">
+
+    <!-- NSG + Firewall -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#B91C1C;">🔥</div>
+        <h2>NSG &amp; Azure Firewall</h2>
+        <span class="sub">Network layer security</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">NSG (Network Security Group)</div>
+        <div class="row"><span class="key">Layer</span><span class="val">L3/L4 — IP, port, protocol</span></div>
+        <div class="row"><span class="key">Scope</span><span class="val">Subnet or NIC level</span></div>
+        <div class="row"><span class="key">Default rules</span><span class="val">Allow VNet in, Allow LB in, Deny All in</span></div>
+        <div class="row"><span class="key">Priority range</span><span class="val">100 – 4096 (lower = higher priority)</span></div>
+        <div class="row"><span class="key">Augmented rules</span><span class="val">Multiple IPs/ports in one rule (reduces count)</span></div>
+        <div class="row"><span class="key">Service tags</span><span class="val">AzureLoadBalancer, Internet, VirtualNetwork, AzureCloud, Storage, Sql</span></div>
+        <div class="section-label">NSG Flow Logs</div>
+        <div class="row"><span class="key">Capture</span><span class="val">Allow/deny decisions with 5-tuple</span></div>
+        <div class="row"><span class="key">Destination</span><span class="val">Storage Account (required)</span></div>
+        <div class="row"><span class="key">Interval</span><span class="val">1-minute aggregation intervals</span></div>
+        <div class="row"><span class="key">Retention</span><span class="val">1 – 365 days</span></div>
+        <div class="row"><span class="key">Traffic Analytics</span><span class="val">Flow logs → Log Analytics → workbook visualization</span></div>
+        <div class="code">az network nsg flow-log create \
+  --resource-group myRG --nsg myNSG \
+  --name myFlowLog \
+  --storage-account {storageId} \
+  --enabled true --retention 30</div>
+        <div class="section-label">Azure Firewall (L7)</div>
+        <div class="row"><span class="key">DNAT Rules</span><span class="val">Translate public IP:port → private IP:port (inbound NAT)</span></div>
+        <div class="row"><span class="key">Network Rules</span><span class="val">L3/L4 allow/deny by IP/port/protocol</span></div>
+        <div class="row"><span class="key">Application Rules</span><span class="val">FQDN filtering, HTTP/HTTPS, Layer 7</span></div>
+        <div class="row"><span class="key">Threat Intelligence</span><span class="val">Block known malicious IPs/domains: Alert or Alert+Deny</span></div>
+        <div class="row"><span class="key">IDPS (Premium)</span><span class="val">Signature-based detection, 58,000+ signatures</span></div>
+        <div class="row"><span class="key">TLS Inspection (Premium)</span><span class="val">Install root CA cert, decrypt HTTPS traffic</span></div>
+        <div class="row"><span class="key">Rule processing order</span><span class="val">DNAT → Network → Application</span></div>
+        <div class="row"><span class="key">Firewall Policy</span><span class="val">Central management across multiple firewalls</span></div>
+        <div class="note note-red">Azure Firewall Standard vs Premium: Standard has FQDN + threat intel. Premium adds IDPS, TLS inspection, URL filtering, web categories — required for compliance scenarios.</div>
+      </div>
+    </div>
+
+    <!-- DDoS + WAF -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#1A6FB5;">🛡</div>
+        <h2>DDoS Protection &amp; WAF</h2>
+        <span class="sub">Perimeter defense</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">DDoS Protection Tiers</div>
+        <div class="row"><span class="key">DDoS Basic / Default</span><span class="val">Automatic, always-on, FREE, platform-level</span></div>
+        <div class="row"><span class="key">DDoS Network (Standard)</span><span class="val">Per-VNet, $2,944/month, adaptive tuning</span></div>
+        <div class="row"><span class="key">DDoS IP Protection</span><span class="val">Per-public IP, $199/month, individual IP</span></div>
+        <div class="row"><span class="key">Attack types covered</span><span class="val">Volumetric, protocol, resource layer (L3-L7)</span></div>
+        <div class="row"><span class="key">Network tier extras</span><span class="val">Attack analytics, rapid response team, telemetry</span></div>
+        <div class="row"><span class="key">Telemetry</span><span class="val">DDoS attack metrics in Azure Monitor</span></div>
+        <div class="section-label">WAF (Web Application Firewall)</div>
+        <div class="row"><span class="key">OWASP CRS 3.2</span><span class="val">Default ruleset (recommended)</span></div>
+        <div class="row"><span class="key">CRS 3.1 / 3.0</span><span class="val">Legacy rulesets (less coverage)</span></div>
+        <div class="row"><span class="key">Managed rules</span><span class="val">SQLi, XSS, RCE, path traversal, LFI, RFI</span></div>
+        <div class="row"><span class="key">Custom rules</span><span class="val">IP match, geo match, string match, rate limiting</span></div>
+        <div class="row"><span class="key">Detection mode</span><span class="val">Log requests only — no blocking</span></div>
+        <div class="row"><span class="key">Prevention mode</span><span class="val">Log + block matching requests</span></div>
+        <div class="row"><span class="key">WAF on App Gateway</span><span class="val">Per-gateway, regional deployment</span></div>
+        <div class="row"><span class="key">WAF on Front Door</span><span class="val">Global, anycast edge enforcement</span></div>
+        <div class="row"><span class="key">WAF on CDN</span><span class="val">Microsoft CDN endpoints only</span></div>
+        <div class="row"><span class="key">Exclusions</span><span class="val">Exclude specific fields (e.g., Authorization header)</span></div>
+        <div class="section-label">Azure Front Door Security</div>
+        <div class="row"><span class="key">WAF policy at edge</span><span class="val">Global policy, anycast</span></div>
+        <div class="row"><span class="key">Bot protection</span><span class="val">Managed bot rule set</span></div>
+        <div class="row"><span class="key">TLS termination</span><span class="val">Auto-managed certificates</span></div>
+        <div class="row"><span class="key">Private Link backend</span><span class="val">Backend without public IP exposure</span></div>
+        <div class="row"><span class="key">Rate limiting</span><span class="val">Custom rules with threshold</span></div>
+        <div class="note note-azure">WAF exclusions allow you to exclude specific request attributes (like a cookie value or header) from rule evaluation — useful for reducing false positives in managed rules.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JIT + Private Endpoints -->
+  <div class="grid grid-2" style="margin-bottom:12px;">
+
+    <!-- JIT VM Access -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#DC2626;">⏱</div>
+        <h2>Just-in-Time VM Access</h2>
+        <span class="sub">Defender for Servers Plan 2</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">How JIT Works</div>
+        <div class="row"><span class="key">Default behavior</span><span class="val">Management ports BLOCKED by NSG deny rule</span></div>
+        <div class="row"><span class="key">On JIT request</span><span class="val">Temporary NSG Allow rule added for your IP only</span></div>
+        <div class="row"><span class="key">Max duration</span><span class="val">3 hours (configurable)</span></div>
+        <div class="row"><span class="key">Source IP</span><span class="val">Only requester's IP (or CIDR)</span></div>
+        <div class="row"><span class="key">Auto-expire</span><span class="val">NSG rule removed after timeout</span></div>
+        <div class="section-label">Blocked Ports</div>
+        <div class="row"><span class="key">RDP</span><span class="val">TCP 3389</span></div>
+        <div class="row"><span class="key">SSH</span><span class="val">TCP 22</span></div>
+        <div class="row"><span class="key">WinRM HTTP</span><span class="val">TCP 5985</span></div>
+        <div class="row"><span class="key">WinRM HTTPS</span><span class="val">TCP 5986</span></div>
+        <div class="section-label">Requirement</div>
+        <div class="row"><span class="key">Plan required</span><span class="val">Microsoft Defender for Servers Plan 2</span></div>
+        <div class="row"><span class="key">NSG required</span><span class="val">VM must have NSG attached</span></div>
+        <div class="row"><span class="key">RBAC required</span><span class="val">Security Admin or Owner to configure</span></div>
+        <div class="section-label">CLI Configuration</div>
+        <div class="code">az security jit-policy create \
+  --name myJITPolicy \
+  --resource-group myRG \
+  --virtual-machines '[{
+    "id": "/subscriptions/.../virtualMachines/myVM",
+    "ports": [{
+      "number": 22,
+      "protocol": "TCP",
+      "allowedSourceAddressPrefix": "*",
+      "maxRequestAccessDuration": "PT3H"
+    },{
+      "number": 3389,
+      "protocol": "TCP",
+      "allowedSourceAddressPrefix": "*",
+      "maxRequestAccessDuration": "PT3H"
+    }]
+  }]'</div>
+        <div class="note note-red">JIT is one of the most tested topics in AZ-500. Key: it blocks ports by default and creates a TEMPORARY NSG rule — it does NOT permanently open ports.</div>
+      </div>
+    </div>
+
+    <!-- Private vs Service Endpoints -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#1B7A4A;">🔌</div>
+        <h2>Private vs Service Endpoints</h2>
+        <span class="sub">PaaS connectivity security</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Service Endpoints</div>
+        <div class="row"><span class="key">Traffic path</span><span class="val">Azure backbone, bypasses internet</span></div>
+        <div class="row"><span class="key">Source IP to service</span><span class="val">VNet public IP (not private)</span></div>
+        <div class="row"><span class="key">Private IP allocated</span><span class="val">No — no NIC in subnet</span></div>
+        <div class="row"><span class="key">On-prem access</span><span class="val">NOT accessible from on-prem VPN/ExpressRoute</span></div>
+        <div class="row"><span class="key">DNS change</span><span class="val">No DNS override required</span></div>
+        <div class="row"><span class="key">Cost</span><span class="val">Free</span></div>
+        <div class="row"><span class="key">Data exfiltration</span><span class="val">Not prevented (any tenant's storage)</span></div>
+        <div class="section-label">Private Endpoints</div>
+        <div class="row"><span class="key">Traffic path</span><span class="val">Dedicated NIC with private IP in subnet</span></div>
+        <div class="row"><span class="key">Source IP to service</span><span class="val">Private IP — fully private</span></div>
+        <div class="row"><span class="key">Private IP allocated</span><span class="val">YES — NIC created in your subnet</span></div>
+        <div class="row"><span class="key">On-prem access</span><span class="val">YES — via VPN/ExpressRoute</span></div>
+        <div class="row"><span class="key">DNS override</span><span class="val">privatelink.blob.core.windows.net → private IP</span></div>
+        <div class="row"><span class="key">Cost</span><span class="val">~$7.30/month per endpoint</span></div>
+        <div class="row"><span class="key">Data exfiltration</span><span class="val">PREVENTED — only your specific resource</span></div>
+        <div class="section-label">When to Force Private Endpoint</div>
+        <div class="row"><span class="key">Compliance</span><span class="val">PCI-DSS, HIPAA, ISO 27001 requirements</span></div>
+        <div class="row"><span class="key">On-prem access</span><span class="val">Users on VPN/ExpressRoute need PaaS access</span></div>
+        <div class="row"><span class="key">Data exfiltration</span><span class="val">Prevent access to competitor storage accounts</span></div>
+        <div class="row"><span class="key">Zero public exposure</span><span class="val">Disable public endpoint entirely</span></div>
+        <div class="section-label">Private DNS Zones (Key)</div>
+        <div class="row"><span class="key">Blob storage</span><span class="val">privatelink.blob.core.windows.net</span></div>
+        <div class="row"><span class="key">Key Vault</span><span class="val">privatelink.vaultcore.azure.net</span></div>
+        <div class="row"><span class="key">SQL Database</span><span class="val">privatelink.database.windows.net</span></div>
+        <div class="row"><span class="key">ACR</span><span class="val">privatelink.azurecr.io</span></div>
+        <div class="note note-green">Private Endpoints are strictly superior for security but cost more. Service Endpoints are fine for VNet-only workloads that don't need on-prem access or data exfiltration protection.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: COMPUTE, STORAGE & DB -->
+  <div class="grid grid-2" style="margin-bottom:12px;">
+
+    <!-- Defender for Cloud Plans -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#0078D4;">☁</div>
+        <h2>Microsoft Defender for Cloud Plans</h2>
+        <span class="sub">CSPM + workload protection</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Defender Plan Pricing (Monthly)</div>
+        <div class="row"><span class="key">Defender for Servers Plan 1</span><span class="val">$5/server — JIT, FIM, adaptive controls</span></div>
+        <div class="row"><span class="key">Defender for Servers Plan 2</span><span class="val">$15/server — Plan 1 + MDE P2, vuln assess, 500MB free LA</span></div>
+        <div class="row"><span class="key">Defender for Containers</span><span class="val">$7/1000 VCore-hr — AKS vuln scan + runtime protection</span></div>
+        <div class="row"><span class="key">Defender for Storage</span><span class="val">$10/storage/mo + $0.15/GB — malware scan, sensitive data</span></div>
+        <div class="row"><span class="key">Defender for SQL</span><span class="val">$15/server — ATP, vulnerability assessment</span></div>
+        <div class="row"><span class="key">Defender for Key Vault</span><span class="val">Detects unusual access patterns</span></div>
+        <div class="row"><span class="key">Defender for App Service</span><span class="val">Web app attack detection, anomalous activities</span></div>
+        <div class="row"><span class="key">Defender for DNS</span><span class="val">Crypto mining, C2 beaconing, DNS tunneling</span></div>
+        <div class="section-label">Secure Score</div>
+        <div class="row"><span class="key">Definition</span><span class="val">% of security controls passed</span></div>
+        <div class="row"><span class="key">Maximum score</span><span class="val">All recommendations implemented = 100%</span></div>
+        <div class="row"><span class="key">Controls</span><span class="val">Groups of related recommendations</span></div>
+        <div class="row"><span class="key">Recommendations</span><span class="val">Findings: High/Medium/Low severity + quick fix</span></div>
+        <div class="row"><span class="key">Exempt</span><span class="val">Mark recommendation as N/A for resource</span></div>
+        <div class="section-label">Cloud Security Posture Management (CSPM)</div>
+        <div class="row"><span class="key">Free CSPM</span><span class="val">Basic recommendations, Secure Score</span></div>
+        <div class="row"><span class="key">Defender CSPM</span><span class="val">Attack path analysis, AI recommendations</span></div>
+        <div class="row"><span class="key">Regulatory compliance</span><span class="val">CIS, PCI-DSS, ISO 27001, NIST, ASB</span></div>
+        <div class="row"><span class="key">Workflow automation</span><span class="val">Trigger Logic App on alert/recommendation</span></div>
+        <div class="row"><span class="key">Security alerts</span><span class="val">Real-time threat detection from Defender plans</span></div>
+        <div class="note note-azure">Defender for Servers Plan 2 is required for JIT VM access and includes Microsoft Defender for Endpoint P2 (MDE P2) — essential for endpoint detection and response on servers.</div>
+      </div>
+    </div>
+
+    <!-- Key Vault + Disk Encryption -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#7C3AED;">🗝</div>
+        <h2>Key Vault &amp; Disk Encryption</h2>
+        <span class="sub">Data protection at rest</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Key Vault Access Models</div>
+        <div class="row"><span class="key">Access Policies (legacy)</span><span class="val">Vault-level, up to 1024 policies, coarse-grained</span></div>
+        <div class="row"><span class="key">RBAC (recommended)</span><span class="val">Fine-grained, supports conditions, Entra ID</span></div>
+        <div class="section-label">Key Vault RBAC Roles</div>
+        <div class="row"><span class="key">KV Administrator</span><span class="val">Full control — all keys, secrets, certs</span></div>
+        <div class="row"><span class="key">KV Crypto Officer</span><span class="val">Create, update, delete keys (no read secret values)</span></div>
+        <div class="row"><span class="key">KV Secrets User</span><span class="val">Read secret values — app service identity</span></div>
+        <div class="row"><span class="key">KV Reader</span><span class="val">Read metadata only, no values</span></div>
+        <div class="section-label">Key Vault Protection Features</div>
+        <div class="row"><span class="key">Soft delete</span><span class="val">7-90 days retention (default 90d). CANNOT be disabled</span></div>
+        <div class="row"><span class="key">Purge protection</span><span class="val">Prevents purge during retention — REQUIRED for CMK</span></div>
+        <div class="row"><span class="key">Private endpoint</span><span class="val">Disable public access, KV only via private IP</span></div>
+        <div class="row"><span class="key">Firewall</span><span class="val">Allow specific VNets and IP ranges only</span></div>
+        <div class="row"><span class="key">HSM-backed (Premium)</span><span class="val">FIPS 140-2 Level 3, hardware security module</span></div>
+        <div class="row"><span class="key">Managed HSM</span><span class="val">Dedicated single-tenant HSM, FIPS 140-2 Level 3</span></div>
+        <div class="section-label">VM Disk Encryption Options</div>
+        <div class="row"><span class="key">Azure Disk Encryption (ADE)</span><span class="val">BitLocker (Win) / DM-Crypt (Linux), OS+data disk</span></div>
+        <div class="row"><span class="key">Server-Side Encryption (SSE)</span><span class="val">Transparent, at-rest, platform-managed or CMK</span></div>
+        <div class="row"><span class="key">Encryption at host</span><span class="val">Encrypts temp disk + cache on host before storage write</span></div>
+        <div class="row"><span class="key">Double encryption</span><span class="val">SSE + encryption at host (maximum compliance)</span></div>
+        <div class="section-label">ADE CLI Command</div>
+        <div class="code">az vm encryption enable \
+  --resource-group myRG \
+  --name myVM \
+  --disk-encryption-keyvault myKV \
+  --volume-type All</div>
+        <div class="section-label">CMK (Customer-Managed Key) Setup</div>
+        <div class="row"><span class="key">Step 1</span><span class="val">Create Disk Encryption Set in Azure</span></div>
+        <div class="row"><span class="key">Step 2</span><span class="val">Link Disk Encryption Set to Key Vault key</span></div>
+        <div class="row"><span class="key">Step 3</span><span class="val">Assign Disk Encryption Set to disk/snapshot</span></div>
+        <div class="note note-purple">Purge protection must be enabled on Key Vault when using CMK for disk encryption — otherwise the key could be purged, making data permanently inaccessible.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Storage + Container Security -->
+  <div class="grid grid-2" style="margin-bottom:12px;">
+
+    <!-- Storage Account Security -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#1B7A4A;">💾</div>
+        <h2>Storage Account Security</h2>
+        <span class="sub">Data protection &amp; access control</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Key Security Settings</div>
+        <div class="row"><span class="key">Disable Shared Key Auth</span><span class="val">Force Azure AD / User Delegation SAS only</span></div>
+        <div class="row"><span class="key">Minimum TLS version</span><span class="val">Enforce TLS 1.2 (disable 1.0/1.1)</span></div>
+        <div class="row"><span class="key">Secure transfer required</span><span class="val">Require HTTPS — reject HTTP</span></div>
+        <div class="row"><span class="key">Allow blob public access</span><span class="val">Disable unless explicitly needed</span></div>
+        <div class="row"><span class="key">Private endpoint</span><span class="val">Disable public access for max security</span></div>
+        <div class="row"><span class="key">Storage firewall</span><span class="val">Allow specific VNets, IPs, or Azure services</span></div>
+        <div class="section-label">SAS (Shared Access Signature) Types</div>
+        <div class="row"><span class="key">User Delegation SAS</span><span class="val">Uses Entra ID — MOST SECURE, blob only</span></div>
+        <div class="row"><span class="key">Service SAS</span><span class="val">Signed by storage key — one service (blob/queue/table)</span></div>
+        <div class="row"><span class="key">Account SAS</span><span class="val">Signed by storage key — all services</span></div>
+        <div class="row"><span class="key">Stored Access Policy</span><span class="val">Attach to SAS, revocable centrally</span></div>
+        <div class="section-label">SAS Security Best Practices</div>
+        <div class="row"><span class="key">Short expiry</span><span class="val">Minimum necessary time window</span></div>
+        <div class="row"><span class="key">HTTPS only</span><span class="val">Enforce HTTPS in SAS policy</span></div>
+        <div class="row"><span class="key">Least privilege</span><span class="val">Only grant required permissions (r/w/d/l)</span></div>
+        <div class="row"><span class="key">Monitor SAS usage</span><span class="val">Storage Analytics logging + alerts</span></div>
+        <div class="section-label">Immutable Storage</div>
+        <div class="row"><span class="key">WORM policies</span><span class="val">Write Once Read Many — compliance retention</span></div>
+        <div class="row"><span class="key">Time-based retention</span><span class="val">Lock blobs for defined period</span></div>
+        <div class="row"><span class="key">Legal hold</span><span class="val">Hold until explicitly removed (litigation)</span></div>
+        <div class="note note-green">User Delegation SAS is the recommended SAS type because it uses Entra ID credentials — if you disable shared key auth, only User Delegation SAS and Azure AD access work.</div>
+      </div>
+    </div>
+
+    <!-- Container + AKS Security -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#0078D4;">📦</div>
+        <h2>Container &amp; AKS Security</h2>
+        <span class="sub">Runtime &amp; registry protection</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Azure Container Registry (ACR) Security</div>
+        <div class="row"><span class="key">Geo-replication</span><span class="val">Replicate images across regions</span></div>
+        <div class="row"><span class="key">Content trust</span><span class="val">Docker Content Trust — image signing</span></div>
+        <div class="row"><span class="key">Image scanning</span><span class="val">Microsoft Defender for Containers scans registry</span></div>
+        <div class="row"><span class="key">Private endpoint</span><span class="val">Disable public access to registry</span></div>
+        <div class="row"><span class="key">Token auth (preview)</span><span class="val">Repository-scoped permissions</span></div>
+        <div class="section-label">AKS Security Hardening</div>
+        <div class="row"><span class="key">RBAC + Azure AD</span><span class="val">Entra ID integration for kubectl auth</span></div>
+        <div class="row"><span class="key">Azure RBAC for K8s</span><span class="val">RBAC assignments control kubectl access</span></div>
+        <div class="row"><span class="key">Network policies</span><span class="val">Calico or Azure CNI — control pod-to-pod traffic</span></div>
+        <div class="row"><span class="key">Pod security standards</span><span class="val">Privileged, Baseline, Restricted profiles</span></div>
+        <div class="row"><span class="key">Workload Identity</span><span class="val">Replaces pod-managed identity — federated credentials</span></div>
+        <div class="row"><span class="key">Node isolation</span><span class="val">System vs user node pools</span></div>
+        <div class="row"><span class="key">API server access</span><span class="val">Authorized IP ranges or private cluster</span></div>
+        <div class="section-label">Defender for Containers</div>
+        <div class="row"><span class="key">Registry scan</span><span class="val">Vulnerability assessment on push/pull</span></div>
+        <div class="row"><span class="key">Runtime protection</span><span class="val">AKS runtime threat detection</span></div>
+        <div class="row"><span class="key">Crypto mining detect</span><span class="val">Detect miners running in containers</span></div>
+        <div class="row"><span class="key">Container escape</span><span class="val">Detect privilege escalation attempts</span></div>
+        <div class="row"><span class="key">Lateral movement</span><span class="val">Detect suspicious pod-to-pod access</span></div>
+        <div class="section-label">Container Best Practices</div>
+        <div class="row"><span class="key">Non-root user</span><span class="val">Run containers as non-root UID</span></div>
+        <div class="row"><span class="key">Read-only filesystem</span><span class="val">Prevent runtime modifications</span></div>
+        <div class="row"><span class="key">Drop capabilities</span><span class="val">Drop ALL Linux capabilities, add back what's needed</span></div>
+        <div class="row"><span class="key">No privileged containers</span><span class="val">Never run privileged unless absolutely required</span></div>
+        <div class="note note-azure">Workload Identity is the modern replacement for pod-managed identity in AKS — it uses federated identity credentials and does not require MSI extension on nodes.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: SECURITY OPERATIONS -->
+  <div class="grid grid-2" style="margin-bottom:12px;">
+
+    <!-- Microsoft Sentinel -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#6B21A8;">🔭</div>
+        <h2>Microsoft Sentinel</h2>
+        <span class="sub">SIEM + SOAR — cloud-native on Log Analytics</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Data Connectors (Must Know)</div>
+        <div class="row"><span class="key">Microsoft 365 Defender</span><span class="val">XDR — MDE, MDO, MDI, MDCA alerts</span></div>
+        <div class="row"><span class="key">Microsoft Defender for Cloud</span><span class="val">Security alerts and recommendations</span></div>
+        <div class="row"><span class="key">Azure Active Directory</span><span class="val">Sign-in logs, audit logs, risky users</span></div>
+        <div class="row"><span class="key">Azure Activity</span><span class="val">Subscription-level control plane operations</span></div>
+        <div class="row"><span class="key">Office 365</span><span class="val">Exchange, SharePoint, Teams activity</span></div>
+        <div class="row"><span class="key">Syslog (CEF/Syslog)</span><span class="val">Linux agents for non-Azure sources</span></div>
+        <div class="row"><span class="key">Windows Security Events</span><span class="val">MMA/AMA agent on Windows servers</span></div>
+        <div class="row"><span class="key">Threat Intelligence</span><span class="val">IOCs from TI platforms via TAXII</span></div>
+        <div class="section-label">Analytics Rule Types</div>
+        <div class="row"><span class="key">Scheduled</span><span class="val">KQL on schedule, generates incidents</span></div>
+        <div class="row"><span class="key">NRT (Near Real-Time)</span><span class="val">~1 minute latency — for critical detections</span></div>
+        <div class="row"><span class="key">Microsoft Security</span><span class="val">Auto-create incidents from MSFT product alerts</span></div>
+        <div class="row"><span class="key">ML Behavioral Analytics</span><span class="val">UEBA-based anomaly detection (P2 feature)</span></div>
+        <div class="row"><span class="key">Fusion</span><span class="val">Multi-stage attack — correlates low-fidelity alerts</span></div>
+        <div class="section-label">Incident Management</div>
+        <div class="row"><span class="key">Creation</span><span class="val">From analytics rules (auto) or manual</span></div>
+        <div class="row"><span class="key">Severity levels</span><span class="val">Informational / Low / Medium / High</span></div>
+        <div class="row"><span class="key">Status workflow</span><span class="val">New → Active → Closed</span></div>
+        <div class="row"><span class="key">Investigation graph</span><span class="val">Visual entity relationship map</span></div>
+        <div class="row"><span class="key">Comment</span><span class="val">Document investigation findings inline</span></div>
+        <div class="section-label">UEBA (User Entity Behavior Analytics)</div>
+        <div class="row"><span class="key">Baselines</span><span class="val">Normal behavior per user and entity</span></div>
+        <div class="row"><span class="key">Anomalies detected</span><span class="val">Unusual login time, impossible travel, mass file ops</span></div>
+        <div class="row"><span class="key">Entity pages</span><span class="val">User timeline, associated alerts, risk score</span></div>
+        <div class="row"><span class="key">Setup</span><span class="val">Enable in Sentinel settings, 7-day onboarding period</span></div>
+        <div class="section-label">Playbooks (Logic Apps)</div>
+        <div class="row"><span class="key">Triggers</span><span class="val">Alert, incident, or manual trigger</span></div>
+        <div class="row"><span class="key">Enrich incident</span><span class="val">Add threat intel, WHOIS, VirusTotal</span></div>
+        <div class="row"><span class="key">Block IP</span><span class="val">Add deny rule to NSG or firewall</span></div>
+        <div class="row"><span class="key">Disable user</span><span class="val">Disable compromised Entra ID account</span></div>
+        <div class="row"><span class="key">Notify team</span><span class="val">Send Teams/Slack/email notification</span></div>
+        <div class="row"><span class="key">ITSM ticket</span><span class="val">Open ServiceNow / Jira ticket automatically</span></div>
+        <div class="row"><span class="key">Auth method</span><span class="val">Logic App uses Managed Identity for Azure resources</span></div>
+        <div class="note note-purple">Fusion analytics is built-in and cannot be customized — it correlates signals across Microsoft products to detect multi-stage attacks like credential theft → lateral movement → data exfiltration.</div>
+      </div>
+    </div>
+
+    <!-- KQL Queries -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#1A6FB5;">📝</div>
+        <h2>KQL Security Queries</h2>
+        <span class="sub">Sentinel / Log Analytics</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Failed Login Brute Force Detection</div>
+        <div class="code">SecurityEvent
+| where EventID == 4625
+| summarize FailedLogins=count() by Account, IpAddress
+| where FailedLogins > 10
+| order by FailedLogins desc</div>
+        <div class="section-label">Risky Sign-ins (High/Medium)</div>
+        <div class="code">SigninLogs
+| where ResultType != 0
+| where RiskLevelDuringSignIn in ("high","medium")
+| project TimeGenerated, UserPrincipalName,
+          IPAddress, Location,
+          RiskLevelDuringSignIn
+| order by TimeGenerated desc</div>
+        <div class="section-label">Privileged Write/Delete Operations</div>
+        <div class="code">AzureActivity
+| where OperationNameValue contains "write"
+       or OperationNameValue contains "delete"
+| where ActivityStatusValue == "Success"
+| project TimeGenerated, Caller,
+          OperationNameValue, ResourceGroup
+| order by TimeGenerated desc</div>
+        <div class="section-label">Impossible Travel Detection</div>
+        <div class="code">SigninLogs
+| where ResultType == 0
+| extend City = tostring(LocationDetails.city)
+| extend Country = tostring(LocationDetails.countryOrRegion)
+| project TimeGenerated, UserPrincipalName,
+          IPAddress, City, Country
+| join kind=inner (
+    SigninLogs
+    | where ResultType == 0
+    | project TimeGenerated2=TimeGenerated,
+              UserPrincipalName,
+              Country2=tostring(LocationDetails.countryOrRegion)
+) on UserPrincipalName
+| where Country != Country2
+| where abs(datetime_diff('minute',
+            TimeGenerated, TimeGenerated2)) &lt; 60</div>
+        <div class="section-label">New Admin Role Assignments</div>
+        <div class="code">AuditLogs
+| where OperationName == "Add member to role"
+| where TargetResources[0].modifiedProperties[0].newValue
+        contains "Global Administrator"
+| project TimeGenerated, InitiatedBy,
+          TargetResources
+| order by TimeGenerated desc</div>
+        <div class="section-label">Key Vault Secret Access</div>
+        <div class="code">AzureDiagnostics
+| where ResourceType == "VAULTS"
+| where OperationName == "SecretGet"
+| project TimeGenerated, identity_claim_oid_g,
+          requestUri_s, resultType_s
+| where resultType_s == "Success"</div>
+        <div class="section-label">Defender for Cloud Alerts</div>
+        <div class="code">SecurityAlert
+| where AlertSeverity in ("High","Medium")
+| where TimeGenerated > ago(24h)
+| summarize AlertCount=count() by AlertName,
+            AlertSeverity, ProviderName
+| order by AlertCount desc</div>
+        <div class="section-label">Anomalous Data Exfiltration</div>
+        <div class="code">StorageBlobLogs
+| where OperationName == "GetBlob"
+| summarize TotalBytes=sum(ResponseBodySize)
+            by CallerIpAddress, bin(TimeGenerated, 1h)
+| where TotalBytes > 1073741824  // 1 GB
+| order by TotalBytes desc</div>
+        <div class="note note-blue">KQL tip: Use <b>where</b> before <b>summarize</b> to filter rows early. Use <b>project</b> to select only needed columns. Use <b>bin()</b> for time bucketing in summarize.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Azure Monitor + Compliance -->
+  <div class="grid grid-2" style="margin-bottom:12px;">
+
+    <!-- Azure Monitor Security -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#1B7A4A;">📊</div>
+        <h2>Azure Monitor Security</h2>
+        <span class="sub">Logging &amp; alerting</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Log Types</div>
+        <div class="row"><span class="key">Activity Log</span><span class="val">Control plane — who did what, when (90-day retention)</span></div>
+        <div class="row"><span class="key">Resource Logs</span><span class="val">Data plane — resource-specific operations</span></div>
+        <div class="row"><span class="key">Platform Metrics</span><span class="val">Numeric performance data (93-day retention)</span></div>
+        <div class="row"><span class="key">Azure AD Audit Logs</span><span class="val">Identity changes — roles, policies, users</span></div>
+        <div class="row"><span class="key">Azure AD Sign-in Logs</span><span class="val">Authentication events, risk signals</span></div>
+        <div class="section-label">Diagnostic Settings — Route To</div>
+        <div class="row"><span class="key">Log Analytics Workspace</span><span class="val">Query with KQL, dashboards, alerts</span></div>
+        <div class="row"><span class="key">Storage Account</span><span class="val">Long-term archive (cheap), compliance</span></div>
+        <div class="row"><span class="key">Event Hub</span><span class="val">Stream to external SIEM (Splunk, QRadar)</span></div>
+        <div class="row"><span class="key">Partner solutions</span><span class="val">Direct integration with ISV partners</span></div>
+        <div class="section-label">Alert Types</div>
+        <div class="row"><span class="key">Metric alerts</span><span class="val">Threshold on numeric metric value</span></div>
+        <div class="row"><span class="key">Log alerts</span><span class="val">KQL query returns results → alert fires</span></div>
+        <div class="row"><span class="key">Activity log alerts</span><span class="val">Control plane event triggers alert</span></div>
+        <div class="row"><span class="key">Smart detection</span><span class="val">App Insights anomaly detection</span></div>
+        <div class="section-label">Action Groups</div>
+        <div class="row"><span class="key">Email / SMS</span><span class="val">Notify person directly</span></div>
+        <div class="row"><span class="key">Push notification</span><span class="val">Azure mobile app</span></div>
+        <div class="row"><span class="key">Webhook</span><span class="val">Custom HTTP endpoint</span></div>
+        <div class="row"><span class="key">Logic App</span><span class="val">Automated workflow (Sentinel playbook)</span></div>
+        <div class="row"><span class="key">ITSM connector</span><span class="val">ServiceNow, Remedy integration</span></div>
+        <div class="row"><span class="key">Azure Function</span><span class="val">Serverless custom action</span></div>
+        <div class="note note-green">Activity Log has 90-day default retention. For compliance (e.g., PCI-DSS requires 1 year), route to Storage Account or Log Analytics with custom retention policy.</div>
+      </div>
+    </div>
+
+    <!-- Compliance + Policy -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#DC2626;">📋</div>
+        <h2>Azure Policy &amp; Compliance</h2>
+        <span class="sub">Governance &amp; regulatory mapping</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Azure Policy Concepts</div>
+        <div class="row"><span class="key">Policy definition</span><span class="val">Rule: if [condition] then [effect]</span></div>
+        <div class="row"><span class="key">Initiative</span><span class="val">Group of policies (policy set)</span></div>
+        <div class="row"><span class="key">Assignment</span><span class="val">Apply policy/initiative to scope</span></div>
+        <div class="row"><span class="key">Compliance state</span><span class="val">Compliant / Non-compliant / Exempt</span></div>
+        <div class="section-label">Policy Effects (in order of enforcement)</div>
+        <div class="row"><span class="key">Disabled</span><span class="val">Policy not evaluated</span></div>
+        <div class="row"><span class="key">Audit</span><span class="val">Log non-compliance, allow resource creation</span></div>
+        <div class="row"><span class="key">AuditIfNotExists</span><span class="val">Audit if related resource doesn't exist</span></div>
+        <div class="row"><span class="key">Modify</span><span class="val">Add/replace resource properties on create/update</span></div>
+        <div class="row"><span class="key">Append</span><span class="val">Add fields to resource during create/update</span></div>
+        <div class="row"><span class="key">DeployIfNotExists</span><span class="val">Deploy related resource if missing</span></div>
+        <div class="row"><span class="key">Deny</span><span class="val">Block non-compliant resource creation/update</span></div>
+        <div class="section-label">Regulatory Compliance Standards</div>
+        <div class="row"><span class="key">Azure Security Benchmark</span><span class="val">Microsoft best practice baseline (ASB v3)</span></div>
+        <div class="row"><span class="key">CIS Azure v1.4</span><span class="val">Center for Internet Security benchmark</span></div>
+        <div class="row"><span class="key">PCI DSS 3.2.1</span><span class="val">Payment Card Industry standard</span></div>
+        <div class="row"><span class="key">ISO 27001:2013</span><span class="val">Information security management</span></div>
+        <div class="row"><span class="key">NIST SP 800-53</span><span class="val">US federal security controls</span></div>
+        <div class="row"><span class="key">SOC TSP</span><span class="val">Trust Service Criteria for SOC reports</span></div>
+        <div class="section-label">Azure Blueprints</div>
+        <div class="row"><span class="key">Purpose</span><span class="val">Package: RBAC + Policy + ARM + Resource Groups</span></div>
+        <div class="row"><span class="key">Lock modes</span><span class="val">Don't Lock / Read Only / Do Not Delete</span></div>
+        <div class="row"><span class="key">Deny assignments</span><span class="val">Created by Blueprints — cannot be manually created</span></div>
+        <div class="note note-red">Azure Policy Deny effect is evaluated BEFORE resource creation. AuditIfNotExists and DeployIfNotExists are evaluated AFTER resource is created (asynchronous). Know this ordering for exam questions.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FINAL ROW: Quick Ref Tables -->
+  <div class="grid grid-4" style="margin-bottom:12px;">
+
+    <!-- Defender Plan Decision Tree -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#0078D4;">🌲</div>
+        <h2>Defender Plan Selection</h2>
+        <span class="sub">Which plan for what?</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Scenario → Plan</div>
+        <div class="row"><span class="key">JIT VM access needed</span><span class="val">Servers Plan 2</span></div>
+        <div class="row"><span class="key">File integrity monitoring</span><span class="val">Servers Plan 1+</span></div>
+        <div class="row"><span class="key">MDE P2 on servers</span><span class="val">Servers Plan 2</span></div>
+        <div class="row"><span class="key">AKS runtime protection</span><span class="val">Defender for Containers</span></div>
+        <div class="row"><span class="key">Malware scan blobs</span><span class="val">Defender for Storage</span></div>
+        <div class="row"><span class="key">SQL threat detection</span><span class="val">Defender for SQL</span></div>
+        <div class="row"><span class="key">Key Vault anomaly detect</span><span class="val">Defender for Key Vault</span></div>
+        <div class="row"><span class="key">DNS tunnel/C2 detection</span><span class="val">Defender for DNS</span></div>
+        <div class="row"><span class="key">Web app attack detection</span><span class="val">Defender for App Service</span></div>
+        <div class="row"><span class="key">Vulnerability assessment</span><span class="val">Servers Plan 2 or Containers</span></div>
+        <div class="section-label">Free vs Paid CSPM</div>
+        <div class="row"><span class="key">Secure Score</span><span class="val">Free tier</span></div>
+        <div class="row"><span class="key">Attack path analysis</span><span class="val">Defender CSPM (paid)</span></div>
+        <div class="row"><span class="key">AI recommendations</span><span class="val">Defender CSPM (paid)</span></div>
+      </div>
+    </div>
+
+    <!-- Identity Protocols -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#7C3AED;">🔐</div>
+        <h2>Identity Protocols</h2>
+        <span class="sub">Auth flows &amp; federation</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Modern Auth Protocols</div>
+        <div class="row"><span class="key">OAuth 2.0</span><span class="val">Authorization framework, access tokens</span></div>
+        <div class="row"><span class="key">OpenID Connect</span><span class="val">OAuth 2.0 + identity layer (ID token)</span></div>
+        <div class="row"><span class="key">SAML 2.0</span><span class="val">Federation, XML assertions, enterprise SSO</span></div>
+        <div class="row"><span class="key">WS-Federation</span><span class="val">Legacy federation, ADFS</span></div>
+        <div class="section-label">Token Types</div>
+        <div class="row"><span class="key">Access token</span><span class="val">Short-lived (1hr), call APIs</span></div>
+        <div class="row"><span class="key">ID token</span><span class="val">OIDC, user identity claims</span></div>
+        <div class="row"><span class="key">Refresh token</span><span class="val">Get new access tokens, longer-lived</span></div>
+        <div class="section-label">Legacy Auth (Block These)</div>
+        <div class="row"><span class="key">Basic Auth</span><span class="val">Username/password over HTTP</span></div>
+        <div class="row"><span class="key">NTLM</span><span class="val">Windows legacy, no MFA support</span></div>
+        <div class="row"><span class="key">Digest Auth</span><span class="val">MD5 hash, weak</span></div>
+        <div class="row"><span class="key">POP3 / IMAP / SMTP</span><span class="val">Email protocols, no modern auth</span></div>
+        <div class="note note-red">Block legacy authentication via CA policy. Security Defaults also blocks legacy auth automatically. Legacy auth cannot be challenged with MFA.</div>
+      </div>
+    </div>
+
+    <!-- Network Security Quick Ref -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#1B7A4A;">🌐</div>
+        <h2>Network Security Quick Ref</h2>
+        <span class="sub">Ports, protocols, flows</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">JIT Blocked Ports</div>
+        <div class="row"><span class="key">RDP</span><span class="val">TCP 3389</span></div>
+        <div class="row"><span class="key">SSH</span><span class="val">TCP 22</span></div>
+        <div class="row"><span class="key">WinRM HTTP/S</span><span class="val">5985 / 5986</span></div>
+        <div class="section-label">Azure Firewall Rule Order</div>
+        <div class="row"><span class="key">1st evaluated</span><span class="val">DNAT rules</span></div>
+        <div class="row"><span class="key">2nd evaluated</span><span class="val">Network rules</span></div>
+        <div class="row"><span class="key">3rd evaluated</span><span class="val">Application rules</span></div>
+        <div class="section-label">WAF Modes</div>
+        <div class="row"><span class="key">Detection</span><span class="val">Log only — no blocking</span></div>
+        <div class="row"><span class="key">Prevention</span><span class="val">Log + block matched traffic</span></div>
+        <div class="section-label">DDoS Tier Comparison</div>
+        <div class="row"><span class="key">Basic/Default</span><span class="val">FREE — platform protection</span></div>
+        <div class="row"><span class="key">Network Standard</span><span class="val">$2,944/mo per VNet</span></div>
+        <div class="row"><span class="key">IP Protection</span><span class="val">$199/mo per public IP</span></div>
+        <div class="section-label">NSG Priority Numbers</div>
+        <div class="row"><span class="key">100 – 999</span><span class="val">Custom rules (lower = higher priority)</span></div>
+        <div class="row"><span class="key">65000</span><span class="val">Allow VNet inbound (default)</span></div>
+        <div class="row"><span class="key">65001</span><span class="val">Allow LB inbound (default)</span></div>
+        <div class="row"><span class="key">65500</span><span class="val">Deny all inbound (default)</span></div>
+      </div>
+    </div>
+
+    <!-- Exam Tips -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#DC2626;">💡</div>
+        <h2>Exam Tips &amp; Traps</h2>
+        <span class="sub">Common AZ-500 pitfalls</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Top Traps</div>
+        <div class="row"><span class="key">Security Defaults vs CA</span><span class="val">Can't use both — disable defaults to use CA</span></div>
+        <div class="row"><span class="key">PIM requires P2</span><span class="val">Not available in P1 or Free</span></div>
+        <div class="row"><span class="key">Soft delete can't disable</span><span class="val">Once enabled on KV, cannot turn off</span></div>
+        <div class="row"><span class="key">Service Endpoint no on-prem</span><span class="val">Cannot reach from VPN/ExpressRoute</span></div>
+        <div class="row"><span class="key">JIT needs Plan 2</span><span class="val">Plan 1 does NOT include JIT</span></div>
+        <div class="row"><span class="key">Break-glass must be excluded</span><span class="val">Exclude from ALL CA including MFA</span></div>
+        <div class="row"><span class="key">NSG on NIC takes precedence</span><span class="val">NIC NSG evaluated before subnet NSG</span></div>
+        <div class="row"><span class="key">ADE needs KV with purge protect</span><span class="val">Required for CMK-based ADE</span></div>
+        <div class="section-label">Key Numbers to Memorize</div>
+        <div class="row"><span class="key">PIM max activation</span><span class="val">24 hours</span></div>
+        <div class="row"><span class="key">Soft delete default</span><span class="val">90 days</span></div>
+        <div class="row"><span class="key">Activity Log retention</span><span class="val">90 days</span></div>
+        <div class="row"><span class="key">UEBA onboard period</span><span class="val">7 days</span></div>
+        <div class="row"><span class="key">Firewall IDPS signatures</span><span class="val">58,000+</span></div>
+        <div class="note note-red">If a question asks about "most secure" or "least privilege" — Private Endpoint beats Service Endpoint, RBAC beats Access Policies, User Delegation SAS beats Service SAS.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sentinel Analytics + Monitor Footer -->
+  <div class="grid grid-2" style="margin-bottom:12px;">
+
+    <!-- Sentinel Workbooks + Automation -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#1A6FB5;">📈</div>
+        <h2>Sentinel Workbooks &amp; Automation</h2>
+        <span class="sub">Dashboards &amp; SOAR automation</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Workbooks (Visualization)</div>
+        <div class="row"><span class="key">Azure Activity</span><span class="val">Control plane operations over time</span></div>
+        <div class="row"><span class="key">Sign-in workbook</span><span class="val">Authentication patterns, geographic map</span></div>
+        <div class="row"><span class="key">Defender for Cloud</span><span class="val">Secure Score trends, alert distribution</span></div>
+        <div class="row"><span class="key">Office 365</span><span class="val">Exchange/SharePoint/Teams usage and threats</span></div>
+        <div class="row"><span class="key">Zero Trust</span><span class="val">Identity, devices, apps compliance status</span></div>
+        <div class="section-label">Automation Rules</div>
+        <div class="row"><span class="key">Trigger</span><span class="val">Incident created, updated, or assigned</span></div>
+        <div class="row"><span class="key">Conditions</span><span class="val">Filter by analytics rule, severity, title</span></div>
+        <div class="row"><span class="key">Actions</span><span class="val">Assign owner, change status, add tag, run playbook</span></div>
+        <div class="row"><span class="key">Precedence</span><span class="val">Automation rules run before playbooks</span></div>
+        <div class="section-label">Playbook (Logic App) Triggers</div>
+        <div class="row"><span class="key">Alert trigger</span><span class="val">Fires per alert — can query alert fields</span></div>
+        <div class="row"><span class="key">Incident trigger</span><span class="val">Fires per incident — can query all entities</span></div>
+        <div class="row"><span class="key">Entity trigger</span><span class="val">Fires on specific entity type selection</span></div>
+        <div class="section-label">Sentinel Cost Optimization</div>
+        <div class="row"><span class="key">Commitment tiers</span><span class="val">100GB-5TB/day commitments = discount</span></div>
+        <div class="row"><span class="key">Data filtering</span><span class="val">Filter noisy logs before ingest (DCR transformations)</span></div>
+        <div class="row"><span class="key">Auxiliary logs</span><span class="val">Low-cost tier for verbose/compliance logs</span></div>
+        <div class="row"><span class="key">Free data sources</span><span class="val">Activity log, Security Center, some connectors free</span></div>
+        <div class="note note-blue">Automation rules are evaluated in order and can run multiple playbooks. The "run playbook" action in an automation rule requires the playbook to have an incident trigger.</div>
+      </div>
+    </div>
+
+    <!-- Zero Trust + Security Best Practices -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#B91C1C;">🎯</div>
+        <h2>Zero Trust &amp; Security Pillars</h2>
+        <span class="sub">Microsoft Zero Trust architecture</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Zero Trust Principles</div>
+        <div class="row"><span class="key">Verify explicitly</span><span class="val">Authenticate &amp; authorize every request</span></div>
+        <div class="row"><span class="key">Least privilege access</span><span class="val">Limit user access with JIT, JEA, risk-based</span></div>
+        <div class="row"><span class="key">Assume breach</span><span class="val">Minimize blast radius, segment access</span></div>
+        <div class="section-label">Identity Pillar</div>
+        <div class="row"><span class="key">Verify identity</span><span class="val">Strong auth — MFA, passwordless</span></div>
+        <div class="row"><span class="key">Conditional Access</span><span class="val">Risk-based, context-aware access control</span></div>
+        <div class="row"><span class="key">Least privilege</span><span class="val">PIM, RBAC, access reviews</span></div>
+        <div class="section-label">Device Pillar</div>
+        <div class="row"><span class="key">Device compliance</span><span class="val">Intune MDM enrollment + compliance policy</span></div>
+        <div class="row"><span class="key">Endpoint detection</span><span class="val">Microsoft Defender for Endpoint</span></div>
+        <div class="row"><span class="key">Device health signal</span><span class="val">Feed compliance status to CA policy</span></div>
+        <div class="section-label">Network Pillar</div>
+        <div class="row"><span class="key">Micro-segmentation</span><span class="val">NSG, Azure Firewall, VNet peering restrictions</span></div>
+        <div class="row"><span class="key">Encrypted traffic</span><span class="val">TLS 1.2+ everywhere, Azure Firewall TLS inspect</span></div>
+        <div class="row"><span class="key">Threat filtering</span><span class="val">Azure Firewall threat intel, WAF, IDPS</span></div>
+        <div class="section-label">Data Pillar</div>
+        <div class="row"><span class="key">Classify data</span><span class="val">Microsoft Purview data classification labels</span></div>
+        <div class="row"><span class="key">Protect data at rest</span><span class="val">ADE, SSE, CMK in Key Vault</span></div>
+        <div class="row"><span class="key">Protect data in transit</span><span class="val">TLS 1.2+, no HTTP, secure transfer enforced</span></div>
+        <div class="section-label">App Pillar</div>
+        <div class="row"><span class="key">Managed Identity</span><span class="val">No stored credentials in app code</span></div>
+        <div class="row"><span class="key">App CA policies</span><span class="val">MCAS session control for SaaS apps</span></div>
+        <div class="row"><span class="key">Defender for App Svc</span><span class="val">Runtime threat detection</span></div>
+        <div class="note note-azure">The shared responsibility model means Microsoft secures the platform, YOU secure identity, data, applications, and OS configuration. AZ-500 tests your understanding of YOUR responsibilities.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tags summary footer -->
+  <div style="background:var(--navy); border-radius:8px; padding:14px 20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+    <div>
+      <div style="font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:#60A5FA; margin-bottom:4px;">AZ-500 Coverage</div>
+      <div class="tags">
+        <span class="tag tag-azure">Conditional Access</span>
+        <span class="tag tag-red">Identity Protection</span>
+        <span class="tag tag-purple">PIM / JIT</span>
+        <span class="tag tag-azure">NSG / Firewall</span>
+        <span class="tag tag-red">WAF / DDoS</span>
+        <span class="tag tag-green">Key Vault</span>
+        <span class="tag tag-blue">Disk Encryption</span>
+        <span class="tag tag-azure">Defender Plans</span>
+        <span class="tag tag-purple">Microsoft Sentinel</span>
+        <span class="tag tag-red">KQL Queries</span>
+        <span class="tag tag-green">Private Endpoints</span>
+        <span class="tag tag-azure">Azure Policy</span>
+        <span class="tag tag-blue">UEBA / Playbooks</span>
+        <span class="tag tag-red">Zero Trust</span>
+      </div>
+    </div>
+    <div style="text-align:right;">
+      <div style="font-size:10px; color:#94A3B8;">Azure Security Engineer Associate</div>
+      <div style="font-size:9px; color:#64748B; margin-top:2px;">gdx-dev-team@krishtechnolabs.com</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
