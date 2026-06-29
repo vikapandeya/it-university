@@ -20,19 +20,58 @@
     }
     .not-found__code {
       font-family: var(--font-mono);
-      font-size: clamp(5rem, 15vw, 12rem);
+      font-size: clamp(5rem, 20vw, 10rem);
       font-weight: 900;
       line-height: 1;
-      color: var(--accent);
-      opacity: .15;
-      margin-bottom: -20px;
+      background: linear-gradient(135deg, var(--accent), #b57bee);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: var(--gap);
+      position: relative;
     }
+    .not-found__code::before,
+    .not-found__code::after {
+      content: '404';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      background: linear-gradient(135deg, var(--accent), #b57bee);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .not-found__code::before { animation: glitch1 3s infinite; clip-path: polygon(0 0,100% 0,100% 35%,0 35%); }
+    .not-found__code::after  { animation: glitch2 3s infinite; clip-path: polygon(0 65%,100% 65%,100% 100%,0 100%); }
+    @keyframes glitch1 { 0%,100%{transform:translate(0)} 20%{transform:translate(-3px,1px)} 40%{transform:translate(3px,-1px)} }
+    @keyframes glitch2 { 0%,100%{transform:translate(0)} 20%{transform:translate(3px,-1px)} 40%{transform:translate(-3px,1px)} }
+    @media (prefers-reduced-motion: reduce) { .not-found__code::before,.not-found__code::after { animation: none; } }
     .not-found__title {
       font-size: clamp(1.5rem, 3vw, 2.5rem);
       font-weight: 800;
       margin-bottom: var(--gap);
     }
-    .not-found__desc { color: var(--text-dim); max-width: 440px; margin-bottom: var(--gap-xl); }
+    .not-found__desc { color: var(--text-dim); max-width: 480px; margin-bottom: var(--gap-xl); font-size: var(--text-lg); }
+    .not-found__portal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
+      gap: var(--gap);
+      max-width: 760px;
+      width: 100%;
+      margin-top: var(--gap-xl);
+    }
+    .nf-portal-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--gap);
+      text-align: left;
+      transition: all .2s;
+      display: block;
+    }
+    .nf-portal-card:hover { border-color: var(--accent); background: var(--accent-glow); transform: translateY(-2px); }
+    .nf-portal-card__icon { font-size: 1.4rem; display: block; margin-bottom: 4px; }
+    .nf-portal-card__name { font-weight: 700; font-size: var(--text-sm); display: block; }
+    .nf-portal-card__desc { font-size: var(--text-xs); color: var(--text-muted); display: block; margin-top: 2px; }
     .not-found__links {
       display: flex;
       flex-wrap: wrap;
@@ -48,20 +87,21 @@
 <main class="not-found">
   <div class="not-found__code">404</div>
   <h1 class="not-found__title">Page Not Found</h1>
-  <p class="not-found__desc">
-    The page you're looking for doesn't exist or has been moved.
-    Head back to the dashboard or pick a learning portal below.
-  </p>
-  <a href="index.html" class="btn btn--primary btn--lg">🏠 Back to Home</a>
-  <div class="not-found__links">
-    <a href="ultimate-it/index.html" class="btn btn--outline btn--sm">🌐 IT Encyclopedia</a>
-    <a href="devops-cloud/index.html" class="btn btn--outline btn--sm">☁️ DevOps</a>
-    <a href="cybersecurity-vapt/index.html" class="btn btn--outline btn--sm">🛡️ CyberSec</a>
-    <a href="linux-administration/index.html" class="btn btn--outline btn--sm">🐧 Linux</a>
-    <a href="aws-learning/index.html" class="btn btn--outline btn--sm">🚀 AWS</a>
-    <a href="ai-prompt-engineering/index.html" class="btn btn--outline btn--sm">🤖 AI</a>
-    <a href="tools-ide/index.html" class="btn btn--outline btn--sm">⚡ IDE</a>
-    <a href="computer-basics/index.html" class="btn btn--outline btn--sm">🖥️ Basics</a>
+  <p class="not-found__desc">The page you're looking for doesn't exist or has been moved. Head back to the portal hub and keep learning.</p>
+  <div style="display:flex;gap:var(--gap);flex-wrap:wrap;justify-content:center">
+    <a href="index.html" class="btn btn--primary btn--lg">🏠 Back to Portal Hub</a>
+    <a href="roadmaps/index.html" class="btn btn--outline">🗺️ Certification Roadmaps</a>
+  </div>
+  <div class="not-found__portal-grid">
+    <a href="ultimate-it/index.html" class="nf-portal-card"><span class="nf-portal-card__icon">🌐</span><span class="nf-portal-card__name">IT Encyclopedia</span><span class="nf-portal-card__desc">Networking, OS, databases, security</span></a>
+    <a href="devops-cloud/index.html" class="nf-portal-card"><span class="nf-portal-card__icon">☁️</span><span class="nf-portal-card__name">DevOps & Cloud</span><span class="nf-portal-card__desc">Docker, K8s, Terraform, CI/CD</span></a>
+    <a href="cybersecurity-vapt/index.html" class="nf-portal-card"><span class="nf-portal-card__icon">🛡️</span><span class="nf-portal-card__name">Cybersecurity</span><span class="nf-portal-card__desc">VAPT, OWASP, malware, threat hunting</span></a>
+    <a href="linux-administration/index.html" class="nf-portal-card"><span class="nf-portal-card__icon">🐧</span><span class="nf-portal-card__name">Linux Admin</span><span class="nf-portal-card__desc">RHEL, systemd, containers, eBPF</span></a>
+    <a href="aws-learning/index.html" class="nf-portal-card"><span class="nf-portal-card__icon">🚀</span><span class="nf-portal-card__name">AWS Cloud</span><span class="nf-portal-card__desc">EC2, S3, Lambda, SageMaker</span></a>
+    <a href="ai-prompt-engineering/index.html" class="nf-portal-card"><span class="nf-portal-card__icon">🤖</span><span class="nf-portal-card__name">AI & Prompt Eng.</span><span class="nf-portal-card__desc">LLMs, RAG, LangChain, fine-tuning</span></a>
+    <a href="interview-questions/index.html" class="nf-portal-card"><span class="nf-portal-card__icon">🎯</span><span class="nf-portal-card__name">Interview Questions</span><span class="nf-portal-card__desc">200+ Q&amp;A across all tracks</span></a>
+    <a href="labs/index.html" class="nf-portal-card"><span class="nf-portal-card__icon">🧪</span><span class="nf-portal-card__name">Hands-On Labs</span><span class="nf-portal-card__desc">Linux, Docker, K8s, Terraform</span></a>
+    <a href="certifications/index.html" class="nf-portal-card"><span class="nf-portal-card__icon">🏆</span><span class="nf-portal-card__name">Cert Tracker</span><span class="nf-portal-card__desc">Track study progress &amp; readiness</span></a>
   </div>
 </main>
 

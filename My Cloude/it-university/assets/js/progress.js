@@ -6,8 +6,8 @@ const LESSON_COUNTS = {
   'cybersecurity-vapt':    19,
   'linux-administration':  18,
   'aws-learning':          20,
-  'ai-prompt-engineering': 15,
-  'tools-ide':              9,
+  'ai-prompt-engineering': 18,
+  'tools-ide':             13,
   'computer-basics':       10,
 };
 

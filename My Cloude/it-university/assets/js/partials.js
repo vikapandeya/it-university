@@ -75,26 +75,78 @@
     }
   });
 
-  // Hamburger toggle with body scroll lock (prevents page scrolling behind open sidebar)
+  // Mobile nav wiring — runs after header is guaranteed in DOM.
   const ham = document.getElementById('hamburger');
   const sidebar = document.querySelector('.sidebar');
-  if (ham && sidebar) {
-    ham.addEventListener('click', () => {
-      const isOpen = sidebar.classList.toggle('open');
-      document.body.style.overflow = isOpen ? 'hidden' : '';
-      ham.setAttribute('aria-expanded', String(isOpen));
-    });
-    // Close when clicking outside
-    document.addEventListener('click', function(e) {
-      if (sidebar.classList.contains('open') && !sidebar.contains(e.target) && !ham.contains(e.target)) {
-        sidebar.classList.remove('open');
-        document.body.style.overflow = '';
-        ham.setAttribute('aria-expanded', 'false');
+  const headerNav = document.querySelector('.site-header__nav');
+
+  if (ham) {
+    // Shared backdrop
+    let backdrop = document.querySelector('.sidebar-backdrop');
+    if (!backdrop) {
+      backdrop = document.createElement('div');
+      backdrop.className = 'sidebar-backdrop';
+      document.body.appendChild(backdrop);
+    }
+
+    // Portal pages: hamburger opens the sidebar panel
+    // Non-portal pages (index, hub): hamburger opens the header nav as a dropdown
+    const panel = sidebar || headerNav;
+
+    // For non-portal pages, headerNav needs explicit style override since
+    // it has display:none from the media query and no sidebar to replace it.
+    const isNavPanel = panel === headerNav;
+
+    function openPanel() {
+      if (isNavPanel) {
+        panel.style.cssText = 'display:flex!important;flex-direction:column;position:fixed;top:var(--header-h);left:0;right:0;background:rgba(10,14,26,0.98);z-index:900;padding:8px 0 16px;border-bottom:1px solid var(--border);max-height:calc(100vh - var(--header-h));overflow-y:auto;';
+        panel.querySelectorAll('a').forEach(a => { a.style.padding = '13px 24px'; a.style.fontSize = '1rem'; a.style.borderRadius = '0'; });
       }
+      panel.classList.add('open');
+      backdrop.classList.add('open');
+      ham.classList.add('open');
+      ham.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+    function closePanel() {
+      if (isNavPanel) {
+        panel.style.cssText = '';
+        panel.querySelectorAll('a').forEach(a => { a.style.padding = ''; a.style.fontSize = ''; a.style.borderRadius = ''; });
+      }
+      panel.classList.remove('open');
+      backdrop.classList.remove('open');
+      ham.classList.remove('open');
+      ham.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+
+    ham.addEventListener('click', (e) => {
+      e.stopPropagation();
+      panel.classList.contains('open') ? closePanel() : openPanel();
     });
+    backdrop.addEventListener('click', (e) => { e.stopPropagation(); closePanel(); });
+
+    // Close on link tap (mobile)
+    panel.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => { if (window.innerWidth <= 768) closePanel(); });
+    });
+
+    // Close on resize to desktop
+    window.addEventListener('resize', () => { if (window.innerWidth > 768) closePanel(); });
   }
 
   renderAuthNav();
+
+  // Back-to-top button
+  const btt = document.createElement('button');
+  btt.className = 'back-to-top';
+  btt.setAttribute('aria-label', 'Back to top');
+  btt.innerHTML = '&#8679;';
+  document.body.appendChild(btt);
+  window.addEventListener('scroll', () => {
+    btt.classList.toggle('visible', window.scrollY > 300);
+  }, { passive: true });
+  btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
   // Init search after partials are in the DOM (replaces the double-init in search.js)
   if (window.search && typeof search.init === 'function') search.init();

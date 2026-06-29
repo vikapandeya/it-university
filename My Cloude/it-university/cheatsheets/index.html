@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en" data-depth="2">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cheat Sheets — IT University</title>
+  <meta name="description" content="Free exam cheat sheets for 26 IT certifications — AWS, Azure, Kubernetes, Linux, Security, Networking, and more.">
+  <meta property="og:title" content="IT Certification Cheat Sheets — IT University">
+  <meta property="og:description" content="Dense, print-ready cheat sheets for AWS, Azure, Kubernetes, Linux, Security+, OSCP, CISSP and more.">
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/reset.css">
+  <link rel="stylesheet" href="../assets/css/layout.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <style>
+    .cs-hero{text-align:center;padding:var(--gap-xl) 0 var(--gap-lg)}
+    .cs-hero h1{font-size:var(--text-4xl);font-weight:800;margin-bottom:var(--gap-sm)}
+    .cs-hero p{color:var(--text-dim);font-size:var(--text-lg);max-width:600px;margin:0 auto var(--gap-lg)}
+    .track-section{margin-bottom:var(--gap-xl)}
+    .track-header{display:flex;align-items:center;gap:var(--gap);margin-bottom:var(--gap)}
+    .track-header h2{font-size:var(--text-xl);font-weight:700;color:var(--accent);margin:0}
+    .track-count{font-size:var(--text-xs);font-weight:700;background:var(--accent-glow);color:var(--accent);padding:2px 8px;border-radius:100px}
+    .cs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:var(--gap)}
+    .cs-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:var(--gap);display:flex;flex-direction:column;gap:8px;transition:border-color .2s,transform .2s}
+    .cs-card:hover{border-color:var(--accent-dim);transform:translateY(-2px)}
+    .cs-card__top{display:flex;align-items:flex-start;gap:10px}
+    .cs-card__icon{font-size:1.5rem;line-height:1;flex-shrink:0;margin-top:2px}
+    .cs-card__title{font-size:var(--text-sm);font-weight:700;line-height:1.3;color:var(--text)}
+    .cs-card__code{font-size:var(--text-xs);color:var(--accent);font-family:var(--font-mono);font-weight:600;margin-top:2px}
+    .cs-card__badges{display:flex;flex-wrap:wrap;gap:4px}
+    .cs-card__badge{font-size:0.65rem;font-weight:700;padding:2px 7px;border-radius:100px;text-transform:uppercase;letter-spacing:.04em}
+    .badge-aws{background:rgba(255,153,0,.15);color:#ff9900}
+    .badge-azure{background:rgba(0,120,212,.15);color:#0078D4}
+    .badge-k8s{background:rgba(52,152,219,.15);color:#3498db}
+    .badge-linux{background:rgba(57,211,83,.15);color:#39d353}
+    .badge-net{background:rgba(0,212,255,.15);color:#00d4ff}
+    .badge-sec{background:rgba(255,77,109,.15);color:#ff4d6d}
+    .badge-ai{background:rgba(181,123,238,.15);color:#b57bee}
+    .badge-iac{background:rgba(109,40,217,.15);color:#7C3AED}
+    .cs-card__link{display:inline-flex;align-items:center;gap:6px;font-size:var(--text-sm);font-weight:600;color:var(--accent);text-decoration:none;margin-top:auto;padding-top:4px}
+    .cs-card__link:hover{text-decoration:underline}
+    .cs-stats{display:flex;gap:var(--gap);flex-wrap:wrap;justify-content:center;margin-bottom:var(--gap-xl)}
+    .cs-stat{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:var(--gap) var(--gap-lg);text-align:center;min-width:120px}
+    .cs-stat__num{font-size:2rem;font-weight:800;color:var(--accent);font-family:var(--font-mono)}
+    .cs-stat__label{font-size:var(--text-xs);color:var(--text-muted);margin-top:4px}
+    @media(max-width:600px){.cs-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body class="page-body">
+<div id="header-placeholder"></div>
+
+<div style="max-width:1100px;margin:0 auto;padding:var(--gap-xl) var(--gap-lg)">
+
+  <div class="cs-hero">
+    <h1>📋 Certification Cheat Sheets</h1>
+    <p>Dense, exam-ready reference sheets for 26 IT certifications. Print them, bookmark them, study from them.</p>
+    <a href="../certifications/index.html" class="btn btn--outline">🏆 Cert Tracker</a>
+  </div>
+
+  <div class="cs-stats">
+    <div class="cs-stat"><div class="cs-stat__num">26</div><div class="cs-stat__label">Cheat Sheets</div></div>
+    <div class="cs-stat"><div class="cs-stat__num">6</div><div class="cs-stat__label">Tracks</div></div>
+    <div class="cs-stat"><div class="cs-stat__num">100%</div><div class="cs-stat__label">Free</div></div>
+    <div class="cs-stat"><div class="cs-stat__num">🖨️</div><div class="cs-stat__label">Print-Ready</div></div>
+  </div>
+
+  <!-- AWS -->
+  <div class="track-section">
+    <div class="track-header">
+      <span style="font-size:1.5rem">☁️</span>
+      <h2>AWS Cloud</h2>
+      <span class="track-count">6 sheets</span>
+    </div>
+    <div class="cs-grid">
+      <div class="cs-card">
+        <div class="cs-card__top"><div class="cs-card__icon">☁️</div><div><div class="cs-card__title">AWS Cloud Practitioner</div><div class="cs-card__code">CLF-C02 · $100</div></div></div>
+        <div class="cs-card__badges"><span class="cs-card__badge badge-aws">AWS</span><span class="cs-card__badge badge-aws">Entry</span></div>
+        <a href="aws-clf.html" class="cs-card__link" target="_blank">Open Cheat Sheet →</a>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card__top"><div class="cs-card__icon">🏗️</div><div><div class="cs-card__title">AWS Solutions Architect Associate</div><div class="cs-card__code">SAA-C03 · $150</div></div></div>
+        <div class="cs-card__badges"><span class="cs-card__badge badge-aws">AWS</span><span class="cs-card__badge badge-aws">Associate</span></div>
+        <a href="aws-saa.html" class="cs-card__link" target="_blank">Open Cheat Sheet →</a>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card__top"><div class="cs-card__icon">💻</div><div><div class="cs-card__title">AWS Developer Associate</div><div class="cs-card__code">DVA-C02 · $150</div></div></div>
+        <div class="cs-card__badges"><span class="cs-card__badge badge-aws">AWS</span><span class="cs-card__badge badge-aws">Associate</span></div>
+        <a href="aws-dva.html" class="cs-card__link" target="_blank">Open Cheat Sheet →</a>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card__top"><div class="cs-card__icon">🏆</div><div><div class="cs-card__title">AWS Solutions Architect Professional</div><div class="cs-card__code">SAP-C02 · $300</div></div></div>
+        <div class="cs-card__badges"><span class="cs-card__badge badge-aws">AWS</span><span class="cs-card__badge badge-aws">Professional</span></div>
+        <a href="aws-sap.html" class="cs-card__link" target="_blank">Open Cheat Sheet →</a>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card__top"><div class="cs-card__icon">🔒</div><div><div class="cs-card__title">AWS Security Specialty</div><div class="cs-card__code">SCS-C02 · $300</div></div></div>
+        <div class="cs-card__badges"><span class="cs-card__badge badge-aws">AWS</span><span class="cs-card__badge badge-aws">Specialty</span></div>
+        <a href="aws-scs.html" class="cs-card__link" target="_blank">Open Cheat Sheet →</a>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card__top"><div class="cs-card__icon">🤖</div><div><div class="cs-card__title">AWS ML Specialty</div><div class="cs-card__code">MLS-C01 · $300</div></div></div>
+        <div class="cs-card__badges"><span class="cs-card__badge badge-aws">AWS</span><span class="cs-card__badge badge-aws">Specialty</span></div>
+        <a href="aws-mls.html" class="cs-card__link" target="_blank">Open Cheat Sheet →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Networking -->
+  <div class="track-section">
+    <div class="track-header">
+      <span style="font-size:1.5rem">🌐</span>
+      <h2>Networking</h2>
+      <span class="track-count">3 sheets</span>
+    </div>
+    <div class="cs-grid">
+      <div class="cs-card">
+        <div class="cs-card__top"><div class="cs-card__icon">🌐</div><div><div class="cs-card__title">CompTIA Network+</div><div class="cs-card__code">N10-009 · $369</div></div></div>
+        <div class="cs-card__badges"><span class="cs-card__badge badge-net">CompTIA</span><span class="cs-card__badge badge-net">Entry</span></div>
+        <a href="comptia-network-plus.html" class="cs-card__link" target="_blank">Open Cheat Sheet →</a>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card__top"><div class="cs-card__icon">🔵</div><div><div class="cs-card__title">Cisco CCNA</div><div class="cs-card__code">200-301 · $330</div></div></div>
+        <div class="cs-card__badges"><span class="cs-card__badge badge-net">Cisco</span><span class="cs-card__badge badge-net">Associate</span></div>
+        <a href="ccna.html" class="cs-card__link" target="_blank">Open Cheat Sheet →</a>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card__top"><div class="cs-card__icon">🔷</div><div><div class="cs-card__title">Cisco CCNP Enterprise</div><div class="cs-card__code">ENCOR 350-401 · $400</div></div></div>
+        <div class="cs-card__badges"><span class="cs-card__badge badge-net">Cisco</span><span class="cs-card__badge badge-net">Professional</span></div>
+        <a href="ccnp-enterprise.html" class="cs-card__link" target="_blank">Open Cheat Sheet →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Linux / Red Hat -->
+  <div class="track-section">
+    <div class="track-header">
+      <span style="font-size:1.5rem">🐧</span>
+      <h2>Linux / Red Hat</h2>
+      <span class="track-count">3 sheets</span>
+    </div>
+    <div class="cs-grid">
+      <div class="cs-card">
+        <div class="cs-card__top"><div class="cs-card__icon">🐧</div><div><div class="cs-card__title">CompTIA Linux+</div><div class="cs-card__code">XK0-005 · $369</div></div></div>
+        <div class="cs-card__badges"><span class="cs-card__badge badge-linux">CompTIA</span><span class="cs-card__badge badge-linux">Entry</span></div>
+        <a href="comptia-linux-plus.html" class="cs-card__link" target="_blank">Open Cheat Sheet →</a>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card__top"><div class="cs-card__icon">🎩</div><div><div class="cs-card__title">RHCSA</div><div class="cs-card__code">EX200 · $400</div></div></div>
+        <div class="cs-card__badges"><span class="cs-card__badge badge-linux">Red Hat</span><span class="cs-card__badge badge-linux">Professional</span></div>
+        <a href="rhcsa.html" class="cs-card__link" target="_blank">Open Cheat Sheet →</a>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card__top"><div class="cs-card__icon">🎩</div><div><div class="cs-card__title">RHCE — Ansible Automation</div><div class="cs-card__code">EX294 · $400</div></div></div>
+        <div class="cs-card__badges"><span class="cs-card__badge badge-linux">Red Hat</span><span class="cs-card__badge badge-linux">Expert</span></div>
+        <a href="rhce.html" class="cs-card__link" target="_blank">Open Cheat Sheet →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- DevOps / Kubernetes -->
+  <div class="track-section">
+    <div class="track-header">
+      <span style="font-size:1.5rem">⚙️</span>
+      <h2>DevOps / Kubernetes</h2>
+      <span class="track-count">4 sheets</span>
+    </div>
+    <div class="cs-grid">
+      <div class="cs-card">
+        <div class="cs-card__top"><div class="cs-card__icon">⎈</div><div><div class="cs-card__title">CKA</div><div class="cs-card__code">Kubernetes Admin · $395</div></div></div>
+        <div class="cs-card__badges"><span class="cs-card__badge badge-k8s">Kubernetes</span><span class="cs-card__badge badge-k8s">Professional</span></div>
+        <a href="cka.html" class="cs-card__link" target="_blank">Open Cheat Sheet →</a>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card__top"><div class="cs-card__icon">⎈</div><div><div class="cs-card__title">CKAD</div><div class="cs-card__code">K8s App Developer · $395</div></div></div>
+        <div class="cs-card__badges"><span class="cs-card__badge badge-k8s">Kubernetes</span><span class="cs-card__badge badge-k8s">Professional</span></div>
+        <a href="ckad.html" class="cs-card__link" target="_blank">Open Cheat Sheet →</a>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card__top"><div class="cs-card__icon">🔐</div><div><div class="cs-card__title">CKS</div><div class="cs-card__code">K8s Security · $395</div></div></div>
+        <div class="cs-card__badges"><span class="cs-card__badge badge-k8s">Kubernetes</span><span class="cs-card__badge badge-k8s">Expert</span></div>
+        <a href="cks.html" class="cs-card__link" target="_blank">Open Cheat Sheet →</a>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card__top"><div class="cs-card__icon">🏗️</div><div><div class="cs-card__title">Terraform Associate</div><div class="cs-card__code">003 · $70</div></div></div>
+        <div class="cs-card__badges"><span class="cs-card__badge badge-iac">HashiCorp</span><span class="cs-card__badge badge-iac">Associate</span></div>
+        <a href="terraform-associate.html" class="cs-card__link" target="_blank">Open Cheat Sheet →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Security -->
+  <div class="track-section">
+    <div class="track-header">
+      <span style="font-size:1.5rem">🔒</span>
+      <h2>Security / VAPT</h2>
+      <span class="track-count">5 sheets</span>
+    </div>
+    <div class="cs-grid">
+      <div class="cs-card">
+        <div class="cs-card__top"><div class="cs-card__icon">🛡️</div><div><div class="cs-card__title">CompTIA Security+</div><div class="cs-card__code">SY0-701 · $404</div></div></div>
+        <div class="cs-card__badges"><span class="cs-card__badge badge-sec">CompTIA</span><span class="cs-card__badge badge-sec">Entry</span></div>
+        <a href="comptia-security-plus.html" class="cs-card__link" target="_blank">Open Cheat Sheet →</a>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card__top"><div class="cs-card__icon">🎯</div><div><div class="cs-card__title">eJPT v2</div><div class="cs-card__code">Junior Pentest · $200</div></div></div>
+        <div class="cs-card__badges"><span class="cs-card__badge badge-sec">Offensive</span><span class="cs-card__badge badge-sec">Entry</span></div>
+        <a href="ejpt.html" class="cs-card__link" target="_blank">Open Cheat Sheet →</a>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card__top"><div class="cs-card__icon">💀</div><div><div class="cs-card__title">CEH v13</div><div class="cs-card__code">Certified Ethical Hacker · $950</div></div></div>
+        <div class="cs-card__badges"><span class="cs-card__badge badge-sec">Offensive</span><span class="cs-card__badge badge-sec">Professional</span></div>
+        <a href="ceh.html" class="cs-card__link" target="_blank">Open Cheat Sheet →</a>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card__top"><div class="cs-card__icon">💣</div><div><div class="cs-card__title">OSCP PEN-200</div><div class="cs-card__code">OffSec · $1,499</div></div></div>
+        <div class="cs-card__badges"><span class="cs-card__badge badge-sec">Offensive</span><span class="cs-card__badge badge-sec">Expert</span></div>
+        <a href="oscp.html" class="cs-card__link" target="_blank">Open Cheat Sheet →</a>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card__top"><div class="cs-card__icon">🏅</div><div><div class="cs-card__title">CISSP</div><div class="cs-card__code">ISC2 · $749</div></div></div>
+        <div class="cs-card__badges"><span class="cs-card__badge badge-sec">Governance</span><span class="cs-card__badge badge-sec">Expert</span></div>
+        <a href="cissp.html" class="cs-card__link" target="_blank">Open Cheat Sheet →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Azure -->
+  <div class="track-section">
+    <div class="track-header">
+      <span style="font-size:1.5rem">🔷</span>
+      <h2>Microsoft Azure</h2>
+      <span class="track-count">4 sheets</span>
+    </div>
+    <div class="cs-grid">
+      <div class="cs-card">
+        <div class="cs-card__top"><div class="cs-card__icon">🔷</div><div><div class="cs-card__title">Azure Fundamentals</div><div class="cs-card__code">AZ-900 · $165</div></div></div>
+        <div class="cs-card__badges"><span class="cs-card__badge badge-azure">Azure</span><span class="cs-card__badge badge-azure">Entry</span></div>
+        <a href="az-900.html" class="cs-card__link" target="_blank">Open Cheat Sheet →</a>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card__top"><div class="cs-card__icon">⚙️</div><div><div class="cs-card__title">Azure Administrator</div><div class="cs-card__code">AZ-104 · $165</div></div></div>
+        <div class="cs-card__badges"><span class="cs-card__badge badge-azure">Azure</span><span class="cs-card__badge badge-azure">Associate</span></div>
+        <a href="az-104.html" class="cs-card__link" target="_blank">Open Cheat Sheet →</a>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card__top"><div class="cs-card__icon">🏗️</div><div><div class="cs-card__title">Azure Solutions Architect Expert</div><div class="cs-card__code">AZ-305 · $165</div></div></div>
+        <div class="cs-card__badges"><span class="cs-card__badge badge-azure">Azure</span><span class="cs-card__badge badge-azure">Expert</span></div>
+        <a href="az-305.html" class="cs-card__link" target="_blank">Open Cheat Sheet →</a>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card__top"><div class="cs-card__icon">🔐</div><div><div class="cs-card__title">Azure Security Engineer</div><div class="cs-card__code">AZ-500 · $165</div></div></div>
+        <div class="cs-card__badges"><span class="cs-card__badge badge-azure">Azure</span><span class="cs-card__badge badge-azure">Expert</span></div>
+        <a href="az-500.html" class="cs-card__link" target="_blank">Open Cheat Sheet →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI / ML -->
+  <div class="track-section">
+    <div class="track-header">
+      <span style="font-size:1.5rem">🤖</span>
+      <h2>AI / Machine Learning</h2>
+      <span class="track-count">2 sheets</span>
+    </div>
+    <div class="cs-grid">
+      <div class="cs-card">
+        <div class="cs-card__top"><div class="cs-card__icon">🤖</div><div><div class="cs-card__title">AWS ML Specialty</div><div class="cs-card__code">MLS-C01 · $300</div></div></div>
+        <div class="cs-card__badges"><span class="cs-card__badge badge-ai">ML</span><span class="cs-card__badge badge-ai">Specialty</span></div>
+        <a href="aws-mls.html" class="cs-card__link" target="_blank">Open Cheat Sheet →</a>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card__top"><div class="cs-card__icon">🧠</div><div><div class="cs-card__title">TensorFlow Developer</div><div class="cs-card__code">TF Dev Cert · $100</div></div></div>
+        <div class="cs-card__badges"><span class="cs-card__badge badge-ai">Google</span><span class="cs-card__badge badge-ai">Professional</span></div>
+        <a href="tf-developer.html" class="cs-card__link" target="_blank">Open Cheat Sheet →</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div id="footer-placeholder"></div>
+<script src="../assets/js/store.js"></script>
+<script src="../assets/js/utils.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/partials.js"></script>
+</body>
+</html>

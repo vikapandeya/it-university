@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RHCE EX294 Cheat Sheet</title>
+  <style>
+:root {
+  --bg:#F5F6F7; --surface:#FFFFFF; --border:#E2E4E8;
+  --navy:#0F1C2E; --navy2:#1A2E45;
+  --green:#1B7A4A; --green-soft:#E8F7EF;
+  --blue:#1A6FB5; --blue-soft:#EBF4FF;
+  --orange:#FF9900; --orange-soft:#FFF4DC;
+  --red:#B91C1C; --red-soft:#FEF2F2;
+  --purple:#6B21A8; --purple-soft:#F5F0FF;
+  --text:#1C2333; --text2:#4A5568; --text3:#718096;
+  --mono:'Consolas','Courier New',monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+}
+body{font-family:var(--sans);font-size:11px;background:var(--bg);color:var(--text);line-height:1.5;margin:0}
+.page{max-width:1280px;margin:0 auto;padding:20px 16px}
+.header{background:var(--navy);border-radius:10px;padding:20px 24px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.header-left h1{font-size:22px;font-weight:800;color:#fff}.header-left h1 span{color:var(--orange)}
+.header-left p{font-size:11px;color:#94A3B8;margin-top:3px}
+.header-badges{display:flex;gap:8px;flex-wrap:wrap}
+.badge{font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:.5px;text-transform:uppercase}
+.badge-orange{background:var(--orange);color:var(--navy)}.badge-green{background:#22C55E;color:#fff}.badge-blue{background:#3B82F6;color:#fff}.badge-red{background:#EF4444;color:#fff}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px}
+.grid-2{grid-template-columns:repeat(2,1fr)}.grid-4{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--surface);border-radius:8px;border:1px solid var(--border);overflow:hidden}
+.card-header{padding:8px 12px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border)}
+.card-header .icon{width:24px;height:24px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.card-header h2{font-size:11.5px;font-weight:800;color:var(--navy)}
+.card-header .sub{font-size:9px;color:var(--text3);margin-left:auto}
+.card-body{padding:10px 12px}
+.section-label{font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--text3);margin-bottom:5px;margin-top:9px}
+.section-label:first-child{margin-top:0}
+.row{display:flex;justify-content:space-between;align-items:baseline;padding:2px 0;border-bottom:1px solid #F1F3F5;gap:8px}
+.row:last-child{border-bottom:none}
+.row .key{font-family:var(--mono);font-size:10px;font-weight:600;color:var(--navy);white-space:nowrap;flex-shrink:0}
+.row .val{font-size:10px;color:var(--text2);text-align:right}
+.tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px}
+.tag{font-size:9.5px;padding:2px 7px;border-radius:4px;font-weight:600;font-family:var(--mono)}
+.tag-orange{background:var(--orange-soft);color:#92400E}.tag-blue{background:var(--blue-soft);color:#1E40AF}
+.tag-green{background:var(--green-soft);color:#166534}.tag-red{background:var(--red-soft);color:#991B1B}.tag-purple{background:var(--purple-soft);color:#6B21A8}
+.tip-bar{background:var(--navy2);border-radius:8px;padding:10px 16px;margin-bottom:16px;display:flex;gap:24px;flex-wrap:wrap}
+.tip-label{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--orange)}
+.tip{font-size:10.5px;color:#CBD5E1}.tip b{color:#fff}
+.note{font-size:10px;color:var(--text2);padding:6px 8px;border-radius:4px;margin-top:4px}
+.note-orange{background:var(--orange-soft);border-left:3px solid var(--orange)}
+.note-blue{background:var(--blue-soft);border-left:3px solid var(--blue)}
+.note-green{background:var(--green-soft);border-left:3px solid var(--green)}
+.note-red{background:var(--red-soft);border-left:3px solid var(--red)}
+.cmd{font-family:var(--mono);font-size:10px;background:#F1F3F5;padding:3px 7px;border-radius:4px;color:var(--navy);display:block;margin:2px 0}
+@media print{body{background:#fff}.page{padding:0}}
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <h1>Red Hat <span>RHCE</span></h1>
+      <p>EX294 &mdash; Ansible Automation Platform on RHEL 8/9</p>
+    </div>
+    <div class="header-badges">
+      <span class="badge badge-orange">EX294</span>
+      <span class="badge badge-blue">4 Hours</span>
+      <span class="badge badge-green">210/300 Passing</span>
+      <span class="badge badge-red">Performance-Based</span>
+    </div>
+  </div>
+
+  <!-- TIP BAR -->
+  <div class="tip-bar">
+    <div>
+      <div class="tip-label">Exam Format</div>
+      <div class="tip"><b>Pure performance-based lab</b> &mdash; no multiple choice, write working Ansible code</div>
+    </div>
+    <div>
+      <div class="tip-label">Resources</div>
+      <div class="tip"><b>Open book:</b> man pages + installed docs only &mdash; no internet</div>
+    </div>
+    <div>
+      <div class="tip-label">Strategy</div>
+      <div class="tip"><b>Practice real tasks</b> repeatedly until muscle memory: playbooks, roles, vault, templates</div>
+    </div>
+  </div>
+
+  <!-- CARD 1: Exam Overview — full width -->
+  <div style="margin-bottom:12px">
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--orange-soft)">&#127891;</div>
+        <h2>Exam Overview &amp; Environment Setup</h2>
+        <span class="sub">EX294 Topics</span>
+      </div>
+      <div class="card-body">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+          <div>
+            <div class="section-label">Topics Tested</div>
+            <div class="row"><span class="key">Control Node</span><span class="val">Install &amp; configure Ansible; configure managed hosts</span></div>
+            <div class="row"><span class="key">Playbooks</span><span class="val">Variables, facts, conditionals, loops</span></div>
+            <div class="row"><span class="key">Roles</span><span class="val">Create from scratch + ansible-galaxy</span></div>
+            <div class="row"><span class="key">Vault</span><span class="val">Encrypt sensitive data with Ansible Vault</span></div>
+            <div class="row"><span class="key">Templates</span><span class="val">Jinja2 templates to manage config files</span></div>
+            <div class="row"><span class="key">System Mgmt</span><span class="val">Files, users, packages, services, cron, firewall, SELinux</span></div>
+            <div class="row"><span class="key">Collections</span><span class="val">Create and use collections; error handling</span></div>
+            <div class="section-label" style="margin-top:10px">Environment Setup</div>
+            <div class="row"><span class="key">ansible.cfg</span><span class="val">Control node configuration file</span></div>
+            <div class="row"><span class="key">Inventory</span><span class="val">Static / dynamic inventory files</span></div>
+            <div class="row"><span class="key">Privilege Esc.</span><span class="val">become / sudo configuration</span></div>
+          </div>
+          <div>
+            <div class="section-label">Essential Commands</div>
+            <code class="cmd">ansible --version</code>
+            <code class="cmd">ansible-config dump --only-changed</code>
+            <code class="cmd">ansible all -m ping</code>
+            <code class="cmd">ansible-playbook site.yml --syntax-check</code>
+            <code class="cmd">ansible-playbook site.yml --check --diff</code>
+            <div class="note note-orange" style="margin-top:8px">
+              <strong>Exam tip:</strong> Always run --syntax-check before submitting any playbook. A syntax error = zero points for that task.
+            </div>
+            <div class="note note-blue" style="margin-top:6px">
+              <strong>Time management:</strong> Read ALL tasks first. Start with tasks you know well. Vault + roles take longest — attempt early.
+            </div>
+            <div class="tags" style="margin-top:8px">
+              <span class="tag tag-orange">RHEL 8</span>
+              <span class="tag tag-orange">RHEL 9</span>
+              <span class="tag tag-blue">ansible-core 2.12+</span>
+              <span class="tag tag-green">3 hours lab</span>
+              <span class="tag tag-red">No retakes same day</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW: ansible.cfg + Inventory Formats -->
+  <div class="grid grid-2" style="margin-bottom:12px">
+
+    <!-- CARD 2: ansible.cfg -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--blue-soft)">&#9881;</div>
+        <h2>ansible.cfg Key Settings</h2>
+        <span class="sub">Configuration File</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">[defaults] section</div>
+        <div class="row"><span class="key">inventory</span><span class="val">= ./inventory</span></div>
+        <div class="row"><span class="key">remote_user</span><span class="val">= ansible</span></div>
+        <div class="row"><span class="key">become</span><span class="val">= true</span></div>
+        <div class="row"><span class="key">become_method</span><span class="val">= sudo</span></div>
+        <div class="row"><span class="key">become_user</span><span class="val">= root</span></div>
+        <div class="row"><span class="key">host_key_checking</span><span class="val">= False</span></div>
+        <div class="row"><span class="key">roles_path</span><span class="val">= ./roles:/etc/ansible/roles</span></div>
+        <div class="row"><span class="key">collections_paths</span><span class="val">= ./collections:~/.ansible/collections</span></div>
+        <div class="row"><span class="key">callback_whitelist</span><span class="val">= timer,profile_tasks</span></div>
+        <div class="row"><span class="key">forks</span><span class="val">= 10</span></div>
+        <div class="row"><span class="key">timeout</span><span class="val">= 30</span></div>
+        <div class="section-label">[privilege_escalation] section</div>
+        <div class="row"><span class="key">become</span><span class="val">= true</span></div>
+        <div class="row"><span class="key">become_method</span><span class="val">= sudo</span></div>
+        <div class="row"><span class="key">become_user</span><span class="val">= root</span></div>
+        <div class="row"><span class="key">become_ask_pass</span><span class="val">= false</span></div>
+        <div class="note note-orange" style="margin-top:8px">
+          <strong>Precedence (highest first):</strong> ANSIBLE_CONFIG env &rarr; ./ansible.cfg &rarr; ~/.ansible.cfg &rarr; /etc/ansible/ansible.cfg
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 3: Inventory Formats -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--green-soft)">&#128200;</div>
+        <h2>Inventory Formats</h2>
+        <span class="sub">INI &amp; YAML</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">INI Format</div>
+        <code class="cmd">[webservers]</code>
+        <code class="cmd">web1.example.com</code>
+        <code class="cmd">web2.example.com ansible_host=192.168.1.10</code>
+        <code class="cmd">&nbsp;</code>
+        <code class="cmd">[databases]</code>
+        <code class="cmd">db1.example.com</code>
+        <code class="cmd">&nbsp;</code>
+        <code class="cmd">[production:children]</code>
+        <code class="cmd">webservers</code>
+        <code class="cmd">databases</code>
+        <code class="cmd">&nbsp;</code>
+        <code class="cmd">[webservers:vars]</code>
+        <code class="cmd">http_port=80</code>
+        <code class="cmd">ansible_user=ec2-user</code>
+        <div class="section-label">YAML Format</div>
+        <code class="cmd">all:</code>
+        <code class="cmd">&nbsp;&nbsp;children:</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;webservers:</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hosts:</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;web1.example.com:</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;web2.example.com:</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ansible_host: 192.168.1.10</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;databases:</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hosts:</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;db1.example.com:</code>
+        <div class="section-label">Ad-hoc Commands</div>
+        <code class="cmd">ansible all -m ping</code>
+        <code class="cmd">ansible webservers -m command -a "uptime"</code>
+        <code class="cmd">ansible all -m shell -a "df -h | grep /dev"</code>
+        <code class="cmd">ansible db1 -m copy -a "src=/etc/hosts dest=/tmp/hosts"</code>
+        <code class="cmd">ansible all -m yum -a "name=httpd state=present"</code>
+        <code class="cmd">ansible all -m service -a "name=httpd state=started enabled=yes"</code>
+        <code class="cmd">ansible all -m user -a "name=alice state=present groups=wheel"</code>
+        <code class="cmd">ansible all -m setup -a "filter=ansible_distribution*"</code>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW: Playbook Structure + Variables & Facts -->
+  <div class="grid grid-2" style="margin-bottom:12px">
+
+    <!-- CARD 4: Playbook Structure -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--purple-soft)">&#128196;</div>
+        <h2>Playbook Structure</h2>
+        <span class="sub">Annotated Example</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Full Annotated Playbook</div>
+        <code class="cmd">---</code>
+        <code class="cmd">- name: Configure web servers</code>
+        <code class="cmd">&nbsp;&nbsp;hosts: webservers</code>
+        <code class="cmd">&nbsp;&nbsp;become: true</code>
+        <code class="cmd">&nbsp;&nbsp;vars:</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;http_port: 80</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;doc_root: /var/www/html</code>
+        <code class="cmd">&nbsp;&nbsp;pre_tasks:</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;- name: Ensure up to date</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;yum:</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name: "*"</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;state: latest</code>
+        <code class="cmd">&nbsp;&nbsp;roles:</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;- common</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;- &#123; role: apache, when: "ansible_os_family == 'RedHat'" &#125;</code>
+        <code class="cmd">&nbsp;&nbsp;tasks:</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;- name: Install httpd</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;yum:</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name: httpd</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;state: present</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tags: packages</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;- name: Start httpd</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;service:</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name: httpd</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;state: started</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;enabled: true</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;notify: Restart firewall</code>
+        <code class="cmd">&nbsp;&nbsp;handlers:</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;- name: Restart firewall</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;service:</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name: firewalld</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;state: restarted</code>
+        <code class="cmd">&nbsp;&nbsp;post_tasks:</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;- name: Verify port open</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wait_for:</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;port: "&#123;&#123; http_port &#125;&#125;"</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;timeout: 30</code>
+        <div class="note note-blue" style="margin-top:6px">Order: pre_tasks &rarr; roles &rarr; tasks &rarr; post_tasks. Handlers run after each section.</div>
+      </div>
+    </div>
+
+    <!-- CARD 5: Variables & Facts -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--orange-soft)">&#128270;</div>
+        <h2>Variables &amp; Facts</h2>
+        <span class="sub">Precedence + Magic Vars</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Variable Precedence (Highest Wins First)</div>
+        <div class="row"><span class="key">1. Extra vars (-e)</span><span class="val" style="color:var(--red);font-weight:700">ALWAYS WINS</span></div>
+        <div class="row"><span class="key">2. task vars</span><span class="val">vars: inside a task</span></div>
+        <div class="row"><span class="key">3. block vars</span><span class="val">vars: inside a block</span></div>
+        <div class="row"><span class="key">4. play vars</span><span class="val">vars: at play level</span></div>
+        <div class="row"><span class="key">5. registered vars</span><span class="val">register: result</span></div>
+        <div class="row"><span class="key">6. set_fact</span><span class="val">set_fact module</span></div>
+        <div class="row"><span class="key">7. host_vars/hostname</span><span class="val">per-host variable files</span></div>
+        <div class="row"><span class="key">8. group_vars/group</span><span class="val">per-group variable files</span></div>
+        <div class="row"><span class="key">9. group_vars/all</span><span class="val">all hosts variables</span></div>
+        <div class="row"><span class="key">10. role vars/</span><span class="val">high-priority role vars</span></div>
+        <div class="row"><span class="key">11. role defaults/</span><span class="val" style="color:var(--green);font-weight:700">LOWEST</span></div>
+        <div class="section-label">Register + Use Result</div>
+        <code class="cmd">- name: Check service</code>
+        <code class="cmd">&nbsp;&nbsp;command: systemctl status httpd</code>
+        <code class="cmd">&nbsp;&nbsp;register: result</code>
+        <code class="cmd">&nbsp;&nbsp;ignore_errors: true</code>
+        <code class="cmd">- debug:</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;msg: "&#123;&#123; result.stdout &#125;&#125;"</code>
+        <code class="cmd">- debug:</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;msg: "Exit code: &#123;&#123; result.rc &#125;&#125;"</code>
+        <div class="section-label">Ansible Facts</div>
+        <div class="row"><span class="key">ansible_hostname</span><span class="val">short hostname</span></div>
+        <div class="row"><span class="key">ansible_fqdn</span><span class="val">fully qualified domain name</span></div>
+        <div class="row"><span class="key">ansible_distribution</span><span class="val">RedHat / CentOS / Ubuntu</span></div>
+        <div class="row"><span class="key">ansible_distribution_version</span><span class="val">8.5 / 9.1 etc.</span></div>
+        <div class="row"><span class="key">ansible_os_family</span><span class="val">RedHat / Debian</span></div>
+        <div class="row"><span class="key">ansible_default_ipv4.address</span><span class="val">primary IP address</span></div>
+        <div class="row"><span class="key">ansible_memtotal_mb</span><span class="val">total memory in MB</span></div>
+        <div class="row"><span class="key">ansible_processor_vcpus</span><span class="val">CPU count</span></div>
+        <div class="row"><span class="key">ansible_mounts</span><span class="val">list of mount points</span></div>
+        <div class="row"><span class="key">ansible_devices</span><span class="val">block device info</span></div>
+        <div class="section-label">Magic Variables</div>
+        <div class="row"><span class="key">hostvars['web1']['ansible_ip']</span><span class="val">another host's var</span></div>
+        <div class="row"><span class="key">groups['webservers']</span><span class="val">list of hosts in group</span></div>
+        <div class="row"><span class="key">group_names</span><span class="val">groups this host belongs to</span></div>
+        <div class="row"><span class="key">inventory_hostname</span><span class="val">current host in inventory</span></div>
+        <div class="row"><span class="key">inventory_hostname_short</span><span class="val">short hostname portion</span></div>
+        <div class="row"><span class="key">ansible_play_hosts</span><span class="val">active hosts in current play</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW: Conditionals & Loops + Critical Modules (wide) -->
+  <div class="grid grid-2" style="margin-bottom:12px">
+
+    <!-- CARD 6: Conditionals & Loops -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--blue-soft)">&#128260;</div>
+        <h2>Conditionals &amp; Loops</h2>
+        <span class="sub">when: + loop:</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Conditionals (when:)</div>
+        <code class="cmd">when: ansible_os_family == "RedHat"</code>
+        <code class="cmd">when: ansible_distribution_version is version('8', '>=')</code>
+        <code class="cmd">when: result.rc != 0</code>
+        <code class="cmd">when: "'httpd' in ansible_facts.packages"</code>
+        <code class="cmd">when: myvar is defined</code>
+        <code class="cmd">when: myvar is not defined</code>
+        <code class="cmd">when: inventory_hostname in groups['webservers']</code>
+        <code class="cmd">when:                          # AND logic (all must be true)</code>
+        <code class="cmd">&nbsp;&nbsp;- ansible_os_family == "RedHat"</code>
+        <code class="cmd">&nbsp;&nbsp;- ansible_distribution_version is version('8', '>=')</code>
+        <div class="section-label">Loops</div>
+        <code class="cmd">loop:                          # simple list loop</code>
+        <code class="cmd">&nbsp;&nbsp;- httpd</code>
+        <code class="cmd">&nbsp;&nbsp;- firewalld</code>
+        <code class="cmd">&nbsp;&nbsp;- python3</code>
+        <code class="cmd"># access with: &#123;&#123; item &#125;&#125;</code>
+        <code class="cmd">&nbsp;</code>
+        <code class="cmd">loop: "&#123;&#123; packages_list &#125;&#125;"  # from variable</code>
+        <code class="cmd">&nbsp;</code>
+        <code class="cmd">loop: "&#123;&#123; users | dict2items &#125;&#125;"  # Dict loop</code>
+        <code class="cmd"># access: &#123;&#123; item.key &#125;&#125;, &#123;&#123; item.value &#125;&#125;</code>
+        <code class="cmd">&nbsp;</code>
+        <code class="cmd">with_items:                    # older style, still works</code>
+        <code class="cmd">&nbsp;&nbsp;- httpd</code>
+        <code class="cmd">&nbsp;&nbsp;- nginx</code>
+        <div class="section-label">Loop Control</div>
+        <code class="cmd">loop_control:</code>
+        <code class="cmd">&nbsp;&nbsp;label: "&#123;&#123; item.name &#125;&#125;"  # cleaner output</code>
+        <code class="cmd">&nbsp;&nbsp;index_var: idx            # loop index (0-based)</code>
+        <code class="cmd">&nbsp;&nbsp;loop_var: pkg             # rename 'item'</code>
+        <code class="cmd">&nbsp;&nbsp;pause: 2                  # seconds between iterations</code>
+        <div class="note note-green" style="margin-top:6px">Use <strong>loop:</strong> (not with_items) for new playbooks. loop_control.label prevents huge output when looping over dicts.</div>
+      </div>
+    </div>
+
+    <!-- CARD 7: Critical Modules -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--red-soft)">&#128736;</div>
+        <h2>Critical Modules</h2>
+        <span class="sub">File, Package, User, System, Storage</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">File Management</div>
+        <code class="cmd">copy: src=files/httpd.conf dest=/etc/httpd/conf/httpd.conf owner=root mode='0644' backup=true</code>
+        <code class="cmd">template: src=templates/vhost.j2 dest=/etc/httpd/conf.d/vhost.conf mode='0644'</code>
+        <code class="cmd">file: path=/var/www/html state=directory owner=apache mode='0755' recurse=true</code>
+        <code class="cmd">lineinfile: path=/etc/ssh/sshd_config regexp='^PermitRootLogin' line='PermitRootLogin no' backup=true</code>
+        <code class="cmd">blockinfile: path=/etc/hosts block="192.168.1.10 web1\n192.168.1.20 web2" marker="# &#123;mark&#125; ANSIBLE MANAGED"</code>
+        <code class="cmd">replace: path=/etc/httpd/conf/httpd.conf regexp='Listen 80' replace='Listen &#123;&#123; http_port &#125;&#125;'</code>
+        <div class="section-label">Package &amp; Service</div>
+        <code class="cmd">yum: name=&#123;&#123; item &#125;&#125; state=present  # present/absent/latest</code>
+        <code class="cmd">yum: name=[httpd,mod_ssl] state=present enablerepo=epel</code>
+        <code class="cmd">service: name=httpd state=started enabled=true  # started/stopped/restarted/reloaded</code>
+        <div class="section-label">User Management</div>
+        <code class="cmd">user: name=alice uid=1001 groups=[wheel,developers] append=true shell=/bin/bash</code>
+        <code class="cmd">user: name=alice password="&#123;&#123; 'password' | password_hash('sha512') &#125;&#125;"</code>
+        <code class="cmd">group: name=developers state=present gid=2000</code>
+        <div class="section-label">System Tasks</div>
+        <code class="cmd">cron: name="Daily backup" minute="0" hour="2" job="/usr/local/bin/backup.sh" user=root</code>
+        <code class="cmd">firewalld: service=http state=enabled permanent=true immediate=true</code>
+        <code class="cmd">firewalld: port=8080/tcp state=enabled permanent=true immediate=true</code>
+        <code class="cmd">selinux: policy=targeted state=enforcing</code>
+        <code class="cmd">seboolean: name=httpd_can_network_connect state=true persistent=true</code>
+        <div class="section-label">Storage (LVM + Mount)</div>
+        <code class="cmd">lvol: vg=vg_data lv=lv_data size=10g state=present</code>
+        <code class="cmd">filesystem: fstype=xfs dev=/dev/vg_data/lv_data</code>
+        <code class="cmd">mount: path=/mnt/data src=/dev/vg_data/lv_data fstype=xfs opts=defaults state=mounted</code>
+        <code class="cmd"># state: mounted/absent/present/unmounted</code>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW: Roles + Vault -->
+  <div class="grid grid-2" style="margin-bottom:12px">
+
+    <!-- CARD 8: Roles -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--green-soft)">&#128193;</div>
+        <h2>Roles</h2>
+        <span class="sub">Structure + Galaxy + Collections</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Create Role Structure</div>
+        <code class="cmd">ansible-galaxy init myrole</code>
+        <code class="cmd"># Creates:</code>
+        <code class="cmd"># myrole/</code>
+        <code class="cmd">#   tasks/main.yml      ← task list</code>
+        <code class="cmd">#   handlers/main.yml   ← handlers</code>
+        <code class="cmd">#   vars/main.yml       ← high-priority vars</code>
+        <code class="cmd">#   defaults/main.yml   ← low-priority defaults</code>
+        <code class="cmd">#   files/              ← static files (copy module)</code>
+        <code class="cmd">#   templates/          ← Jinja2 templates</code>
+        <code class="cmd">#   meta/main.yml       ← dependencies, metadata</code>
+        <code class="cmd">#   README.md</code>
+        <div class="section-label">Using Roles in Playbooks</div>
+        <code class="cmd">roles:                         # in roles: section</code>
+        <code class="cmd">&nbsp;&nbsp;- common</code>
+        <code class="cmd">&nbsp;&nbsp;- role: apache</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;vars:</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;http_port: 443</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;when: ansible_os_family == "RedHat"</code>
+        <code class="cmd">&nbsp;</code>
+        <code class="cmd">- include_role:                # dynamic (loop/when OK)</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;name: apache</code>
+        <code class="cmd">&nbsp;</code>
+        <code class="cmd">- import_role:                 # static (parsed at load)</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;name: common</code>
+        <div class="section-label">Role Dependencies (meta/main.yml)</div>
+        <code class="cmd">dependencies:</code>
+        <code class="cmd">&nbsp;&nbsp;- role: common</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;vars:</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;some_var: value</code>
+        <code class="cmd">&nbsp;&nbsp;- role: firewall</code>
+        <div class="section-label">Galaxy Collections</div>
+        <code class="cmd">ansible-galaxy collection install community.general</code>
+        <code class="cmd">ansible-galaxy collection install ansible.posix</code>
+        <code class="cmd">ansible-galaxy collection list</code>
+        <code class="cmd"># Use in playbook:</code>
+        <code class="cmd">collections:</code>
+        <code class="cmd">&nbsp;&nbsp;- community.general</code>
+        <code class="cmd">&nbsp;&nbsp;- ansible.posix</code>
+        <div class="note note-blue" style="margin-top:6px"><strong>import vs include:</strong> import_ = static (compile time). include_ = dynamic (runtime). Use import_ unless you need loops/conditionals on the include itself.</div>
+      </div>
+    </div>
+
+    <!-- CARD 9: Ansible Vault -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--red-soft)">&#128274;</div>
+        <h2>Ansible Vault</h2>
+        <span class="sub">Encrypt Sensitive Data</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Vault Operations</div>
+        <code class="cmd">ansible-vault create secrets.yml           # create new encrypted file</code>
+        <code class="cmd">ansible-vault encrypt existing.yml         # encrypt existing file</code>
+        <code class="cmd">ansible-vault decrypt existing.yml         # decrypt (careful!)</code>
+        <code class="cmd">ansible-vault edit secrets.yml             # edit in-place</code>
+        <code class="cmd">ansible-vault view secrets.yml             # view without decrypting</code>
+        <code class="cmd">ansible-vault rekey secrets.yml            # change password</code>
+        <code class="cmd">&nbsp;</code>
+        <code class="cmd"># Encrypt a single string value:</code>
+        <code class="cmd">ansible-vault encrypt_string 'MyP@ssw0rd' --name 'db_password'</code>
+        <code class="cmd"># → outputs: db_password: !vault |</code>
+        <code class="cmd">#               $ANSIBLE_VAULT;1.1;AES256</code>
+        <code class="cmd">#               ...</code>
+        <div class="section-label">Using Vault in Playbooks</div>
+        <code class="cmd"># Option 1: prompt at runtime</code>
+        <code class="cmd">ansible-playbook site.yml --ask-vault-pass</code>
+        <code class="cmd">&nbsp;</code>
+        <code class="cmd"># Option 2: password file (exam preferred)</code>
+        <code class="cmd">ansible-playbook site.yml --vault-password-file ~/.vault_pass</code>
+        <code class="cmd">&nbsp;</code>
+        <code class="cmd"># Option 3: multiple vault IDs</code>
+        <code class="cmd">ansible-playbook site.yml \</code>
+        <code class="cmd">&nbsp;&nbsp;--vault-id prod@~/.vault_prod \</code>
+        <code class="cmd">&nbsp;&nbsp;--vault-id dev@~/.vault_dev</code>
+        <div class="section-label">Store Encrypted Vars in group_vars</div>
+        <code class="cmd"># group_vars/all/vault.yml  (encrypted)</code>
+        <code class="cmd">db_password: MySecretPassword</code>
+        <code class="cmd">api_key: abc123xyz</code>
+        <code class="cmd">&nbsp;</code>
+        <code class="cmd"># group_vars/all/vars.yml  (plaintext)</code>
+        <code class="cmd">db_host: "&#123;&#123; vault_db_host &#125;&#125;"</code>
+        <div class="section-label">Best Practices</div>
+        <div class="row"><span class="key">Naming</span><span class="val">vault_prefix: vault_db_pass vs db_pass</span></div>
+        <div class="row"><span class="key">.gitignore</span><span class="val">Add vault password file to .gitignore</span></div>
+        <div class="row"><span class="key">Rotation</span><span class="val">ansible-vault rekey to rotate passwords</span></div>
+        <div class="row"><span class="key">Commit</span><span class="val">Never commit unencrypted secrets</span></div>
+        <div class="note note-red" style="margin-top:6px"><strong>Exam critical:</strong> The vault password file must exist and be readable. Use chmod 600 ~/.vault_pass. Always test with --ask-vault-pass first.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW: Jinja2 + Error Handling -->
+  <div class="grid grid-2" style="margin-bottom:12px">
+
+    <!-- CARD 10: Jinja2 Templates -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--purple-soft)">&#128218;</div>
+        <h2>Jinja2 Templates</h2>
+        <span class="sub">Filters + Whitespace Control</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Basic Template (vhost.conf.j2)</div>
+        <code class="cmd"># &#123;&#123; ansible_managed &#125;&#125;</code>
+        <code class="cmd">&lt;VirtualHost *:&#123;&#123; http_port &#125;&#125;&gt;</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;ServerName &#123;&#123; ansible_fqdn &#125;&#125;</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;DocumentRoot &#123;&#123; doc_root &#125;&#125;</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&#123;% if enable_ssl %&#125;</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;SSLEngine on</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;SSLCertificateFile /etc/ssl/certs/&#123;&#123; ansible_hostname &#125;&#125;.crt</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&#123;% endif %&#125;</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&#123;% for alias in server_aliases %&#125;</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;ServerAlias &#123;&#123; alias &#125;&#125;</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&#123;% endfor %&#125;</code>
+        <code class="cmd">&lt;/VirtualHost&gt;</code>
+        <div class="section-label">Filters (use with | pipe)</div>
+        <div class="row"><span class="key">&#123;&#123; myvar | upper &#125;&#125;</span><span class="val">UPPERCASE</span></div>
+        <div class="row"><span class="key">&#123;&#123; myvar | lower &#125;&#125;</span><span class="val">lowercase</span></div>
+        <div class="row"><span class="key">&#123;&#123; myvar | default('fallback') &#125;&#125;</span><span class="val">default if undefined</span></div>
+        <div class="row"><span class="key">&#123;&#123; mylist | join(', ') &#125;&#125;</span><span class="val">join list elements</span></div>
+        <div class="row"><span class="key">&#123;&#123; mylist | length &#125;&#125;</span><span class="val">count items</span></div>
+        <div class="row"><span class="key">&#123;&#123; myvar | int &#125;&#125;</span><span class="val">convert to integer</span></div>
+        <div class="row"><span class="key">&#123;&#123; myvar | string &#125;&#125;</span><span class="val">convert to string</span></div>
+        <div class="row"><span class="key">&#123;&#123; myvar | replace('old','new') &#125;&#125;</span><span class="val">string replace</span></div>
+        <div class="row"><span class="key">&#123;&#123; myvar | regex_replace('^#','') &#125;&#125;</span><span class="val">regex replace</span></div>
+        <div class="row"><span class="key">&#123;&#123; myvar | to_yaml &#125;&#125;</span><span class="val">serialize to YAML</span></div>
+        <div class="row"><span class="key">&#123;&#123; myvar | to_json &#125;&#125;</span><span class="val">serialize to JSON</span></div>
+        <div class="row"><span class="key">&#123;&#123; myvar | b64encode &#125;&#125;</span><span class="val">base64 encode</span></div>
+        <div class="row"><span class="key">&#123;&#123; myvar | b64decode &#125;&#125;</span><span class="val">base64 decode</span></div>
+        <div class="row"><span class="key">&#123;&#123; myvar | password_hash('sha512') &#125;&#125;</span><span class="val">hash password</span></div>
+        <div class="row"><span class="key">&#123;&#123; mydict | dict2items &#125;&#125;</span><span class="val">dict &rarr; list of &#123;key,value&#125;</span></div>
+        <div class="row"><span class="key">&#123;&#123; mylist | items2dict &#125;&#125;</span><span class="val">list &rarr; dict</span></div>
+        <div class="row"><span class="key">&#123;&#123; mylist | unique &#125;&#125;</span><span class="val">deduplicate list</span></div>
+        <div class="row"><span class="key">&#123;&#123; mylist | sort &#125;&#125;</span><span class="val">sort list</span></div>
+        <div class="row"><span class="key">&#123;&#123; mylist | select('match','web.*') &#125;&#125;</span><span class="val">filter by regex</span></div>
+        <div class="section-label">Whitespace Control</div>
+        <code class="cmd">&#123;%- if var %&#125;   # dash removes preceding whitespace</code>
+        <code class="cmd">content</code>
+        <code class="cmd">&#123;%- endif %&#125;</code>
+        <code class="cmd">&#123;&#123;- var -&#125;&#125;      # trim both sides</code>
+      </div>
+    </div>
+
+    <!-- CARD 11: Error Handling & Tags -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--red-soft)">&#9888;</div>
+        <h2>Error Handling &amp; Tags</h2>
+        <span class="sub">Block/Rescue/Always + Check Mode</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Block / Rescue / Always</div>
+        <code class="cmd">tasks:</code>
+        <code class="cmd">&nbsp;&nbsp;- block:</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- name: Try to install package</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;yum:</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name: mypackage</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;state: present</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- name: Start service</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;service:</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name: myservice</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;state: started</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;rescue:</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- name: Handle failure</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;debug:</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;msg: "Failed: &#123;&#123; ansible_failed_result &#125;&#125;"</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;always:</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- name: Always clean up</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;file: path=/tmp/install.lock state=absent</code>
+        <div class="section-label">Error Control Keywords</div>
+        <div class="row"><span class="key">ignore_errors: true</span><span class="val">continue on failure</span></div>
+        <div class="row"><span class="key">failed_when: result.rc &gt; 1</span><span class="val">custom failure condition</span></div>
+        <div class="row"><span class="key">changed_when: false</span><span class="val">never report changed</span></div>
+        <div class="row"><span class="key">any_errors_fatal: true</span><span class="val">stop all hosts on any failure</span></div>
+        <div class="row"><span class="key">max_fail_percentage: 30</span><span class="val">fail if &gt;30% of hosts fail</span></div>
+        <div class="section-label">Tags</div>
+        <code class="cmd">tasks:</code>
+        <code class="cmd">&nbsp;&nbsp;- name: Install packages</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;yum: name=httpd state=present</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;tags: [packages, setup]</code>
+        <code class="cmd">&nbsp;&nbsp;- name: Configure</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;template: src=httpd.j2 dest=/etc/httpd.conf</code>
+        <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;tags: configure</code>
+        <code class="cmd">&nbsp;</code>
+        <code class="cmd">ansible-playbook site.yml --tags packages,configure</code>
+        <code class="cmd">ansible-playbook site.yml -t packages</code>
+        <code class="cmd">ansible-playbook site.yml --skip-tags configure</code>
+        <div class="section-label">Special Tags</div>
+        <div class="row"><span class="key">always</span><span class="val">always runs (even without --tags)</span></div>
+        <div class="row"><span class="key">never</span><span class="val">only runs if explicitly specified</span></div>
+        <div class="row"><span class="key">tagged</span><span class="val">run all tagged tasks</span></div>
+        <div class="row"><span class="key">untagged</span><span class="val">run all untagged tasks</span></div>
+        <div class="row"><span class="key">all</span><span class="val">run everything (default)</span></div>
+        <div class="section-label">Check &amp; Diff Mode</div>
+        <code class="cmd">ansible-playbook site.yml --check        # dry run</code>
+        <code class="cmd">ansible-playbook site.yml --diff         # show file diffs</code>
+        <code class="cmd">ansible-playbook site.yml --check --diff # both together</code>
+        <code class="cmd">ansible-playbook site.yml --list-tasks   # list what would run</code>
+        <code class="cmd">ansible-playbook site.yml --list-hosts   # list targeted hosts</code>
+        <code class="cmd">ansible-playbook site.yml --list-tags    # list all tags</code>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD 12: Common Exam Tasks — full width -->
+  <div style="margin-bottom:12px">
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--orange-soft)">&#9989;</div>
+        <h2>Common Exam Tasks — EX294 Practice Checklist</h2>
+        <span class="sub">Exact task types that appear on EX294 — practice until automatic</span>
+      </div>
+      <div class="card-body">
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px">
+          <div>
+            <div class="section-label">1. Configure Control Node</div>
+            <code class="cmd">dnf install ansible-core</code>
+            <code class="cmd"># Set up ansible.cfg + inventory</code>
+            <code class="cmd"># Test: ansible all -m ping</code>
+
+            <div class="section-label">2. Deploy Packages Across Host Groups</div>
+            <code class="cmd">- yum: name=&#123;&#123; item &#125;&#125; state=present</code>
+            <code class="cmd">&nbsp;&nbsp;loop: "&#123;&#123; required_packages &#125;&#125;"</code>
+
+            <div class="section-label">3. Create Users with Hashed Passwords</div>
+            <code class="cmd">vars:</code>
+            <code class="cmd">&nbsp;&nbsp;users:</code>
+            <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;- name: alice</code>
+            <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;password: SecretPass1</code>
+            <code class="cmd">tasks:</code>
+            <code class="cmd">&nbsp;&nbsp;- user:</code>
+            <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name: "&#123;&#123; item.name &#125;&#125;"</code>
+            <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;password: "&#123;&#123; item.password | password_hash('sha512') &#125;&#125;"</code>
+            <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;update_password: on_create</code>
+            <code class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;loop: "&#123;&#123; users &#125;&#125;"</code>
+
+            <div class="section-label">4. Configure Service + Firewall + SELinux</div>
+            <code class="cmd">- service: name=httpd state=started enabled=true</code>
+            <code class="cmd">- firewalld: service=http permanent=true immediate=true state=enabled</code>
+            <code class="cmd">- seboolean: name=httpd_can_network_connect state=true persistent=true</code>
+
+            <div class="section-label">5. Create Role and Use It</div>
+            <code class="cmd">ansible-galaxy init roles/myrole</code>
+            <code class="cmd"># write tasks/main.yml, templates/, defaults/main.yml</code>
+            <code class="cmd"># reference in playbook: roles: [myrole]</code>
+          </div>
+          <div>
+            <div class="section-label">6. Encrypt with Vault and Use in Play</div>
+            <code class="cmd">ansible-vault create group_vars/all/vault.yml</code>
+            <code class="cmd"># add: vault_db_pass: secret</code>
+            <code class="cmd"># reference in play: "&#123;&#123; vault_db_pass &#125;&#125;"</code>
+            <code class="cmd">ansible-playbook site.yml --vault-password-file ~/.vault_pass</code>
+
+            <div class="section-label">7. NFS Mount</div>
+            <code class="cmd">mount:</code>
+            <code class="cmd">&nbsp;&nbsp;path: /mnt/nfs</code>
+            <code class="cmd">&nbsp;&nbsp;src: nfs-server:/exports/data</code>
+            <code class="cmd">&nbsp;&nbsp;fstype: nfs</code>
+            <code class="cmd">&nbsp;&nbsp;opts: "ro,vers=4"</code>
+            <code class="cmd">&nbsp;&nbsp;state: mounted</code>
+
+            <div class="section-label">8. LVM + Filesystem + Mount</div>
+            <code class="cmd">- lvol: vg=vg0 lv=data size=2g</code>
+            <code class="cmd">- filesystem: fstype=ext4 dev=/dev/vg0/data</code>
+            <code class="cmd">- mount: path=/data src=/dev/vg0/data fstype=ext4 state=mounted</code>
+
+            <div class="section-label">9. Cron Job</div>
+            <code class="cmd">cron:</code>
+            <code class="cmd">&nbsp;&nbsp;name: "System backup"</code>
+            <code class="cmd">&nbsp;&nbsp;minute: "30"</code>
+            <code class="cmd">&nbsp;&nbsp;hour: "23"</code>
+            <code class="cmd">&nbsp;&nbsp;job: "/usr/local/bin/backup.sh &gt; /var/log/backup.log 2&gt;&amp;1"</code>
+
+            <div class="section-label">10. Use Facts in Template (MOTD)</div>
+            <code class="cmd"># In template (motd.j2):</code>
+            <code class="cmd">Welcome to &#123;&#123; ansible_hostname &#125;&#125;</code>
+            <code class="cmd">OS: &#123;&#123; ansible_distribution &#125;&#125; &#123;&#123; ansible_distribution_version &#125;&#125;</code>
+            <code class="cmd">IP: &#123;&#123; ansible_default_ipv4.address &#125;&#125;</code>
+            <code class="cmd">&nbsp;</code>
+            <code class="cmd"># In playbook:</code>
+            <code class="cmd">- template: src=motd.j2 dest=/etc/motd</code>
+
+            <div class="note note-orange" style="margin-top:10px">
+              <strong>Final exam tips:</strong> Always verify your playbook runs without errors on all hosts. Use <code>--check --diff</code> to preview changes. Check idempotency — running twice should show 0 changes. Score is binary per task: it either works or it doesn't.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div style="text-align:center;padding:12px 0 4px;font-size:9.5px;color:var(--text3)">
+    RHCE EX294 Cheat Sheet &mdash; Red Hat Certified Engineer &mdash; Ansible Automation Platform &mdash; RHEL 8/9
+    &nbsp;&bull;&nbsp; IT University Reference &nbsp;&bull;&nbsp; gdx-dev-team@krishtechnolabs.com
+  </div>
+
+</div>
+</body>
+</html>

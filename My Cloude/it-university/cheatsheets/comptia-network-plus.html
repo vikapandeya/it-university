@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CompTIA Network+ N10-009 Cheat Sheet</title>
+<style>
+:root {
+  --bg:#F5F6F7; --surface:#FFFFFF; --border:#E2E4E8;
+  --navy:#0F1C2E; --navy2:#1A2E45;
+  --blue:#1A6FB5; --blue-soft:#EBF4FF;
+  --green:#1B7A4A; --green-soft:#E8F7EF;
+  --red:#B91C1C; --red-soft:#FEF2F2;
+  --purple:#6B21A8; --purple-soft:#F5F0FF;
+  --cyan:#0891B2; --cyan-soft:#ECFEFF;
+  --text:#1C2333; --text2:#4A5568; --text3:#718096;
+  --accent:#1A6FB5;
+  --mono:'Consolas','Courier New',monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+}
+body { font-family:var(--sans); font-size:11px; background:var(--bg); color:var(--text); line-height:1.5; }
+.page { max-width:1280px; margin:0 auto; padding:20px 16px; }
+.header { background:var(--navy); border-radius:10px; padding:20px 24px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+.header-left h1 { font-size:22px; font-weight:800; color:#fff; } .header-left h1 span { color:#3B82F6; }
+.header-left p { font-size:11px; color:#94A3B8; margin-top:3px; }
+.header-badges { display:flex; gap:8px; flex-wrap:wrap; }
+.badge { font-size:10px; font-weight:700; padding:4px 10px; border-radius:20px; letter-spacing:.5px; text-transform:uppercase; }
+.badge-blue { background:#3B82F6; color:#fff; } .badge-green { background:#22C55E; color:#fff; } .badge-cyan { background:var(--cyan); color:#fff; }
+.grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:12px; }
+.grid-2 { grid-template-columns:repeat(2,1fr); } .grid-4 { grid-template-columns:repeat(4,1fr); }
+.card { background:var(--surface); border-radius:8px; border:1px solid var(--border); overflow:hidden; }
+.card-header { padding:8px 12px; display:flex; align-items:center; gap:8px; border-bottom:1px solid var(--border); }
+.card-header .icon { width:24px; height:24px; border-radius:5px; display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; }
+.card-header h2 { font-size:11.5px; font-weight:800; color:var(--navy); }
+.card-header .sub { font-size:9px; color:var(--text3); margin-left:auto; }
+.card-body { padding:10px 12px; }
+.section-label { font-size:8.5px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--text3); margin-bottom:5px; margin-top:9px; }
+.section-label:first-child { margin-top:0; }
+.row { display:flex; justify-content:space-between; align-items:baseline; padding:2px 0; border-bottom:1px solid #F1F3F5; gap:8px; }
+.row:last-child { border-bottom:none; }
+.row .key { font-family:var(--mono); font-size:10px; font-weight:600; color:var(--navy); white-space:nowrap; flex-shrink:0; }
+.row .val { font-size:10px; color:var(--text2); text-align:right; }
+.tags { display:flex; flex-wrap:wrap; gap:4px; margin-top:2px; }
+.tag { font-size:9.5px; padding:2px 7px; border-radius:4px; font-weight:600; font-family:var(--mono); }
+.tag-blue { background:var(--blue-soft); color:#1E40AF; } .tag-green { background:var(--green-soft); color:#166534; }
+.tag-red { background:var(--red-soft); color:#991B1B; } .tag-cyan { background:var(--cyan-soft); color:#0E7490; }
+.tip-bar { background:var(--navy2); border-radius:8px; padding:10px 16px; margin-bottom:16px; display:flex; gap:24px; flex-wrap:wrap; }
+.tip-label { font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:#60A5FA; }
+.tip { font-size:10.5px; color:#CBD5E1; } .tip b { color:#fff; }
+.note { font-size:10px; color:var(--text2); padding:6px 8px; border-radius:4px; margin-top:4px; }
+.note-blue { background:var(--blue-soft); border-left:3px solid var(--blue); }
+.note-green { background:var(--green-soft); border-left:3px solid var(--green); }
+.note-red { background:var(--red-soft); border-left:3px solid var(--red); }
+@media print { body{background:#fff} .page{padding:0} }
+/* extras */
+.domain-row { display:flex; align-items:center; gap:10px; padding:5px 0; border-bottom:1px solid #F1F3F5; }
+.domain-row:last-child { border-bottom:none; }
+.domain-num { font-family:var(--mono); font-size:10px; font-weight:700; color:var(--navy); width:14px; flex-shrink:0; }
+.domain-name { font-size:10px; color:var(--text2); flex:1; }
+.domain-bar-wrap { width:120px; height:8px; background:#E2E4E8; border-radius:4px; overflow:hidden; flex-shrink:0; }
+.domain-bar { height:8px; border-radius:4px; }
+.domain-pct { font-family:var(--mono); font-size:10px; font-weight:700; color:var(--navy); width:28px; text-align:right; flex-shrink:0; }
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:0 12px; }
+.osi-row { display:flex; align-items:center; gap:8px; padding:3px 0; border-bottom:1px solid #F1F3F5; }
+.osi-row:last-child { border-bottom:none; }
+.osi-num { width:16px; height:16px; border-radius:3px; display:flex; align-items:center; justify-content:center; font-size:9px; font-weight:800; flex-shrink:0; color:#fff; }
+.osi-name { font-size:10px; font-weight:700; color:var(--navy); width:76px; flex-shrink:0; }
+.osi-proto { font-size:9.5px; color:var(--text2); flex:1; }
+.osi-device { font-size:9px; color:var(--text3); font-style:italic; text-align:right; }
+.full-width { grid-column:1 / -1; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <h1>CompTIA <span>Network+</span></h1>
+      <p>N10-009 Certification Cheat Sheet &middot; Exam Reference Guide</p>
+    </div>
+    <div class="header-badges">
+      <span class="badge badge-blue">N10-009</span>
+      <span class="badge badge-green">720/900 Pass</span>
+      <span class="badge badge-cyan">90 Min</span>
+    </div>
+  </div>
+
+  <!-- TIP BAR -->
+  <div class="tip-bar">
+    <div>
+      <div class="tip-label">Exam Format</div>
+      <div class="tip"><b>90</b> questions max &nbsp;|&nbsp; <b>90</b> minutes &nbsp;|&nbsp; <b>720/900</b> passing score &nbsp;|&nbsp; <b>$369</b> USD &nbsp;|&nbsp; <b>3-year</b> renewal</div>
+    </div>
+    <div>
+      <div class="tip-label">5 Domains</div>
+      <div class="tip">
+        <b>1.</b> Networking Concepts 23% &nbsp;|&nbsp;
+        <b>2.</b> Network Implementation 20% &nbsp;|&nbsp;
+        <b>3.</b> Network Operations 19% &nbsp;|&nbsp;
+        <b>4.</b> Network Security 16% &nbsp;|&nbsp;
+        <b>5.</b> Network Troubleshooting 22%
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 1: Domain Weights (full) -->
+  <div class="grid" style="grid-template-columns:1fr;">
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#EBF4FF;">📊</div>
+        <h2>Domain Weights — N10-009</h2>
+        <span class="sub">5 Domains · 100%</span>
+      </div>
+      <div class="card-body">
+        <div class="domain-row">
+          <span class="domain-num">1</span>
+          <span class="domain-name">Networking Concepts</span>
+          <div class="domain-bar-wrap"><div class="domain-bar" style="width:23%;background:#3B82F6;"></div></div>
+          <span class="domain-pct">23%</span>
+        </div>
+        <div class="domain-row">
+          <span class="domain-num">2</span>
+          <span class="domain-name">Network Implementation</span>
+          <div class="domain-bar-wrap"><div class="domain-bar" style="width:20%;background:#22C55E;"></div></div>
+          <span class="domain-pct">20%</span>
+        </div>
+        <div class="domain-row">
+          <span class="domain-num">3</span>
+          <span class="domain-name">Network Operations</span>
+          <div class="domain-bar-wrap"><div class="domain-bar" style="width:19%;background:#F59E0B;"></div></div>
+          <span class="domain-pct">19%</span>
+        </div>
+        <div class="domain-row">
+          <span class="domain-num">4</span>
+          <span class="domain-name">Network Security</span>
+          <div class="domain-bar-wrap"><div class="domain-bar" style="width:16%;background:#EF4444;"></div></div>
+          <span class="domain-pct">16%</span>
+        </div>
+        <div class="domain-row">
+          <span class="domain-num">5</span>
+          <span class="domain-name">Network Troubleshooting</span>
+          <div class="domain-bar-wrap"><div class="domain-bar" style="width:22%;background:#8B5CF6;"></div></div>
+          <span class="domain-pct">22%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 2: OSI + TCP/IP + Ports (3 col) -->
+  <div class="grid">
+
+    <!-- OSI MODEL -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#EBF4FF;">🔷</div>
+        <h2>OSI Model</h2>
+        <span class="sub">7 Layers</span>
+      </div>
+      <div class="card-body">
+        <div class="osi-row">
+          <div class="osi-num" style="background:#7C3AED;">7</div>
+          <span class="osi-name">Application</span>
+          <span class="osi-proto">HTTP, FTP, DNS, DHCP, SMTP, SNMP, Telnet</span>
+          <span class="osi-device">Data</span>
+        </div>
+        <div class="osi-row">
+          <div class="osi-num" style="background:#6D28D9;">6</div>
+          <span class="osi-name">Presentation</span>
+          <span class="osi-proto">SSL/TLS, JPEG, MPEG, encrypt/compress</span>
+          <span class="osi-device">Data</span>
+        </div>
+        <div class="osi-row">
+          <div class="osi-num" style="background:#2563EB;">5</div>
+          <span class="osi-name">Session</span>
+          <span class="osi-proto">NetBIOS, RPC, SQL sessions, NFS</span>
+          <span class="osi-device">Data</span>
+        </div>
+        <div class="osi-row">
+          <div class="osi-num" style="background:#0891B2;">4</div>
+          <span class="osi-name">Transport</span>
+          <span class="osi-proto">TCP, UDP — segments, port numbers</span>
+          <span class="osi-device">Segment</span>
+        </div>
+        <div class="osi-row">
+          <div class="osi-num" style="background:#059669;">3</div>
+          <span class="osi-name">Network</span>
+          <span class="osi-proto">IP, ICMP, OSPF, RIP — routers</span>
+          <span class="osi-device">Packet</span>
+        </div>
+        <div class="osi-row">
+          <div class="osi-num" style="background:#D97706;">2</div>
+          <span class="osi-name">Data Link</span>
+          <span class="osi-proto">Ethernet, PPP, 802.11 — switches, bridges</span>
+          <span class="osi-device">Frame</span>
+        </div>
+        <div class="osi-row">
+          <div class="osi-num" style="background:#DC2626;">1</div>
+          <span class="osi-name">Physical</span>
+          <span class="osi-proto">Cables, hubs, repeaters — bits</span>
+          <span class="osi-device">Bit</span>
+        </div>
+        <div class="note note-blue" style="margin-top:6px;">Mnemonic: <b>All People Seem To Need Data Processing</b> (7→1)</div>
+      </div>
+    </div>
+
+    <!-- TCP/IP MODEL -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#E8F7EF;">🌐</div>
+        <h2>TCP/IP Model</h2>
+        <span class="sub">4 Layers</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">TCP/IP ↔ OSI Mapping</div>
+        <div class="osi-row">
+          <div class="osi-num" style="background:#7C3AED;width:auto;padding:0 5px;border-radius:3px;">App</div>
+          <span class="osi-name">Application</span>
+          <span class="osi-proto">HTTP, HTTPS, FTP, DNS, SMTP, SNMP, SSH, Telnet, DHCP</span>
+          <span class="osi-device">OSI 5-7</span>
+        </div>
+        <div class="osi-row">
+          <div class="osi-num" style="background:#0891B2;width:auto;padding:0 5px;border-radius:3px;">Tra</div>
+          <span class="osi-name">Transport</span>
+          <span class="osi-proto">TCP (reliable, connection-oriented) · UDP (fast, connectionless)</span>
+          <span class="osi-device">OSI 4</span>
+        </div>
+        <div class="osi-row">
+          <div class="osi-num" style="background:#059669;width:auto;padding:0 5px;border-radius:3px;">Net</div>
+          <span class="osi-name">Internet</span>
+          <span class="osi-proto">IP (v4/v6), ICMP, ARP, IGMP — logical addressing, routing</span>
+          <span class="osi-device">OSI 3</span>
+        </div>
+        <div class="osi-row">
+          <div class="osi-num" style="background:#D97706;width:auto;padding:0 4px;border-radius:3px;">NA</div>
+          <span class="osi-name">Network Access</span>
+          <span class="osi-proto">Ethernet, Wi-Fi 802.11, PPP, MAC addressing</span>
+          <span class="osi-device">OSI 1-2</span>
+        </div>
+        <div class="section-label">TCP vs UDP</div>
+        <div class="row"><span class="key">TCP</span><span class="val">Connection-oriented · 3-way handshake (SYN/SYN-ACK/ACK) · reliable</span></div>
+        <div class="row"><span class="key">UDP</span><span class="val">Connectionless · no handshake · fast · DNS, DHCP, streaming, VoIP</span></div>
+        <div class="row"><span class="key">3-Way Handshake</span><span class="val">SYN → SYN-ACK → ACK (connection) · FIN/RST (teardown)</span></div>
+        <div class="section-label">IP Address Classes (Classful)</div>
+        <div class="row"><span class="key">Class A</span><span class="val">1.0.0.0–126.255.255.255 · /8 default · large networks</span></div>
+        <div class="row"><span class="key">Class B</span><span class="val">128.0.0.0–191.255.255.255 · /16 default</span></div>
+        <div class="row"><span class="key">Class C</span><span class="val">192.0.0.0–223.255.255.255 · /24 default · small networks</span></div>
+        <div class="row"><span class="key">Class D</span><span class="val">224.0.0.0–239.255.255.255 · Multicast</span></div>
+        <div class="row"><span class="key">Loopback</span><span class="val">127.0.0.0/8 · 127.0.0.1 = localhost</span></div>
+        <div class="note note-green" style="margin-top:6px;"><b>APIPA:</b> 169.254.0.0/16 — auto-assigned when DHCP unavailable</div>
+      </div>
+    </div>
+
+    <!-- KEY PORTS -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#F5F0FF;">🔌</div>
+        <h2>Key Ports</h2>
+        <span class="sub">Well-Known (0–1023) + Registered</span>
+      </div>
+      <div class="card-body">
+        <div class="two-col">
+          <div>
+            <div class="section-label">File Transfer &amp; Remote</div>
+            <div class="row"><span class="key">20</span><span class="val">FTP Data</span></div>
+            <div class="row"><span class="key">21</span><span class="val">FTP Control</span></div>
+            <div class="row"><span class="key">22</span><span class="val">SSH / SCP / SFTP</span></div>
+            <div class="row"><span class="key">23</span><span class="val">Telnet (insecure)</span></div>
+            <div class="row"><span class="key">3389</span><span class="val">RDP</span></div>
+            <div class="section-label">Email</div>
+            <div class="row"><span class="key">25</span><span class="val">SMTP send</span></div>
+            <div class="row"><span class="key">587</span><span class="val">SMTP (TLS)</span></div>
+            <div class="row"><span class="key">110</span><span class="val">POP3</span></div>
+            <div class="row"><span class="key">995</span><span class="val">POP3S</span></div>
+            <div class="row"><span class="key">143</span><span class="val">IMAP</span></div>
+            <div class="row"><span class="key">993</span><span class="val">IMAPS</span></div>
+            <div class="section-label">Web</div>
+            <div class="row"><span class="key">80</span><span class="val">HTTP</span></div>
+            <div class="row"><span class="key">443</span><span class="val">HTTPS</span></div>
+            <div class="row"><span class="key">8080</span><span class="val">HTTP Alternate</span></div>
+          </div>
+          <div>
+            <div class="section-label">DNS, DHCP, NTP</div>
+            <div class="row"><span class="key">53</span><span class="val">DNS (UDP/TCP)</span></div>
+            <div class="row"><span class="key">67</span><span class="val">DHCP Server</span></div>
+            <div class="row"><span class="key">68</span><span class="val">DHCP Client</span></div>
+            <div class="row"><span class="key">123</span><span class="val">NTP</span></div>
+            <div class="section-label">Directory &amp; Auth</div>
+            <div class="row"><span class="key">389</span><span class="val">LDAP</span></div>
+            <div class="row"><span class="key">636</span><span class="val">LDAPS</span></div>
+            <div class="row"><span class="key">445</span><span class="val">SMB / CIFS</span></div>
+            <div class="row"><span class="key">1723</span><span class="val">PPTP VPN</span></div>
+            <div class="section-label">Monitoring &amp; Other</div>
+            <div class="row"><span class="key">161/162</span><span class="val">SNMP / SNMP Trap</span></div>
+            <div class="row"><span class="key">514</span><span class="val">Syslog (UDP)</span></div>
+            <div class="row"><span class="key">119</span><span class="val">NNTP</span></div>
+            <div class="row"><span class="key">5060/5061</span><span class="val">SIP / SIPS (VoIP)</span></div>
+            <div class="section-label">Databases</div>
+            <div class="row"><span class="key">1433</span><span class="val">MS SQL Server</span></div>
+            <div class="row"><span class="key">3306</span><span class="val">MySQL</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 3: Subnetting + IPv6 + Routing (3 col) -->
+  <div class="grid">
+
+    <!-- IPv4 SUBNETTING -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#EBF4FF;">📐</div>
+        <h2>IPv4 Subnetting</h2>
+        <span class="sub">CIDR Reference</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">CIDR — Subnet Mask — Hosts</div>
+        <div class="row"><span class="key">/8</span><span class="val">255.0.0.0 &nbsp;·&nbsp; 16,777,214 hosts</span></div>
+        <div class="row"><span class="key">/16</span><span class="val">255.255.0.0 &nbsp;·&nbsp; 65,534 hosts</span></div>
+        <div class="row"><span class="key">/24</span><span class="val">255.255.255.0 &nbsp;·&nbsp; 254 hosts</span></div>
+        <div class="row"><span class="key">/25</span><span class="val">255.255.255.128 &nbsp;·&nbsp; 126 hosts</span></div>
+        <div class="row"><span class="key">/26</span><span class="val">255.255.255.192 &nbsp;·&nbsp; 62 hosts</span></div>
+        <div class="row"><span class="key">/27</span><span class="val">255.255.255.224 &nbsp;·&nbsp; 30 hosts</span></div>
+        <div class="row"><span class="key">/28</span><span class="val">255.255.255.240 &nbsp;·&nbsp; 14 hosts</span></div>
+        <div class="row"><span class="key">/29</span><span class="val">255.255.255.248 &nbsp;·&nbsp; 6 hosts</span></div>
+        <div class="row"><span class="key">/30</span><span class="val">255.255.255.252 &nbsp;·&nbsp; 2 hosts</span></div>
+        <div class="section-label">Formula</div>
+        <div class="row"><span class="key">Hosts</span><span class="val">2^(32−prefix) − 2 &nbsp;(net + broadcast)</span></div>
+        <div class="row"><span class="key">Subnets</span><span class="val">2^(borrowed bits)</span></div>
+        <div class="section-label">Private Ranges (RFC 1918)</div>
+        <div class="row"><span class="key">10.0.0.0/8</span><span class="val">Class A private · 16M+ hosts</span></div>
+        <div class="row"><span class="key">172.16.0.0/12</span><span class="val">Class B private · 172.16–172.31</span></div>
+        <div class="row"><span class="key">192.168.0.0/16</span><span class="val">Class C private · 65K hosts</span></div>
+        <div class="section-label">Special Addresses</div>
+        <div class="row"><span class="key">0.0.0.0/0</span><span class="val">Default route (all destinations)</span></div>
+        <div class="row"><span class="key">255.255.255.255</span><span class="val">Limited broadcast</span></div>
+        <div class="row"><span class="key">127.0.0.1</span><span class="val">Loopback / localhost</span></div>
+        <div class="row"><span class="key">169.254.x.x</span><span class="val">APIPA (link-local, no DHCP)</span></div>
+        <div class="note note-blue" style="margin-top:6px;"><b>Tip:</b> /30 = point-to-point links · /32 = host route · /0 = default route</div>
+      </div>
+    </div>
+
+    <!-- IPv6 -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#ECFEFF;">🔹</div>
+        <h2>IPv6 Addressing</h2>
+        <span class="sub">128-bit · 8 groups of 4 hex</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Address Types</div>
+        <div class="row"><span class="key">Unicast</span><span class="val">Single interface — one-to-one delivery</span></div>
+        <div class="row"><span class="key">Multicast</span><span class="val">FF00::/8 — one-to-many (group)</span></div>
+        <div class="row"><span class="key">Anycast</span><span class="val">Nearest interface in group</span></div>
+        <div class="section-label">Address Ranges</div>
+        <div class="row"><span class="key">::1</span><span class="val">Loopback (= 127.0.0.1 in IPv4)</span></div>
+        <div class="row"><span class="key">fe80::/10</span><span class="val">Link-local — auto-configured, non-routable</span></div>
+        <div class="row"><span class="key">2000::/3</span><span class="val">Global unicast — public internet</span></div>
+        <div class="row"><span class="key">fc00::/7</span><span class="val">Unique local (ULA) — private, FD00::/8 typical</span></div>
+        <div class="row"><span class="key">FF00::/8</span><span class="val">Multicast — all routers FF02::2</span></div>
+        <div class="row"><span class="key">FF02::1</span><span class="val">All nodes multicast</span></div>
+        <div class="row"><span class="key">FF02::2</span><span class="val">All routers multicast</span></div>
+        <div class="section-label">EUI-64 Interface ID</div>
+        <div class="row"><span class="key">Source</span><span class="val">48-bit MAC address</span></div>
+        <div class="row"><span class="key">Step 1</span><span class="val">Split MAC in half, insert FF:FE in middle</span></div>
+        <div class="row"><span class="key">Step 2</span><span class="val">Flip bit 7 (U/L bit) of first octet</span></div>
+        <div class="row"><span class="key">Result</span><span class="val">64-bit interface identifier appended to /64 prefix</span></div>
+        <div class="section-label">Notation Rules</div>
+        <div class="row"><span class="key">Leading zeros</span><span class="val">Can be omitted per group (0DB8 → DB8)</span></div>
+        <div class="row"><span class="key">::</span><span class="val">Replaces one consecutive run of zero groups (once only)</span></div>
+        <div class="section-label">Transition Technologies</div>
+        <div class="row"><span class="key">Dual Stack</span><span class="val">IPv4 + IPv6 simultaneously on device</span></div>
+        <div class="row"><span class="key">6to4</span><span class="val">Encapsulates IPv6 in IPv4 — prefix 2002::/16</span></div>
+        <div class="row"><span class="key">Teredo</span><span class="val">IPv6 over IPv4 UDP · prefix 2001::/32</span></div>
+        <div class="row"><span class="key">NAT64</span><span class="val">Translates IPv6 ↔ IPv4 at gateway</span></div>
+        <div class="note note-green" style="margin-top:6px;"><b>No broadcast in IPv6</b> — replaced by multicast &amp; anycast</div>
+      </div>
+    </div>
+
+    <!-- ROUTING PROTOCOLS -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#E8F7EF;">🛣️</div>
+        <h2>Routing Protocols</h2>
+        <span class="sub">IGP &amp; EGP</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Administrative Distance (AD) — lower = preferred</div>
+        <div class="row"><span class="key">Directly Connected</span><span class="val">AD = 0</span></div>
+        <div class="row"><span class="key">Static Route</span><span class="val">AD = 1</span></div>
+        <div class="row"><span class="key">eBGP</span><span class="val">AD = 20</span></div>
+        <div class="row"><span class="key">EIGRP (internal)</span><span class="val">AD = 90</span></div>
+        <div class="row"><span class="key">OSPF</span><span class="val">AD = 110</span></div>
+        <div class="row"><span class="key">RIP</span><span class="val">AD = 120</span></div>
+        <div class="row"><span class="key">EIGRP (external)</span><span class="val">AD = 170</span></div>
+        <div class="row"><span class="key">iBGP</span><span class="val">AD = 200</span></div>
+        <div class="section-label">RIP v2</div>
+        <div class="row"><span class="key">Type</span><span class="val">Distance vector</span></div>
+        <div class="row"><span class="key">Metric</span><span class="val">Hop count · max 15 hops (16 = unreachable)</span></div>
+        <div class="row"><span class="key">Updates</span><span class="val">Broadcast every 30s · port 520 UDP</span></div>
+        <div class="section-label">OSPF (Open Shortest Path First)</div>
+        <div class="row"><span class="key">Type</span><span class="val">Link-state · Dijkstra SPF algorithm</span></div>
+        <div class="row"><span class="key">Metric</span><span class="val">Cost = reference bandwidth / interface BW</span></div>
+        <div class="row"><span class="key">Multicast</span><span class="val">224.0.0.5 (all OSPF) · 224.0.0.6 (DR/BDR)</span></div>
+        <div class="row"><span class="key">Areas</span><span class="val">Hierarchical · Area 0 = backbone required</span></div>
+        <div class="row"><span class="key">LSA</span><span class="val">Link State Advertisement — topology DB</span></div>
+        <div class="section-label">EIGRP (Cisco Hybrid)</div>
+        <div class="row"><span class="key">Type</span><span class="val">Advanced distance vector / hybrid</span></div>
+        <div class="row"><span class="key">Metric</span><span class="val">Bandwidth + delay (+ reliability, load optional)</span></div>
+        <div class="row"><span class="key">Algorithm</span><span class="val">DUAL (Diffusing Update Algorithm) — loop-free</span></div>
+        <div class="row"><span class="key">Multicast</span><span class="val">224.0.0.10</span></div>
+        <div class="section-label">BGP (Border Gateway Protocol)</div>
+        <div class="row"><span class="key">Type</span><span class="val">Path vector · EGP (inter-AS internet routing)</span></div>
+        <div class="row"><span class="key">Port</span><span class="val">TCP 179 · policy-based routing</span></div>
+        <div class="row"><span class="key">eBGP</span><span class="val">Between different ASes · AD=20</span></div>
+        <div class="row"><span class="key">iBGP</span><span class="val">Within same AS · AD=200</span></div>
+        <div class="note note-blue" style="margin-top:6px;"><b>Static routes:</b> use for default gateway of last resort (0.0.0.0/0)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 4: Switching + Wireless + DNS (3 col) -->
+  <div class="grid">
+
+    <!-- SWITCHING & VLANs -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#F5F0FF;">🔀</div>
+        <h2>Switching &amp; VLANs</h2>
+        <span class="sub">Layer 2 Technologies</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">VLANs (802.1Q)</div>
+        <div class="row"><span class="key">Range</span><span class="val">VLAN 1–4094 · VLAN 1 = default native VLAN</span></div>
+        <div class="row"><span class="key">Purpose</span><span class="val">Logical segmentation · reduces broadcast domain</span></div>
+        <div class="row"><span class="key">802.1Q Tag</span><span class="val">4-byte tag inserted in Ethernet frame (TPID + TCI)</span></div>
+        <div class="row"><span class="key">Trunk Port</span><span class="val">Carries multiple VLANs · connects switches/routers</span></div>
+        <div class="row"><span class="key">Access Port</span><span class="val">Single VLAN · connects end devices</span></div>
+        <div class="row"><span class="key">Voice VLAN</span><span class="val">Separate VLAN for VoIP traffic (QoS priority)</span></div>
+        <div class="section-label">STP — Spanning Tree Protocol (802.1D)</div>
+        <div class="row"><span class="key">Purpose</span><span class="val">Prevents Layer 2 loops in redundant topology</span></div>
+        <div class="row"><span class="key">Root Bridge</span><span class="val">Lowest BID = priority (default 32768) + MAC address</span></div>
+        <div class="row"><span class="key">Port States</span><span class="val">Blocking → Listening → Learning → Forwarding → Disabled</span></div>
+        <div class="row"><span class="key">Convergence</span><span class="val">~50 seconds (802.1D) — slow</span></div>
+        <div class="section-label">RSTP (802.1w) — Rapid STP</div>
+        <div class="row"><span class="key">Convergence</span><span class="val">~1–2 seconds · backward compatible with STP</span></div>
+        <div class="row"><span class="key">Port Roles</span><span class="val">Root · Designated · Alternate · Backup</span></div>
+        <div class="row"><span class="key">Port States</span><span class="val">Discarding · Learning · Forwarding (3 states only)</span></div>
+        <div class="section-label">Port Security</div>
+        <div class="row"><span class="key">Max MACs</span><span class="val">Limit number of MAC addresses per port</span></div>
+        <div class="row"><span class="key">Protect</span><span class="val">Drops traffic from unknown MACs, no notification</span></div>
+        <div class="row"><span class="key">Restrict</span><span class="val">Drops + logs + increments violation counter</span></div>
+        <div class="row"><span class="key">Shutdown</span><span class="val">Puts port in err-disabled state (default mode)</span></div>
+        <div class="section-label">EtherChannel / LACP</div>
+        <div class="row"><span class="key">LACP</span><span class="val">802.3ad · open standard · active/passive modes</span></div>
+        <div class="row"><span class="key">PAgP</span><span class="val">Cisco proprietary · desirable/auto modes</span></div>
+        <div class="row"><span class="key">Benefit</span><span class="val">Link aggregation — bandwidth + redundancy</span></div>
+        <div class="note note-red" style="margin-top:6px;"><b>BPDU Guard:</b> disables port if STP BPDU received on portfast port</div>
+      </div>
+    </div>
+
+    <!-- WIRELESS -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#ECFEFF;">📶</div>
+        <h2>Wireless Networking</h2>
+        <span class="sub">802.11 Standards</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">802.11 Standards</div>
+        <div class="row"><span class="key">802.11a</span><span class="val">5 GHz · 54 Mbps · OFDM · 1999</span></div>
+        <div class="row"><span class="key">802.11b</span><span class="val">2.4 GHz · 11 Mbps · DSSS · 1999</span></div>
+        <div class="row"><span class="key">802.11g</span><span class="val">2.4 GHz · 54 Mbps · OFDM · 2003</span></div>
+        <div class="row"><span class="key">802.11n</span><span class="val">2.4/5 GHz · 600 Mbps · MIMO · Wi-Fi 4 · 2009</span></div>
+        <div class="row"><span class="key">802.11ac</span><span class="val">5 GHz · 3.5 Gbps · MU-MIMO · Wi-Fi 5 · 2013</span></div>
+        <div class="row"><span class="key">802.11ax</span><span class="val">2.4/5/6 GHz · 9.6 Gbps · OFDMA · Wi-Fi 6 · 2019</span></div>
+        <div class="section-label">Channels &amp; Frequencies</div>
+        <div class="row"><span class="key">2.4 GHz</span><span class="val">Non-overlapping: ch 1, 6, 11 (US)</span></div>
+        <div class="row"><span class="key">5 GHz</span><span class="val">24 non-overlapping channels · less interference</span></div>
+        <div class="row"><span class="key">6 GHz</span><span class="val">Wi-Fi 6E · 59 channels · minimal interference</span></div>
+        <div class="row"><span class="key">Channel Width</span><span class="val">20/40/80/160 MHz · wider = more throughput</span></div>
+        <div class="section-label">Wireless Security</div>
+        <div class="row"><span class="key">WEP</span><span class="val">RC4 cipher · broken · do not use</span></div>
+        <div class="row"><span class="key">WPA</span><span class="val">TKIP · RC4 · transitional · deprecated</span></div>
+        <div class="row"><span class="key">WPA2</span><span class="val">AES-CCMP · PBKDF2 · current standard</span></div>
+        <div class="row"><span class="key">WPA3</span><span class="val">SAE handshake · 192-bit enterprise · forward secrecy</span></div>
+        <div class="row"><span class="key">802.1X / EAP</span><span class="val">Port-based auth · RADIUS server · enterprise Wi-Fi</span></div>
+        <div class="section-label">Wireless Architecture</div>
+        <div class="row"><span class="key">Infrastructure</span><span class="val">Devices connect through AP (BSS/ESS)</span></div>
+        <div class="row"><span class="key">Ad-hoc / IBSS</span><span class="val">Direct device-to-device, no AP</span></div>
+        <div class="row"><span class="key">BSS</span><span class="val">Basic Service Set — single AP coverage area</span></div>
+        <div class="row"><span class="key">ESS</span><span class="val">Extended Service Set — multiple APs, same SSID</span></div>
+        <div class="row"><span class="key">BSSID</span><span class="val">MAC address of the AP radio</span></div>
+        <div class="row"><span class="key">WLC</span><span class="val">Wireless LAN Controller — centralized AP management</span></div>
+        <div class="note note-blue" style="margin-top:6px;"><b>CSMA/CA:</b> collision avoidance used in 802.11 (not CSMA/CD like Ethernet)</div>
+      </div>
+    </div>
+
+    <!-- DNS RECORD TYPES -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#EBF4FF;">🌍</div>
+        <h2>DNS &amp; Record Types</h2>
+        <span class="sub">Domain Name System</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Resource Record Types</div>
+        <div class="row"><span class="key">A</span><span class="val">Maps hostname → IPv4 address</span></div>
+        <div class="row"><span class="key">AAAA</span><span class="val">Maps hostname → IPv6 address (quad-A)</span></div>
+        <div class="row"><span class="key">MX</span><span class="val">Mail exchange server for domain</span></div>
+        <div class="row"><span class="key">CNAME</span><span class="val">Canonical name alias → another hostname</span></div>
+        <div class="row"><span class="key">PTR</span><span class="val">Reverse DNS — IP → hostname (in-addr.arpa)</span></div>
+        <div class="row"><span class="key">NS</span><span class="val">Authoritative name server for zone</span></div>
+        <div class="row"><span class="key">SOA</span><span class="val">Start of authority — zone metadata (serial, TTL)</span></div>
+        <div class="row"><span class="key">TXT</span><span class="val">Text data — SPF, DKIM, DMARC, domain verification</span></div>
+        <div class="row"><span class="key">SRV</span><span class="val">Service location (host + port) e.g. SIP, XMPP</span></div>
+        <div class="row"><span class="key">CAA</span><span class="val">Certificate Authority Authorization</span></div>
+        <div class="section-label">DNS Resolution Process</div>
+        <div class="row"><span class="key">Recursive</span><span class="val">Resolver does full lookup on client's behalf</span></div>
+        <div class="row"><span class="key">Iterative</span><span class="val">Root → TLD → Authoritative server referrals</span></div>
+        <div class="row"><span class="key">TTL</span><span class="val">Time to Live — cache duration in seconds</span></div>
+        <div class="row"><span class="key">Zone Transfer</span><span class="val">AXFR (full) · IXFR (incremental) — primary→secondary</span></div>
+        <div class="section-label">DNS Security</div>
+        <div class="row"><span class="key">DNSSEC</span><span class="val">Digital signatures on DNS records — prevents spoofing</span></div>
+        <div class="row"><span class="key">DoH</span><span class="val">DNS over HTTPS · port 443 · encrypted queries</span></div>
+        <div class="row"><span class="key">DoT</span><span class="val">DNS over TLS · port 853 · encrypted queries</span></div>
+        <div class="section-label">DHCP — DORA Process</div>
+        <div class="row"><span class="key">Discover</span><span class="val">Client broadcasts — looking for DHCP server</span></div>
+        <div class="row"><span class="key">Offer</span><span class="val">Server unicasts/broadcasts IP offer</span></div>
+        <div class="row"><span class="key">Request</span><span class="val">Client broadcasts acceptance of offer</span></div>
+        <div class="row"><span class="key">Acknowledge</span><span class="val">Server confirms lease — IP, mask, GW, DNS</span></div>
+        <div class="row"><span class="key">Relay Agent</span><span class="val">Forwards DHCP across subnets (ip helper-address)</span></div>
+        <div class="note note-green" style="margin-top:6px;"><b>Scope:</b> pool of IPs · <b>Lease:</b> duration · <b>Reservation:</b> MAC→IP binding</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 5: Network Services + Security (2 col wide) + Tools -->
+  <div class="grid">
+
+    <!-- NETWORK SERVICES -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#E8F7EF;">⚙️</div>
+        <h2>Network Services</h2>
+        <span class="sub">NAT · VPN · QoS · NTP</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">NAT — Network Address Translation</div>
+        <div class="row"><span class="key">Static NAT</span><span class="val">1:1 mapping · permanent public↔private IP</span></div>
+        <div class="row"><span class="key">Dynamic NAT</span><span class="val">Pool of public IPs assigned from private range</span></div>
+        <div class="row"><span class="key">PAT / Overload</span><span class="val">Many:1 · port numbers distinguish connections</span></div>
+        <div class="row"><span class="key">Inside Local</span><span class="val">Private IP of inside host</span></div>
+        <div class="row"><span class="key">Inside Global</span><span class="val">Public IP representing inside host</span></div>
+        <div class="section-label">VPN Types</div>
+        <div class="row"><span class="key">IPSec Tunnel</span><span class="val">Encrypts entire packet · site-to-site VPN</span></div>
+        <div class="row"><span class="key">IPSec Transport</span><span class="val">Encrypts payload only · host-to-host</span></div>
+        <div class="row"><span class="key">IKE Phase 1</span><span class="val">Establish secure channel (ISAKMP SA) · main/aggressive mode</span></div>
+        <div class="row"><span class="key">IKE Phase 2</span><span class="val">Negotiate IPSec SA (AH or ESP) · quick mode</span></div>
+        <div class="row"><span class="key">SSL/TLS VPN</span><span class="val">Browser-based clientless · port 443 · flexible</span></div>
+        <div class="row"><span class="key">PPTP</span><span class="val">Deprecated · port 1723 · weak encryption (MS-CHAPv2)</span></div>
+        <div class="row"><span class="key">L2TP/IPSec</span><span class="val">L2TP tunneling + IPSec encryption · port 1701/UDP</span></div>
+        <div class="row"><span class="key">Split Tunnel</span><span class="val">Only corporate traffic via VPN · internet direct</span></div>
+        <div class="row"><span class="key">Full Tunnel</span><span class="val">All traffic routed through VPN gateway</span></div>
+        <div class="section-label">QoS — Quality of Service</div>
+        <div class="row"><span class="key">DSCP</span><span class="val">Differentiated Services Code Point · marks packets</span></div>
+        <div class="row"><span class="key">CoS 802.1p</span><span class="val">3-bit Layer 2 priority (0–7) in 802.1Q tag</span></div>
+        <div class="row"><span class="key">Traffic Shaping</span><span class="val">Delays excess traffic to conform to rate</span></div>
+        <div class="row"><span class="key">Policing</span><span class="val">Drops excess traffic beyond defined rate</span></div>
+        <div class="section-label">NTP &amp; Time Services</div>
+        <div class="row"><span class="key">NTP</span><span class="val">Network Time Protocol · UDP 123 · stratum hierarchy</span></div>
+        <div class="row"><span class="key">Stratum 0</span><span class="val">Atomic clock / GPS reference</span></div>
+        <div class="row"><span class="key">Stratum 1</span><span class="val">Directly connected to stratum 0</span></div>
+        <div class="row"><span class="key">PTP</span><span class="val">IEEE 1588 Precision Time Protocol · sub-microsecond</span></div>
+      </div>
+    </div>
+
+    <!-- SECURITY -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#FEF2F2;">🔒</div>
+        <h2>Network Security</h2>
+        <span class="sub">Firewalls · IDS/IPS · Attacks</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Firewall Types</div>
+        <div class="row"><span class="key">Packet Filter</span><span class="val">ACL-based · src/dst IP/port · stateless</span></div>
+        <div class="row"><span class="key">Stateful</span><span class="val">Tracks connection state · allows return traffic</span></div>
+        <div class="row"><span class="key">App Layer / Proxy</span><span class="val">Inspects payload · understands protocols (HTTP, DNS)</span></div>
+        <div class="row"><span class="key">NGFW</span><span class="val">Next-gen · deep packet inspection · IPS + App ID + URL filter</span></div>
+        <div class="row"><span class="key">WAF</span><span class="val">Web Application Firewall · HTTP traffic · Layer 7</span></div>
+        <div class="section-label">IDS vs IPS</div>
+        <div class="row"><span class="key">IDS</span><span class="val">Intrusion Detection — monitors, alerts only (passive/out-of-band)</span></div>
+        <div class="row"><span class="key">IPS</span><span class="val">Intrusion Prevention — inline, blocks malicious traffic (active)</span></div>
+        <div class="row"><span class="key">Signature-based</span><span class="val">Matches known attack patterns · fast · misses 0-day</span></div>
+        <div class="row"><span class="key">Anomaly-based</span><span class="val">Detects deviations from baseline · catches 0-day</span></div>
+        <div class="section-label">DMZ &amp; Network Zones</div>
+        <div class="row"><span class="key">DMZ</span><span class="val">Screened subnet · public-facing servers (web, mail, DNS)</span></div>
+        <div class="row"><span class="key">Dual-homed</span><span class="val">Firewall with LAN + WAN + DMZ interfaces</span></div>
+        <div class="row"><span class="key">Screened host</span><span class="val">Bastion host + packet filter</span></div>
+        <div class="section-label">Common Layer 2 Attacks</div>
+        <div class="row"><span class="key">ARP Poisoning</span><span class="val">Fake ARP replies → MAC table poisoning → MITM</span></div>
+        <div class="row"><span class="key">MAC Flooding</span><span class="val">Overflow CAM table → switch acts as hub</span></div>
+        <div class="row"><span class="key">VLAN Hopping</span><span class="val">Switch spoofing or double-tagging to access other VLANs</span></div>
+        <div class="row"><span class="key">DHCP Starvation</span><span class="val">Exhaust DHCP pool with fake requests · DoS</span></div>
+        <div class="row"><span class="key">DHCP Spoofing</span><span class="val">Rogue DHCP server hands out malicious gateway/DNS</span></div>
+        <div class="section-label">Common Network Attacks</div>
+        <div class="row"><span class="key">DNS Poisoning</span><span class="val">Corrupt DNS cache → redirect users to attacker site</span></div>
+        <div class="row"><span class="key">DoS</span><span class="val">Single-source overwhelm · SYN flood, ping flood, smurf</span></div>
+        <div class="row"><span class="key">DDoS</span><span class="val">Distributed DoS — botnet of compromised hosts</span></div>
+        <div class="row"><span class="key">MITM</span><span class="val">Man-in-the-middle — intercept/modify traffic</span></div>
+        <div class="row"><span class="key">Replay Attack</span><span class="val">Re-transmit captured credentials/tokens</span></div>
+        <div class="row"><span class="key">Deauth Attack</span><span class="val">802.11 de-authentication frames → force reconnect</span></div>
+        <div class="note note-red" style="margin-top:6px;"><b>Defense:</b> DAI (ARP), DHCP snooping, 802.1X, port security, BPDU guard</div>
+      </div>
+    </div>
+
+    <!-- TROUBLESHOOTING TOOLS -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#F5F0FF;">🛠️</div>
+        <h2>Troubleshooting Tools</h2>
+        <span class="sub">CLI &amp; Analysis</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Connectivity &amp; Path</div>
+        <div class="row"><span class="key">ping</span><span class="val">ICMP echo request/reply · test connectivity &amp; latency</span></div>
+        <div class="row"><span class="key">traceroute</span><span class="val">Path discovery · hop-by-hop latency (ICMP/UDP TTL)</span></div>
+        <div class="row"><span class="key">tracert</span><span class="val">Windows version of traceroute · uses ICMP</span></div>
+        <div class="row"><span class="key">pathping</span><span class="val">Windows · combines ping + traceroute with stats</span></div>
+        <div class="section-label">DNS &amp; Name Resolution</div>
+        <div class="row"><span class="key">nslookup</span><span class="val">DNS queries · forward/reverse · all record types</span></div>
+        <div class="row"><span class="key">dig</span><span class="val">Linux DNS tool · detailed output · query specific types</span></div>
+        <div class="row"><span class="key">host</span><span class="val">Simple DNS lookup · Linux/macOS</span></div>
+        <div class="section-label">Interface &amp; IP Config</div>
+        <div class="row"><span class="key">ipconfig</span><span class="val">Windows · show IP/mask/GW · /release /renew /flushdns</span></div>
+        <div class="row"><span class="key">ifconfig</span><span class="val">Linux/macOS (legacy) · show/configure interface</span></div>
+        <div class="row"><span class="key">ip addr/route</span><span class="val">Linux modern · show addresses · ip route show</span></div>
+        <div class="section-label">Connections &amp; Routing</div>
+        <div class="row"><span class="key">netstat</span><span class="val">Active connections · listening ports · -an -rn flags</span></div>
+        <div class="row"><span class="key">ss</span><span class="val">Linux modern netstat replacement · faster</span></div>
+        <div class="row"><span class="key">arp -a</span><span class="val">Display ARP cache · IP-to-MAC mappings</span></div>
+        <div class="row"><span class="key">route print</span><span class="val">Windows routing table (Linux: ip route show)</span></div>
+        <div class="section-label">Scanning &amp; Packet Analysis</div>
+        <div class="row"><span class="key">nmap</span><span class="val">Port scanning · host discovery · OS fingerprinting</span></div>
+        <div class="row"><span class="key">Wireshark</span><span class="val">GUI packet capture &amp; analysis · display filters</span></div>
+        <div class="row"><span class="key">tcpdump</span><span class="val">CLI packet capture · Berkeley Packet Filter (BPF) syntax</span></div>
+        <div class="section-label">Cable &amp; Physical</div>
+        <div class="row"><span class="key">TDR</span><span class="val">Time Domain Reflectometer · locate cable breaks/faults</span></div>
+        <div class="row"><span class="key">OTDR</span><span class="val">Optical TDR · fiber cable fault location</span></div>
+        <div class="row"><span class="key">Cable tester</span><span class="val">Verify pinout · continuity · wire map</span></div>
+        <div class="row"><span class="key">Loopback plug</span><span class="val">Test NIC or port · pins 1→3, 2→6</span></div>
+        <div class="note note-blue" style="margin-top:6px;"><b>CompTIA OSI Troubleshoot:</b> Bottom-up (Physical first) or Top-down (Application first)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 6: Cables + Cloud/Virt + Monitoring (3 col) -->
+  <div class="grid">
+
+    <!-- CABLES & MEDIA -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#E8F7EF;">🔧</div>
+        <h2>Cables &amp; Physical Media</h2>
+        <span class="sub">Copper · Fiber · Connectors</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Twisted Pair (UTP/STP)</div>
+        <div class="row"><span class="key">Cat 5</span><span class="val">100 Mbps · 100m · 100BASE-TX</span></div>
+        <div class="row"><span class="key">Cat 5e</span><span class="val">1 Gbps · 100m · 1000BASE-T (common)</span></div>
+        <div class="row"><span class="key">Cat 6</span><span class="val">1 Gbps/100m · 10 Gbps/55m · reduced crosstalk</span></div>
+        <div class="row"><span class="key">Cat 6a</span><span class="val">10 Gbps · 100m · 10GBASE-T</span></div>
+        <div class="row"><span class="key">Cat 7</span><span class="val">10 Gbps · fully shielded (STP) · GG45 connector</span></div>
+        <div class="row"><span class="key">Cat 8</span><span class="val">25/40 Gbps · 30m · data center</span></div>
+        <div class="section-label">Fiber Optic</div>
+        <div class="row"><span class="key">Single-mode (SMF)</span><span class="val">9µm core · long distance (km) · laser · yellow jacket</span></div>
+        <div class="row"><span class="key">Multi-mode (MMF)</span><span class="val">50/62.5µm core · short distance · LED · orange/aqua</span></div>
+        <div class="row"><span class="key">OM1/OM2</span><span class="val">62.5/50µm · up to 300m · orange</span></div>
+        <div class="row"><span class="key">OM3/OM4</span><span class="val">50µm · up to 400m · aqua · 10G+</span></div>
+        <div class="row"><span class="key">OM5</span><span class="val">Wideband multimode · lime green · 40/100G</span></div>
+        <div class="section-label">Connectors</div>
+        <div class="row"><span class="key">RJ-45</span><span class="val">8P8C · Ethernet twisted pair · T568A/B</span></div>
+        <div class="row"><span class="key">RJ-11</span><span class="val">6P2C/4C · telephone / DSL</span></div>
+        <div class="row"><span class="key">LC</span><span class="val">Lucent Connector · small · SFP fiber (most common)</span></div>
+        <div class="row"><span class="key">SC</span><span class="val">Subscriber Connector · push-pull · square</span></div>
+        <div class="row"><span class="key">ST</span><span class="val">Straight Tip · bayonet-style · older MMF</span></div>
+        <div class="row"><span class="key">MPO/MTP</span><span class="val">Multi-fiber push-on · 12/24 fiber · high-density</span></div>
+        <div class="section-label">T568 Wiring Standards</div>
+        <div class="row"><span class="key">T568A</span><span class="val">GW-G-OW-B-BW-O-BrW-Br</span></div>
+        <div class="row"><span class="key">T568B</span><span class="val">OW-O-GW-B-BW-G-BrW-Br (most common in US)</span></div>
+        <div class="row"><span class="key">Straight-through</span><span class="val">Same standard both ends · device to switch</span></div>
+        <div class="row"><span class="key">Crossover</span><span class="val">T568A one end, T568B other · switch to switch</span></div>
+        <div class="note note-green" style="margin-top:6px;"><b>MDIX:</b> auto-detects and corrects cable type · modern switches use it</div>
+      </div>
+    </div>
+
+    <!-- CLOUD & VIRTUALIZATION -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#EBF4FF;">☁️</div>
+        <h2>Cloud &amp; Virtualization</h2>
+        <span class="sub">SDN · NFV · Cloud Models</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Cloud Service Models</div>
+        <div class="row"><span class="key">IaaS</span><span class="val">Infrastructure as a Service · VMs, storage, networking (AWS EC2)</span></div>
+        <div class="row"><span class="key">PaaS</span><span class="val">Platform as a Service · runtime environment (Heroku, App Engine)</span></div>
+        <div class="row"><span class="key">SaaS</span><span class="val">Software as a Service · full app (Gmail, Office 365, Salesforce)</span></div>
+        <div class="row"><span class="key">FaaS</span><span class="val">Function as a Service · serverless compute (AWS Lambda)</span></div>
+        <div class="section-label">Cloud Deployment Models</div>
+        <div class="row"><span class="key">Public</span><span class="val">Shared infrastructure · internet-accessible · AWS, Azure, GCP</span></div>
+        <div class="row"><span class="key">Private</span><span class="val">Dedicated · on-prem or hosted · full control</span></div>
+        <div class="row"><span class="key">Hybrid</span><span class="val">Mix of public + private · data can span both</span></div>
+        <div class="row"><span class="key">Community</span><span class="val">Shared among org with common needs (gov, healthcare)</span></div>
+        <div class="section-label">SDN — Software Defined Networking</div>
+        <div class="row"><span class="key">Control Plane</span><span class="val">Routing decisions · centralized SDN controller</span></div>
+        <div class="row"><span class="key">Data Plane</span><span class="val">Packet forwarding · hardware (ASICs) · fast path</span></div>
+        <div class="row"><span class="key">Management Plane</span><span class="val">Device config &amp; monitoring (SSH, SNMP, NetFlow)</span></div>
+        <div class="row"><span class="key">Northbound API</span><span class="val">SDN controller → applications (REST, NETCONF)</span></div>
+        <div class="row"><span class="key">Southbound API</span><span class="val">SDN controller → network devices (OpenFlow, NETCONF)</span></div>
+        <div class="section-label">Virtualization</div>
+        <div class="row"><span class="key">Hypervisor T1</span><span class="val">Bare-metal · runs on hardware (VMware ESXi, Hyper-V)</span></div>
+        <div class="row"><span class="key">Hypervisor T2</span><span class="val">Hosted · runs on OS (VirtualBox, VMware Workstation)</span></div>
+        <div class="row"><span class="key">vSwitch</span><span class="val">Virtual switch · connects VMs within hypervisor</span></div>
+        <div class="row"><span class="key">NFV</span><span class="val">Network Function Virtualization · VNFs replace hardware</span></div>
+        <div class="row"><span class="key">Container</span><span class="val">OS-level virtualization · Docker · lightweight vs VMs</span></div>
+        <div class="section-label">WAN Technologies</div>
+        <div class="row"><span class="key">MPLS</span><span class="val">Label-switched · fast · QoS · enterprise WAN</span></div>
+        <div class="row"><span class="key">SD-WAN</span><span class="val">Software-defined WAN · dynamic path selection</span></div>
+        <div class="row"><span class="key">MetroE</span><span class="val">Metro Ethernet · carrier Ethernet over fiber</span></div>
+        <div class="row"><span class="key">DMVPN</span><span class="val">Dynamic Multipoint VPN · hub-and-spoke to any-to-any</span></div>
+      </div>
+    </div>
+
+    <!-- MONITORING & MANAGEMENT -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#ECFEFF;">📡</div>
+        <h2>Monitoring &amp; Management</h2>
+        <span class="sub">SNMP · Syslog · NetFlow</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">SNMP — Simple Network Management Protocol</div>
+        <div class="row"><span class="key">Port</span><span class="val">UDP 161 (agent) · UDP 162 (trap/manager)</span></div>
+        <div class="row"><span class="key">SNMPv1/v2c</span><span class="val">Community strings (plaintext) · insecure</span></div>
+        <div class="row"><span class="key">SNMPv3</span><span class="val">Auth + encryption (MD5/SHA + AES/DES) · secure</span></div>
+        <div class="row"><span class="key">MIB</span><span class="val">Management Information Base · OID hierarchy</span></div>
+        <div class="row"><span class="key">Trap</span><span class="val">Unsolicited alert from agent to manager</span></div>
+        <div class="row"><span class="key">Get/Set</span><span class="val">Manager reads/writes OID values on agent</span></div>
+        <div class="section-label">Syslog</div>
+        <div class="row"><span class="key">Port</span><span class="val">UDP 514 · TCP 601 · TLS 6514</span></div>
+        <div class="row"><span class="key">Severity 0</span><span class="val">Emergency — system unusable</span></div>
+        <div class="row"><span class="key">Severity 1</span><span class="val">Alert — immediate action needed</span></div>
+        <div class="row"><span class="key">Severity 2</span><span class="val">Critical</span></div>
+        <div class="row"><span class="key">Severity 3</span><span class="val">Error</span></div>
+        <div class="row"><span class="key">Severity 4</span><span class="val">Warning</span></div>
+        <div class="row"><span class="key">Severity 5</span><span class="val">Notice</span></div>
+        <div class="row"><span class="key">Severity 6</span><span class="val">Informational</span></div>
+        <div class="row"><span class="key">Severity 7</span><span class="val">Debug — most verbose</span></div>
+        <div class="section-label">NetFlow &amp; Traffic Analysis</div>
+        <div class="row"><span class="key">NetFlow</span><span class="val">Cisco · flow-level stats · src/dst IP/port, protocol</span></div>
+        <div class="row"><span class="key">sFlow</span><span class="val">Sampled traffic · vendor-neutral · lower overhead</span></div>
+        <div class="row"><span class="key">IPFIX</span><span class="val">NetFlow v9 standard · IETF · flexible templates</span></div>
+        <div class="section-label">Network Documentation</div>
+        <div class="row"><span class="key">Logical Diagram</span><span class="val">IP addressing · VLANs · routing · Layer 3</span></div>
+        <div class="row"><span class="key">Physical Diagram</span><span class="val">Device locations · cable runs · Layer 1-2</span></div>
+        <div class="row"><span class="key">Rack Diagram</span><span class="val">Equipment placement in racks · U-space</span></div>
+        <div class="row"><span class="key">MDF/IDF</span><span class="val">Main/Intermediate Distribution Frame · structured cabling</span></div>
+        <div class="section-label">Configuration Management</div>
+        <div class="row"><span class="key">Baseline</span><span class="val">Normal performance reference for comparison</span></div>
+        <div class="row"><span class="key">Change Mgmt</span><span class="val">RFC process · approval · rollback plan · change window</span></div>
+        <div class="row"><span class="key">IPAM</span><span class="val">IP Address Management · track/manage IP space</span></div>
+        <div class="note note-blue" style="margin-top:6px;"><b>SIEM:</b> Security Info &amp; Event Mgmt — aggregates logs for correlation &amp; alerting</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 7: Troubleshooting Methodology + HA/DR + Exam Tips (3 col) -->
+  <div class="grid">
+
+    <!-- TROUBLESHOOTING METHODOLOGY -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#FEF2F2;">🔍</div>
+        <h2>Troubleshooting Methodology</h2>
+        <span class="sub">CompTIA 7-Step Process</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">CompTIA Official Steps</div>
+        <div class="row"><span class="key">Step 1</span><span class="val">Identify the problem — gather info, symptoms, duplicate</span></div>
+        <div class="row"><span class="key">Step 2</span><span class="val">Establish a theory of probable cause</span></div>
+        <div class="row"><span class="key">Step 3</span><span class="val">Test the theory to determine cause</span></div>
+        <div class="row"><span class="key">Step 4</span><span class="val">Establish a plan of action &amp; identify potential effects</span></div>
+        <div class="row"><span class="key">Step 5</span><span class="val">Implement the solution or escalate</span></div>
+        <div class="row"><span class="key">Step 6</span><span class="val">Verify full system functionality + preventive measures</span></div>
+        <div class="row"><span class="key">Step 7</span><span class="val">Document findings, actions, and outcomes</span></div>
+        <div class="section-label">OSI Troubleshooting Approaches</div>
+        <div class="row"><span class="key">Bottom-Up</span><span class="val">Layer 1 first → Physical → check cables, LEDs, speeds</span></div>
+        <div class="row"><span class="key">Top-Down</span><span class="val">Layer 7 first → Application → check configs, connectivity</span></div>
+        <div class="row"><span class="key">Divide &amp; Conquer</span><span class="val">Start at middle layer → ping test (Layer 3)</span></div>
+        <div class="section-label">Common Issues by Layer</div>
+        <div class="row"><span class="key">L1 Physical</span><span class="val">Damaged cable · wrong speed/duplex · bad NIC · no link light</span></div>
+        <div class="row"><span class="key">L2 Data Link</span><span class="val">Duplex mismatch · wrong VLAN · STP loop · MAC table full</span></div>
+        <div class="row"><span class="key">L3 Network</span><span class="val">Wrong IP/mask/GW · routing loop · missing route</span></div>
+        <div class="row"><span class="key">L4 Transport</span><span class="val">Firewall blocking port · wrong port config · TCP reset</span></div>
+        <div class="row"><span class="key">L7 Application</span><span class="val">DNS failure · wrong URL · auth error · service down</span></div>
+        <div class="section-label">Duplex &amp; Speed Issues</div>
+        <div class="row"><span class="key">Half duplex</span><span class="val">One direction at a time · CSMA/CD · hubs</span></div>
+        <div class="row"><span class="key">Full duplex</span><span class="val">Simultaneous bidirectional · switches · no collisions</span></div>
+        <div class="row"><span class="key">Duplex mismatch</span><span class="val">High collisions · late collisions · poor performance</span></div>
+        <div class="note note-red" style="margin-top:6px;"><b>CRC errors</b> = physical layer issue · <b>late collisions</b> = duplex mismatch · <b>runts</b> = undersized frames</div>
+      </div>
+    </div>
+
+    <!-- HIGH AVAILABILITY & DR -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#E8F7EF;">🏗️</div>
+        <h2>High Availability &amp; Disaster Recovery</h2>
+        <span class="sub">Redundancy · Fault Tolerance</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">HA Concepts</div>
+        <div class="row"><span class="key">MTTR</span><span class="val">Mean Time To Repair — avg time to restore service</span></div>
+        <div class="row"><span class="key">MTBF</span><span class="val">Mean Time Between Failures — reliability metric</span></div>
+        <div class="row"><span class="key">RTO</span><span class="val">Recovery Time Objective — max downtime acceptable</span></div>
+        <div class="row"><span class="key">RPO</span><span class="val">Recovery Point Objective — max data loss acceptable</span></div>
+        <div class="row"><span class="key">SLA</span><span class="val">Service Level Agreement — uptime/performance guarantee</span></div>
+        <div class="row"><span class="key">Five 9s</span><span class="val">99.999% uptime = ~5.26 min downtime/year</span></div>
+        <div class="section-label">Load Balancing</div>
+        <div class="row"><span class="key">Round Robin</span><span class="val">Requests distributed evenly in sequence</span></div>
+        <div class="row"><span class="key">Least Connections</span><span class="val">Sent to server with fewest active sessions</span></div>
+        <div class="row"><span class="key">IP Hash</span><span class="val">Client IP determines server — session persistence</span></div>
+        <div class="row"><span class="key">Active/Active</span><span class="val">Both nodes handle traffic simultaneously</span></div>
+        <div class="row"><span class="key">Active/Passive</span><span class="val">Standby activates only on primary failure</span></div>
+        <div class="section-label">First Hop Redundancy (FHRP)</div>
+        <div class="row"><span class="key">HSRP</span><span class="val">Hot Standby Router Protocol · Cisco · virtual IP</span></div>
+        <div class="row"><span class="key">VRRP</span><span class="val">Virtual Router Redundancy Protocol · open standard</span></div>
+        <div class="row"><span class="key">GLBP</span><span class="val">Gateway Load Balancing Protocol · Cisco · load-shares</span></div>
+        <div class="section-label">Backup &amp; Recovery</div>
+        <div class="row"><span class="key">Full Backup</span><span class="val">Everything · longest time · fastest restore</span></div>
+        <div class="row"><span class="key">Incremental</span><span class="val">Changed since last backup · fast backup · slow restore</span></div>
+        <div class="row"><span class="key">Differential</span><span class="val">Changed since last full · medium backup/restore</span></div>
+        <div class="row"><span class="key">Snapshot</span><span class="val">Point-in-time copy · VMs · near-instant</span></div>
+        <div class="section-label">Site Types</div>
+        <div class="row"><span class="key">Hot Site</span><span class="val">Fully operational · immediate failover · highest cost</span></div>
+        <div class="row"><span class="key">Warm Site</span><span class="val">Hardware ready · data needs restore · moderate cost</span></div>
+        <div class="row"><span class="key">Cold Site</span><span class="val">Physical space only · equipment needed · cheapest</span></div>
+        <div class="note note-green" style="margin-top:6px;"><b>RAID:</b> 0=Striping(no redundancy) · 1=Mirroring · 5=Stripe+parity · 10=Mirror+Stripe</div>
+      </div>
+    </div>
+
+    <!-- EXAM TIPS -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#F5F0FF;">🎯</div>
+        <h2>Exam Tips &amp; Key Concepts</h2>
+        <span class="sub">N10-009 Focus Areas</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Must-Know Acronyms</div>
+        <div class="row"><span class="key">AAA</span><span class="val">Authentication, Authorization, Accounting</span></div>
+        <div class="row"><span class="key">RADIUS</span><span class="val">UDP 1812/1813 · centralized auth for network access</span></div>
+        <div class="row"><span class="key">TACACS+</span><span class="val">TCP 49 · Cisco · separates AAA functions</span></div>
+        <div class="row"><span class="key">PKI</span><span class="val">Public Key Infrastructure · CA, certs, digital signatures</span></div>
+        <div class="row"><span class="key">CIA Triad</span><span class="val">Confidentiality · Integrity · Availability</span></div>
+        <div class="row"><span class="key">ACL</span><span class="val">Access Control List · permit/deny traffic rules</span></div>
+        <div class="section-label">Encryption Protocols</div>
+        <div class="row"><span class="key">TLS 1.2/1.3</span><span class="val">Transport Layer Security · replaces SSL</span></div>
+        <div class="row"><span class="key">AES</span><span class="val">Advanced Encryption Standard · 128/192/256-bit · symmetric</span></div>
+        <div class="row"><span class="key">RSA</span><span class="val">Asymmetric · public/private key pair · key exchange</span></div>
+        <div class="row"><span class="key">SHA</span><span class="val">Secure Hash Algorithm · integrity verification</span></div>
+        <div class="row"><span class="key">MD5</span><span class="val">128-bit hash · broken · avoid for security use</span></div>
+        <div class="section-label">Network Topologies</div>
+        <div class="row"><span class="key">Star</span><span class="val">All connect to central switch · most common LAN</span></div>
+        <div class="row"><span class="key">Bus</span><span class="val">Single coax · legacy · single collision domain</span></div>
+        <div class="row"><span class="key">Ring</span><span class="val">Token passing · FDDI, Token Ring · legacy</span></div>
+        <div class="row"><span class="key">Mesh</span><span class="val">Full: every node connected · Partial: some connections</span></div>
+        <div class="row"><span class="key">Hybrid</span><span class="val">Combination of topologies · most enterprise networks</span></div>
+        <div class="section-label">Exam Day Strategy</div>
+        <div class="row"><span class="key">PBQ</span><span class="val">Performance-based questions first · drag-drop, simulations</span></div>
+        <div class="row"><span class="key">Flag &amp; Return</span><span class="val">Skip uncertain Qs · answer all · no penalty for guessing</span></div>
+        <div class="row"><span class="key">Eliminate</span><span class="val">Remove obviously wrong answers first</span></div>
+        <div class="row"><span class="key">Context</span><span class="val">Use scenario clues · "BEST" = most secure/efficient</span></div>
+        <div class="section-label">Quick-Reference Tags</div>
+        <div class="tags">
+          <span class="tag tag-blue">TCP=reliable</span>
+          <span class="tag tag-cyan">UDP=fast</span>
+          <span class="tag tag-green">OSPF=link-state</span>
+          <span class="tag tag-blue">RIP=distance-vector</span>
+          <span class="tag tag-red">WEP=broken</span>
+          <span class="tag tag-green">WPA3=SAE</span>
+          <span class="tag tag-cyan">RSTP=fast-STP</span>
+          <span class="tag tag-blue">802.1Q=trunk</span>
+          <span class="tag tag-red">Telnet=insecure</span>
+          <span class="tag tag-green">SSH=secure</span>
+          <span class="tag tag-cyan">DNS=UDP53</span>
+          <span class="tag tag-blue">HTTPS=443</span>
+          <span class="tag tag-red">PPTP=deprecated</span>
+          <span class="tag tag-green">IPSec=VPN</span>
+          <span class="tag tag-blue">VLAN1=native</span>
+          <span class="tag tag-cyan">fe80=link-local</span>
+        </div>
+        <div class="note note-blue" style="margin-top:6px;"><b>Passed by:</b> 720/900 · Each domain weighted — focus on Networking Concepts (23%) and Troubleshooting (22%)</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

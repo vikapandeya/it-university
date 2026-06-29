@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AWS Security Specialty SCS-C02 Cheat Sheet</title>
+<meta name="description" content="Dense, exam-focused cheat sheet for AWS Certified Security Specialty SCS-C02 covering all 6 domains.">
+<style>
+:root {
+  --bg:#F5F6F7; --surface:#FFFFFF; --border:#E2E4E8;
+  --navy:#0F1C2E; --navy2:#1A2E45;
+  --orange:#FF9900; --orange-soft:#FFF4DC;
+  --blue:#1A6FB5; --blue-soft:#EBF4FF;
+  --green:#1B7A4A; --green-soft:#E8F7EF;
+  --red:#B91C1C; --red-soft:#FEF2F2;
+  --purple:#6B21A8; --purple-soft:#F5F0FF;
+  --text:#1C2333; --text2:#4A5568; --text3:#718096;
+  --mono:'Consolas','Courier New',monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body { font-family:var(--sans); font-size:11px; background:var(--bg); color:var(--text); line-height:1.5; }
+.page { max-width:1280px; margin:0 auto; padding:20px 16px; }
+.header { background:var(--navy); border-radius:10px; padding:20px 24px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+.header-left h1 { font-size:22px; font-weight:800; color:#fff; }
+.header-left h1 span { color:var(--orange); }
+.header-left p { font-size:11px; color:#94A3B8; margin-top:3px; }
+.header-badges { display:flex; gap:8px; flex-wrap:wrap; }
+.badge { font-size:10px; font-weight:700; padding:4px 10px; border-radius:20px; letter-spacing:.5px; text-transform:uppercase; }
+.badge-orange { background:var(--orange); color:var(--navy); }
+.badge-blue { background:#3B82F6; color:#fff; }
+.badge-green { background:#22C55E; color:#fff; }
+.grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:12px; }
+.grid-2 { grid-template-columns:repeat(2,1fr); }
+.grid-4 { grid-template-columns:repeat(4,1fr); }
+.card { background:var(--surface); border-radius:8px; border:1px solid var(--border); overflow:hidden; }
+.card-header { padding:8px 12px; display:flex; align-items:center; gap:8px; border-bottom:1px solid var(--border); }
+.card-header .icon { width:24px; height:24px; border-radius:5px; display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; }
+.card-header h2 { font-size:11.5px; font-weight:800; color:var(--navy); }
+.card-header .sub { font-size:9px; color:var(--text3); margin-left:auto; }
+.card-body { padding:10px 12px; }
+.section-label { font-size:8.5px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--text3); margin-bottom:5px; margin-top:9px; }
+.section-label:first-child { margin-top:0; }
+.row { display:flex; justify-content:space-between; align-items:baseline; padding:2px 0; border-bottom:1px solid #F1F3F5; gap:8px; }
+.row:last-child { border-bottom:none; }
+.row .key { font-family:var(--mono); font-size:10px; font-weight:600; color:var(--navy); white-space:nowrap; flex-shrink:0; }
+.row .val { font-size:10px; color:var(--text2); text-align:right; }
+.tags { display:flex; flex-wrap:wrap; gap:4px; margin-top:2px; }
+.tag { font-size:9.5px; padding:2px 7px; border-radius:4px; font-weight:600; font-family:var(--mono); }
+.tag-orange { background:var(--orange-soft); color:#92400E; }
+.tag-blue { background:var(--blue-soft); color:#1E40AF; }
+.tag-green { background:var(--green-soft); color:#166534; }
+.tag-red { background:var(--red-soft); color:#991B1B; }
+.tag-purple { background:var(--purple-soft); color:#6B21A8; }
+.tip-bar { background:var(--navy2); border-radius:8px; padding:10px 16px; margin-bottom:16px; display:flex; gap:24px; flex-wrap:wrap; }
+.tip-label { font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--orange); }
+.tip { font-size:10.5px; color:#CBD5E1; }
+.tip b { color:#fff; }
+.note { font-size:10px; color:var(--text2); padding:6px 8px; border-radius:4px; margin-top:4px; }
+.note-orange { background:var(--orange-soft); border-left:3px solid var(--orange); }
+.note-blue { background:var(--blue-soft); border-left:3px solid var(--blue); }
+.note-green { background:var(--green-soft); border-left:3px solid var(--green); }
+.note-red { background:var(--red-soft); border-left:3px solid var(--red); }
+ul.bullet { padding-left:14px; margin:0; }
+ul.bullet li { font-size:10px; color:var(--text2); padding:1.5px 0; }
+ul.bullet li b { color:var(--navy); }
+.domain-row { display:flex; align-items:center; gap:8px; padding:3px 0; border-bottom:1px solid #F1F3F5; }
+.domain-row:last-child { border-bottom:none; }
+.domain-num { font-family:var(--mono); font-size:9.5px; font-weight:700; color:var(--orange); min-width:20px; }
+.domain-name { font-size:10px; color:var(--navy); font-weight:600; flex:1; }
+.domain-pct { font-size:10px; font-weight:700; color:var(--text2); white-space:nowrap; }
+.pct-bar { height:4px; border-radius:2px; background:#E2E4E8; flex:1; max-width:80px; overflow:hidden; }
+.pct-fill { height:100%; border-radius:2px; background:var(--orange); }
+.span2 { grid-column:span 2; }
+.span3 { grid-column:span 3; }
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:0 16px; }
+.three-col { display:grid; grid-template-columns:1fr 1fr 1fr; gap:0 12px; }
+@media (max-width:900px) {
+  .grid { grid-template-columns:repeat(2,1fr); }
+  .grid-4 { grid-template-columns:repeat(2,1fr); }
+  .span3 { grid-column:span 2; }
+}
+@media (max-width:600px) {
+  .grid,.grid-2,.grid-4 { grid-template-columns:1fr; }
+  .span2,.span3 { grid-column:span 1; }
+  .two-col,.three-col { grid-template-columns:1fr; }
+}
+@media print { body{background:#fff} .page{padding:0} }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <h1>AWS <span>Security</span> Specialty</h1>
+      <p>SCS-C02 &mdash; Specialty Exam Cheat Sheet &mdash; All 6 Domains Covered</p>
+    </div>
+    <div class="header-badges">
+      <span class="badge badge-orange">Specialty</span>
+      <span class="badge badge-blue">65 Questions</span>
+      <span class="badge badge-green">750 / 1000 Pass</span>
+    </div>
+  </div>
+
+  <!-- QUICK TIPS BAR -->
+  <div class="tip-bar">
+    <div>
+      <div class="tip-label">Time</div>
+      <div class="tip"><b>170 minutes</b></div>
+    </div>
+    <div>
+      <div class="tip-label">Questions</div>
+      <div class="tip"><b>65</b> scenario-based</div>
+    </div>
+    <div>
+      <div class="tip-label">Passing Score</div>
+      <div class="tip"><b>750 / 1000</b> (75%)</div>
+    </div>
+    <div>
+      <div class="tip-label">Cost</div>
+      <div class="tip"><b>$300 USD</b></div>
+    </div>
+    <div>
+      <div class="tip-label">Prerequisite</div>
+      <div class="tip"><b>5 yrs IT security</b> + <b>2 yrs AWS security</b> experience recommended</div>
+    </div>
+  </div>
+
+  <!-- ROW 1: Exam Overview + Threat Detection Services -->
+  <div class="grid">
+
+    <!-- Exam Overview -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--orange-soft);">&#x1F4CB;</div>
+        <h2>Exam Overview — Domains</h2>
+        <span class="sub">SCS-C02</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Domain Weightings</div>
+        <div class="domain-row">
+          <span class="domain-num">D1</span>
+          <span class="domain-name">Threat Detection &amp; Incident Response</span>
+          <div class="pct-bar"><div class="pct-fill" style="width:70%"></div></div>
+          <span class="domain-pct">14%</span>
+        </div>
+        <div class="domain-row">
+          <span class="domain-num">D2</span>
+          <span class="domain-name">Security Logging &amp; Monitoring</span>
+          <div class="pct-bar"><div class="pct-fill" style="width:90%"></div></div>
+          <span class="domain-pct">18%</span>
+        </div>
+        <div class="domain-row">
+          <span class="domain-num">D3</span>
+          <span class="domain-name">Infrastructure Security</span>
+          <div class="pct-bar"><div class="pct-fill" style="width:100%"></div></div>
+          <span class="domain-pct">20%</span>
+        </div>
+        <div class="domain-row">
+          <span class="domain-num">D4</span>
+          <span class="domain-name">Identity &amp; Access Management</span>
+          <div class="pct-bar"><div class="pct-fill" style="width:80%"></div></div>
+          <span class="domain-pct">16%</span>
+        </div>
+        <div class="domain-row">
+          <span class="domain-num">D5</span>
+          <span class="domain-name">Data Protection</span>
+          <div class="pct-bar"><div class="pct-fill" style="width:90%"></div></div>
+          <span class="domain-pct">18%</span>
+        </div>
+        <div class="domain-row">
+          <span class="domain-num">D6</span>
+          <span class="domain-name">Management &amp; Security Governance</span>
+          <div class="pct-bar"><div class="pct-fill" style="width:70%"></div></div>
+          <span class="domain-pct">14%</span>
+        </div>
+        <div class="note note-blue" style="margin-top:8px;">Total = 100%. Scenario-based questions test application of multiple services across domains simultaneously.</div>
+      </div>
+    </div>
+
+    <!-- Threat Detection Services -->
+    <div class="card span2">
+      <div class="card-header">
+        <div class="icon" style="background:var(--red-soft);">&#x1F6E1;</div>
+        <h2>Threat Detection Services</h2>
+        <span class="sub">Domain 1 — 14%</span>
+      </div>
+      <div class="card-body">
+        <div class="two-col">
+          <div>
+            <div class="section-label">Amazon GuardDuty</div>
+            <ul class="bullet">
+              <li>Managed threat detection; analyzes <b>VPC Flow Logs</b>, <b>CloudTrail</b>, <b>DNS logs</b>, <b>S3 data events</b></li>
+              <li>Findings severity: <b>HIGH / MEDIUM / LOW</b></li>
+              <li>Multi-account via AWS Organizations (delegated admin)</li>
+              <li><b>30-day free trial</b> per account per region</li>
+              <li>Add-ons: <b>Malware Protection</b> (EBS volume scanning), EKS Audit Log, RDS Login Activity</li>
+              <li>Does <b>NOT prevent</b> — detection only; pair with EventBridge + Lambda for response</li>
+            </ul>
+            <div class="section-label" style="margin-top:8px;">Amazon Detective</div>
+            <ul class="bullet">
+              <li>Investigate <b>why</b> a finding occurred; deep-dive after GuardDuty alert</li>
+              <li>Visualizes <b>behavior graphs</b> using VPC Flow Logs, CloudTrail, GuardDuty findings</li>
+              <li>Retains <b>12 months</b> of data; cannot query older data</li>
+              <li>NOT for detection — for <b>post-detection investigation</b></li>
+            </ul>
+            <div class="section-label" style="margin-top:8px;">Amazon Inspector</div>
+            <ul class="bullet">
+              <li>Automated <b>vulnerability scanning</b>: EC2 (needs SSM agent), ECR images, Lambda functions</li>
+              <li>CVE detection, CVSS scores; continuous scanning (not on-demand)</li>
+              <li>Replaces legacy Inspector Classic; push findings to Security Hub</li>
+            </ul>
+          </div>
+          <div>
+            <div class="section-label">AWS Security Hub</div>
+            <ul class="bullet">
+              <li>Aggregates findings from <b>GuardDuty, Inspector, Macie, IAM Analyzer, Firewall Manager</b></li>
+              <li>CSPM (Cloud Security Posture Management); <b>CIS benchmark</b> checks</li>
+              <li>Custom insights; cross-account &amp; cross-region aggregation</li>
+              <li>ASFF (Amazon Security Finding Format) — standard format for all findings</li>
+              <li>Integrates with 3rd-party tools (Splunk, PagerDuty, etc.)</li>
+            </ul>
+            <div class="section-label" style="margin-top:8px;">Amazon Macie</div>
+            <ul class="bullet">
+              <li>ML-powered <b>S3 data classification</b>; detects PII, PHI, financial data</li>
+              <li>Sensitive data discovery jobs; automated &amp; on-demand</li>
+              <li>Findings → Security Hub; multi-account support via Organizations</li>
+              <li>Classifies up to <b>1 GB per S3 object</b> for PII</li>
+            </ul>
+            <div class="note note-red" style="margin-top:8px;"><b>Key distinctions:</b> GuardDuty = detect threats | Detective = investigate findings | Inspector = scan vulnerabilities | Macie = classify S3 data | Security Hub = aggregate &amp; correlate</div>
+            <div class="tags" style="margin-top:8px;">
+              <span class="tag tag-red">GuardDuty</span>
+              <span class="tag tag-blue">Security-Hub</span>
+              <span class="tag tag-purple">Detective</span>
+              <span class="tag tag-green">Inspector</span>
+              <span class="tag tag-orange">Macie</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ROW 2: Security Logging + Infrastructure Security -->
+  <div class="grid">
+
+    <!-- Security Logging & Monitoring -->
+    <div class="card span2">
+      <div class="card-header">
+        <div class="icon" style="background:var(--blue-soft);">&#x1F4C4;</div>
+        <h2>Security Logging &amp; Monitoring</h2>
+        <span class="sub">Domain 2 — 18%</span>
+      </div>
+      <div class="card-body">
+        <div class="two-col">
+          <div>
+            <div class="section-label">AWS CloudTrail</div>
+            <ul class="bullet">
+              <li><b>API audit log</b> — who did what, when, from where</li>
+              <li><b>Management events</b>: enabled by default, free in Event History (90 days)</li>
+              <li><b>Data events</b>: S3 object-level ops (GetObject, PutObject), Lambda invoke — extra cost, disabled by default</li>
+              <li><b>Insights</b>: detects unusual API call rates or error rates</li>
+              <li>Multi-region trail; logs to S3 + optionally CloudWatch Logs or EventBridge</li>
+              <li><b>Log file integrity</b>: SHA-256 hash + RSA-SHA-256 digital signature</li>
+              <li><b>CloudTrail Lake</b>: immutable event data store, SQL queries, up to 7-year retention</li>
+            </ul>
+            <div class="section-label" style="margin-top:8px;">VPC Flow Logs</div>
+            <ul class="bullet">
+              <li>Captures <b>network traffic metadata</b> (not payload/content)</li>
+              <li>Levels: ENI, Subnet, VPC; published to <b>S3 or CloudWatch Logs</b></li>
+              <li><b>NOT captured</b>: DNS queries to Route 53 resolver, DHCP traffic, Windows license activation, EC2 metadata (169.254.x.x), traffic to reserved IPs</li>
+              <li>Use <b>Traffic Mirroring</b> for packet-level capture (payload)</li>
+            </ul>
+            <div class="section-label" style="margin-top:8px;">Amazon CloudWatch Logs</div>
+            <ul class="bullet">
+              <li>Log groups → log streams; <b>Metric Filters</b> create CloudWatch metrics from log patterns</li>
+              <li><b>Insights</b>: query language for ad-hoc log analysis</li>
+              <li>Subscription filters: stream logs to <b>Lambda, Firehose, OpenSearch</b></li>
+              <li>Retention: 1 day to 10 years (default: never expire)</li>
+            </ul>
+          </div>
+          <div>
+            <div class="section-label">AWS Config</div>
+            <ul class="bullet">
+              <li>Tracks <b>configuration state changes</b> of AWS resources over time</li>
+              <li><b>Rules</b>: managed (AWS provided) or custom (Lambda-backed); evaluate compliance</li>
+              <li><b>Remediation</b>: auto-remediation via SSM Automation documents</li>
+              <li>Aggregation across accounts/regions; <b>Conformance Packs</b> (bundle of rules)</li>
+              <li>NOT real-time — can have minutes of delay; NOT for API call logging (use CloudTrail)</li>
+            </ul>
+            <div class="section-label" style="margin-top:8px;">Amazon EventBridge</div>
+            <ul class="bullet">
+              <li>Near real-time event routing; rules match patterns from AWS services</li>
+              <li>Targets: <b>Lambda, SNS, SQS, Step Functions, ECS, Kinesis</b></li>
+              <li>CloudTrail events → EventBridge rules for automated response</li>
+              <li>Scheduled rules (cron/rate) for periodic security checks</li>
+            </ul>
+            <div class="note note-orange" style="margin-top:8px;"><b>Exam trap:</b> CloudTrail does NOT log S3 GetObject / PutObject by default — must enable <b>data events</b>. Config tracks state, NOT API calls. For real-time response, use EventBridge (not Config).</div>
+            <div class="tags" style="margin-top:8px;">
+              <span class="tag tag-blue">CloudTrail</span>
+              <span class="tag tag-green">VPC-Flow-Logs</span>
+              <span class="tag tag-orange">Config</span>
+              <span class="tag tag-blue">CloudWatch</span>
+              <span class="tag tag-purple">EventBridge</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Infrastructure Security -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--green-soft);">&#x1F5C4;</div>
+        <h2>Infrastructure Security</h2>
+        <span class="sub">Domain 3 — 20%</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Security Groups vs NACLs</div>
+        <div class="row"><span class="key">Security Groups</span><span class="val">Stateful; instance-level; allow-only; max 60 in/60 out rules</span></div>
+        <div class="row"><span class="key">NACLs</span><span class="val">Stateless (must allow return traffic); subnet-level; lowest rule # wins; explicit allow &amp; deny</span></div>
+        <div class="row"><span class="key">Default NACL</span><span class="val">Allows all inbound &amp; outbound</span></div>
+        <div class="section-label">WAF &amp; Shield</div>
+        <div class="row"><span class="key">AWS WAF</span><span class="val">Layer 7; WebACLs on CloudFront, ALB, API GW, AppSync; top-down rule eval, first match wins</span></div>
+        <div class="row"><span class="key">AWS WAF Rules</span><span class="val">Rate-based, SQL injection, XSS, geo-match, IP sets, AWS Managed Rule Groups</span></div>
+        <div class="row"><span class="key">Shield Standard</span><span class="val">Free; automatic L3/L4 DDoS protection for all AWS customers</span></div>
+        <div class="row"><span class="key">Shield Advanced</span><span class="val">$3,000/mo; L3/L4/L7; 24/7 DRT team; cost protection; enhanced DDoS metrics; covers ELB, CloudFront, Route 53, EC2, Global Accelerator</span></div>
+        <div class="section-label">Centralized Security</div>
+        <div class="row"><span class="key">Firewall Manager</span><span class="val">Centrally manage WAF, Shield Advanced, SGs, Network Firewall, DNS Firewall across accounts; requires Organizations</span></div>
+        <div class="row"><span class="key">Network Firewall</span><span class="val">Stateful + stateless packet inspection at VPC level; Suricata IPS rules; FQDN filtering; TLS inspection; deploy in dedicated subnets</span></div>
+        <div class="section-label">Secure Access</div>
+        <div class="row"><span class="key">Session Manager</span><span class="val">Browser-based shell to EC2/on-prem; no SSH / no bastion / no inbound ports; uses IAM; logs to S3 &amp; CloudWatch</span></div>
+        <div class="note note-blue" style="margin-top:4px;"><b>Shield Advanced</b> provides 24/7 DRT access and proactive engagement — Standard does NOT. WAF alone doesn't protect L3/L4.</div>
+        <div class="tags" style="margin-top:6px;">
+          <span class="tag tag-red">WAF</span>
+          <span class="tag tag-blue">Shield</span>
+          <span class="tag tag-green">Firewall-Manager</span>
+          <span class="tag tag-orange">Network-Firewall</span>
+          <span class="tag tag-purple">Session-Manager</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ROW 3: IAM Advanced + Data Protection -->
+  <div class="grid">
+
+    <!-- IAM Advanced -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--purple-soft);">&#x1F511;</div>
+        <h2>Identity &amp; Access Management (Advanced)</h2>
+        <span class="sub">Domain 4 — 16%</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Policy Evaluation Logic</div>
+        <div class="row"><span class="key">Evaluation Order</span><span class="val">Org SCP → Resource policy → IAM Permission Boundary → Identity policy → Session policy</span></div>
+        <div class="row"><span class="key">Explicit Deny</span><span class="val">Always wins over any Allow, in any policy layer</span></div>
+        <div class="row"><span class="key">Same-account union</span><span class="val">Identity policy + Resource policy in same account = UNION (either allows = access)</span></div>
+        <div class="row"><span class="key">Cross-account</span><span class="val">BOTH resource policy + identity policy (or role) must allow</span></div>
+        <div class="section-label">Permission Boundaries</div>
+        <ul class="bullet">
+          <li>Managed policy that sets <b>maximum permissions</b> for an IAM entity</li>
+          <li>Effective permissions = <b>intersection</b> of identity policy AND boundary</li>
+          <li>Does NOT grant permissions — only limits them</li>
+          <li>Useful for delegating admin without privilege escalation risk</li>
+        </ul>
+        <div class="section-label">SCPs (Service Control Policies)</div>
+        <ul class="bullet">
+          <li>Organization-level; restricts <b>even root users</b> of member accounts</li>
+          <li>Evaluated <b>before any IAM policy</b>; cannot grant permissions</li>
+          <li>Max size: <b>5,120 characters</b> per policy</li>
+          <li>Attached to OU or account; inherited down the hierarchy</li>
+        </ul>
+        <div class="section-label">ABAC &amp; Identity Center</div>
+        <div class="row"><span class="key">ABAC</span><span class="val">Tag-based access control; aws:PrincipalTag, aws:ResourceTag condition keys; scalable for dynamic environments</span></div>
+        <div class="row"><span class="key">Identity Center (SSO)</span><span class="val">Central access to AWS accounts + SaaS; AD/LDAP/SAML 2.0 IdP; Permission Sets; SCIM provisioning</span></div>
+        <div class="row"><span class="key">IAM Access Analyzer</span><span class="val">Finds externally shared resources (S3, roles, KMS, Lambda, SQS); validates policies; unused access analysis</span></div>
+        <div class="section-label">Key Limits</div>
+        <div class="row"><span class="key">Managed policies/entity</span><span class="val">10 managed policies per user or role</span></div>
+        <div class="row"><span class="key">Inline policy size</span><span class="val">6,144 characters per inline policy</span></div>
+        <div class="note note-orange" style="margin-top:4px;"><b>Permission boundary</b> is NOT a grant — you still need an identity policy that allows the action. The boundary only caps the ceiling.</div>
+        <div class="tags" style="margin-top:6px;">
+          <span class="tag tag-purple">Permission-Boundaries</span>
+          <span class="tag tag-red">SCPs</span>
+          <span class="tag tag-blue">ABAC</span>
+          <span class="tag tag-green">Identity-Center</span>
+          <span class="tag tag-orange">Access-Analyzer</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Data Protection KMS -->
+    <div class="card span2">
+      <div class="card-header">
+        <div class="icon" style="background:var(--orange-soft);">&#x1F510;</div>
+        <h2>Data Protection — KMS &amp; Encryption</h2>
+        <span class="sub">Domain 5 — 18%</span>
+      </div>
+      <div class="card-body">
+        <div class="two-col">
+          <div>
+            <div class="section-label">KMS Key Types</div>
+            <div class="row"><span class="key">AWS Managed Keys</span><span class="val">aws/service prefix; auto-rotate every year; you cannot delete or disable</span></div>
+            <div class="row"><span class="key">Customer Managed (CMK)</span><span class="val">You control rotation, deletion, key policy; 7–30 day deletion waiting period (default 30)</span></div>
+            <div class="row"><span class="key">AWS Owned Keys</span><span class="val">Multi-tenant, fully AWS managed; no visibility or control</span></div>
+            <div class="section-label">KMS Key Operations</div>
+            <div class="row"><span class="key">Encrypt</span><span class="val">Directly encrypts up to <b>4 KB</b> of data</span></div>
+            <div class="row"><span class="key">GenerateDataKey</span><span class="val">Returns plaintext DEK + encrypted DEK for envelope encryption</span></div>
+            <div class="row"><span class="key">GenerateDataKeyWithoutPlaintext</span><span class="val">Returns only encrypted DEK; plaintext generated later in HSM</span></div>
+            <div class="row"><span class="key">Decrypt</span><span class="val">Decrypts ciphertext encrypted by KMS key</span></div>
+            <div class="row"><span class="key">ReEncrypt</span><span class="val">Re-encrypts data under a different CMK without exposing plaintext</span></div>
+            <div class="row"><span class="key">Request rate</span><span class="val">5,500 – 30,000 req/sec (varies by region &amp; key type)</span></div>
+            <div class="section-label">Envelope Encryption</div>
+            <ul class="bullet">
+              <li>Data encrypted with <b>Data Encryption Key (DEK)</b></li>
+              <li>DEK encrypted with <b>CMK</b>; stored alongside ciphertext</li>
+              <li>Enables encrypting data &gt;4 KB (CMK can only directly encrypt 4 KB)</li>
+              <li>DEK decryption requires KMS call; plaintext DEK used only in memory</li>
+            </ul>
+            <div class="section-label">KMS Key Policies</div>
+            <ul class="bullet">
+              <li>Must <b>explicitly grant access</b> — even to account root</li>
+              <li>Key policy + IAM policy BOTH must allow for IAM entities</li>
+              <li><b>Key grants</b>: programmatic, temporary delegation (no policy change needed)</li>
+            </ul>
+          </div>
+          <div>
+            <div class="section-label">CloudHSM</div>
+            <ul class="bullet">
+              <li>Single-tenant dedicated HSM; <b>FIPS 140-2 Level 3</b> validated</li>
+              <li>You control keys — <b>AWS cannot access key material</b></li>
+              <li>Clustered for HA; deploy across AZs</li>
+              <li>Use cases: SSL offload, Oracle TDE, custom key store for KMS, PKI</li>
+              <li>More expensive than KMS; required when FIPS Level 3 needed</li>
+            </ul>
+            <div class="section-label">Secrets Manager vs Parameter Store</div>
+            <div class="row"><span class="key">Secrets Manager</span><span class="val">Store, rotate, audit secrets; native rotation for RDS/Redshift/DocumentDB; Lambda for custom rotation; versioning: AWSCURRENT / AWSPENDING / AWSPREVIOUS</span></div>
+            <div class="row"><span class="key">Parameter Store</span><span class="val">Cheaper; Standard (free) / Advanced; SecureString uses KMS; no auto-rotation</span></div>
+            <div class="row"><span class="key">Rotation Lambda timeout</span><span class="val">30 seconds</span></div>
+            <div class="section-label">S3 Encryption Options</div>
+            <div class="row"><span class="key">SSE-S3</span><span class="val">AES-256; AWS manages keys; header: x-amz-server-side-encryption: AES256</span></div>
+            <div class="row"><span class="key">SSE-KMS</span><span class="val">CMK; audit trail in CloudTrail; cross-account support; header: aws:kms</span></div>
+            <div class="row"><span class="key">SSE-C</span><span class="val">Customer provides key with each request; AWS does NOT store key</span></div>
+            <div class="row"><span class="key">CSE</span><span class="val">Client-side encryption before upload; full key control</span></div>
+            <div class="section-label">ACM (Certificate Manager)</div>
+            <ul class="bullet">
+              <li>SSL/TLS certs for ALB, CloudFront, API GW; <b>auto-renewal</b></li>
+              <li><b>ACM Private CA</b>: internal PKI for private certificates</li>
+              <li>Cannot export ACM public certs (use for AWS services only)</li>
+            </ul>
+            <div class="note note-green" style="margin-top:4px;"><b>CloudHSM vs KMS:</b> CloudHSM = you own keys, FIPS Level 3, expensive, single-tenant. KMS = AWS manages HSMs, FIPS Level 2 (some Level 3), cheaper, natively integrated with 100+ AWS services.</div>
+            <div class="tags" style="margin-top:6px;">
+              <span class="tag tag-orange">KMS</span>
+              <span class="tag tag-blue">CloudHSM</span>
+              <span class="tag tag-green">Secrets-Manager</span>
+              <span class="tag tag-red">ACM</span>
+              <span class="tag tag-purple">envelope-encryption</span>
+              <span class="tag tag-blue">SSE-KMS</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ROW 4: Incident Response + Quick Reference -->
+  <div class="grid">
+
+    <!-- Incident Response -->
+    <div class="card span2">
+      <div class="card-header">
+        <div class="icon" style="background:var(--red-soft);">&#x1F6A8;</div>
+        <h2>Incident Response</h2>
+        <span class="sub">Domain 1 (Advanced) — Playbooks &amp; Containment</span>
+      </div>
+      <div class="card-body">
+        <div class="two-col">
+          <div>
+            <div class="section-label">Compromised IAM Credentials</div>
+            <ul class="bullet">
+              <li><b>1.</b> Disable/delete compromised access keys immediately</li>
+              <li><b>2.</b> Revoke active sessions: attach inline deny policy with <code style="font-family:var(--mono);font-size:9.5px;">aws:TokenIssueTime</code> condition</li>
+              <li><b>3.</b> Check CloudTrail for all API calls made with those credentials</li>
+              <li><b>4.</b> Rotate all keys; check for newly created IAM users / privilege escalation</li>
+              <li><b>5.</b> Notify AWS Support if root credentials compromised</li>
+            </ul>
+            <div class="section-label">Compromised EC2 Instance</div>
+            <ul class="bullet">
+              <li><b>1.</b> Isolate: change Security Group to deny-all (no inbound/outbound)</li>
+              <li><b>2.</b> Preserve evidence: create EBS snapshot, capture memory dump if possible</li>
+              <li><b>3.</b> Enable <b>termination protection</b> to prevent accidental deletion</li>
+              <li><b>4.</b> Analyze with forensics AMI (separate VPC, no internet)</li>
+              <li><b>5.</b> Check instance metadata for IAM role credential exfiltration (SSRF → IMDS)</li>
+              <li>Use <b>IMDSv2</b> (session-oriented) to prevent SSRF-based IMDS attacks</li>
+            </ul>
+            <div class="section-label">Exposed S3 Bucket</div>
+            <ul class="bullet">
+              <li>Enable <b>S3 Block Public Access</b> at account level immediately</li>
+              <li>Review bucket policy + ACL for public grants</li>
+              <li>Enable <b>S3 Object Ownership</b> (disable ACLs) for centralized control</li>
+              <li>Use <b>Macie</b> to identify what sensitive data was potentially exposed</li>
+              <li>Check CloudTrail S3 data events for unauthorized access</li>
+            </ul>
+            <div class="note note-red" style="margin-top:6px;"><b>Never delete compromised resources immediately</b> — preserve evidence first (snapshots, logs). Disable &amp; isolate, then investigate, then remediate.</div>
+          </div>
+          <div>
+            <div class="section-label">GuardDuty Finding Response</div>
+            <ul class="bullet">
+              <li>High severity → <b>EventBridge rule</b> → Lambda → isolate + notify</li>
+              <li>Use <b>Step Functions</b> for multi-step automated playbooks</li>
+              <li>GuardDuty finding types: UnauthorizedAccess, CryptoCurrency, Backdoor, Recon, Trojan, Policy violations</li>
+              <li>Suppress findings using suppression rules for known-good activity</li>
+            </ul>
+            <div class="section-label">Automated Remediation Patterns</div>
+            <div class="row"><span class="key">Config + SSM</span><span class="val">Config rule detects drift → SSM Automation document remediates</span></div>
+            <div class="row"><span class="key">Security Hub + EventBridge</span><span class="val">Security Hub finding → EventBridge → Lambda auto-remediation</span></div>
+            <div class="row"><span class="key">Incident Manager</span><span class="val">AWS Systems Manager Incident Manager for runbooks &amp; on-call escalation</span></div>
+            <div class="section-label">NIST Incident Response Framework</div>
+            <div class="row"><span class="key">1. Preparation</span><span class="val">Policies, training, tools, runbooks in place before incident</span></div>
+            <div class="row"><span class="key">2. Detection</span><span class="val">GuardDuty, Security Hub, CloudWatch alarms, Macie findings</span></div>
+            <div class="row"><span class="key">3. Analysis</span><span class="val">Detective, CloudTrail Lake, VPC Flow Logs investigation</span></div>
+            <div class="row"><span class="key">4. Containment</span><span class="val">Isolate EC2, revoke credentials, block IPs in WAF/NACLs</span></div>
+            <div class="row"><span class="key">5. Eradication</span><span class="val">Remove malware, patch vulnerability, rotate all secrets</span></div>
+            <div class="row"><span class="key">6. Recovery</span><span class="val">Restore from clean backup/snapshot; verify integrity</span></div>
+            <div class="row"><span class="key">7. Post-Incident</span><span class="val">Lessons learned, update runbooks, improve detection rules</span></div>
+            <div class="tags" style="margin-top:8px;">
+              <span class="tag tag-red">incident-response</span>
+              <span class="tag tag-blue">forensics</span>
+              <span class="tag tag-orange">containment</span>
+              <span class="tag tag-green">GuardDuty-remediation</span>
+              <span class="tag tag-purple">CloudTrail-investigation</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Reference Limits -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--green-soft);">&#x26A1;</div>
+        <h2>Quick Reference — Limits &amp; Facts</h2>
+        <span class="sub">Exam-critical numbers</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">GuardDuty &amp; Detective</div>
+        <div class="row"><span class="key">GuardDuty free trial</span><span class="val">30 days per account per region</span></div>
+        <div class="row"><span class="key">Detective data retention</span><span class="val">12 months</span></div>
+        <div class="section-label">CloudTrail</div>
+        <div class="row"><span class="key">Event History (free)</span><span class="val">90 days in console; no charge</span></div>
+        <div class="row"><span class="key">Log integrity</span><span class="val">SHA-256 hash + RSA-SHA-256 signature</span></div>
+        <div class="row"><span class="key">CloudTrail Lake retention</span><span class="val">Up to 7 years</span></div>
+        <div class="section-label">VPC Flow Logs</div>
+        <div class="row"><span class="key">NOT captured</span><span class="val">Route 53 DNS, DHCP, metadata (169.254.x.x), Windows activation</span></div>
+        <div class="row"><span class="key">Packet capture</span><span class="val">Use Traffic Mirroring (not Flow Logs)</span></div>
+        <div class="section-label">KMS</div>
+        <div class="row"><span class="key">Direct encrypt limit</span><span class="val">4 KB max per Encrypt call</span></div>
+        <div class="row"><span class="key">Request rate</span><span class="val">5,500 – 30,000 req/sec (region/key dependent)</span></div>
+        <div class="row"><span class="key">Key deletion wait</span><span class="val">7 – 30 days (default 30 days)</span></div>
+        <div class="row"><span class="key">CMK auto-rotation</span><span class="val">Annual (optional for CMK; mandatory for AWS managed)</span></div>
+        <div class="section-label">Secrets Manager</div>
+        <div class="row"><span class="key">Rotation Lambda timeout</span><span class="val">30 seconds max</span></div>
+        <div class="row"><span class="key">Version stages</span><span class="val">AWSCURRENT / AWSPENDING / AWSPREVIOUS</span></div>
+        <div class="section-label">WAF &amp; Shield</div>
+        <div class="row"><span class="key">WAF rule eval</span><span class="val">Top-down; first match wins; last = default action</span></div>
+        <div class="row"><span class="key">Shield Advanced cost</span><span class="val">$3,000 USD / month</span></div>
+        <div class="row"><span class="key">Shield Advanced coverage</span><span class="val">ELB, CloudFront, Route 53, EC2, Global Accelerator</span></div>
+        <div class="section-label">Inspector &amp; Macie</div>
+        <div class="row"><span class="key">Inspector scan frequency</span><span class="val">Continuous for EC2/Lambda; on-push for ECR images</span></div>
+        <div class="row"><span class="key">Macie object limit</span><span class="val">1 GB per S3 object for PII classification</span></div>
+        <div class="section-label">IAM Limits</div>
+        <div class="row"><span class="key">Managed policies/entity</span><span class="val">10 per user or role</span></div>
+        <div class="row"><span class="key">Inline policy size</span><span class="val">6,144 characters</span></div>
+        <div class="row"><span class="key">SCP max size</span><span class="val">5,120 characters per policy</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ROW 5: Exam Tips + Governance -->
+  <div class="grid">
+
+    <!-- Exam Tips -->
+    <div class="card span2">
+      <div class="card-header">
+        <div class="icon" style="background:var(--orange-soft);">&#x1F3AF;</div>
+        <h2>Exam Tips — Critical Decision Trees</h2>
+        <span class="sub">High-yield scenarios</span>
+      </div>
+      <div class="card-body">
+        <div class="two-col">
+          <div>
+            <div class="section-label">Service Selection Keywords</div>
+            <div class="row"><span class="key">"Detect threats"</span><span class="val">Amazon GuardDuty (NOT Inspector or Security Hub)</span></div>
+            <div class="row"><span class="key">"Investigate / why did this happen"</span><span class="val">Amazon Detective (post-detection analysis)</span></div>
+            <div class="row"><span class="key">"Vulnerability scan / CVE"</span><span class="val">Amazon Inspector (EC2, ECR, Lambda)</span></div>
+            <div class="row"><span class="key">"PII / sensitive data in S3"</span><span class="val">Amazon Macie (ML-powered classification)</span></div>
+            <div class="row"><span class="key">"Aggregate findings / CSPM"</span><span class="val">AWS Security Hub (central dashboard)</span></div>
+            <div class="row"><span class="key">"API who did what"</span><span class="val">AWS CloudTrail (audit trail)</span></div>
+            <div class="row"><span class="key">"Config drift / compliance"</span><span class="val">AWS Config + Config Rules</span></div>
+            <div class="row"><span class="key">"Real-time event response"</span><span class="val">Amazon EventBridge + Lambda</span></div>
+            <div class="section-label">Multi-Account Security</div>
+            <ul class="bullet">
+              <li>Multi-account governance: <b>Security Hub + Organizations + Firewall Manager + Config Aggregator</b></li>
+              <li>Centralized logging: dedicated <b>Log Archive account</b> in AWS Control Tower</li>
+              <li>SCPs at Organization root for blanket restrictions (e.g., block GuardDuty disable)</li>
+              <li>Delegated administrator accounts for Security Hub, GuardDuty, Macie, Inspector</li>
+            </ul>
+            <div class="section-label">Root User Compromise</div>
+            <ul class="bullet">
+              <li><b>Immediately</b>: change root password + enable/change MFA</li>
+              <li>Check CloudTrail for all root API calls</li>
+              <li>Contact AWS Support — they can lock root if needed</li>
+              <li>Review all IAM users/roles created during compromise window</li>
+            </ul>
+            <div class="section-label">Data Exfiltration Prevention</div>
+            <ul class="bullet">
+              <li>S3 <b>VPC endpoint + endpoint policy</b> denying non-org principals</li>
+              <li><b>SCP</b> denying s3:GetObject requests outside organization</li>
+              <li>S3 <b>Block Public Access</b> at account level</li>
+              <li>GuardDuty detects S3 data exfiltration patterns</li>
+            </ul>
+          </div>
+          <div>
+            <div class="section-label">Encryption Edge Cases</div>
+            <div class="row"><span class="key">Encrypt existing unencrypted RDS</span><span class="val">Cannot encrypt in-place; take snapshot → copy snapshot WITH encryption → restore from encrypted snapshot</span></div>
+            <div class="row"><span class="key">Encrypt at rest automatically (RDS)</span><span class="val">Enable SSE with KMS at DB creation; cannot add encryption to existing unencrypted DB</span></div>
+            <div class="row"><span class="key">Cross-account S3 access</span><span class="val">Same org: bucket policy alone works. External account: BOTH bucket policy AND requester's IAM policy must allow</span></div>
+            <div class="row"><span class="key">CloudHSM requirement</span><span class="val">FIPS Level 3 required, Oracle TDE, full key ownership, custom key store</span></div>
+            <div class="section-label">IAM Policy Traps</div>
+            <ul class="bullet">
+              <li><b>Permission boundary</b> is NOT a grant — it only limits the ceiling; identity policy still needed</li>
+              <li><b>SCP</b> cannot grant permissions — only restrict; even if SCP allows, IAM policy must also allow</li>
+              <li>Resource-based policy in same account: union applies (either allows = access granted)</li>
+              <li>Cross-account: both policies MUST allow — union does NOT apply across accounts</li>
+            </ul>
+            <div class="section-label">CloudTrail Gotchas</div>
+            <ul class="bullet">
+              <li>CloudTrail is <b>eventually consistent</b> for recent events — don't rely on it for real-time</li>
+              <li>For real-time response, create <b>EventBridge rules on CloudTrail events</b></li>
+              <li>S3 GetObject / PutObject NOT logged by default — enable <b>data events</b></li>
+              <li>Management events free in Event History (90 days); trail to S3 for longer retention</li>
+            </ul>
+            <div class="section-label">Network Security Traps</div>
+            <ul class="bullet">
+              <li>NACLs are <b>stateless</b> — must explicitly allow return (ephemeral) traffic ports 1024-65535</li>
+              <li>Security Groups are stateful — return traffic automatically allowed</li>
+              <li>Default NACL <b>allows all</b>; custom NACL <b>denies all</b> until rules added</li>
+              <li>WAF doesn't protect against L3/L4 DDoS — need Shield Standard/Advanced</li>
+            </ul>
+            <div class="note note-green" style="margin-top:6px;"><b>IMDSv2</b> (session-oriented metadata service) prevents SSRF attacks from reaching instance metadata. Always enforce IMDSv2 via instance metadata options or SCP.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Security Governance -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--blue-soft);">&#x2699;</div>
+        <h2>Security Governance</h2>
+        <span class="sub">Domain 6 — 14%</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">AWS Organizations &amp; Control Tower</div>
+        <ul class="bullet">
+          <li><b>AWS Organizations</b>: multi-account management; OUs; SCPs; consolidated billing</li>
+          <li><b>Control Tower</b>: pre-configured landing zone; guardrails (preventive = SCP, detective = Config); Account Factory for new accounts</li>
+          <li><b>Log Archive account</b>: centralized S3 bucket for all CloudTrail + Config logs</li>
+          <li><b>Audit account</b>: Security Hub, GuardDuty delegated admin; read-only cross-account access</li>
+        </ul>
+        <div class="section-label">AWS Config Advanced</div>
+        <ul class="bullet">
+          <li>Conformance Packs: bundle Config rules + remediation into single template (NIST, PCI-DSS, CIS)</li>
+          <li>Config Aggregator: collect Config data from multiple accounts/regions into one view</li>
+          <li>Config Timeline: visual history of resource configuration changes</li>
+          <li>NOT real-time — evaluation can lag; pair with EventBridge for faster response</li>
+        </ul>
+        <div class="section-label">Trusted Advisor &amp; Well-Architected</div>
+        <div class="row"><span class="key">Trusted Advisor</span><span class="val">Security checks: SG open ports, MFA on root, IAM use, exposed access keys, S3 public buckets; Business/Enterprise support for full checks</span></div>
+        <div class="row"><span class="key">Security Pillar</span><span class="val">Well-Architected Framework: Identity, Detection, Infra protection, Data protection, Incident response</span></div>
+        <div class="section-label">Compliance &amp; Auditing</div>
+        <div class="row"><span class="key">AWS Artifact</span><span class="val">Self-service portal for AWS compliance reports (SOC, PCI, ISO, HIPAA BAA)</span></div>
+        <div class="row"><span class="key">AWS Audit Manager</span><span class="val">Continuously collect evidence for audits; map controls to AWS usage; supports PCI-DSS, HIPAA, SOC2</span></div>
+        <div class="row"><span class="key">Security Hub ASFF</span><span class="val">Amazon Security Finding Format — standardized JSON schema for all security findings</span></div>
+        <div class="section-label">Shared Responsibility Model</div>
+        <div class="row"><span class="key">AWS responsible for</span><span class="val">Security OF the cloud: physical hardware, global network, managed service patches, hypervisor</span></div>
+        <div class="row"><span class="key">Customer responsible for</span><span class="val">Security IN the cloud: OS patches (EC2), encryption, IAM, data, network config, application security</span></div>
+        <div class="section-label">Key Governance Services</div>
+        <div class="row"><span class="key">Firewall Manager</span><span class="val">Requires Organizations; manages WAF/SG/Network Firewall rules org-wide automatically</span></div>
+        <div class="row"><span class="key">RAM (Resource Access Manager)</span><span class="val">Share resources across accounts without VPC peering (subnets, Transit GW, Route 53 resolver rules)</span></div>
+        <div class="note note-blue" style="margin-top:4px;"><b>Security Hub</b> is the single pane of glass. <b>Firewall Manager</b> enforces policies. <b>Config</b> tracks compliance. <b>CloudTrail</b> provides audit trail. Use all four together for governance.</div>
+        <div class="tags" style="margin-top:6px;">
+          <span class="tag tag-blue">Control-Tower</span>
+          <span class="tag tag-green">Config-Aggregator</span>
+          <span class="tag tag-orange">Audit-Manager</span>
+          <span class="tag tag-purple">Artifact</span>
+          <span class="tag tag-red">Shared-Responsibility</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ROW 6: Advanced Scenarios -->
+  <div class="grid">
+
+    <!-- Network & VPC Security Deep Dive -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--green-soft);">&#x1F310;</div>
+        <h2>Network &amp; VPC Security Deep Dive</h2>
+        <span class="sub">Domain 3 Advanced</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">VPC Endpoint Security</div>
+        <div class="row"><span class="key">Interface Endpoint</span><span class="val">ENI in subnet; uses private IP; powered by AWS PrivateLink; supports endpoint policies</span></div>
+        <div class="row"><span class="key">Gateway Endpoint</span><span class="val">Route table entry; S3 and DynamoDB only; no additional charge; endpoint policies supported</span></div>
+        <div class="row"><span class="key">Endpoint Policy</span><span class="val">Resource policy on the endpoint; restricts access to specific S3 buckets or DynamoDB tables</span></div>
+        <div class="row"><span class="key">Prevent data exfil</span><span class="val">S3 bucket policy: deny if aws:sourceVpce != your endpoint ID; forces traffic via VPC endpoint</span></div>
+        <div class="section-label">DNS Firewall (Route 53 Resolver)</div>
+        <ul class="bullet">
+          <li>Filters DNS queries from VPC; block domains resolving to known malicious IPs</li>
+          <li>Managed domain lists (AWS managed + custom); BLOCK, ALLOW, ALERT actions</li>
+          <li>Prevents <b>DNS exfiltration</b> (data tunneled over DNS)</li>
+          <li>Managed by <b>Firewall Manager</b> across org</li>
+        </ul>
+        <div class="section-label">AWS PrivateLink vs VPC Peering</div>
+        <div class="row"><span class="key">PrivateLink</span><span class="val">Expose specific service privately; no route table changes; no IP overlap issues; one-directional</span></div>
+        <div class="row"><span class="key">VPC Peering</span><span class="val">Full VPC-to-VPC connectivity; no transitive routing; requires non-overlapping CIDRs</span></div>
+        <div class="row"><span class="key">Transit GW</span><span class="val">Hub-spoke model; supports transitive routing; VPN + Direct Connect; RAM for cross-account sharing</span></div>
+        <div class="section-label">Network Firewall Architecture</div>
+        <ul class="bullet">
+          <li>Deploy in dedicated <b>firewall subnets</b> in each AZ</li>
+          <li>Route traffic through firewall via route tables (Gateway Load Balancer or inline)</li>
+          <li>Stateful rules: 5-tuple matching + Suricata IPS signature rules</li>
+          <li>FQDN filtering: block by domain name even without IP knowledge</li>
+          <li>TLS inspection: decrypt/inspect/re-encrypt HTTPS traffic</li>
+        </ul>
+        <div class="tags" style="margin-top:6px;">
+          <span class="tag tag-blue">VPC-Endpoints</span>
+          <span class="tag tag-green">DNS-Firewall</span>
+          <span class="tag tag-orange">PrivateLink</span>
+          <span class="tag tag-purple">Network-Firewall</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Container & Serverless Security -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--purple-soft);">&#x1F4E6;</div>
+        <h2>Container &amp; Serverless Security</h2>
+        <span class="sub">Domain 3 + Domain 5</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">ECS / EKS Security</div>
+        <div class="row"><span class="key">ECS Task Role</span><span class="val">IAM role for the task (fine-grained); use task role, NOT instance role, for least privilege</span></div>
+        <div class="row"><span class="key">ECS Fargate</span><span class="val">No EC2 management; tasks isolated per VPC; no SSH; ephemeral storage encrypted</span></div>
+        <div class="row"><span class="key">EKS RBAC</span><span class="val">aws-auth ConfigMap maps IAM to Kubernetes RBAC; IAM Authenticator</span></div>
+        <div class="row"><span class="key">ECR Scanning</span><span class="val">Inspector scans ECR images on push for CVEs; enable enhanced scanning</span></div>
+        <div class="row"><span class="key">ECR Permissions</span><span class="val">Resource-based policy (repo policy) for cross-account access; private registry</span></div>
+        <div class="section-label">Lambda Security</div>
+        <ul class="bullet">
+          <li><b>Execution role</b>: IAM role assumed by Lambda; apply least privilege</li>
+          <li><b>Resource policy</b>: controls who can invoke the function (cross-account invocations)</li>
+          <li>Lambda in VPC: function deployed in private subnet; needs NAT for internet access</li>
+          <li><b>Inspector</b> scans Lambda code for vulnerabilities (CVE in dependencies)</li>
+          <li>Secrets Manager / Parameter Store for secrets — never hardcode credentials in code or env vars</li>
+          <li>Lambda function URL: enable auth (AWS_IAM) to prevent public invocation</li>
+        </ul>
+        <div class="section-label">Secrets in Applications</div>
+        <div class="row"><span class="key">Anti-pattern</span><span class="val">Hardcoded creds in code, env vars, or container images — always detected by Macie/Inspector</span></div>
+        <div class="row"><span class="key">Best practice</span><span class="val">Secrets Manager or SSM Parameter Store (SecureString) + IAM role access only</span></div>
+        <div class="row"><span class="key">CodeBuild / CI/CD</span><span class="val">Use IAM role for CodeBuild; inject secrets at build time via Secrets Manager — never in buildspec.yml</span></div>
+        <div class="note note-blue" style="margin-top:4px;">GuardDuty has dedicated protection for EKS (Audit Log Monitoring, Runtime Monitoring) and ECS (Runtime) — enable separately from base GuardDuty.</div>
+        <div class="tags" style="margin-top:6px;">
+          <span class="tag tag-purple">ECS-Task-Role</span>
+          <span class="tag tag-blue">Lambda-Execution-Role</span>
+          <span class="tag tag-green">ECR-Scanning</span>
+          <span class="tag tag-orange">Secrets-Manager</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Encryption In Transit & Key Management -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--orange-soft);">&#x1F512;</div>
+        <h2>Advanced Key Management &amp; PKI</h2>
+        <span class="sub">Domain 5 Advanced</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">KMS Custom Key Stores</div>
+        <ul class="bullet">
+          <li><b>CloudHSM-backed custom key store</b>: KMS operations performed in your CloudHSM cluster</li>
+          <li>Key material generated AND used inside your HSM — AWS never sees it</li>
+          <li>Use when regulatory requirements mandate customer-controlled HSM + KMS API convenience</li>
+          <li>Higher latency than standard KMS; CloudHSM cluster must be dedicated to KMS</li>
+        </ul>
+        <div class="section-label">KMS Key Rotation &amp; Import</div>
+        <div class="row"><span class="key">Automatic rotation</span><span class="val">CMK: optional annual rotation; AWS managed: automatic annual; old key versions retained for decrypt</span></div>
+        <div class="row"><span class="key">Manual rotation</span><span class="val">Create new CMK → update all aliases → re-encrypt data; use for asymmetric keys (not auto-rotatable)</span></div>
+        <div class="row"><span class="key">Import key material</span><span class="val">Generate key material externally → import into KMS; you manage origin; can set expiry; cannot auto-rotate</span></div>
+        <div class="row"><span class="key">Asymmetric keys</span><span class="val">RSA, ECC for signing/verification or encryption; public key downloadable; private key never leaves KMS</span></div>
+        <div class="section-label">ACM Private CA</div>
+        <ul class="bullet">
+          <li>Fully managed private CA; issue private SSL/TLS certs for internal services</li>
+          <li>Integrate with ACM for EC2, containers, IoT devices</li>
+          <li>Short-lived certificates for zero-trust architectures</li>
+          <li>Audit via CloudTrail; revoke via CRL (Certificate Revocation List) or OCSP</li>
+        </ul>
+        <div class="section-label">EBS &amp; S3 Encryption</div>
+        <div class="row"><span class="key">EBS default encryption</span><span class="val">Enable per-region account default; new volumes encrypted automatically with specified CMK</span></div>
+        <div class="row"><span class="key">EBS snapshot cross-account</span><span class="val">Share encrypted snapshot: share CMK + snapshot with target account; target must have CMK decrypt permission</span></div>
+        <div class="row"><span class="key">S3 Bucket Keys</span><span class="val">Reduce KMS API calls (and costs) by generating bucket-level DEK; reduces calls by up to 99%</span></div>
+        <div class="note note-orange" style="margin-top:4px;">For cross-account encrypted EBS snapshot sharing: <b>both</b> the snapshot AND the CMK must be shared. Target account must be granted kms:Decrypt + kms:ReEncrypt* on the CMK.</div>
+        <div class="tags" style="margin-top:6px;">
+          <span class="tag tag-orange">Custom-Key-Store</span>
+          <span class="tag tag-blue">ACM-Private-CA</span>
+          <span class="tag tag-green">EBS-Encryption</span>
+          <span class="tag tag-purple">Key-Import</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER NOTE -->
+  <div class="tip-bar" style="margin-bottom:0;">
+    <div>
+      <div class="tip-label">Remember</div>
+      <div class="tip"><b>GuardDuty</b> detects &bull; <b>Detective</b> investigates &bull; <b>Inspector</b> scans vulns &bull; <b>Macie</b> classifies data &bull; <b>Security Hub</b> aggregates</div>
+    </div>
+    <div>
+      <div class="tip-label">Policy Evaluation</div>
+      <div class="tip">SCP &rarr; Resource Policy &rarr; <b>Permission Boundary</b> &rarr; Identity Policy &rarr; Session Policy &bull; Explicit deny <b>always wins</b></div>
+    </div>
+    <div>
+      <div class="tip-label">Encryption Rule</div>
+      <div class="tip">Cannot encrypt existing unencrypted RDS &mdash; <b>snapshot &rarr; copy with encryption &rarr; restore</b></div>
+    </div>
+    <div>
+      <div class="tip-label">Exam Date</div>
+      <div class="tip">Prepared: <b>2026</b> &bull; Based on SCS-C02 exam guide &bull; Good luck!</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CKA Certified Kubernetes Administrator Cheat Sheet</title>
+  <meta name="description" content="Comprehensive CKA exam cheat sheet — kubectl commands, YAML snippets, cluster ops, RBAC, networking, storage, and troubleshooting.">
+  <style>
+    :root {
+      --bg:#F5F6F7; --surface:#FFFFFF; --border:#E2E4E8;
+      --navy:#0F1C2E; --navy2:#1A2E45;
+      --green:#1B7A4A; --green-soft:#E8F7EF;
+      --blue:#1A6FB5; --blue-soft:#EBF4FF;
+      --red:#B91C1C; --red-soft:#FEF2F2;
+      --purple:#6B21A8; --purple-soft:#F5F0FF;
+      --text:#1C2333; --text2:#4A5568; --text3:#718096;
+      --mono:'Consolas','Courier New',monospace;
+      --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+    }
+    body { font-family:var(--sans); font-size:11px; background:var(--bg); color:var(--text); line-height:1.5; }
+    .page { max-width:1280px; margin:0 auto; padding:20px 16px; }
+    .header { background:var(--navy); border-radius:10px; padding:20px 24px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+    .header-left h1 { font-size:22px; font-weight:800; color:#fff; } .header-left h1 span { color:#22C55E; }
+    .header-left p { font-size:11px; color:#94A3B8; margin-top:3px; }
+    .header-badges { display:flex; gap:8px; flex-wrap:wrap; }
+    .badge { font-size:10px; font-weight:700; padding:4px 10px; border-radius:20px; letter-spacing:.5px; text-transform:uppercase; }
+    .badge-green { background:#22C55E; color:#fff; } .badge-blue { background:#3B82F6; color:#fff; } .badge-red { background:#EF4444; color:#fff; }
+    .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:12px; }
+    .grid-2 { grid-template-columns:repeat(2,1fr); } .grid-4 { grid-template-columns:repeat(4,1fr); }
+    .card { background:var(--surface); border-radius:8px; border:1px solid var(--border); overflow:hidden; }
+    .card-header { padding:8px 12px; display:flex; align-items:center; gap:8px; border-bottom:1px solid var(--border); }
+    .card-header .icon { width:24px; height:24px; border-radius:5px; display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; }
+    .card-header h2 { font-size:11.5px; font-weight:800; color:var(--navy); }
+    .card-header .sub { font-size:9px; color:var(--text3); margin-left:auto; }
+    .card-body { padding:10px 12px; }
+    .section-label { font-size:8.5px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--text3); margin-bottom:5px; margin-top:9px; }
+    .section-label:first-child { margin-top:0; }
+    .row { display:flex; justify-content:space-between; align-items:baseline; padding:2px 0; border-bottom:1px solid #F1F3F5; gap:8px; }
+    .row:last-child { border-bottom:none; }
+    .row .key { font-family:var(--mono); font-size:10px; font-weight:600; color:var(--navy); white-space:nowrap; flex-shrink:0; }
+    .row .val { font-size:10px; color:var(--text2); text-align:right; }
+    .tags { display:flex; flex-wrap:wrap; gap:4px; margin-top:2px; }
+    .tag { font-size:9.5px; padding:2px 7px; border-radius:4px; font-weight:600; font-family:var(--mono); }
+    .tag-green { background:var(--green-soft); color:#166534; } .tag-blue { background:var(--blue-soft); color:#1E40AF; }
+    .tag-red { background:var(--red-soft); color:#991B1B; } .tag-purple { background:var(--purple-soft); color:#6B21A8; }
+    .tip-bar { background:var(--navy2); border-radius:8px; padding:10px 16px; margin-bottom:16px; display:flex; gap:24px; flex-wrap:wrap; }
+    .tip-label { font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:#4ADE80; }
+    .tip { font-size:10.5px; color:#CBD5E1; } .tip b { color:#fff; }
+    .note { font-size:10px; color:var(--text2); padding:6px 8px; border-radius:4px; margin-top:4px; }
+    .note-green { background:var(--green-soft); border-left:3px solid var(--green); }
+    .note-blue { background:var(--blue-soft); border-left:3px solid var(--blue); }
+    .note-red { background:var(--red-soft); border-left:3px solid var(--red); }
+    .cmd { font-family:var(--mono); font-size:10px; background:#F1F3F5; padding:3px 7px; border-radius:4px; color:var(--navy); display:block; margin:2px 0; }
+    @media print { body{background:#fff} .page{padding:0} }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <h1>CKA — <span>Certified Kubernetes Administrator</span></h1>
+      <p>Performance-based exam &nbsp;|&nbsp; 2 hours &nbsp;|&nbsp; Passing score: 66% &nbsp;|&nbsp; Cost: $395 &nbsp;|&nbsp; kubectl + docs.kubernetes.io allowed</p>
+    </div>
+    <div class="header-badges">
+      <span class="badge badge-green">Cluster Architecture 25%</span>
+      <span class="badge badge-blue">Workloads &amp; Scheduling 15%</span>
+      <span class="badge badge-blue">Services &amp; Networking 20%</span>
+      <span class="badge badge-green">Storage 10%</span>
+      <span class="badge badge-red">Troubleshooting 30%</span>
+    </div>
+  </div>
+
+  <!-- EXAM TIPS BAR -->
+  <div class="tip-bar">
+    <div>
+      <div class="tip-label">Exam Start</div>
+      <div class="tip"><b>alias k=kubectl</b> &nbsp;&amp;&amp;&nbsp; <b>export do="--dry-run=client -o yaml"</b> &nbsp;&amp;&amp;&nbsp; <b>export now="--force --grace-period=0"</b> — do this before anything else</div>
+    </div>
+    <div>
+      <div class="tip-label">Speed Tip</div>
+      <div class="tip">Use <b>k run $do &gt; pod.yaml</b> then edit — never write YAML from scratch. Use <b>k explain pod.spec.containers</b> for field docs.</div>
+    </div>
+    <div>
+      <div class="tip-label">Context First</div>
+      <div class="tip">Every question specifies a cluster context. Run <b>kubectl config use-context &lt;name&gt;</b> before starting each task.</div>
+    </div>
+    <div>
+      <div class="tip-label">Docs Allowed</div>
+      <div class="tip">Only <b>docs.kubernetes.io</b> permitted. Bookmark: Tasks &gt; Configure Pods &gt; Assign Memory/CPU, Concepts &gt; Workloads, Tasks &gt; Administer a Cluster.</div>
+    </div>
+  </div>
+
+  <div class="note note-red" style="margin-bottom:12px;">
+    <strong>Troubleshooting is 30% of the exam</strong> — the single largest domain. Practice <code>kubectl describe</code>, <code>kubectl logs --previous</code>, <code>kubectl exec</code>, and <code>systemctl status kubelet</code> until they are muscle memory.
+  </div>
+
+  <!-- ROW 1: Exam Setup, Pods, Deployments -->
+  <div class="grid">
+
+    <!-- CARD: Exam Setup -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#E8F7EF;">⚡</div>
+        <h2>Exam Setup &amp; kubectl Aliases</h2>
+        <span class="sub">Run at start</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Shell aliases — paste immediately</div>
+        <span class="cmd">alias k=kubectl</span>
+        <span class="cmd">export do="--dry-run=client -o yaml"</span>
+        <span class="cmd">export now="--force --grace-period=0"</span>
+        <span class="cmd">source &lt;(kubectl completion bash)</span>
+        <span class="cmd">kubectl completion bash &gt;&gt; ~/.bashrc</span>
+
+        <div class="section-label">Context management</div>
+        <span class="cmd">kubectl config get-contexts</span>
+        <span class="cmd">kubectl config use-context &lt;name&gt;</span>
+        <span class="cmd">kubectl config current-context</span>
+        <span class="cmd">kubectl config set-context --current --namespace=mynamespace</span>
+
+        <div class="section-label">Quick inspection</div>
+        <span class="cmd">k get all -A</span>
+        <span class="cmd">k get pods -A -o wide</span>
+        <span class="cmd">k get events --sort-by='.lastTimestamp'</span>
+        <span class="cmd">k explain pod.spec.containers</span>
+        <span class="cmd">k explain pod.spec.containers.resources</span>
+
+        <div class="section-label">Dry-run pattern</div>
+        <span class="cmd">k run nginx --image=nginx $do &gt; pod.yaml</span>
+        <span class="cmd">k create deployment web --image=nginx $do &gt; dep.yaml</span>
+        <span class="cmd">k create service clusterip svc --tcp=80:80 $do &gt; svc.yaml</span>
+
+        <div class="note note-blue" style="margin-top:6px;">
+          Using <code>$do</code> exports a clean YAML template without creating the resource. Edit then <code>k apply -f file.yaml</code>.
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD: Pods -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#EBF4FF;">📦</div>
+        <h2>Core Workloads — Pod</h2>
+        <span class="sub">Workloads 15%</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Imperative commands</div>
+        <span class="cmd">k run nginx --image=nginx</span>
+        <span class="cmd">k run nginx --image=nginx $do &gt; pod.yaml</span>
+        <span class="cmd">k run nginx --image=nginx --port=80 --env="ENV=prod" --labels="app=web"</span>
+        <span class="cmd">k run nginx --image=nginx --command -- sleep 3600</span>
+        <span class="cmd">k run test --image=busybox --rm -it -- /bin/sh</span>
+
+        <div class="section-label">Inspect &amp; debug</div>
+        <span class="cmd">k get pods -o wide</span>
+        <span class="cmd">k describe pod nginx</span>
+        <span class="cmd">k logs nginx</span>
+        <span class="cmd">k logs nginx -c container-name</span>
+        <span class="cmd">k logs nginx --previous</span>
+        <span class="cmd">k exec -it nginx -- /bin/sh</span>
+        <span class="cmd">k exec nginx -- env</span>
+        <span class="cmd">k delete pod nginx $now</span>
+
+        <div class="section-label">Pod YAML skeleton</div>
+        <span class="cmd">apiVersion: v1</span>
+        <span class="cmd">kind: Pod</span>
+        <span class="cmd">metadata:</span>
+        <span class="cmd">&nbsp;&nbsp;name: nginx</span>
+        <span class="cmd">&nbsp;&nbsp;labels: {app: web}</span>
+        <span class="cmd">spec:</span>
+        <span class="cmd">&nbsp;&nbsp;containers:</span>
+        <span class="cmd">&nbsp;&nbsp;- name: nginx</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;image: nginx:1.25</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;ports: [{containerPort: 80}]</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;env: [{name: ENV, value: prod}]</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;resources:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;requests: {cpu: 100m, memory: 128Mi}</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;limits: {cpu: 500m, memory: 256Mi}</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;volumeMounts:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;- name: data</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mountPath: /data</span>
+        <span class="cmd">&nbsp;&nbsp;volumes:</span>
+        <span class="cmd">&nbsp;&nbsp;- name: data</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;emptyDir: {}</span>
+      </div>
+    </div>
+
+    <!-- CARD: Deployments -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#F5F0FF;">🚀</div>
+        <h2>Deployments</h2>
+        <span class="sub">Workloads 15%</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Create &amp; scale</div>
+        <span class="cmd">k create deployment web --image=nginx --replicas=3</span>
+        <span class="cmd">k scale deployment web --replicas=5</span>
+        <span class="cmd">k set image deployment web nginx=nginx:1.25</span>
+        <span class="cmd">k expose deployment web --port=80 --type=ClusterIP</span>
+        <span class="cmd">k autoscale deployment web --min=2 --max=10 --cpu-percent=50</span>
+
+        <div class="section-label">Rollout management</div>
+        <span class="cmd">k rollout status deployment web</span>
+        <span class="cmd">k rollout history deployment web</span>
+        <span class="cmd">k rollout undo deployment web</span>
+        <span class="cmd">k rollout undo deployment web --to-revision=2</span>
+        <span class="cmd">k rollout pause deployment web</span>
+        <span class="cmd">k rollout resume deployment web</span>
+
+        <div class="section-label">Deployment YAML — key fields</div>
+        <span class="cmd">spec:</span>
+        <span class="cmd">&nbsp;&nbsp;replicas: 3</span>
+        <span class="cmd">&nbsp;&nbsp;selector:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;matchLabels: {app: web}</span>
+        <span class="cmd">&nbsp;&nbsp;strategy:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;type: RollingUpdate</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;rollingUpdate:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;maxSurge: 1</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;maxUnavailable: 0</span>
+        <span class="cmd">&nbsp;&nbsp;template:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;metadata:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;labels: {app: web}</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;spec:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;containers: [...]</span>
+
+        <div class="section-label">Strategy types</div>
+        <div class="row"><span class="key">RollingUpdate</span><span class="val">Zero-downtime, default</span></div>
+        <div class="row"><span class="key">Recreate</span><span class="val">Kills all pods then recreates</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 2: Other Workloads, Services, NetworkPolicy -->
+  <div class="grid">
+
+    <!-- CARD: Other Workload Types -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#F5F0FF;">⚙️</div>
+        <h2>Other Workload Types</h2>
+        <span class="sub">StatefulSet · DaemonSet · Job · CronJob</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">StatefulSet</div>
+        <span class="cmd">k create statefulset web --image=nginx $do &gt; ss.yaml</span>
+        <div class="row"><span class="key">serviceName</span><span class="val">Required — headless service name</span></div>
+        <div class="row"><span class="key">Pod names</span><span class="val">web-0, web-1, web-2 (stable)</span></div>
+        <div class="row"><span class="key">volumeClaimTemplates</span><span class="val">PVC per pod, persists on delete</span></div>
+        <span class="cmd">&nbsp;&nbsp;volumeClaimTemplates:</span>
+        <span class="cmd">&nbsp;&nbsp;- metadata: {name: data}</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;spec:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;accessModes: [ReadWriteOnce]</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;resources:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;requests: {storage: 1Gi}</span>
+
+        <div class="section-label">DaemonSet</div>
+        <div class="row"><span class="key">Purpose</span><span class="val">One pod per node (logging, monitoring)</span></div>
+        <div class="row"><span class="key">No replicas field</span><span class="val">Scheduler-independent</span></div>
+        <span class="cmd">k get ds -A</span>
+        <span class="cmd">k describe ds fluentd -n kube-system</span>
+
+        <div class="section-label">Job</div>
+        <span class="cmd">k create job pi --image=perl $do &gt; job.yaml</span>
+        <div class="row"><span class="key">spec.completions</span><span class="val">Total successful pods needed</span></div>
+        <div class="row"><span class="key">spec.parallelism</span><span class="val">Pods running concurrently</span></div>
+        <div class="row"><span class="key">spec.backoffLimit</span><span class="val">Retry limit before failure</span></div>
+        <div class="row"><span class="key">restartPolicy</span><span class="val">Never | OnFailure (not Always)</span></div>
+
+        <div class="section-label">CronJob</div>
+        <span class="cmd">k create cronjob hello --image=busybox --schedule="*/5 * * * *" -- date</span>
+        <div class="row"><span class="key">spec.schedule</span><span class="val">"*/5 * * * *" = every 5 min</span></div>
+        <div class="row"><span class="key">concurrencyPolicy</span><span class="val">Allow | Forbid | Replace</span></div>
+        <div class="row"><span class="key">successfulJobsHistoryLimit</span><span class="val">Default 3</span></div>
+        <div class="row"><span class="key">failedJobsHistoryLimit</span><span class="val">Default 1</span></div>
+
+        <div class="section-label">Init Containers</div>
+        <span class="cmd">&nbsp;&nbsp;initContainers:</span>
+        <span class="cmd">&nbsp;&nbsp;- name: init-db</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;image: busybox</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;command: ['sh','-c','until nslookup db; do sleep 2; done']</span>
+        <div class="note note-blue">Init containers run to completion sequentially before main containers start. Useful for dependency checks.</div>
+      </div>
+    </div>
+
+    <!-- CARD: Services & Networking -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#EBF4FF;">🌐</div>
+        <h2>Services &amp; Networking</h2>
+        <span class="sub">20% of exam</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Create services</div>
+        <span class="cmd">k expose pod nginx --port=80 --name=nginx-svc</span>
+        <span class="cmd">k expose deployment web --port=80 --target-port=8080 --type=NodePort</span>
+        <span class="cmd">k expose deployment web --port=80 --type=LoadBalancer</span>
+        <span class="cmd">k create service clusterip my-svc --tcp=80:80</span>
+        <span class="cmd">k create service nodeport my-svc --tcp=80:80 --node-port=30080</span>
+
+        <div class="section-label">Service types</div>
+        <div class="row"><span class="key">ClusterIP</span><span class="val">Internal only — default</span></div>
+        <div class="row"><span class="key">NodePort</span><span class="val">Port 30000–32767, all nodes</span></div>
+        <div class="row"><span class="key">LoadBalancer</span><span class="val">Cloud load balancer</span></div>
+        <div class="row"><span class="key">ExternalName</span><span class="val">CNAME to external DNS</span></div>
+
+        <div class="section-label">DNS resolution</div>
+        <span class="cmd">&lt;svc&gt;.&lt;namespace&gt;.svc.cluster.local</span>
+        <span class="cmd">k run test --image=busybox --rm -it -- nslookup nginx-svc</span>
+        <span class="cmd">k run test --image=busybox --rm -it -- wget -qO- http://web-svc</span>
+
+        <div class="section-label">Inspect services</div>
+        <span class="cmd">k get svc -A</span>
+        <span class="cmd">k describe svc nginx-svc</span>
+        <span class="cmd">k get endpoints nginx-svc</span>
+        <span class="cmd">k get ep</span>
+
+        <div class="section-label">Ingress</div>
+        <span class="cmd">k create ingress my-ingress --rule="host/path=svc:port"</span>
+        <span class="cmd">k get ingress</span>
+        <span class="cmd">k describe ingress my-ingress</span>
+
+        <div class="section-label">CoreDNS &amp; kube-proxy</div>
+        <span class="cmd">k get configmap coredns -n kube-system -o yaml</span>
+        <span class="cmd">k get pods -n kube-system -l k8s-app=kube-dns</span>
+        <div class="row"><span class="key">kube-proxy modes</span><span class="val">iptables / ipvs</span></div>
+
+        <div class="note note-green">
+          If a Service doesn't route: check <code>k get endpoints</code> — empty endpoints = label selector mismatch between Service and Pods.
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD: NetworkPolicy -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#FEF2F2;">🔒</div>
+        <h2>NetworkPolicy</h2>
+        <span class="sub">Services &amp; Networking 20%</span>
+      </div>
+      <div class="card-body">
+        <div class="note note-red">Default: all traffic allowed. NetworkPolicy requires a CNI that supports it — Calico, Cilium, or Weave (not Flannel alone).</div>
+
+        <div class="section-label">NetworkPolicy YAML structure</div>
+        <span class="cmd">apiVersion: networking.k8s.io/v1</span>
+        <span class="cmd">kind: NetworkPolicy</span>
+        <span class="cmd">metadata:</span>
+        <span class="cmd">&nbsp;&nbsp;name: allow-frontend</span>
+        <span class="cmd">&nbsp;&nbsp;namespace: default</span>
+        <span class="cmd">spec:</span>
+        <span class="cmd">&nbsp;&nbsp;podSelector:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;matchLabels: {app: backend}</span>
+        <span class="cmd">&nbsp;&nbsp;policyTypes: [Ingress, Egress]</span>
+        <span class="cmd">&nbsp;&nbsp;ingress:</span>
+        <span class="cmd">&nbsp;&nbsp;- from:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;- podSelector:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;matchLabels: {app: frontend}</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;- namespaceSelector:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;matchLabels: {name: prod}</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;ports:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;- protocol: TCP</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;port: 8080</span>
+        <span class="cmd">&nbsp;&nbsp;egress:</span>
+        <span class="cmd">&nbsp;&nbsp;- to:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;- ipBlock:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cidr: 10.0.0.0/8</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;ports:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;- port: 5432</span>
+
+        <div class="section-label">Common patterns</div>
+        <div class="row"><span class="key">Deny all ingress</span><span class="val">podSelector:{} ingress:[]</span></div>
+        <div class="row"><span class="key">Deny all egress</span><span class="val">podSelector:{} egress:[]</span></div>
+        <div class="row"><span class="key">Allow all ingress</span><span class="val">ingress: [{}]</span></div>
+        <div class="row"><span class="key">Allow all egress</span><span class="val">egress: [{}]</span></div>
+
+        <div class="section-label">Selector types in from/to</div>
+        <div class="row"><span class="key">podSelector</span><span class="val">Match pods by label (same ns)</span></div>
+        <div class="row"><span class="key">namespaceSelector</span><span class="val">Match entire namespaces</span></div>
+        <div class="row"><span class="key">ipBlock</span><span class="val">CIDR ranges, optional except</span></div>
+
+        <div class="note note-blue">
+          Multiple <code>from</code> items in the same rule are OR logic. Separate <code>-</code> list items under <code>from</code> are AND when on same item.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 3: Storage, ConfigMaps/Secrets, RBAC -->
+  <div class="grid">
+
+    <!-- CARD: Storage -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#E8F7EF;">💾</div>
+        <h2>Storage — PV &amp; PVC</h2>
+        <span class="sub">10% of exam</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Inspect</div>
+        <span class="cmd">k get pv</span>
+        <span class="cmd">k get pvc</span>
+        <span class="cmd">k describe pvc my-claim</span>
+        <span class="cmd">k get storageclass</span>
+
+        <div class="section-label">PersistentVolume YAML</div>
+        <span class="cmd">apiVersion: v1</span>
+        <span class="cmd">kind: PersistentVolume</span>
+        <span class="cmd">metadata: {name: pv-data}</span>
+        <span class="cmd">spec:</span>
+        <span class="cmd">&nbsp;&nbsp;capacity:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;storage: 10Gi</span>
+        <span class="cmd">&nbsp;&nbsp;accessModes: [ReadWriteOnce]</span>
+        <span class="cmd">&nbsp;&nbsp;persistentVolumeReclaimPolicy: Retain</span>
+        <span class="cmd">&nbsp;&nbsp;storageClassName: ""</span>
+        <span class="cmd">&nbsp;&nbsp;hostPath:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;path: /mnt/data</span>
+
+        <div class="section-label">PersistentVolumeClaim YAML</div>
+        <span class="cmd">apiVersion: v1</span>
+        <span class="cmd">kind: PersistentVolumeClaim</span>
+        <span class="cmd">metadata: {name: my-claim}</span>
+        <span class="cmd">spec:</span>
+        <span class="cmd">&nbsp;&nbsp;accessModes: [ReadWriteOnce]</span>
+        <span class="cmd">&nbsp;&nbsp;storageClassName: ""</span>
+        <span class="cmd">&nbsp;&nbsp;resources:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;requests: {storage: 5Gi}</span>
+
+        <div class="section-label">Using PVC in a Pod</div>
+        <span class="cmd">&nbsp;&nbsp;volumes:</span>
+        <span class="cmd">&nbsp;&nbsp;- name: vol</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;persistentVolumeClaim:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;claimName: my-claim</span>
+        <span class="cmd">&nbsp;&nbsp;containers:</span>
+        <span class="cmd">&nbsp;&nbsp;- name: app</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;volumeMounts:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;- name: vol</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mountPath: /data</span>
+
+        <div class="section-label">Access modes &amp; reclaim policy</div>
+        <div class="row"><span class="key">ReadWriteOnce</span><span class="val">RWO — one node</span></div>
+        <div class="row"><span class="key">ReadOnlyMany</span><span class="val">ROX — many nodes read</span></div>
+        <div class="row"><span class="key">ReadWriteMany</span><span class="val">RWX — many nodes write</span></div>
+        <div class="row"><span class="key">Retain</span><span class="val">Manual cleanup after PVC delete</span></div>
+        <div class="row"><span class="key">Delete</span><span class="val">Auto-delete backing storage</span></div>
+      </div>
+    </div>
+
+    <!-- CARD: ConfigMaps & Secrets -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#EBF4FF;">🔑</div>
+        <h2>ConfigMaps &amp; Secrets</h2>
+        <span class="sub">Workloads 15%</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Create ConfigMaps</div>
+        <span class="cmd">k create cm app-config --from-literal=DB_HOST=mysql --from-literal=PORT=3306</span>
+        <span class="cmd">k create cm app-config --from-file=config.properties</span>
+        <span class="cmd">k create cm app-config --from-env-file=app.env</span>
+        <span class="cmd">k get cm app-config -o yaml</span>
+
+        <div class="section-label">Create Secrets</div>
+        <span class="cmd">k create secret generic app-secret --from-literal=password=s3cr3t</span>
+        <span class="cmd">k create secret generic app-secret --from-file=ssh-privatekey=~/.ssh/id_rsa</span>
+        <span class="cmd">k create secret docker-registry regcred \</span>
+        <span class="cmd">&nbsp;&nbsp;--docker-server=myregistry.io \</span>
+        <span class="cmd">&nbsp;&nbsp;--docker-username=user \</span>
+        <span class="cmd">&nbsp;&nbsp;--docker-password=pass</span>
+        <span class="cmd">k create secret tls tls-secret --cert=tls.crt --key=tls.key</span>
+
+        <div class="section-label">Use ConfigMap in Pod — all keys as env</div>
+        <span class="cmd">&nbsp;&nbsp;envFrom:</span>
+        <span class="cmd">&nbsp;&nbsp;- configMapRef:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name: app-config</span>
+
+        <div class="section-label">Use ConfigMap — single key</div>
+        <span class="cmd">&nbsp;&nbsp;env:</span>
+        <span class="cmd">&nbsp;&nbsp;- name: DB_HOST</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;valueFrom:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;configMapKeyRef:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name: app-config</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;key: DB_HOST</span>
+
+        <div class="section-label">Use Secret in Pod</div>
+        <span class="cmd">&nbsp;&nbsp;envFrom:</span>
+        <span class="cmd">&nbsp;&nbsp;- secretRef:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name: app-secret</span>
+
+        <div class="section-label">ConfigMap as volume</div>
+        <span class="cmd">&nbsp;&nbsp;volumes:</span>
+        <span class="cmd">&nbsp;&nbsp;- name: cfg</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;configMap:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name: app-config</span>
+        <span class="cmd">&nbsp;&nbsp;# mounts each key as a file in mountPath</span>
+
+        <div class="section-label">imagePullSecrets</div>
+        <span class="cmd">&nbsp;&nbsp;spec:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;imagePullSecrets:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;- name: regcred</span>
+      </div>
+    </div>
+
+    <!-- CARD: RBAC -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#F5F0FF;">🛡️</div>
+        <h2>RBAC</h2>
+        <span class="sub">Cluster Architecture 25%</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Namespaced — Role &amp; RoleBinding</div>
+        <span class="cmd">k create role pod-reader --verb=get,list,watch --resource=pods</span>
+        <span class="cmd">k create role pod-writer --verb=get,list,watch,create,update,delete --resource=pods</span>
+        <span class="cmd">k create rolebinding john-pod-reader --role=pod-reader --user=john</span>
+        <span class="cmd">k create rolebinding dev-pod-reader --role=pod-reader --group=developers</span>
+        <span class="cmd">k create rolebinding sa-pod-reader --role=pod-reader --serviceaccount=default:mysa</span>
+
+        <div class="section-label">Cluster-wide — ClusterRole &amp; ClusterRoleBinding</div>
+        <span class="cmd">k create clusterrole node-reader --verb=get,list,watch --resource=nodes</span>
+        <span class="cmd">k create clusterrolebinding john-node-reader --clusterrole=node-reader --user=john</span>
+        <span class="cmd">k create clusterrolebinding view-all --clusterrole=view --user=jane</span>
+
+        <div class="section-label">Verify permissions</div>
+        <span class="cmd">k auth can-i list pods --as=john</span>
+        <span class="cmd">k auth can-i create deployments --as=john -n default</span>
+        <span class="cmd">k auth can-i --list</span>
+        <span class="cmd">k auth can-i --list --as=john -n kube-system</span>
+
+        <div class="section-label">ServiceAccount</div>
+        <span class="cmd">k create serviceaccount mysa</span>
+        <span class="cmd">k get sa</span>
+        <div class="row"><span class="key">pod spec.serviceAccountName</span><span class="val">mysa</span></div>
+        <span class="cmd">k create token mysa</span>
+
+        <div class="section-label">Role YAML</div>
+        <span class="cmd">apiVersion: rbac.authorization.k8s.io/v1</span>
+        <span class="cmd">kind: Role</span>
+        <span class="cmd">metadata: {name: pod-reader, namespace: default}</span>
+        <span class="cmd">rules:</span>
+        <span class="cmd">- apiGroups: [""]</span>
+        <span class="cmd">&nbsp;&nbsp;resources: ["pods","pods/log"]</span>
+        <span class="cmd">&nbsp;&nbsp;verbs: ["get","list","watch"]</span>
+        <span class="cmd">- apiGroups: ["apps"]</span>
+        <span class="cmd">&nbsp;&nbsp;resources: ["deployments"]</span>
+        <span class="cmd">&nbsp;&nbsp;verbs: ["get","list","watch","create","update"]</span>
+
+        <div class="note note-blue">
+          ClusterRole + RoleBinding = ClusterRole scoped to one namespace. ClusterRole + ClusterRoleBinding = cluster-wide access.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 4: Cluster Maintenance, etcd, Upgrade -->
+  <div class="grid">
+
+    <!-- CARD: Cluster Maintenance -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#E8F7EF;">🔧</div>
+        <h2>Cluster Maintenance</h2>
+        <span class="sub">Cluster Architecture 25%</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Node drain &amp; scheduling</div>
+        <span class="cmd">k drain node1 --ignore-daemonsets --delete-emptydir-data</span>
+        <span class="cmd">k cordon node1</span>
+        <span class="cmd">k uncordon node1</span>
+        <span class="cmd">k get nodes</span>
+        <span class="cmd">k describe node node1</span>
+        <span class="cmd">k top nodes</span>
+        <span class="cmd">k top pods --sort-by=cpu</span>
+        <span class="cmd">k top pods --sort-by=memory</span>
+
+        <div class="section-label">Taints &amp; Tolerations</div>
+        <span class="cmd">k taint nodes node1 key=value:NoSchedule</span>
+        <span class="cmd">k taint nodes node1 key=value:NoExecute</span>
+        <span class="cmd">k taint nodes node1 key=value:PreferNoSchedule</span>
+        <span class="cmd">k taint nodes node1 key=value:NoSchedule-</span>
+        <div class="section-label">Pod toleration YAML</div>
+        <span class="cmd">&nbsp;&nbsp;tolerations:</span>
+        <span class="cmd">&nbsp;&nbsp;- key: "key"</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;operator: "Equal"</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;value: "value"</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;effect: "NoSchedule"</span>
+
+        <div class="section-label">Node Labels &amp; NodeSelector</div>
+        <span class="cmd">k label nodes node1 disktype=ssd</span>
+        <span class="cmd">k label nodes node1 disktype-</span>
+        <span class="cmd">k get nodes --show-labels</span>
+        <div class="section-label">Pod nodeSelector YAML</div>
+        <span class="cmd">&nbsp;&nbsp;spec:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;nodeSelector:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;disktype: ssd</span>
+
+        <div class="section-label">nodeAffinity YAML</div>
+        <span class="cmd">&nbsp;&nbsp;affinity:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;nodeAffinity:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;requiredDuringSchedulingIgnoredDuringExecution:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nodeSelectorTerms:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- matchExpressions:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- key: disktype</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;operator: In</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;values: [ssd]</span>
+        <div class="row"><span class="key">required...IgnoredDuring</span><span class="val">Hard constraint — must match</span></div>
+        <div class="row"><span class="key">preferred...IgnoredDuring</span><span class="val">Soft — tries to match</span></div>
+      </div>
+    </div>
+
+    <!-- CARD: etcd Backup & Restore -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#FEF2F2;">🗄️</div>
+        <h2>etcd Backup &amp; Restore</h2>
+        <span class="sub">Cluster Architecture 25%</span>
+      </div>
+      <div class="card-body">
+        <div class="note note-red">etcd backup/restore is almost always on the exam. Know the cert paths and restore procedure by heart.</div>
+
+        <div class="section-label">Set etcd API version</div>
+        <span class="cmd">export ETCDCTL_API=3</span>
+
+        <div class="section-label">Snapshot save</div>
+        <span class="cmd">etcdctl snapshot save /tmp/etcd-backup.db \</span>
+        <span class="cmd">&nbsp;&nbsp;--endpoints=https://127.0.0.1:2379 \</span>
+        <span class="cmd">&nbsp;&nbsp;--cacert=/etc/kubernetes/pki/etcd/ca.crt \</span>
+        <span class="cmd">&nbsp;&nbsp;--cert=/etc/kubernetes/pki/etcd/server.crt \</span>
+        <span class="cmd">&nbsp;&nbsp;--key=/etc/kubernetes/pki/etcd/server.key</span>
+
+        <div class="section-label">Verify snapshot</div>
+        <span class="cmd">etcdctl snapshot status /tmp/etcd-backup.db --write-out=table</span>
+
+        <div class="section-label">Snapshot restore</div>
+        <span class="cmd">etcdctl snapshot restore /tmp/etcd-backup.db \</span>
+        <span class="cmd">&nbsp;&nbsp;--data-dir=/var/lib/etcd-restore</span>
+
+        <div class="section-label">Update etcd manifest to new data-dir</div>
+        <span class="cmd">vi /etc/kubernetes/manifests/etcd.yaml</span>
+        <span class="cmd"># Change --data-dir=/var/lib/etcd-restore</span>
+        <span class="cmd"># Change hostPath volumes to match new dir</span>
+        <span class="cmd"># static pod restarts automatically</span>
+
+        <div class="section-label">etcd ports</div>
+        <div class="row"><span class="key">2379</span><span class="val">Client API (kubectl connects)</span></div>
+        <div class="row"><span class="key">2380</span><span class="val">Peer communication (clustering)</span></div>
+
+        <div class="section-label">etcd cert paths (kubeadm)</div>
+        <div class="row"><span class="key">CA cert</span><span class="val">/etc/kubernetes/pki/etcd/ca.crt</span></div>
+        <div class="row"><span class="key">Server cert</span><span class="val">/etc/kubernetes/pki/etcd/server.crt</span></div>
+        <div class="row"><span class="key">Server key</span><span class="val">/etc/kubernetes/pki/etcd/server.key</span></div>
+        <div class="row"><span class="key">Data dir</span><span class="val">/var/lib/etcd</span></div>
+
+        <div class="section-label">Find etcd config</div>
+        <span class="cmd">k get pod etcd-controlplane -n kube-system -o yaml</span>
+        <span class="cmd">k describe pod etcd-controlplane -n kube-system</span>
+        <span class="cmd">cat /etc/kubernetes/manifests/etcd.yaml</span>
+      </div>
+    </div>
+
+    <!-- CARD: Cluster Upgrade -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#EBF4FF;">⬆️</div>
+        <h2>Cluster Upgrade (kubeadm)</h2>
+        <span class="sub">Cluster Architecture 25%</span>
+      </div>
+      <div class="card-body">
+        <div class="note note-blue">Upgrade one minor version at a time. Always upgrade control plane first, then workers.</div>
+
+        <div class="section-label">1. Control plane — check &amp; upgrade kubeadm</div>
+        <span class="cmd">kubeadm upgrade plan</span>
+        <span class="cmd">apt-get update</span>
+        <span class="cmd">apt-get install -y kubeadm=1.28.0-00</span>
+        <span class="cmd">kubeadm upgrade apply v1.28.0</span>
+        <span class="cmd">kubeadm upgrade apply v1.28.0 --dry-run</span>
+
+        <div class="section-label">2. Drain control plane node</div>
+        <span class="cmd">k drain controlplane --ignore-daemonsets</span>
+
+        <div class="section-label">3. Upgrade kubelet + kubectl on control plane</div>
+        <span class="cmd">apt-get install -y kubelet=1.28.0-00 kubectl=1.28.0-00</span>
+        <span class="cmd">systemctl daemon-reload</span>
+        <span class="cmd">systemctl restart kubelet</span>
+
+        <div class="section-label">4. Uncordon control plane</div>
+        <span class="cmd">k uncordon controlplane</span>
+        <span class="cmd">k get nodes</span>
+
+        <div class="section-label">5. Worker node upgrade (per worker)</div>
+        <span class="cmd"># From control plane:</span>
+        <span class="cmd">k drain worker1 --ignore-daemonsets --delete-emptydir-data</span>
+        <span class="cmd"># SSH into worker:</span>
+        <span class="cmd">ssh worker1</span>
+        <span class="cmd">apt-get update</span>
+        <span class="cmd">apt-get install -y kubeadm=1.28.0-00</span>
+        <span class="cmd">kubeadm upgrade node</span>
+        <span class="cmd">apt-get install -y kubelet=1.28.0-00 kubectl=1.28.0-00</span>
+        <span class="cmd">systemctl daemon-reload</span>
+        <span class="cmd">systemctl restart kubelet</span>
+        <span class="cmd">exit</span>
+        <span class="cmd"># Back on control plane:</span>
+        <span class="cmd">k uncordon worker1</span>
+
+        <div class="section-label">Verify upgrade</div>
+        <span class="cmd">k get nodes</span>
+        <span class="cmd">kubelet --version</span>
+        <span class="cmd">kubeadm version</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 5: Troubleshooting, Resource Management (2-col) -->
+  <div class="grid grid-2">
+
+    <!-- CARD: Troubleshooting -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#FEF2F2;">🔍</div>
+        <h2>Troubleshooting</h2>
+        <span class="sub" style="color:#B91C1C; font-weight:700;">30% of exam — largest domain</span>
+      </div>
+      <div class="card-body">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div>
+            <div class="section-label">Node NotReady</div>
+            <span class="cmd">k describe node node1</span>
+            <span class="cmd">k get events -A</span>
+            <span class="cmd">ssh node1</span>
+            <span class="cmd">systemctl status kubelet</span>
+            <span class="cmd">systemctl restart kubelet</span>
+            <span class="cmd">journalctl -u kubelet -n 50</span>
+            <span class="cmd">cat /var/log/syslog | grep kubelet</span>
+            <span class="cmd"># Check CNI plugin pods</span>
+            <span class="cmd">k get pods -n kube-system</span>
+
+            <div class="section-label" style="margin-top:8px;">Pod Pending</div>
+            <span class="cmd">k describe pod mypod</span>
+            <div class="row"><span class="key">No nodes available</span><span class="val">Taint/toleration, affinity</span></div>
+            <div class="row"><span class="key">PVC not bound</span><span class="val">Check PV/storageclass</span></div>
+            <div class="row"><span class="key">Insufficient CPU/Mem</span><span class="val">k top nodes</span></div>
+            <div class="row"><span class="key">Image pull error</span><span class="val">Check imagePullSecrets</span></div>
+
+            <div class="section-label" style="margin-top:8px;">CrashLoopBackOff</div>
+            <span class="cmd">k logs mypod</span>
+            <span class="cmd">k logs mypod --previous</span>
+            <span class="cmd">k describe pod mypod</span>
+            <div class="row"><span class="key">Check</span><span class="val">command/args, env vars, probes</span></div>
+            <div class="row"><span class="key">Exit code 137</span><span class="val">OOMKilled — raise limits</span></div>
+            <div class="row"><span class="key">Exit code 1</span><span class="val">App crashed — check logs</span></div>
+          </div>
+          <div>
+            <div class="section-label">Service not reaching pods</div>
+            <span class="cmd">k get endpoints my-svc</span>
+            <span class="cmd">k describe svc my-svc</span>
+            <span class="cmd">k get pods --show-labels</span>
+            <span class="cmd"># Check selector matches pod labels</span>
+            <span class="cmd">k run test --image=busybox --rm -it -- wget -qO- http://my-svc</span>
+            <span class="cmd">k run test --image=busybox --rm -it -- nslookup my-svc</span>
+
+            <div class="section-label" style="margin-top:8px;">Control plane components</div>
+            <span class="cmd">k get pods -n kube-system</span>
+            <span class="cmd">k describe pod kube-apiserver-cp -n kube-system</span>
+            <span class="cmd">k logs kube-apiserver-cp -n kube-system</span>
+            <span class="cmd">cat /etc/kubernetes/manifests/kube-apiserver.yaml</span>
+            <span class="cmd">cat /etc/kubernetes/manifests/kube-controller-manager.yaml</span>
+            <span class="cmd">cat /etc/kubernetes/manifests/kube-scheduler.yaml</span>
+
+            <div class="section-label" style="margin-top:8px;">Container runtime (node level)</div>
+            <span class="cmd">crictl ps</span>
+            <span class="cmd">crictl ps -a</span>
+            <span class="cmd">crictl logs &lt;container-id&gt;</span>
+            <span class="cmd">crictl inspect &lt;container-id&gt;</span>
+            <span class="cmd">crictl pull nginx</span>
+            <span class="cmd">systemctl status containerd</span>
+
+            <div class="section-label" style="margin-top:8px;">OOMKilled</div>
+            <span class="cmd">k top pod mypod</span>
+            <span class="cmd">k top pod mypod --containers</span>
+            <div class="row"><span class="key">Solution</span><span class="val">Increase memory limit in spec</span></div>
+          </div>
+        </div>
+        <div class="note note-red" style="margin-top:8px;">
+          <strong>Always check Events first:</strong> <code>k describe pod/node</code> — the Events section at the bottom contains the root cause 80% of the time.
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD: Resource Management -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#E8F7EF;">📊</div>
+        <h2>Resource Management</h2>
+        <span class="sub">Workloads &amp; Scheduling 15%</span>
+      </div>
+      <div class="card-body">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div>
+            <div class="section-label">Requests &amp; Limits</div>
+            <div class="row"><span class="key">requests</span><span class="val">Minimum guaranteed</span></div>
+            <div class="row"><span class="key">limits</span><span class="val">Maximum allowed</span></div>
+            <div class="row"><span class="key">CPU unit</span><span class="val">1 = 1 core, 100m = 0.1</span></div>
+            <div class="row"><span class="key">Memory unit</span><span class="val">Mi, Gi (mebibytes)</span></div>
+            <span class="cmd">k set resources deployment web \</span>
+            <span class="cmd">&nbsp;&nbsp;--requests=cpu=100m,memory=128Mi \</span>
+            <span class="cmd">&nbsp;&nbsp;--limits=cpu=500m,memory=256Mi</span>
+
+            <div class="section-label" style="margin-top:8px;">LimitRange YAML</div>
+            <span class="cmd">apiVersion: v1</span>
+            <span class="cmd">kind: LimitRange</span>
+            <span class="cmd">metadata: {name: limits, namespace: default}</span>
+            <span class="cmd">spec:</span>
+            <span class="cmd">&nbsp;&nbsp;limits:</span>
+            <span class="cmd">&nbsp;&nbsp;- type: Container</span>
+            <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;default:</span>
+            <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cpu: 200m</span>
+            <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;memory: 256Mi</span>
+            <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;defaultRequest:</span>
+            <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cpu: 100m</span>
+            <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;memory: 128Mi</span>
+            <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;max:</span>
+            <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cpu: "1"</span>
+            <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;memory: 1Gi</span>
+          </div>
+          <div>
+            <div class="section-label">ResourceQuota YAML</div>
+            <span class="cmd">apiVersion: v1</span>
+            <span class="cmd">kind: ResourceQuota</span>
+            <span class="cmd">metadata: {name: quota, namespace: dev}</span>
+            <span class="cmd">spec:</span>
+            <span class="cmd">&nbsp;&nbsp;hard:</span>
+            <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;pods: "10"</span>
+            <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;requests.cpu: "4"</span>
+            <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;requests.memory: 8Gi</span>
+            <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;limits.cpu: "8"</span>
+            <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;limits.memory: 16Gi</span>
+            <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;services: "5"</span>
+            <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;secrets: "10"</span>
+            <span class="cmd">k describe quota -n dev</span>
+
+            <div class="section-label" style="margin-top:8px;">HPA (Horizontal Pod Autoscaler)</div>
+            <span class="cmd">k autoscale deployment web --cpu-percent=50 --min=1 --max=10</span>
+            <span class="cmd">k get hpa</span>
+            <span class="cmd">k describe hpa web</span>
+            <div class="row"><span class="key">Requires</span><span class="val">metrics-server installed</span></div>
+            <div class="row"><span class="key">k top pods</span><span class="val">Live CPU/memory usage</span></div>
+
+            <div class="section-label" style="margin-top:8px;">HPA YAML</div>
+            <span class="cmd">apiVersion: autoscaling/v2</span>
+            <span class="cmd">kind: HorizontalPodAutoscaler</span>
+            <span class="cmd">metadata: {name: web-hpa}</span>
+            <span class="cmd">spec:</span>
+            <span class="cmd">&nbsp;&nbsp;scaleTargetRef:</span>
+            <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;apiVersion: apps/v1</span>
+            <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;kind: Deployment</span>
+            <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;name: web</span>
+            <span class="cmd">&nbsp;&nbsp;minReplicas: 1</span>
+            <span class="cmd">&nbsp;&nbsp;maxReplicas: 10</span>
+            <span class="cmd">&nbsp;&nbsp;metrics:</span>
+            <span class="cmd">&nbsp;&nbsp;- type: Resource</span>
+            <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;resource:</span>
+            <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name: cpu</span>
+            <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;target:</span>
+            <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type: Utilization</span>
+            <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;averageUtilization: 50</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 6: Cluster Architecture overview + quick-ref cards -->
+  <div class="grid">
+
+    <!-- CARD: Cluster Architecture -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#EBF4FF;">🏗️</div>
+        <h2>Cluster Architecture</h2>
+        <span class="sub">25% of exam</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Control plane components</div>
+        <div class="row"><span class="key">kube-apiserver</span><span class="val">REST API gateway, auth, validation</span></div>
+        <div class="row"><span class="key">etcd</span><span class="val">Distributed KV store — cluster state</span></div>
+        <div class="row"><span class="key">kube-scheduler</span><span class="val">Assigns pods to nodes</span></div>
+        <div class="row"><span class="key">kube-controller-manager</span><span class="val">Node, replication, endpoints controllers</span></div>
+        <div class="row"><span class="key">cloud-controller-manager</span><span class="val">Cloud provider integration</span></div>
+
+        <div class="section-label">Worker node components</div>
+        <div class="row"><span class="key">kubelet</span><span class="val">Node agent, manages pod lifecycle</span></div>
+        <div class="row"><span class="key">kube-proxy</span><span class="val">iptables/ipvs rules for services</span></div>
+        <div class="row"><span class="key">Container runtime</span><span class="val">containerd / CRI-O / Docker</span></div>
+
+        <div class="section-label">Static pods (kubeadm)</div>
+        <span class="cmd">ls /etc/kubernetes/manifests/</span>
+        <span class="cmd"># kube-apiserver.yaml, etcd.yaml,</span>
+        <span class="cmd"># kube-controller-manager.yaml,</span>
+        <span class="cmd"># kube-scheduler.yaml</span>
+        <div class="note note-blue">Static pods managed by kubelet directly. Change the manifest file — kubelet auto-restarts the pod.</div>
+
+        <div class="section-label">Certificates (kubeadm)</div>
+        <div class="row"><span class="key">/etc/kubernetes/pki/</span><span class="val">All cluster certs</span></div>
+        <div class="row"><span class="key">ca.crt / ca.key</span><span class="val">Cluster Certificate Authority</span></div>
+        <div class="row"><span class="key">apiserver.crt</span><span class="val">kube-apiserver cert</span></div>
+        <span class="cmd">kubeadm certs check-expiration</span>
+        <span class="cmd">kubeadm certs renew all</span>
+        <span class="cmd">openssl x509 -in /etc/kubernetes/pki/apiserver.crt -text -noout</span>
+
+        <div class="section-label">kubeconfig</div>
+        <div class="row"><span class="key">Default path</span><span class="val">~/.kube/config</span></div>
+        <div class="row"><span class="key">Admin config</span><span class="val">/etc/kubernetes/admin.conf</span></div>
+        <span class="cmd">k config view</span>
+        <span class="cmd">k config view --minify</span>
+      </div>
+    </div>
+
+    <!-- CARD: Namespace & Labels -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#F5F0FF;">🏷️</div>
+        <h2>Namespaces, Labels &amp; Selectors</h2>
+        <span class="sub">Core concepts</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Namespace ops</div>
+        <span class="cmd">k get ns</span>
+        <span class="cmd">k create ns dev</span>
+        <span class="cmd">k delete ns dev</span>
+        <span class="cmd">k get pods -n dev</span>
+        <span class="cmd">k get all -n dev</span>
+        <span class="cmd">k config set-context --current --namespace=dev</span>
+
+        <div class="section-label">System namespaces</div>
+        <div class="row"><span class="key">kube-system</span><span class="val">Control plane / addons</span></div>
+        <div class="row"><span class="key">kube-public</span><span class="val">Publicly readable</span></div>
+        <div class="row"><span class="key">kube-node-lease</span><span class="val">Node heartbeat leases</span></div>
+        <div class="row"><span class="key">default</span><span class="val">Default for user resources</span></div>
+
+        <div class="section-label">Labels &amp; annotations</div>
+        <span class="cmd">k label pod nginx env=prod</span>
+        <span class="cmd">k label pod nginx env-</span>
+        <span class="cmd">k annotate pod nginx contact=team@co.com</span>
+        <span class="cmd">k get pods -l env=prod</span>
+        <span class="cmd">k get pods -l 'env in (prod,staging)'</span>
+        <span class="cmd">k get pods --show-labels</span>
+        <span class="cmd">k get pods -l app=web,tier=frontend</span>
+
+        <div class="section-label">Label selectors in YAML</div>
+        <span class="cmd"># Equality</span>
+        <span class="cmd">selector: {matchLabels: {app: web}}</span>
+        <span class="cmd"># Set-based</span>
+        <span class="cmd">selector:</span>
+        <span class="cmd">&nbsp;&nbsp;matchExpressions:</span>
+        <span class="cmd">&nbsp;&nbsp;- {key: env, operator: In, values: [prod]}</span>
+        <span class="cmd">&nbsp;&nbsp;- {key: tier, operator: NotIn, values: [cache]}</span>
+        <span class="cmd">&nbsp;&nbsp;- {key: managed, operator: Exists}</span>
+
+        <div class="note note-green">
+          Selectors on Service, Deployment, NetworkPolicy must exactly match pod labels — a mismatch causes empty endpoints and no routing.
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD: Quick Reference / Cheat -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#E8F7EF;">⚡</div>
+        <h2>Quick Reference &amp; Exam Patterns</h2>
+        <span class="sub">Most-used patterns</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Output formats</div>
+        <span class="cmd">k get pod nginx -o yaml</span>
+        <span class="cmd">k get pod nginx -o json</span>
+        <span class="cmd">k get pods -o wide</span>
+        <span class="cmd">k get pods -o jsonpath='{.items[*].metadata.name}'</span>
+        <span class="cmd">k get pods -o custom-columns=NAME:.metadata.name,NODE:.spec.nodeName</span>
+
+        <div class="section-label">Sort &amp; filter</div>
+        <span class="cmd">k get pods --sort-by='.metadata.creationTimestamp'</span>
+        <span class="cmd">k get pods --field-selector=status.phase=Running</span>
+        <span class="cmd">k get events --sort-by='.lastTimestamp' -n default</span>
+
+        <div class="section-label">Apply vs create</div>
+        <div class="row"><span class="key">k apply -f file.yaml</span><span class="val">Create or update (idempotent)</span></div>
+        <div class="row"><span class="key">k create -f file.yaml</span><span class="val">Create only — fails if exists</span></div>
+        <div class="row"><span class="key">k replace -f file.yaml</span><span class="val">Replace entire resource</span></div>
+        <div class="row"><span class="key">k delete -f file.yaml</span><span class="val">Delete by manifest</span></div>
+
+        <div class="section-label">Imperative edit</div>
+        <span class="cmd">k edit pod nginx</span>
+        <span class="cmd">k edit deployment web</span>
+        <span class="cmd">k patch deployment web -p '{"spec":{"replicas":5}}'</span>
+
+        <div class="section-label">Copy files to/from pod</div>
+        <span class="cmd">k cp nginx:/etc/nginx/nginx.conf ./nginx.conf</span>
+        <span class="cmd">k cp ./app.conf nginx:/etc/nginx/conf.d/</span>
+
+        <div class="section-label">Port forward</div>
+        <span class="cmd">k port-forward pod/nginx 8080:80</span>
+        <span class="cmd">k port-forward svc/my-svc 8080:80</span>
+
+        <div class="section-label">Resource shortcuts</div>
+        <div class="tags">
+          <span class="tag tag-blue">po = pods</span>
+          <span class="tag tag-blue">deploy = deployments</span>
+          <span class="tag tag-blue">svc = services</span>
+          <span class="tag tag-green">ns = namespaces</span>
+          <span class="tag tag-green">cm = configmaps</span>
+          <span class="tag tag-green">sa = serviceaccounts</span>
+          <span class="tag tag-purple">pv = persistentvolumes</span>
+          <span class="tag tag-purple">pvc = persistentvolumeclaims</span>
+          <span class="tag tag-red">rs = replicasets</span>
+          <span class="tag tag-red">ds = daemonsets</span>
+          <span class="tag tag-red">ep = endpoints</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 7: Probes, multi-container patterns, admission -->
+  <div class="grid">
+
+    <!-- CARD: Probes -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#E8F7EF;">❤️</div>
+        <h2>Pod Probes &amp; Lifecycle</h2>
+        <span class="sub">Workloads 15%</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Probe types</div>
+        <div class="row"><span class="key">livenessProbe</span><span class="val">Restart pod if fails</span></div>
+        <div class="row"><span class="key">readinessProbe</span><span class="val">Remove from service endpoints if fails</span></div>
+        <div class="row"><span class="key">startupProbe</span><span class="val">Disable liveness/readiness until ready</span></div>
+
+        <div class="section-label">HTTP probe</div>
+        <span class="cmd">&nbsp;&nbsp;livenessProbe:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;httpGet:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path: /healthz</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;port: 8080</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;initialDelaySeconds: 15</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;periodSeconds: 10</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;failureThreshold: 3</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;timeoutSeconds: 5</span>
+
+        <div class="section-label">TCP &amp; exec probes</div>
+        <span class="cmd">&nbsp;&nbsp;readinessProbe:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;tcpSocket:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;port: 3306</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;initialDelaySeconds: 5</span>
+        <span class="cmd">&nbsp;&nbsp;livenessProbe:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;exec:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;command: [cat, /tmp/healthy]</span>
+
+        <div class="section-label">Pod lifecycle hooks</div>
+        <span class="cmd">&nbsp;&nbsp;lifecycle:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;postStart:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exec:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;command: [/bin/sh, -c, echo started]</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;preStop:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exec:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;command: [/bin/sh, -c, sleep 5]</span>
+
+        <div class="section-label">Pod termination</div>
+        <div class="row"><span class="key">terminationGracePeriodSeconds</span><span class="val">Default 30s</span></div>
+        <div class="row"><span class="key">SIGTERM → SIGKILL</span><span class="val">After grace period</span></div>
+        <span class="cmd">k delete pod nginx --grace-period=0 --force</span>
+      </div>
+    </div>
+
+    <!-- CARD: Multi-container patterns -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#F5F0FF;">🔗</div>
+        <h2>Multi-Container Patterns</h2>
+        <span class="sub">Workloads 15%</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Sidecar pattern</div>
+        <span class="cmd">&nbsp;&nbsp;containers:</span>
+        <span class="cmd">&nbsp;&nbsp;- name: app</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;image: myapp:1.0</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;volumeMounts:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;- name: logs</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mountPath: /var/log/app</span>
+        <span class="cmd">&nbsp;&nbsp;- name: log-shipper</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;image: fluentd:latest</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;volumeMounts:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;- name: logs</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mountPath: /var/log/app</span>
+        <span class="cmd">&nbsp;&nbsp;volumes:</span>
+        <span class="cmd">&nbsp;&nbsp;- name: logs</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;emptyDir: {}</span>
+
+        <div class="section-label">Ambassador / proxy pattern</div>
+        <div class="row"><span class="key">Purpose</span><span class="val">Proxy to external service</span></div>
+        <div class="row"><span class="key">localhost</span><span class="val">Containers share network</span></div>
+
+        <div class="section-label">Adapter pattern</div>
+        <div class="row"><span class="key">Purpose</span><span class="val">Transform app output (metrics/logs)</span></div>
+
+        <div class="section-label">Shared resources in pod</div>
+        <div class="row"><span class="key">Network</span><span class="val">All containers share localhost</span></div>
+        <div class="row"><span class="key">Volumes</span><span class="val">Shared via volumeMounts</span></div>
+        <div class="row"><span class="key">PID namespace</span><span class="val">Optional — shareProcessNamespace</span></div>
+
+        <div class="section-label">Init container pattern</div>
+        <span class="cmd">&nbsp;&nbsp;initContainers:</span>
+        <span class="cmd">&nbsp;&nbsp;- name: clone-repo</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;image: alpine/git</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;command: ['git', 'clone', 'https://...', '/data']</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;volumeMounts:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;- name: data</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mountPath: /data</span>
+
+        <div class="section-label">Logging from multi-container pod</div>
+        <span class="cmd">k logs mypod -c sidecar-container</span>
+        <span class="cmd">k logs mypod --all-containers=true</span>
+      </div>
+    </div>
+
+    <!-- CARD: Scheduling & Priority -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#EBF4FF;">📅</div>
+        <h2>Scheduling &amp; Priority</h2>
+        <span class="sub">Workloads &amp; Scheduling 15%</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Manual scheduling (nodeName)</div>
+        <span class="cmd">&nbsp;&nbsp;spec:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;nodeName: worker1</span>
+        <div class="note note-blue">nodeName bypasses the scheduler entirely. Pod goes to that node regardless of taints.</div>
+
+        <div class="section-label">podAffinity / podAntiAffinity</div>
+        <span class="cmd">&nbsp;&nbsp;affinity:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;podAntiAffinity:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;requiredDuringSchedulingIgnoredDuringExecution:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- labelSelector:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;matchLabels: {app: web}</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;topologyKey: kubernetes.io/hostname</span>
+
+        <div class="section-label">PriorityClass</div>
+        <span class="cmd">apiVersion: scheduling.k8s.io/v1</span>
+        <span class="cmd">kind: PriorityClass</span>
+        <span class="cmd">metadata: {name: high-priority}</span>
+        <span class="cmd">value: 1000000</span>
+        <span class="cmd">globalDefault: false</span>
+        <span class="cmd"># In pod spec:</span>
+        <span class="cmd">&nbsp;&nbsp;spec:</span>
+        <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;priorityClassName: high-priority</span>
+
+        <div class="section-label">Kube-scheduler config</div>
+        <span class="cmd">cat /etc/kubernetes/manifests/kube-scheduler.yaml</span>
+        <span class="cmd">k describe pod kube-scheduler-cp -n kube-system</span>
+
+        <div class="section-label">Taint effects</div>
+        <div class="row"><span class="key">NoSchedule</span><span class="val">Don't schedule new pods without toleration</span></div>
+        <div class="row"><span class="key">PreferNoSchedule</span><span class="val">Prefer not to schedule</span></div>
+        <div class="row"><span class="key">NoExecute</span><span class="val">Evict existing pods without toleration</span></div>
+
+        <div class="section-label">Node conditions</div>
+        <div class="row"><span class="key">MemoryPressure</span><span class="val">Low memory on node</span></div>
+        <div class="row"><span class="key">DiskPressure</span><span class="val">Low disk space</span></div>
+        <div class="row"><span class="key">PIDPressure</span><span class="val">Too many processes</span></div>
+        <div class="row"><span class="key">Ready</span><span class="val">Node healthy and accepting pods</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 8: StorageClass, Ingress config, API Resources (wide) -->
+  <div class="grid grid-2" style="margin-bottom:12px;">
+
+    <!-- CARD: StorageClass & Dynamic Provisioning -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#E8F7EF;">🗂️</div>
+        <h2>StorageClass &amp; Dynamic Provisioning</h2>
+        <span class="sub">Storage 10%</span>
+      </div>
+      <div class="card-body">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div>
+            <div class="section-label">Inspect storage</div>
+            <span class="cmd">k get sc</span>
+            <span class="cmd">k describe sc standard</span>
+            <span class="cmd">k get pv</span>
+            <span class="cmd">k get pvc -A</span>
+            <span class="cmd">k describe pv pv-name</span>
+
+            <div class="section-label" style="margin-top:8px;">StorageClass YAML</div>
+            <span class="cmd">apiVersion: storage.k8s.io/v1</span>
+            <span class="cmd">kind: StorageClass</span>
+            <span class="cmd">metadata: {name: fast}</span>
+            <span class="cmd">provisioner: kubernetes.io/no-provisioner</span>
+            <span class="cmd">reclaimPolicy: Retain</span>
+            <span class="cmd">volumeBindingMode: WaitForFirstConsumer</span>
+
+            <div class="section-label" style="margin-top:8px;">volumeBindingMode</div>
+            <div class="row"><span class="key">Immediate</span><span class="val">Bind PVC immediately</span></div>
+            <div class="row"><span class="key">WaitForFirstConsumer</span><span class="val">Bind when pod scheduled</span></div>
+          </div>
+          <div>
+            <div class="section-label">PVC with StorageClass</div>
+            <span class="cmd">apiVersion: v1</span>
+            <span class="cmd">kind: PersistentVolumeClaim</span>
+            <span class="cmd">metadata: {name: dynamic-claim}</span>
+            <span class="cmd">spec:</span>
+            <span class="cmd">&nbsp;&nbsp;accessModes: [ReadWriteOnce]</span>
+            <span class="cmd">&nbsp;&nbsp;storageClassName: fast</span>
+            <span class="cmd">&nbsp;&nbsp;resources:</span>
+            <span class="cmd">&nbsp;&nbsp;&nbsp;&nbsp;requests: {storage: 5Gi}</span>
+
+            <div class="section-label" style="margin-top:8px;">PVC binding states</div>
+            <div class="row"><span class="key">Pending</span><span class="val">No matching PV found</span></div>
+            <div class="row"><span class="key">Bound</span><span class="val">Matched to a PV</span></div>
+            <div class="row"><span class="key">Lost</span><span class="val">Bound PV deleted/unavailable</span></div>
+
+            <div class="section-label" style="margin-top:8px;">Volume types in pods</div>
+            <div class="row"><span class="key">emptyDir</span><span class="val">Temp, lives with pod</span></div>
+            <div class="row"><span class="key">hostPath</span><span class="val">Node filesystem mount</span></div>
+            <div class="row"><span class="key">configMap</span><span class="val">ConfigMap as files</span></div>
+            <div class="row"><span class="key">secret</span><span class="val">Secret as files</span></div>
+            <div class="row"><span class="key">persistentVolumeClaim</span><span class="val">PVC backed storage</span></div>
+            <div class="row"><span class="key">projected</span><span class="val">Combine multiple sources</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD: API & Versioning -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#EBF4FF;">📡</div>
+        <h2>API Groups, Versions &amp; Resources</h2>
+        <span class="sub">Cluster Architecture 25%</span>
+      </div>
+      <div class="card-body">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div>
+            <div class="section-label">Discover API resources</div>
+            <span class="cmd">k api-resources</span>
+            <span class="cmd">k api-resources --namespaced=true</span>
+            <span class="cmd">k api-resources --namespaced=false</span>
+            <span class="cmd">k api-versions</span>
+            <span class="cmd">k explain pod</span>
+            <span class="cmd">k explain pod.spec</span>
+            <span class="cmd">k explain pod.spec.containers.resources</span>
+
+            <div class="section-label" style="margin-top:8px;">Core API group (apiVersion: v1)</div>
+            <div class="row"><span class="key">Pod</span><span class="val">v1</span></div>
+            <div class="row"><span class="key">Service</span><span class="val">v1</span></div>
+            <div class="row"><span class="key">ConfigMap</span><span class="val">v1</span></div>
+            <div class="row"><span class="key">Secret</span><span class="val">v1</span></div>
+            <div class="row"><span class="key">PersistentVolume</span><span class="val">v1</span></div>
+            <div class="row"><span class="key">PersistentVolumeClaim</span><span class="val">v1</span></div>
+            <div class="row"><span class="key">Namespace</span><span class="val">v1</span></div>
+            <div class="row"><span class="key">ServiceAccount</span><span class="val">v1</span></div>
+            <div class="row"><span class="key">ResourceQuota</span><span class="val">v1</span></div>
+            <div class="row"><span class="key">LimitRange</span><span class="val">v1</span></div>
+          </div>
+          <div>
+            <div class="section-label">Named API groups</div>
+            <div class="row"><span class="key">Deployment</span><span class="val">apps/v1</span></div>
+            <div class="row"><span class="key">StatefulSet</span><span class="val">apps/v1</span></div>
+            <div class="row"><span class="key">DaemonSet</span><span class="val">apps/v1</span></div>
+            <div class="row"><span class="key">ReplicaSet</span><span class="val">apps/v1</span></div>
+            <div class="row"><span class="key">Job</span><span class="val">batch/v1</span></div>
+            <div class="row"><span class="key">CronJob</span><span class="val">batch/v1</span></div>
+            <div class="row"><span class="key">HPA</span><span class="val">autoscaling/v2</span></div>
+            <div class="row"><span class="key">Ingress</span><span class="val">networking.k8s.io/v1</span></div>
+            <div class="row"><span class="key">NetworkPolicy</span><span class="val">networking.k8s.io/v1</span></div>
+            <div class="row"><span class="key">StorageClass</span><span class="val">storage.k8s.io/v1</span></div>
+            <div class="row"><span class="key">Role / RoleBinding</span><span class="val">rbac.authorization.k8s.io/v1</span></div>
+            <div class="row"><span class="key">ClusterRole / CRB</span><span class="val">rbac.authorization.k8s.io/v1</span></div>
+            <div class="row"><span class="key">PriorityClass</span><span class="val">scheduling.k8s.io/v1</span></div>
+            <div class="row"><span class="key">CSIDriver</span><span class="val">storage.k8s.io/v1</span></div>
+
+            <div class="section-label" style="margin-top:8px;">Proxy &amp; raw API</div>
+            <span class="cmd">k proxy --port=8001 &amp;</span>
+            <span class="cmd">curl http://localhost:8001/api/v1/pods</span>
+            <span class="cmd">curl http://localhost:8001/apis/apps/v1/deployments</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FINAL TIP BAR -->
+  <div class="tip-bar">
+    <div>
+      <div class="tip-label">Time Management</div>
+      <div class="tip">17 tasks in 2 hours = ~7 min each. <b>Skip and flag</b> tasks that are taking too long — return at end. etcd backup and cluster upgrade tasks are worth most points.</div>
+    </div>
+    <div>
+      <div class="tip-label">Verify Your Work</div>
+      <div class="tip">After every task run <b>k get &lt;resource&gt;</b> or <b>k describe</b> to confirm the resource is correct. A pod in Pending/Error state is not a passing answer.</div>
+    </div>
+    <div>
+      <div class="tip-label">Use kubectl explain</div>
+      <div class="tip"><b>k explain &lt;resource&gt;.spec.field --recursive</b> — faster than searching docs for field names and nested structure.</div>
+    </div>
+    <div>
+      <div class="tip-label">Namespace Matters</div>
+      <div class="tip">Every task specifies a namespace. Always add <b>-n &lt;ns&gt;</b> or set the current namespace. Resources in wrong namespace = wrong answer.</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

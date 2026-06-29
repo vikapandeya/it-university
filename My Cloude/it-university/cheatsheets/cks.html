@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CKS Cheat Sheet</title>
+<meta name="description" content="Certified Kubernetes Security Specialist — complete exam reference with commands, policies, and hardening techniques.">
+<style>
+:root {
+  --bg:#F5F6F7; --surface:#FFFFFF; --border:#E2E4E8;
+  --navy:#0F1C2E; --navy2:#1A2E45;
+  --green:#1B7A4A; --green-soft:#E8F7EF;
+  --blue:#1A6FB5; --blue-soft:#EBF4FF;
+  --orange:#FF9900; --orange-soft:#FFF4DC;
+  --red:#B91C1C; --red-soft:#FEF2F2;
+  --purple:#6B21A8; --purple-soft:#F5F0FF;
+  --text:#1C2333; --text2:#4A5568; --text3:#718096;
+  --mono:'Consolas','Courier New',monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+}
+body{font-family:var(--sans);font-size:11px;background:var(--bg);color:var(--text);line-height:1.5;margin:0}
+.page{max-width:1280px;margin:0 auto;padding:20px 16px}
+.header{background:var(--navy);border-radius:10px;padding:20px 24px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.header-left h1{font-size:22px;font-weight:800;color:#fff}.header-left h1 span{color:var(--orange)}
+.header-left p{font-size:11px;color:#94A3B8;margin-top:3px}
+.header-badges{display:flex;gap:8px;flex-wrap:wrap}
+.badge{font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:.5px;text-transform:uppercase}
+.badge-orange{background:var(--orange);color:var(--navy)}.badge-green{background:#22C55E;color:#fff}.badge-blue{background:#3B82F6;color:#fff}.badge-red{background:#EF4444;color:#fff}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px}
+.grid-2{grid-template-columns:repeat(2,1fr)}.grid-4{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--surface);border-radius:8px;border:1px solid var(--border);overflow:hidden}
+.card-header{padding:8px 12px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border)}
+.card-header .icon{width:24px;height:24px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.card-header h2{font-size:11.5px;font-weight:800;color:var(--navy)}
+.card-header .sub{font-size:9px;color:var(--text3);margin-left:auto}
+.card-body{padding:10px 12px}
+.section-label{font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--text3);margin-bottom:5px;margin-top:9px}
+.section-label:first-child{margin-top:0}
+.row{display:flex;justify-content:space-between;align-items:baseline;padding:2px 0;border-bottom:1px solid #F1F3F5;gap:8px}
+.row:last-child{border-bottom:none}
+.row .key{font-family:var(--mono);font-size:10px;font-weight:600;color:var(--navy);white-space:nowrap;flex-shrink:0}
+.row .val{font-size:10px;color:var(--text2);text-align:right}
+.tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px}
+.tag{font-size:9.5px;padding:2px 7px;border-radius:4px;font-weight:600;font-family:var(--mono)}
+.tag-orange{background:var(--orange-soft);color:#92400E}.tag-blue{background:var(--blue-soft);color:#1E40AF}
+.tag-green{background:var(--green-soft);color:#166534}.tag-red{background:var(--red-soft);color:#991B1B}.tag-purple{background:var(--purple-soft);color:#6B21A8}
+.tip-bar{background:var(--navy2);border-radius:8px;padding:10px 16px;margin-bottom:16px;display:flex;gap:24px;flex-wrap:wrap}
+.tip-label{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--orange)}
+.tip{font-size:10.5px;color:#CBD5E1}.tip b{color:#fff}
+.note{font-size:10px;color:var(--text2);padding:6px 8px;border-radius:4px;margin-top:4px}
+.note-orange{background:var(--orange-soft);border-left:3px solid var(--orange)}
+.note-blue{background:var(--blue-soft);border-left:3px solid var(--blue)}
+.note-green{background:var(--green-soft);border-left:3px solid var(--green)}
+.note-red{background:var(--red-soft);border-left:3px solid var(--red)}
+.cmd{font-family:var(--mono);font-size:10px;background:#F1F3F5;padding:3px 7px;border-radius:4px;color:var(--navy);display:block;margin:2px 0}
+@media print{body{background:#fff}.page{padding:0}}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <h1><span>CKS</span> Certified Kubernetes Security Specialist</h1>
+      <p>Certified Kubernetes Security Specialist — Requires Valid CKA</p>
+    </div>
+    <div class="header-badges">
+      <span class="badge badge-orange">CKS</span>
+      <span class="badge badge-blue">2 Hours</span>
+      <span class="badge badge-green">67% Passing</span>
+      <span class="badge badge-red">Performance-Based</span>
+      <span class="badge badge-orange">$395</span>
+      <span class="badge badge-blue">Requires CKA</span>
+    </div>
+  </div>
+
+  <!-- TIP BAR -->
+  <div class="tip-bar">
+    <div>
+      <div class="tip-label">Tip 1 — Tools</div>
+      <div class="tip">Know these tools cold: <b>kube-bench</b>, <b>Falco</b>, <b>Trivy</b>, <b>OPA Gatekeeper</b>, <b>etcdctl</b></div>
+    </div>
+    <div>
+      <div class="tip-label">Tip 2 — Config Paths</div>
+      <div class="tip">Config files live at: <b>/etc/kubernetes/manifests/</b> (static pods), <b>/etc/kubernetes/pki/</b> (certs)</div>
+    </div>
+    <div>
+      <div class="tip-label">Tip 3 — Network Policy</div>
+      <div class="tip"><b>Default deny</b> NetworkPolicy first, then allow specific traffic — exam tests this pattern</div>
+    </div>
+  </div>
+
+  <!-- ROW 1: Domain Weights + kube-apiserver + RBAC -->
+  <div class="grid">
+
+    <!-- CARD 1: Domain Weights -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--orange-soft)">📊</div>
+        <h2>Domain Weights</h2>
+        <span class="sub">Exam Coverage</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Exam Domains</div>
+        <div class="row"><span class="key">Cluster Setup</span><span class="val">10%</span></div>
+        <div class="row"><span class="key">Cluster Hardening</span><span class="val">15%</span></div>
+        <div class="row"><span class="key">System Hardening</span><span class="val">15%</span></div>
+        <div class="row"><span class="key">Minimize Microservice Vulnerabilities</span><span class="val">20%</span></div>
+        <div class="row"><span class="key">Supply Chain Security</span><span class="val">20%</span></div>
+        <div class="row"><span class="key">Monitoring, Logging &amp; Runtime Security</span><span class="val">20%</span></div>
+        <div class="note note-orange" style="margin-top:10px">Total: 100% — Performance-based exam on live Kubernetes clusters. 15–20 tasks in 2 hours.</div>
+        <div class="section-label" style="margin-top:10px">Key Tools by Domain</div>
+        <div class="tags">
+          <span class="tag tag-orange">kube-bench</span>
+          <span class="tag tag-blue">Falco</span>
+          <span class="tag tag-green">Trivy</span>
+          <span class="tag tag-purple">OPA Gatekeeper</span>
+          <span class="tag tag-red">etcdctl</span>
+          <span class="tag tag-blue">AppArmor</span>
+          <span class="tag tag-orange">Seccomp</span>
+          <span class="tag tag-green">NetworkPolicy</span>
+        </div>
+        <div class="section-label">Exam Environment</div>
+        <div class="row"><span class="key">kubectl alias</span><span class="val">k (pre-configured)</span></div>
+        <div class="row"><span class="key">Clusters</span><span class="val">Multiple (switch w/ context)</span></div>
+        <div class="row"><span class="key">Context switch</span><span class="val">kubectl config use-context</span></div>
+        <div class="row"><span class="key">Docs allowed</span><span class="val">kubernetes.io only</span></div>
+        <div class="note note-blue" style="margin-top:6px">Always check which cluster/context a question targets before starting!</div>
+      </div>
+    </div>
+
+    <!-- CARD 2: kube-apiserver Hardening -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--blue-soft)">🔒</div>
+        <h2>kube-apiserver Hardening</h2>
+        <span class="sub">Cluster Setup 10%</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">View Current Flags</div>
+        <span class="cmd"># View current flags</span>
+        <span class="cmd">cat /etc/kubernetes/manifests/kube-apiserver.yaml</span>
+        <span class="cmd">ps aux | grep kube-apiserver</span>
+
+        <div class="section-label">Authentication &amp; Authorization</div>
+        <span class="cmd">--anonymous-auth=false</span>
+        <span class="cmd">--authorization-mode=Node,RBAC        # NOT AlwaysAllow</span>
+        <span class="cmd">--enable-bootstrap-token-auth=false</span>
+
+        <div class="section-label">Admission Controllers</div>
+        <span class="cmd">--enable-admission-plugins=NodeRestriction,PodSecurity,ServiceAccount</span>
+        <span class="cmd">--disable-admission-plugins=AlwaysAdmit</span>
+
+        <div class="section-label">TLS Configuration</div>
+        <span class="cmd">--tls-cert-file=/etc/kubernetes/pki/apiserver.crt</span>
+        <span class="cmd">--tls-private-key-file=/etc/kubernetes/pki/apiserver.key</span>
+        <span class="cmd">--client-ca-file=/etc/kubernetes/pki/ca.crt</span>
+
+        <div class="section-label">etcd TLS</div>
+        <span class="cmd">--etcd-certfile=/etc/kubernetes/pki/apiserver-etcd-client.crt</span>
+        <span class="cmd">--etcd-keyfile=/etc/kubernetes/pki/apiserver-etcd-client.key</span>
+        <span class="cmd">--etcd-cafile=/etc/kubernetes/pki/etcd/ca.crt</span>
+
+        <div class="section-label">Service Account</div>
+        <span class="cmd">--service-account-key-file=/etc/kubernetes/pki/sa.pub</span>
+        <span class="cmd">--service-account-issuer=https://kubernetes.default.svc.cluster.local</span>
+
+        <div class="section-label">Audit Logging</div>
+        <span class="cmd">--audit-log-path=/var/log/kubernetes/audit.log</span>
+        <span class="cmd">--audit-policy-file=/etc/kubernetes/audit-policy.yaml</span>
+        <span class="cmd">--audit-log-maxage=30</span>
+        <span class="cmd">--audit-log-maxbackup=10</span>
+        <span class="cmd">--audit-log-maxsize=100</span>
+
+        <div class="section-label">kube-bench CIS Checks</div>
+        <span class="cmd"># Run CIS benchmark checks</span>
+        <span class="cmd">kube-bench run --targets master</span>
+        <span class="cmd">kube-bench run --targets node</span>
+        <span class="cmd">kube-bench run --check 1.2.6   # specific check</span>
+        <span class="cmd"># Results: PASS/FAIL/WARN with remediation steps</span>
+        <div class="note note-green">After editing kube-apiserver.yaml static pod manifest, the pod restarts automatically. Wait 30–60s for it to come back.</div>
+      </div>
+    </div>
+
+    <!-- CARD 3: RBAC Hardening -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--purple-soft)">🛡️</div>
+        <h2>RBAC Hardening</h2>
+        <span class="sub">Cluster Hardening 15%</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Create Role (namespace-scoped)</div>
+        <span class="cmd">k create role pod-reader \</span>
+        <span class="cmd">  --verb=get,list,watch \</span>
+        <span class="cmd">  --resource=pods,pods/log \</span>
+        <span class="cmd">  -n myns</span>
+
+        <div class="section-label">Create ClusterRole (cluster-wide)</div>
+        <span class="cmd">k create clusterrole secret-reader \</span>
+        <span class="cmd">  --verb=get,list \</span>
+        <span class="cmd">  --resource=secrets</span>
+
+        <div class="section-label">Bind to ServiceAccount</div>
+        <span class="cmd">k create rolebinding myapp-reader \</span>
+        <span class="cmd">  --role=pod-reader \</span>
+        <span class="cmd">  --serviceaccount=myns:myapp-sa \</span>
+        <span class="cmd">  -n myns</span>
+        <span class="cmd">k create clusterrolebinding myapp-cluster \</span>
+        <span class="cmd">  --clusterrole=secret-reader \</span>
+        <span class="cmd">  --serviceaccount=myns:myapp-sa</span>
+
+        <div class="section-label">Check Permissions (can-i)</div>
+        <span class="cmd">k auth can-i list pods --as=system:serviceaccount:myns:myapp-sa</span>
+        <span class="cmd">k auth can-i create deployments --as=jane -n myns</span>
+        <span class="cmd">k auth can-i --list --as=system:serviceaccount:myns:myapp-sa</span>
+
+        <div class="section-label">Audit RBAC Bindings</div>
+        <span class="cmd">k get clusterrolebindings -o wide</span>
+        <span class="cmd">k get rolebindings --all-namespaces -o wide</span>
+
+        <div class="section-label">ServiceAccount Token Mounting</div>
+        <span class="cmd"># Disable automounting (pod-level)</span>
+        <span class="cmd">spec:</span>
+        <span class="cmd">  automountServiceAccountToken: false</span>
+        <span class="cmd">  serviceAccountName: myapp-sa</span>
+        <span class="cmd"># Disable automounting (SA-level)</span>
+        <span class="cmd">apiVersion: v1</span>
+        <span class="cmd">kind: ServiceAccount</span>
+        <span class="cmd">metadata:</span>
+        <span class="cmd">  name: myapp-sa</span>
+        <span class="cmd">automountServiceAccountToken: false</span>
+
+        <div class="section-label">Least Privilege SA Pattern</div>
+        <div class="row"><span class="key">1. Dedicated SA</span><span class="val">Create per-application SA</span></div>
+        <div class="row"><span class="key">2. Minimal verbs</span><span class="val">Only what app actually needs</span></div>
+        <div class="row"><span class="key">3. Prefer Roles</span><span class="val">Namespace scope over ClusterRole</span></div>
+        <div class="row"><span class="key">4. No default SA</span><span class="val">Never use default for app pods</span></div>
+        <span class="cmd">kubectl get rolebindings,clusterrolebindings \</span>
+        <span class="cmd">  -o yaml | grep -A5 subjects</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 2: Network Policies + Pod Security -->
+  <div class="grid grid-2">
+
+    <!-- CARD 4: Network Policies -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--green-soft)">🌐</div>
+        <h2>Network Policies (Default Deny Pattern)</h2>
+        <span class="sub">System Hardening 15%</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Step 1 — Default Deny All Ingress</div>
+        <span class="cmd">apiVersion: networking.k8s.io/v1</span>
+        <span class="cmd">kind: NetworkPolicy</span>
+        <span class="cmd">metadata:</span>
+        <span class="cmd">  name: default-deny-ingress</span>
+        <span class="cmd">  namespace: production</span>
+        <span class="cmd">spec:</span>
+        <span class="cmd">  podSelector: {}      # selects ALL pods in namespace</span>
+        <span class="cmd">  policyTypes:</span>
+        <span class="cmd">  - Ingress            # deny all ingress, egress still allowed</span>
+
+        <div class="section-label">Default Deny All (Ingress + Egress)</div>
+        <span class="cmd">apiVersion: networking.k8s.io/v1</span>
+        <span class="cmd">kind: NetworkPolicy</span>
+        <span class="cmd">metadata:</span>
+        <span class="cmd">  name: default-deny-all</span>
+        <span class="cmd">spec:</span>
+        <span class="cmd">  podSelector: {}</span>
+        <span class="cmd">  policyTypes:</span>
+        <span class="cmd">  - Ingress</span>
+        <span class="cmd">  - Egress             # blocks DNS too — add DNS allow below!</span>
+
+        <div class="section-label">Allow DNS Egress (required if denying all egress)</div>
+        <span class="cmd">apiVersion: networking.k8s.io/v1</span>
+        <span class="cmd">kind: NetworkPolicy</span>
+        <span class="cmd">metadata:</span>
+        <span class="cmd">  name: allow-dns</span>
+        <span class="cmd">spec:</span>
+        <span class="cmd">  podSelector: {}</span>
+        <span class="cmd">  policyTypes:</span>
+        <span class="cmd">  - Egress</span>
+        <span class="cmd">  egress:</span>
+        <span class="cmd">  - ports:</span>
+        <span class="cmd">    - port: 53</span>
+        <span class="cmd">      protocol: UDP</span>
+        <span class="cmd">    - port: 53</span>
+        <span class="cmd">      protocol: TCP</span>
+
+        <div class="section-label">Allow Specific Pod-to-Pod Traffic</div>
+        <span class="cmd">spec:</span>
+        <span class="cmd">  podSelector:</span>
+        <span class="cmd">    matchLabels:</span>
+        <span class="cmd">      app: backend</span>
+        <span class="cmd">  policyTypes:</span>
+        <span class="cmd">  - Ingress</span>
+        <span class="cmd">  ingress:</span>
+        <span class="cmd">  - from:</span>
+        <span class="cmd">    - podSelector:        # same namespace</span>
+        <span class="cmd">        matchLabels:</span>
+        <span class="cmd">          app: frontend</span>
+        <span class="cmd">    - namespaceSelector:  # from specific namespace</span>
+        <span class="cmd">        matchLabels:</span>
+        <span class="cmd">          kubernetes.io/metadata.name: frontend-ns</span>
+        <span class="cmd">    ports:</span>
+        <span class="cmd">    - port: 8080</span>
+
+        <div class="section-label">Allow Egress to Specific CIDR</div>
+        <span class="cmd">egress:</span>
+        <span class="cmd">- to:</span>
+        <span class="cmd">  - ipBlock:</span>
+        <span class="cmd">      cidr: 10.0.0.0/8</span>
+        <span class="cmd">      except:</span>
+        <span class="cmd">      - 10.0.0.0/24   # exclude this subnet</span>
+        <span class="cmd">  ports:</span>
+        <span class="cmd">  - port: 5432</span>
+
+        <div class="section-label">Test NetworkPolicy Connectivity</div>
+        <span class="cmd">k exec -it test-pod -- wget -qO- http://backend-svc:8080</span>
+        <span class="cmd">k exec -it test-pod -- nc -zv backend-svc 8080</span>
+        <span class="cmd">k exec -it test-pod -- curl -v http://backend-svc --max-time 5</span>
+        <div class="note note-orange">Note: NetworkPolicy requires a CNI plugin that supports it (Calico, Cilium, Weave). Flannel does NOT enforce NetworkPolicies.</div>
+      </div>
+    </div>
+
+    <!-- CARD 5: Pod Security -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--red-soft)">🔐</div>
+        <h2>Pod Security</h2>
+        <span class="sub">Minimize Microservice Vulnerabilities 20%</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Pod Security Admission (PSA) — Label Namespace</div>
+        <span class="cmd">k label namespace myns \</span>
+        <span class="cmd">  pod-security.kubernetes.io/enforce=restricted \</span>
+        <span class="cmd">  pod-security.kubernetes.io/enforce-version=v1.29 \</span>
+        <span class="cmd">  pod-security.kubernetes.io/warn=restricted \</span>
+        <span class="cmd">  pod-security.kubernetes.io/audit=restricted</span>
+
+        <div class="section-label">PSA Levels</div>
+        <div class="row"><span class="key">privileged</span><span class="val">No restrictions (default kube-system)</span></div>
+        <div class="row"><span class="key">baseline</span><span class="val">Prevents known privilege escalations</span></div>
+        <div class="row"><span class="key">restricted</span><span class="val">Heavily restricted, best practices</span></div>
+
+        <div class="section-label">Restricted Profile securityContext</div>
+        <span class="cmd">securityContext:</span>
+        <span class="cmd">  runAsNonRoot: true</span>
+        <span class="cmd">  runAsUser: 1000          # must be non-zero</span>
+        <span class="cmd">  seccompProfile:</span>
+        <span class="cmd">    type: RuntimeDefault   # or Localhost</span>
+        <span class="cmd">  allowPrivilegeEscalation: false</span>
+        <span class="cmd">  capabilities:</span>
+        <span class="cmd">    drop:</span>
+        <span class="cmd">    - ALL                  # drop all capabilities</span>
+        <span class="cmd">    add:</span>
+        <span class="cmd">    - NET_BIND_SERVICE     # only add if needed</span>
+        <span class="cmd">  readOnlyRootFilesystem: true</span>
+
+        <div class="section-label">OPA Gatekeeper — ConstraintTemplate</div>
+        <span class="cmd">apiVersion: templates.gatekeeper.sh/v1</span>
+        <span class="cmd">kind: ConstraintTemplate</span>
+        <span class="cmd">metadata:</span>
+        <span class="cmd">  name: k8srequiredlabels</span>
+        <span class="cmd">spec:</span>
+        <span class="cmd">  crd:</span>
+        <span class="cmd">    spec:</span>
+        <span class="cmd">      names:</span>
+        <span class="cmd">        kind: K8sRequiredLabels</span>
+        <span class="cmd">  targets:</span>
+        <span class="cmd">  - target: admission.k8s.gatekeeper.sh</span>
+        <span class="cmd">    rego: |</span>
+        <span class="cmd">      package k8srequiredlabels</span>
+        <span class="cmd">      violation[{"msg": msg}] {</span>
+        <span class="cmd">        provided := {label | input.review.object.metadata.labels[label]}</span>
+        <span class="cmd">        required := {label | label := input.parameters.labels[_]}</span>
+        <span class="cmd">        missing := required - provided</span>
+        <span class="cmd">        count(missing) > 0</span>
+        <span class="cmd">        msg := sprintf("missing labels: %v", [missing])</span>
+        <span class="cmd">      }</span>
+
+        <div class="section-label">OPA Gatekeeper — Constraint (enforces template)</div>
+        <span class="cmd">apiVersion: constraints.gatekeeper.sh/v1beta1</span>
+        <span class="cmd">kind: K8sRequiredLabels</span>
+        <span class="cmd">spec:</span>
+        <span class="cmd">  match:</span>
+        <span class="cmd">    kinds:</span>
+        <span class="cmd">    - apiGroups: [""]</span>
+        <span class="cmd">      kinds: ["Pod"]</span>
+        <span class="cmd">  parameters:</span>
+        <span class="cmd">    labels: ["app", "env"]</span>
+        <div class="note note-blue">OPA Gatekeeper uses two objects: ConstraintTemplate (Rego logic) + Constraint (applies the policy). Both must exist for enforcement.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 3: AppArmor/Seccomp + Falco -->
+  <div class="grid grid-2">
+
+    <!-- CARD 6: AppArmor & Seccomp -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--purple-soft)">🔧</div>
+        <h2>AppArmor &amp; Seccomp</h2>
+        <span class="sub">System Hardening 15%</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">AppArmor — Load Profile on Node</div>
+        <span class="cmd"># Load profile on node (must run on each node)</span>
+        <span class="cmd">apparmor_parser -r -W /etc/apparmor.d/my-profile</span>
+        <span class="cmd"># Check loaded profiles</span>
+        <span class="cmd">aa-status</span>
+        <span class="cmd">cat /sys/kernel/security/apparmor/profiles</span>
+
+        <div class="section-label">AppArmor — Apply to Pod (k8s 1.30+)</div>
+        <span class="cmd">spec:</span>
+        <span class="cmd">  securityContext:</span>
+        <span class="cmd">    appArmorProfile:</span>
+        <span class="cmd">      type: Localhost</span>
+        <span class="cmd">      localhostProfile: my-profile   # k8s 1.30+ way</span>
+
+        <div class="section-label">AppArmor — Annotation Style (older, still works)</div>
+        <span class="cmd">metadata:</span>
+        <span class="cmd">  annotations:</span>
+        <span class="cmd">    container.apparmor.security.beta.kubernetes.io/mycontainer: localhost/my-profile</span>
+
+        <div class="section-label">AppArmor Profile Modes</div>
+        <div class="row"><span class="key">enforce</span><span class="val">Blocks policy violations</span></div>
+        <div class="row"><span class="key">complain</span><span class="val">Logs but allows (use aa-logprof to learn)</span></div>
+        <div class="row"><span class="key">unconfined</span><span class="val">No restrictions applied</span></div>
+
+        <div class="section-label">Seccomp — RuntimeDefault Profile</div>
+        <span class="cmd"># RuntimeDefault — uses container runtime's default profile</span>
+        <span class="cmd">securityContext:</span>
+        <span class="cmd">  seccompProfile:</span>
+        <span class="cmd">    type: RuntimeDefault</span>
+
+        <div class="section-label">Seccomp — Custom Localhost Profile</div>
+        <span class="cmd"># Localhost — use custom profile on node</span>
+        <span class="cmd">securityContext:</span>
+        <span class="cmd">  seccompProfile:</span>
+        <span class="cmd">    type: Localhost</span>
+        <span class="cmd">    localhostProfile: profiles/my-profile.json</span>
+        <span class="cmd"># Profiles stored at: /var/lib/kubelet/seccomp/</span>
+
+        <div class="section-label">Custom Seccomp Profile (JSON)</div>
+        <span class="cmd">{</span>
+        <span class="cmd">  "defaultAction": "SCMP_ACT_ERRNO",</span>
+        <span class="cmd">  "architectures": ["SCMP_ARCH_X86_64"],</span>
+        <span class="cmd">  "syscalls": [</span>
+        <span class="cmd">    {</span>
+        <span class="cmd">      "names": ["accept4","bind","connect","read","write","close","exit"],</span>
+        <span class="cmd">      "action": "SCMP_ACT_ALLOW"</span>
+        <span class="cmd">    }</span>
+        <span class="cmd">  ]</span>
+        <span class="cmd">}</span>
+        <span class="cmd"># Place at: /var/lib/kubelet/seccomp/profiles/my-profile.json</span>
+        <div class="note note-orange">AppArmor profiles must be loaded on EVERY node where the pod may schedule. Use DaemonSet to distribute profiles across the cluster.</div>
+      </div>
+    </div>
+
+    <!-- CARD 7: Falco Runtime Security -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--orange-soft)">👁️</div>
+        <h2>Falco Runtime Security</h2>
+        <span class="sub">Monitoring, Logging &amp; Runtime Security 20%</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Configuration Files</div>
+        <span class="cmd">/etc/falco/falco.yaml                   # main config</span>
+        <span class="cmd">/etc/falco/falco_rules.yaml              # default rules (don't edit)</span>
+        <span class="cmd">/etc/falco/falco_rules.local.yaml        # custom rules (edit this)</span>
+
+        <div class="section-label">Manage Falco Service</div>
+        <span class="cmd">systemctl status falco</span>
+        <span class="cmd">journalctl -u falco -f                   # follow logs</span>
+        <span class="cmd">falco -r /etc/falco/falco_rules.local.yaml  # test rules</span>
+
+        <div class="section-label">Key Default Rules (exam tests these)</div>
+        <div class="row"><span class="key">Terminal shell in container</span><span class="val">kubectl exec / docker exec → shell</span></div>
+        <div class="row"><span class="key">Write below /etc</span><span class="val">Any write to /etc/* from container</span></div>
+        <div class="row"><span class="key">Read sensitive file untrusted</span><span class="val">/etc/shadow /etc/passwd reads</span></div>
+        <div class="row"><span class="key">Change thread namespace</span><span class="val">nsenter, setns syscall</span></div>
+
+        <div class="section-label">Custom Rule — Detect Crypto Mining</div>
+        <span class="cmd">- rule: Detect Crypto Mining</span>
+        <span class="cmd">  desc: Detect if a container is attempting crypto mining</span>
+        <span class="cmd">  condition: &gt;</span>
+        <span class="cmd">    spawned_process and container and</span>
+        <span class="cmd">    (proc.name = "xmrig" or</span>
+        <span class="cmd">     proc.cmdline contains "stratum+tcp")</span>
+        <span class="cmd">  output: &gt;</span>
+        <span class="cmd">    Crypto mining detected (user=%user.name container=%container.name</span>
+        <span class="cmd">    image=%container.image.repository proc=%proc.name cmd=%proc.cmdline)</span>
+        <span class="cmd">  priority: CRITICAL</span>
+        <span class="cmd">  tags: [cryptomining, mitre_execution]</span>
+
+        <div class="section-label">Rule Components</div>
+        <div class="row"><span class="key">condition</span><span class="val">Falco expression (proc.name, container.id, fd.name, evt.type)</span></div>
+        <div class="row"><span class="key">output</span><span class="val">Log format string with field references</span></div>
+        <div class="row"><span class="key">priority</span><span class="val">EMERGENCY / ALERT / CRITICAL / ERROR / WARNING / NOTICE / INFO / DEBUG</span></div>
+        <div class="row"><span class="key">Override rule</span><span class="val">Use override: {condition: append} or enabled: false</span></div>
+
+        <div class="section-label">Useful Falco Fields</div>
+        <div class="tags">
+          <span class="tag tag-blue">proc.name</span>
+          <span class="tag tag-blue">proc.cmdline</span>
+          <span class="tag tag-green">container.id</span>
+          <span class="tag tag-green">container.name</span>
+          <span class="tag tag-orange">fd.name</span>
+          <span class="tag tag-orange">evt.type</span>
+          <span class="tag tag-purple">user.name</span>
+          <span class="tag tag-red">container.image.repository</span>
+        </div>
+        <div class="note note-red">Always write custom rules to /etc/falco/falco_rules.local.yaml — never modify falco_rules.yaml as it's overwritten on updates.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 4: Image Security + etcd Encryption -->
+  <div class="grid grid-2">
+
+    <!-- CARD 8: Image Security -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--blue-soft)">📦</div>
+        <h2>Image Security &amp; Supply Chain</h2>
+        <span class="sub">Supply Chain Security 20%</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Trivy — Image Scanning</div>
+        <span class="cmd"># Scan image for vulnerabilities</span>
+        <span class="cmd">trivy image nginx:latest</span>
+        <span class="cmd">trivy image nginx:latest --severity HIGH,CRITICAL</span>
+        <span class="cmd">trivy image nginx:latest --ignore-unfixed</span>
+        <span class="cmd">trivy image myapp:1.0 -o trivy-report.json --format json</span>
+        <span class="cmd"># Scan running container's image</span>
+        <span class="cmd">trivy image $(kubectl get pod mypod -o jsonpath='{.spec.containers[0].image}')</span>
+        <span class="cmd"># Scan filesystem</span>
+        <span class="cmd">trivy fs /path/to/app</span>
+        <span class="cmd"># Scan IaC / k8s manifests</span>
+        <span class="cmd">trivy config ./k8s-manifests/</span>
+
+        <div class="section-label">ImagePolicyWebhook — AdmissionConfiguration</div>
+        <span class="cmd"># /etc/kubernetes/admission-configuration.yaml</span>
+        <span class="cmd">apiVersion: apiserver.config.k8s.io/v1</span>
+        <span class="cmd">kind: AdmissionConfiguration</span>
+        <span class="cmd">plugins:</span>
+        <span class="cmd">- name: ImagePolicyWebhook</span>
+        <span class="cmd">  configuration:</span>
+        <span class="cmd">    imagePolicy:</span>
+        <span class="cmd">      kubeConfigFile: /etc/kubernetes/image-policy-webhook.yaml</span>
+        <span class="cmd">      allowTTL: 50</span>
+        <span class="cmd">      denyTTL: 50</span>
+        <span class="cmd">      retryBackoff: 500</span>
+        <span class="cmd">      defaultAllow: false   # deny if webhook unreachable</span>
+        <span class="cmd"># Enable in kube-apiserver:</span>
+        <span class="cmd">--enable-admission-plugins=...,ImagePolicyWebhook</span>
+        <span class="cmd">--admission-control-config-file=/etc/kubernetes/admission-configuration.yaml</span>
+
+        <div class="section-label">Image Hardening Best Practices</div>
+        <span class="cmd"># Pin to digest (immutable reference)</span>
+        <span class="cmd">image: nginx@sha256:a3dc3b3f4b38f39c26f7c6d6b6b22b4d7e8f9a...</span>
+        <span class="cmd"># Distroless base (no shell, minimal attack surface)</span>
+        <span class="cmd">FROM gcr.io/distroless/java17-debian11</span>
+        <span class="cmd"># Multi-stage build (smaller final image)</span>
+        <span class="cmd">FROM golang:1.21 AS builder</span>
+        <span class="cmd">RUN go build -o app .</span>
+        <span class="cmd">FROM gcr.io/distroless/static</span>
+        <span class="cmd">COPY --from=builder /app /app</span>
+
+        <div class="section-label">OPA Gatekeeper — Allowed Registries</div>
+        <span class="cmd"># Block images from untrusted registries</span>
+        <span class="cmd">violation[{"msg": msg}] {</span>
+        <span class="cmd">  image := input.review.object.spec.containers[_].image</span>
+        <span class="cmd">  not startswith(image, "registry.corp.com/")</span>
+        <span class="cmd">  not startswith(image, "gcr.io/")</span>
+        <span class="cmd">  msg := sprintf("Image %v not from allowed registry", [image])</span>
+        <span class="cmd">}</span>
+
+        <div class="section-label">Supply Chain Principles</div>
+        <div class="row"><span class="key">Use digests</span><span class="val">Never use :latest in production</span></div>
+        <div class="row"><span class="key">Scan in CI/CD</span><span class="val">Trivy in pipeline before push</span></div>
+        <div class="row"><span class="key">Distroless images</span><span class="val">No shell = no exec attacks</span></div>
+        <div class="row"><span class="key">Signed images</span><span class="val">Cosign / Notary for provenance</span></div>
+        <div class="row"><span class="key">Private registry</span><span class="val">Approved registry only via Gatekeeper</span></div>
+      </div>
+    </div>
+
+    <!-- CARD 9: etcd Encryption -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--green-soft)">🗄️</div>
+        <h2>etcd Encryption at Rest</h2>
+        <span class="sub">Cluster Setup 10%</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Create EncryptionConfiguration</div>
+        <span class="cmd"># /etc/kubernetes/enc/enc.yaml</span>
+        <span class="cmd">apiVersion: apiserver.config.k8s.io/v1</span>
+        <span class="cmd">kind: EncryptionConfiguration</span>
+        <span class="cmd">resources:</span>
+        <span class="cmd">- resources:</span>
+        <span class="cmd">  - secrets</span>
+        <span class="cmd">  - configmaps   # optional</span>
+        <span class="cmd">  providers:</span>
+        <span class="cmd">  - aescbc:       # recommended provider</span>
+        <span class="cmd">      keys:</span>
+        <span class="cmd">      - name: key1</span>
+        <span class="cmd">        secret: c2VjcmV0aXNzZWNyZXQ=  # base64 32-byte key</span>
+        <span class="cmd">  - identity: {}  # fallback for existing unencrypted data</span>
+
+        <div class="section-label">Generate Encryption Key</div>
+        <span class="cmd"># Generate a 32-byte base64 key</span>
+        <span class="cmd">head -c 32 /dev/urandom | base64</span>
+
+        <div class="section-label">Enable in kube-apiserver</div>
+        <span class="cmd">--encryption-provider-config=/etc/kubernetes/enc/enc.yaml</span>
+
+        <div class="section-label">Re-encrypt Existing Secrets</div>
+        <span class="cmd"># Force re-encrypt all existing secrets</span>
+        <span class="cmd">kubectl get secrets --all-namespaces -o json | kubectl replace -f -</span>
+
+        <div class="section-label">Verify Encryption via etcdctl</div>
+        <span class="cmd">ETCDCTL_API=3 etcdctl \</span>
+        <span class="cmd">  --endpoints=https://127.0.0.1:2379 \</span>
+        <span class="cmd">  --cacert=/etc/kubernetes/pki/etcd/ca.crt \</span>
+        <span class="cmd">  --cert=/etc/kubernetes/pki/etcd/server.crt \</span>
+        <span class="cmd">  --key=/etc/kubernetes/pki/etcd/server.key \</span>
+        <span class="cmd">  get /registry/secrets/default/mysecret | hexdump -C</span>
+        <span class="cmd"># Should see "k8s:enc:aescbc:v1:key1:" prefix in output</span>
+
+        <div class="section-label">Encryption Providers</div>
+        <div class="row"><span class="key">identity</span><span class="val">No encryption (plaintext) — default</span></div>
+        <div class="row"><span class="key">aescbc</span><span class="val">AES-CBC PKCS#7 — stable, recommended</span></div>
+        <div class="row"><span class="key">aesgcm</span><span class="val">AES-GCM — faster, rotate keys often!</span></div>
+        <div class="row"><span class="key">secretbox</span><span class="val">XSalsa20 + Poly1305 — good alternative</span></div>
+        <div class="row"><span class="key">kms</span><span class="val">External KMS (AWS KMS, Vault) — most secure</span></div>
+        <div class="note note-green">The identity: {} provider must come LAST in the list — it acts as fallback to read unencrypted data that was stored before encryption was enabled.</div>
+        <div class="note note-orange" style="margin-top:4px">Order matters: first provider is used for writing. Put aescbc first so new secrets are encrypted. identity last for reading old data.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 5: TLS & Certs + Audit Policy -->
+  <div class="grid grid-2">
+
+    <!-- CARD 10: TLS & Certificate Management -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--blue-soft)">📜</div>
+        <h2>TLS &amp; Certificate Management</h2>
+        <span class="sub">Cluster Hardening 15%</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Certificate Locations</div>
+        <span class="cmd">/etc/kubernetes/pki/</span>
+        <span class="cmd">  ca.crt / ca.key               # cluster CA</span>
+        <span class="cmd">  apiserver.crt / .key          # API server cert</span>
+        <span class="cmd">  apiserver-kubelet-client.crt  # API server → kubelet</span>
+        <span class="cmd">  apiserver-etcd-client.crt     # API server → etcd</span>
+        <span class="cmd">  front-proxy-ca.crt            # aggregation layer CA</span>
+        <span class="cmd">  sa.pub / sa.key               # service account token signing</span>
+        <span class="cmd">/etc/kubernetes/pki/etcd/</span>
+        <span class="cmd">  ca.crt / ca.key               # etcd CA</span>
+        <span class="cmd">  server.crt / .key             # etcd server cert</span>
+        <span class="cmd">  peer.crt / .key               # etcd peer cert</span>
+        <span class="cmd">  healthcheck-client.crt / .key</span>
+
+        <div class="section-label">Check Certificate Expiry</div>
+        <span class="cmd"># Check all certs at once (requires kubeadm)</span>
+        <span class="cmd">kubeadm certs check-expiration</span>
+        <span class="cmd"># Check individual cert expiry</span>
+        <span class="cmd">openssl x509 -in /etc/kubernetes/pki/apiserver.crt -noout -dates</span>
+        <span class="cmd">openssl x509 -in /etc/kubernetes/pki/apiserver.crt -noout -text | grep -A2 "Subject:"</span>
+
+        <div class="section-label">Renew Certificates</div>
+        <span class="cmd"># Renew all certificates (requires kubeadm)</span>
+        <span class="cmd">kubeadm certs renew all</span>
+        <span class="cmd">kubeadm certs renew apiserver</span>
+        <span class="cmd"># After renewal — restart static pods</span>
+        <span class="cmd">crictl pods | grep kube-apiserver</span>
+        <span class="cmd">mv /etc/kubernetes/manifests/kube-apiserver.yaml /tmp/</span>
+        <span class="cmd">mv /tmp/kube-apiserver.yaml /etc/kubernetes/manifests/</span>
+
+        <div class="section-label">Create CSR and Sign with Cluster CA</div>
+        <span class="cmd"># Create CSR for new cert</span>
+        <span class="cmd">openssl req -new -key mykey.key -out myrequest.csr \</span>
+        <span class="cmd">  -subj "/CN=my-user/O=my-group"</span>
+        <span class="cmd"># Sign with cluster CA</span>
+        <span class="cmd">openssl x509 -req -in myrequest.csr \</span>
+        <span class="cmd">  -CA /etc/kubernetes/pki/ca.crt \</span>
+        <span class="cmd">  -CAkey /etc/kubernetes/pki/ca.key \</span>
+        <span class="cmd">  -CAcreateserial -out mycert.crt -days 365</span>
+
+        <div class="section-label">Kubelet Certificate Rotation</div>
+        <span class="cmd"># /var/lib/kubelet/config.yaml</span>
+        <span class="cmd">serverTLSBootstrap: true   # auto-rotate server certs</span>
+        <span class="cmd"># Approve pending CSRs</span>
+        <span class="cmd">kubectl get csr</span>
+        <span class="cmd">kubectl certificate approve &lt;csr-name&gt;</span>
+        <span class="cmd">kubectl certificate deny &lt;csr-name&gt;</span>
+
+        <div class="section-label">mTLS with Service Mesh</div>
+        <div class="row"><span class="key">Istio</span><span class="val">PeerAuthentication (STRICT/PERMISSIVE/DISABLE), DestinationRule</span></div>
+        <div class="row"><span class="key">Linkerd</span><span class="val">Automatic mTLS via proxy injection, no config needed</span></div>
+        <div class="row"><span class="key">Enable Istio injection</span><span class="val">kubectl label ns myns istio-injection=enabled</span></div>
+        <div class="note note-blue">PeerAuthentication STRICT mode: all traffic in namespace must use mTLS. PERMISSIVE: allows both plain text and mTLS (migration phase).</div>
+      </div>
+    </div>
+
+    <!-- CARD 11: Audit Policy -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--orange-soft)">📋</div>
+        <h2>Audit Policy &amp; Log Analysis</h2>
+        <span class="sub">Monitoring, Logging &amp; Runtime Security 20%</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Audit Levels</div>
+        <div class="row"><span class="key">None</span><span class="val">Do not log this event</span></div>
+        <div class="row"><span class="key">Metadata</span><span class="val">Log request metadata (user, time, resource, verb)</span></div>
+        <div class="row"><span class="key">Request</span><span class="val">Log metadata + request body</span></div>
+        <div class="row"><span class="key">RequestResponse</span><span class="val">Log metadata + request + response body</span></div>
+
+        <div class="section-label">Audit Policy Example</div>
+        <span class="cmd">apiVersion: audit.k8s.io/v1</span>
+        <span class="cmd">kind: Policy</span>
+        <span class="cmd">omitStages:</span>
+        <span class="cmd">- RequestReceived    # don't log this stage</span>
+        <span class="cmd">rules:</span>
+        <span class="cmd"># Don't log read-only requests to non-sensitive resources</span>
+        <span class="cmd">- level: None</span>
+        <span class="cmd">  verbs: ["get", "watch", "list"]</span>
+        <span class="cmd">  resources:</span>
+        <span class="cmd">  - group: ""</span>
+        <span class="cmd">    resources: ["endpoints", "services", "configmaps"]</span>
+        <span class="cmd"># Don't log requests from system components</span>
+        <span class="cmd">- level: None</span>
+        <span class="cmd">  users:</span>
+        <span class="cmd">  - system:kube-proxy</span>
+        <span class="cmd">  - system:apiserver</span>
+        <span class="cmd">  verbs: ["watch"]</span>
+        <span class="cmd"># Log secrets at Metadata level (don't log content)</span>
+        <span class="cmd">- level: Metadata</span>
+        <span class="cmd">  resources:</span>
+        <span class="cmd">  - group: ""</span>
+        <span class="cmd">    resources: ["secrets", "configmaps", "tokenreviews"]</span>
+        <span class="cmd"># Log pod changes at Request level</span>
+        <span class="cmd">- level: Request</span>
+        <span class="cmd">  verbs: ["create", "update", "patch", "delete"]</span>
+        <span class="cmd">  resources:</span>
+        <span class="cmd">  - group: ""</span>
+        <span class="cmd">    resources: ["pods"]</span>
+        <span class="cmd"># Log everything else at Metadata</span>
+        <span class="cmd">- level: Metadata</span>
+        <span class="cmd">  omitStages:</span>
+        <span class="cmd">  - RequestReceived</span>
+
+        <div class="section-label">Audit Log Analysis</div>
+        <span class="cmd"># Watch audit log in real time</span>
+        <span class="cmd">tail -f /var/log/kubernetes/audit.log | jq .</span>
+        <span class="cmd"># Find all operations on secrets</span>
+        <span class="cmd">cat /var/log/kubernetes/audit.log | jq 'select(.objectRef.resource=="secrets")'</span>
+        <span class="cmd"># Find failed auth attempts (403 / 401)</span>
+        <span class="cmd">cat /var/log/kubernetes/audit.log | \</span>
+        <span class="cmd">  jq 'select(.responseStatus.code == 403 or .responseStatus.code == 401)'</span>
+        <span class="cmd"># Find who deleted pods</span>
+        <span class="cmd">cat /var/log/kubernetes/audit.log | \</span>
+        <span class="cmd">  jq 'select(.verb=="delete" and .objectRef.resource=="pods") | {user:.user.username, pod:.objectRef.name}'</span>
+
+        <div class="section-label">Suspicious Audit Patterns</div>
+        <div class="row"><span class="key">system:anonymous</span><span class="val">Anonymous requests — block immediately</span></div>
+        <div class="row"><span class="key">Unexpected secret access</span><span class="val">SA accessing secrets from wrong namespace</span></div>
+        <div class="row"><span class="key">exec/attach</span><span class="val">Shell access to sensitive system pods</span></div>
+        <div class="row"><span class="key">RBAC escalation</span><span class="val">Attempts to create ClusterRoleBindings</span></div>
+        <div class="row"><span class="key">Unusual namespace</span><span class="val">Access to kube-system from app accounts</span></div>
+        <div class="note note-red">Audit policy rules are evaluated in ORDER — first match wins. Put None rules at top to reduce noise, catch-all Metadata at the bottom.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 6: Quick Reference (4-col grid) -->
+  <div class="grid grid-4">
+
+    <!-- CARD 12: Quick Commands -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--blue-soft)">⚡</div>
+        <h2>Quick Commands</h2>
+        <span class="sub">Exam Speed</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Context &amp; Namespace</div>
+        <span class="cmd">k config get-contexts</span>
+        <span class="cmd">k config use-context &lt;ctx&gt;</span>
+        <span class="cmd">k config current-context</span>
+        <span class="cmd">k -n kube-system get pods</span>
+
+        <div class="section-label">Static Pod Manifests</div>
+        <span class="cmd">/etc/kubernetes/manifests/</span>
+        <span class="cmd">  kube-apiserver.yaml</span>
+        <span class="cmd">  kube-controller-manager.yaml</span>
+        <span class="cmd">  kube-scheduler.yaml</span>
+        <span class="cmd">  etcd.yaml</span>
+
+        <div class="section-label">Useful Shortcuts</div>
+        <span class="cmd">k get events --sort-by=.lastTimestamp</span>
+        <span class="cmd">k describe pod &lt;pod&gt; | grep -i security</span>
+        <span class="cmd">k get pods -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.spec.serviceAccountName}{"\n"}{end}'</span>
+
+        <div class="section-label">Node Shell Access</div>
+        <span class="cmd">k debug node/&lt;node&gt; -it \</span>
+        <span class="cmd">  --image=ubuntu -- bash</span>
+        <span class="cmd">chroot /host   # access host FS</span>
+      </div>
+    </div>
+
+    <!-- CARD 13: Privilege Escalation Vectors -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--red-soft)">⚠️</div>
+        <h2>Privilege Escalation</h2>
+        <span class="sub">Attack Vectors</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Container Escape Vectors</div>
+        <div class="row"><span class="key">hostPID: true</span><span class="val">See host processes, kill any process</span></div>
+        <div class="row"><span class="key">hostNetwork: true</span><span class="val">Access host network stack</span></div>
+        <div class="row"><span class="key">hostPath mounts</span><span class="val">Mount host filesystem directly</span></div>
+        <div class="row"><span class="key">privileged: true</span><span class="val">Full host capabilities, escape trivially</span></div>
+        <div class="row"><span class="key">CAP_SYS_ADMIN</span><span class="val">Mount filesystems, kernel operations</span></div>
+
+        <div class="section-label">RBAC Escalation Risks</div>
+        <div class="row"><span class="key">create pods</span><span class="val">Can run privileged containers</span></div>
+        <div class="row"><span class="key">exec pods</span><span class="val">Shell into any container</span></div>
+        <div class="row"><span class="key">get secrets</span><span class="val">Read credentials, tokens</span></div>
+        <div class="row"><span class="key">bind verbs</span><span class="val">Escalate own privileges via bind</span></div>
+
+        <div class="section-label">Mitigation</div>
+        <span class="cmd"># Check for privileged pods</span>
+        <span class="cmd">k get pods -A -o json | jq '.items[] | select(.spec.containers[].securityContext.privileged == true) | .metadata.name'</span>
+        <span class="cmd"># Check hostPID/hostNetwork</span>
+        <span class="cmd">k get pods -A -o json | jq '.items[] | select(.spec.hostPID == true or .spec.hostNetwork == true)'</span>
+      </div>
+    </div>
+
+    <!-- CARD 14: Common Exam Tasks -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--green-soft)">✅</div>
+        <h2>Common Exam Tasks</h2>
+        <span class="sub">Task Patterns</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Typical Task Types</div>
+        <div class="row"><span class="key">Fix kube-apiserver flag</span><span class="val">Edit static pod manifest</span></div>
+        <div class="row"><span class="key">Enable audit logging</span><span class="val">Policy file + apiserver flags</span></div>
+        <div class="row"><span class="key">Create NetworkPolicy</span><span class="val">Default deny + allow specific</span></div>
+        <div class="row"><span class="key">Apply AppArmor profile</span><span class="val">Load on node + annotate pod</span></div>
+        <div class="row"><span class="key">Encrypt secrets at rest</span><span class="val">EncryptionConfig + rewrite secrets</span></div>
+        <div class="row"><span class="key">Fix RBAC too permissive</span><span class="val">Reduce verbs / switch to Role</span></div>
+        <div class="row"><span class="key">Write Falco rule</span><span class="val">Add to falco_rules.local.yaml</span></div>
+        <div class="row"><span class="key">Run Trivy scan</span><span class="val">Find/fix HIGH/CRITICAL CVEs</span></div>
+        <div class="row"><span class="key">Apply PSA labels</span><span class="val">Label namespace with policy level</span></div>
+        <div class="row"><span class="key">Create OPA policy</span><span class="val">ConstraintTemplate + Constraint</span></div>
+
+        <div class="section-label">After Editing Static Pods</div>
+        <span class="cmd"># Wait for apiserver restart</span>
+        <span class="cmd">watch crictl pods --name kube-apiserver</span>
+        <span class="cmd"># Verify API is back</span>
+        <span class="cmd">kubectl get nodes</span>
+      </div>
+    </div>
+
+    <!-- CARD 15: CIS Benchmark Controls -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--purple-soft)">📏</div>
+        <h2>CIS Benchmark Controls</h2>
+        <span class="sub">kube-bench Checks</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Master Node (1.x checks)</div>
+        <div class="row"><span class="key">1.1.x</span><span class="val">API server manifest file permissions</span></div>
+        <div class="row"><span class="key">1.2.6</span><span class="val">--authorization-mode not AlwaysAllow</span></div>
+        <div class="row"><span class="key">1.2.9</span><span class="val">--admission-plugins includes EventRateLimit</span></div>
+        <div class="row"><span class="key">1.2.16</span><span class="val">--audit-log-path is set</span></div>
+        <div class="row"><span class="key">1.2.17</span><span class="val">--audit-log-maxage &gt;= 30</span></div>
+        <div class="row"><span class="key">1.2.22</span><span class="val">--request-timeout is set</span></div>
+        <div class="row"><span class="key">1.2.27</span><span class="val">--service-account-key-file is set</span></div>
+        <div class="row"><span class="key">1.3.2</span><span class="val">controller: --profiling=false</span></div>
+
+        <div class="section-label">Worker Node (4.x checks)</div>
+        <div class="row"><span class="key">4.1.x</span><span class="val">kubelet config file permissions</span></div>
+        <div class="row"><span class="key">4.2.1</span><span class="val">--anonymous-auth=false</span></div>
+        <div class="row"><span class="key">4.2.2</span><span class="val">--authorization-mode != AlwaysAllow</span></div>
+        <div class="row"><span class="key">4.2.6</span><span class="val">--protect-kernel-defaults=true</span></div>
+        <div class="row"><span class="key">4.2.10</span><span class="val">--rotate-certificates=true</span></div>
+
+        <div class="section-label">Fix File Permissions</div>
+        <span class="cmd">chmod 600 /etc/kubernetes/manifests/kube-apiserver.yaml</span>
+        <span class="cmd">chmod 644 /etc/kubernetes/pki/ca.crt</span>
+        <span class="cmd">chmod 600 /etc/kubernetes/pki/ca.key</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 7: Kubelet Hardening + Ingress TLS + Runtime Classes -->
+  <div class="grid">
+
+    <!-- CARD 16: Kubelet Hardening -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--blue-soft)">⚙️</div>
+        <h2>Kubelet Hardening</h2>
+        <span class="sub">System Hardening 15%</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Kubelet Config File</div>
+        <span class="cmd">/var/lib/kubelet/config.yaml</span>
+        <span class="cmd">/etc/kubernetes/kubelet.conf</span>
+
+        <div class="section-label">Key Security Settings</div>
+        <span class="cmd">apiVersion: kubelet.config.k8s.io/v1beta1</span>
+        <span class="cmd">kind: KubeletConfiguration</span>
+        <span class="cmd">authentication:</span>
+        <span class="cmd">  anonymous:</span>
+        <span class="cmd">    enabled: false         # CIS 4.2.1</span>
+        <span class="cmd">  webhook:</span>
+        <span class="cmd">    enabled: true</span>
+        <span class="cmd">authorization:</span>
+        <span class="cmd">  mode: Webhook            # NOT AlwaysAllow — CIS 4.2.2</span>
+        <span class="cmd">readOnlyPort: 0            # disable read-only port</span>
+        <span class="cmd">protectKernelDefaults: true  # CIS 4.2.6</span>
+        <span class="cmd">eventRecordQPS: 0          # disable rate limiting for audit</span>
+        <span class="cmd">tlsCertFile: /var/lib/kubelet/pki/kubelet.crt</span>
+        <span class="cmd">tlsPrivateKeyFile: /var/lib/kubelet/pki/kubelet.key</span>
+
+        <div class="section-label">Restart Kubelet After Changes</div>
+        <span class="cmd">systemctl daemon-reload</span>
+        <span class="cmd">systemctl restart kubelet</span>
+        <span class="cmd">systemctl status kubelet</span>
+
+        <div class="section-label">Kubelet API Ports</div>
+        <div class="row"><span class="key">10250</span><span class="val">HTTPS API (authenticated) — should be TLS</span></div>
+        <div class="row"><span class="key">10255</span><span class="val">HTTP read-only API — should be DISABLED (readOnlyPort: 0)</span></div>
+        <div class="row"><span class="key">10248</span><span class="val">Health check endpoint — localhost only</span></div>
+      </div>
+    </div>
+
+    <!-- CARD 17: Ingress TLS + Service Exposure -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--green-soft)">🌍</div>
+        <h2>Secure Ingress &amp; Service Exposure</h2>
+        <span class="sub">Cluster Setup 10%</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Create TLS Secret for Ingress</div>
+        <span class="cmd"># Create TLS secret from cert files</span>
+        <span class="cmd">kubectl create secret tls my-tls-secret \</span>
+        <span class="cmd">  --cert=tls.crt \</span>
+        <span class="cmd">  --key=tls.key \</span>
+        <span class="cmd">  -n myns</span>
+
+        <div class="section-label">Ingress with TLS Termination</div>
+        <span class="cmd">apiVersion: networking.k8s.io/v1</span>
+        <span class="cmd">kind: Ingress</span>
+        <span class="cmd">metadata:</span>
+        <span class="cmd">  name: my-ingress</span>
+        <span class="cmd">  annotations:</span>
+        <span class="cmd">    nginx.ingress.kubernetes.io/ssl-redirect: "true"</span>
+        <span class="cmd">    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"</span>
+        <span class="cmd">spec:</span>
+        <span class="cmd">  tls:</span>
+        <span class="cmd">  - hosts:</span>
+        <span class="cmd">    - myapp.example.com</span>
+        <span class="cmd">    secretName: my-tls-secret</span>
+        <span class="cmd">  rules:</span>
+        <span class="cmd">  - host: myapp.example.com</span>
+        <span class="cmd">    http:</span>
+        <span class="cmd">      paths:</span>
+        <span class="cmd">      - path: /</span>
+        <span class="cmd">        pathType: Prefix</span>
+        <span class="cmd">        backend:</span>
+        <span class="cmd">          service:</span>
+        <span class="cmd">            name: myapp-svc</span>
+        <span class="cmd">            port: { number: 80 }</span>
+
+        <div class="section-label">NodePort vs LoadBalancer Risk</div>
+        <div class="row"><span class="key">ClusterIP</span><span class="val">Internal only — most secure default</span></div>
+        <div class="row"><span class="key">NodePort</span><span class="val">Exposes on all nodes — restrict with NetworkPolicy</span></div>
+        <div class="row"><span class="key">LoadBalancer</span><span class="val">Public IP — use only with cloud firewall rules</span></div>
+        <div class="row"><span class="key">ExternalName</span><span class="val">DNS alias — verify target is trusted</span></div>
+        <div class="note note-orange">Avoid NodePort in production. Prefer Ingress with TLS for HTTP services. For non-HTTP, use LoadBalancer with cloud security groups.</div>
+      </div>
+    </div>
+
+    <!-- CARD 18: RuntimeClass & Sandboxing -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--purple-soft)">🏖️</div>
+        <h2>RuntimeClass &amp; Sandboxing</h2>
+        <span class="sub">Minimize Microservice Vulnerabilities 20%</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">RuntimeClass Definition</div>
+        <span class="cmd">apiVersion: node.k8s.io/v1</span>
+        <span class="cmd">kind: RuntimeClass</span>
+        <span class="cmd">metadata:</span>
+        <span class="cmd">  name: gvisor</span>
+        <span class="cmd">handler: runsc         # gVisor handler</span>
+        <span class="cmd">---</span>
+        <span class="cmd">apiVersion: node.k8s.io/v1</span>
+        <span class="cmd">kind: RuntimeClass</span>
+        <span class="cmd">metadata:</span>
+        <span class="cmd">  name: kata</span>
+        <span class="cmd">handler: kata-containers  # Kata Containers handler</span>
+
+        <div class="section-label">Use RuntimeClass in Pod</div>
+        <span class="cmd">spec:</span>
+        <span class="cmd">  runtimeClassName: gvisor  # use sandboxed runtime</span>
+        <span class="cmd">  containers:</span>
+        <span class="cmd">  - name: myapp</span>
+        <span class="cmd">    image: myapp:1.0</span>
+
+        <div class="section-label">Sandbox Runtimes Comparison</div>
+        <div class="row"><span class="key">gVisor (runsc)</span><span class="val">User-space kernel, intercepts syscalls</span></div>
+        <div class="row"><span class="key">Kata Containers</span><span class="val">Lightweight VM per pod, full isolation</span></div>
+        <div class="row"><span class="key">runc</span><span class="val">Default OCI runtime, shares host kernel</span></div>
+
+        <div class="section-label">Container Runtime Interface</div>
+        <span class="cmd"># Check running containers</span>
+        <span class="cmd">crictl ps</span>
+        <span class="cmd">crictl pods</span>
+        <span class="cmd">crictl inspect &lt;container-id&gt;</span>
+        <span class="cmd">crictl logs &lt;container-id&gt;</span>
+        <span class="cmd"># Pull and verify image</span>
+        <span class="cmd">crictl pull nginx:latest</span>
+        <span class="cmd">crictl images</span>
+        <div class="note note-purple">Use gVisor for untrusted workloads. It adds overhead (~10-30%) but isolates container syscalls from the host kernel — container escape resistance is much higher.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

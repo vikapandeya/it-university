@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cisco CCNA 200-301 Cheat Sheet</title>
+<meta name="description" content="Comprehensive Cisco CCNA 200-301 exam reference cheat sheet covering all 6 domains.">
+<style>
+:root {
+  --bg:#F5F6F7; --surface:#FFFFFF; --border:#E2E4E8;
+  --navy:#0F1C2E; --navy2:#1A2E45;
+  --blue:#1A6FB5; --blue-soft:#EBF4FF;
+  --green:#1B7A4A; --green-soft:#E8F7EF;
+  --red:#B91C1C; --red-soft:#FEF2F2;
+  --purple:#6B21A8; --purple-soft:#F5F0FF;
+  --cyan:#0891B2; --cyan-soft:#ECFEFF;
+  --text:#1C2333; --text2:#4A5568; --text3:#718096;
+  --accent:#0891B2;
+  --mono:'Consolas','Courier New',monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+}
+body { font-family:var(--sans); font-size:11px; background:var(--bg); color:var(--text); line-height:1.5; }
+.page { max-width:1280px; margin:0 auto; padding:20px 16px; }
+.header { background:var(--navy); border-radius:10px; padding:20px 24px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+.header-left h1 { font-size:22px; font-weight:800; color:#fff; } .header-left h1 span { color:#0891B2; }
+.header-left p { font-size:11px; color:#94A3B8; margin-top:3px; }
+.header-badges { display:flex; gap:8px; flex-wrap:wrap; }
+.badge { font-size:10px; font-weight:700; padding:4px 10px; border-radius:20px; letter-spacing:.5px; text-transform:uppercase; }
+.badge-blue { background:#3B82F6; color:#fff; } .badge-green { background:#22C55E; color:#fff; } .badge-cyan { background:var(--cyan); color:#fff; }
+.grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:12px; }
+.grid-2 { grid-template-columns:repeat(2,1fr); } .grid-4 { grid-template-columns:repeat(4,1fr); }
+.card { background:var(--surface); border-radius:8px; border:1px solid var(--border); overflow:hidden; }
+.card-header { padding:8px 12px; display:flex; align-items:center; gap:8px; border-bottom:1px solid var(--border); }
+.card-header .icon { width:24px; height:24px; border-radius:5px; display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; }
+.card-header h2 { font-size:11.5px; font-weight:800; color:var(--navy); }
+.card-header .sub { font-size:9px; color:var(--text3); margin-left:auto; }
+.card-body { padding:10px 12px; }
+.section-label { font-size:8.5px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--text3); margin-bottom:5px; margin-top:9px; }
+.section-label:first-child { margin-top:0; }
+.row { display:flex; justify-content:space-between; align-items:baseline; padding:2px 0; border-bottom:1px solid #F1F3F5; gap:8px; }
+.row:last-child { border-bottom:none; }
+.row .key { font-family:var(--mono); font-size:10px; font-weight:600; color:var(--navy); white-space:nowrap; flex-shrink:0; }
+.row .val { font-size:10px; color:var(--text2); text-align:right; }
+.tags { display:flex; flex-wrap:wrap; gap:4px; margin-top:2px; }
+.tag { font-size:9.5px; padding:2px 7px; border-radius:4px; font-weight:600; font-family:var(--mono); }
+.tag-blue { background:var(--blue-soft); color:#1E40AF; } .tag-green { background:var(--green-soft); color:#166534; }
+.tag-red { background:var(--red-soft); color:#991B1B; } .tag-cyan { background:var(--cyan-soft); color:#0E7490; }
+.tip-bar { background:var(--navy2); border-radius:8px; padding:10px 16px; margin-bottom:16px; display:flex; gap:24px; flex-wrap:wrap; }
+.tip-label { font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:#60A5FA; }
+.tip { font-size:10.5px; color:#CBD5E1; } .tip b { color:#fff; }
+.note { font-size:10px; color:var(--text2); padding:6px 8px; border-radius:4px; margin-top:4px; }
+.note-blue { background:var(--blue-soft); border-left:3px solid var(--blue); }
+.note-green { background:var(--green-soft); border-left:3px solid var(--green); }
+.note-red { background:var(--red-soft); border-left:3px solid var(--red); }
+@media print { body{background:#fff} .page{padding:0} }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <h1>Cisco <span>CCNA</span></h1>
+      <p>200-301 Certification Cheat Sheet &middot; Exam Reference Guide</p>
+    </div>
+    <div class="header-badges">
+      <span class="badge badge-blue">200-301</span>
+      <span class="badge badge-green">825/1000 Pass</span>
+      <span class="badge badge-cyan">120 Min</span>
+    </div>
+  </div>
+
+  <!-- TIP BAR -->
+  <div class="tip-bar">
+    <div>
+      <div class="tip-label">Exam Info</div>
+      <div class="tip">~<b>120 questions</b> &middot; <b>120 minutes</b> &middot; <b>825/1000</b> passing score &middot; <b>$330 USD</b></div>
+    </div>
+    <div>
+      <div class="tip-label">Domain Weights</div>
+      <div class="tip"><b>D1</b> Network Fundamentals 20% &middot; <b>D2</b> Network Access 20% &middot; <b>D3</b> IP Connectivity 25% &middot; <b>D4</b> IP Services 10% &middot; <b>D5</b> Security 15% &middot; <b>D6</b> Automation 10%</div>
+    </div>
+  </div>
+
+  <!-- ROW 1: Domain Weights + OSI Model + TCP-IP -->
+  <div class="grid">
+
+    <!-- Domain Weights -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#EBF4FF;">📋</div>
+        <h2>Exam Domain Weights</h2>
+        <span class="sub">D1–D6</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Six Domains</div>
+        <div class="row"><span class="key">D1 — Network Fundamentals</span><span class="val">20%</span></div>
+        <div class="row"><span class="key">D2 — Network Access</span><span class="val">20%</span></div>
+        <div class="row"><span class="key">D3 — IP Connectivity</span><span class="val">25%</span></div>
+        <div class="row"><span class="key">D4 — IP Services</span><span class="val">10%</span></div>
+        <div class="row"><span class="key">D5 — Security Fundamentals</span><span class="val">15%</span></div>
+        <div class="row"><span class="key">D6 — Automation &amp; Programmability</span><span class="val">10%</span></div>
+        <div class="note note-blue" style="margin-top:8px;">D3 IP Connectivity (25%) is the highest weight — prioritize OSPF, static routing, IPv4/IPv6.</div>
+        <div class="section-label" style="margin-top:8px;">Exam Format</div>
+        <div class="row"><span class="key">Question Types</span><span class="val">MCQ, drag-drop, simlet, sim</span></div>
+        <div class="row"><span class="key">Simulations</span><span class="val">Partial credit possible</span></div>
+        <div class="row"><span class="key">Results</span><span class="val">Immediate on screen</span></div>
+        <div class="row"><span class="key">Validity</span><span class="val">3 years</span></div>
+      </div>
+    </div>
+
+    <!-- OSI Model -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#F5F0FF;">🧱</div>
+        <h2>OSI Model</h2>
+        <span class="sub">7 Layers</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Layer → PDU → Protocols</div>
+        <div class="row"><span class="key">L7 Application</span><span class="val">Data &mdash; HTTP, FTP, DNS, SMTP, SNMP</span></div>
+        <div class="row"><span class="key">L6 Presentation</span><span class="val">Data &mdash; SSL/TLS, JPEG, ASCII</span></div>
+        <div class="row"><span class="key">L5 Session</span><span class="val">Data &mdash; NetBIOS, RPC, PPTP</span></div>
+        <div class="row"><span class="key">L4 Transport</span><span class="val">Segment &mdash; TCP, UDP</span></div>
+        <div class="row"><span class="key">L3 Network</span><span class="val">Packet &mdash; IP, ICMP, OSPF, EIGRP</span></div>
+        <div class="row"><span class="key">L2 Data Link</span><span class="val">Frame &mdash; Ethernet, 802.1Q, PPP</span></div>
+        <div class="row"><span class="key">L1 Physical</span><span class="val">Bits &mdash; RJ-45, fiber, coax</span></div>
+        <div class="section-label">Mnemonic (top→bottom)</div>
+        <div class="note note-blue"><b>A</b>ll <b>P</b>eople <b>S</b>eem <b>T</b>o <b>N</b>eed <b>D</b>ata <b>P</b>rocessing</div>
+        <div class="section-label">TCP/IP 4-Layer Mapping</div>
+        <div class="row"><span class="key">Application</span><span class="val">OSI L5+L6+L7</span></div>
+        <div class="row"><span class="key">Transport</span><span class="val">OSI L4</span></div>
+        <div class="row"><span class="key">Internet</span><span class="val">OSI L3</span></div>
+        <div class="row"><span class="key">Network Access</span><span class="val">OSI L1+L2</span></div>
+      </div>
+    </div>
+
+    <!-- TCP vs UDP -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#E8F7EF;">🔀</div>
+        <h2>TCP vs UDP &amp; Common Ports</h2>
+        <span class="sub">L4</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">TCP (Connection-oriented)</div>
+        <div class="row"><span class="key">Handshake</span><span class="val">SYN → SYN-ACK → ACK</span></div>
+        <div class="row"><span class="key">Features</span><span class="val">Reliable, ordered, flow control</span></div>
+        <div class="row"><span class="key">Header</span><span class="val">20 bytes minimum</span></div>
+        <div class="section-label">UDP (Connectionless)</div>
+        <div class="row"><span class="key">Features</span><span class="val">Fast, no guarantee, no ordering</span></div>
+        <div class="row"><span class="key">Use Cases</span><span class="val">DNS, DHCP, VoIP, TFTP, SNMP</span></div>
+        <div class="section-label">Well-Known Ports</div>
+        <div class="row"><span class="key">FTP</span><span class="val">TCP 20 (data), 21 (ctrl)</span></div>
+        <div class="row"><span class="key">SSH / Telnet</span><span class="val">TCP 22 / TCP 23</span></div>
+        <div class="row"><span class="key">SMTP / DNS</span><span class="val">TCP 25 / UDP 53</span></div>
+        <div class="row"><span class="key">DHCP</span><span class="val">UDP 67 (server), 68 (client)</span></div>
+        <div class="row"><span class="key">HTTP / HTTPS</span><span class="val">TCP 80 / TCP 443</span></div>
+        <div class="row"><span class="key">SNMP / Syslog</span><span class="val">UDP 161-162 / UDP 514</span></div>
+        <div class="row"><span class="key">NTP / TFTP</span><span class="val">UDP 123 / UDP 69</span></div>
+      </div>
+    </div>
+
+  </div><!-- /grid row 1 -->
+
+  <!-- ROW 2: Ethernet + STP + VLAN -->
+  <div class="grid">
+
+    <!-- Ethernet & Switching -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#ECFEFF;">🔌</div>
+        <h2>Ethernet &amp; Switching Fundamentals</h2>
+        <span class="sub">L2</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Ethernet Frame Structure</div>
+        <div class="row"><span class="key">Preamble</span><span class="val">7 bytes (sync)</span></div>
+        <div class="row"><span class="key">SFD</span><span class="val">1 byte (start frame delimiter)</span></div>
+        <div class="row"><span class="key">Dst MAC</span><span class="val">6 bytes</span></div>
+        <div class="row"><span class="key">Src MAC</span><span class="val">6 bytes</span></div>
+        <div class="row"><span class="key">EtherType</span><span class="val">2 bytes (0x0800=IPv4, 0x86DD=IPv6)</span></div>
+        <div class="row"><span class="key">Data / Payload</span><span class="val">46–1500 bytes (MTU 1500)</span></div>
+        <div class="row"><span class="key">FCS</span><span class="val">4 bytes (CRC error check)</span></div>
+        <div class="section-label">MAC Address</div>
+        <div class="row"><span class="key">Length</span><span class="val">48-bit (6 bytes), hex notation</span></div>
+        <div class="row"><span class="key">OUI</span><span class="val">First 3 bytes (vendor identifier)</span></div>
+        <div class="row"><span class="key">NIC-specific</span><span class="val">Last 3 bytes (device unique)</span></div>
+        <div class="section-label">ARP</div>
+        <div class="row"><span class="key">Request</span><span class="val">Broadcast FF:FF:FF:FF:FF:FF</span></div>
+        <div class="row"><span class="key">Reply</span><span class="val">Unicast — maps IP → MAC</span></div>
+        <div class="section-label">Switch Operations</div>
+        <div class="row"><span class="key">CAM / MAC Table</span><span class="val">Learns src MAC + port, ages out</span></div>
+        <div class="row"><span class="key">Unknown Unicast</span><span class="val">Flood out all ports except source</span></div>
+        <div class="row"><span class="key">Known Unicast</span><span class="val">Forward to learned port only</span></div>
+        <div class="row"><span class="key">Multicast/Broadcast</span><span class="val">Flood all ports in VLAN</span></div>
+        <div class="row"><span class="key">Collision Domain</span><span class="val">Per switch port (full duplex = none)</span></div>
+        <div class="row"><span class="key">Broadcast Domain</span><span class="val">Per VLAN / per routed interface</span></div>
+      </div>
+    </div>
+
+    <!-- STP / RSTP -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#FEF2F2;">🌉</div>
+        <h2>STP / RSTP</h2>
+        <span class="sub">802.1D / 802.1w</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">STP 802.1D — Root Bridge Election</div>
+        <div class="row"><span class="key">Bridge ID</span><span class="val">Priority (0–65535) + MAC address</span></div>
+        <div class="row"><span class="key">Default Priority</span><span class="val">32768 (+ VLAN ID in PVST+)</span></div>
+        <div class="row"><span class="key">Root Bridge</span><span class="val">Lowest Bridge ID wins</span></div>
+        <div class="section-label">STP Port States</div>
+        <div class="row"><span class="key">Blocking</span><span class="val">20s — receives BPDUs only</span></div>
+        <div class="row"><span class="key">Listening</span><span class="val">15s — forward delay, no learning</span></div>
+        <div class="row"><span class="key">Learning</span><span class="val">15s — builds MAC table</span></div>
+        <div class="row"><span class="key">Forwarding</span><span class="val">Active — passes traffic</span></div>
+        <div class="row"><span class="key">Disabled</span><span class="val">Admin shut or STP disabled</span></div>
+        <div class="section-label">STP Timers</div>
+        <div class="row"><span class="key">Hello</span><span class="val">2 seconds</span></div>
+        <div class="row"><span class="key">Max Age</span><span class="val">20 seconds</span></div>
+        <div class="row"><span class="key">Forward Delay</span><span class="val">15 seconds (×2 = 30s total)</span></div>
+        <div class="section-label">STP Port Roles</div>
+        <div class="row"><span class="key">Root Port (RP)</span><span class="val">Best path toward root bridge</span></div>
+        <div class="row"><span class="key">Designated Port (DP)</span><span class="val">Best port on each segment</span></div>
+        <div class="row"><span class="key">Non-Designated</span><span class="val">Blocking — prevents loops</span></div>
+        <div class="section-label">RSTP 802.1w</div>
+        <div class="row"><span class="key">Port States</span><span class="val">Discarding → Learning → Forwarding</span></div>
+        <div class="row"><span class="key">Extra Roles</span><span class="val">Alternate (backup RP), Backup (backup DP)</span></div>
+        <div class="row"><span class="key">Convergence</span><span class="val">&lt;1 second (proposal/agreement)</span></div>
+        <div class="section-label">STP Protection Features</div>
+        <div class="row"><span class="key">PortFast</span><span class="val">Skips L/L states — access ports only</span></div>
+        <div class="row"><span class="key">BPDUGuard</span><span class="val">Err-disables port if BPDU received</span></div>
+        <div class="row"><span class="key">BPDUFilter</span><span class="val">Stops sending/receiving BPDUs</span></div>
+        <div class="row"><span class="key">Root Guard</span><span class="val">Prevents superior BPDU takeover</span></div>
+        <div class="row"><span class="key">Loop Guard</span><span class="val">Detects unidirectional link failures</span></div>
+      </div>
+    </div>
+
+    <!-- VLAN & Inter-VLAN -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#F5F0FF;">🗂️</div>
+        <h2>VLAN &amp; Inter-VLAN Routing</h2>
+        <span class="sub">802.1Q</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">VLAN Ranges</div>
+        <div class="row"><span class="key">Normal Range</span><span class="val">1–1005 (1 = default/native)</span></div>
+        <div class="row"><span class="key">Extended Range</span><span class="val">1006–4094 (VTP transparent/off)</span></div>
+        <div class="row"><span class="key">Reserved</span><span class="val">1002–1005 (legacy FDDI/TR)</span></div>
+        <div class="section-label">802.1Q Tag (4 bytes)</div>
+        <div class="row"><span class="key">TPID</span><span class="val">0x8100 (identifies tagged frame)</span></div>
+        <div class="row"><span class="key">PCP</span><span class="val">3 bits — CoS priority (0–7)</span></div>
+        <div class="row"><span class="key">DEI</span><span class="val">1 bit — drop eligible indicator</span></div>
+        <div class="row"><span class="key">VID</span><span class="val">12 bits — VLAN ID (0–4095)</span></div>
+        <div class="section-label">Port Modes</div>
+        <div class="row"><span class="key">Access Port</span><span class="val">Single VLAN, untagged frames</span></div>
+        <div class="row"><span class="key">Trunk Port</span><span class="val">Multiple VLANs, tagged (except native)</span></div>
+        <div class="row"><span class="key">Native VLAN</span><span class="val">Untagged on trunk (default VLAN 1)</span></div>
+        <div class="row"><span class="key">DTP</span><span class="val">Dynamic Trunking Protocol (auto/desirable)</span></div>
+        <div class="row"><span class="key">Disable DTP</span><span class="val">switchport nonegotiate</span></div>
+        <div class="section-label">Inter-VLAN Routing Methods</div>
+        <div class="row"><span class="key">Router-on-a-Stick</span><span class="val">Subinterfaces per VLAN on single link</span></div>
+        <div class="row"><span class="key">L3 Switch SVIs</span><span class="val">Switched Virtual Interface per VLAN</span></div>
+        <div class="row"><span class="key">ip routing</span><span class="val">Must enable on L3 switch</span></div>
+        <div class="section-label">VTP Modes</div>
+        <div class="row"><span class="key">Server</span><span class="val">Create/modify/delete VLANs, sync</span></div>
+        <div class="row"><span class="key">Client</span><span class="val">Sync from server, can't create VLANs</span></div>
+        <div class="row"><span class="key">Transparent</span><span class="val">Local VLANs only, forwards VTP</span></div>
+        <div class="row"><span class="key">Off</span><span class="val">Ignores VTP entirely</span></div>
+      </div>
+    </div>
+
+  </div><!-- /grid row 2 -->
+
+  <!-- ROW 3: EtherChannel + IPv4 + IPv6 -->
+  <div class="grid">
+
+    <!-- EtherChannel -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#ECFEFF;">⚡</div>
+        <h2>EtherChannel</h2>
+        <span class="sub">LAG / Port-Channel</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">LACP — IEEE 802.3ad (Open Standard)</div>
+        <div class="row"><span class="key">Active</span><span class="val">Initiates negotiation</span></div>
+        <div class="row"><span class="key">Passive</span><span class="val">Responds only (won't form w/ passive)</span></div>
+        <div class="row"><span class="key">Max Links</span><span class="val">8 active + 8 standby</span></div>
+        <div class="section-label">PAgP — Cisco Proprietary</div>
+        <div class="row"><span class="key">Desirable</span><span class="val">Initiates negotiation</span></div>
+        <div class="row"><span class="key">Auto</span><span class="val">Responds only (won't form w/ auto)</span></div>
+        <div class="row"><span class="key">On</span><span class="val">Forces channel, no protocol</span></div>
+        <div class="section-label">Requirements (all must match)</div>
+        <div class="row"><span class="key">Speed &amp; Duplex</span><span class="val">Same on all member ports</span></div>
+        <div class="row"><span class="key">VLAN Config</span><span class="val">Same trunk/access settings</span></div>
+        <div class="row"><span class="key">Native VLAN</span><span class="val">Must match on trunks</span></div>
+        <div class="row"><span class="key">Allowed VLANs</span><span class="val">Must match on trunks</span></div>
+        <div class="section-label">Load Balancing Methods</div>
+        <div class="row"><span class="key">src-mac / dst-mac</span><span class="val">Based on source or dest MAC</span></div>
+        <div class="row"><span class="key">src-dst-mac</span><span class="val">XOR of src and dst MAC</span></div>
+        <div class="row"><span class="key">src-ip / dst-ip</span><span class="val">Based on src or dst IP</span></div>
+        <div class="row"><span class="key">src-dst-ip</span><span class="val">XOR of src and dst IP (default)</span></div>
+        <div class="note note-green">Configure same channel-group number and same mode (LACP/PAgP) on both sides.</div>
+      </div>
+    </div>
+
+    <!-- IPv4 Addressing -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#EBF4FF;">🌐</div>
+        <h2>IPv4 Addressing &amp; Subnetting</h2>
+        <span class="sub">32-bit</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Address Classes</div>
+        <div class="row"><span class="key">Class A</span><span class="val">1.0.0.0–126.255.255.255 /8</span></div>
+        <div class="row"><span class="key">Class B</span><span class="val">128.0.0.0–191.255.255.255 /16</span></div>
+        <div class="row"><span class="key">Class C</span><span class="val">192.0.0.0–223.255.255.255 /24</span></div>
+        <div class="row"><span class="key">Class D</span><span class="val">224.0.0.0–239.255.255.255 Multicast</span></div>
+        <div class="section-label">Special Ranges</div>
+        <div class="row"><span class="key">Private A</span><span class="val">10.0.0.0/8</span></div>
+        <div class="row"><span class="key">Private B</span><span class="val">172.16.0.0/12</span></div>
+        <div class="row"><span class="key">Private C</span><span class="val">192.168.0.0/16</span></div>
+        <div class="row"><span class="key">Loopback</span><span class="val">127.0.0.0/8 (127.0.0.1)</span></div>
+        <div class="row"><span class="key">APIPA</span><span class="val">169.254.0.0/16 (link-local)</span></div>
+        <div class="section-label">Subnet Quick Reference</div>
+        <div class="row"><span class="key">/24</span><span class="val">255.255.255.0 — 254 hosts</span></div>
+        <div class="row"><span class="key">/25</span><span class="val">255.255.255.128 — 126 hosts</span></div>
+        <div class="row"><span class="key">/26</span><span class="val">255.255.255.192 — 62 hosts</span></div>
+        <div class="row"><span class="key">/27</span><span class="val">255.255.255.224 — 30 hosts</span></div>
+        <div class="row"><span class="key">/28</span><span class="val">255.255.255.240 — 14 hosts</span></div>
+        <div class="row"><span class="key">/29</span><span class="val">255.255.255.248 — 6 hosts</span></div>
+        <div class="row"><span class="key">/30</span><span class="val">255.255.255.252 — 2 hosts (P2P)</span></div>
+        <div class="section-label">Subnetting Formulas</div>
+        <div class="row"><span class="key">Usable Hosts</span><span class="val">2^n − 2 (n = host bits)</span></div>
+        <div class="row"><span class="key">Subnets</span><span class="val">2^s (s = subnet bits borrowed)</span></div>
+        <div class="row"><span class="key">VLSM</span><span class="val">Allocate smallest fitting block first</span></div>
+        <div class="row"><span class="key">Summarization</span><span class="val">Find common bits, align on boundary</span></div>
+      </div>
+    </div>
+
+    <!-- IPv6 -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#E8F7EF;">🌍</div>
+        <h2>IPv6</h2>
+        <span class="sub">128-bit</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Address Format</div>
+        <div class="row"><span class="key">Length</span><span class="val">128-bit, 8 groups of 16-bit hex</span></div>
+        <div class="row"><span class="key">Compression</span><span class="val">:: replaces consecutive zeros (once)</span></div>
+        <div class="row"><span class="key">Leading zeros</span><span class="val">Drop leading zeros per group</span></div>
+        <div class="section-label">Address Types</div>
+        <div class="row"><span class="key">Global Unicast</span><span class="val">2000::/3 — routable (like public IPv4)</span></div>
+        <div class="row"><span class="key">Link-Local</span><span class="val">fe80::/10 — not routed, required on all</span></div>
+        <div class="row"><span class="key">Unique Local</span><span class="val">fc00::/7 — private (like RFC 1918)</span></div>
+        <div class="row"><span class="key">Multicast</span><span class="val">ff00::/8 — no broadcast in IPv6</span></div>
+        <div class="row"><span class="key">Loopback</span><span class="val">::1/128</span></div>
+        <div class="row"><span class="key">Unspecified</span><span class="val">::/128 (DHCP discover source)</span></div>
+        <div class="section-label">EUI-64 (Interface ID)</div>
+        <div class="row"><span class="key">Step 1</span><span class="val">Split 48-bit MAC in half</span></div>
+        <div class="row"><span class="key">Step 2</span><span class="val">Insert FF:FE in the middle</span></div>
+        <div class="row"><span class="key">Step 3</span><span class="val">Flip bit 7 (U/L bit) of first byte</span></div>
+        <div class="section-label">Autoconfiguration</div>
+        <div class="row"><span class="key">SLAAC</span><span class="val">RS/RA messages, stateless, EUI-64 or random</span></div>
+        <div class="row"><span class="key">Stateful DHCPv6</span><span class="val">Server assigns addresses + options</span></div>
+        <div class="row"><span class="key">Stateless DHCPv6</span><span class="val">SLAAC for address, DHCP for options only</span></div>
+        <div class="section-label">NDP (Replaces ARP)</div>
+        <div class="row"><span class="key">NS / NA</span><span class="val">Neighbor Solicitation / Advertisement</span></div>
+        <div class="row"><span class="key">RS / RA</span><span class="val">Router Solicitation / Advertisement</span></div>
+        <div class="row"><span class="key">Solicited-Node</span><span class="val">ff02::1:ff00:0/104 multicast group</span></div>
+        <div class="row"><span class="key">DAD</span><span class="val">Duplicate Address Detection via NS</span></div>
+      </div>
+    </div>
+
+  </div><!-- /grid row 3 -->
+
+  <!-- ROW 4: OSPF + EIGRP + Static Routes -->
+  <div class="grid">
+
+    <!-- OSPF -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#EBF4FF;">🔷</div>
+        <h2>OSPF</h2>
+        <span class="sub">Open Shortest Path First</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Key Characteristics</div>
+        <div class="row"><span class="key">Type</span><span class="val">Link-state, Dijkstra SPF algorithm</span></div>
+        <div class="row"><span class="key">AD</span><span class="val">110 (internal)</span></div>
+        <div class="row"><span class="key">Protocol</span><span class="val">IP protocol 89 (not TCP/UDP)</span></div>
+        <div class="row"><span class="key">Cost Formula</span><span class="val">Reference BW / Interface BW</span></div>
+        <div class="row"><span class="key">Ref BW Default</span><span class="val">100 Mbps (auto-cost ref-bandwidth)</span></div>
+        <div class="section-label">Timers</div>
+        <div class="row"><span class="key">Broadcast/P2P</span><span class="val">Hello 10s / Dead 40s</span></div>
+        <div class="row"><span class="key">NBMA</span><span class="val">Hello 30s / Dead 120s</span></div>
+        <div class="section-label">Multicast Addresses</div>
+        <div class="row"><span class="key">All OSPF Routers</span><span class="val">224.0.0.5</span></div>
+        <div class="row"><span class="key">DR / BDR Only</span><span class="val">224.0.0.6</span></div>
+        <div class="section-label">DR / BDR Election</div>
+        <div class="row"><span class="key">Priority</span><span class="val">Highest wins (default 1, 0=never DR)</span></div>
+        <div class="row"><span class="key">Router ID</span><span class="val">Tiebreaker — highest loopback, then highest IP</span></div>
+        <div class="row"><span class="key">Preemption</span><span class="val">No preemption after election</span></div>
+        <div class="section-label">Neighbor States</div>
+        <div class="row"><span class="key">Down→Init</span><span class="val">Hello sent, no response yet</span></div>
+        <div class="row"><span class="key">2-Way</span><span class="val">Sees own Router ID in neighbor hello</span></div>
+        <div class="row"><span class="key">ExStart→Exchange</span><span class="val">DBD exchange, master/slave election</span></div>
+        <div class="row"><span class="key">Loading</span><span class="val">LSR/LSU exchange for missing LSAs</span></div>
+        <div class="row"><span class="key">Full</span><span class="val">LSDB synchronized</span></div>
+        <div class="section-label">LSA Types</div>
+        <div class="row"><span class="key">Type 1 Router LSA</span><span class="val">Every router, within area</span></div>
+        <div class="row"><span class="key">Type 2 Network LSA</span><span class="val">DR generates, broadcast/NBMA</span></div>
+        <div class="row"><span class="key">Type 3 Summary LSA</span><span class="val">ABR, inter-area routes</span></div>
+        <div class="row"><span class="key">Type 5 External LSA</span><span class="val">ASBR, redistributed external routes</span></div>
+        <div class="note note-blue">Area 0 is the backbone. All non-backbone areas must connect to Area 0 via ABR.</div>
+      </div>
+    </div>
+
+    <!-- EIGRP -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#F5F0FF;">🔶</div>
+        <h2>EIGRP</h2>
+        <span class="sub">Enhanced Interior Gateway Routing</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Key Characteristics</div>
+        <div class="row"><span class="key">Type</span><span class="val">Cisco hybrid (advanced distance vector)</span></div>
+        <div class="row"><span class="key">AD Internal</span><span class="val">90</span></div>
+        <div class="row"><span class="key">AD External</span><span class="val">170</span></div>
+        <div class="row"><span class="key">AD Summary</span><span class="val">5</span></div>
+        <div class="row"><span class="key">Protocol</span><span class="val">IP protocol 88</span></div>
+        <div class="row"><span class="key">Multicast</span><span class="val">224.0.0.10</span></div>
+        <div class="section-label">Metric Components (K-values)</div>
+        <div class="row"><span class="key">Default Formula</span><span class="val">K1×BW + K3×Delay</span></div>
+        <div class="row"><span class="key">K1, K3</span><span class="val">= 1 (Bandwidth + Delay used)</span></div>
+        <div class="row"><span class="key">K2, K4, K5</span><span class="val">= 0 (Load, Reliability unused)</span></div>
+        <div class="row"><span class="key">BW component</span><span class="val">10^7 / min-BW-in-Kbps × 256</span></div>
+        <div class="section-label">DUAL Algorithm</div>
+        <div class="row"><span class="key">Successor</span><span class="val">Best path — installed in routing table</span></div>
+        <div class="row"><span class="key">Feasible Successor</span><span class="val">Backup path meeting FC</span></div>
+        <div class="row"><span class="key">FD</span><span class="val">Feasible Distance — metric from local to dest</span></div>
+        <div class="row"><span class="key">RD / AD</span><span class="val">Reported Distance — neighbor's metric to dest</span></div>
+        <div class="row"><span class="key">Feasibility Condition</span><span class="val">RD &lt; FD of current successor</span></div>
+        <div class="row"><span class="key">Purpose</span><span class="val">Guarantees loop-free alternate path</span></div>
+        <div class="section-label">EIGRP Tables</div>
+        <div class="row"><span class="key">Neighbor Table</span><span class="val">Adjacent EIGRP routers</span></div>
+        <div class="row"><span class="key">Topology Table</span><span class="val">All routes received from neighbors</span></div>
+        <div class="row"><span class="key">Routing Table</span><span class="val">Best routes (successors)</span></div>
+        <div class="section-label">Neighbor Requirements</div>
+        <div class="row"><span class="key">ASN</span><span class="val">Same Autonomous System Number</span></div>
+        <div class="row"><span class="key">K-values</span><span class="val">Must match</span></div>
+        <div class="row"><span class="key">Subnet</span><span class="val">Same subnet on connecting interface</span></div>
+        <div class="note note-blue">Named EIGRP mode: router eigrp [name] — supports address-family ipv4/ipv6.</div>
+      </div>
+    </div>
+
+    <!-- Static & Default Routes -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#E8F7EF;">🗺️</div>
+        <h2>Static &amp; Default Routes</h2>
+        <span class="sub">Administrative Distance</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Static Route Syntax</div>
+        <div class="row"><span class="key">Next-Hop</span><span class="val">ip route [net] [mask] [next-hop-IP]</span></div>
+        <div class="row"><span class="key">Exit Interface</span><span class="val">ip route [net] [mask] [exit-int]</span></div>
+        <div class="row"><span class="key">Both</span><span class="val">ip route [net] [mask] [exit-int] [next-hop]</span></div>
+        <div class="row"><span class="key">IPv6 Static</span><span class="val">ipv6 route [prefix/len] [next-hop | int]</span></div>
+        <div class="section-label">Default Route</div>
+        <div class="row"><span class="key">IPv4</span><span class="val">ip route 0.0.0.0 0.0.0.0 [next-hop]</span></div>
+        <div class="row"><span class="key">IPv6</span><span class="val">ipv6 route ::/0 [next-hop]</span></div>
+        <div class="row"><span class="key">Purpose</span><span class="val">"Gateway of last resort" for unknown dests</span></div>
+        <div class="section-label">Route Types</div>
+        <div class="row"><span class="key">Floating Static</span><span class="val">Higher AD than dynamic — backup route</span></div>
+        <div class="row"><span class="key">Summary Static</span><span class="val">One entry covers multiple networks</span></div>
+        <div class="row"><span class="key">Null0 Route</span><span class="val">Discard traffic (black hole, prevents loops)</span></div>
+        <div class="section-label">Administrative Distance (AD)</div>
+        <div class="row"><span class="key">Connected</span><span class="val">0</span></div>
+        <div class="row"><span class="key">Static</span><span class="val">1</span></div>
+        <div class="row"><span class="key">EIGRP Summary</span><span class="val">5</span></div>
+        <div class="row"><span class="key">OSPF</span><span class="val">110</span></div>
+        <div class="row"><span class="key">RIP</span><span class="val">120</span></div>
+        <div class="row"><span class="key">EIGRP External</span><span class="val">170</span></div>
+        <div class="row"><span class="key">Unknown</span><span class="val">255 (never used)</span></div>
+        <div class="section-label">Routing Table Codes</div>
+        <div class="row"><span class="key">C / L</span><span class="val">Connected / Local (/32 host route)</span></div>
+        <div class="row"><span class="key">S</span><span class="val">Static (S* = default)</span></div>
+        <div class="row"><span class="key">O / D</span><span class="val">OSPF / EIGRP</span></div>
+        <div class="row"><span class="key">R</span><span class="val">RIP</span></div>
+      </div>
+    </div>
+
+  </div><!-- /grid row 4 -->
+
+  <!-- ROW 5: NAT + DHCP + FHRP -->
+  <div class="grid">
+
+    <!-- NAT -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#ECFEFF;">🔄</div>
+        <h2>NAT</h2>
+        <span class="sub">Network Address Translation</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">NAT Types</div>
+        <div class="row"><span class="key">Static NAT</span><span class="val">Permanent 1:1 inside local ↔ inside global</span></div>
+        <div class="row"><span class="key">Dynamic NAT</span><span class="val">Pool of public IPs, first-come-first-served</span></div>
+        <div class="row"><span class="key">PAT / Overload</span><span class="val">Many-to-one using unique port numbers</span></div>
+        <div class="section-label">NAT Terminology</div>
+        <div class="row"><span class="key">Inside Local</span><span class="val">Private IP of inside host</span></div>
+        <div class="row"><span class="key">Inside Global</span><span class="val">Public IP representing inside host</span></div>
+        <div class="row"><span class="key">Outside Local</span><span class="val">Outside host IP as seen from inside</span></div>
+        <div class="row"><span class="key">Outside Global</span><span class="val">Outside host's actual public IP</span></div>
+        <div class="note note-blue">Outside Local = Outside Global unless double NAT. PAT is most common in SOHO/enterprise.</div>
+        <div class="section-label">IOS Configuration (PAT)</div>
+        <div class="row"><span class="key">Inside Interface</span><span class="val">ip nat inside</span></div>
+        <div class="row"><span class="key">Outside Interface</span><span class="val">ip nat outside</span></div>
+        <div class="row"><span class="key">ACL + overload</span><span class="val">ip nat inside source list [acl] int [x] overload</span></div>
+        <div class="section-label">Verify</div>
+        <div class="row"><span class="key">show ip nat trans</span><span class="val">Active translation table</span></div>
+        <div class="row"><span class="key">show ip nat stats</span><span class="val">Hit/miss counters</span></div>
+        <div class="row"><span class="key">debug ip nat</span><span class="val">Real-time translation events</span></div>
+      </div>
+    </div>
+
+    <!-- DHCP -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#E8F7EF;">📡</div>
+        <h2>DHCP</h2>
+        <span class="sub">Dynamic Host Config Protocol</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">DORA Process</div>
+        <div class="row"><span class="key">Discover</span><span class="val">Client broadcasts (src 0.0.0.0 dst 255.255.255.255)</span></div>
+        <div class="row"><span class="key">Offer</span><span class="val">Server unicasts IP offer to client</span></div>
+        <div class="row"><span class="key">Request</span><span class="val">Client broadcasts acceptance (may be mulitple offers)</span></div>
+        <div class="row"><span class="key">Acknowledge</span><span class="val">Server confirms lease to client</span></div>
+        <div class="section-label">IOS DHCP Server Config</div>
+        <div class="row"><span class="key">Excluded</span><span class="val">ip dhcp excluded-address [start] [end]</span></div>
+        <div class="row"><span class="key">Pool</span><span class="val">ip dhcp pool [name]</span></div>
+        <div class="row"><span class="key">Network</span><span class="val">network [subnet] [mask]</span></div>
+        <div class="row"><span class="key">Default GW</span><span class="val">default-router [IP]</span></div>
+        <div class="row"><span class="key">DNS</span><span class="val">dns-server [IP]</span></div>
+        <div class="row"><span class="key">Lease Time</span><span class="val">lease [days hours minutes]</span></div>
+        <div class="section-label">DHCP Relay (ip helper-address)</div>
+        <div class="row"><span class="key">Problem</span><span class="val">DHCP broadcasts don't cross routers</span></div>
+        <div class="row"><span class="key">Solution</span><span class="val">ip helper-address [server-IP] on router interface</span></div>
+        <div class="row"><span class="key">Action</span><span class="val">Converts broadcast to unicast toward server</span></div>
+        <div class="section-label">DHCP Snooping (Security)</div>
+        <div class="row"><span class="key">Trusted Ports</span><span class="val">Uplinks toward DHCP server</span></div>
+        <div class="row"><span class="key">Untrusted Ports</span><span class="val">Access ports — drops server messages</span></div>
+        <div class="row"><span class="key">Binding Table</span><span class="val">IP-MAC-port-VLAN records for DAI</span></div>
+        <div class="row"><span class="key">Rate Limit</span><span class="val">Limits DHCP packets per port</span></div>
+      </div>
+    </div>
+
+    <!-- FHRP -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#FEF2F2;">🛡️</div>
+        <h2>FHRP — First Hop Redundancy</h2>
+        <span class="sub">HSRP / VRRP / GLBP</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">HSRP — Hot Standby Router Protocol (Cisco)</div>
+        <div class="row"><span class="key">Roles</span><span class="val">Active + Standby + Listen</span></div>
+        <div class="row"><span class="key">VIP</span><span class="val">Virtual IP — default gateway for hosts</span></div>
+        <div class="row"><span class="key">Timers</span><span class="val">Hello 3s / Hold 10s</span></div>
+        <div class="row"><span class="key">Groups</span><span class="val">0–255 (HSRPv1), 0–4095 (HSRPv2)</span></div>
+        <div class="row"><span class="key">Preempt</span><span class="val">Disabled by default — must configure</span></div>
+        <div class="row"><span class="key">Virtual MAC</span><span class="val">0000.0c07.acXX (XX = group hex)</span></div>
+        <div class="row"><span class="key">Election</span><span class="val">Highest priority (default 100), then highest IP</span></div>
+        <div class="section-label">VRRP — Virtual Router Redundancy (Open)</div>
+        <div class="row"><span class="key">Roles</span><span class="val">Master + Backup(s)</span></div>
+        <div class="row"><span class="key">Groups</span><span class="val">1–255</span></div>
+        <div class="row"><span class="key">Timers</span><span class="val">Hello 1s / Master down ~3s</span></div>
+        <div class="row"><span class="key">Preempt</span><span class="val">Enabled by default</span></div>
+        <div class="row"><span class="key">Virtual MAC</span><span class="val">0000.5e00.01XX (XX = group hex)</span></div>
+        <div class="section-label">GLBP — Gateway Load Balancing (Cisco)</div>
+        <div class="row"><span class="key">Roles</span><span class="val">AVG (Active Virtual Gateway) + AVFs</span></div>
+        <div class="row"><span class="key">Advantage</span><span class="val">Load balancing — multiple gateways active</span></div>
+        <div class="row"><span class="key">AVG</span><span class="val">Assigns virtual MACs to AVFs</span></div>
+        <div class="row"><span class="key">LB Methods</span><span class="val">Round-robin (default), weighted, host-dependent</span></div>
+        <div class="note note-red">HSRP = Cisco only. VRRP = open standard. GLBP = Cisco only with true load balancing.</div>
+      </div>
+    </div>
+
+  </div><!-- /grid row 5 -->
+
+  <!-- ROW 6: NTP/SNMP/Syslog + QoS + Wireless (2+1 layout) -->
+  <div class="grid">
+
+    <!-- NTP + SNMP + Syslog -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#EBF4FF;">⏱️</div>
+        <h2>NTP / SNMP / Syslog</h2>
+        <span class="sub">IP Services</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">NTP — Network Time Protocol</div>
+        <div class="row"><span class="key">Port</span><span class="val">UDP 123</span></div>
+        <div class="row"><span class="key">Stratum 0</span><span class="val">Atomic/GPS clock (reference)</span></div>
+        <div class="row"><span class="key">Stratum 1</span><span class="val">Server directly attached to Stratum 0</span></div>
+        <div class="row"><span class="key">Max Stratum</span><span class="val">15 (16 = unreachable/unsync)</span></div>
+        <div class="row"><span class="key">Cisco Modes</span><span class="val">ntp server / ntp peer / ntp master</span></div>
+        <div class="row"><span class="key">Verify</span><span class="val">show ntp status / show ntp associations</span></div>
+        <div class="section-label">SNMP — Simple Network Management Protocol</div>
+        <div class="row"><span class="key">Agent Port</span><span class="val">UDP 161</span></div>
+        <div class="row"><span class="key">Trap Port</span><span class="val">UDP 162</span></div>
+        <div class="row"><span class="key">SNMPv1/v2c</span><span class="val">Community string auth (plain text)</span></div>
+        <div class="row"><span class="key">SNMPv3</span><span class="val">Auth (MD5/SHA) + Encryption (AES/DES)</span></div>
+        <div class="row"><span class="key">OID</span><span class="val">Object Identifier — identifies MIB variable</span></div>
+        <div class="row"><span class="key">Trap</span><span class="val">Unsolicited alert from agent to manager</span></div>
+        <div class="row"><span class="key">Inform</span><span class="val">Like trap but requires acknowledgment (v2c+)</span></div>
+        <div class="section-label">Syslog — System Logging</div>
+        <div class="row"><span class="key">Port</span><span class="val">UDP 514</span></div>
+        <div class="row"><span class="key">Severity 0</span><span class="val">Emergency — system unusable</span></div>
+        <div class="row"><span class="key">Severity 1</span><span class="val">Alert — immediate action required</span></div>
+        <div class="row"><span class="key">Severity 2</span><span class="val">Critical</span></div>
+        <div class="row"><span class="key">Severity 3</span><span class="val">Error</span></div>
+        <div class="row"><span class="key">Severity 4</span><span class="val">Warning</span></div>
+        <div class="row"><span class="key">Severity 5</span><span class="val">Notice</span></div>
+        <div class="row"><span class="key">Severity 6</span><span class="val">Informational</span></div>
+        <div class="row"><span class="key">Severity 7</span><span class="val">Debug</span></div>
+        <div class="note note-green"><b>Mnemonic:</b> Every Awesome Cisco Engineer Will Need Daily Debugging</div>
+      </div>
+    </div>
+
+    <!-- QoS -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#F5F0FF;">📶</div>
+        <h2>QoS</h2>
+        <span class="sub">Quality of Service</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">QoS Steps</div>
+        <div class="row"><span class="key">1. Classification</span><span class="val">Identify traffic (ACL, NBAR, DSCP)</span></div>
+        <div class="row"><span class="key">2. Marking</span><span class="val">Tag packets (DSCP, CoS, IP Precedence)</span></div>
+        <div class="row"><span class="key">3. Queuing</span><span class="val">Buffer and schedule packets</span></div>
+        <div class="row"><span class="key">4. Congestion Avoidance</span><span class="val">WRED — proactive drops</span></div>
+        <div class="row"><span class="key">5. Policing/Shaping</span><span class="val">Enforce rate limits</span></div>
+        <div class="section-label">DSCP Values (6-bit field)</div>
+        <div class="row"><span class="key">EF (46)</span><span class="val">Expedited Forwarding — VoIP bearer</span></div>
+        <div class="row"><span class="key">AF41/42/43</span><span class="val">Video conferencing</span></div>
+        <div class="row"><span class="key">AF31/32/33</span><span class="val">Call signaling</span></div>
+        <div class="row"><span class="key">CS3</span><span class="val">Signaling</span></div>
+        <div class="row"><span class="key">BE / CS0 (0)</span><span class="val">Best Effort — default</span></div>
+        <div class="section-label">CoS (Class of Service)</div>
+        <div class="row"><span class="key">Location</span><span class="val">3-bit PCP field in 802.1Q tag</span></div>
+        <div class="row"><span class="key">Range</span><span class="val">0–7 (7 = highest priority)</span></div>
+        <div class="row"><span class="key">CoS 5</span><span class="val">VoIP</span></div>
+        <div class="row"><span class="key">CoS 4</span><span class="val">Video</span></div>
+        <div class="section-label">Queuing Mechanisms</div>
+        <div class="row"><span class="key">FIFO</span><span class="val">First In First Out — no QoS</span></div>
+        <div class="row"><span class="key">WFQ</span><span class="val">Weighted Fair Queuing — automatic</span></div>
+        <div class="row"><span class="key">CBWFQ</span><span class="val">Class-Based WFQ — user-defined classes</span></div>
+        <div class="row"><span class="key">LLQ</span><span class="val">Low Latency Queue — strict priority for voice</span></div>
+        <div class="section-label">Traffic Management</div>
+        <div class="row"><span class="key">Policing</span><span class="val">Drops or re-marks excess traffic (hard limit)</span></div>
+        <div class="row"><span class="key">Shaping</span><span class="val">Buffers/delays excess traffic (smooth)</span></div>
+        <div class="note note-blue">Voice needs LLQ: jitter &lt;30ms, delay &lt;150ms, loss &lt;1% for G.711/G.729.</div>
+      </div>
+    </div>
+
+    <!-- Wireless -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#ECFEFF;">📡</div>
+        <h2>Wireless (WLAN)</h2>
+        <span class="sub">802.11 / WLC / CAPWAP</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">802.11 Standards</div>
+        <div class="row"><span class="key">802.11a</span><span class="val">5 GHz, up to 54 Mbps</span></div>
+        <div class="row"><span class="key">802.11b/g</span><span class="val">2.4 GHz, 11/54 Mbps</span></div>
+        <div class="row"><span class="key">802.11n (Wi-Fi 4)</span><span class="val">2.4/5 GHz, up to 600 Mbps, MIMO</span></div>
+        <div class="row"><span class="key">802.11ac (Wi-Fi 5)</span><span class="val">5 GHz, up to 3.5 Gbps, MU-MIMO</span></div>
+        <div class="row"><span class="key">802.11ax (Wi-Fi 6)</span><span class="val">2.4/5/6 GHz, OFDMA, BSS Coloring</span></div>
+        <div class="section-label">Deployment Models</div>
+        <div class="row"><span class="key">Autonomous AP</span><span class="val">Self-managed, no controller needed</span></div>
+        <div class="row"><span class="key">LAP</span><span class="val">Lightweight AP — requires WLC</span></div>
+        <div class="row"><span class="key">WLC</span><span class="val">Wireless LAN Controller — central mgmt</span></div>
+        <div class="section-label">CAPWAP</div>
+        <div class="row"><span class="key">Purpose</span><span class="val">Control &amp; Provisioning of Wireless APs</span></div>
+        <div class="row"><span class="key">Control Channel</span><span class="val">UDP 5246 (DTLS encrypted)</span></div>
+        <div class="row"><span class="key">Data Channel</span><span class="val">UDP 5247</span></div>
+        <div class="section-label">Wireless Security</div>
+        <div class="row"><span class="key">WPA2-Personal</span><span class="val">PSK + AES-CCMP (SOHO)</span></div>
+        <div class="row"><span class="key">WPA2-Enterprise</span><span class="val">802.1X + RADIUS (corporate)</span></div>
+        <div class="row"><span class="key">WPA3</span><span class="val">SAE replaces PSK, PMF mandatory</span></div>
+        <div class="section-label">SSID &amp; Roaming</div>
+        <div class="row"><span class="key">SSID</span><span class="val">Logical network name, maps to VLAN</span></div>
+        <div class="row"><span class="key">L2 Roaming</span><span class="val">Same subnet, same VLAN across APs</span></div>
+        <div class="row"><span class="key">L3 Roaming</span><span class="val">Different subnet, anchor controller</span></div>
+        <div class="note note-blue">WLC centrally manages: radio config, SSID, security, firmware, RF management.</div>
+      </div>
+    </div>
+
+  </div><!-- /grid row 6 -->
+
+  <!-- ROW 7: Security/ACL + Automation (2 col + 1 wide) -->
+  <div class="grid grid-2">
+
+    <!-- Security / ACL -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#FEF2F2;">🔒</div>
+        <h2>Security &amp; Access Control Lists</h2>
+        <span class="sub">ACL / Port Security / 802.1X / AAA</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">ACL Types</div>
+        <div class="row"><span class="key">Standard ACL</span><span class="val">Source IP only, numbered 1–99 / 1300–1999</span></div>
+        <div class="row"><span class="key">Extended ACL</span><span class="val">Src/Dst IP + protocol + ports, 100–199 / 2000–2699</span></div>
+        <div class="row"><span class="key">Named ACL</span><span class="val">ip access-list standard/extended [name]</span></div>
+        <div class="section-label">ACL Placement Rule</div>
+        <div class="row"><span class="key">Standard</span><span class="val">Place CLOSE to destination (matches src only)</span></div>
+        <div class="row"><span class="key">Extended</span><span class="val">Place CLOSE to source (more specific)</span></div>
+        <div class="row"><span class="key">Direction</span><span class="val">ip access-group [name|#] in|out on interface</span></div>
+        <div class="row"><span class="key">Implicit Deny</span><span class="val">All ACLs end with invisible "deny any"</span></div>
+        <div class="section-label">Port Security</div>
+        <div class="row"><span class="key">Purpose</span><span class="val">Limits MACs per access port</span></div>
+        <div class="row"><span class="key">Protect</span><span class="val">Drop excess MACs silently</span></div>
+        <div class="row"><span class="key">Restrict</span><span class="val">Drop + syslog/SNMP notification</span></div>
+        <div class="row"><span class="key">Shutdown</span><span class="val">Err-disable port (default violation mode)</span></div>
+        <div class="row"><span class="key">Sticky</span><span class="val">Dynamically learns and saves MACs to config</span></div>
+        <div class="section-label">Layer 2 Security Features</div>
+        <div class="row"><span class="key">DHCP Snooping</span><span class="val">Validates DHCP msgs, trusted/untrusted ports</span></div>
+        <div class="row"><span class="key">DAI</span><span class="val">Dynamic ARP Inspection — checks ARP vs DHCP table</span></div>
+        <div class="row"><span class="key">IP Source Guard</span><span class="val">Validates src IP against DHCP snooping table</span></div>
+        <div class="section-label">802.1X Port-Based NAC</div>
+        <div class="row"><span class="key">Supplicant</span><span class="val">End device requesting access</span></div>
+        <div class="row"><span class="key">Authenticator</span><span class="val">Switch/AP — enforces policy</span></div>
+        <div class="row"><span class="key">Auth Server</span><span class="val">RADIUS — validates credentials</span></div>
+        <div class="section-label">AAA</div>
+        <div class="row"><span class="key">Authentication</span><span class="val">Who are you? (username/password)</span></div>
+        <div class="row"><span class="key">Authorization</span><span class="val">What can you do? (privileges)</span></div>
+        <div class="row"><span class="key">Accounting</span><span class="val">What did you do? (logging/auditing)</span></div>
+        <div class="row"><span class="key">TACACS+</span><span class="val">Cisco, TCP 49, separates AAA, encrypts all</span></div>
+        <div class="row"><span class="key">RADIUS</span><span class="val">Open, UDP 1645/1812, encrypts password only</span></div>
+        <div class="note note-red">TACACS+ = device administration. RADIUS = network access (802.1X, VPN).</div>
+      </div>
+    </div>
+
+    <!-- Automation -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#E8F7EF;">🤖</div>
+        <h2>Automation &amp; Programmability</h2>
+        <span class="sub">SDN / REST / NETCONF / RESTCONF / Ansible</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">REST API</div>
+        <div class="row"><span class="key">GET</span><span class="val">Read/retrieve resource</span></div>
+        <div class="row"><span class="key">POST</span><span class="val">Create new resource</span></div>
+        <div class="row"><span class="key">PUT</span><span class="val">Replace entire resource</span></div>
+        <div class="row"><span class="key">PATCH</span><span class="val">Partial update of resource</span></div>
+        <div class="row"><span class="key">DELETE</span><span class="val">Remove resource</span></div>
+        <div class="row"><span class="key">Data Formats</span><span class="val">JSON (primary), XML</span></div>
+        <div class="row"><span class="key">Characteristics</span><span class="val">Stateless, client-server, cacheable</span></div>
+        <div class="section-label">JSON Structure</div>
+        <div class="row"><span class="key">Object</span><span class="val">{"key": "value"} — curly braces</span></div>
+        <div class="row"><span class="key">Array</span><span class="val">["item1", "item2"] — square brackets</span></div>
+        <div class="row"><span class="key">Data Types</span><span class="val">string, number, boolean, null, object, array</span></div>
+        <div class="section-label">Data Modeling &amp; Protocols</div>
+        <div class="row"><span class="key">YANG</span><span class="val">Data modeling language (RFC 6020/7950)</span></div>
+        <div class="row"><span class="key">NETCONF</span><span class="val">XML-based, SSH port 830, get-config/edit-config</span></div>
+        <div class="row"><span class="key">RESTCONF</span><span class="val">HTTP-based, uses YANG, JSON/XML, port 443</span></div>
+        <div class="row"><span class="key">gRPC/gNMI</span><span class="val">Streaming telemetry, newer platforms</span></div>
+        <div class="section-label">Configuration Management Tools</div>
+        <div class="row"><span class="key">Ansible</span><span class="val">Agentless, YAML playbooks, SSH push model</span></div>
+        <div class="row"><span class="key">Puppet</span><span class="val">Agent-based, Ruby DSL, pull model</span></div>
+        <div class="row"><span class="key">Chef</span><span class="val">Agent-based, Ruby DSL, pull model</span></div>
+        <div class="row"><span class="key">Terraform</span><span class="val">Infrastructure as Code, HCL, declarative</span></div>
+        <div class="section-label">SDN Architecture</div>
+        <div class="row"><span class="key">Traditional</span><span class="val">Distributed control plane per device</span></div>
+        <div class="row"><span class="key">SDN</span><span class="val">Centralized control plane (controller)</span></div>
+        <div class="row"><span class="key">Northbound API</span><span class="val">Controller ↔ Applications (REST)</span></div>
+        <div class="row"><span class="key">Southbound API</span><span class="val">Controller ↔ Network devices (OpenFlow, NETCONF)</span></div>
+        <div class="row"><span class="key">Eastbound/West</span><span class="val">Controller ↔ Controller communication</span></div>
+        <div class="section-label">Cisco DNA Center</div>
+        <div class="row"><span class="key">Purpose</span><span class="val">Intent-based networking platform</span></div>
+        <div class="row"><span class="key">REST API</span><span class="val">Full programmability via HTTPS</span></div>
+        <div class="row"><span class="key">Features</span><span class="val">Network automation, assurance, analytics, SD-Access</span></div>
+        <div class="row"><span class="key">SDA</span><span class="val">Software-Defined Access — fabric underlay/overlay</span></div>
+        <div class="note note-green">Ansible is the most common CCNA-tested tool: agentless, playbooks in YAML, uses SSH to push config.</div>
+      </div>
+    </div>
+
+  </div><!-- /grid row 7 -->
+
+  <!-- ROW 8: IOS CLI Reference (full width 4-col) -->
+  <div class="grid grid-4" style="margin-bottom:12px;">
+
+    <!-- IOS CLI Essentials -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#EBF4FF;">💻</div>
+        <h2>IOS CLI Modes</h2>
+        <span class="sub">Navigation</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Privilege Levels</div>
+        <div class="row"><span class="key">Router&gt;</span><span class="val">User EXEC (limited)</span></div>
+        <div class="row"><span class="key">Router#</span><span class="val">Privileged EXEC (enable)</span></div>
+        <div class="row"><span class="key">Router(config)#</span><span class="val">Global config (conf t)</span></div>
+        <div class="row"><span class="key">Router(config-if)#</span><span class="val">Interface config</span></div>
+        <div class="row"><span class="key">Router(config-router)#</span><span class="val">Routing protocol</span></div>
+        <div class="section-label">Navigation Commands</div>
+        <div class="row"><span class="key">enable</span><span class="val">Enter privileged EXEC</span></div>
+        <div class="row"><span class="key">conf t</span><span class="val">Enter global config</span></div>
+        <div class="row"><span class="key">end / Ctrl+Z</span><span class="val">Return to priv EXEC</span></div>
+        <div class="row"><span class="key">exit</span><span class="val">Go up one level</span></div>
+        <div class="row"><span class="key">do [cmd]</span><span class="val">Run EXEC cmd from config mode</span></div>
+        <div class="section-label">File Management</div>
+        <div class="row"><span class="key">copy run start</span><span class="val">Save config to NVRAM</span></div>
+        <div class="row"><span class="key">copy run tftp:</span><span class="val">Backup config to TFTP</span></div>
+        <div class="row"><span class="key">show ver</span><span class="val">IOS version, uptime, register</span></div>
+        <div class="row"><span class="key">erase startup</span><span class="val">Wipe saved config</span></div>
+      </div>
+    </div>
+
+    <!-- Show Commands -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#E8F7EF;">🔍</div>
+        <h2>Key Show Commands</h2>
+        <span class="sub">Verification</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Interfaces &amp; IP</div>
+        <div class="row"><span class="key">show ip int brief</span><span class="val">IP, status, protocol summary</span></div>
+        <div class="row"><span class="key">show interfaces</span><span class="val">Detailed stats, errors</span></div>
+        <div class="row"><span class="key">show ip route</span><span class="val">Routing table</span></div>
+        <div class="row"><span class="key">show ip arp</span><span class="val">ARP cache</span></div>
+        <div class="section-label">Switching</div>
+        <div class="row"><span class="key">show mac addr-table</span><span class="val">CAM table</span></div>
+        <div class="row"><span class="key">show vlan brief</span><span class="val">VLANs and ports</span></div>
+        <div class="row"><span class="key">show int trunk</span><span class="val">Trunk ports, VLANs allowed</span></div>
+        <div class="row"><span class="key">show span</span><span class="val">STP state and topology</span></div>
+        <div class="section-label">Routing Protocols</div>
+        <div class="row"><span class="key">show ip ospf nei</span><span class="val">OSPF neighbors</span></div>
+        <div class="row"><span class="key">show ip ospf int br</span><span class="val">OSPF interface summary</span></div>
+        <div class="row"><span class="key">show ip eigrp nei</span><span class="val">EIGRP neighbors</span></div>
+        <div class="row"><span class="key">show ip eigrp top</span><span class="val">EIGRP topology table</span></div>
+      </div>
+    </div>
+
+    <!-- Interface / Routing Config -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#ECFEFF;">⚙️</div>
+        <h2>Interface &amp; Routing Config</h2>
+        <span class="sub">IOS Syntax</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Interface Basics</div>
+        <div class="row"><span class="key">int g0/0</span><span class="val">Enter interface config</span></div>
+        <div class="row"><span class="key">ip addr [IP] [mask]</span><span class="val">Assign IPv4 address</span></div>
+        <div class="row"><span class="key">ipv6 addr [IPv6/len]</span><span class="val">Assign IPv6 address</span></div>
+        <div class="row"><span class="key">no shutdown</span><span class="val">Enable interface</span></div>
+        <div class="row"><span class="key">description [text]</span><span class="val">Label interface</span></div>
+        <div class="section-label">OSPF Config</div>
+        <div class="row"><span class="key">router ospf 1</span><span class="val">Start OSPF process 1</span></div>
+        <div class="row"><span class="key">router-id [X.X.X.X]</span><span class="val">Set manual router ID</span></div>
+        <div class="row"><span class="key">network [net] [wc] area [x]</span><span class="val">Advertise network</span></div>
+        <div class="row"><span class="key">passive-interface [int]</span><span class="val">Stop hello on interface</span></div>
+        <div class="section-label">EIGRP Config</div>
+        <div class="row"><span class="key">router eigrp [ASN]</span><span class="val">Start EIGRP</span></div>
+        <div class="row"><span class="key">no auto-summary</span><span class="val">Disable auto classful summarization</span></div>
+        <div class="row"><span class="key">network [net] [wc]</span><span class="val">Advertise network (wildcard)</span></div>
+        <div class="section-label">Switch Port Config</div>
+        <div class="row"><span class="key">switchport mode access</span><span class="val">Set access mode</span></div>
+        <div class="row"><span class="key">switchport access vlan [x]</span><span class="val">Assign to VLAN</span></div>
+        <div class="row"><span class="key">switchport mode trunk</span><span class="val">Set trunk mode</span></div>
+        <div class="row"><span class="key">sw trunk native vlan [x]</span><span class="val">Set native VLAN</span></div>
+      </div>
+    </div>
+
+    <!-- Troubleshooting -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#FEF2F2;">🔧</div>
+        <h2>Troubleshooting</h2>
+        <span class="sub">Methodology &amp; Tools</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">OSI Troubleshoot (bottom-up)</div>
+        <div class="row"><span class="key">L1 Physical</span><span class="val">Cables, LEDs, interface status</span></div>
+        <div class="row"><span class="key">L2 Data Link</span><span class="val">MAC, VLAN, STP, duplex</span></div>
+        <div class="row"><span class="key">L3 Network</span><span class="val">IP addressing, routing, ACLs</span></div>
+        <div class="row"><span class="key">L4 Transport</span><span class="val">Port blocks, firewall, NAT</span></div>
+        <div class="row"><span class="key">L7 Application</span><span class="val">DNS, service, proxy</span></div>
+        <div class="section-label">Interface Error Counters</div>
+        <div class="row"><span class="key">Input errors</span><span class="val">CRC = bad cable / duplex mismatch</span></div>
+        <div class="row"><span class="key">Runts</span><span class="val">Frames &lt;64B — collision / duplex</span></div>
+        <div class="row"><span class="key">Giants</span><span class="val">Frames &gt;1518B — misconfigured MTU</span></div>
+        <div class="row"><span class="key">Collisions</span><span class="val">Half-duplex or duplex mismatch</span></div>
+        <div class="section-label">Connectivity Tests</div>
+        <div class="row"><span class="key">ping [IP]</span><span class="val">ICMP echo test (L3)</span></div>
+        <div class="row"><span class="key">traceroute [IP]</span><span class="val">Path discovery, TTL exceeded</span></div>
+        <div class="row"><span class="key">telnet [IP] [port]</span><span class="val">Test TCP port reachability</span></div>
+        <div class="section-label">Debug Commands</div>
+        <div class="row"><span class="key">debug ip ospf events</span><span class="val">OSPF neighbor events</span></div>
+        <div class="row"><span class="key">debug ip packet</span><span class="val">IP packet processing</span></div>
+        <div class="row"><span class="key">undebug all</span><span class="val">Stop all debug output</span></div>
+        <div class="note note-red">Always undebug in production — debug can overload CPU on Cisco IOS.</div>
+      </div>
+    </div>
+
+  </div><!-- /grid row 8 -->
+
+  <!-- Footer note -->
+  <div style="text-align:center; font-size:9px; color:var(--text3); padding:8px 0 4px;">
+    Cisco CCNA 200-301 &mdash; Cheat Sheet Reference &mdash; IT University &middot; All exam content copyright Cisco Systems. This document is for study purposes only.
+  </div>
+
+</div><!-- /page -->
+</body>
+</html>

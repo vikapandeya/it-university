@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RHCSA EX200 Cheat Sheet</title>
+  <meta name="description" content="Comprehensive Red Hat RHCSA EX200 exam cheat sheet — commands, syntax, and exam tips for every task domain.">
+  <style>
+    :root {
+      --bg:#F5F6F7; --surface:#FFFFFF; --border:#E2E4E8;
+      --navy:#0F1C2E; --navy2:#1A2E45;
+      --green:#1B7A4A; --green-soft:#E8F7EF;
+      --blue:#1A6FB5; --blue-soft:#EBF4FF;
+      --red:#B91C1C; --red-soft:#FEF2F2;
+      --purple:#6B21A8; --purple-soft:#F5F0FF;
+      --text:#1C2333; --text2:#4A5568; --text3:#718096;
+      --mono:'Consolas','Courier New',monospace;
+      --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+    }
+    body { font-family:var(--sans); font-size:11px; background:var(--bg); color:var(--text); line-height:1.5; }
+    .page { max-width:1280px; margin:0 auto; padding:20px 16px; }
+    .header { background:var(--navy); border-radius:10px; padding:20px 24px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+    .header-left h1 { font-size:22px; font-weight:800; color:#fff; } .header-left h1 span { color:#22C55E; }
+    .header-left p { font-size:11px; color:#94A3B8; margin-top:3px; }
+    .header-badges { display:flex; gap:8px; flex-wrap:wrap; }
+    .badge { font-size:10px; font-weight:700; padding:4px 10px; border-radius:20px; letter-spacing:.5px; text-transform:uppercase; }
+    .badge-green { background:#22C55E; color:#fff; } .badge-blue { background:#3B82F6; color:#fff; } .badge-red { background:#EF4444; color:#fff; }
+    .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:12px; }
+    .grid-2 { grid-template-columns:repeat(2,1fr); } .grid-4 { grid-template-columns:repeat(4,1fr); }
+    .card { background:var(--surface); border-radius:8px; border:1px solid var(--border); overflow:hidden; }
+    .card-header { padding:8px 12px; display:flex; align-items:center; gap:8px; border-bottom:1px solid var(--border); }
+    .card-header .icon { width:24px; height:24px; border-radius:5px; display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; }
+    .card-header h2 { font-size:11.5px; font-weight:800; color:var(--navy); }
+    .card-header .sub { font-size:9px; color:var(--text3); margin-left:auto; }
+    .card-body { padding:10px 12px; }
+    .section-label { font-size:8.5px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--text3); margin-bottom:5px; margin-top:9px; }
+    .section-label:first-child { margin-top:0; }
+    .row { display:flex; justify-content:space-between; align-items:baseline; padding:2px 0; border-bottom:1px solid #F1F3F5; gap:8px; }
+    .row:last-child { border-bottom:none; }
+    .row .key { font-family:var(--mono); font-size:10px; font-weight:600; color:var(--navy); white-space:nowrap; flex-shrink:0; }
+    .row .val { font-size:10px; color:var(--text2); text-align:right; }
+    .tags { display:flex; flex-wrap:wrap; gap:4px; margin-top:2px; }
+    .tag { font-size:9.5px; padding:2px 7px; border-radius:4px; font-weight:600; font-family:var(--mono); }
+    .tag-green { background:var(--green-soft); color:#166534; } .tag-blue { background:var(--blue-soft); color:#1E40AF; }
+    .tag-red { background:var(--red-soft); color:#991B1B; } .tag-purple { background:var(--purple-soft); color:#6B21A8; }
+    .tip-bar { background:var(--navy2); border-radius:8px; padding:10px 16px; margin-bottom:16px; display:flex; gap:24px; flex-wrap:wrap; }
+    .tip-label { font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:#4ADE80; }
+    .tip { font-size:10.5px; color:#CBD5E1; } .tip b { color:#fff; }
+    .note { font-size:10px; color:var(--text2); padding:6px 8px; border-radius:4px; margin-top:4px; }
+    .note-green { background:var(--green-soft); border-left:3px solid var(--green); }
+    .note-blue { background:var(--blue-soft); border-left:3px solid var(--blue); }
+    .note-red { background:var(--red-soft); border-left:3px solid var(--red); }
+    .cmd { font-family:var(--mono); font-size:10px; background:#F1F3F5; padding:3px 7px; border-radius:4px; color:var(--navy); display:block; margin:2px 0; }
+    @media print { body{background:#fff} .page{padding:0} }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <h1>RHCSA <span>EX200</span> Cheat Sheet</h1>
+      <p>Red Hat Certified System Administrator — RHEL 9 | Performance-Based Lab Exam | All 16 Task Domains</p>
+    </div>
+    <div class="header-badges">
+      <span class="badge badge-red">RHEL 9</span>
+      <span class="badge badge-blue">2.5 Hours</span>
+      <span class="badge badge-green">Pass: 210/300</span>
+    </div>
+  </div>
+
+  <!-- TIP BAR 1 -->
+  <div class="tip-bar">
+    <div>
+      <div class="tip-label">Exam Format</div>
+      <div class="tip"><b>Performance-based lab</b> — no multiple choice. You must DO the tasks on a live RHEL 9 system.</div>
+    </div>
+    <div>
+      <div class="tip-label">Key Habit</div>
+      <div class="tip"><b>systemctl enable --now</b> starts AND persists a service. Don't forget --now or services won't be running at reboot check.</div>
+    </div>
+    <div>
+      <div class="tip-label">SELinux</div>
+      <div class="tip">Never disable SELinux. Use <b>restorecon</b> or <b>semanage fcontext</b> + restorecon for persistent context fixes.</div>
+    </div>
+    <div>
+      <div class="tip-label">Firewall</div>
+      <div class="tip">Always use <b>--permanent</b> flag then <b>--reload</b> or your firewall rules vanish on reboot.</div>
+    </div>
+  </div>
+
+  <!-- ROW 1: File Mgmt, Vim, Users & Groups -->
+  <div class="grid">
+
+    <!-- FILE MANAGEMENT -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#EBF4FF;">📁</div>
+        <h2>File Management</h2>
+        <span class="sub">cp / mv / find / tar / links</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Copy / Move / Delete</div>
+        <span class="cmd">cp -r /src /dest</span>
+        <span class="cmd">cp -p file dest/</span>
+        <span class="cmd">mv /old/path /new/path</span>
+        <span class="cmd">rm -rf /dir</span>
+        <span class="cmd">mkdir -p /a/b/c</span>
+        <span class="cmd">touch filename</span>
+
+        <div class="section-label">Find Files</div>
+        <span class="cmd">find / -name "*.conf" -type f</span>
+        <span class="cmd">find /home -user john -perm /4000</span>
+        <span class="cmd">find / -size +100M</span>
+        <span class="cmd">find / -mtime -7 -type f</span>
+        <span class="cmd">find /etc -name "*.conf" -exec ls -l {} \;</span>
+
+        <div class="section-label">Tar / Compression</div>
+        <span class="cmd">tar -czf archive.tar.gz /dir</span>
+        <span class="cmd">tar -xzf archive.tar.gz -C /dest</span>
+        <span class="cmd">tar -tf archive.tar.gz</span>
+        <span class="cmd">tar -cjf archive.tar.bz2 /dir</span>
+        <span class="cmd">gzip file  /  gunzip file.gz</span>
+        <span class="cmd">bzip2 file  /  bunzip2 file.bz2</span>
+
+        <div class="section-label">Links</div>
+        <span class="cmd">ln -s /source /link</span>
+        <span class="cmd">ln /source /hardlink</span>
+
+        <div class="section-label">File Info</div>
+        <span class="cmd">stat file</span>
+        <span class="cmd">file filename</span>
+        <span class="cmd">which command</span>
+        <span class="cmd">whereis command</span>
+        <span class="cmd">locate filename</span>
+        <div class="note note-blue">tar flags: c=create z=gzip x=extract f=file t=list j=bzip2 C=target-dir</div>
+      </div>
+    </div>
+
+    <!-- VIM ESSENTIALS -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#E8F7EF;">📝</div>
+        <h2>Vim Essentials</h2>
+        <span class="sub">modes / navigation / editing</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Save &amp; Quit</div>
+        <div class="row"><span class="key">:w</span><span class="val">save file</span></div>
+        <div class="row"><span class="key">:q</span><span class="val">quit</span></div>
+        <div class="row"><span class="key">:wq</span><span class="val">save and quit</span></div>
+        <div class="row"><span class="key">:q!</span><span class="val">force quit, no save</span></div>
+        <div class="row"><span class="key">:x</span><span class="val">save only if changed, quit</span></div>
+
+        <div class="section-label">Insert Modes</div>
+        <div class="row"><span class="key">i</span><span class="val">insert before cursor</span></div>
+        <div class="row"><span class="key">a</span><span class="val">append after cursor</span></div>
+        <div class="row"><span class="key">o</span><span class="val">new line below, insert</span></div>
+        <div class="row"><span class="key">O</span><span class="val">new line above, insert</span></div>
+        <div class="row"><span class="key">Esc</span><span class="val">return to normal mode</span></div>
+
+        <div class="section-label">Navigation</div>
+        <div class="row"><span class="key">gg</span><span class="val">start of file</span></div>
+        <div class="row"><span class="key">G</span><span class="val">end of file</span></div>
+        <div class="row"><span class="key">:n</span><span class="val">go to line n</span></div>
+        <div class="row"><span class="key">0 / $</span><span class="val">line start / end</span></div>
+        <div class="row"><span class="key">Ctrl+f/b</span><span class="val">page down / up</span></div>
+
+        <div class="section-label">Search</div>
+        <div class="row"><span class="key">/pattern</span><span class="val">search forward</span></div>
+        <div class="row"><span class="key">?pattern</span><span class="val">search backward</span></div>
+        <div class="row"><span class="key">n / N</span><span class="val">next / prev match</span></div>
+
+        <div class="section-label">Edit Operations</div>
+        <div class="row"><span class="key">dd</span><span class="val">delete (cut) line</span></div>
+        <div class="row"><span class="key">yy</span><span class="val">yank (copy) line</span></div>
+        <div class="row"><span class="key">p</span><span class="val">paste after cursor</span></div>
+        <div class="row"><span class="key">u</span><span class="val">undo</span></div>
+        <div class="row"><span class="key">Ctrl+r</span><span class="val">redo</span></div>
+        <div class="row"><span class="key">dw</span><span class="val">delete word</span></div>
+        <div class="row"><span class="key">cw</span><span class="val">change word</span></div>
+
+        <div class="section-label">Global Commands</div>
+        <span class="cmd">:%s/old/new/g</span>
+        <span class="cmd">:set number</span>
+        <span class="cmd">:set nonumber</span>
+        <span class="cmd">:set paste</span>
+        <div class="note note-blue">:%s/old/new/gc adds confirmation prompt for each replacement</div>
+      </div>
+    </div>
+
+    <!-- USERS & GROUPS -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#F5F0FF;">👤</div>
+        <h2>Users &amp; Groups</h2>
+        <span class="sub">useradd / usermod / chage / sudo</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Create Users</div>
+        <span class="cmd">useradd -m -s /bin/bash -u 1500 -G wheel username</span>
+        <span class="cmd">useradd -r -s /sbin/nologin serviceuser</span>
+        <span class="cmd">passwd username</span>
+        <span class="cmd">useradd -c "Full Name" username</span>
+
+        <div class="section-label">Modify Users</div>
+        <span class="cmd">usermod -aG groupname username</span>
+        <span class="cmd">usermod -s /bin/bash username</span>
+        <span class="cmd">usermod -L username</span>
+        <span class="cmd">usermod -U username</span>
+        <span class="cmd">usermod -d /newhome -m username</span>
+        <span class="cmd">userdel -r username</span>
+
+        <div class="section-label">Groups</div>
+        <span class="cmd">groupadd -g 2000 groupname</span>
+        <span class="cmd">groupdel groupname</span>
+        <span class="cmd">groupmod -n newname oldname</span>
+        <span class="cmd">groups username</span>
+        <span class="cmd">id username</span>
+
+        <div class="section-label">Password Aging (chage)</div>
+        <span class="cmd">chage -l username</span>
+        <span class="cmd">chage -E 2025-12-31 username</span>
+        <span class="cmd">chage -M 90 username</span>
+        <span class="cmd">chage -m 7 username</span>
+        <span class="cmd">chage -W 14 username</span>
+
+        <div class="section-label">Sudo Access</div>
+        <span class="cmd">visudo</span>
+        <span class="cmd"># In /etc/sudoers:</span>
+        <span class="cmd">username ALL=(ALL) ALL</span>
+        <span class="cmd">%wheel ALL=(ALL) ALL</span>
+        <span class="cmd">%groupname ALL=(ALL) NOPASSWD: ALL</span>
+        <div class="note note-green">usermod -aG wheel username gives wheel group sudo. Always use -a with -G to APPEND, never replace groups.</div>
+        <div class="note note-blue">Config files: /etc/passwd /etc/shadow /etc/group /etc/gshadow</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 2: Permissions, Storage, LVM -->
+  <div class="grid">
+
+    <!-- PERMISSIONS -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#FEF2F2;">🔐</div>
+        <h2>Permissions &amp; ACLs</h2>
+        <span class="sub">chmod / chown / umask / setfacl</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Basic Permissions</div>
+        <span class="cmd">chmod 755 file</span>
+        <span class="cmd">chmod 644 file</span>
+        <span class="cmd">chmod 600 file</span>
+        <span class="cmd">chmod 777 file</span>
+        <span class="cmd">chmod u+x file</span>
+        <span class="cmd">chmod g-w file</span>
+        <span class="cmd">chmod o=r file</span>
+        <span class="cmd">chmod -R 755 /dir</span>
+
+        <div class="section-label">Ownership</div>
+        <span class="cmd">chown user:group file</span>
+        <span class="cmd">chown -R user:group /dir</span>
+        <span class="cmd">chgrp groupname file</span>
+
+        <div class="section-label">Umask</div>
+        <div class="row"><span class="key">umask 022</span><span class="val">files:644 dirs:755 (default)</span></div>
+        <div class="row"><span class="key">umask 027</span><span class="val">files:640 dirs:750</span></div>
+        <div class="row"><span class="key">umask 077</span><span class="val">files:600 dirs:700</span></div>
+        <div class="note note-blue">umask subtracts from 666 (files) / 777 (dirs). Set in ~/.bashrc or /etc/profile.</div>
+
+        <div class="section-label">Special Bits</div>
+        <div class="row"><span class="key">chmod u+s file</span><span class="val">SUID (4xxx) — run as owner</span></div>
+        <div class="row"><span class="key">chmod g+s dir</span><span class="val">SGID (2xxx) — inherit group</span></div>
+        <div class="row"><span class="key">chmod +t /dir</span><span class="val">Sticky (1xxx) — own files only</span></div>
+        <span class="cmd">ls -la /dir</span>
+        <div class="tags">
+          <span class="tag tag-red">SUID: -rws------</span>
+          <span class="tag tag-blue">SGID: drwxr-sr-x</span>
+          <span class="tag tag-purple">Sticky: drwxrwxrwt</span>
+        </div>
+
+        <div class="section-label">ACLs</div>
+        <span class="cmd">setfacl -m u:user:rwx /path</span>
+        <span class="cmd">setfacl -m g:group:r-- /path</span>
+        <span class="cmd">setfacl -R -m u:user:rwx /dir</span>
+        <span class="cmd">getfacl /path</span>
+        <span class="cmd">setfacl -b /path</span>
+        <span class="cmd">setfacl -x u:user /path</span>
+        <span class="cmd">setfacl -m d:u:user:rwx /dir</span>
+        <div class="note note-green">Default ACLs (d: prefix) apply to new files created inside the directory. Requires getfacl to verify.</div>
+      </div>
+    </div>
+
+    <!-- STORAGE & PARTITIONING -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#EBF4FF;">💽</div>
+        <h2>Storage &amp; Partitioning</h2>
+        <span class="sub">fdisk / gdisk / mkfs / fstab</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Partition Tools</div>
+        <span class="cmd">fdisk /dev/sdb</span>
+        <span class="cmd">gdisk /dev/sdb</span>
+        <div class="tags" style="margin-bottom:4px;">
+          <span class="tag tag-blue">n — new partition</span>
+          <span class="tag tag-blue">p — print table</span>
+          <span class="tag tag-blue">d — delete</span>
+          <span class="tag tag-green">w — write &amp; exit</span>
+          <span class="tag tag-red">q — quit no save</span>
+          <span class="tag tag-purple">t — change type</span>
+        </div>
+        <span class="cmd">partprobe /dev/sdb</span>
+
+        <div class="section-label">Format Filesystems</div>
+        <span class="cmd">mkfs.xfs /dev/sdb1</span>
+        <span class="cmd">mkfs.ext4 /dev/sdb1</span>
+        <span class="cmd">mkfs.xfs -L "datalabel" /dev/sdb1</span>
+
+        <div class="section-label">Inspect Devices</div>
+        <span class="cmd">lsblk</span>
+        <span class="cmd">lsblk -f</span>
+        <span class="cmd">blkid</span>
+        <span class="cmd">blkid /dev/sdb1</span>
+        <span class="cmd">df -hT</span>
+        <span class="cmd">findmnt</span>
+
+        <div class="section-label">Mount / Unmount</div>
+        <span class="cmd">mount /dev/sdb1 /mnt</span>
+        <span class="cmd">mount -o ro,noexec /dev/sdb1 /mnt</span>
+        <span class="cmd">mount -t xfs /dev/sdb1 /mnt</span>
+        <span class="cmd">umount /mnt</span>
+        <span class="cmd">umount -l /mnt</span>
+
+        <div class="section-label">/etc/fstab — Persistent Mounts</div>
+        <span class="cmd">UUID=xxxx-xxxx /data xfs defaults 0 0</span>
+        <span class="cmd">UUID=xxxx-xxxx /data ext4 defaults 0 2</span>
+        <span class="cmd">mount -a</span>
+        <div class="note note-red">Always use UUID (from blkid) in /etc/fstab — device names like /dev/sdb1 can change after reboot. A bad fstab entry can prevent boot.</div>
+
+        <div class="section-label">Swap Partition</div>
+        <span class="cmd">mkswap /dev/sdb2</span>
+        <span class="cmd">swapon /dev/sdb2</span>
+        <span class="cmd">swapoff /dev/sdb2</span>
+        <span class="cmd">swapon -s</span>
+        <span class="cmd">free -h</span>
+        <span class="cmd">UUID=xxxx swap swap defaults 0 0</span>
+
+        <div class="section-label">Swap File</div>
+        <span class="cmd">dd if=/dev/zero of=/swapfile bs=1M count=1024</span>
+        <span class="cmd">chmod 600 /swapfile</span>
+        <span class="cmd">mkswap /swapfile</span>
+        <span class="cmd">swapon /swapfile</span>
+        <span class="cmd">/swapfile swap swap defaults 0 0</span>
+      </div>
+    </div>
+
+    <!-- LVM -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#E8F7EF;">🗄️</div>
+        <h2>LVM</h2>
+        <span class="sub">pv / vg / lv / extend / resize</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Physical Volumes</div>
+        <span class="cmd">pvcreate /dev/sdb1 /dev/sdc1</span>
+        <span class="cmd">pvs</span>
+        <span class="cmd">pvdisplay</span>
+        <span class="cmd">pvdisplay /dev/sdb1</span>
+        <span class="cmd">pvremove /dev/sdb1</span>
+
+        <div class="section-label">Volume Groups</div>
+        <span class="cmd">vgcreate vgdata /dev/sdb1</span>
+        <span class="cmd">vgs</span>
+        <span class="cmd">vgdisplay vgdata</span>
+        <span class="cmd">vgextend vgdata /dev/sdc1</span>
+        <span class="cmd">vgreduce vgdata /dev/sdc1</span>
+        <span class="cmd">vgremove vgdata</span>
+
+        <div class="section-label">Logical Volumes</div>
+        <span class="cmd">lvcreate -L 10G -n lvdata vgdata</span>
+        <span class="cmd">lvcreate -l 100%FREE -n lvdata vgdata</span>
+        <span class="cmd">lvcreate -l 50%VG -n lvdata vgdata</span>
+        <span class="cmd">lvs</span>
+        <span class="cmd">lvdisplay /dev/vgdata/lvdata</span>
+        <span class="cmd">lvremove /dev/vgdata/lvdata</span>
+
+        <div class="section-label">Format &amp; Mount LV</div>
+        <span class="cmd">mkfs.xfs /dev/vgdata/lvdata</span>
+        <span class="cmd">mkdir /data</span>
+        <span class="cmd">mount /dev/vgdata/lvdata /data</span>
+        <span class="cmd">/dev/vgdata/lvdata /data xfs defaults 0 0</span>
+
+        <div class="section-label">Extend LV (XFS — online)</div>
+        <span class="cmd">lvextend -L +5G /dev/vgdata/lvdata</span>
+        <span class="cmd">xfs_growfs /data</span>
+        <span class="cmd">lvextend -L +5G -r /dev/vgdata/lvdata</span>
+        <div class="note note-green">-r flag with lvextend auto-resizes the filesystem. Works for both XFS and ext4.</div>
+
+        <div class="section-label">Extend LV (ext4)</div>
+        <span class="cmd">lvextend -L +5G /dev/vgdata/lvdata</span>
+        <span class="cmd">resize2fs /dev/vgdata/lvdata</span>
+
+        <div class="section-label">Reduce LV (ext4 only, offline)</div>
+        <span class="cmd">umount /data</span>
+        <span class="cmd">e2fsck -f /dev/vgdata/lvdata</span>
+        <span class="cmd">resize2fs /dev/vgdata/lvdata 8G</span>
+        <span class="cmd">lvreduce -L 8G /dev/vgdata/lvdata</span>
+        <div class="note note-red">XFS cannot be shrunk. Only ext4 supports lvreduce. Always e2fsck before reducing.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 3: Networking, Services, Software -->
+  <div class="grid">
+
+    <!-- NETWORKING -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#EBF4FF;">🌐</div>
+        <h2>Networking with nmcli</h2>
+        <span class="sub">connections / ip / hostname / DNS</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Inspect</div>
+        <span class="cmd">nmcli con show</span>
+        <span class="cmd">nmcli dev status</span>
+        <span class="cmd">nmcli con show --active</span>
+        <span class="cmd">ip addr show</span>
+        <span class="cmd">ip route show</span>
+        <span class="cmd">ip addr show eth0</span>
+
+        <div class="section-label">Create Connection</div>
+        <span class="cmd">nmcli con add type ethernet ifname eth0 con-name mycon</span>
+        <span class="cmd">nmcli con add type ethernet ifname eth0 con-name mycon ipv4.addresses 192.168.1.10/24 ipv4.gateway 192.168.1.1 ipv4.method manual</span>
+
+        <div class="section-label">Modify Connection</div>
+        <span class="cmd">nmcli con mod mycon ipv4.addresses 192.168.1.10/24</span>
+        <span class="cmd">nmcli con mod mycon ipv4.gateway 192.168.1.1</span>
+        <span class="cmd">nmcli con mod mycon ipv4.dns "8.8.8.8 8.8.4.4"</span>
+        <span class="cmd">nmcli con mod mycon ipv4.method manual</span>
+        <span class="cmd">nmcli con mod mycon +ipv4.dns 1.1.1.1</span>
+
+        <div class="section-label">Activate / Deactivate</div>
+        <span class="cmd">nmcli con up mycon</span>
+        <span class="cmd">nmcli con down mycon</span>
+        <span class="cmd">nmcli con del mycon</span>
+        <span class="cmd">nmcli dev disconnect eth0</span>
+        <span class="cmd">nmcli networking restart</span>
+
+        <div class="section-label">Hostname</div>
+        <span class="cmd">hostnamectl set-hostname server1.example.com</span>
+        <span class="cmd">hostnamectl status</span>
+        <span class="cmd">cat /etc/hostname</span>
+
+        <div class="section-label">Hosts File</div>
+        <span class="cmd">vi /etc/hosts</span>
+        <span class="cmd">127.0.0.1   localhost</span>
+        <span class="cmd">192.168.1.20  server2.example.com server2</span>
+        <div class="note note-blue">nmcli con mod writes to /etc/NetworkManager/system-connections/. Always nmcli con up after modifying.</div>
+      </div>
+    </div>
+
+    <!-- SYSTEMD & SERVICES -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#F5F0FF;">⚙️</div>
+        <h2>Services &amp; systemd</h2>
+        <span class="sub">start / enable / journal / unit files</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Service Control</div>
+        <span class="cmd">systemctl start httpd</span>
+        <span class="cmd">systemctl stop httpd</span>
+        <span class="cmd">systemctl restart httpd</span>
+        <span class="cmd">systemctl reload httpd</span>
+        <span class="cmd">systemctl enable --now httpd</span>
+        <span class="cmd">systemctl disable --now httpd</span>
+
+        <div class="section-label">Service Status</div>
+        <span class="cmd">systemctl status httpd</span>
+        <span class="cmd">systemctl is-active httpd</span>
+        <span class="cmd">systemctl is-enabled httpd</span>
+        <span class="cmd">systemctl list-units --type=service --state=running</span>
+        <span class="cmd">systemctl list-unit-files --type=service</span>
+
+        <div class="section-label">Advanced</div>
+        <span class="cmd">systemctl daemon-reload</span>
+        <span class="cmd">systemctl mask httpd</span>
+        <span class="cmd">systemctl unmask httpd</span>
+        <span class="cmd">systemctl reset-failed httpd</span>
+
+        <div class="section-label">Custom Service Unit</div>
+        <span class="cmd">/etc/systemd/system/myapp.service</span>
+        <span class="cmd">[Unit]</span>
+        <span class="cmd">Description=My Application</span>
+        <span class="cmd">After=network.target</span>
+        <span class="cmd"> </span>
+        <span class="cmd">[Service]</span>
+        <span class="cmd">Type=simple</span>
+        <span class="cmd">ExecStart=/usr/local/bin/myapp</span>
+        <span class="cmd">Restart=on-failure</span>
+        <span class="cmd">User=myuser</span>
+        <span class="cmd"> </span>
+        <span class="cmd">[Install]</span>
+        <span class="cmd">WantedBy=multi-user.target</span>
+        <div class="note note-green">After editing a unit file: systemctl daemon-reload then systemctl enable --now myapp</div>
+
+        <div class="section-label">Journalctl / Logs</div>
+        <span class="cmd">journalctl -u httpd</span>
+        <span class="cmd">journalctl -u httpd -f</span>
+        <span class="cmd">journalctl --since "today"</span>
+        <span class="cmd">journalctl --since "2024-01-01" --until "2024-01-02"</span>
+        <span class="cmd">journalctl -p err</span>
+        <span class="cmd">journalctl -b</span>
+      </div>
+    </div>
+
+    <!-- SOFTWARE MANAGEMENT -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#E8F7EF;">📦</div>
+        <h2>Software Management</h2>
+        <span class="sub">dnf / rpm / repos</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">DNF — Install / Remove</div>
+        <span class="cmd">dnf install httpd</span>
+        <span class="cmd">dnf install httpd -y</span>
+        <span class="cmd">dnf remove httpd</span>
+        <span class="cmd">dnf update</span>
+        <span class="cmd">dnf update httpd</span>
+
+        <div class="section-label">DNF — Search &amp; Info</div>
+        <span class="cmd">dnf search keyword</span>
+        <span class="cmd">dnf info httpd</span>
+        <span class="cmd">dnf list installed</span>
+        <span class="cmd">dnf list available</span>
+        <span class="cmd">dnf provides /usr/sbin/httpd</span>
+        <span class="cmd">dnf repolist</span>
+        <span class="cmd">dnf repolist all</span>
+
+        <div class="section-label">DNF — Groups</div>
+        <span class="cmd">dnf group list</span>
+        <span class="cmd">dnf group install "Development Tools"</span>
+        <span class="cmd">dnf group remove "Development Tools"</span>
+
+        <div class="section-label">Repo Configuration</div>
+        <span class="cmd">dnf config-manager --add-repo URL</span>
+        <span class="cmd">dnf config-manager --enable repoid</span>
+        <span class="cmd">dnf config-manager --disable repoid</span>
+        <span class="cmd"># /etc/yum.repos.d/myrepo.repo:</span>
+        <span class="cmd">[myrepo]</span>
+        <span class="cmd">name=My Repository</span>
+        <span class="cmd">baseurl=http://server/repo/</span>
+        <span class="cmd">enabled=1</span>
+        <span class="cmd">gpgcheck=0</span>
+
+        <div class="section-label">RPM — Query &amp; Manage</div>
+        <span class="cmd">rpm -qa</span>
+        <span class="cmd">rpm -qa | grep httpd</span>
+        <span class="cmd">rpm -qi httpd</span>
+        <span class="cmd">rpm -ql httpd</span>
+        <span class="cmd">rpm -qf /usr/sbin/httpd</span>
+        <span class="cmd">rpm -qR httpd</span>
+        <span class="cmd">rpm -ivh package.rpm</span>
+        <span class="cmd">rpm -e httpd</span>
+        <div class="note note-blue">Use dnf install package.rpm for local RPM files — handles dependencies automatically.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIP BAR 2 -->
+  <div class="tip-bar">
+    <div>
+      <div class="tip-label">SELinux Tip</div>
+      <div class="tip"><b>semanage fcontext</b> + <b>restorecon</b> is the permanent fix. <b>chcon</b> is temporary — reverts on relabel.</div>
+    </div>
+    <div>
+      <div class="tip-label">LVM Resize Tip</div>
+      <div class="tip">For XFS: <b>xfs_growfs /mountpoint</b> (not device). For ext4: <b>resize2fs /dev/vg/lv</b>. Or use <b>lvextend -r</b> for both.</div>
+    </div>
+    <div>
+      <div class="tip-label">Boot Recovery</div>
+      <div class="tip">At GRUB menu, press <b>e</b> to edit. Append <b>rd.break</b> at end of linux line. Then remount rw, chroot, change passwd, touch /.autorelabel.</div>
+    </div>
+    <div>
+      <div class="tip-label">Containers</div>
+      <div class="tip">Run containers as <b>rootless</b> (non-root user). Use <b>podman generate systemd</b> to persist containers across reboots.</div>
+    </div>
+  </div>
+
+  <!-- ROW 4: SELinux, Firewall, Containers -->
+  <div class="grid">
+
+    <!-- SELINUX -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#FEF2F2;">🛡️</div>
+        <h2>SELinux</h2>
+        <span class="sub">contexts / booleans / audit / semanage</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Modes</div>
+        <span class="cmd">getenforce</span>
+        <span class="cmd">setenforce 0</span>
+        <span class="cmd">setenforce 1</span>
+        <div class="row"><span class="key">enforcing</span><span class="val">blocks &amp; logs violations</span></div>
+        <div class="row"><span class="key">permissive</span><span class="val">logs only, no block</span></div>
+        <div class="row"><span class="key">disabled</span><span class="val">completely off (reboot req.)</span></div>
+        <div class="note note-red">Set permanent mode in /etc/selinux/config — SELINUX=enforcing/permissive/disabled. Requires reboot.</div>
+
+        <div class="section-label">View Contexts</div>
+        <span class="cmd">ls -Z /var/www/html/</span>
+        <span class="cmd">ps -Z</span>
+        <span class="cmd">ps -eZ | grep httpd</span>
+        <span class="cmd">id -Z</span>
+
+        <div class="section-label">Change Context (Temporary)</div>
+        <span class="cmd">chcon -t httpd_sys_content_t /var/www/html/file.html</span>
+        <span class="cmd">chcon -R -t httpd_sys_content_t /var/www/html/</span>
+        <div class="note note-red">chcon is NOT persistent. A relabel (restorecon or /.autorelabel) reverts it.</div>
+
+        <div class="section-label">Restore Context</div>
+        <span class="cmd">restorecon -Rv /var/www/html/</span>
+        <span class="cmd">restorecon -v /var/www/html/file.html</span>
+
+        <div class="section-label">Permanent Context (semanage)</div>
+        <span class="cmd">semanage fcontext -a -t httpd_sys_content_t '/mydir(/.*)?'</span>
+        <span class="cmd">restorecon -Rv /mydir</span>
+        <span class="cmd">semanage fcontext -l</span>
+        <span class="cmd">semanage fcontext -l | grep /var/www</span>
+        <div class="note note-green">Pattern: semanage fcontext -a -t TYPE 'PATH(/.*)?'  then restorecon -Rv PATH</div>
+
+        <div class="section-label">Booleans</div>
+        <span class="cmd">getsebool -a | grep httpd</span>
+        <span class="cmd">setsebool -P httpd_can_network_connect on</span>
+        <span class="cmd">setsebool -P httpd_enable_homedirs on</span>
+        <span class="cmd">setsebool -P ftpd_anon_write on</span>
+        <span class="cmd">semanage boolean -l | grep httpd</span>
+
+        <div class="section-label">Troubleshoot</div>
+        <span class="cmd">ausearch -m avc -ts recent</span>
+        <span class="cmd">ausearch -m avc -ts today</span>
+        <span class="cmd">audit2why &lt; /var/log/audit/audit.log</span>
+        <span class="cmd">audit2allow -a</span>
+        <span class="cmd">cat /var/log/audit/audit.log | grep denied</span>
+      </div>
+    </div>
+
+    <!-- FIREWALL -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#FEF2F2;">🔥</div>
+        <h2>Firewall (firewalld)</h2>
+        <span class="sub">zones / services / ports / rules</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Status &amp; Zones</div>
+        <span class="cmd">firewall-cmd --state</span>
+        <span class="cmd">firewall-cmd --list-all</span>
+        <span class="cmd">firewall-cmd --get-active-zones</span>
+        <span class="cmd">firewall-cmd --get-default-zone</span>
+        <span class="cmd">firewall-cmd --list-all-zones</span>
+
+        <div class="section-label">Services</div>
+        <span class="cmd">firewall-cmd --add-service=http --permanent</span>
+        <span class="cmd">firewall-cmd --add-service=https --permanent</span>
+        <span class="cmd">firewall-cmd --add-service=ssh --permanent</span>
+        <span class="cmd">firewall-cmd --remove-service=http --permanent</span>
+        <span class="cmd">firewall-cmd --list-services</span>
+        <span class="cmd">firewall-cmd --get-services</span>
+
+        <div class="section-label">Ports</div>
+        <span class="cmd">firewall-cmd --add-port=8080/tcp --permanent</span>
+        <span class="cmd">firewall-cmd --add-port=3306/tcp --permanent</span>
+        <span class="cmd">firewall-cmd --remove-port=8080/tcp --permanent</span>
+        <span class="cmd">firewall-cmd --list-ports</span>
+
+        <div class="section-label">Source / Rich Rules</div>
+        <span class="cmd">firewall-cmd --zone=public --add-source=192.168.1.0/24 --permanent</span>
+        <span class="cmd">firewall-cmd --zone=trusted --add-source=10.0.0.0/8 --permanent</span>
+
+        <div class="section-label">Apply &amp; Persist</div>
+        <span class="cmd">firewall-cmd --reload</span>
+        <span class="cmd">firewall-cmd --runtime-to-permanent</span>
+        <span class="cmd">systemctl enable --now firewalld</span>
+        <div class="note note-red">CRITICAL: --permanent writes config but does NOT activate immediately. Always run --reload after --permanent changes, or use both: once without --permanent (instant) and once with --permanent (persisted).</div>
+
+        <div class="section-label">Zone Management</div>
+        <span class="cmd">firewall-cmd --new-zone=myzone --permanent</span>
+        <span class="cmd">firewall-cmd --zone=myzone --add-interface=eth1 --permanent</span>
+        <span class="cmd">firewall-cmd --set-default-zone=trusted</span>
+      </div>
+    </div>
+
+    <!-- CONTAINERS / PODMAN -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#F5F0FF;">🐳</div>
+        <h2>Containers with Podman</h2>
+        <span class="sub">images / run / rootless / systemd</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Images</div>
+        <span class="cmd">podman pull registry.access.redhat.com/ubi9/ubi</span>
+        <span class="cmd">podman pull nginx:latest</span>
+        <span class="cmd">podman images</span>
+        <span class="cmd">podman rmi nginx:latest</span>
+        <span class="cmd">podman search nginx</span>
+        <span class="cmd">skopeo inspect docker://nginx:latest</span>
+
+        <div class="section-label">Run Containers</div>
+        <span class="cmd">podman run -d -p 8080:80 --name webserver nginx</span>
+        <span class="cmd">podman run -it --name mycontainer ubi9 /bin/bash</span>
+        <span class="cmd">podman run --rm -v /host/path:/container/path:z nginx</span>
+        <span class="cmd">podman run -e MYVAR=value --name app nginx</span>
+
+        <div class="section-label">Manage Containers</div>
+        <span class="cmd">podman ps</span>
+        <span class="cmd">podman ps -a</span>
+        <span class="cmd">podman stop webserver</span>
+        <span class="cmd">podman start webserver</span>
+        <span class="cmd">podman restart webserver</span>
+        <span class="cmd">podman rm webserver</span>
+        <span class="cmd">podman rm -f webserver</span>
+
+        <div class="section-label">Inspect &amp; Logs</div>
+        <span class="cmd">podman exec -it webserver /bin/bash</span>
+        <span class="cmd">podman logs webserver</span>
+        <span class="cmd">podman logs -f webserver</span>
+        <span class="cmd">podman inspect webserver</span>
+        <span class="cmd">podman port webserver</span>
+
+        <div class="section-label">Build Images</div>
+        <span class="cmd">podman build -t myimage:v1 .</span>
+        <span class="cmd">podman build -t myimage:v1 -f /path/Containerfile .</span>
+        <span class="cmd">podman tag myimage:v1 myimage:latest</span>
+
+        <div class="section-label">Rootless &amp; Systemd Persistence</div>
+        <span class="cmd">podman generate systemd --name webserver --files --new</span>
+        <span class="cmd">mkdir -p ~/.config/systemd/user/</span>
+        <span class="cmd">cp container-webserver.service ~/.config/systemd/user/</span>
+        <span class="cmd">systemctl --user daemon-reload</span>
+        <span class="cmd">systemctl --user enable --now container-webserver</span>
+        <span class="cmd">loginctl enable-linger username</span>
+        <div class="note note-green">loginctl enable-linger allows user services to run without an active login session — required for rootless container persistence.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 5: Boot/Recovery, Cron, NFS/AutoFS -->
+  <div class="grid">
+
+    <!-- BOOT & RECOVERY -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#FEF2F2;">🔄</div>
+        <h2>Boot &amp; Recovery</h2>
+        <span class="sub">grub2 / targets / rd.break / root passwd</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">systemd Targets</div>
+        <div class="row"><span class="key">poweroff.target</span><span class="val">runlevel 0</span></div>
+        <div class="row"><span class="key">rescue.target</span><span class="val">runlevel 1 / single user</span></div>
+        <div class="row"><span class="key">multi-user.target</span><span class="val">runlevel 3 / no GUI</span></div>
+        <div class="row"><span class="key">graphical.target</span><span class="val">runlevel 5 / with GUI</span></div>
+        <div class="row"><span class="key">reboot.target</span><span class="val">runlevel 6</span></div>
+
+        <div class="section-label">Target Commands</div>
+        <span class="cmd">systemctl get-default</span>
+        <span class="cmd">systemctl set-default multi-user.target</span>
+        <span class="cmd">systemctl set-default graphical.target</span>
+        <span class="cmd">systemctl isolate rescue.target</span>
+        <span class="cmd">systemctl isolate emergency.target</span>
+
+        <div class="section-label">GRUB2</div>
+        <span class="cmd">grub2-mkconfig -o /boot/grub2/grub.cfg</span>
+        <span class="cmd">vi /etc/default/grub</span>
+        <span class="cmd">GRUB_TIMEOUT=5</span>
+        <span class="cmd">GRUB_CMDLINE_LINUX="..."</span>
+        <div class="note note-blue">On EFI: grub2-mkconfig -o /boot/efi/EFI/redhat/grub.cfg</div>
+
+        <div class="section-label">Root Password Reset (rd.break)</div>
+        <div class="row"><span class="key">Step 1</span><span class="val">Reboot, press e at GRUB menu</span></div>
+        <div class="row"><span class="key">Step 2</span><span class="val">Find linux line, append rd.break</span></div>
+        <div class="row"><span class="key">Step 3</span><span class="val">Ctrl+X to boot</span></div>
+        <span class="cmd">mount -o remount,rw /sysroot</span>
+        <span class="cmd">chroot /sysroot</span>
+        <span class="cmd">passwd root</span>
+        <span class="cmd">touch /.autorelabel</span>
+        <span class="cmd">exit</span>
+        <span class="cmd">Ctrl+D  (or exit again)</span>
+        <div class="note note-red">/.autorelabel is critical — without it, SELinux context on /etc/shadow will be wrong and root login will fail after reboot.</div>
+
+        <div class="section-label">Emergency / Rescue Mode (from GRUB)</div>
+        <div class="row"><span class="key">systemd.unit=rescue.target</span><span class="val">rescue shell</span></div>
+        <div class="row"><span class="key">systemd.unit=emergency.target</span><span class="val">minimal emergency</span></div>
+        <div class="note note-blue">Append to end of linux line at GRUB. Ctrl+X to boot with modification.</div>
+      </div>
+    </div>
+
+    <!-- CRON & SCHEDULING -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#E8F7EF;">⏱️</div>
+        <h2>Cron &amp; Scheduling</h2>
+        <span class="sub">crontab / at / cron.d / syntax</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">crontab Commands</div>
+        <span class="cmd">crontab -e</span>
+        <span class="cmd">crontab -l</span>
+        <span class="cmd">crontab -r</span>
+        <span class="cmd">crontab -u username -e</span>
+        <span class="cmd">crontab -u username -l</span>
+
+        <div class="section-label">Cron Syntax</div>
+        <div class="note note-blue" style="font-family:var(--mono); font-size:10px;">
+          MIN(0-59)  HOUR(0-23)  DOM(1-31)  MON(1-12)  DOW(0-7)<br>
+          * = every &nbsp; , = list &nbsp; - = range &nbsp; / = step
+        </div>
+
+        <div class="section-label">Cron Examples</div>
+        <span class="cmd">0 2 * * * /usr/bin/backup.sh</span>
+        <span class="cmd">*/15 * * * * /usr/bin/check.sh</span>
+        <span class="cmd">0 9-17 * * 1-5 /usr/bin/report.sh</span>
+        <span class="cmd">30 4 1 * * /usr/bin/monthly.sh</span>
+        <span class="cmd">@reboot /usr/bin/startup.sh</span>
+
+        <div class="section-label">System Cron Directories</div>
+        <div class="row"><span class="key">/etc/cron.d/</span><span class="val">system cron jobs (with user field)</span></div>
+        <div class="row"><span class="key">/etc/cron.hourly/</span><span class="val">scripts run every hour</span></div>
+        <div class="row"><span class="key">/etc/cron.daily/</span><span class="val">scripts run daily</span></div>
+        <div class="row"><span class="key">/etc/cron.weekly/</span><span class="val">scripts run weekly</span></div>
+        <div class="row"><span class="key">/etc/cron.monthly/</span><span class="val">scripts run monthly</span></div>
+        <div class="row"><span class="key">/etc/crontab</span><span class="val">main system crontab</span></div>
+
+        <div class="section-label">at — One-Time Jobs</div>
+        <span class="cmd">at 14:30</span>
+        <span class="cmd">at now +2 hours</span>
+        <span class="cmd">at midnight</span>
+        <span class="cmd">at 9am tomorrow</span>
+        <span class="cmd">at "14:30 July 25"</span>
+        <span class="cmd">at now +5 minutes &lt; /path/to/script.sh</span>
+        <span class="cmd">atq</span>
+        <span class="cmd">atrm 3</span>
+        <div class="note note-blue">After typing 'at TIME', enter commands line by line. Press Ctrl+D to submit. atq shows pending jobs with numbers for atrm.</div>
+
+        <div class="section-label">Access Control</div>
+        <div class="row"><span class="key">/etc/cron.deny</span><span class="val">users denied cron access</span></div>
+        <div class="row"><span class="key">/etc/at.deny</span><span class="val">users denied at access</span></div>
+        <div class="row"><span class="key">/etc/cron.allow</span><span class="val">whitelist (overrides deny)</span></div>
+      </div>
+    </div>
+
+    <!-- NFS & AUTOFS -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#EBF4FF;">🔗</div>
+        <h2>NFS &amp; AutoFS</h2>
+        <span class="sub">exports / client mount / automount</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">NFS Server Setup</div>
+        <span class="cmd">dnf install nfs-utils -y</span>
+        <span class="cmd">vi /etc/exports</span>
+        <span class="cmd">/shared 192.168.1.0/24(rw,sync,no_root_squash)</span>
+        <span class="cmd">/shared *(ro,sync)</span>
+        <span class="cmd">/data server2.example.com(rw,sync)</span>
+        <span class="cmd">exportfs -ra</span>
+        <span class="cmd">exportfs -v</span>
+        <span class="cmd">systemctl enable --now nfs-server</span>
+        <span class="cmd">firewall-cmd --add-service=nfs --permanent</span>
+        <span class="cmd">firewall-cmd --add-service=rpc-bind --permanent</span>
+        <span class="cmd">firewall-cmd --add-service=mountd --permanent</span>
+        <span class="cmd">firewall-cmd --reload</span>
+
+        <div class="section-label">NFS Export Options</div>
+        <div class="row"><span class="key">rw</span><span class="val">read/write access</span></div>
+        <div class="row"><span class="key">ro</span><span class="val">read only</span></div>
+        <div class="row"><span class="key">sync</span><span class="val">synchronous writes</span></div>
+        <div class="row"><span class="key">no_root_squash</span><span class="val">root client = root server</span></div>
+        <div class="row"><span class="key">root_squash</span><span class="val">root mapped to nobody (default)</span></div>
+
+        <div class="section-label">NFS Client</div>
+        <span class="cmd">showmount -e server.example.com</span>
+        <span class="cmd">mkdir /mnt/nfsshare</span>
+        <span class="cmd">mount -t nfs server:/shared /mnt/nfsshare</span>
+        <span class="cmd">mount -t nfs -o ro server:/shared /mnt</span>
+        <span class="cmd"># /etc/fstab persistent:</span>
+        <span class="cmd">server:/shared /mnt/nfsshare nfs defaults 0 0</span>
+        <span class="cmd">server:/shared /mnt nfs rw,soft,timeo=30 0 0</span>
+
+        <div class="section-label">AutoFS Setup</div>
+        <span class="cmd">dnf install autofs -y</span>
+        <span class="cmd">vi /etc/auto.master</span>
+        <span class="cmd">/mnt /etc/auto.nfs</span>
+        <span class="cmd">vi /etc/auto.nfs</span>
+        <span class="cmd">share -rw,sync server:/shared</span>
+        <span class="cmd">* -rw,sync server:/home/&amp;</span>
+        <span class="cmd">systemctl enable --now autofs</span>
+        <span class="cmd">ls /mnt/share</span>
+        <div class="note note-green">AutoFS mounts on-demand and unmounts after idle timeout. The * wildcard in auto.nfs maps /mnt/username to server:/home/username — used for home directory automounting.</div>
+        <div class="note note-blue">Direct maps: /- /etc/auto.direct — maps specific absolute paths instead of relative names under a parent directory.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM TIP BAR -->
+  <div class="tip-bar">
+    <div>
+      <div class="tip-label">NFS + Firewall</div>
+      <div class="tip">NFS server needs <b>nfs</b>, <b>rpc-bind</b>, and <b>mountd</b> services in firewalld. All three — missing one breaks mounts.</div>
+    </div>
+    <div>
+      <div class="tip-label">Podman Rootless</div>
+      <div class="tip">Rootless containers use <b>~/.config/systemd/user/</b>. Use <b>systemctl --user</b> commands. <b>loginctl enable-linger</b> for persistence without login.</div>
+    </div>
+    <div>
+      <div class="tip-label">Verify Everything</div>
+      <div class="tip">After each task: <b>systemctl status</b>, <b>firewall-cmd --list-all</b>, <b>ls -Z</b>, <b>getfacl</b>. Confirm, don't assume.</div>
+    </div>
+    <div>
+      <div class="tip-label">fstab Safety</div>
+      <div class="tip">After editing /etc/fstab, always run <b>mount -a</b> to test. A broken fstab entry can prevent the system from booting.</div>
+    </div>
+  </div>
+
+  <!-- QUICK REFERENCE: 4-column grid -->
+  <div class="grid grid-4">
+
+    <!-- KEY FILE PATHS -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#EBF4FF;">📋</div>
+        <h2>Key File Paths</h2>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Users &amp; Auth</div>
+        <div class="row"><span class="key">/etc/passwd</span><span class="val">user accounts</span></div>
+        <div class="row"><span class="key">/etc/shadow</span><span class="val">password hashes</span></div>
+        <div class="row"><span class="key">/etc/group</span><span class="val">group definitions</span></div>
+        <div class="row"><span class="key">/etc/gshadow</span><span class="val">group passwords</span></div>
+        <div class="row"><span class="key">/etc/sudoers</span><span class="val">sudo rules (visudo)</span></div>
+        <div class="row"><span class="key">/etc/sudoers.d/</span><span class="val">additional sudo rules</span></div>
+        <div class="row"><span class="key">/etc/login.defs</span><span class="val">default user settings</span></div>
+        <div class="row"><span class="key">/etc/skel/</span><span class="val">new user home template</span></div>
+
+        <div class="section-label">Networking</div>
+        <div class="row"><span class="key">/etc/hostname</span><span class="val">system hostname</span></div>
+        <div class="row"><span class="key">/etc/hosts</span><span class="val">static host resolution</span></div>
+        <div class="row"><span class="key">/etc/resolv.conf</span><span class="val">DNS resolver</span></div>
+        <div class="row"><span class="key">/etc/nsswitch.conf</span><span class="val">name service order</span></div>
+        <div class="row"><span class="key">/etc/NetworkManager/</span><span class="val">NM config dir</span></div>
+
+        <div class="section-label">Storage &amp; Boot</div>
+        <div class="row"><span class="key">/etc/fstab</span><span class="val">filesystem mounts</span></div>
+        <div class="row"><span class="key">/etc/exports</span><span class="val">NFS exports</span></div>
+        <div class="row"><span class="key">/etc/auto.master</span><span class="val">AutoFS master map</span></div>
+        <div class="row"><span class="key">/etc/default/grub</span><span class="val">GRUB settings</span></div>
+        <div class="row"><span class="key">/boot/grub2/grub.cfg</span><span class="val">GRUB config (generated)</span></div>
+      </div>
+    </div>
+
+    <!-- COMMON EXAM TASKS -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#E8F7EF;">✅</div>
+        <h2>Exam Task Patterns</h2>
+      </div>
+      <div class="card-body">
+        <div class="section-label">User Tasks (Common)</div>
+        <span class="cmd">useradd -u 1234 -G sales,wheel john</span>
+        <span class="cmd">echo "Password1" | passwd --stdin john</span>
+        <span class="cmd">chage -E 2025-12-31 -M 90 john</span>
+        <span class="cmd">usermod -L john</span>
+
+        <div class="section-label">Storage Tasks (Common)</div>
+        <span class="cmd">lvcreate -L 2G -n newlv vgdata</span>
+        <span class="cmd">mkfs.xfs /dev/vgdata/newlv</span>
+        <span class="cmd">mkdir /data && mount /dev/vgdata/newlv /data</span>
+        <span class="cmd">echo "/dev/vgdata/newlv /data xfs defaults 0 0" >> /etc/fstab</span>
+
+        <div class="section-label">Service Tasks (Common)</div>
+        <span class="cmd">dnf install httpd -y</span>
+        <span class="cmd">systemctl enable --now httpd</span>
+        <span class="cmd">firewall-cmd --add-service=http --permanent && firewall-cmd --reload</span>
+
+        <div class="section-label">SELinux Tasks (Common)</div>
+        <span class="cmd">mkdir /webfiles && chown apache:apache /webfiles</span>
+        <span class="cmd">semanage fcontext -a -t httpd_sys_content_t '/webfiles(/.*)?'</span>
+        <span class="cmd">restorecon -Rv /webfiles</span>
+        <span class="cmd">setsebool -P httpd_can_network_connect on</span>
+
+        <div class="section-label">Permissions Tasks (Common)</div>
+        <span class="cmd">mkdir /collab && chown :team /collab</span>
+        <span class="cmd">chmod 2770 /collab</span>
+        <span class="cmd">setfacl -m d:g:team:rwx /collab</span>
+        <span class="cmd">setfacl -m u:bob:--- /collab</span>
+      </div>
+    </div>
+
+    <!-- COMMAND QUICK REF -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#F5F0FF;">⚡</div>
+        <h2>Quick Reference</h2>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Process Management</div>
+        <span class="cmd">ps aux</span>
+        <span class="cmd">ps -ef | grep httpd</span>
+        <span class="cmd">kill -9 PID</span>
+        <span class="cmd">killall httpd</span>
+        <span class="cmd">top / htop</span>
+        <span class="cmd">nice -n 10 command</span>
+        <span class="cmd">renice -n 5 -p PID</span>
+
+        <div class="section-label">System Info</div>
+        <span class="cmd">uname -r</span>
+        <span class="cmd">uname -a</span>
+        <span class="cmd">hostnamectl</span>
+        <span class="cmd">timedatectl</span>
+        <span class="cmd">timedatectl set-timezone America/New_York</span>
+        <span class="cmd">date</span>
+        <span class="cmd">uptime</span>
+        <span class="cmd">w</span>
+        <span class="cmd">last</span>
+        <span class="cmd">who</span>
+
+        <div class="section-label">Disk / Memory</div>
+        <span class="cmd">df -hT</span>
+        <span class="cmd">du -sh /dir</span>
+        <span class="cmd">free -h</span>
+        <span class="cmd">lscpu</span>
+        <span class="cmd">lsmem</span>
+        <span class="cmd">dmidecode -t memory</span>
+
+        <div class="section-label">Network Diagnostics</div>
+        <span class="cmd">ping -c 4 8.8.8.8</span>
+        <span class="cmd">traceroute 8.8.8.8</span>
+        <span class="cmd">ss -tuln</span>
+        <span class="cmd">ss -tlnp</span>
+        <span class="cmd">netstat -tuln</span>
+        <span class="cmd">curl -I http://localhost</span>
+        <span class="cmd">dig server.example.com</span>
+        <span class="cmd">nslookup server.example.com</span>
+      </div>
+    </div>
+
+    <!-- NUMERIC PERMISSIONS REFERENCE -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:#FEF2F2;">🔢</div>
+        <h2>Permissions Reference</h2>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Octal Values</div>
+        <div class="row"><span class="key">4</span><span class="val">read (r)</span></div>
+        <div class="row"><span class="key">2</span><span class="val">write (w)</span></div>
+        <div class="row"><span class="key">1</span><span class="val">execute (x)</span></div>
+        <div class="row"><span class="key">0</span><span class="val">no permission (---)</span></div>
+
+        <div class="section-label">Common Modes</div>
+        <div class="row"><span class="key">777</span><span class="val">rwxrwxrwx</span></div>
+        <div class="row"><span class="key">755</span><span class="val">rwxr-xr-x (dirs / scripts)</span></div>
+        <div class="row"><span class="key">750</span><span class="val">rwxr-x--- (restricted dir)</span></div>
+        <div class="row"><span class="key">700</span><span class="val">rwx------ (private dir)</span></div>
+        <div class="row"><span class="key">644</span><span class="val">rw-r--r-- (files)</span></div>
+        <div class="row"><span class="key">640</span><span class="val">rw-r----- (sensitive)</span></div>
+        <div class="row"><span class="key">600</span><span class="val">rw------- (SSH keys)</span></div>
+        <div class="row"><span class="key">400</span><span class="val">r-------- (read-only)</span></div>
+
+        <div class="section-label">Special Permission Octals</div>
+        <div class="row"><span class="key">4755</span><span class="val">SUID + rwxr-xr-x</span></div>
+        <div class="row"><span class="key">2755</span><span class="val">SGID + rwxr-xr-x</span></div>
+        <div class="row"><span class="key">2770</span><span class="val">SGID + rwxrwx---</span></div>
+        <div class="row"><span class="key">1777</span><span class="val">Sticky + rwxrwxrwx (/tmp)</span></div>
+
+        <div class="section-label">ls -l Interpretation</div>
+        <div class="note note-blue" style="font-family:var(--mono); font-size:9px;">
+          -rwxr-xr-x  1  root  root  4096  ...<br>
+          [type][u][g][o]  links  owner  group  size
+        </div>
+        <div class="note note-blue" style="font-family:var(--mono); font-size:9px; margin-top:2px;">
+          Type: - file | d dir | l symlink | b block | c char
+        </div>
+
+        <div class="section-label">ACL Mask</div>
+        <div class="row"><span class="key">rwx</span><span class="val">7 — full</span></div>
+        <div class="row"><span class="key">r-x</span><span class="val">5 — read+exec</span></div>
+        <div class="row"><span class="key">r--</span><span class="val">4 — read only</span></div>
+        <div class="row"><span class="key">---</span><span class="val">0 — deny all</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FINAL EXAM TIPS STRIP -->
+  <div class="tip-bar" style="margin-top:0;">
+    <div>
+      <div class="tip-label">Time Budget</div>
+      <div class="tip">2.5 hours for ~15 tasks. That's ~10 min/task. Don't get stuck — move on, come back with fresh eyes.</div>
+    </div>
+    <div>
+      <div class="tip-label">Always Persist</div>
+      <div class="tip">Graders reboot your system. <b>--permanent</b> (firewall), <b>/etc/fstab</b> (storage), <b>systemctl enable</b> (services) — all required.</div>
+    </div>
+    <div>
+      <div class="tip-label">Verify &amp; Confirm</div>
+      <div class="tip">After each task, verify: <b>id user</b>, <b>mount | grep /path</b>, <b>systemctl is-active svc</b>, <b>firewall-cmd --list-all</b>.</div>
+    </div>
+    <div>
+      <div class="tip-label">Score: 210/300</div>
+      <div class="tip">70% passing threshold. Partial credit for partial completion. Always attempt — even an incomplete task may earn points.</div>
+    </div>
+    <div>
+      <div class="tip-label">man Pages</div>
+      <div class="tip">You have full internet access to man pages. Use <b>man command</b>, <b>man 5 fstab</b>, <b>man 8 semanage-fcontext</b> freely.</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

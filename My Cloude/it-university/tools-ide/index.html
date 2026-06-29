@@ -3,7 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Online IDE & Developer Tools — IT University</title>
+  <title>Online IDE &amp; Developer Tools — IT University</title>
+  <meta name="description" content="Master VS Code, Postman, Docker Desktop, terminal tools, and online IDEs. 13 lessons for productive developer workflows.">
+  <meta property="og:title" content="Online IDE &amp; Developer Tools — IT University">
+  <meta property="og:description" content="Master VS Code, Postman, Docker Desktop, terminal tools, and online IDEs. 13 lessons for productive developer workflows.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
   <link rel="stylesheet" href="../assets/css/tokens.css">
   <link rel="stylesheet" href="../assets/css/reset.css">
   <link rel="stylesheet" href="../assets/css/portal-themes.css">
@@ -78,6 +83,13 @@
       <a href="#git-branching" class="sidebar__link">🌿 Branching</a>
       <a href="#git-remote" class="sidebar__link">🔗 Remote & GitHub</a>
       <a href="#git-ref" class="sidebar__link">📋 Command Reference</a>
+    </div>
+    <div class="sidebar__section">
+      <div class="sidebar__heading">Developer Tools</div>
+      <a href="#vscode" class="sidebar__link">🖥️ VS Code</a>
+      <a href="#postman" class="sidebar__link">📮 Postman & APIs</a>
+      <a href="#docker-desktop" class="sidebar__link">🐳 Docker Desktop</a>
+      <a href="#terminal-tools" class="sidebar__link">💻 Terminal Tools</a>
     </div>
     <div class="sidebar__section">
       <div class="sidebar__heading">Productivity</div>
@@ -602,10 +614,283 @@ grep -v "^#" /etc/config    # skip comments</code></pre>
       </div>
     </section>
 
+    <!-- ===== VS CODE ===== -->
+    <section id="vscode">
+      <h2>🖥️ VS Code — Professional Setup</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Essential Extensions & Settings</div>
+          <button class="btn btn--outline btn--sm" data-lesson="tools-ide:vscode">Mark Complete</button>
+        </div>
+        <h3>Must-Have Extensions</h3>
+        <div class="table-wrap"><table><thead><tr><th>Extension</th><th>Publisher</th><th>What it does</th></tr></thead><tbody>
+          <tr><td><code>Prettier</code></td><td>Prettier</td><td>Auto-format on save — JS, TS, JSON, CSS, HTML, Markdown</td></tr>
+          <tr><td><code>ESLint</code></td><td>Microsoft</td><td>Real-time JS/TS linting with fix suggestions</td></tr>
+          <tr><td><code>GitLens</code></td><td>GitKraken</td><td>Inline git blame, history, compare branches visually</td></tr>
+          <tr><td><code>Remote - SSH</code></td><td>Microsoft</td><td>Edit files on remote servers directly in VS Code</td></tr>
+          <tr><td><code>Docker</code></td><td>Microsoft</td><td>Manage containers, images, compose files from sidebar</td></tr>
+          <tr><td><code>Kubernetes</code></td><td>Microsoft</td><td>Browse clusters, pods, services directly in VS Code</td></tr>
+          <tr><td><code>REST Client</code></td><td>Huachao Mao</td><td>Send HTTP requests from .http files — Postman inside VS Code</td></tr>
+          <tr><td><code>Thunder Client</code></td><td>Thunder Client</td><td>Lightweight API client built into VS Code</td></tr>
+          <tr><td><code>Python</code></td><td>Microsoft</td><td>IntelliSense, debugging, linting, Jupyter support</td></tr>
+          <tr><td><code>Terraform</code></td><td>HashiCorp</td><td>HCL syntax, validation, module docs</td></tr>
+          <tr><td><code>YAML</code></td><td>Red Hat</td><td>YAML validation with JSON Schema (K8s manifests, CI/CD)</td></tr>
+          <tr><td><code>Error Lens</code></td><td>Alexander</td><td>Shows errors/warnings inline next to code — no more hovering</td></tr>
+          <tr><td><code>GitHub Copilot</code></td><td>GitHub</td><td>AI code completion — see AI Tools section</td></tr>
+        </tbody></table></div>
+
+        <h3>Power User settings.json</h3>
+        <pre><code>{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.tabSize": 2,
+  "editor.fontSize": 14,
+  "editor.fontFamily": "'Fira Code', 'Cascadia Code', monospace",
+  "editor.fontLigatures": true,
+  "editor.minimap.enabled": false,
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": true,
+  "editor.inlineSuggest.enabled": true,
+  "terminal.integrated.defaultProfile.linux": "bash",
+  "terminal.integrated.fontSize": 13,
+  "files.trimTrailingWhitespace": true,
+  "files.autoSave": "onFocusChange",
+  "workbench.colorTheme": "One Dark Pro",
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "[python]": { "editor.defaultFormatter": "ms-python.black-formatter" },
+  "[terraform]": { "editor.defaultFormatter": "hashicorp.terraform" }
+}</code></pre>
+
+        <h3>VS Code Power Shortcuts</h3>
+        <div class="shortcut-grid">
+          <div class="shortcut-item"><span>Command Palette</span><kbd>Ctrl+Shift+P</kbd></div>
+          <div class="shortcut-item"><span>Quick Open File</span><kbd>Ctrl+P</kbd></div>
+          <div class="shortcut-item"><span>Multi-cursor (click)</span><kbd>Alt+Click</kbd></div>
+          <div class="shortcut-item"><span>Multi-cursor (word)</span><kbd>Ctrl+D</kbd></div>
+          <div class="shortcut-item"><span>Select all occurrences</span><kbd>Ctrl+Shift+L</kbd></div>
+          <div class="shortcut-item"><span>Move line up/down</span><kbd>Alt+↑/↓</kbd></div>
+          <div class="shortcut-item"><span>Duplicate line</span><kbd>Shift+Alt+↓</kbd></div>
+          <div class="shortcut-item"><span>Delete line</span><kbd>Ctrl+Shift+K</kbd></div>
+          <div class="shortcut-item"><span>Go to definition</span><kbd>F12</kbd></div>
+          <div class="shortcut-item"><span>Peek definition</span><kbd>Alt+F12</kbd></div>
+          <div class="shortcut-item"><span>Rename symbol</span><kbd>F2</kbd></div>
+          <div class="shortcut-item"><span>Format document</span><kbd>Shift+Alt+F</kbd></div>
+          <div class="shortcut-item"><span>Toggle terminal</span><kbd>Ctrl+`</kbd></div>
+          <div class="shortcut-item"><span>Split editor</span><kbd>Ctrl+\</kbd></div>
+          <div class="shortcut-item"><span>Zen mode</span><kbd>Ctrl+K Z</kbd></div>
+          <div class="shortcut-item"><span>Find in files</span><kbd>Ctrl+Shift+F</kbd></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== POSTMAN ===== -->
+    <section id="postman">
+      <h2>📮 Postman & API Testing</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">API Testing, Collections & Automation</div>
+          <button class="btn btn--outline btn--sm" data-lesson="tools-ide:postman">Mark Complete</button>
+        </div>
+        <h3>Core Concepts</h3>
+        <div class="table-wrap"><table><thead><tr><th>Concept</th><th>What it is</th></tr></thead><tbody>
+          <tr><td><strong>Collection</strong></td><td>Group of saved API requests — organize by feature or service</td></tr>
+          <tr><td><strong>Environment</strong></td><td>Variables set (dev/staging/prod) — swap base URLs without editing requests</td></tr>
+          <tr><td><strong>Pre-request Script</strong></td><td>JavaScript that runs BEFORE the request — generate tokens, set timestamps</td></tr>
+          <tr><td><strong>Tests</strong></td><td>JavaScript assertions that run AFTER response — validate status, body, headers</td></tr>
+          <tr><td><strong>Runner</strong></td><td>Run entire collection sequentially, with data from CSV/JSON files</td></tr>
+          <tr><td><strong>Mock Server</strong></td><td>Simulate API responses before backend exists — unblock frontend dev</td></tr>
+        </tbody></table></div>
+
+        <h3>Writing Postman Tests</h3>
+        <pre><code>// Test: status code
+pm.test("Status 200", () => {
+  pm.response.to.have.status(200);
+});
+
+// Test: response body field
+pm.test("User has ID", () => {
+  const json = pm.response.json();
+  pm.expect(json.id).to.be.a('number');
+  pm.expect(json.email).to.include('@');
+});
+
+// Test: response time
+pm.test("Response under 500ms", () => {
+  pm.expect(pm.response.responseTime).to.be.below(500);
+});
+
+// Set variable from response for next request
+const token = pm.response.json().access_token;
+pm.environment.set("auth_token", token);
+
+// Pre-request: generate HMAC signature
+const crypto = require('crypto-js');
+const timestamp = Date.now().toString();
+const signature = crypto.HmacSHA256(timestamp, pm.environment.get("secret")).toString();
+pm.request.headers.add({ key: 'X-Signature', value: signature });
+pm.request.headers.add({ key: 'X-Timestamp', value: timestamp });</code></pre>
+
+        <h3>Newman — CLI Runner for CI/CD</h3>
+        <pre><code># Install
+npm install -g newman
+
+# Run a collection
+newman run MyCollection.postman_collection.json \
+  -e Production.postman_environment.json \
+  --reporters cli,junit \
+  --reporter-junit-export results.xml
+
+# In GitHub Actions:
+- name: API Tests
+  run: newman run tests/api.json -e tests/env-staging.json</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== DOCKER DESKTOP ===== -->
+    <section id="docker-desktop">
+      <h2>🐳 Docker Desktop</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Local Container Development</div>
+          <button class="btn btn--outline btn--sm" data-lesson="tools-ide:docker-desktop">Mark Complete</button>
+        </div>
+        <h3>Docker Desktop vs Docker CLI</h3>
+        <div class="table-wrap"><table><thead><tr><th>Feature</th><th>Docker Desktop</th><th>Docker CLI</th></tr></thead><tbody>
+          <tr><td>GUI</td><td>✅ Full dashboard</td><td>❌ Terminal only</td></tr>
+          <tr><td>Kubernetes</td><td>✅ Built-in single-node cluster</td><td>❌ Separate install</td></tr>
+          <tr><td>Dev Environments</td><td>✅ Git-based reproducible envs</td><td>❌ Manual</td></tr>
+          <tr><td>Extensions</td><td>✅ Docker Extensions marketplace</td><td>❌ N/A</td></tr>
+          <tr><td>Resource Limits</td><td>✅ GUI CPU/RAM/disk controls</td><td>Manual via daemon.json</td></tr>
+          <tr><td>WSL2 Integration</td><td>✅ Automatic on Windows</td><td>Manual</td></tr>
+        </tbody></table></div>
+
+        <h3>Essential Docker CLI Reference</h3>
+        <pre><code># Images
+docker pull nginx:alpine          # Pull from Docker Hub
+docker build -t myapp:1.0 .       # Build from Dockerfile
+docker images                      # List images
+docker rmi myapp:1.0              # Remove image
+docker image prune -a             # Remove ALL unused images
+
+# Containers
+docker run -d -p 8080:80 --name web nginx:alpine
+docker run -it ubuntu:22.04 bash  # Interactive
+docker ps                          # Running containers
+docker ps -a                       # All containers
+docker stop web && docker rm web  # Stop and remove
+docker logs -f web                 # Follow logs
+docker exec -it web sh            # Shell into running container
+docker stats                       # Live resource usage
+
+# Docker Compose
+docker compose up -d              # Start in background
+docker compose down               # Stop and remove
+docker compose logs -f app        # Logs for one service
+docker compose exec app bash      # Shell into service
+docker compose ps                  # Status of all services
+
+# Volumes & Networks
+docker volume ls
+docker volume inspect myvolume
+docker network ls
+docker network inspect bridge</code></pre>
+
+        <h3>Useful Docker Extensions</h3>
+        <ul>
+          <li><strong>Disk Usage</strong> — see exactly which images/volumes eat disk space</li>
+          <li><strong>Portainer</strong> — full GUI for managing containers, stacks, registries</li>
+          <li><strong>Logs Explorer</strong> — search and filter logs across all containers</li>
+          <li><strong>Resource Usage</strong> — real-time CPU/memory graphs per container</li>
+          <li><strong>Snyk</strong> — scan images for CVEs directly in Docker Desktop</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== TERMINAL TOOLS ===== -->
+    <section id="terminal-tools">
+      <h2>💻 Terminal Tools & Productivity</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">CLI Tools Every Developer Should Know</div>
+          <button class="btn btn--outline btn--sm" data-lesson="tools-ide:terminal-tools">Mark Complete</button>
+        </div>
+        <h3>Modern CLI Replacements</h3>
+        <div class="table-wrap"><table><thead><tr><th>Old Tool</th><th>Modern Replacement</th><th>Why it's better</th></tr></thead><tbody>
+          <tr><td><code>ls</code></td><td><code>eza</code> (exa)</td><td>Colours, git status, tree view, icons</td></tr>
+          <tr><td><code>cat</code></td><td><code>bat</code></td><td>Syntax highlighting, line numbers, git diff</td></tr>
+          <tr><td><code>grep</code></td><td><code>ripgrep (rg)</code></td><td>10–100× faster, respects .gitignore, regex</td></tr>
+          <tr><td><code>find</code></td><td><code>fd</code></td><td>Simpler syntax, colour, parallel, respects .gitignore</td></tr>
+          <tr><td><code>cd</code></td><td><code>zoxide (z)</code></td><td>Frecency-based: <code>z pro</code> → jumps to ~/projects</td></tr>
+          <tr><td><code>top</code></td><td><code>htop / btop</code></td><td>Interactive, mouse support, pretty graphs</td></tr>
+          <tr><td><code>curl</code></td><td><code>httpie (http)</code></td><td>Human-friendly: <code>http GET api.example.com/users</code></td></tr>
+          <tr><td><code>diff</code></td><td><code>delta</code></td><td>Syntax highlighted diffs for git — set as pager</td></tr>
+          <tr><td><code>man</code></td><td><code>tldr</code></td><td>Practical examples instead of full man pages</td></tr>
+          <tr><td><code>vim</code></td><td><code>neovim (nvim)</code></td><td>Lua config, LSP, Treesitter — modern IDE in terminal</td></tr>
+        </tbody></table></div>
+
+        <h3>Shell Productivity: Oh My Zsh / Starship</h3>
+        <pre><code># Install Oh My Zsh (macOS/Linux)
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+# Essential plugins in ~/.zshrc
+plugins=(git docker kubectl terraform aws zsh-autosuggestions zsh-syntax-highlighting)
+
+# Install Starship prompt (cross-shell, shows git/cloud/k8s context)
+curl -sS https://starship.rs/install.sh | sh
+echo 'eval "$(starship init zsh)"' >> ~/.zshrc
+
+# Useful zsh aliases
+alias k=kubectl
+alias tf=terraform
+alias d=docker
+alias dc='docker compose'
+alias ll='eza -la --git'
+alias cat=bat
+alias grep=rg</code></pre>
+
+        <h3>tmux — Terminal Multiplexer</h3>
+        <pre><code># Start / attach
+tmux new -s dev          # New session named 'dev'
+tmux attach -t dev       # Attach to existing
+tmux ls                  # List sessions
+
+# Key bindings (prefix = Ctrl+B)
+Ctrl+B c    # New window
+Ctrl+B %    # Split vertical pane
+Ctrl+B "    # Split horizontal pane
+Ctrl+B ←→↑↓ # Navigate panes
+Ctrl+B d    # Detach (session stays running)
+Ctrl+B [    # Enter scroll/copy mode (q to exit)
+
+# ~/.tmux.conf essentials
+set -g mouse on                        # Mouse scroll
+set -g history-limit 50000             # Scrollback buffer
+set -g status-style bg=#0a0e1a,fg=#00d4ff
+set -g default-terminal "tmux-256color"</code></pre>
+
+        <h3>jq — JSON Processor</h3>
+        <pre><code># Parse AWS CLI output
+aws ec2 describe-instances | jq '.Reservations[].Instances[] | {id:.InstanceId, state:.State.Name, type:.InstanceType}'
+
+# Filter running instances
+aws ec2 describe-instances | jq '[.Reservations[].Instances[] | select(.State.Name=="running")]'
+
+# Extract kubectl info
+kubectl get pods -o json | jq '.items[] | {name:.metadata.name, status:.status.phase}'
+
+# Parse curl response
+curl -s https://api.github.com/repos/kubernetes/kubernetes | jq '{stars:.stargazers_count, forks:.forks_count}'
+
+# Compact output for logs
+cat app.log | jq -c 'select(.level=="ERROR") | {ts:.timestamp, msg:.message}'</code></pre>
+      </div>
+    </section>
+
     <!-- ═══════════════════════════════════════════════════════ -->
-    <section id="quiz-section">
+    <section id="quiz-section-wrapper">
       <h2>🧠 Tools Quiz</h2>
-      <div id="quiz-container" data-portal="tools-ide"></div>
+      <div id="quiz-section"></div>
     </section>
 
   </main>
