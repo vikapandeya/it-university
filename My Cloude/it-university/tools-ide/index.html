@@ -1047,8 +1047,7 @@ async function runIdeCode() {
       if (!data.ok && !stdout && !stderr) {
         out.innerHTML = '<span class="out-err">Execution error: ' + escHtml(JSON.stringify(data)) + '</span>';
       } else if (stdout || stderr) {
-        out.innerHTML = (stdout ? escHtml(stdout) : '') + (stderr ? '
-<span class="out-err">' + escHtml(stderr) + '</span>' : '');
+        out.innerHTML = (stdout ? escHtml(stdout) : '') + (stderr ? '\n<span class="out-err">' + escHtml(stderr) + '</span>' : '');
       } else {
         out.innerHTML = '<span class="out-muted">// (no output)</span>';
       }
