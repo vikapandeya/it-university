@@ -1,6 +1,14 @@
-(async function () {
+﻿(async function () {
   const d = parseInt(document.documentElement.dataset.depth || '1', 10);
   const base = '../'.repeat(d - 1) || './';
+
+  // Inject emoji favicon if no icon already declared
+  if (!document.querySelector('link[rel~="icon"]')) {
+    const favicon = document.createElement('link');
+    favicon.rel = 'icon';
+    favicon.href = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">⚡</text></svg>';
+    document.head.appendChild(favicon);
+  }
 
   async function loadPartial(id, file, fallbackFn) {
     const el = document.getElementById(id);
