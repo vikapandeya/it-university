@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Microsoft Word & Excel Shortcuts Cheat Sheet</title>
+  <meta name="description" content="Complete shortcut reference for Microsoft Word and Excel — formatting, navigation, formulas, PivotTables, and productivity tips.">
+  <style>
+    :root {
+      --bg:#F5F6F7; --surface:#FFFFFF; --border:#E2E4E8;
+      --navy:#0F1C2E; --navy2:#1A2E45;
+      --blue:#1A5EA8; --blue-soft:#EBF4FF; --blue-mid:#2563EB;
+      --green:#1B7A4A; --green-soft:#E8F7EF;
+      --orange:#C2410C; --orange-soft:#FFF4ED;
+      --purple:#6B21A8; --purple-soft:#F5F0FF;
+      --red:#B91C1C; --red-soft:#FEF2F2;
+      --word:#2B579A; --word-soft:#EBF0FA;
+      --excel:#217346; --excel-soft:#EBF5EE;
+      --text:#1C2333; --text2:#4A5568; --text3:#718096;
+      --mono:'Consolas','Courier New',monospace;
+      --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+    }
+    body { font-family:var(--sans); font-size:11px; background:var(--bg); color:var(--text); line-height:1.5; }
+    .page { max-width:1300px; margin:0 auto; padding:20px 16px; }
+
+    /* HEADER */
+    .header { background:var(--navy); border-radius:10px; padding:18px 24px; margin-bottom:14px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+    .header-left h1 { font-size:21px; font-weight:800; color:#fff; }
+    .header-left h1 .w { color:#6FA8DC; } .header-left h1 .e { color:#4ADE80; }
+    .header-left p { font-size:10.5px; color:#94A3B8; margin-top:3px; }
+    .header-badges { display:flex; gap:8px; flex-wrap:wrap; }
+    .badge { font-size:10px; font-weight:700; padding:4px 10px; border-radius:20px; letter-spacing:.4px; text-transform:uppercase; }
+    .badge-word { background:var(--word); color:#fff; }
+    .badge-excel { background:var(--excel); color:#fff; }
+    .badge-free { background:#22C55E; color:#fff; }
+
+    /* TIP BAR */
+    .tip-bar { background:var(--navy2); border-radius:8px; padding:9px 16px; margin-bottom:14px; display:flex; gap:28px; flex-wrap:wrap; align-items:flex-start; }
+    .tip-item { }
+    .tip-label { font-size:8.5px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:#4ADE80; margin-bottom:2px; }
+    .tip { font-size:10px; color:#CBD5E1; } .tip b { color:#fff; }
+
+    /* SECTION DIVIDERS */
+    .section-divider { display:flex; align-items:center; gap:10px; margin:14px 0 10px; }
+    .section-divider .sd-icon { width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0; }
+    .sd-word { background:var(--word); }
+    .sd-excel { background:var(--excel); }
+    .section-divider h2 { font-size:13px; font-weight:800; }
+    .section-divider .sd-sub { font-size:9.5px; color:var(--text3); margin-left:4px; }
+
+    /* GRID */
+    .grid { display:grid; gap:10px; margin-bottom:10px; }
+    .g3 { grid-template-columns:repeat(3,1fr); }
+    .g4 { grid-template-columns:repeat(4,1fr); }
+    .g2 { grid-template-columns:repeat(2,1fr); }
+
+    /* CARD */
+    .card { background:var(--surface); border-radius:8px; border:1px solid var(--border); overflow:hidden; }
+    .card-header { padding:7px 11px; display:flex; align-items:center; gap:8px; border-bottom:1px solid var(--border); }
+    .card-header .icon { width:22px; height:22px; border-radius:5px; display:flex; align-items:center; justify-content:center; font-size:11px; flex-shrink:0; color:#fff; }
+    .icon-word { background:var(--word); }
+    .icon-excel { background:var(--excel); }
+    .icon-blue { background:var(--blue-mid); }
+    .icon-orange { background:var(--orange); }
+    .icon-purple { background:var(--purple); }
+    .icon-green { background:var(--green); }
+    .card-header h3 { font-size:11px; font-weight:800; color:var(--navy); }
+    .card-header .sub { font-size:9px; color:var(--text3); margin-left:auto; white-space:nowrap; }
+    .card-body { padding:9px 11px; }
+
+    /* SHORTCUT ROW */
+    .row { display:flex; justify-content:space-between; align-items:baseline; padding:2.5px 0; border-bottom:1px solid #F0F2F5; gap:8px; }
+    .row:last-child { border-bottom:none; }
+    .row .desc { font-size:10px; color:var(--text2); flex:1; }
+    .row .keys { display:flex; gap:3px; align-items:center; flex-shrink:0; }
+    .row .sep { font-size:9px; color:var(--text3); }
+
+    /* KBD */
+    kbd { font-family:var(--mono); font-size:9.5px; font-weight:700; color:var(--navy); background:#F0F2F5; border:1px solid #CBD5E1; border-bottom-width:2px; border-radius:4px; padding:1px 5px; white-space:nowrap; }
+
+    /* SECTION LABEL */
+    .sl { font-size:8px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--text3); margin:8px 0 4px; padding-bottom:2px; border-bottom:1px solid var(--border); }
+    .sl:first-child { margin-top:0; }
+
+    /* FORMULA ROW */
+    .frow { padding:3px 0; border-bottom:1px solid #F0F2F5; }
+    .frow:last-child { border-bottom:none; }
+    .frow .fc { font-family:var(--mono); font-size:9.5px; font-weight:700; color:var(--excel); }
+    .frow .fd { font-size:9.5px; color:var(--text2); margin-top:1px; }
+
+    /* NOTE */
+    .note { font-size:9.5px; padding:5px 8px; border-radius:5px; margin-top:5px; line-height:1.5; }
+    .note-blue  { background:var(--blue-soft);   border-left:3px solid var(--blue);   color:#1E40AF; }
+    .note-green { background:var(--green-soft);  border-left:3px solid var(--green);  color:#166534; }
+    .note-excel { background:var(--excel-soft);  border-left:3px solid var(--excel);  color:#14532D; }
+    .note-word  { background:var(--word-soft);   border-left:3px solid var(--word);   color:#1e3a6e; }
+    .note-orange{ background:var(--orange-soft); border-left:3px solid var(--orange); color:#7C2D12; }
+
+    /* REF TABLE */
+    table { width:100%; border-collapse:collapse; font-size:9.5px; }
+    th { background:var(--navy); color:#fff; padding:5px 8px; text-align:left; font-weight:700; }
+    td { padding:4px 8px; border-bottom:1px solid var(--border); color:var(--text2); vertical-align:top; }
+    tr:nth-child(even) td { background:#FAFBFC; }
+    td code { font-family:var(--mono); font-size:9px; font-weight:700; color:var(--excel); background:#F0FAF4; padding:1px 4px; border-radius:3px; }
+
+    /* FOOTER */
+    .footer { text-align:center; margin-top:14px; font-size:9.5px; color:var(--text3); }
+    @media print { body{background:#fff;font-size:10px} .page{padding:0 4px} }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <h1>Microsoft <span class="w">Word</span> &amp; <span class="e">Excel</span> — Complete Shortcut Reference</h1>
+      <p>Every shortcut, formula category, and workflow tip in one print-ready sheet</p>
+    </div>
+    <div class="header-badges">
+      <span class="badge badge-word">MS Word</span>
+      <span class="badge badge-excel">MS Excel</span>
+      <span class="badge badge-free">Print-Ready</span>
+    </div>
+  </div>
+
+  <!-- TIP BAR -->
+  <div class="tip-bar">
+    <div class="tip-item"><div class="tip-label">Print Tip</div><div class="tip">Ctrl+P → Landscape → Save as PDF for best fit</div></div>
+    <div class="tip-item"><div class="tip-label">Word Golden Rule</div><div class="tip">Always use <b>Styles</b> (Heading 1/2/3, Normal) — never format text manually. Enables auto-TOC, consistent formatting, and easy theme changes.</div></div>
+    <div class="tip-item"><div class="tip-label">Excel Golden Rule</div><div class="tip">Start every range with <b>Ctrl+T</b> (Table). Structured references, auto-expand, and PivotTable refresh come free.</div></div>
+    <div class="tip-item"><div class="tip-label">F4 Trick</div><div class="tip">In an Excel formula: press <b>F4</b> to cycle <code>A1</code> → <code>$A$1</code> → <code>A$1</code> → <code>$A1</code></div></div>
+    <div class="tip-item"><div class="tip-label">Repeat Last Action</div><div class="tip"><b>F4</b> in Word / <b>Ctrl+Y</b> anywhere — repeats the very last action (format, delete, insert row)</div></div>
+  </div>
+
+  <!-- ════════════════════ WORD ════════════════════ -->
+  <div class="section-divider">
+    <div class="sd-icon sd-word">W</div>
+    <h2 style="color:var(--word)">Microsoft Word</h2>
+    <span class="sd-sub">Formatting · Navigation · Review · Tables · Mail Merge</span>
+  </div>
+
+  <div class="grid g4">
+
+    <!-- Formatting -->
+    <div class="card">
+      <div class="card-header"><div class="icon icon-word">Aa</div><h3>Text Formatting</h3><span class="sub">Home tab</span></div>
+      <div class="card-body">
+        <div class="row"><span class="desc">Bold</span><div class="keys"><kbd>Ctrl</kbd><span class="sep">+</span><kbd>B</kbd></div></div>
+        <div class="row"><span class="desc">Italic</span><div class="keys"><kbd>Ctrl</kbd><span class="sep">+</span><kbd>I</kbd></div></div>
+        <div class="row"><span class="desc">Underline</span><div class="keys"><kbd>Ctrl</kbd><span class="sep">+</span><kbd>U</kbd></div></div>
+        <div class="row"><span class="desc">Double underline</span><div class="keys"><kbd>Ctrl</kbd><span class="sep">+</span><kbd>Shift+D</kbd></div></div>
+        <div class="row"><span class="desc">Strikethrough</span><div class="keys"><kbd>Alt+H</kbd><span class="sep">,</span><kbd>4</kbd></div></div>
+        <div class="row"><span class="desc">Superscript</span><div class="keys"><kbd>Ctrl</kbd><span class="sep">+</span><kbd>Shift+=</kbd></div></div>
+        <div class="row"><span class="desc">Subscript</span><div class="keys"><kbd>Ctrl</kbd><span class="sep">+</span><kbd>=</kbd></div></div>
+        <div class="row"><span class="desc">Change case</span><div class="keys"><kbd>Shift+F3</kbd></div></div>
+        <div class="row"><span class="desc">Clear all formatting</span><div class="keys"><kbd>Ctrl</kbd><span class="sep">+</span><kbd>Space</kbd></div></div>
+        <div class="row"><span class="desc">Increase / Decrease font</span><div class="keys"><kbd>Ctrl+]</kbd><span class="sep">/</span><kbd>Ctrl+[</kbd></div></div>
+        <div class="row"><span class="desc">Font size box</span><div class="keys"><kbd>Ctrl+Shift+P</kbd></div></div>
+        <div class="row"><span class="desc">Copy formatting</span><div class="keys"><kbd>Ctrl+Shift+C</kbd></div></div>
+        <div class="row"><span class="desc">Paste formatting only</span><div class="keys"><kbd>Ctrl+Shift+V</kbd></div></div>
+      </div>
+    </div>
+
+    <!-- Paragraph -->
+    <div class="card">
+      <div class="card-header"><div class="icon icon-word">¶</div><h3>Paragraph &amp; Styles</h3><span class="sub">Layout / Styles</span></div>
+      <div class="card-body">
+        <div class="sl">Alignment</div>
+        <div class="row"><span class="desc">Align Left</span><div class="keys"><kbd>Ctrl+L</kbd></div></div>
+        <div class="row"><span class="desc">Center</span><div class="keys"><kbd>Ctrl+E</kbd></div></div>
+        <div class="row"><span class="desc">Align Right</span><div class="keys"><kbd>Ctrl+R</kbd></div></div>
+        <div class="row"><span class="desc">Justify</span><div class="keys"><kbd>Ctrl+J</kbd></div></div>
+        <div class="sl">Line Spacing</div>
+        <div class="row"><span class="desc">Single spacing</span><div class="keys"><kbd>Ctrl+1</kbd></div></div>
+        <div class="row"><span class="desc">1.5 spacing</span><div class="keys"><kbd>Ctrl+5</kbd></div></div>
+        <div class="row"><span class="desc">Double spacing</span><div class="keys"><kbd>Ctrl+2</kbd></div></div>
+        <div class="sl">Styles</div>
+        <div class="row"><span class="desc">Heading 1</span><div class="keys"><kbd>Ctrl+Alt+1</kbd></div></div>
+        <div class="row"><span class="desc">Heading 2</span><div class="keys"><kbd>Ctrl+Alt+2</kbd></div></div>
+        <div class="row"><span class="desc">Heading 3</span><div class="keys"><kbd>Ctrl+Alt+3</kbd></div></div>
+        <div class="row"><span class="desc">Normal / Body</span><div class="keys"><kbd>Ctrl+Shift+N</kbd></div></div>
+        <div class="row"><span class="desc">Indent / Outdent</span><div class="keys"><kbd>Tab</kbd><span class="sep">/</span><kbd>Shift+Tab</kbd></div></div>
+      </div>
+    </div>
+
+    <!-- Navigation & Selection -->
+    <div class="card">
+      <div class="card-header"><div class="icon icon-blue">↕</div><h3>Navigation &amp; Selection</h3><span class="sub">Move + Select</span></div>
+      <div class="card-body">
+        <div class="sl">Move Cursor</div>
+        <div class="row"><span class="desc">Next / prev word</span><div class="keys"><kbd>Ctrl+→</kbd><span class="sep">/</span><kbd>Ctrl+←</kbd></div></div>
+        <div class="row"><span class="desc">Start / end of line</span><div class="keys"><kbd>Home</kbd><span class="sep">/</span><kbd>End</kbd></div></div>
+        <div class="row"><span class="desc">Start / end of doc</span><div class="keys"><kbd>Ctrl+Home</kbd><span class="sep">/</span><kbd>Ctrl+End</kbd></div></div>
+        <div class="row"><span class="desc">Prev / next paragraph</span><div class="keys"><kbd>Ctrl+↑</kbd><span class="sep">/</span><kbd>Ctrl+↓</kbd></div></div>
+        <div class="row"><span class="desc">Go To (page/line)</span><div class="keys"><kbd>Ctrl+G</kbd></div></div>
+        <div class="sl">Select</div>
+        <div class="row"><span class="desc">Select all</span><div class="keys"><kbd>Ctrl+A</kbd></div></div>
+        <div class="row"><span class="desc">Select word</span><div class="keys"><kbd>Double-click</kbd></div></div>
+        <div class="row"><span class="desc">Select sentence</span><div class="keys"><kbd>Ctrl+Click</kbd></div></div>
+        <div class="row"><span class="desc">Select paragraph</span><div class="keys"><kbd>Triple-click</kbd></div></div>
+        <div class="row"><span class="desc">Extend selection</span><div class="keys"><kbd>Shift+Arrows</kbd></div></div>
+        <div class="row"><span class="desc">Select to end of doc</span><div class="keys"><kbd>Ctrl+Shift+End</kbd></div></div>
+        <div class="row"><span class="desc">Column selection</span><div class="keys"><kbd>Alt+Drag</kbd></div></div>
+      </div>
+    </div>
+
+    <!-- Find & Insert -->
+    <div class="card">
+      <div class="card-header"><div class="icon icon-orange">🔍</div><h3>Find, Insert &amp; File</h3><span class="sub">Essential operations</span></div>
+      <div class="card-body">
+        <div class="sl">Find &amp; Replace</div>
+        <div class="row"><span class="desc">Find</span><div class="keys"><kbd>Ctrl+F</kbd></div></div>
+        <div class="row"><span class="desc">Find &amp; Replace</span><div class="keys"><kbd>Ctrl+H</kbd></div></div>
+        <div class="row"><span class="desc">Advanced Find</span><div class="keys"><kbd>Ctrl+F → More</kbd></div></div>
+        <div class="sl">Insert</div>
+        <div class="row"><span class="desc">Page break</span><div class="keys"><kbd>Ctrl+Enter</kbd></div></div>
+        <div class="row"><span class="desc">Insert hyperlink</span><div class="keys"><kbd>Ctrl+K</kbd></div></div>
+        <div class="row"><span class="desc">Date field</span><div class="keys"><kbd>Alt+Shift+D</kbd></div></div>
+        <div class="row"><span class="desc">Non-breaking space</span><div class="keys"><kbd>Ctrl+Shift+Space</kbd></div></div>
+        <div class="row"><span class="desc">Non-breaking hyphen</span><div class="keys"><kbd>Ctrl+Shift+-</kbd></div></div>
+        <div class="sl">File &amp; View</div>
+        <div class="row"><span class="desc">Save / Save As</span><div class="keys"><kbd>Ctrl+S</kbd><span class="sep">/</span><kbd>F12</kbd></div></div>
+        <div class="row"><span class="desc">Print</span><div class="keys"><kbd>Ctrl+P</kbd></div></div>
+        <div class="row"><span class="desc">Word Count</span><div class="keys"><kbd>Ctrl+Shift+G</kbd></div></div>
+        <div class="row"><span class="desc">Spelling &amp; Grammar</span><div class="keys"><kbd>F7</kbd></div></div>
+        <div class="row"><span class="desc">Thesaurus</span><div class="keys"><kbd>Shift+F7</kbd></div></div>
+        <div class="row"><span class="desc">Undo / Redo</span><div class="keys"><kbd>Ctrl+Z</kbd><span class="sep">/</span><kbd>Ctrl+Y</kbd></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Word Row 2 -->
+  <div class="grid g3">
+
+    <!-- Track Changes -->
+    <div class="card">
+      <div class="card-header"><div class="icon icon-blue">✎</div><h3>Review &amp; Track Changes</h3><span class="sub">Collaboration</span></div>
+      <div class="card-body">
+        <div class="row"><span class="desc">Toggle Track Changes</span><div class="keys"><kbd>Ctrl+Shift+E</kbd></div></div>
+        <div class="row"><span class="desc">New comment</span><div class="keys"><kbd>Ctrl+Alt+M</kbd></div></div>
+        <div class="row"><span class="desc">Accept change</span><div class="keys"><kbd>Alt+H, AC</kbd></div></div>
+        <div class="row"><span class="desc">Reject change</span><div class="keys"><kbd>Alt+H, RJ</kbd></div></div>
+        <div class="row"><span class="desc">Next revision</span><div class="keys"><kbd>Ctrl+Shift+E, →</kbd></div></div>
+        <div class="row"><span class="desc">Accept All</span><div class="keys"><kbd>Review → Accept All</kbd></div></div>
+        <div class="row"><span class="desc">Compare documents</span><div class="keys"><kbd>Review → Compare</kbd></div></div>
+        <div class="note note-word">Track Changes shows edits as coloured text with author name. Share the file — reviewers edit with tracking ON, you accept/reject changes.</div>
+      </div>
+    </div>
+
+    <!-- Tables in Word -->
+    <div class="card">
+      <div class="card-header"><div class="icon icon-word">▦</div><h3>Tables in Word</h3><span class="sub">Insert → Table</span></div>
+      <div class="card-body">
+        <div class="row"><span class="desc">Insert table</span><div class="keys"><kbd>Insert → Table</kbd></div></div>
+        <div class="row"><span class="desc">Add row at end</span><div class="keys"><kbd>Tab</kbd> (in last cell)</div></div>
+        <div class="row"><span class="desc">Move row up/down</span><div class="keys"><kbd>Alt+Shift+↑/↓</kbd></div></div>
+        <div class="row"><span class="desc">Split table</span><div class="keys"><kbd>Ctrl+Shift+Enter</kbd></div></div>
+        <div class="row"><span class="desc">Select column</span><div class="keys">Click top border</div></div>
+        <div class="row"><span class="desc">Select row</span><div class="keys">Click left margin</div></div>
+        <div class="row"><span class="desc">Sort table rows</span><div class="keys"><kbd>Layout → Sort</kbd></div></div>
+        <div class="row"><span class="desc">Formula in cell</span><div class="keys"><kbd>Layout → Formula</kbd></div></div>
+        <div class="note note-blue">Table formulas: <code>=SUM(ABOVE)</code> <code>=AVERAGE(LEFT)</code> <code>=SUM(B2:B5)</code> — refresh with F9 after data changes.</div>
+      </div>
+    </div>
+
+    <!-- Mail Merge & TOC -->
+    <div class="card">
+      <div class="card-header"><div class="icon icon-green">✉</div><h3>Mail Merge &amp; Auto-TOC</h3><span class="sub">Mailings / References</span></div>
+      <div class="card-body">
+        <div class="sl">Mail Merge Steps</div>
+        <div class="row"><span class="desc">1. Mailings → Start Mail Merge → Letters</span></div>
+        <div class="row"><span class="desc">2. Select Recipients → Use Existing List (Excel)</span></div>
+        <div class="row"><span class="desc">3. Insert Merge Field → «FirstName» etc.</span></div>
+        <div class="row"><span class="desc">4. Preview Results → check output</span></div>
+        <div class="row"><span class="desc">5. Finish &amp; Merge → Print / Send Email</span></div>
+        <div class="sl">Auto Table of Contents</div>
+        <div class="row"><span class="desc">Apply Heading 1/2/3 to all section titles</span></div>
+        <div class="row"><span class="desc">References → Table of Contents → Auto</span></div>
+        <div class="row"><span class="desc">Update TOC after edits</span><div class="keys"><kbd>F9</kbd></div></div>
+        <div class="note note-green">TOC is clickable (Ctrl+Click) and auto-updates page numbers when you press F9 or click "Update Table".</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Word Find Wildcards -->
+  <div class="grid g2" style="margin-bottom:10px">
+    <div class="card">
+      <div class="card-header"><div class="icon icon-blue">★</div><h3>Find &amp; Replace Wildcards</h3><span class="sub">Ctrl+H → More &gt;&gt; → Use wildcards</span></div>
+      <div class="card-body">
+        <div class="grid g2" style="gap:4px;margin-bottom:0">
+          <div>
+            <div class="row"><span class="desc"><kbd>?</kbd> — any single character</span></div>
+            <div class="row"><span class="desc"><kbd>*</kbd> — any string of characters</span></div>
+            <div class="row"><span class="desc"><kbd>[abc]</kbd> — any of a, b, or c</span></div>
+            <div class="row"><span class="desc"><kbd>[a-z]</kbd> — range of characters</span></div>
+            <div class="row"><span class="desc"><kbd>^p</kbd> — paragraph mark</span></div>
+          </div>
+          <div>
+            <div class="row"><span class="desc"><kbd>^t</kbd> — tab character</span></div>
+            <div class="row"><span class="desc"><kbd>^n</kbd> — manual line break</span></div>
+            <div class="row"><span class="desc"><kbd>^l</kbd> — column break</span></div>
+            <div class="row"><span class="desc"><em>Replace</em> <kbd>^p^p</kbd> with <kbd>^p</kbd> → remove blank lines</span></div>
+            <div class="row"><span class="desc"><em>Replace</em> <kbd>^t</kbd> with nothing → strip tabs</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="icon icon-word">🔒</div><h3>Document Protection &amp; Export</h3><span class="sub">File / Review</span></div>
+      <div class="card-body">
+        <div class="sl">Protection</div>
+        <div class="row"><span class="desc">Restrict editing (comments only / tracked changes)</span><div class="keys"><kbd>Review → Restrict Editing</kbd></div></div>
+        <div class="row"><span class="desc">Encrypt with password</span><div class="keys"><kbd>File → Info → Protect → Encrypt</kbd></div></div>
+        <div class="row"><span class="desc">Mark as Final (advisory)</span><div class="keys"><kbd>File → Info → Protect → Mark as Final</kbd></div></div>
+        <div class="sl">Export &amp; Compatibility</div>
+        <div class="row"><span class="desc">Save as PDF</span><div class="keys"><kbd>File → Save As → PDF</kbd></div></div>
+        <div class="row"><span class="desc">Save as .docx / .doc</span><div class="keys"><kbd>F12</kbd></div></div>
+        <div class="row"><span class="desc">Inspect document (remove hidden data)</span><div class="keys"><kbd>File → Info → Check for Issues</kbd></div></div>
+        <div class="row"><span class="desc">Check accessibility</span><div class="keys"><kbd>File → Info → Check Accessibility</kbd></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════ EXCEL ════════════════════ -->
+  <div class="section-divider">
+    <div class="sd-icon sd-excel">X</div>
+    <h2 style="color:var(--excel)">Microsoft Excel</h2>
+    <span class="sd-sub">Navigation · Formulas · PivotTables · Charts · Power Query</span>
+  </div>
+
+  <div class="grid g4">
+
+    <!-- Navigation -->
+    <div class="card">
+      <div class="card-header"><div class="icon icon-excel">↕</div><h3>Navigation &amp; Selection</h3><span class="sub">Move around fast</span></div>
+      <div class="card-body">
+        <div class="sl">Move</div>
+        <div class="row"><span class="desc">Jump to edge of data</span><div class="keys"><kbd>Ctrl+→↑↓←</kbd></div></div>
+        <div class="row"><span class="desc">Last used cell</span><div class="keys"><kbd>Ctrl+End</kbd></div></div>
+        <div class="row"><span class="desc">Cell A1</span><div class="keys"><kbd>Ctrl+Home</kbd></div></div>
+        <div class="row"><span class="desc">Next / prev sheet</span><div class="keys"><kbd>Ctrl+PgDn/Up</kbd></div></div>
+        <div class="row"><span class="desc">Go to cell</span><div class="keys"><kbd>Ctrl+G</kbd> or <kbd>F5</kbd></div></div>
+        <div class="row"><span class="desc">Name box (type address)</span><div class="keys"><kbd>Ctrl+G → type ref</kbd></div></div>
+        <div class="sl">Select</div>
+        <div class="row"><span class="desc">Select to edge</span><div class="keys"><kbd>Ctrl+Shift+Arrows</kbd></div></div>
+        <div class="row"><span class="desc">Select entire column</span><div class="keys"><kbd>Ctrl+Space</kbd></div></div>
+        <div class="row"><span class="desc">Select entire row</span><div class="keys"><kbd>Shift+Space</kbd></div></div>
+        <div class="row"><span class="desc">Select all</span><div class="keys"><kbd>Ctrl+A</kbd></div></div>
+        <div class="row"><span class="desc">Select visible only</span><div class="keys"><kbd>Alt+;</kbd></div></div>
+      </div>
+    </div>
+
+    <!-- Editing -->
+    <div class="card">
+      <div class="card-header"><div class="icon icon-excel">✏</div><h3>Editing &amp; Entry</h3><span class="sub">Data entry tricks</span></div>
+      <div class="card-body">
+        <div class="sl">Enter Data</div>
+        <div class="row"><span class="desc">Confirm + stay</span><div class="keys"><kbd>Ctrl+Enter</kbd></div></div>
+        <div class="row"><span class="desc">Fill Down</span><div class="keys"><kbd>Ctrl+D</kbd></div></div>
+        <div class="row"><span class="desc">Fill Right</span><div class="keys"><kbd>Ctrl+R</kbd></div></div>
+        <div class="row"><span class="desc">Flash Fill (auto-pattern)</span><div class="keys"><kbd>Ctrl+E</kbd></div></div>
+        <div class="row"><span class="desc">AutoSum</span><div class="keys"><kbd>Alt+=</kbd></div></div>
+        <div class="row"><span class="desc">Enter today's date</span><div class="keys"><kbd>Ctrl+;</kbd></div></div>
+        <div class="row"><span class="desc">Enter current time</span><div class="keys"><kbd>Ctrl+Shift+;</kbd></div></div>
+        <div class="row"><span class="desc">Edit cell in-place</span><div class="keys"><kbd>F2</kbd></div></div>
+        <div class="sl">Rows / Columns</div>
+        <div class="row"><span class="desc">Insert row/col</span><div class="keys"><kbd>Ctrl+Shift++</kbd></div></div>
+        <div class="row"><span class="desc">Delete row/col</span><div class="keys"><kbd>Ctrl+-</kbd></div></div>
+        <div class="row"><span class="desc">Hide row/col</span><div class="keys"><kbd>Ctrl+9</kbd><span class="sep">/</span><kbd>Ctrl+0</kbd></div></div>
+        <div class="row"><span class="desc">Unhide rows/cols</span><div class="keys"><kbd>Ctrl+Shift+9/0</kbd></div></div>
+        <div class="row"><span class="desc">Auto-fit column width</span><div class="keys">Double-click col border</div></div>
+      </div>
+    </div>
+
+    <!-- Formatting -->
+    <div class="card">
+      <div class="card-header"><div class="icon icon-excel">🎨</div><h3>Formatting</h3><span class="sub">Ctrl+1 for full dialog</span></div>
+      <div class="card-body">
+        <div class="sl">Number Formats</div>
+        <div class="row"><span class="desc">Format cells dialog</span><div class="keys"><kbd>Ctrl+1</kbd></div></div>
+        <div class="row"><span class="desc">Number (2 decimals)</span><div class="keys"><kbd>Ctrl+Shift+1</kbd></div></div>
+        <div class="row"><span class="desc">Currency</span><div class="keys"><kbd>Ctrl+Shift+4</kbd></div></div>
+        <div class="row"><span class="desc">Percentage</span><div class="keys"><kbd>Ctrl+Shift+5</kbd></div></div>
+        <div class="row"><span class="desc">Date (dd-mmm-yy)</span><div class="keys"><kbd>Ctrl+Shift+3</kbd></div></div>
+        <div class="row"><span class="desc">Time (hh:mm)</span><div class="keys"><kbd>Ctrl+Shift+2</kbd></div></div>
+        <div class="row"><span class="desc">General format</span><div class="keys"><kbd>Ctrl+Shift+~</kbd></div></div>
+        <div class="sl">Cell Style</div>
+        <div class="row"><span class="desc">Bold / Italic / Underline</span><div class="keys"><kbd>Ctrl+B/I/U</kbd></div></div>
+        <div class="row"><span class="desc">Add border</span><div class="keys"><kbd>Ctrl+Shift+&amp;</kbd></div></div>
+        <div class="row"><span class="desc">Remove border</span><div class="keys"><kbd>Ctrl+Shift+-</kbd></div></div>
+        <div class="row"><span class="desc">Create Table</span><div class="keys"><kbd>Ctrl+T</kbd></div></div>
+        <div class="row"><span class="desc">Freeze panes</span><div class="keys"><kbd>Alt+W, F, F</kbd></div></div>
+        <div class="row"><span class="desc">Toggle filter</span><div class="keys"><kbd>Ctrl+Shift+L</kbd></div></div>
+      </div>
+    </div>
+
+    <!-- Formulas -->
+    <div class="card">
+      <div class="card-header"><div class="icon icon-excel">=</div><h3>Formula Shortcuts</h3><span class="sub">Formula bar tricks</span></div>
+      <div class="card-body">
+        <div class="row"><span class="desc">Start formula</span><div class="keys"><kbd>=</kbd></div></div>
+        <div class="row"><span class="desc">Cycle ref type ($)</span><div class="keys"><kbd>F4</kbd></div></div>
+        <div class="row"><span class="desc">Evaluate part of formula</span><div class="keys"><kbd>F9</kbd> (select part)</div></div>
+        <div class="row"><span class="desc">Paste Special (values)</span><div class="keys"><kbd>Ctrl+Alt+V</kbd></div></div>
+        <div class="row"><span class="desc">Show all formulas</span><div class="keys"><kbd>Ctrl+`</kbd></div></div>
+        <div class="row"><span class="desc">Trace dependents</span><div class="keys"><kbd>Formulas → Trace</kbd></div></div>
+        <div class="row"><span class="desc">Array formula</span><div class="keys"><kbd>Ctrl+Shift+Enter</kbd></div></div>
+        <div class="row"><span class="desc">Function autocomplete</span><div class="keys"><kbd>Tab</kbd> to accept</div></div>
+        <div class="row"><span class="desc">Function arguments dialog</span><div class="keys"><kbd>Ctrl+A</kbd> after name</div></div>
+        <div class="row"><span class="desc">Name a range</span><div class="keys"><kbd>Ctrl+Shift+F3</kbd></div></div>
+        <div class="row"><span class="desc">Insert function (fx)</span><div class="keys"><kbd>Shift+F3</kbd></div></div>
+        <div class="row"><span class="desc">Recalculate now</span><div class="keys"><kbd>F9</kbd></div></div>
+        <div class="row"><span class="desc">New sheet</span><div class="keys"><kbd>Shift+F11</kbd></div></div>
+        <div class="row"><span class="desc">Undo / Redo</span><div class="keys"><kbd>Ctrl+Z / Ctrl+Y</kbd></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Excel Formulas Reference -->
+  <div class="grid g3" style="margin-bottom:10px">
+
+    <div class="card">
+      <div class="card-header"><div class="icon icon-excel">Σ</div><h3>Math, Stats &amp; Count</h3><span class="sub">Most-used functions</span></div>
+      <div class="card-body">
+        <div class="frow"><div class="fc">=SUM(A1:A10)</div><div class="fd">Sum a range</div></div>
+        <div class="frow"><div class="fc">=SUMIF(A:A,"&gt;100",B:B)</div><div class="fd">Sum B where A&gt;100</div></div>
+        <div class="frow"><div class="fc">=SUMIFS(C:C,A:A,"East",B:B,"&gt;0")</div><div class="fd">Multi-condition sum</div></div>
+        <div class="frow"><div class="fc">=AVERAGE(A1:A10)</div><div class="fd">Mean of range</div></div>
+        <div class="frow"><div class="fc">=COUNT(A:A)</div><div class="fd">Count numeric cells</div></div>
+        <div class="frow"><div class="fc">=COUNTA(A:A)</div><div class="fd">Count non-empty cells</div></div>
+        <div class="frow"><div class="fc">=COUNTIF(A:A,"Yes")</div><div class="fd">Count matching value</div></div>
+        <div class="frow"><div class="fc">=COUNTIFS(A:A,"East",B:B,"&gt;500")</div><div class="fd">Multi-condition count</div></div>
+        <div class="frow"><div class="fc">=MAX(A:A) / =MIN(A:A)</div><div class="fd">Largest / smallest</div></div>
+        <div class="frow"><div class="fc">=LARGE(A:A,2)</div><div class="fd">2nd largest value</div></div>
+        <div class="frow"><div class="fc">=ROUND(A1,2)</div><div class="fd">Round to 2 decimals</div></div>
+        <div class="frow"><div class="fc">=INT(A1) / =ABS(A1)</div><div class="fd">Integer part / absolute</div></div>
+        <div class="frow"><div class="fc">=MOD(A1,3)</div><div class="fd">Remainder of division</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="icon icon-blue">🔍</div><h3>Lookup &amp; Reference</h3><span class="sub">Find values across sheets</span></div>
+      <div class="card-body">
+        <div class="frow"><div class="fc">=XLOOKUP(D2,A:A,C:C,"N/A")</div><div class="fd">Modern lookup — any direction</div></div>
+        <div class="frow"><div class="fc">=VLOOKUP(D2,A:C,3,0)</div><div class="fd">Vertical lookup (legacy)</div></div>
+        <div class="frow"><div class="fc">=HLOOKUP(D2,1:3,2,0)</div><div class="fd">Horizontal lookup</div></div>
+        <div class="frow"><div class="fc">=INDEX(A:A,MATCH(D2,B:B,0))</div><div class="fd">Flexible: find row, return col</div></div>
+        <div class="frow"><div class="fc">=MATCH(D2,A:A,0)</div><div class="fd">Position of value in range</div></div>
+        <div class="frow"><div class="fc">=INDEX(arr,row,col)</div><div class="fd">Value at row/col</div></div>
+        <div class="frow"><div class="fc">=OFFSET(A1,2,3)</div><div class="fd">Cell 2 down, 3 right from A1</div></div>
+        <div class="frow"><div class="fc">=INDIRECT("Sheet2!A"&amp;B1)</div><div class="fd">Dynamic reference</div></div>
+        <div class="note note-excel">Prefer XLOOKUP over VLOOKUP — it searches left or right, returns multiple columns, and has a built-in not-found value.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="icon icon-orange">Aa</div><h3>Text, Date &amp; Logic</h3><span class="sub">Clean and transform data</span></div>
+      <div class="card-body">
+        <div class="sl">Text</div>
+        <div class="frow"><div class="fc">=TRIM(A1)</div><div class="fd">Remove extra spaces</div></div>
+        <div class="frow"><div class="fc">=UPPER/LOWER/PROPER(A1)</div><div class="fd">Case conversion</div></div>
+        <div class="frow"><div class="fc">=LEFT(A1,3) / =RIGHT(A1,4)</div><div class="fd">First/last N characters</div></div>
+        <div class="frow"><div class="fc">=MID(A1,2,5)</div><div class="fd">5 chars from position 2</div></div>
+        <div class="frow"><div class="fc">=TEXTJOIN(", ",TRUE,A1:A10)</div><div class="fd">Join range with separator</div></div>
+        <div class="frow"><div class="fc">=SUBSTITUTE(A1,"old","new")</div><div class="fd">Replace text in string</div></div>
+        <div class="frow"><div class="fc">=TEXT(A1,"dd/mm/yyyy")</div><div class="fd">Number/date as text</div></div>
+        <div class="sl">Date &amp; Logic</div>
+        <div class="frow"><div class="fc">=TODAY() / =NOW()</div><div class="fd">Current date / datetime</div></div>
+        <div class="frow"><div class="fc">=DATEDIF(A1,B1,"D")</div><div class="fd">Days between dates</div></div>
+        <div class="frow"><div class="fc">=NETWORKDAYS(A1,B1)</div><div class="fd">Working days between dates</div></div>
+        <div class="frow"><div class="fc">=IF(A1&gt;50,"Pass","Fail")</div><div class="fd">Conditional result</div></div>
+        <div class="frow"><div class="fc">=IFS(A1&gt;=90,"A",A1&gt;=80,"B",TRUE,"C")</div><div class="fd">Multi-branch</div></div>
+        <div class="frow"><div class="fc">=IFERROR(formula,"N/A")</div><div class="fd">Catch any error</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Excel Row 3 — PivotTable + Ref Types + CF -->
+  <div class="grid g3">
+
+    <div class="card">
+      <div class="card-header"><div class="icon icon-excel">⊞</div><h3>PivotTable Quick Guide</h3><span class="sub">Insert → PivotTable</span></div>
+      <div class="card-body">
+        <div class="row"><span class="desc">1. Click in data → <kbd>Ctrl+T</kbd> (make it a Table)</span></div>
+        <div class="row"><span class="desc">2. Insert → PivotTable → New Worksheet</span></div>
+        <div class="row"><span class="desc">3. Drag fields to Rows / Columns / Values / Filters</span></div>
+        <div class="row"><span class="desc">4. Values: click ▼ → Value Field Settings → Sum/Avg/Count</span></div>
+        <div class="row"><span class="desc">5. Show as %: Value Field Settings → Show Values As</span></div>
+        <div class="row"><span class="desc">6. Add Slicer: PivotTable Analyze → Insert Slicer</span></div>
+        <div class="row"><span class="desc">7. Refresh data: <kbd>Alt+F5</kbd> or Analyze → Refresh</span></div>
+        <div class="row"><span class="desc">8. PivotChart: Analyze → PivotChart</span></div>
+        <div class="note note-excel">Group dates: right-click a date cell in the PivotTable → Group → choose Year/Quarter/Month to auto-group.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="icon icon-blue">$</div><h3>Cell Reference Types</h3><span class="sub">Press F4 to cycle</span></div>
+      <div class="card-body">
+        <table>
+          <tr><th>Type</th><th>Syntax</th><th>When copied...</th></tr>
+          <tr><td>Relative</td><td><code>A1</code></td><td>Row &amp; col both shift</td></tr>
+          <tr><td>Absolute</td><td><code>$A$1</code></td><td>Nothing moves — fixed</td></tr>
+          <tr><td>Lock col only</td><td><code>$A1</code></td><td>Col stays, row shifts</td></tr>
+          <tr><td>Lock row only</td><td><code>A$1</code></td><td>Row stays, col shifts</td></tr>
+        </table>
+        <div class="note note-blue" style="margin-top:8px"><b>F4 shortcut:</b> while editing a formula, click a cell reference and press F4 to cycle through all 4 types instantly. Use <code>$A$1</code> for tax rates, discount %, and any value used across many rows.</div>
+        <div class="sl" style="margin-top:8px">Named Ranges</div>
+        <div class="row"><span class="desc">Name a range</span><div class="keys"><kbd>Ctrl+Shift+F3</kbd></div></div>
+        <div class="row"><span class="desc">Use in formula</span><div class="keys"><code>=SUM(Revenue)</code></div></div>
+        <div class="row"><span class="desc">Name Manager</span><div class="keys"><kbd>Ctrl+F3</kbd></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="icon icon-orange">🎨</div><h3>Conditional Formatting</h3><span class="sub">Home → Conditional Formatting</span></div>
+      <div class="card-body">
+        <table>
+          <tr><th>Rule Type</th><th>Best For</th></tr>
+          <tr><td>Highlight Cells</td><td>Flag values &gt;100, duplicates, "Overdue"</td></tr>
+          <tr><td>Top/Bottom Rules</td><td>Top 10%, above average performers</td></tr>
+          <tr><td>Data Bars</td><td>In-cell bar chart (magnitude at a glance)</td></tr>
+          <tr><td>Color Scales</td><td>Heat maps — green→yellow→red</td></tr>
+          <tr><td>Icon Sets</td><td>Traffic lights ✓ ✗, arrows ↑↓</td></tr>
+          <tr><td>Formula rule</td><td>Highlight entire row: <code>=$C2="Overdue"</code></td></tr>
+        </table>
+        <div class="note note-orange" style="margin-top:6px"><b>Whole-row highlight tip:</b> Select all data rows (e.g. A2:E100) → New Rule → Use formula → type <code>=$C2="Late"</code> — the $ locks column C so the rule checks that column across all rows.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    IT University — Microsoft Office Shortcuts Reference &nbsp;·&nbsp; Print with Ctrl+P → Landscape → Save as PDF &nbsp;·&nbsp; <strong style="color:var(--navy)">vikapandeya.github.io/it-university</strong>
+  </div>
+
+</div>
+</body>
+</html>
