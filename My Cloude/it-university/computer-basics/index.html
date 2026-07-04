@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en" data-portal="computer-basics" data-depth="2">
 <head>
   <meta charset="UTF-8">
@@ -237,51 +237,299 @@
           <button class="tab-btn" onclick="switchTab('office-tabs','off-ppt',this)">PowerPoint</button>
         </div>
 
+        <!-- ═══ WORD DEEP DIVE ═══ -->
         <div id="off-word" class="tab-pane active">
-          <h3>Microsoft Word — Key Skills</h3>
-          <ul>
-            <li>Styles and Themes for consistent formatting</li>
-            <li>Track Changes for collaborative editing (Review tab)</li>
-            <li>Mail Merge — send personalized letters/emails</li>
-            <li>Table of Contents auto-generation from Heading styles</li>
-            <li>Export to PDF: File → Save As → PDF</li>
-            <li>Templates for resumes, reports, letters</li>
+
+          <h3>1. Styles System — The Foundation of Word</h3>
+          <p style="color:var(--text-dim);margin-bottom:8px">Styles make formatting consistent and enable automatic TOC generation. Never format text manually — apply a Style instead.</p>
+          <table style="width:100%;border-collapse:collapse;font-size:var(--text-sm);margin-bottom:12px">
+            <tr style="background:var(--bg-elevated)"><th style="border:1px solid var(--border);padding:7px 10px;text-align:left">Style Name</th><th style="border:1px solid var(--border);padding:7px 10px;text-align:left">Use For</th><th style="border:1px solid var(--border);padding:7px 10px;text-align:left">Shortcut</th></tr>
+            <tr><td style="border:1px solid var(--border);padding:7px 10px"><strong>Heading 1</strong></td><td style="border:1px solid var(--border);padding:7px 10px">Chapter / main section title</td><td style="border:1px solid var(--border);padding:7px 10px"><kbd>Ctrl+Alt+1</kbd></td></tr>
+            <tr><td style="border:1px solid var(--border);padding:7px 10px"><strong>Heading 2</strong></td><td style="border:1px solid var(--border);padding:7px 10px">Sub-section title</td><td style="border:1px solid var(--border);padding:7px 10px"><kbd>Ctrl+Alt+2</kbd></td></tr>
+            <tr><td style="border:1px solid var(--border);padding:7px 10px"><strong>Heading 3</strong></td><td style="border:1px solid var(--border);padding:7px 10px">Sub-sub-section</td><td style="border:1px solid var(--border);padding:7px 10px"><kbd>Ctrl+Alt+3</kbd></td></tr>
+            <tr><td style="border:1px solid var(--border);padding:7px 10px"><strong>Normal</strong></td><td style="border:1px solid var(--border);padding:7px 10px">Body paragraph text</td><td style="border:1px solid var(--border);padding:7px 10px"><kbd>Ctrl+Shift+N</kbd></td></tr>
+            <tr><td style="border:1px solid var(--border);padding:7px 10px"><strong>Title</strong></td><td style="border:1px solid var(--border);padding:7px 10px">Document title (cover page)</td><td style="border:1px solid var(--border);padding:7px 10px">Styles pane</td></tr>
+            <tr><td style="border:1px solid var(--border);padding:7px 10px"><strong>Quote / Intense Quote</strong></td><td style="border:1px solid var(--border);padding:7px 10px">Block quotations</td><td style="border:1px solid var(--border);padding:7px 10px">Styles pane</td></tr>
+            <tr><td style="border:1px solid var(--border);padding:7px 10px"><strong>List Paragraph</strong></td><td style="border:1px solid var(--border);padding:7px 10px">Bulleted / numbered lists</td><td style="border:1px solid var(--border);padding:7px 10px">Styles pane</td></tr>
+          </table>
+          <p style="color:var(--text-dim);font-size:var(--text-sm)"><strong>Modify a style:</strong> Right-click the style in the Styles pane → Modify → change font, size, spacing → check "Automatically update" → OK. Every paragraph using that style updates instantly.</p>
+
+          <h3 style="margin-top:var(--gap)">2. Table of Contents (Auto)</h3>
+          <ol style="color:var(--text-dim);font-size:var(--text-sm);line-height:1.8;padding-left:1.2rem">
+            <li>Apply <strong>Heading 1 / 2 / 3</strong> styles to all section titles</li>
+            <li>Click where you want the TOC (usually after the title page)</li>
+            <li><strong>References → Table of Contents → Automatic Table 1</strong></li>
+            <li>Word inserts a clickable TOC with page numbers</li>
+            <li>To update after edits: click TOC → <strong>Update Table</strong> → Update entire table</li>
+          </ol>
+
+          <h3 style="margin-top:var(--gap)">3. Track Changes &amp; Comments</h3>
+          <div class="shortcut-grid" style="margin-bottom:10px">
+            <div class="shortcut-item"><span>Toggle Track Changes</span><kbd>Ctrl+Shift+E</kbd></div>
+            <div class="shortcut-item"><span>New Comment</span><kbd>Ctrl+Alt+M</kbd></div>
+            <div class="shortcut-item"><span>Accept change</span><kbd>Alt+H, AC</kbd></div>
+            <div class="shortcut-item"><span>Reject change</span><kbd>Alt+H, RJ</kbd></div>
+            <div class="shortcut-item"><span>Next change</span><kbd>Ctrl+Shift+E then →</kbd></div>
+            <div class="shortcut-item"><span>Show markup</span><kbd>Review → Show Markup</kbd></div>
+          </div>
+          <p style="color:var(--text-dim);font-size:var(--text-sm)"><strong>Compare Documents:</strong> Review → Compare → Compare — lets you diff two versions and see all differences highlighted automatically. <strong>Accept All:</strong> Review → Accept → Accept All Changes to clean up the document.</p>
+
+          <h3 style="margin-top:var(--gap)">4. Mail Merge — Step by Step</h3>
+          <ol style="color:var(--text-dim);font-size:var(--text-sm);line-height:1.9;padding-left:1.2rem">
+            <li><strong>Prepare data source</strong> — Excel sheet with columns: FirstName, LastName, Email, Company (first row = headers)</li>
+            <li><strong>Mailings → Start Mail Merge → Letters</strong> (or Email Messages)</li>
+            <li><strong>Select Recipients → Use an Existing List</strong> → choose your Excel file</li>
+            <li>Write your letter template, then click <strong>Insert Merge Field</strong> to add <code>«FirstName»</code>, <code>«Company»</code> etc.</li>
+            <li><strong>Preview Results</strong> to see how each letter looks</li>
+            <li><strong>Finish &amp; Merge → Print Documents</strong> or <strong>Send Email Messages</strong></li>
+          </ol>
+
+          <h3 style="margin-top:var(--gap)">5. Tables Deep Dive</h3>
+          <p style="color:var(--text-dim);font-size:var(--text-sm);margin-bottom:8px">Insert → Table → drag to size. Essential table operations:</p>
+          <div class="shortcut-grid" style="margin-bottom:10px">
+            <div class="shortcut-item"><span>Select entire row</span><kbd>Click left margin</kbd></div>
+            <div class="shortcut-item"><span>Select entire column</span><kbd>Click top border</kbd></div>
+            <div class="shortcut-item"><span>Add row at end</span><kbd>Tab in last cell</kbd></div>
+            <div class="shortcut-item"><span>Split table</span><kbd>Ctrl+Shift+Enter</kbd></div>
+            <div class="shortcut-item"><span>Sort table</span><kbd>Layout → Sort</kbd></div>
+            <div class="shortcut-item"><span>Formula in cell</span><kbd>Layout → Formula</kbd></div>
+          </div>
+          <p style="color:var(--text-dim);font-size:var(--text-sm)"><strong>Table formulas:</strong> In a table cell use <code>=SUM(ABOVE)</code>, <code>=AVERAGE(LEFT)</code>, <code>=SUM(B2:B6)</code> — just like Excel, but limited. For complex calculations, use Excel and paste as an embedded object.</p>
+
+          <h3 style="margin-top:var(--gap)">6. Headers, Footers &amp; Page Numbers</h3>
+          <ul style="color:var(--text-dim);font-size:var(--text-sm);line-height:1.8;padding-left:1.2rem">
+            <li><strong>Insert → Header/Footer</strong> — double-click inside to edit; double-click body to exit</li>
+            <li><strong>Different First Page</strong> — tick the checkbox to have a blank/title header on page 1</li>
+            <li><strong>Different Odd/Even Pages</strong> — for book-style left/right headers</li>
+            <li><strong>Page numbers:</strong> Insert → Page Number → choose position. Use <code>[Page] of [Pages]</code> for "3 of 12" style</li>
+            <li><strong>Section breaks</strong> (Layout → Breaks → Next Page) let you restart page numbering mid-document — useful for appendices</li>
           </ul>
-          <h4 style="margin-top:12px">Essential Word Shortcuts</h4>
+
+          <h3 style="margin-top:var(--gap)">7. Find &amp; Replace — Advanced</h3>
+          <pre><code>Ctrl+H → Find & Replace
+  → More >> → Use wildcards ON
+
+Wildcard examples:
+  ?     = any single character   (c?t matches cat, cot, cut)
+  *     = any characters          (s*d matches said, stored, stud)
+  [abc] = any of a, b, c
+  \n    = manual line break (find/remove extra line breaks)
+  ^p    = paragraph mark
+  ^t    = tab character
+
+Tip: Replace ^p^p with ^p to collapse double blank lines
+Tip: Replace ^t with nothing to strip all tab indents</code></pre>
+
+          <h3 style="margin-top:var(--gap)">8. Document Protection</h3>
+          <ul style="color:var(--text-dim);font-size:var(--text-sm);line-height:1.8;padding-left:1.2rem">
+            <li><strong>Review → Restrict Editing</strong> — allow only comments, tracked changes, or form filling</li>
+            <li><strong>File → Info → Protect Document → Encrypt with Password</strong> — password-lock the whole file</li>
+            <li><strong>Mark as Final</strong> — flags document as read-only (advisory, not enforced)</li>
+            <li><strong>Digital Signature</strong> — File → Info → Protect → Add Digital Signature (requires a certificate)</li>
+          </ul>
+
+          <h3 style="margin-top:var(--gap)">9. Complete Shortcut Reference</h3>
           <div class="shortcut-grid">
             <div class="shortcut-item"><span>Bold / Italic / Underline</span><kbd>Ctrl+B/I/U</kbd></div>
+            <div class="shortcut-item"><span>Strikethrough</span><kbd>Alt+H, 4</kbd></div>
+            <div class="shortcut-item"><span>Superscript / Subscript</span><kbd>Ctrl+Shift+= / Ctrl+=</kbd></div>
+            <div class="shortcut-item"><span>Clear all formatting</span><kbd>Ctrl+Space</kbd></div>
+            <div class="shortcut-item"><span>Copy formatting</span><kbd>Ctrl+Shift+C</kbd></div>
+            <div class="shortcut-item"><span>Paste formatting only</span><kbd>Ctrl+Shift+V</kbd></div>
             <div class="shortcut-item"><span>Find &amp; Replace</span><kbd>Ctrl+H</kbd></div>
+            <div class="shortcut-item"><span>Go To (page/line)</span><kbd>Ctrl+G</kbd></div>
             <div class="shortcut-item"><span>Heading 1/2/3</span><kbd>Ctrl+Alt+1/2/3</kbd></div>
-            <div class="shortcut-item"><span>Line spacing 1/2</span><kbd>Ctrl+1 / Ctrl+2</kbd></div>
-            <div class="shortcut-item"><span>Word Count</span><kbd>Ctrl+Shift+G</kbd></div>
+            <div class="shortcut-item"><span>Normal style</span><kbd>Ctrl+Shift+N</kbd></div>
+            <div class="shortcut-item"><span>Line spacing 1.0</span><kbd>Ctrl+1</kbd></div>
+            <div class="shortcut-item"><span>Line spacing 2.0</span><kbd>Ctrl+2</kbd></div>
+            <div class="shortcut-item"><span>Line spacing 1.5</span><kbd>Ctrl+5</kbd></div>
+            <div class="shortcut-item"><span>Align Left/Center/Right</span><kbd>Ctrl+L/E/R</kbd></div>
+            <div class="shortcut-item"><span>Justify text</span><kbd>Ctrl+J</kbd></div>
+            <div class="shortcut-item"><span>Indent / Outdent</span><kbd>Tab / Shift+Tab</kbd></div>
             <div class="shortcut-item"><span>Insert hyperlink</span><kbd>Ctrl+K</kbd></div>
-            <div class="shortcut-item"><span>Print</span><kbd>Ctrl+P</kbd></div>
-            <div class="shortcut-item"><span>Spelling check</span><kbd>F7</kbd></div>
+            <div class="shortcut-item"><span>Insert page break</span><kbd>Ctrl+Enter</kbd></div>
+            <div class="shortcut-item"><span>Select all</span><kbd>Ctrl+A</kbd></div>
+            <div class="shortcut-item"><span>Word Count</span><kbd>Ctrl+Shift+G</kbd></div>
+            <div class="shortcut-item"><span>Spelling &amp; Grammar</span><kbd>F7</kbd></div>
+            <div class="shortcut-item"><span>Thesaurus</span><kbd>Shift+F7</kbd></div>
+            <div class="shortcut-item"><span>Print Preview / Print</span><kbd>Ctrl+P</kbd></div>
+            <div class="shortcut-item"><span>Undo / Redo</span><kbd>Ctrl+Z / Ctrl+Y</kbd></div>
           </div>
         </div>
 
+        <!-- ═══ EXCEL DEEP DIVE ═══ -->
         <div id="off-excel" class="tab-pane">
-          <h3>Microsoft Excel — Key Skills</h3>
-          <ul>
-            <li>Formulas and Functions (500+ built-in) starting with <code>=</code></li>
-            <li>PivotTables: Insert → PivotTable — summarise large datasets instantly</li>
-            <li>VLOOKUP / XLOOKUP for data lookup across sheets</li>
-            <li>Conditional Formatting — color-code data based on rules</li>
-            <li>Data Validation — restrict cell input (dropdowns, number ranges)</li>
-            <li>Charts: Insert → Chart — bar, line, pie, scatter</li>
+
+          <h3>1. Cell References — Relative vs Absolute</h3>
+          <table style="width:100%;border-collapse:collapse;font-size:var(--text-sm);margin-bottom:12px">
+            <tr style="background:var(--bg-elevated)"><th style="border:1px solid var(--border);padding:7px 10px;text-align:left">Type</th><th style="border:1px solid var(--border);padding:7px 10px;text-align:left">Syntax</th><th style="border:1px solid var(--border);padding:7px 10px;text-align:left">What moves when copied</th><th style="border:1px solid var(--border);padding:7px 10px;text-align:left">Use when</th></tr>
+            <tr><td style="border:1px solid var(--border);padding:7px 10px">Relative</td><td style="border:1px solid var(--border);padding:7px 10px"><code>A1</code></td><td style="border:1px solid var(--border);padding:7px 10px">Both row &amp; column shift</td><td style="border:1px solid var(--border);padding:7px 10px">Most normal formulas</td></tr>
+            <tr><td style="border:1px solid var(--border);padding:7px 10px">Absolute</td><td style="border:1px solid var(--border);padding:7px 10px"><code>$A$1</code></td><td style="border:1px solid var(--border);padding:7px 10px">Nothing — always same cell</td><td style="border:1px solid var(--border);padding:7px 10px">Tax rate, discount %, fixed totals</td></tr>
+            <tr><td style="border:1px solid var(--border);padding:7px 10px">Mixed — lock column</td><td style="border:1px solid var(--border);padding:7px 10px"><code>$A1</code></td><td style="border:1px solid var(--border);padding:7px 10px">Row shifts, column stays</td><td style="border:1px solid var(--border);padding:7px 10px">Multiplication tables</td></tr>
+            <tr><td style="border:1px solid var(--border);padding:7px 10px">Mixed — lock row</td><td style="border:1px solid var(--border);padding:7px 10px"><code>A$1</code></td><td style="border:1px solid var(--border);padding:7px 10px">Column shifts, row stays</td><td style="border:1px solid var(--border);padding:7px 10px">Header rows, fixed row totals</td></tr>
+          </table>
+          <p style="color:var(--text-dim);font-size:var(--text-sm)"><kbd>F4</kbd> cycles through all 4 reference types while editing a formula. Press it once for <code>$A$1</code>, twice for <code>A$1</code>, three times for <code>$A1</code>, four times back to <code>A1</code>.</p>
+
+          <h3 style="margin-top:var(--gap)">2. Functions by Category</h3>
+
+          <h4 style="margin-top:10px;color:var(--accent)">Math &amp; Stats</h4>
+          <pre><code>=SUM(A1:A10)                  // Sum a range
+=SUMIF(A:A,">100",B:B)        // Sum B where A > 100
+=SUMIFS(C:C,A:A,"East",B:B,">1000")  // Multiple conditions
+=AVERAGE(A1:A10)              // Mean
+=AVERAGEIF(B:B,"<>0",C:C)    // Average excluding zeros
+=COUNT(A:A)                   // Count numeric cells
+=COUNTA(A:A)                  // Count non-empty cells
+=COUNTBLANK(A:A)              // Count empty cells
+=COUNTIF(A:A,"Yes")           // Count matching cells
+=COUNTIFS(A:A,"East",B:B,">500")  // Multi-condition count
+=MAX(A1:A10)  =MIN(A1:A10)   // Max / Min
+=LARGE(A:A,2)  =SMALL(A:A,3) // 2nd largest / 3rd smallest
+=ROUND(A1,2)                  // Round to 2 decimal places
+=ROUNDUP(A1,0)  =ROUNDDOWN(A1,0)  // Always up or down
+=ABS(A1)                      // Absolute value
+=MOD(A1,3)                    // Remainder of division
+=INT(A1)                      // Integer part (floors)</code></pre>
+
+          <h4 style="margin-top:10px;color:var(--accent)">Lookup &amp; Reference</h4>
+          <pre><code>=VLOOKUP(lookup,table,col_num,0)
+  // Vertical lookup — 0 = exact match, 1 = approximate
+  // Example: =VLOOKUP(D2,A:C,3,0)  → find D2 in col A, return col C
+
+=XLOOKUP(lookup,lookup_array,return_array,"not found")
+  // Modern replacement — searches left OR right, no col number
+  // Example: =XLOOKUP(D2,A:A,C:C,"N/A")
+
+=INDEX(A:A,MATCH(D2,B:B,0))
+  // Flexible: find row of D2 in column B, return that row from A
+  // Faster than VLOOKUP on large datasets
+
+=HLOOKUP(lookup,table,row_num,0)  // Horizontal lookup (rows)
+=MATCH(value,array,0)             // Position of value in array
+=INDEX(array,row,col)             // Value at row/col position
+=OFFSET(A1,2,3)                   // Cell 2 rows down, 3 cols right
+=INDIRECT("A"&B1)                 // Dynamic cell reference</code></pre>
+
+          <h4 style="margin-top:10px;color:var(--accent)">Text &amp; String</h4>
+          <pre><code>=LEN(A1)                     // Character count
+=LEFT(A1,3)                  // First 3 characters
+=RIGHT(A1,4)                 // Last 4 characters
+=MID(A1,2,5)                 // 5 chars starting at position 2
+=FIND("@",A1)                // Position of @ in email
+=SUBSTITUTE(A1,"old","new")  // Replace text (case-sensitive)
+=REPLACE(A1,1,3,"XXX")       // Replace by position
+=TRIM(A1)                    // Remove extra spaces
+=UPPER(A1)  =LOWER(A1)  =PROPER(A1)  // Case conversion
+=CONCAT(A1," ",B1)           // Join strings (modern)
+=TEXTJOIN(", ",TRUE,A1:A10)  // Join with delimiter, skip blanks
+=TEXT(A1,"₹#,##0.00")        // Format number as text
+=VALUE("123")                 // Text to number
+=NUMBERVALUE("1,234.5",".","," ) // Locale-aware conversion</code></pre>
+
+          <h4 style="margin-top:10px;color:var(--accent)">Date &amp; Time</h4>
+          <pre><code>=TODAY()                      // Today's date (updates)
+=NOW()                        // Current date + time
+=DATE(2024,12,31)             // Build a date from parts
+=DAY(A1)  =MONTH(A1)  =YEAR(A1)  // Extract date parts
+=WEEKDAY(A1,2)                // Day of week (1=Mon with mode 2)
+=WEEKNUM(A1)                  // Week number of the year
+=DATEDIF(A1,B1,"D")          // Days between dates ("D","M","Y")
+=NETWORKDAYS(A1,B1)           // Working days between dates
+=EDATE(A1,3)                  // Date 3 months from A1
+=EOMONTH(A1,0)                // Last day of A1's month
+=HOUR(A1)  =MINUTE(A1)        // Extract time parts</code></pre>
+
+          <h4 style="margin-top:10px;color:var(--accent)">Logical &amp; Error Handling</h4>
+          <pre><code>=IF(A1>50,"Pass","Fail")
+=IFS(A1>=90,"A",A1>=80,"B",A1>=70,"C",TRUE,"F")  // Multi-branch
+=AND(A1>0,B1<100)             // TRUE if both true
+=OR(A1="Yes",B1="Yes")       // TRUE if either true
+=NOT(A1="Cancelled")          // Invert boolean
+=IFERROR(formula,"N/A")      // Catch any error
+=IFNA(VLOOKUP(...),"N/A")    // Catch #N/A only (faster)
+=ISERROR(A1)  =ISBLANK(A1)   =ISNUMBER(A1)  // Check type
+=SWITCH(A1,1,"Mon",2,"Tue",3,"Wed","Other")  // Like CASE/SWITCH</code></pre>
+
+          <h3 style="margin-top:var(--gap)">3. PivotTable — Step by Step</h3>
+          <ol style="color:var(--text-dim);font-size:var(--text-sm);line-height:1.9;padding-left:1.2rem">
+            <li><strong>Format data as a Table first:</strong> click anywhere in data → <kbd>Ctrl+T</kbd> → tick "My table has headers"</li>
+            <li><strong>Insert → PivotTable → New Worksheet</strong></li>
+            <li>In the PivotTable Fields pane drag fields to: <strong>Rows</strong> (group by), <strong>Columns</strong> (cross-tab), <strong>Values</strong> (aggregate), <strong>Filters</strong> (top filter)</li>
+            <li><strong>Values field settings:</strong> click ▼ next to field → Value Field Settings → choose Sum/Count/Average/Max/Min</li>
+            <li><strong>Show values as %:</strong> Value Field Settings → Show Values As → % of Grand Total</li>
+            <li><strong>Slicers:</strong> PivotTable Analyze → Insert Slicer — clickable filter buttons that look great in dashboards</li>
+            <li><strong>Refresh:</strong> PivotTable Analyze → Refresh (or <kbd>Alt+F5</kbd>) after data changes</li>
+            <li><strong>PivotChart:</strong> PivotTable Analyze → PivotChart — chart that auto-updates with the table</li>
+          </ol>
+
+          <h3 style="margin-top:var(--gap)">4. Conditional Formatting Rules</h3>
+          <table style="width:100%;border-collapse:collapse;font-size:var(--text-sm);margin-bottom:12px">
+            <tr style="background:var(--bg-elevated)"><th style="border:1px solid var(--border);padding:7px 10px;text-align:left">Rule Type</th><th style="border:1px solid var(--border);padding:7px 10px;text-align:left">How to apply</th><th style="border:1px solid var(--border);padding:7px 10px;text-align:left">Best for</th></tr>
+            <tr><td style="border:1px solid var(--border);padding:7px 10px">Highlight Cells</td><td style="border:1px solid var(--border);padding:7px 10px">Home → CF → Highlight Cells Rules</td><td style="border:1px solid var(--border);padding:7px 10px">Flag values &gt;100, duplicates, dates</td></tr>
+            <tr><td style="border:1px solid var(--border);padding:7px 10px">Top/Bottom Rules</td><td style="border:1px solid var(--border);padding:7px 10px">Home → CF → Top/Bottom Rules</td><td style="border:1px solid var(--border);padding:7px 10px">Highlight top 10%, above average</td></tr>
+            <tr><td style="border:1px solid var(--border);padding:7px 10px">Data Bars</td><td style="border:1px solid var(--border);padding:7px 10px">Home → CF → Data Bars</td><td style="border:1px solid var(--border);padding:7px 10px">In-cell bar chart feel</td></tr>
+            <tr><td style="border:1px solid var(--border);padding:7px 10px">Color Scales</td><td style="border:1px solid var(--border);padding:7px 10px">Home → CF → Color Scales</td><td style="border:1px solid var(--border);padding:7px 10px">Heat maps (green→red)</td></tr>
+            <tr><td style="border:1px solid var(--border);padding:7px 10px">Icon Sets</td><td style="border:1px solid var(--border);padding:7px 10px">Home → CF → Icon Sets</td><td style="border:1px solid var(--border);padding:7px 10px">Traffic lights, arrows, stars</td></tr>
+            <tr><td style="border:1px solid var(--border);padding:7px 10px">Formula-based</td><td style="border:1px solid var(--border);padding:7px 10px">Home → CF → New Rule → "Use formula"</td><td style="border:1px solid var(--border);padding:7px 10px">Entire row highlighting based on one column — e.g. <code>=$C2="Overdue"</code></td></tr>
+          </table>
+
+          <h3 style="margin-top:var(--gap)">5. Excel Tables (Structured References)</h3>
+          <p style="color:var(--text-dim);font-size:var(--text-sm);margin-bottom:8px">Convert any data range to a Table with <kbd>Ctrl+T</kbd>. Tables are the single most impactful Excel feature for real work:</p>
+          <ul style="color:var(--text-dim);font-size:var(--text-sm);line-height:1.8;padding-left:1.2rem">
+            <li>Formulas use names instead of cell refs: <code>=SUM(Sales[Revenue])</code> instead of <code>=SUM(C2:C500)</code></li>
+            <li>New rows automatically extend the table and all formulas</li>
+            <li>Auto-filter headers, banded rows, built-in styles</li>
+            <li>Total Row: Table Design → Total Row → pick aggregation per column</li>
+            <li>PivotTables built from Tables auto-include new rows on refresh</li>
           </ul>
-          <h4 style="margin-top:12px">Key Excel Functions</h4>
-          <pre><code>=SUM(A1:A10)           // Sum range
-=AVERAGE(B1:B10)       // Average
-=COUNT(C1:C10)         // Count cells with numbers
-=COUNTIF(A:A,">100")   // Count with condition
-=SUMIF(A:A,">0",B:B)   // Sum with condition
-=IF(A1>50,"Pass","Fail")  // Conditional
-=VLOOKUP(E1,A:B,2,0)   // Lookup (legacy)
-=XLOOKUP(E1,A:A,B:B)   // Modern lookup
-=CONCATENATE(A1," ",B1) // Join text
-=TEXT(A1,"dd/mm/yyyy") // Format date as text
-=IFERROR(formula,"N/A") // Handle errors</code></pre>
+
+          <h3 style="margin-top:var(--gap)">6. What-If Analysis</h3>
+          <ul style="color:var(--text-dim);font-size:var(--text-sm);line-height:1.8;padding-left:1.2rem">
+            <li><strong>Goal Seek</strong> (Data → What-If → Goal Seek): work backwards — "what input gives me output X?" e.g. what interest rate gives a £500/month payment?</li>
+            <li><strong>Data Table</strong> (Data → What-If → Data Table): show all outputs for a range of inputs. One-variable: one row of inputs + one formula. Two-variable: row inputs + column inputs.</li>
+            <li><strong>Scenario Manager</strong> (Data → What-If → Scenario Manager): save named sets of input values (Best Case, Worst Case) and switch between them instantly</li>
+            <li><strong>Solver</strong> (Data → Solver, requires Add-In): optimize a formula subject to constraints — budget allocation, scheduling, minimum cost</li>
+          </ul>
+
+          <h3 style="margin-top:var(--gap)">7. Power Query — Clean Data Fast</h3>
+          <p style="color:var(--text-dim);font-size:var(--text-sm);margin-bottom:8px">Data → Get Data → From File/Web/Database. Steps are recorded and replayed on refresh — never manipulate raw data manually again.</p>
+          <ul style="color:var(--text-dim);font-size:var(--text-sm);line-height:1.8;padding-left:1.2rem">
+            <li><strong>Remove Columns/Rows</strong> — right-click column header → Remove</li>
+            <li><strong>Split Column</strong> — by delimiter, fixed width, or position</li>
+            <li><strong>Unpivot</strong> — turn column headers into rows (critical for PivotTables)</li>
+            <li><strong>Merge Queries</strong> — like SQL JOIN between two tables</li>
+            <li><strong>Append Queries</strong> — stack tables (like SQL UNION)</li>
+            <li><strong>Fill Down</strong> — fill merged cells with repeated values</li>
+            <li>Close &amp; Load → loads cleaned data back to a worksheet as a Table</li>
+          </ul>
+
+          <h3 style="margin-top:var(--gap)">8. Essential Excel Shortcuts</h3>
+          <div class="shortcut-grid">
+            <div class="shortcut-item"><span>Enter formula mode</span><kbd>=</kbd></div>
+            <div class="shortcut-item"><span>Lock reference (F4)</span><kbd>F4</kbd></div>
+            <div class="shortcut-item"><span>AutoSum selected</span><kbd>Alt+=</kbd></div>
+            <div class="shortcut-item"><span>Flash Fill</span><kbd>Ctrl+E</kbd></div>
+            <div class="shortcut-item"><span>Select entire column</span><kbd>Ctrl+Space</kbd></div>
+            <div class="shortcut-item"><span>Select entire row</span><kbd>Shift+Space</kbd></div>
+            <div class="shortcut-item"><span>Go to last data cell</span><kbd>Ctrl+End</kbd></div>
+            <div class="shortcut-item"><span>Navigate to edge</span><kbd>Ctrl+Arrow</kbd></div>
+            <div class="shortcut-item"><span>Select to edge</span><kbd>Ctrl+Shift+Arrow</kbd></div>
+            <div class="shortcut-item"><span>Insert row/column</span><kbd>Ctrl+Shift++</kbd></div>
+            <div class="shortcut-item"><span>Delete row/column</span><kbd>Ctrl+-</kbd></div>
+            <div class="shortcut-item"><span>Format cells dialog</span><kbd>Ctrl+1</kbd></div>
+            <div class="shortcut-item"><span>Format as number</span><kbd>Ctrl+Shift+1</kbd></div>
+            <div class="shortcut-item"><span>Format as currency</span><kbd>Ctrl+Shift+4</kbd></div>
+            <div class="shortcut-item"><span>Format as percentage</span><kbd>Ctrl+Shift+5</kbd></div>
+            <div class="shortcut-item"><span>Format as date</span><kbd>Ctrl+Shift+3</kbd></div>
+            <div class="shortcut-item"><span>Create Table</span><kbd>Ctrl+T</kbd></div>
+            <div class="shortcut-item"><span>Toggle filter</span><kbd>Ctrl+Shift+L</kbd></div>
+            <div class="shortcut-item"><span>New sheet</span><kbd>Shift+F11</kbd></div>
+            <div class="shortcut-item"><span>Freeze panes</span><kbd>Alt+W, F, F</kbd></div>
+            <div class="shortcut-item"><span>Paste Special</span><kbd>Ctrl+Alt+V</kbd></div>
+            <div class="shortcut-item"><span>Fill Down / Right</span><kbd>Ctrl+D / Ctrl+R</kbd></div>
+            <div class="shortcut-item"><span>Name a range</span><kbd>Ctrl+Shift+F3</kbd></div>
+            <div class="shortcut-item"><span>Evaluate formula step</span><kbd>F9 (in formula bar)</kbd></div>
+          </div>
         </div>
 
         <div id="off-ppt" class="tab-pane">
