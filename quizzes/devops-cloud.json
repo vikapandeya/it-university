@@ -276,6 +276,116 @@
       ],
       "correct": 0,
       "explain": "Handlers only run when explicitly notified by a task that reported a change, and they run once at the end of the play, which is ideal for conditional service restarts."
+    },
+    {
+      "question": "In GCP's resource hierarchy, what is the correct order from top to bottom?",
+      "options": [
+        "A. Organization → Folders → Projects → Resources",
+        "B. Projects → Organization → Folders → Resources",
+        "C. Resources → Projects → Folders → Organization",
+        "D. Folders → Organization → Projects → Resources"
+      ],
+      "correct": 0,
+      "explain": "GCP's hierarchy flows Organization (root) → Folders (optional grouping) → Projects → Resources, with IAM policies inherited downward."
+    },
+    {
+      "question": "Which GCP compute option is best for stateless HTTP containers that scale to zero when idle?",
+      "options": [
+        "A. Compute Engine",
+        "B. Cloud Run",
+        "C. GKE Autopilot",
+        "D. Bare Metal Solution"
+      ],
+      "correct": 1,
+      "explain": "Cloud Run runs stateless containers triggered by HTTP/events and bills per 100ms of CPU/memory, scaling to zero when there's no traffic."
+    },
+    {
+      "question": "What is the primary purpose of a GCP Service Account?",
+      "options": [
+        "A. A human user's login identity for the Cloud Console",
+        "B. A special identity used by applications/VMs to authenticate to GCP APIs",
+        "C. A billing account shared across projects",
+        "D. A support ticket queue for GCP Premium Support"
+      ],
+      "correct": 1,
+      "explain": "Service accounts are non-human identities that workloads use to call GCP APIs, avoiding embedded user credentials."
+    },
+    {
+      "question": "In GCP IAM, what is the recommended best practice for assigning permissions?",
+      "options": [
+        "A. Always grant the Owner role to simplify management",
+        "B. Prefer predefined roles over basic roles, and grant least privilege",
+        "C. Share one service account key across all environments",
+        "D. Grant Editor role to every service account by default"
+      ],
+      "correct": 1,
+      "explain": "Predefined roles scope permissions to specific services (unlike broad basic roles like Owner/Editor), supporting the least-privilege principle."
+    },
+    {
+      "question": "What does BigQuery's on-demand pricing model primarily charge for?",
+      "options": [
+        "A. Number of tables created",
+        "B. Amount of data scanned per query",
+        "C. Number of users with access",
+        "D. CPU hours of the query engine"
+      ],
+      "correct": 1,
+      "explain": "On-demand BigQuery pricing bills per TB of data scanned by each query, which is why partitioning and clustering tables matters for cost."
+    },
+    {
+      "question": "Which GCP service is the managed, horizontally-scalable NoSQL database with strong consistency, often used for mobile/web app backends?",
+      "options": [
+        "A. Cloud SQL",
+        "B. Firestore",
+        "C. BigQuery",
+        "D. Memorystore"
+      ],
+      "correct": 1,
+      "explain": "Firestore is a managed NoSQL document database with real-time sync and strong consistency, commonly used for mobile and web backends."
+    },
+    {
+      "question": "What is the function of a GCP VPC Service Control perimeter?",
+      "options": [
+        "A. It load-balances traffic across regions",
+        "B. It restricts data exfiltration by creating a security boundary around GCP resources/APIs",
+        "C. It encrypts data at rest automatically",
+        "D. It auto-scales Compute Engine instances"
+      ],
+      "correct": 1,
+      "explain": "VPC Service Controls create a perimeter around GCP services to prevent data from being copied or accessed outside authorized networks, mitigating exfiltration."
+    },
+    {
+      "question": "Which GKE node pool mode offloads node provisioning and management entirely to Google?",
+      "options": [
+        "A. Standard mode",
+        "B. Autopilot mode",
+        "C. Preemptible mode",
+        "D. Zonal mode"
+      ],
+      "correct": 1,
+      "explain": "GKE Autopilot fully manages node provisioning, sizing, and upgrades — you only manage workloads, and billing is per-pod resource request."
+    },
+    {
+      "question": "What does Google Cloud's sustained use discount automatically apply to?",
+      "options": [
+        "A. Any workload regardless of runtime",
+        "B. Compute Engine instances run for a significant portion of the billing month, without needing upfront commitment",
+        "C. Only preemptible VMs",
+        "D. Cloud Storage egress traffic"
+      ],
+      "correct": 1,
+      "explain": "Sustained use discounts automatically reduce Compute Engine costs the longer an instance runs in a billing month — no reservation or upfront payment required."
+    },
+    {
+      "question": "Which gcloud CLI command would you use to view your currently active authenticated account and project configuration?",
+      "options": [
+        "A. gcloud config list",
+        "B. gcloud projects list",
+        "C. gcloud auth application-default login",
+        "D. gcloud init --console-only"
+      ],
+      "correct": 0,
+      "explain": "'gcloud config list' shows the active configuration, including the authenticated account, default project, and region/zone settings."
     }
   ]
 }
