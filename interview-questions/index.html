@@ -62,7 +62,7 @@
 
   <!-- ===== NETWORKING ===== -->
   <div id="cat-networking" class="iq-category active">
-    <h2>🌐 Networking Questions</h2>
+    <h2 id="iq-network">🌐 Networking Questions</h2>
 
     <div class="qa-item"><div class="qa-question" onclick="toggle(this)">What is the difference between TCP and UDP? <span><span class="difficulty diff-easy">Easy</span><span class="arrow">▼</span></span></div><div class="qa-answer"><p><strong>TCP (Transmission Control Protocol):</strong> Connection-oriented. 3-way handshake (SYN→SYN-ACK→ACK). Guaranteed delivery, ordering, error correction. Used for HTTP, SSH, FTP, databases. Slower due to overhead.</p><p><strong>UDP (User Datagram Protocol):</strong> Connectionless. No handshake. No guaranteed delivery. Faster. Used for DNS, streaming, VoIP, gaming, QUIC. Application handles reliability if needed.</p></div></div>
 
@@ -83,7 +83,7 @@
 
   <!-- ===== LINUX ===== -->
   <div id="cat-linux" class="iq-category">
-    <h2>🐧 Linux Questions</h2>
+    <h2 id="iq-linux">🐧 Linux Questions</h2>
 
     <div class="qa-item"><div class="qa-question" onclick="toggle(this)">What is a zombie process and how do you handle it? <span><span class="difficulty diff-med">Medium</span><span class="arrow">▼</span></span></div><div class="qa-answer"><p>A zombie process has finished execution but still has an entry in the process table because its parent hasn't read its exit status via wait(). Shows as 'Z' in ps output.</p><pre>ps aux | awk '$8 == "D" || $8 == "Z" {print}'</pre><p><strong>Fix:</strong> Kill the parent process (init/systemd will reap orphans automatically). If parent is misbehaving: <code>kill -SIGCHLD parent_pid</code> to prompt it to reap children.</p></div></div>
 
@@ -106,7 +106,7 @@ vmstat 1         # check wa (I/O wait) column</pre><p>Fix: find the I/O bottlene
 
   <!-- ===== DEVOPS ===== -->
   <div id="cat-devops" class="iq-category">
-    <h2>⚙️ DevOps Questions</h2>
+    <h2 id="iq-devops">⚙️ DevOps Questions</h2>
 
     <div class="qa-item"><div class="qa-question" onclick="toggle(this)">What is the difference between blue/green and canary deployments? <span><span class="difficulty diff-med">Medium</span><span class="arrow">▼</span></span></div><div class="qa-answer"><p><strong>Blue/Green:</strong> Run two identical environments. Blue = current live, Green = new version. Switch all traffic at once (DNS or load balancer cutover). Easy rollback (switch back). Requires 2x infrastructure.</p><p><strong>Canary:</strong> Route small percentage (e.g., 5%) of traffic to new version. Monitor metrics. Gradually increase if healthy. Affects only a subset of users if issues arise. Requires traffic splitting (weighted routing, feature flags, or service mesh).</p></div></div>
 
@@ -121,7 +121,7 @@ vmstat 1         # check wa (I/O wait) column</pre><p>Fix: find the I/O bottlene
 
   <!-- ===== KUBERNETES ===== -->
   <div id="cat-kubernetes" class="iq-category">
-    <h2>☸️ Kubernetes Questions</h2>
+    <h2 id="iq-k8s">☸️ Kubernetes Questions</h2>
 
     <div class="qa-item"><div class="qa-question" onclick="toggle(this)">Explain the Kubernetes control plane components. <span><span class="difficulty diff-med">Medium</span><span class="arrow">▼</span></span></div><div class="qa-answer"><ul><li><strong>kube-apiserver:</strong> Front door for all Kubernetes API calls. Validates and persists state to etcd.</li><li><strong>etcd:</strong> Distributed key-value store. Stores ALL cluster state. Backup etcd = backup your cluster.</li><li><strong>kube-scheduler:</strong> Assigns pods to nodes based on resource requests, affinity, taints/tolerations.</li><li><strong>kube-controller-manager:</strong> Runs controllers: Deployment, ReplicaSet, Node, Endpoint controllers. Reconciliation loop.</li><li><strong>cloud-controller-manager:</strong> Handles cloud-specific resources (LoadBalancer, PersistentVolume provisioning).</li></ul></div></div>
 
@@ -155,7 +155,7 @@ roleRef:
 
   <!-- ===== AWS ===== -->
   <div id="cat-aws" class="iq-category">
-    <h2>☁️ AWS Questions</h2>
+    <h2 id="iq-aws">☁️ AWS Questions</h2>
 
     <div class="qa-item"><div class="qa-question" onclick="toggle(this)">How do you design a highly available, fault-tolerant web architecture on AWS? <span><span class="difficulty diff-hard">Hard</span><span class="arrow">▼</span></span></div><div class="qa-answer"><ul><li><strong>Multi-AZ:</strong> Deploy EC2/ECS in 3 AZs behind an ALB</li><li><strong>Auto Scaling:</strong> ASG with target tracking on CPU — scale out on high load</li><li><strong>Database:</strong> RDS Multi-AZ (synchronous standby) + Read Replicas, or Aurora Global DB</li><li><strong>Cache:</strong> ElastiCache Redis cluster mode with Multi-AZ replicas</li><li><strong>CDN:</strong> CloudFront for static assets, caching, DDoS protection</li><li><strong>DNS:</strong> Route53 failover routing with health checks</li><li><strong>Storage:</strong> S3 for static assets (11 nines durability)</li><li><strong>Monitoring:</strong> CloudWatch alarms → SNS → PagerDuty</li></ul></div></div>
 
@@ -168,7 +168,7 @@ roleRef:
 
   <!-- ===== SECURITY ===== -->
   <div id="cat-security" class="iq-category">
-    <h2>🔒 Security Questions</h2>
+    <h2 id="iq-security">🔒 Security Questions</h2>
 
     <div class="qa-item"><div class="qa-question" onclick="toggle(this)">What is OWASP and what are the top 3 web vulnerabilities? <span><span class="difficulty diff-easy">Easy</span><span class="arrow">▼</span></span></div><div class="qa-answer"><p>OWASP (Open Worldwide Application Security Project) — non-profit foundation maintaining the OWASP Top 10, a standard awareness document for web security risks.</p><p><strong>Top 3 (2021):</strong></p><ol><li><strong>Broken Access Control:</strong> Users can act beyond their intended permissions (IDOR, privilege escalation, force browsing)</li><li><strong>Cryptographic Failures:</strong> Sensitive data exposed due to weak/missing encryption (HTTP not HTTPS, MD5 passwords)</li><li><strong>Injection:</strong> SQLi, LDAP injection, OS command injection — untrusted data sent as part of a query/command</li></ol></div></div>
 
@@ -179,7 +179,7 @@ roleRef:
 
   <!-- ===== PYTHON ===== -->
   <div id="cat-python" class="iq-category">
-    <h2>🐍 Python Questions</h2>
+    <h2 id="iq-python">🐍 Python Questions</h2>
 
     <div class="qa-item"><div class="qa-question" onclick="toggle(this)">What is the GIL and how does it affect Python concurrency? <span><span class="difficulty diff-hard">Hard</span><span class="arrow">▼</span></span></div><div class="qa-answer"><p>The GIL (Global Interpreter Lock) is a mutex in CPython that ensures only one thread executes Python bytecode at a time. This means multi-threading cannot achieve true CPU parallelism in CPython.</p><p><strong>When GIL doesn't matter:</strong> I/O-bound tasks — GIL is released during I/O, so threading works well for web scraping, API calls, file I/O.</p><p><strong>When GIL is a problem:</strong> CPU-bound tasks (video processing, ML inference, computation).</p><p><strong>Workarounds:</strong> multiprocessing (separate processes, no shared GIL), asyncio (single-thread cooperative concurrency for I/O), C extensions (NumPy releases GIL), or use PyPy.</p></div></div>
 
@@ -229,7 +229,7 @@ def fibonacci():
 
   <!-- ===== DATABASES ===== -->
   <div id="cat-databases" class="iq-category">
-    <h2>🗄️ Databases Questions</h2>
+    <h2 id="iq-databases">🗄️ Databases Questions</h2>
 
     <div class="qa-item"><div class="qa-question" onclick="toggle(this)">What is the difference between SQL and NoSQL databases? When to use each? <span><span class="difficulty diff-easy">Easy</span><span class="arrow">▼</span></span></div><div class="qa-answer"><ul><li><strong>SQL (Relational):</strong> Structured schema, ACID transactions, complex queries with JOINs. Use for: financial systems, e-commerce, CRM, anywhere data consistency is critical.</li><li><strong>NoSQL:</strong> Flexible schema, horizontal scaling, various data models (document, key-value, column, graph). Use for: high-scale reads/writes, variable schema, specific access patterns (DynamoDB, MongoDB, Redis).</li></ul><p>Don't choose NoSQL just for "scale" — modern SQL (PostgreSQL, Aurora) scales extremely well. Choose based on access patterns, not hype.</p></div></div>
 
@@ -242,7 +242,7 @@ def fibonacci():
 
   <!-- ===== SYSTEM DESIGN ===== -->
   <div id="cat-system-design" class="iq-category">
-    <h2>🏛️ System Design Questions</h2>
+    <h2 id="iq-systemdesign">🏛️ System Design Questions</h2>
 
     <div class="qa-item"><div class="qa-question" onclick="toggle(this)">How would you design a URL shortener like bit.ly? <span><span class="difficulty diff-med">Medium</span><span class="arrow">▼</span></span></div><div class="qa-answer"><p><strong>Requirements:</strong> Shorten URL, redirect, analytics (optional), 100M URLs, 10B redirects/day.</p><p><strong>Core design:</strong></p><ul><li>Generate short code: Base62 encode a unique ID (counter or UUID). 6 chars = 62^6 ≈ 56B URLs.</li><li>Database: short_code (PK) → original_url + created_at + user_id</li><li>Cache: Redis with short_code → URL (99%+ cache hit rate expected)</li><li>Redirect: HTTP 301 (permanent, browser caches) or 302 (temporary, tracks clicks)</li><li>Scale reads: Redis cluster, CDN for redirect responses</li></ul></div></div>
 
@@ -258,7 +258,7 @@ return count</pre><p><strong>Scale:</strong> Redis Cluster for multi-node. Rate 
 
   <!-- ===== BEHAVIORAL ===== -->
   <div id="cat-behavioral" class="iq-category">
-    <h2>💼 Behavioral Questions</h2>
+    <h2 id="iq-behavioral">💼 Behavioral Questions</h2>
 
     <div class="qa-item"><div class="qa-question" onclick="toggle(this)">Tell me about a time you had to deal with a critical production incident. <span><span class="difficulty diff-med">Medium</span><span class="arrow">▼</span></span></div><div class="qa-answer"><p><strong>STAR method (Situation, Task, Action, Result):</strong></p><p>Structure your answer to cover: What was the incident? What was your role? What steps did you take to diagnose and fix it? What was the outcome? What did you learn?</p><p><strong>Key points to hit:</strong> How you stayed calm, how you communicated with stakeholders, the technical troubleshooting steps, how you prevented recurrence (post-mortem, monitoring improvements, runbooks).</p><p><strong>Example framework:</strong> "Our payment service was returning 500s affecting X% of users. I [action]. After Y minutes we resolved it by [fix]. We implemented Z to prevent recurrence."</p></div></div>
 

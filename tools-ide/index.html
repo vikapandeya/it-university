@@ -99,13 +99,20 @@
     </div>
     <div class="sidebar__section">
       <div class="sidebar__heading">Practice</div>
+      <a href="#labs" class="sidebar__link">🧪 Hands-on Labs</a>
+      <a href="#interview" class="sidebar__link">🎯 Interview Questions</a>
+      <a href="#certs" class="sidebar__link">🏆 Certifications</a>
       <a href="#quiz-section" class="sidebar__link">🧠 Tools Quiz</a>
     </div>
   </aside>
 
   <main class="content">
     <h1>⚡ Online IDE & Developer Tools</h1>
-    <p style="color:var(--text-dim);font-size:var(--text-lg);margin-bottom:var(--gap-xl)">Write and run code in 10 languages right in your browser, plus a complete Git reference and keyboard shortcut cheat sheets.</p>
+    <p style="color:var(--text-dim);font-size:var(--text-lg)">Write and run code in 10 languages right in your browser, plus a complete Git reference and keyboard shortcut cheat sheets.</p>
+    <div style="display:flex;gap:var(--gap-sm);flex-wrap:wrap;margin-bottom:var(--gap-xl)">
+      <a href="../cheatsheets/index.html" class="btn btn--outline btn--sm">📋 All Cheat Sheets</a>
+      <a href="../labs/index.html" class="btn btn--outline btn--sm">🔬 Hands-on Labs</a>
+    </div>
 
     <!-- ═══════════════════════════════════════════════════════ -->
     <section id="ide">
@@ -884,6 +891,94 @@ curl -s https://api.github.com/repos/kubernetes/kubernetes | jq '{stars:.stargaz
 
 # Compact output for logs
 cat app.log | jq -c 'select(.level=="ERROR") | {ts:.timestamp, msg:.message}'</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== LABS ===== -->
+    <section id="labs">
+      <h2>🧪 Hands-on Labs</h2>
+      <div class="grid-2">
+        <div class="card card--glow"><h3>Lab 1: Resolve a Merge Conflict</h3><p style="color:var(--text-dim)">Create two branches that edit the same line, merge them, resolve the conflict markers by hand, and commit the result.</p><span class="badge badge--success">Beginner</span></div>
+        <div class="card card--glow"><h3>Lab 2: Interactive Rebase Cleanup</h3><p style="color:var(--text-dim)">Squash 5 messy WIP commits into 2 clean ones with <code>git rebase -i</code>, rewriting commit messages along the way.</p><span class="badge badge--warning">Intermediate</span></div>
+        <div class="card card--glow"><h3>Lab 3: Dev Container Setup</h3><p style="color:var(--text-dim)">Write a <code>.devcontainer/devcontainer.json</code> for a Node project so VS Code opens it fully configured inside Docker.</p><span class="badge badge--warning">Intermediate</span></div>
+        <div class="card card--glow"><h3>Lab 4: Postman → Newman CI Pipeline</h3><p style="color:var(--text-dim)">Export a Postman collection, run it headlessly with Newman, and wire it into a GitHub Actions job that fails the build on a broken endpoint.</p><span class="badge badge--danger">Advanced</span></div>
+        <div class="card card--glow"><h3>Lab 5: Bisect a Regression</h3><p style="color:var(--text-dim)">Use <code>git bisect</code> with an automated test script to binary-search 50 commits and pinpoint the exact commit that broke a test.</p><span class="badge badge--danger">Advanced</span></div>
+        <div class="card card--glow"><h3>Lab 6: Custom VS Code Snippet + Task</h3><p style="color:var(--text-dim)">Write a user snippet for a repetitive code pattern and a <code>tasks.json</code> entry that runs your test suite with one keybinding.</p><span class="badge badge--success">Beginner</span></div>
+      </div>
+    </section>
+
+    <!-- ===== INTERVIEW ===== -->
+    <section id="interview">
+      <h2>🎯 Interview Questions</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Top 10 Git & Developer Tools Interview Q&amp;A</div>
+          <button class="btn btn--outline btn--sm" data-lesson="tools-ide:interview">Mark Complete</button>
+        </div>
+
+        <h3>Q1: What's the difference between <code>git merge</code> and <code>git rebase</code>?</h3>
+        <p><code>git merge</code> creates a new merge commit that joins two histories, preserving exactly what happened. <code>git rebase</code> replays your commits on top of another branch, producing a linear history — but it rewrites commit hashes, so never rebase commits that are already pushed and shared.</p>
+
+        <h3>Q2: What does <code>git reset --hard</code> vs <code>git reset --soft</code> do?</h3>
+        <p><code>--soft</code> moves HEAD but keeps your changes staged. <code>--mixed</code> (default) moves HEAD and unstages changes but keeps them in the working directory. <code>--hard</code> moves HEAD and discards all changes in both the index and working directory — irreversible unless you know the old commit hash.</p>
+
+        <h3>Q3: How do you undo a commit that's already been pushed?</h3>
+        <p>Prefer <code>git revert &lt;commit&gt;</code> — it creates a new commit that undoes the change without rewriting history, which is safe for shared branches. Only use <code>git reset</code> + force-push if you're certain no one else has pulled the branch.</p>
+
+        <h3>Q4: What is a detached HEAD state?</h3>
+        <p>HEAD normally points to a branch name, which points to a commit. A detached HEAD means HEAD points directly to a commit instead — common after checking out a tag or specific commit. Any new commits made here aren't on any branch and can be lost unless you create a branch before switching away.</p>
+
+        <h3>Q5: Explain <code>.gitignore</code> vs <code>git rm --cached</code></h3>
+        <p><code>.gitignore</code> only prevents <em>untracked</em> files from being added. If a file is already tracked, adding it to <code>.gitignore</code> does nothing — you must first run <code>git rm --cached &lt;file&gt;</code> to untrack it, then the ignore rule takes effect.</p>
+
+        <h3>Q6: How would you debug a container that exits immediately?</h3>
+        <pre><code>docker logs &lt;container&gt;          # see the crash output
+docker run -it --entrypoint sh &lt;image&gt;  # override entrypoint, get a shell
+docker inspect &lt;container&gt; --format '{{.State.ExitCode}}'</code></pre>
+
+        <h3>Q7: What's the difference between <code>COPY</code> and <code>ADD</code> in a Dockerfile?</h3>
+        <p><code>COPY</code> does a plain file copy from build context to image. <code>ADD</code> does that plus can fetch remote URLs and auto-extract local tar archives — the extra "magic" is why most style guides recommend <code>COPY</code> unless you specifically need ADD's behavior.</p>
+
+        <h3>Q8: What is a regex "greedy" vs "lazy" quantifier?</h3>
+        <p>Greedy (<code>.*</code>) matches as much as possible, then backtracks if needed. Lazy (<code>.*?</code>) matches as little as possible, expanding only if required. On <code>&lt;a&gt;...&lt;/a&gt;...&lt;a&gt;...&lt;/a&gt;</code>, a greedy <code>&lt;a&gt;.*&lt;/a&gt;</code> matches across both tags; lazy stops at the first <code>&lt;/a&gt;</code>.</p>
+
+        <h3>Q9: How do you squash the last N commits into one?</h3>
+        <pre><code>git reset --soft HEAD~N
+git commit -m "Squashed commit message"</code></pre>
+
+        <h3>Q10: What's the purpose of a <code>package-lock.json</code> or <code>.terraform.lock.hcl</code>?</h3>
+        <p>Lock files pin exact resolved versions of every dependency (including transitive ones), so a second install on a different machine or CI runner produces byte-identical dependency trees instead of "works on my machine" drift.</p>
+      </div>
+    </section>
+
+    <!-- ===== CERTS ===== -->
+    <section id="certs">
+      <h2>🏆 Related Certifications</h2>
+      <div class="grid-2">
+        <div class="card card--glow">
+          <h3>GitHub Foundations</h3>
+          <p style="color:var(--text-dim)">Entry-level cert validating Git/GitHub fundamentals — repos, branches, PRs, Actions basics.</p>
+          <p><strong>Cost:</strong> $99 | <strong>Format:</strong> Online proctored | <strong>Topics:</strong> Git, GitHub flow, Markdown, Actions</p>
+          <span class="badge badge--success">Beginner</span>
+        </div>
+        <div class="card card--glow">
+          <h3>GitHub Actions Certification</h3>
+          <p style="color:var(--text-dim)">Validates CI/CD workflow authoring on GitHub Actions — triggers, jobs, matrix builds, secrets.</p>
+          <p><strong>Cost:</strong> $99 | <strong>Format:</strong> Online proctored | <strong>Topics:</strong> Workflows, YAML syntax, runners</p>
+          <span class="badge badge--warning">Intermediate</span>
+        </div>
+        <div class="card card--glow">
+          <h3>Docker Certified Associate (DCA)</h3>
+          <p style="color:var(--text-dim)">Validates Docker fundamentals for engineers who build and ship containerized applications.</p>
+          <p><strong>Exam:</strong> 55 questions | <strong>Cost:</strong> $195 | <strong>Topics:</strong> Images, orchestration, networking, security</p>
+          <span class="badge badge--warning">Intermediate</span>
+        </div>
+        <div class="card card--glow">
+          <h3>Postman API Fundamentals Student Expert</h3>
+          <p style="color:var(--text-dim)">Free certification covering API testing, collections, environments, and automated test scripts.</p>
+          <p><strong>Cost:</strong> Free | <strong>Format:</strong> Self-paced online | <strong>Topics:</strong> Requests, variables, assertions, Newman</p>
+          <span class="badge badge--success">Beginner</span>
+        </div>
       </div>
     </section>
 
