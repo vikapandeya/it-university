@@ -5,12 +5,6 @@ const auth = {
     const valid = await verifyHash(password, user.passwordHash);
     if (!valid) return { ok: false, msg: 'Incorrect password.' };
 
-    // Migrate legacy btoa hash to SHA-256 on first successful login
-    if (!user.passwordHash.startsWith('sha256:')) {
-      user.passwordHash = await hashString(password);
-      store.saveUser(user);
-    }
-
     store.setSession(user.id);
     return { ok: true, user };
   },

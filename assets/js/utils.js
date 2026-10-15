@@ -27,22 +27,13 @@ async function _sha256hex(str) {
   return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
 }
 
-// Legacy btoa path kept only to support existing stored passwords during migration
-function _legacyHash(str) {
-  return btoa(encodeURIComponent(str));
-}
-
 async function hashString(str) {
   return 'sha256:' + await _sha256hex(str);
 }
 
-// Handles both legacy btoa hashes and new sha256: hashes for seamless migration
 async function verifyHash(str, hash) {
   if (!hash) return false;
-  if (hash.startsWith('sha256:')) {
-    return ('sha256:' + await _sha256hex(str)) === hash;
-  }
-  return _legacyHash(str) === hash;
+  return ('sha256:' + await _sha256hex(str)) === hash;
 }
 
 function formatDate(iso) {

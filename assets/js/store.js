@@ -87,12 +87,13 @@ const store = {
   /* ── Seed ───────────────────────────────── */
   seed() {
     if (store.getUserByEmail('admin@itu.local')) return;
-    // Pre-computed SHA-256 of "Admin123!" so seed is synchronous (meets new password policy)
+    // Pre-computed hash so seed is synchronous (meets password policy). Credentials are not
+    // published in source — owner should rotate this password after first login regardless.
     store.saveUser({
       id: 'admin-001',
       name: 'Admin',
       email: 'admin@itu.local',
-      passwordHash: 'sha256:3eb3fe66b31e3b4d10fa70b5cad49c7112294af6ae4e476a1c405155d45aa121',
+      passwordHash: 'sha256:e31d4800f54e44403db822a404c54f0559e440e797be1478367734049c6ff3fd',
       isAdmin: true,
       createdAt: new Date().toISOString(),
     });
