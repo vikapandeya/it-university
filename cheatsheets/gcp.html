@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Google Cloud Platform (GCP) — Full Cheat Sheet</title>
+<meta name="description" content="Comprehensive Google Cloud Platform cheat sheet for training, certification (ACE/PCA) and interview prep — Compute, Storage, Networking, Databases, Big Data, IAM, DevOps, Pricing, gcloud CLI, and AWS/Azure comparisons.">
+<style>
+:root {
+  --bg:#F5F6F7; --surface:#FFFFFF; --border:#E2E4E8;
+  --navy:#0F1C2E; --navy2:#1A2E45;
+  --blue:#4285F4; --blue-soft:#EAF1FE;
+  --red:#EA4335; --red-soft:#FDECEA;
+  --yellow:#FBBC05; --yellow-soft:#FEF7E0;
+  --green:#34A853; --green-soft:#E6F4EA;
+  --purple:#6B21A8; --purple-soft:#F5F0FF;
+  --text:#1C2333; --text2:#4A5568; --text3:#718096;
+  --mono:'Consolas','Courier New',monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+}
+body { font-family:var(--sans); font-size:11px; background:var(--bg); color:var(--text); line-height:1.5; }
+.page { max-width:1280px; margin:0 auto; padding:20px 16px; }
+.header { background:var(--navy); border-radius:10px; padding:20px 24px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+.header-left h1 { font-size:22px; font-weight:800; color:#fff; } .header-left h1 span { color:#60A5FA; }
+.header-left p { font-size:11px; color:#94A3B8; margin-top:3px; }
+.header-badges { display:flex; gap:8px; flex-wrap:wrap; }
+.badge { font-size:10px; font-weight:700; padding:4px 10px; border-radius:20px; letter-spacing:.5px; text-transform:uppercase; }
+.badge-blue { background:#4285F4; color:#fff; } .badge-red { background:#EA4335; color:#fff; } .badge-yellow { background:#FBBC05; color:#1C2333; } .badge-green { background:#34A853; color:#fff; }
+.grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:12px; }
+.grid-2 { grid-template-columns:repeat(2,1fr); } .grid-4 { grid-template-columns:repeat(4,1fr); }
+.card { background:var(--surface); border-radius:8px; border:1px solid var(--border); overflow:hidden; }
+.card-header { padding:8px 12px; display:flex; align-items:center; gap:8px; border-bottom:1px solid var(--border); }
+.card-header .icon { width:24px; height:24px; border-radius:5px; display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; }
+.card-header h2 { font-size:11.5px; font-weight:800; color:var(--navy); }
+.card-header .sub { font-size:9px; color:var(--text3); margin-left:auto; }
+.card-body { padding:10px 12px; }
+.section-label { font-size:8.5px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--text3); margin-bottom:5px; margin-top:9px; }
+.section-label:first-child { margin-top:0; }
+.row { display:flex; justify-content:space-between; align-items:baseline; padding:2px 0; border-bottom:1px solid #F1F3F5; gap:8px; }
+.row:last-child { border-bottom:none; }
+.row .key { font-family:var(--mono); font-size:10px; font-weight:600; color:var(--navy); white-space:nowrap; flex-shrink:0; }
+.row .val { font-size:10px; color:var(--text2); text-align:right; }
+.tags { display:flex; flex-wrap:wrap; gap:4px; margin-top:2px; }
+.tag { font-size:9.5px; padding:2px 7px; border-radius:4px; font-weight:600; font-family:var(--mono); }
+.tag-blue { background:var(--blue-soft); color:#1A56C4; } .tag-red { background:var(--red-soft); color:#B3261E; }
+.tag-green { background:var(--green-soft); color:#166534; } .tag-yellow { background:var(--yellow-soft); color:#8A6100; } .tag-purple { background:var(--purple-soft); color:#6B21A8; }
+.tip-bar { background:var(--navy2); border-radius:8px; padding:10px 16px; margin-bottom:16px; display:flex; gap:24px; flex-wrap:wrap; }
+.tip-label { font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:#60A5FA; }
+.tip { font-size:10.5px; color:#CBD5E1; } .tip b { color:#fff; }
+.note { font-size:10px; color:var(--text2); padding:6px 8px; border-radius:4px; margin-top:4px; }
+.note-blue { background:var(--blue-soft); border-left:3px solid var(--blue); }
+.note-green { background:var(--green-soft); border-left:3px solid var(--green); }
+.note-yellow { background:var(--yellow-soft); border-left:3px solid var(--yellow); }
+.note-red { background:var(--red-soft); border-left:3px solid var(--red); }
+.col-span-2 { grid-column: span 2; }
+.col-span-3 { grid-column: span 3; }
+.col-span-4 { grid-column: span 4; }
+.domain-bar { display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap; }
+.domain-pill { display:flex; align-items:center; gap:6px; background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:5px 12px; }
+.domain-pill .pct { font-size:13px; font-weight:800; color:var(--blue); font-family:var(--mono); }
+.domain-pill .name { font-size:10px; color:var(--text2); font-weight:600; }
+.exam-meta { display:flex; gap:16px; flex-wrap:wrap; align-items:center; margin-bottom:12px; }
+.meta-item { display:flex; align-items:center; gap:6px; background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:5px 10px; }
+.meta-item .mlabel { font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; color:var(--text3); }
+.meta-item .mval { font-size:11px; font-weight:800; color:var(--navy); font-family:var(--mono); }
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.three-col { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; }
+.svc-block { margin-bottom:8px; }
+.svc-block:last-child { margin-bottom:0; }
+.svc-title { font-size:10px; font-weight:800; color:var(--navy); margin-bottom:3px; padding-bottom:2px; border-bottom:1px solid #F1F3F5; }
+.svc-row { display:flex; gap:6px; align-items:baseline; padding:1px 0; }
+.svc-row .sk { font-family:var(--mono); font-size:9.5px; font-weight:600; color:var(--blue); flex-shrink:0; }
+.svc-row .sv { font-size:9.5px; color:var(--text2); }
+.pill-row { display:flex; flex-wrap:wrap; gap:4px; margin-top:3px; }
+.sla-table { width:100%; border-collapse:collapse; margin-top:2px; }
+.sla-table th { font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; color:var(--text3); padding:3px 6px; text-align:left; border-bottom:1px solid var(--border); }
+.sla-table td { font-size:9.5px; padding:3px 6px; border-bottom:1px solid #F1F3F5; color:var(--text2); vertical-align:top; }
+.sla-table td:first-child { font-family:var(--mono); font-weight:600; color:var(--navy); white-space:nowrap; }
+.sla-table tr:last-child td { border-bottom:none; }
+.cli-block { background:#0F1C2E; border-radius:6px; padding:8px 10px; margin-top:3px; }
+.cli-line { font-family:var(--mono); font-size:9.5px; color:#A5D6FF; white-space:pre-wrap; word-break:break-all; }
+.cli-line .cmt { color:#7C8A9E; }
+.icon-blue { background:var(--blue-soft); }
+.icon-red { background:var(--red-soft); }
+.icon-yellow { background:var(--yellow-soft); }
+.icon-green { background:var(--green-soft); }
+.icon-purple { background:var(--purple-soft); }
+.icon-navy { background:#E8EDF4; }
+@media print { body{background:#fff} .page{padding:0} }
+@media (max-width:900px) { .grid { grid-template-columns:1fr 1fr; } .grid-4 { grid-template-columns:1fr 1fr; } }
+@media (max-width:600px) { .grid,.grid-2,.grid-4 { grid-template-columns:1fr; } .col-span-2,.col-span-3,.col-span-4 { grid-column:span 1; } }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <h1>Google Cloud <span>Platform (GCP)</span></h1>
+      <p>Complete GCP Cheat Sheet &nbsp;|&nbsp; Training, ACE/PCA Certification &amp; Interview Prep</p>
+    </div>
+    <div class="header-badges">
+      <span class="badge badge-blue">Compute</span>
+      <span class="badge badge-red">Networking</span>
+      <span class="badge badge-yellow">Data</span>
+      <span class="badge badge-green">IAM &amp; Security</span>
+    </div>
+  </div>
+
+  <!-- EXAM META -->
+  <div class="exam-meta">
+    <div class="meta-item"><span class="mlabel">ACE Questions</span><span class="mval">50</span></div>
+    <div class="meta-item"><span class="mlabel">ACE Duration</span><span class="mval">120 min</span></div>
+    <div class="meta-item"><span class="mlabel">ACE Cost</span><span class="mval">$125</span></div>
+    <div class="meta-item"><span class="mlabel">Validity</span><span class="mval">3 years</span></div>
+  </div>
+
+  <!-- DOMAIN WEIGHTS (ACE) -->
+  <div class="domain-bar">
+    <div class="domain-pill"><span class="pct">~17%</span><span class="name">Setting up a Cloud Environment</span></div>
+    <div class="domain-pill"><span class="pct">~16%</span><span class="name">Planning &amp; Configuring</span></div>
+    <div class="domain-pill"><span class="pct">~24%</span><span class="name">Deploying &amp; Implementing</span></div>
+    <div class="domain-pill"><span class="pct">~19%</span><span class="name">Ensuring Success of Operations</span></div>
+    <div class="domain-pill"><span class="pct">~24%</span><span class="name">Configuring Access &amp; Security</span></div>
+  </div>
+
+  <!-- TIP BAR -->
+  <div class="tip-bar">
+    <div>
+      <div class="tip-label">Interview Angle</div>
+      <div class="tip"><b>Know the "why GCP over AWS/Azure"</b> — live migration of VMs, per-second billing, global VPC (not regional), BigQuery serverless analytics, and Kubernetes origin (Google built K8s).</div>
+    </div>
+    <div>
+      <div class="tip-label">Exam Angle</div>
+      <div class="tip"><b>Resource hierarchy is the backbone</b> — Organization → Folder → Project → Resource. IAM policies inherit downward. Know which product fits which use case (the "choose the right service" pattern).</div>
+    </div>
+  </div>
+
+  <!-- ROW 1: Resource Hierarchy + IAM -->
+  <div class="grid grid-2" style="margin-bottom:12px;">
+
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-blue">&#127760;</div>
+        <h2>Resource Hierarchy &amp; Org Structure</h2>
+        <span class="sub">Setting up a Cloud Environment</span>
+      </div>
+      <div class="card-body">
+        <div class="two-col">
+          <div>
+            <div class="section-label">Hierarchy (top → bottom)</div>
+            <div class="row"><span class="key">Organization</span><span class="val">Root node, tied to Workspace/Cloud Identity domain</span></div>
+            <div class="row"><span class="key">Folders</span><span class="val">Group projects by dept/team/env</span></div>
+            <div class="row"><span class="key">Projects</span><span class="val">Billing + API + IAM boundary</span></div>
+            <div class="row"><span class="key">Resources</span><span class="val">VMs, buckets, etc. — leaf nodes</span></div>
+            <div class="note note-blue" style="margin-top:4px;">Policies (IAM &amp; Org Policy) are inherited downward. Child can only restrict, not loosen, unless explicitly overridden.</div>
+
+            <div class="section-label">Project Identifiers</div>
+            <div class="row"><span class="key">Project ID</span><span class="val">Globally unique, immutable</span></div>
+            <div class="row"><span class="key">Project Number</span><span class="val">Auto-assigned, immutable</span></div>
+            <div class="row"><span class="key">Project Name</span><span class="val">User-friendly, mutable, not unique</span></div>
+          </div>
+          <div>
+            <div class="section-label">Billing</div>
+            <div class="row"><span class="key">Billing Account</span><span class="val">Payment profile linked to 1+ projects</span></div>
+            <div class="row"><span class="key">Billing Export</span><span class="val">→ BigQuery for cost analysis</span></div>
+            <div class="row"><span class="key">Budgets &amp; Alerts</span><span class="val">Threshold notifications, not hard caps</span></div>
+            <div class="row"><span class="key">Quotas</span><span class="val">Rate (per 100s) &amp; Allocation (total) limits</span></div>
+
+            <div class="section-label">Org Policy Service</div>
+            <div class="svc-row"><span class="sk">What</span><span class="sv">Centralized, programmatic constraints on resources</span></div>
+            <div class="svc-row"><span class="sk">Examples</span><span class="sv">Restrict VM external IPs, allowed locations, disable SA key creation</span></div>
+            <div class="svc-row"><span class="sk">vs IAM</span><span class="sv">Org Policy = what actions are allowed on resources; IAM = who can act</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-green">&#128274;</div>
+        <h2>IAM Fundamentals</h2>
+        <span class="sub">Configuring Access &amp; Security — 24%</span>
+      </div>
+      <div class="card-body">
+        <div class="two-col">
+          <div>
+            <div class="section-label">IAM Policy = Members + Role</div>
+            <div class="row"><span class="key">Google Account</span><span class="val">Individual end-user (Gmail/Workspace)</span></div>
+            <div class="row"><span class="key">Service Account</span><span class="val">Identity for apps/VMs (non-human)</span></div>
+            <div class="row"><span class="key">Google Group</span><span class="val">Collection of accounts, easier mgmt</span></div>
+            <div class="row"><span class="key">Cloud Identity Domain</span><span class="val">All users at your org domain</span></div>
+            <div class="row"><span class="key">allUsers</span><span class="val">Anyone on internet (public)</span></div>
+            <div class="row"><span class="key">allAuthenticatedUsers</span><span class="val">Any signed-in Google account</span></div>
+
+            <div class="section-label">Role Types</div>
+            <div class="row"><span class="key">Basic</span><span class="val">Owner, Editor, Viewer — broad, legacy</span></div>
+            <div class="row"><span class="key">Predefined</span><span class="val">Granular, service-specific (roles/*)</span></div>
+            <div class="row"><span class="key">Custom</span><span class="val">Org/project-scoped, hand-picked permissions</span></div>
+            <div class="note note-green" style="margin-top:4px;">Best practice: least privilege → prefer predefined over basic roles. Never use Owner in production automation.</div>
+          </div>
+          <div>
+            <div class="section-label">Service Accounts</div>
+            <div class="svc-row"><span class="sk">Format</span><span class="sv">name@project-id.iam.gserviceaccount.com</span></div>
+            <div class="svc-row"><span class="sk">Keys</span><span class="sv">JSON keys — avoid; prefer Workload Identity</span></div>
+            <div class="svc-row"><span class="sk">Impersonation</span><span class="sv">roles/iam.serviceAccountUser to act as SA</span></div>
+
+            <div class="section-label">IAM Conditions</div>
+            <div class="svc-row"><span class="sk">What</span><span class="sv">Attribute-based, conditional role bindings</span></div>
+            <div class="svc-row"><span class="sk">Ex</span><span class="sv">Grant access only until a specific date</span></div>
+
+            <div class="section-label">Cloud Identity-Aware Proxy (IAP)</div>
+            <div class="svc-row"><span class="sk">What</span><span class="sv">Context-aware access without VPN, per-app auth</span></div>
+
+            <div class="section-label">Security Tools</div>
+            <div class="row"><span class="key">Cloud KMS</span><span class="val">Manage encryption keys (CMEK)</span></div>
+            <div class="row"><span class="key">Secret Manager</span><span class="val">Store API keys, passwords, certs</span></div>
+            <div class="row"><span class="key">Security Command Center</span><span class="val">Central vulnerability/threat dashboard</span></div>
+            <div class="row"><span class="key">VPC Service Controls</span><span class="val">Perimeter around APIs, blocks data exfil</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 2: Compute (wide) -->
+  <div class="grid" style="grid-template-columns:1fr; margin-bottom:12px;">
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-blue">&#9881;</div>
+        <h2>Compute Services</h2>
+        <span class="sub">Deploying &amp; Implementing — 24%</span>
+      </div>
+      <div class="card-body">
+        <div class="three-col">
+          <!-- Compute Engine -->
+          <div>
+            <div class="section-label">Compute Engine (IaaS)</div>
+            <div class="svc-row"><span class="sk">What</span><span class="sv">Full-control VMs, custom or predefined machine types</span></div>
+            <div class="svc-row"><span class="sk">Unique</span><span class="sv">Live migration — VM survives host maintenance, no reboot</span></div>
+            <div class="section-label" style="margin-top:6px;">Machine Families</div>
+            <div class="row"><span class="key">E2</span><span class="val">Cost-optimized, shared-core</span></div>
+            <div class="row"><span class="key">N2/N2D</span><span class="val">General purpose (balanced)</span></div>
+            <div class="row"><span class="key">C2/C3</span><span class="val">Compute-optimized</span></div>
+            <div class="row"><span class="key">M2/M3</span><span class="val">Memory-optimized (SAP HANA)</span></div>
+            <div class="row"><span class="key">A2/G2</span><span class="val">GPU / accelerator-optimized</span></div>
+            <div class="section-label" style="margin-top:6px;">Pricing Discounts</div>
+            <div class="row"><span class="key">Sustained Use</span><span class="val">Automatic, up to 30% (run &gt;25% of month)</span></div>
+            <div class="row"><span class="key">Committed Use</span><span class="val">1 or 3 yr, up to 57% off</span></div>
+            <div class="row"><span class="key">Spot VMs</span><span class="val">Up to 91% off, can be preempted</span></div>
+            <div class="tags" style="margin-top:6px;">
+              <span class="tag tag-blue">Instance Groups</span>
+              <span class="tag tag-green">Autoscaler</span>
+              <span class="tag tag-yellow">Custom Images</span>
+            </div>
+          </div>
+          <!-- App Engine + Cloud Run -->
+          <div>
+            <div class="section-label">App Engine (PaaS)</div>
+            <div class="svc-row"><span class="sk">Standard</span><span class="sv">Sandboxed runtimes, scales to zero, fast</span></div>
+            <div class="svc-row"><span class="sk">Flexible</span><span class="sv">Docker containers on managed VMs</span></div>
+            <div class="svc-row"><span class="sk">Use</span><span class="sv">Web apps/APIs, no infra management</span></div>
+
+            <div class="section-label" style="margin-top:6px;">Cloud Run (Serverless Containers)</div>
+            <div class="row"><span class="key">Model</span><span class="val">Any container, HTTP-triggered, scale to zero</span></div>
+            <div class="row"><span class="key">Billing</span><span class="val">Per 100ms of CPU/memory used</span></div>
+            <div class="row"><span class="key">Cloud Run Jobs</span><span class="val">Run-to-completion batch tasks</span></div>
+
+            <div class="section-label" style="margin-top:6px;">Cloud Functions (FaaS)</div>
+            <div class="row"><span class="key">Model</span><span class="val">Event-driven, single-purpose functions</span></div>
+            <div class="row"><span class="key">Triggers</span><span class="val">HTTP, Pub/Sub, Cloud Storage, Firestore</span></div>
+            <div class="row"><span class="key">Gen 2</span><span class="val">Built on Cloud Run + Eventarc</span></div>
+            <div class="note note-blue" style="margin-top:4px;">App Engine = full app hosting. Cloud Run = containerized services. Functions = tiny event handlers.</div>
+          </div>
+          <!-- GKE -->
+          <div>
+            <div class="section-label">Google Kubernetes Engine (GKE)</div>
+            <div class="svc-row"><span class="sk">What</span><span class="sv">Managed Kubernetes — Google invented K8s</span></div>
+            <div class="section-label" style="margin-top:6px;">Modes</div>
+            <div class="row"><span class="key">Standard</span><span class="val">You manage node pools/config</span></div>
+            <div class="row"><span class="key">Autopilot</span><span class="val">Fully managed nodes, pay-per-pod</span></div>
+            <div class="section-label" style="margin-top:6px;">Cluster Types</div>
+            <div class="row"><span class="key">Zonal</span><span class="val">Single-zone control plane</span></div>
+            <div class="row"><span class="key">Regional</span><span class="val">Multi-zone control plane, HA</span></div>
+            <div class="row"><span class="key">Private</span><span class="val">Nodes have no public IPs</span></div>
+            <div class="section-label" style="margin-top:6px;">Other Compute</div>
+            <div class="row"><span class="key">Bare Metal Solution</span><span class="val">Dedicated HW for specialized workloads</span></div>
+            <div class="row"><span class="key">VMware Engine</span><span class="val">Run VMware natively in GCP</span></div>
+            <div class="row"><span class="key">Batch</span><span class="val">Fully managed batch job scheduling</span></div>
+            <div class="note note-green" style="margin-top:6px;">GKE control plane is free for Standard (Autopilot bills differently); you always pay for the worker node VMs.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 3: Storage + Databases -->
+  <div class="grid grid-2" style="margin-bottom:12px;">
+
+    <!-- Storage -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-yellow">&#128190;</div>
+        <h2>Storage Services</h2>
+        <span class="sub">Deploying &amp; Implementing</span>
+      </div>
+      <div class="card-body">
+        <div class="two-col">
+          <div>
+            <div class="section-label">Cloud Storage Classes</div>
+            <div class="row"><span class="key">Standard</span><span class="val">Frequent access, no min duration</span></div>
+            <div class="row"><span class="key">Nearline</span><span class="val">~monthly access, 30-day min</span></div>
+            <div class="row"><span class="key">Coldline</span><span class="val">~quarterly access, 90-day min</span></div>
+            <div class="row"><span class="key">Archive</span><span class="val">~yearly access, 365-day min, cheapest</span></div>
+            <div class="note note-yellow" style="margin-top:4px;">All classes have same latency (ms) &amp; durability (11 nines) — only storage cost, retrieval cost, and min duration differ.</div>
+
+            <div class="section-label">Bucket Location Types</div>
+            <div class="row"><span class="key">Regional</span><span class="val">Single region, lowest latency</span></div>
+            <div class="row"><span class="key">Dual-region</span><span class="val">Two specific regions, sync/async</span></div>
+            <div class="row"><span class="key">Multi-region</span><span class="val">Large geographic area, highest availability</span></div>
+
+            <div class="section-label">Bucket Features</div>
+            <div class="svc-row"><span class="sk">Lifecycle rules</span><span class="sv">Auto-transition/delete by age, class</span></div>
+            <div class="svc-row"><span class="sk">Versioning</span><span class="sv">Keep noncurrent object versions</span></div>
+            <div class="svc-row"><span class="sk">Autoclass</span><span class="sv">Auto-moves objects between tiers by access</span></div>
+          </div>
+          <div>
+            <div class="section-label">Persistent Disk (block storage)</div>
+            <div class="row"><span class="key">pd-standard</span><span class="val">HDD, backups/archival</span></div>
+            <div class="row"><span class="key">pd-balanced</span><span class="val">SSD, price/perf balance (default)</span></div>
+            <div class="row"><span class="key">pd-ssd</span><span class="val">SSD, high IOPS workloads</span></div>
+            <div class="row"><span class="key">pd-extreme</span><span class="val">Highest IOPS, SAP/DB workloads</span></div>
+            <div class="svc-row" style="margin-top:2px;"><span class="sk">Snapshots</span><span class="sv">Incremental, stored in Cloud Storage</span></div>
+
+            <div class="section-label">Other Storage</div>
+            <div class="row"><span class="key">Filestore</span><span class="val">Managed NFS file shares</span></div>
+            <div class="row"><span class="key">Local SSD</span><span class="val">Ephemeral, attached to VM, highest IOPS</span></div>
+            <div class="row"><span class="key">Transfer Service</span><span class="val">Migrate data from S3/on-prem/HTTP</span></div>
+            <div class="row"><span class="key">Transfer Appliance</span><span class="val">Physical box for offline bulk transfer</span></div>
+
+            <div class="section-label">IAM on Storage</div>
+            <div class="svc-row"><span class="sk">Uniform</span><span class="sv">IAM only, applies bucket-wide (recommended)</span></div>
+            <div class="svc-row"><span class="sk">Fine-grained</span><span class="sv">IAM + legacy ACLs per object</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Databases -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-purple">&#128200;</div>
+        <h2>Database Services</h2>
+        <span class="sub">Deploying &amp; Implementing</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Relational (SQL)</div>
+        <div class="svc-block">
+          <div class="svc-title">Cloud SQL</div>
+          <div class="svc-row"><span class="sk">Engines</span><span class="sv">MySQL, PostgreSQL, SQL Server</span></div>
+          <div class="svc-row"><span class="sk">Scale</span><span class="sv">Regional, vertical scaling, read replicas</span></div>
+          <div class="svc-row"><span class="sk">Use</span><span class="sv">Traditional relational workloads, lift &amp; shift</span></div>
+        </div>
+        <div class="svc-block" style="margin-top:6px;">
+          <div class="svc-title">Cloud Spanner</div>
+          <div class="svc-row"><span class="sk">What</span><span class="sv">Horizontally scalable, globally distributed SQL</span></div>
+          <div class="svc-row"><span class="sk">Consistency</span><span class="sv">Strong, external consistency (TrueTime)</span></div>
+          <div class="svc-row"><span class="sk">SLA</span><span class="sv">99.999% (multi-region)</span></div>
+          <div class="svc-row"><span class="sk">Use</span><span class="sv">Global scale + SQL + strong consistency needed</span></div>
+        </div>
+
+        <div class="section-label">NoSQL</div>
+        <div class="svc-block">
+          <div class="svc-title">Firestore</div>
+          <div class="svc-row"><span class="sk">What</span><span class="sv">Document DB, real-time sync, mobile/web SDKs</span></div>
+          <div class="svc-row"><span class="sk">Use</span><span class="sv">Mobile/web apps, offline support</span></div>
+        </div>
+        <div class="svc-block" style="margin-top:6px;">
+          <div class="svc-title">Cloud Bigtable</div>
+          <div class="svc-row"><span class="sk">What</span><span class="sv">Wide-column, HBase API, petabyte scale</span></div>
+          <div class="svc-row"><span class="sk">Use</span><span class="sv">Time-series, IoT, high-throughput analytics</span></div>
+        </div>
+
+        <div class="section-label">Caching / Memorystore</div>
+        <div class="row"><span class="key">Memorystore</span><span class="val">Managed Redis or Memcached</span></div>
+
+        <div class="note note-purple" style="margin-top:6px; background:var(--purple-soft); border-left:3px solid var(--purple);">Cloud SQL = regional relational. Spanner = global relational, strong consistency. Firestore = app/mobile NoSQL. Bigtable = big-data NoSQL. BigQuery = analytics (below).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 4: Networking (full width) -->
+  <div class="grid" style="grid-template-columns:1fr; margin-bottom:12px;">
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-red">&#127760;</div>
+        <h2>Networking Services</h2>
+        <span class="sub">Planning &amp; Configuring — 16%</span>
+      </div>
+      <div class="card-body">
+        <div class="three-col">
+          <!-- Core networking -->
+          <div>
+            <div class="section-label">VPC (Global Resource)</div>
+            <div class="svc-block">
+              <div class="svc-title">Virtual Private Cloud</div>
+              <div class="svc-row"><span class="sk">Unique</span><span class="sv">VPC spans ALL regions globally (unlike AWS/Azure)</span></div>
+              <div class="svc-row"><span class="sk">Subnets</span><span class="sv">Regional resource, span all zones in region</span></div>
+              <div class="svc-row"><span class="sk">Modes</span><span class="sv">Auto (1 subnet/region) or Custom (manual)</span></div>
+            </div>
+            <div class="svc-block" style="margin-top:6px;">
+              <div class="svc-title">VPC Peering</div>
+              <div class="svc-row"><span class="sk">Traffic</span><span class="sv">Google backbone, private IPs</span></div>
+              <div class="svc-row"><span class="sk">Note</span><span class="sv">Non-transitive — needs Network Connectivity Center for hub-spoke</span></div>
+            </div>
+            <div class="svc-block" style="margin-top:6px;">
+              <div class="svc-title">Shared VPC</div>
+              <div class="svc-row"><span class="sk">What</span><span class="sv">Host project shares subnets with service projects</span></div>
+              <div class="svc-row"><span class="sk">Use</span><span class="sv">Centralized network admin across teams</span></div>
+            </div>
+
+            <div class="section-label">Hybrid Connectivity</div>
+            <div class="svc-row"><span class="sk">Cloud VPN</span><span class="sv">IPsec over internet, HA VPN = 99.99% SLA</span></div>
+            <div class="svc-row"><span class="sk">Cloud Interconnect</span><span class="sv">Dedicated (10/100Gbps) or Partner (50Mbps–50Gbps)</span></div>
+            <div class="svc-row"><span class="sk">Cloud Router</span><span class="sv">Dynamic BGP routing for VPN/Interconnect</span></div>
+          </div>
+          <!-- Load balancing -->
+          <div>
+            <div class="section-label">Cloud Load Balancing</div>
+            <div class="svc-block">
+              <div class="svc-title">Global External LB (HTTP/S)</div>
+              <div class="svc-row"><span class="sk">Layer</span><span class="sv">L7, anycast IP, single global endpoint</span></div>
+              <div class="svc-row"><span class="sk">Use</span><span class="sv">Web apps, URL/host-based routing, CDN integration</span></div>
+            </div>
+            <div class="svc-block" style="margin-top:6px;">
+              <div class="svc-title">Regional External LB</div>
+              <div class="svc-row"><span class="sk">Types</span><span class="sv">Network TCP/UDP (L4), Regional HTTP(S)</span></div>
+            </div>
+            <div class="svc-block" style="margin-top:6px;">
+              <div class="svc-title">Internal LB</div>
+              <div class="svc-row"><span class="sk">Types</span><span class="sv">Internal TCP/UDP (L4), Internal HTTP(S) (L7)</span></div>
+              <div class="svc-row"><span class="sk">Use</span><span class="sv">Private, VPC-internal traffic only</span></div>
+            </div>
+            <div class="note note-red" style="margin-top:4px;">Choose by: Global vs Regional scope, HTTP(S) vs TCP/UDP protocol, external vs internal traffic — a decision tree, not a menu.</div>
+
+            <div class="section-label">DNS</div>
+            <div class="row"><span class="key">Cloud DNS</span><span class="val">Managed authoritative DNS, 100% SLA</span></div>
+            <div class="row"><span class="key">Private zones</span><span class="val">Internal name resolution in VPC</span></div>
+          </div>
+          <!-- Security / CDN -->
+          <div>
+            <div class="section-label">Network Security</div>
+            <div class="svc-block">
+              <div class="svc-title">VPC Firewall Rules</div>
+              <div class="svc-row"><span class="sk">Scope</span><span class="sv">Applied at VPC level (not subnet), stateful</span></div>
+              <div class="svc-row"><span class="sk">Targeting</span><span class="sv">By network tags or service accounts</span></div>
+              <div class="svc-row"><span class="sk">Implied rules</span><span class="sv">Deny all ingress, allow all egress by default</span></div>
+            </div>
+            <div class="svc-block" style="margin-top:6px;">
+              <div class="svc-title">Cloud Armor</div>
+              <div class="svc-row"><span class="sk">What</span><span class="sv">WAF + DDoS protection at edge</span></div>
+              <div class="svc-row"><span class="sk">Works with</span><span class="sv">Global external HTTP(S) LB only</span></div>
+            </div>
+            <div class="svc-block" style="margin-top:6px;">
+              <div class="svc-title">Cloud NAT</div>
+              <div class="svc-row"><span class="sk">What</span><span class="sv">Outbound-only internet for private VMs</span></div>
+              <div class="svc-row"><span class="sk">Note</span><span class="sv">No inbound connections; regional resource</span></div>
+            </div>
+
+            <div class="section-label">CDN &amp; Edge</div>
+            <div class="row"><span class="key">Cloud CDN</span><span class="val">Caches at Google's edge, needs global LB</span></div>
+            <div class="tags" style="margin-top:6px;">
+              <span class="tag tag-red">Private Google Access</span>
+              <span class="tag tag-blue">Private Service Connect</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 5: Big Data / Analytics + DevOps -->
+  <div class="grid grid-2" style="margin-bottom:12px;">
+
+    <!-- Big Data -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-yellow">&#128202;</div>
+        <h2>Big Data, Analytics &amp; AI</h2>
+        <span class="sub">GCP's Strongest Suite</span>
+      </div>
+      <div class="card-body">
+        <div class="two-col">
+          <div>
+            <div class="section-label">BigQuery</div>
+            <div class="svc-row"><span class="sk">What</span><span class="sv">Serverless, petabyte-scale SQL data warehouse</span></div>
+            <div class="svc-row"><span class="sk">Billing</span><span class="sv">Storage + on-demand query (per TB scanned) or flat-rate slots</span></div>
+            <div class="svc-row"><span class="sk">Features</span><span class="sv">BQ ML (SQL-based ML), partitioning, clustering</span></div>
+            <div class="row"><span class="key">Streaming inserts</span><span class="val">Near real-time ingestion</span></div>
+
+            <div class="section-label">Messaging</div>
+            <div class="row"><span class="key">Pub/Sub</span><span class="val">Global async messaging, at-least-once delivery</span></div>
+            <div class="row"><span class="key">Pub/Sub Lite</span><span class="val">Lower-cost, zonal, manual scaling</span></div>
+          </div>
+          <div>
+            <div class="section-label">Processing Pipelines</div>
+            <div class="row"><span class="key">Dataflow</span><span class="val">Serverless stream+batch (Apache Beam)</span></div>
+            <div class="row"><span class="key">Dataproc</span><span class="val">Managed Hadoop/Spark clusters</span></div>
+            <div class="row"><span class="key">Cloud Composer</span><span class="val">Managed Apache Airflow, orchestration</span></div>
+            <div class="row"><span class="key">Data Fusion</span><span class="val">Visual, code-free ETL pipeline builder</span></div>
+
+            <div class="section-label">AI / ML</div>
+            <div class="row"><span class="key">Vertex AI</span><span class="val">Unified ML platform — train, deploy, MLOps</span></div>
+            <div class="row"><span class="key">Vision/Speech/NL API</span><span class="val">Pre-trained ML APIs</span></div>
+            <div class="row"><span class="key">Gemini / Generative AI</span><span class="val">LLM APIs via Vertex AI</span></div>
+            <div class="note note-yellow" style="margin-top:4px;">Dataflow = unified batch+stream. Dataproc = you need existing Hadoop/Spark jobs. Data Fusion = drag-and-drop ETL.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DevOps -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-navy">&#128295;</div>
+        <h2>DevOps, IaC &amp; Monitoring</h2>
+        <span class="sub">Ensuring Success of Operations — 19%</span>
+      </div>
+      <div class="card-body">
+        <div class="two-col">
+          <div>
+            <div class="section-label">CI/CD &amp; IaC</div>
+            <div class="row"><span class="key">Cloud Build</span><span class="val">Managed CI/CD, container builds</span></div>
+            <div class="row"><span class="key">Artifact Registry</span><span class="val">Docker images, language packages</span></div>
+            <div class="row"><span class="key">Deployment Manager</span><span class="val">Native IaC (YAML), being replaced by...</span></div>
+            <div class="row"><span class="key">Terraform (google provider)</span><span class="val">Industry-standard IaC, multi-cloud</span></div>
+            <div class="row"><span class="key">Config Connector</span><span class="val">Manage GCP resources via K8s manifests</span></div>
+
+            <div class="section-label">Access &amp; Tooling</div>
+            <div class="row"><span class="key">Cloud Console</span><span class="val">Web GUI</span></div>
+            <div class="row"><span class="key">gcloud CLI</span><span class="val">Command-line, cross-service</span></div>
+            <div class="row"><span class="key">Cloud Shell</span><span class="val">Free browser VM, gcloud preinstalled</span></div>
+            <div class="row"><span class="key">Client Libraries</span><span class="val">Python, Go, Java, Node, etc.</span></div>
+          </div>
+          <div>
+            <div class="section-label">Cloud Operations Suite (fka Stackdriver)</div>
+            <div class="row"><span class="key">Cloud Monitoring</span><span class="val">Metrics, dashboards, uptime checks, alerts</span></div>
+            <div class="row"><span class="key">Cloud Logging</span><span class="val">Centralized logs, log-based metrics</span></div>
+            <div class="row"><span class="key">Cloud Trace</span><span class="val">Distributed request latency tracing</span></div>
+            <div class="row"><span class="key">Cloud Profiler</span><span class="val">CPU/memory usage profiling in prod</span></div>
+            <div class="row"><span class="key">Error Reporting</span><span class="val">Aggregates &amp; alerts on app errors</span></div>
+
+            <div class="section-label">Migration</div>
+            <div class="row"><span class="key">Migrate to VMs</span><span class="val">Lift-and-shift VMs to Compute Engine</span></div>
+            <div class="row"><span class="key">Database Migration Service</span><span class="val">MySQL/PostgreSQL → Cloud SQL</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 6: gcloud CLI Cheat Sheet (full width) -->
+  <div class="grid" style="grid-template-columns:1fr; margin-bottom:12px;">
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-navy">&#128187;</div>
+        <h2>gcloud CLI Quick Reference</h2>
+        <span class="sub">High-frequency commands — great for interviews</span>
+      </div>
+      <div class="card-body">
+        <div class="three-col">
+          <div>
+            <div class="section-label">Config &amp; Auth</div>
+            <div class="cli-block">
+<div class="cli-line">gcloud auth login</div>
+<div class="cli-line">gcloud config set project PROJECT_ID</div>
+<div class="cli-line">gcloud config set compute/zone us-central1-a</div>
+<div class="cli-line">gcloud config list</div>
+<div class="cli-line">gcloud projects list</div>
+            </div>
+            <div class="section-label" style="margin-top:6px;">Compute Engine</div>
+            <div class="cli-block">
+<div class="cli-line">gcloud compute instances list</div>
+<div class="cli-line">gcloud compute instances create vm1 \
+  --machine-type=e2-medium --zone=us-central1-a</div>
+<div class="cli-line">gcloud compute instances stop vm1</div>
+<div class="cli-line">gcloud compute ssh vm1</div>
+            </div>
+          </div>
+          <div>
+            <div class="section-label">Storage &amp; IAM</div>
+            <div class="cli-block">
+<div class="cli-line">gsutil mb gs://my-bucket/</div>
+<div class="cli-line">gsutil cp file.txt gs://my-bucket/</div>
+<div class="cli-line">gsutil rsync -r ./local gs://my-bucket/</div>
+<div class="cli-line">gcloud projects add-iam-policy-binding PROJECT_ID \
+  --member=user:me@x.com --role=roles/editor</div>
+<div class="cli-line">gcloud iam service-accounts create sa-name</div>
+            </div>
+            <div class="section-label" style="margin-top:6px;">GKE</div>
+            <div class="cli-block">
+<div class="cli-line">gcloud container clusters create cluster1 \
+  --num-nodes=3 --zone=us-central1-a</div>
+<div class="cli-line">gcloud container clusters get-credentials cluster1</div>
+<div class="cli-line">kubectl get pods -A</div>
+            </div>
+          </div>
+          <div>
+            <div class="section-label">Networking</div>
+            <div class="cli-block">
+<div class="cli-line">gcloud compute networks create vpc1 --subnet-mode=custom</div>
+<div class="cli-line">gcloud compute networks subnets create sub1 \
+  --network=vpc1 --region=us-central1 --range=10.0.0.0/24</div>
+<div class="cli-line">gcloud compute firewall-rules create allow-ssh \
+  --network=vpc1 --allow=tcp:22</div>
+            </div>
+            <div class="section-label" style="margin-top:6px;">BigQuery &amp; Functions</div>
+            <div class="cli-block">
+<div class="cli-line">bq query --use_legacy_sql=false 'SELECT * FROM ds.tbl LIMIT 10'</div>
+<div class="cli-line">gcloud functions deploy fn1 \
+  --runtime=python312 --trigger-http</div>
+<div class="cli-line">gcloud run deploy svc1 --image=gcr.io/PROJECT/img</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 7: Comparisons + Pricing -->
+  <div class="grid grid-2" style="margin-bottom:12px;">
+
+    <!-- Cloud Comparison Table -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-red">&#9878;</div>
+        <h2>GCP vs AWS vs Azure — Service Map</h2>
+        <span class="sub">Most-asked interview question</span>
+      </div>
+      <div class="card-body">
+        <table class="sla-table">
+          <thead><tr><th>Category</th><th>GCP</th><th>AWS</th><th>Azure</th></tr></thead>
+          <tbody>
+            <tr><td>VMs</td><td>Compute Engine</td><td>EC2</td><td>Virtual Machines</td></tr>
+            <tr><td>Managed K8s</td><td>GKE</td><td>EKS</td><td>AKS</td></tr>
+            <tr><td>Serverless container</td><td>Cloud Run</td><td>Fargate</td><td>Container Apps</td></tr>
+            <tr><td>FaaS</td><td>Cloud Functions</td><td>Lambda</td><td>Functions</td></tr>
+            <tr><td>PaaS web hosting</td><td>App Engine</td><td>Elastic Beanstalk</td><td>App Service</td></tr>
+            <tr><td>Object storage</td><td>Cloud Storage</td><td>S3</td><td>Blob Storage</td></tr>
+            <tr><td>Block storage</td><td>Persistent Disk</td><td>EBS</td><td>Managed Disks</td></tr>
+            <tr><td>Relational DB</td><td>Cloud SQL</td><td>RDS</td><td>Azure SQL DB</td></tr>
+            <tr><td>Global relational</td><td>Cloud Spanner</td><td>Aurora Global DB</td><td>Cosmos DB (SQL API)</td></tr>
+            <tr><td>Document NoSQL</td><td>Firestore</td><td>DynamoDB</td><td>Cosmos DB</td></tr>
+            <tr><td>Wide-column NoSQL</td><td>Bigtable</td><td>DynamoDB/Keyspaces</td><td>Cosmos DB (Cassandra)</td></tr>
+            <tr><td>Data warehouse</td><td>BigQuery</td><td>Redshift</td><td>Synapse Analytics</td></tr>
+            <tr><td>Messaging (pub/sub)</td><td>Pub/Sub</td><td>SNS + SQS</td><td>Service Bus / Event Grid</td></tr>
+            <tr><td>Stream processing</td><td>Dataflow</td><td>Kinesis</td><td>Stream Analytics</td></tr>
+            <tr><td>VPC</td><td>VPC (global)</td><td>VPC (regional)</td><td>VNet (regional)</td></tr>
+            <tr><td>Global LB</td><td>Cloud Load Balancing</td><td>Global Accelerator</td><td>Front Door</td></tr>
+            <tr><td>IAM</td><td>Cloud IAM</td><td>IAM</td><td>Entra ID + RBAC</td></tr>
+            <tr><td>Secrets</td><td>Secret Manager</td><td>Secrets Manager</td><td>Key Vault</td></tr>
+            <tr><td>IaC (native)</td><td>Deployment Manager</td><td>CloudFormation</td><td>ARM / Bicep</td></tr>
+            <tr><td>Monitoring</td><td>Cloud Monitoring</td><td>CloudWatch</td><td>Azure Monitor</td></tr>
+            <tr><td>CDN</td><td>Cloud CDN</td><td>CloudFront</td><td>Azure CDN</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Pricing & Free Tier -->
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-green">&#128176;</div>
+        <h2>Pricing, Free Tier &amp; Support</h2>
+        <span class="sub">Planning &amp; Configuring</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Discount Mechanisms</div>
+        <div class="row"><span class="key">Sustained Use</span><span class="val">Auto, no commitment, up to 30%</span></div>
+        <div class="row"><span class="key">Committed Use</span><span class="val">1/3 yr, up to 57% (resource) / 70% (spend)</span></div>
+        <div class="row"><span class="key">Spot VMs</span><span class="val">Up to 91% off, preemptible, no SLA</span></div>
+        <div class="row"><span class="key">Free Tier</span><span class="val">Always-free products + $300 credit (90 days, new accounts)</span></div>
+        <div class="note note-green" style="margin-top:4px;">Sustained-use is AUTOMATIC (no action needed) — unique to GCP vs AWS/Azure reserved instances which require upfront commitment.</div>
+
+        <div class="section-label" style="margin-top:8px;">Pricing Tools</div>
+        <div class="row"><span class="key">Pricing Calculator</span><span class="val">Estimate cost of a new deployment</span></div>
+        <div class="row"><span class="key">Cost Table (Billing)</span><span class="val">Track actual spend, export to BigQuery</span></div>
+        <div class="row"><span class="key">Recommender</span><span class="val">Idle resource &amp; rightsizing suggestions</span></div>
+
+        <div class="section-label" style="margin-top:8px;">Support Tiers</div>
+        <table class="sla-table">
+          <thead><tr><th>Tier</th><th>Response (P1)</th></tr></thead>
+          <tbody>
+            <tr><td>Basic</td><td>No SLA, community only</td></tr>
+            <tr><td>Standard</td><td>Business hours</td></tr>
+            <tr><td>Enhanced</td><td>15 min, 24/7</td></tr>
+            <tr><td>Premium</td><td>15 min, 24/7 + TAM</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 7B: IAM Deep Dive + Org Policy Constraints -->
+  <div class="grid grid-2" style="margin-bottom:12px;">
+
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-green">&#128274;</div>
+        <h2>IAM Deep Dive — Predefined Roles</h2>
+        <span class="sub">Configuring Access &amp; Security</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Most-Tested Predefined Roles</div>
+        <table class="sla-table">
+          <thead><tr><th>Role</th><th>Grants</th></tr></thead>
+          <tbody>
+            <tr><td>roles/viewer</td><td>Read-only on almost everything</td></tr>
+            <tr><td>roles/editor</td><td>Viewer + modify existing resources</td></tr>
+            <tr><td>roles/owner</td><td>Editor + manage roles/permissions + billing</td></tr>
+            <tr><td>roles/iam.securityAdmin</td><td>Manage IAM policies, not resources</td></tr>
+            <tr><td>roles/iam.serviceAccountUser</td><td>Attach/impersonate a service account</td></tr>
+            <tr><td>roles/iam.serviceAccountTokenCreator</td><td>Mint short-lived tokens for a SA</td></tr>
+            <tr><td>roles/resourcemanager.projectIamAdmin</td><td>Manage project-level IAM, not resources</td></tr>
+            <tr><td>roles/billing.user</td><td>Link a project to a billing account</td></tr>
+            <tr><td>roles/storage.objectViewer</td><td>Read objects, not delete/list buckets</td></tr>
+            <tr><td>roles/storage.admin</td><td>Full control on buckets + objects</td></tr>
+            <tr><td>roles/compute.instanceAdmin.v1</td><td>Manage VMs, not networking/firewalls</td></tr>
+            <tr><td>roles/compute.networkAdmin</td><td>Manage networking, not firewall rules</td></tr>
+            <tr><td>roles/compute.securityAdmin</td><td>Manage firewall rules and SSL certs only</td></tr>
+          </tbody>
+        </table>
+        <div class="note note-green" style="margin-top:6px;">Interview trap: <b>instanceAdmin ≠ networkAdmin ≠ securityAdmin</b> for Compute — Google deliberately splits VM lifecycle, network config, and firewall/SSL into three separate roles for least-privilege design.</div>
+
+        <div class="section-label" style="margin-top:8px;">Policy Evaluation Order</div>
+        <div class="svc-row"><span class="sk">1</span><span class="sv">Deny policies evaluated first (IAM Deny, if configured) — explicit deny always wins</span></div>
+        <div class="svc-row"><span class="sk">2</span><span class="sv">Allow policies at resource, then merged with inherited allow policies up the hierarchy</span></div>
+        <div class="svc-row"><span class="sk">3</span><span class="sv">Effective permission = union of all applicable allow bindings, minus any deny</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-purple">&#9878;</div>
+        <h2>Org Policy Constraints &amp; Compliance</h2>
+        <span class="sub">Setting up a Cloud Environment</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Common Boolean/List Constraints</div>
+        <div class="row"><span class="key">constraints/compute.vmExternalIpAccess</span><span class="val">Deny/allow external IPs on VMs</span></div>
+        <div class="row"><span class="key">constraints/iam.disableServiceAccountKeyCreation</span><span class="val">Block SA JSON keys</span></div>
+        <div class="row"><span class="key">constraints/gcp.resourceLocations</span><span class="val">Restrict where resources can be created</span></div>
+        <div class="row"><span class="key">constraints/compute.requireOsLogin</span><span class="val">Force OS Login instead of SSH keys</span></div>
+        <div class="row"><span class="key">constraints/sql.restrictPublicIp</span><span class="val">Block public IP on Cloud SQL instances</span></div>
+        <div class="row"><span class="key">constraints/iam.allowedPolicyMemberDomains</span><span class="val">Restrict IAM members to specific domains</span></div>
+
+        <div class="section-label" style="margin-top:8px;">Compliance &amp; Governance Tools</div>
+        <div class="svc-row"><span class="sk">Assured Workloads</span><span class="sv">Compliance regimes (FedRAMP, HIPAA, IL4) enforced via Org Policy bundles</span></div>
+        <div class="svc-row"><span class="sk">Access Transparency</span><span class="sv">Logs of Google staff accessing your data</span></div>
+        <div class="svc-row"><span class="sk">Access Approval</span><span class="sv">Require explicit approval before Google support can access data</span></div>
+        <div class="svc-row"><span class="sk">Cloud Audit Logs</span><span class="sv">Admin Activity (always on), Data Access (opt-in, off by default for reads)</span></div>
+        <div class="note note-blue" style="margin-top:6px;">Data Access audit logs are OFF by default (except BigQuery) because of volume/cost — a frequent exam gotcha.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 7C: VPC & GKE Deep Dive -->
+  <div class="grid grid-2" style="margin-bottom:12px;">
+
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-red">&#128225;</div>
+        <h2>VPC Networking — Deep Dive</h2>
+        <span class="sub">Planning &amp; Configuring</span>
+      </div>
+      <div class="card-body">
+        <div class="two-col">
+          <div>
+            <div class="section-label">Routing</div>
+            <div class="svc-row"><span class="sk">System routes</span><span class="sv">Auto-created per subnet, default route to internet gateway</span></div>
+            <div class="svc-row"><span class="sk">Custom static routes</span><span class="sv">Route by destination CIDR to next hop</span></div>
+            <div class="svc-row"><span class="sk">Dynamic routes</span><span class="sv">Via Cloud Router + BGP over VPN/Interconnect</span></div>
+            <div class="svc-row"><span class="sk">Priority</span><span class="sv">Lower number = higher priority (0–65535)</span></div>
+
+            <div class="section-label">Private Access Patterns</div>
+            <div class="svc-row"><span class="sk">Private Google Access</span><span class="sv">VMs w/o external IP reach Google APIs</span></div>
+            <div class="svc-row"><span class="sk">Private Service Connect</span><span class="sv">Private IP endpoint to managed services/APIs</span></div>
+            <div class="svc-row"><span class="sk">Serverless VPC Access</span><span class="sv">Connector lets Cloud Run/Functions/App Engine reach VPC-internal resources</span></div>
+            <div class="svc-row"><span class="sk">VPC Peering vs PSC</span><span class="sv">Peering = full network reachability; PSC = single-service, more secure</span></div>
+          </div>
+          <div>
+            <div class="section-label">Multi-NIC &amp; Connectivity Scale</div>
+            <div class="svc-row"><span class="sk">Multi-NIC VMs</span><span class="sv">Up to 8 interfaces, each in a different VPC</span></div>
+            <div class="svc-row"><span class="sk">Network Connectivity Center</span><span class="sv">Hub-and-spoke — solves non-transitive peering</span></div>
+            <div class="svc-row"><span class="sk">Alias IP ranges</span><span class="sv">Multiple IPs per NIC — used by GKE pod IPs</span></div>
+
+            <div class="section-label">IP Address Types</div>
+            <div class="row"><span class="key">Ephemeral</span><span class="val">Released when VM stops, default</span></div>
+            <div class="row"><span class="key">Static (reserved)</span><span class="val">Persists, billed when unattached</span></div>
+            <div class="row"><span class="key">Internal</span><span class="val">RFC1918, private, per subnet</span></div>
+
+            <div class="section-label">MTU &amp; Firewall Priority</div>
+            <div class="svc-row"><span class="sk">MTU</span><span class="sv">Default 1460, up to 8896 (Jumbo frames)</span></div>
+            <div class="svc-row"><span class="sk">Deny beats Allow</span><span class="sv">Same priority → explicit deny wins</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-blue">&#9989;</div>
+        <h2>GKE — Deep Dive</h2>
+        <span class="sub">Deploying &amp; Implementing</span>
+      </div>
+      <div class="card-body">
+        <div class="two-col">
+          <div>
+            <div class="section-label">Networking Modes</div>
+            <div class="svc-row"><span class="sk">VPC-native (alias IP)</span><span class="sv">Pods get real routable IPs — default &amp; recommended</span></div>
+            <div class="svc-row"><span class="sk">Routes-based</span><span class="sv">Legacy, uses custom routes for pod IPs</span></div>
+            <div class="svc-row"><span class="sk">Services</span><span class="sv">ClusterIP, NodePort, LoadBalancer, Ingress (via GKE Ingress controller)</span></div>
+
+            <div class="section-label">Storage for Pods</div>
+            <div class="row"><span class="key">Persistent Volume (PD)</span><span class="val">ReadWriteOnce, backed by Persistent Disk</span></div>
+            <div class="row"><span class="key">Filestore CSI</span><span class="val">ReadWriteMany shared volumes</span></div>
+            <div class="row"><span class="key">GCS FUSE CSI</span><span class="val">Mount Cloud Storage buckets as volumes</span></div>
+
+            <div class="section-label">Scaling</div>
+            <div class="row"><span class="key">HPA</span><span class="val">Horizontal Pod Autoscaler — pods by CPU/custom metric</span></div>
+            <div class="row"><span class="key">VPA</span><span class="val">Vertical Pod Autoscaler — right-sizes requests</span></div>
+            <div class="row"><span class="key">Cluster Autoscaler</span><span class="val">Adds/removes nodes based on pending pods</span></div>
+          </div>
+          <div>
+            <div class="section-label">Identity &amp; Security</div>
+            <div class="svc-row"><span class="sk">Workload Identity</span><span class="sv">Bind K8s SA → Google SA, no key files (best practice)</span></div>
+            <div class="svc-row"><span class="sk">Binary Authorization</span><span class="sv">Only deploy signed/attested container images</span></div>
+            <div class="svc-row"><span class="sk">Shielded GKE Nodes</span><span class="sv">Secure boot, vTPM, integrity monitoring</span></div>
+            <div class="svc-row"><span class="sk">Private cluster</span><span class="sv">Nodes have internal IPs only; master can be public or private endpoint</span></div>
+
+            <div class="section-label">Anthos / Multi-Cloud</div>
+            <div class="svc-row"><span class="sk">Anthos</span><span class="sv">Consistent K8s mgmt across GCP, on-prem, AWS, Azure</span></div>
+            <div class="svc-row"><span class="sk">Config Sync</span><span class="sv">GitOps — sync cluster config from a Git repo</span></div>
+            <div class="svc-row"><span class="sk">Anthos Service Mesh</span><span class="sv">Managed Istio — mTLS, traffic mgmt, observability</span></div>
+            <div class="note note-blue" style="margin-top:4px;">Autopilot enforces Workload Identity, Shielded Nodes, and VPC-native networking by default — one reason it's the "opinionated secure" choice.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 7D: BigQuery Deep Dive + HA/DR & Well-Architected Framework -->
+  <div class="grid grid-2" style="margin-bottom:12px;">
+
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-yellow">&#128269;</div>
+        <h2>BigQuery — Architecture Deep Dive</h2>
+        <span class="sub">GCP's Signature Service</span>
+      </div>
+      <div class="card-body">
+        <div class="two-col">
+          <div>
+            <div class="section-label">Core Architecture</div>
+            <div class="svc-row"><span class="sk">Compute/Storage split</span><span class="sv">Dremel engine (compute) decoupled from Colossus (storage)</span></div>
+            <div class="svc-row"><span class="sk">Columnar storage</span><span class="sv">Capacitor format — scans only needed columns</span></div>
+            <div class="svc-row"><span class="sk">Slots</span><span class="sv">Unit of query compute — on-demand or reserved (flat-rate)</span></div>
+            <div class="svc-row"><span class="sk">BI Engine</span><span class="sv">In-memory acceleration for dashboards</span></div>
+
+            <div class="section-label">Cost Control</div>
+            <div class="row"><span class="key">Partitioning</span><span class="val">By date/int column — prunes scanned data</span></div>
+            <div class="row"><span class="key">Clustering</span><span class="val">Sort within partitions — further prunes reads</span></div>
+            <div class="row"><span class="key">Max bytes billed</span><span class="val">Query-level cap to prevent runaway cost</span></div>
+            <div class="row"><span class="key">Materialized views</span><span class="val">Precomputed, auto-refreshed query results</span></div>
+          </div>
+          <div>
+            <div class="section-label">Data Governance</div>
+            <div class="svc-row"><span class="sk">Authorized views</span><span class="sv">Share query results without granting table access</span></div>
+            <div class="svc-row"><span class="sk">Column/row-level security</span><span class="sv">Policy tags (Data Catalog) + row access policies</span></div>
+            <div class="svc-row"><span class="sk">Data masking</span><span class="sv">Dynamic masking based on policy tags</span></div>
+
+            <div class="section-label">Loading &amp; Querying Data</div>
+            <div class="row"><span class="key">Batch load</span><span class="val">Free — CSV/JSON/Avro/Parquet from GCS</span></div>
+            <div class="row"><span class="key">Streaming insert</span><span class="val">Billed, near real-time</span></div>
+            <div class="row"><span class="key">BigQuery Omni</span><span class="val">Query data sitting in AWS S3 / Azure Blob</span></div>
+            <div class="row"><span class="key">External tables</span><span class="val">Query GCS/Sheets without loading</span></div>
+            <div class="note note-yellow" style="margin-top:4px;">Interview line: "BigQuery separates storage and compute, so you scale query power (slots) independently of how much data you store."</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-navy">&#128737;</div>
+        <h2>HA/DR Patterns &amp; Architecture Framework</h2>
+        <span class="sub">Ensuring Success of Operations</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Google Cloud Architecture Framework — 5 Pillars</div>
+        <div class="row"><span class="key">Operational Excellence</span><span class="val">Automate, observe, iterate on ops</span></div>
+        <div class="row"><span class="key">Security, Privacy, Compliance</span><span class="val">Defense in depth, least privilege</span></div>
+        <div class="row"><span class="key">Reliability</span><span class="val">SLOs, redundancy, graceful degradation</span></div>
+        <div class="row"><span class="key">Cost Optimization</span><span class="val">Right-size, discounts, eliminate waste</span></div>
+        <div class="row"><span class="key">Performance Optimization</span><span class="val">Elasticity, benchmark, monitor latency</span></div>
+
+        <div class="section-label" style="margin-top:8px;">DR Strategy Spectrum (cheapest → fastest)</div>
+        <table class="sla-table">
+          <thead><tr><th>Pattern</th><th>RTO/RPO</th></tr></thead>
+          <tbody>
+            <tr><td>Backup &amp; Restore</td><td>Hours; cheapest, GCS/snapshots</td></tr>
+            <tr><td>Pilot Light</td><td>10s of min; minimal standby core running</td></tr>
+            <tr><td>Warm Standby</td><td>Minutes; scaled-down full replica running</td></tr>
+            <tr><td>Multi-site Active-Active</td><td>Near-zero; full capacity in 2+ regions</td></tr>
+          </tbody>
+        </table>
+        <div class="note note-blue" style="margin-top:4px;">RTO = time to recover. RPO = acceptable data loss window. Higher availability always trades against cost — a scenario question staple.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 7E: Terraform -->
+  <div class="grid" style="grid-template-columns:1fr; margin-bottom:12px;">
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-purple">&#128209;</div>
+        <h2>Terraform for GCP — Sample HCL</h2>
+        <span class="sub">google &amp; google-beta providers</span>
+      </div>
+      <div class="card-body">
+        <div class="cli-block">
+<div class="cli-line">terraform {
+  required_providers {
+    google = { source = "hashicorp/google", version = "~> 5.0" }
+  }
+}
+
+provider "google" {
+  project = "my-project-id"
+  region  = "us-central1"
+}
+
+resource "google_compute_network" "vpc" {
+  name                    = "app-vpc"
+  auto_create_subnetworks = false
+}
+
+resource "google_compute_subnetwork" "subnet" {
+  name          = "app-subnet"
+  ip_cidr_range = "10.0.0.0/24"
+  region        = "us-central1"
+  network       = google_compute_network.vpc.id
+}
+
+resource "google_compute_instance" "vm" {
+  name         = "app-vm"
+  machine_type = "e2-medium"
+  zone         = "us-central1-a"
+  boot_disk {
+    initialize_params { image = "debian-cloud/debian-12" }
+  }
+  network_interface {
+    subnetwork = google_compute_subnetwork.subnet.id
+  }
+}</div>
+        </div>
+        <div class="note note-purple" style="margin-top:6px; background:var(--purple-soft); border-left:3px solid var(--purple);">Terraform state should live in a GCS backend bucket with versioning enabled — never commit local .tfstate to source control.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 7F: Scenario Q&A with Answers (expanded) -->
+  <div class="grid" style="grid-template-columns:1fr; margin-bottom:12px;">
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-blue">&#128172;</div>
+        <h2>Scenario Q&amp;A — Interview Style</h2>
+        <span class="sub">Answer in one clear sentence, then justify — 24 scenarios</span>
+      </div>
+      <div class="card-body">
+        <div class="three-col">
+          <!-- Compute & Architecture -->
+          <div>
+            <div class="section-label">Compute &amp; Architecture Choice</div>
+            <div class="svc-block">
+              <div class="svc-title">Q: You need to run untrusted third-party containers with zero server management.</div>
+              <div class="svc-row"><span class="sk">A</span><span class="sv">Cloud Run — scale-to-zero, fully managed, isolated per-request execution.</span></div>
+            </div>
+            <div class="svc-block">
+              <div class="svc-title">Q: A legacy app requires kernel-level access and specific OS patches. Where does it run?</div>
+              <div class="svc-row"><span class="sk">A</span><span class="sv">Compute Engine — the only compute option giving you full OS control.</span></div>
+            </div>
+            <div class="svc-block">
+              <div class="svc-title">Q: You must run a nightly batch job that takes 3 hours and can tolerate interruption.</div>
+              <div class="svc-row"><span class="sk">A</span><span class="sv">Cloud Run Jobs or Batch on Spot VMs — run-to-completion, cheap, restart on preemption.</span></div>
+            </div>
+            <div class="svc-block">
+              <div class="svc-title">Q: An app has 100s of microservices needing service discovery, retries, and mTLS.</div>
+              <div class="svc-row"><span class="sk">A</span><span class="sv">GKE + Anthos Service Mesh — mesh features aren't native to Cloud Run/Functions.</span></div>
+            </div>
+            <div class="svc-block">
+              <div class="svc-title">Q: Why would GKE Autopilot be rejected for a specific workload?</div>
+              <div class="svc-row"><span class="sk">A</span><span class="sv">It restricts privileged containers, hostPath volumes, and DaemonSets — workloads needing those must use Standard mode.</span></div>
+            </div>
+            <div class="svc-block">
+              <div class="svc-title">Q: How does Compute Engine live migration affect a scheduled maintenance event?</div>
+              <div class="svc-row"><span class="sk">A</span><span class="sv">The VM is transparently moved to another host with no reboot — unlike AWS/Azure, which typically require a stop/start.</span></div>
+            </div>
+            <div class="svc-block">
+              <div class="svc-title">Q: A workload needs a GPU for short ML training bursts, cost is the top priority.</div>
+              <div class="svc-row"><span class="sk">A</span><span class="sv">A2/G2 Spot VM — up to 91% off, acceptable since training checkpoints can resume after preemption.</span></div>
+            </div>
+            <div class="svc-block">
+              <div class="svc-title">Q: What differentiates App Engine Standard from Flexible?</div>
+              <div class="svc-row"><span class="sk">A</span><span class="sv">Standard = sandboxed runtimes, scales to zero in seconds; Flexible = Docker on VMs, slower scaling, more customization.</span></div>
+            </div>
+          </div>
+          <!-- Data & Storage -->
+          <div>
+            <div class="section-label">Data, Storage &amp; Analytics</div>
+            <div class="svc-block">
+              <div class="svc-title">Q: A team needs a globally consistent SQL database for a financial ledger.</div>
+              <div class="svc-row"><span class="sk">A</span><span class="sv">Cloud Spanner — the only GCP DB offering horizontal scale + external (strong) consistency across regions.</span></div>
+            </div>
+            <div class="svc-block">
+              <div class="svc-title">Q: How do you prevent an analyst from seeing a salary column but let them query the rest of the table?</div>
+              <div class="svc-row"><span class="sk">A</span><span class="sv">Apply a column-level security policy tag via Data Catalog, or expose an authorized view that excludes the column.</span></div>
+            </div>
+            <div class="svc-block">
+              <div class="svc-title">Q: A BigQuery table is scanned in full on every query and costs are spiking. What's the fix?</div>
+              <div class="svc-row"><span class="sk">A</span><span class="sv">Add date partitioning and cluster on the most-filtered column — this prunes bytes scanned before billing.</span></div>
+            </div>
+            <div class="svc-block">
+              <div class="svc-title">Q: You need sub-10ms reads on billions of IoT time-series rows.</div>
+              <div class="svc-row"><span class="sk">A</span><span class="sv">Cloud Bigtable — wide-column store built for exactly this throughput/latency profile.</span></div>
+            </div>
+            <div class="svc-block">
+              <div class="svc-title">Q: Mobile app needs offline-first data with automatic real-time sync when reconnected.</div>
+              <div class="svc-row"><span class="sk">A</span><span class="sv">Firestore — native offline persistence and live listeners in the client SDKs.</span></div>
+            </div>
+            <div class="svc-block">
+              <div class="svc-title">Q: You must analyze data sitting in an S3 bucket without copying it into GCP first.</div>
+              <div class="svc-row"><span class="sk">A</span><span class="sv">BigQuery Omni — runs BigQuery compute against data in place on AWS/Azure.</span></div>
+            </div>
+            <div class="svc-block">
+              <div class="svc-title">Q: A 2TB nightly file must be archived and almost never read again — cheapest option?</div>
+              <div class="svc-row"><span class="sk">A</span><span class="sv">Cloud Storage Archive class — cheapest storage cost, accept the higher retrieval cost/latency and 365-day min.</span></div>
+            </div>
+            <div class="svc-block">
+              <div class="svc-title">Q: You need one unified pipeline that handles both historical batch and live streaming data.</div>
+              <div class="svc-row"><span class="sk">A</span><span class="sv">Dataflow (Apache Beam) — same pipeline code runs in batch or streaming mode.</span></div>
+            </div>
+          </div>
+          <!-- Networking & Security -->
+          <div>
+            <div class="section-label">Networking &amp; Security</div>
+            <div class="svc-block">
+              <div class="svc-title">Q: How do you let a Compute Engine VM with no public IP call the Cloud Storage API?</div>
+              <div class="svc-row"><span class="sk">A</span><span class="sv">Enable Private Google Access on its subnet — traffic to Google APIs stays on Google's network.</span></div>
+            </div>
+            <div class="svc-block">
+              <div class="svc-title">Q: Your GKE cluster needs pods to access GCS without service account key files.</div>
+              <div class="svc-row"><span class="sk">A</span><span class="sv">Enable Workload Identity — bind the Kubernetes service account to a Google service account.</span></div>
+            </div>
+            <div class="svc-block">
+              <div class="svc-title">Q: Two VPCs in different projects need full bidirectional connectivity.</div>
+              <div class="svc-row"><span class="sk">A</span><span class="sv">VPC Peering (non-transitive) — or Network Connectivity Center if more than 2 VPCs need hub-spoke reachability.</span></div>
+            </div>
+            <div class="svc-block">
+              <div class="svc-title">Q: A public web app is getting hit by a Layer 7 DDoS/SQLi attack. What do you add?</div>
+              <div class="svc-row"><span class="sk">A</span><span class="sv">Cloud Armor in front of the Global External HTTP(S) Load Balancer — WAF rules + edge DDoS mitigation.</span></div>
+            </div>
+            <div class="svc-block">
+              <div class="svc-title">Q: Private VMs need outbound internet for OS updates but must never accept inbound connections.</div>
+              <div class="svc-row"><span class="sk">A</span><span class="sv">Cloud NAT — outbound-only managed NAT gateway, no inbound path exists by design.</span></div>
+            </div>
+            <div class="svc-block">
+              <div class="svc-title">Q: You must connect on-prem to GCP with guaranteed low latency and no public internet hop.</div>
+              <div class="svc-row"><span class="sk">A</span><span class="sv">Dedicated Interconnect — private circuit directly into Google's network, not IPsec over the internet like VPN.</span></div>
+            </div>
+            <div class="svc-block">
+              <div class="svc-title">Q: A contractor needs temporary access to one project only, revoked automatically after 30 days.</div>
+              <div class="svc-row"><span class="sk">A</span><span class="sv">IAM Conditions on the role binding — set a time-based expression so access self-expires.</span></div>
+            </div>
+            <div class="svc-block">
+              <div class="svc-title">Q: How do you stop any engineer from ever creating a service account key across the whole org?</div>
+              <div class="svc-row"><span class="sk">A</span><span class="sv">Set the Org Policy constraint iam.disableServiceAccountKeyCreation at the organization node — inherits to every project.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 8: Exam / Interview Quick Recall -->
+  <div class="grid" style="grid-template-columns:1fr; margin-bottom:12px;">
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-blue">&#127919;</div>
+        <h2>Exam &amp; Interview Quick Recall</h2>
+        <span class="sub">Decision triggers + common traps</span>
+      </div>
+      <div class="card-body">
+        <div class="three-col">
+          <div>
+            <div class="section-label">Always Choose These For…</div>
+            <div class="row"><span class="key">Global object storage</span><span class="val">&#8594; Cloud Storage</span></div>
+            <div class="row"><span class="key">SQL DB, global scale</span><span class="val">&#8594; Cloud Spanner</span></div>
+            <div class="row"><span class="key">Petabyte analytics, SQL</span><span class="val">&#8594; BigQuery</span></div>
+            <div class="row"><span class="key">Scale-to-zero containers</span><span class="val">&#8594; Cloud Run</span></div>
+            <div class="row"><span class="key">Managed K8s</span><span class="val">&#8594; GKE</span></div>
+            <div class="row"><span class="key">Private dedicated link</span><span class="val">&#8594; Cloud Interconnect</span></div>
+            <div class="row"><span class="key">WAF/DDoS at edge</span><span class="val">&#8594; Cloud Armor</span></div>
+            <div class="row"><span class="key">Outbound-only internet</span><span class="val">&#8594; Cloud NAT</span></div>
+            <div class="row"><span class="key">Real-time mobile sync</span><span class="val">&#8594; Firestore</span></div>
+            <div class="row"><span class="key">Batch+stream pipeline</span><span class="val">&#8594; Dataflow</span></div>
+            <div class="row"><span class="key">Secrets/API keys</span><span class="val">&#8594; Secret Manager</span></div>
+          </div>
+          <div>
+            <div class="section-label">Common Traps to Avoid</div>
+            <div class="svc-row"><span class="sk">&#9888;</span><span class="sv">GCP VPC is GLOBAL — subnets are regional, not zonal.</span></div>
+            <div class="svc-row"><span class="sk">&#9888;</span><span class="sv">Sustained-use discount is automatic; committed-use requires a contract.</span></div>
+            <div class="svc-row"><span class="sk">&#9888;</span><span class="sv">Firewall rules apply at VPC/network level, not subnet level.</span></div>
+            <div class="svc-row"><span class="sk">&#9888;</span><span class="sv">Cloud Armor only protects the Global External HTTP(S) LB.</span></div>
+            <div class="svc-row"><span class="sk">&#9888;</span><span class="sv">Spot/Preemptible VMs can be reclaimed anytime — never for stateful critical workloads.</span></div>
+            <div class="svc-row"><span class="sk">&#9888;</span><span class="sv">IAM policy inherits down the hierarchy — cannot be revoked at a lower level, only added.</span></div>
+            <div class="svc-row"><span class="sk">&#9888;</span><span class="sv">Storage class ≠ location type — pick storage class AND location independently.</span></div>
+            <div class="svc-row"><span class="sk">&#9888;</span><span class="sv">Project ID is immutable once created; Project Name is not.</span></div>
+          </div>
+          <div>
+            <div class="section-label">Frequently Asked Interview Qs</div>
+            <div class="svc-row"><span class="sk">Q</span><span class="sv">Difference between GKE Standard and Autopilot?</span></div>
+            <div class="svc-row"><span class="sk">Q</span><span class="sv">How does GCP's global VPC differ from AWS regional VPC?</span></div>
+            <div class="svc-row"><span class="sk">Q</span><span class="sv">When would you use BigQuery vs Cloud Spanner?</span></div>
+            <div class="svc-row"><span class="sk">Q</span><span class="sv">Explain IAM policy inheritance in the resource hierarchy.</span></div>
+            <div class="svc-row"><span class="sk">Q</span><span class="sv">How do sustained-use discounts work vs committed-use?</span></div>
+            <div class="svc-row"><span class="sk">Q</span><span class="sv">What's the difference between Cloud Run and Cloud Functions?</span></div>
+            <div class="svc-row"><span class="sk">Q</span><span class="sv">How does live migration work for Compute Engine VMs?</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER NOTE -->
+  <div class="tip-bar" style="margin-bottom:0;">
+    <div>
+      <div class="tip-label">Study Focus</div>
+      <div class="tip"><b>Deploying &amp; Implementing (24%) + Configuring Access &amp; Security (24%):</b> heaviest weight — know Compute/GKE/Cloud Run deployment options and IAM roles cold.</div>
+    </div>
+    <div>
+      <div class="tip-label">Interview Edge</div>
+      <div class="tip"><b>Be ready to translate</b> between GCP, AWS, and Azure service names — most interviewers test cross-cloud fluency, not just GCP trivia.</div>
+    </div>
+    <div>
+      <div class="tip-label">Hands-On</div>
+      <div class="tip"><b>Use the $300 free trial credit</b> to actually build a VPC, deploy a Cloud Run service, and query BigQuery public datasets before the exam/interview.</div>
+    </div>
+    <div>
+      <div class="tip-label">Passing Score</div>
+      <div class="tip"><b>ACE ~70%</b> (Google doesn't publish exact score). Scenario-based questions dominate — read for the "best" answer, not just a correct one.</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

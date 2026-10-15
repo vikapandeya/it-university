@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Docker + Kubernetes + Terraform — Full DevOps Cheat Sheet</title>
+<meta name="description" content="Comprehensive Docker, Kubernetes, and Terraform cheat sheet — CLI commands, Dockerfile, docker-compose, kubectl, K8s objects/YAML, HCL syntax, state management, and workflow commands, in one printable reference.">
+<style>
+:root {
+  --bg:#F5F6F7; --surface:#FFFFFF; --border:#E2E4E8;
+  --navy:#0F1C2E; --navy2:#1A2E45;
+  --docker:#0DB7ED; --docker-soft:#E6F8FE;
+  --k8s:#326CE5; --k8s-soft:#EAF0FE;
+  --tf:#6B21A8; --tf-soft:#F5F0FF;
+  --green:#1B7A4A; --green-soft:#E8F7EF;
+  --red:#B91C1C; --red-soft:#FEF2F2;
+  --orange:#EA580C; --orange-soft:#FFF7ED;
+  --text:#1C2333; --text2:#4A5568; --text3:#718096;
+  --mono:'Consolas','Courier New',monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+}
+body{font-family:var(--sans);font-size:11px;background:var(--bg);color:var(--text);line-height:1.5;margin:0}
+.page{max-width:1280px;margin:0 auto;padding:20px 16px}
+.header{background:var(--navy);border-radius:10px;padding:20px 24px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.header-left h1{font-size:22px;font-weight:800;color:#fff}.header-left h1 span{color:#60C8F5}
+.header-left p{font-size:11px;color:#94A3B8;margin-top:3px}
+.header-badges{display:flex;gap:8px;flex-wrap:wrap}
+.badge{font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:.5px;text-transform:uppercase}
+.badge-docker{background:var(--docker);color:#fff}.badge-k8s{background:var(--k8s);color:#fff}.badge-tf{background:var(--tf);color:#fff}.badge-green{background:#22C55E;color:#fff}
+.section-divider{display:flex;align-items:center;gap:10px;margin:22px 0 10px}
+.section-divider h2{font-size:16px;font-weight:800;color:var(--navy);white-space:nowrap}
+.section-divider .line{height:1px;background:var(--border);flex:1}
+.section-divider .dot{width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px}
+.grid-2{grid-template-columns:repeat(2,1fr)}.grid-4{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--surface);border-radius:8px;border:1px solid var(--border);overflow:hidden}
+.card-header{padding:8px 12px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border)}
+.card-header .icon{width:24px;height:24px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.card-header h2{font-size:11.5px;font-weight:800;color:var(--navy)}
+.card-header .sub{font-size:9px;color:var(--text3);margin-left:auto}
+.card-body{padding:10px 12px}
+.section-label{font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--text3);margin-bottom:5px;margin-top:9px}
+.section-label:first-child{margin-top:0}
+.row{display:flex;justify-content:space-between;align-items:baseline;padding:2px 0;border-bottom:1px solid #F1F3F5;gap:8px}
+.row:last-child{border-bottom:none}
+.row .key{font-family:var(--mono);font-size:10px;font-weight:600;color:var(--navy);white-space:nowrap;flex-shrink:0}
+.row .val{font-size:10px;color:var(--text2);text-align:right}
+.tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px}
+.tag{font-size:9.5px;padding:2px 7px;border-radius:4px;font-weight:600;font-family:var(--mono)}
+.tag-docker{background:var(--docker-soft);color:#0A6E92}.tag-k8s{background:var(--k8s-soft);color:#1D4ED8}
+.tag-tf{background:var(--tf-soft);color:#6B21A8}.tag-green{background:var(--green-soft);color:#166534}.tag-orange{background:var(--orange-soft);color:#9A3412}
+.tip-bar{background:var(--navy2);border-radius:8px;padding:10px 16px;margin-bottom:16px;display:flex;gap:24px;flex-wrap:wrap}
+.tip-label{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#60C8F5}
+.tip{font-size:10.5px;color:#CBD5E1}.tip b{color:#fff}
+.note{font-size:10px;color:var(--text2);padding:6px 8px;border-radius:4px;margin-top:4px}
+.note-docker{background:var(--docker-soft);border-left:3px solid var(--docker)}
+.note-k8s{background:var(--k8s-soft);border-left:3px solid var(--k8s)}
+.note-tf{background:var(--tf-soft);border-left:3px solid var(--tf)}
+.note-green{background:var(--green-soft);border-left:3px solid var(--green)}
+.cmd{font-family:var(--mono);font-size:10px;background:#F1F3F5;padding:3px 7px;border-radius:4px;color:var(--navy);display:block;margin:2px 0;white-space:pre-wrap;word-break:break-word}
+.yaml{font-family:var(--mono);font-size:9.5px;background:#0F1C2E;color:#CBD5E1;padding:8px 10px;border-radius:6px;margin-top:4px;white-space:pre;overflow-x:auto;line-height:1.5}
+.yaml .k{color:#60C8F5}.yaml .s{color:#7DD3A0}.yaml .c{color:#718096}
+@media print{body{background:#fff}.page{padding:0}.card{break-inside:avoid}}
+@media (max-width:900px){.grid,.grid-2,.grid-4{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <h1>Docker + Kubernetes <span>+ Terraform</span></h1>
+      <p>Full DevOps Cheat Sheet — Containers, Orchestration &amp; Infrastructure as Code</p>
+    </div>
+    <div class="header-badges">
+      <span class="badge badge-docker">Docker</span>
+      <span class="badge badge-k8s">Kubernetes</span>
+      <span class="badge badge-tf">Terraform</span>
+      <span class="badge badge-green">Print-Ready</span>
+    </div>
+  </div>
+
+  <!-- TIP BAR -->
+  <div class="tip-bar">
+    <div><div class="tip-label">Docker</div><div class="tip">Images are <b>immutable layers</b> — containers are running instances of images</div></div>
+    <div><div class="tip-label">Kubernetes</div><div class="tip">Everything is a <b>declarative object</b> stored in etcd and reconciled by controllers</div></div>
+    <div><div class="tip-label">Terraform</div><div class="tip"><b>State file</b> maps your HCL config to real infrastructure — protect it</div></div>
+    <div><div class="tip-label">Workflow</div><div class="tip">Build image → push to registry → deploy via K8s manifest → provision infra with Terraform</div></div>
+  </div>
+
+  <!-- ================= DOCKER ================= -->
+  <div class="section-divider">
+    <div class="dot" style="background:var(--docker-soft)">🐳</div>
+    <h2>Docker</h2>
+    <div class="line"></div>
+  </div>
+
+  <div class="grid">
+
+    <!-- Image Commands -->
+    <div class="card">
+      <div class="card-header"><div class="icon" style="background:var(--docker-soft)">📦</div><h2>Image Commands</h2><span class="sub">Build · Pull · Push</span></div>
+      <div class="card-body">
+        <div class="section-label">Build &amp; Inspect</div>
+        <code class="cmd">docker build -t app:1.0 .</code>
+        <code class="cmd">docker build -f Dockerfile.prod -t app:prod .</code>
+        <code class="cmd">docker build --no-cache -t app:1.0 .</code>
+        <code class="cmd">docker images</code>
+        <code class="cmd">docker inspect app:1.0</code>
+        <code class="cmd">docker history app:1.0</code>
+
+        <div class="section-label">Registry</div>
+        <code class="cmd">docker pull nginx:alpine</code>
+        <code class="cmd">docker tag app:1.0 myrepo/app:1.0</code>
+        <code class="cmd">docker push myrepo/app:1.0</code>
+        <code class="cmd">docker login registry.example.com</code>
+
+        <div class="section-label">Cleanup</div>
+        <code class="cmd">docker rmi app:1.0</code>
+        <code class="cmd">docker image prune -a</code>
+        <div class="row"><span class="key">docker system prune -a</span><span class="val">Remove all unused data</span></div>
+      </div>
+    </div>
+
+    <!-- Container Commands -->
+    <div class="card">
+      <div class="card-header"><div class="icon" style="background:var(--docker-soft)">▶️</div><h2>Container Commands</h2><span class="sub">Run · Exec · Logs</span></div>
+      <div class="card-body">
+        <div class="section-label">Run</div>
+        <code class="cmd">docker run -d --name web -p 8080:80 nginx</code>
+        <code class="cmd">docker run -it ubuntu bash</code>
+        <code class="cmd">docker run --rm -v $(pwd):/app -w /app node:20 npm test</code>
+        <code class="cmd">docker run -e ENV=prod --env-file .env app:1.0</code>
+        <code class="cmd">docker run --restart=always --memory=512m --cpus=1 app:1.0</code>
+
+        <div class="section-label">Manage</div>
+        <code class="cmd">docker ps -a</code>
+        <code class="cmd">docker start / stop / restart web</code>
+        <code class="cmd">docker rm -f web</code>
+        <code class="cmd">docker exec -it web sh</code>
+        <code class="cmd">docker logs -f --tail 100 web</code>
+        <code class="cmd">docker cp web:/app/log.txt ./log.txt</code>
+        <code class="cmd">docker stats</code>
+        <code class="cmd">docker top web</code>
+      </div>
+    </div>
+
+    <!-- Dockerfile Instructions -->
+    <div class="card">
+      <div class="card-header"><div class="icon" style="background:var(--docker-soft)">📝</div><h2>Dockerfile Instructions</h2><span class="sub">Layers · Build Context</span></div>
+      <div class="card-body">
+        <div class="row"><span class="key">FROM</span><span class="val">Base image (alpine, ubuntu, scratch)</span></div>
+        <div class="row"><span class="key">WORKDIR</span><span class="val">Set working directory for next instrs</span></div>
+        <div class="row"><span class="key">COPY / ADD</span><span class="val">Copy files; ADD also unpacks tar/URLs</span></div>
+        <div class="row"><span class="key">RUN</span><span class="val">Executes at build time, creates a layer</span></div>
+        <div class="row"><span class="key">CMD</span><span class="val">Default runtime command (overridable)</span></div>
+        <div class="row"><span class="key">ENTRYPOINT</span><span class="val">Fixed executable, CMD becomes its args</span></div>
+        <div class="row"><span class="key">ENV / ARG</span><span class="val">ENV persists in image; ARG build-time only</span></div>
+        <div class="row"><span class="key">EXPOSE</span><span class="val">Documents port (doesn't publish it)</span></div>
+        <div class="row"><span class="key">VOLUME</span><span class="val">Declares mount point for data</span></div>
+        <div class="row"><span class="key">USER</span><span class="val">Run as non-root user (security)</span></div>
+        <div class="row"><span class="key">HEALTHCHECK</span><span class="val">Command to test container health</span></div>
+        <div class="row"><span class="key">.dockerignore</span><span class="val">Excludes files from build context</span></div>
+        <div class="note note-docker">Multi-stage builds: use multiple FROM stages, COPY --from=build to shrink final image size.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="grid grid-2">
+
+    <!-- Multi-stage Dockerfile example -->
+    <div class="card">
+      <div class="card-header"><div class="icon" style="background:var(--docker-soft)">🏗️</div><h2>Multi-Stage Dockerfile Example</h2><span class="sub">Build → Runtime</span></div>
+      <div class="card-body">
+        <code class="cmd">FROM node:20 AS build
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+FROM nginx:alpine
+COPY --from=build /app/dist /usr/share/nginx/html
+EXPOSE 80
+HEALTHCHECK CMD curl -f http://localhost/ || exit 1
+CMD ["nginx", "-g", "daemon off;"]</code>
+        <div class="note note-docker">Final image only contains nginx + built assets — not Node.js or source, keeping the image small and secure.</div>
+      </div>
+    </div>
+
+    <!-- Networking & Volumes -->
+    <div class="card">
+      <div class="card-header"><div class="icon" style="background:var(--docker-soft)">🌐</div><h2>Networking &amp; Volumes</h2><span class="sub">Bridge · Volumes · Bind Mounts</span></div>
+      <div class="card-body">
+        <div class="section-label">Networks</div>
+        <code class="cmd">docker network create mynet</code>
+        <code class="cmd">docker run --network=mynet --name db postgres</code>
+        <div class="row"><span class="key">bridge</span><span class="val">Default, isolated per-host network</span></div>
+        <div class="row"><span class="key">host</span><span class="val">Shares host's network namespace</span></div>
+        <div class="row"><span class="key">none</span><span class="val">No networking</span></div>
+        <div class="row"><span class="key">overlay</span><span class="val">Multi-host, used in Swarm</span></div>
+
+        <div class="section-label">Volumes vs Bind Mounts</div>
+        <code class="cmd">docker volume create appdata</code>
+        <code class="cmd">docker run -v appdata:/var/lib/data app</code>
+        <code class="cmd">docker run -v $(pwd)/src:/app/src app</code>
+        <div class="row"><span class="key">Volume</span><span class="val">Managed by Docker, best for persistence</span></div>
+        <div class="row"><span class="key">Bind mount</span><span class="val">Host path mapped directly, dev use</span></div>
+        <div class="row"><span class="key">tmpfs</span><span class="val">In-memory, non-persistent</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="grid">
+
+    <!-- Docker Compose -->
+    <div class="card">
+      <div class="card-header"><div class="icon" style="background:var(--docker-soft)">🧩</div><h2>Docker Compose</h2><span class="sub">CLI Commands</span></div>
+      <div class="card-body">
+        <code class="cmd">docker compose up -d</code>
+        <code class="cmd">docker compose up --build</code>
+        <code class="cmd">docker compose down -v</code>
+        <code class="cmd">docker compose ps</code>
+        <code class="cmd">docker compose logs -f web</code>
+        <code class="cmd">docker compose exec web sh</code>
+        <code class="cmd">docker compose restart web</code>
+        <code class="cmd">docker compose config</code>
+        <div class="note note-docker">docker-compose.override.yml is auto-merged with docker-compose.yml for local dev overrides.</div>
+      </div>
+    </div>
+
+    <!-- Compose file example -->
+    <div class="card">
+      <div class="card-header"><div class="icon" style="background:var(--docker-soft)">📄</div><h2>compose.yaml Example</h2><span class="sub">Services · Volumes · Networks</span></div>
+      <div class="card-body">
+        <code class="cmd">services:
+  web:
+    build: .
+    ports: ["8080:80"]
+    environment:
+      - ENV=prod
+    depends_on: [db]
+    restart: unless-stopped
+  db:
+    image: postgres:16
+    volumes: ["dbdata:/var/lib/postgresql/data"]
+    environment:
+      POSTGRES_PASSWORD: secret
+volumes:
+  dbdata:</code>
+      </div>
+    </div>
+
+    <!-- Best Practices & Security -->
+    <div class="card">
+      <div class="card-header"><div class="icon" style="background:var(--docker-soft)">🔒</div><h2>Best Practices &amp; Security</h2><span class="sub">Image Hygiene</span></div>
+      <div class="card-body">
+        <div class="row"><span class="key">Use slim/alpine base</span><span class="val">Smaller attack surface, faster pulls</span></div>
+        <div class="row"><span class="key">Non-root USER</span><span class="val">Avoid running as root in container</span></div>
+        <div class="row"><span class="key">Pin versions</span><span class="val">nginx:1.27-alpine, not nginx:latest</span></div>
+        <div class="row"><span class="key">.dockerignore</span><span class="val">Exclude .git, node_modules, secrets</span></div>
+        <div class="row"><span class="key">Multi-stage builds</span><span class="val">Keep build tools out of final image</span></div>
+        <div class="row"><span class="key">No secrets in image</span><span class="val">Use build secrets / env at runtime</span></div>
+        <div class="row"><span class="key">docker scan / trivy</span><span class="val">Scan images for CVEs</span></div>
+        <div class="row"><span class="key">Layer order</span><span class="val">Least-changing layers first for cache</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ================= KUBERNETES ================= -->
+  <div class="section-divider">
+    <div class="dot" style="background:var(--k8s-soft)">⎈</div>
+    <h2>Kubernetes</h2>
+    <div class="line"></div>
+  </div>
+
+  <div class="grid">
+
+    <!-- Architecture -->
+    <div class="card">
+      <div class="card-header"><div class="icon" style="background:var(--k8s-soft)">🏛️</div><h2>Cluster Architecture</h2><span class="sub">Control Plane · Nodes</span></div>
+      <div class="card-body">
+        <div class="section-label">Control Plane</div>
+        <div class="row"><span class="key">kube-apiserver</span><span class="val">Front door — all requests go through it</span></div>
+        <div class="row"><span class="key">etcd</span><span class="val">Key-value store — cluster's source of truth</span></div>
+        <div class="row"><span class="key">kube-scheduler</span><span class="val">Assigns pods to nodes</span></div>
+        <div class="row"><span class="key">controller-manager</span><span class="val">Runs reconciliation loops (deployment, node, etc.)</span></div>
+        <div class="row"><span class="key">cloud-controller-manager</span><span class="val">Cloud-specific integrations (LB, volumes)</span></div>
+
+        <div class="section-label">Node Components</div>
+        <div class="row"><span class="key">kubelet</span><span class="val">Agent ensuring containers run in a Pod</span></div>
+        <div class="row"><span class="key">kube-proxy</span><span class="val">Maintains network rules for Services</span></div>
+        <div class="row"><span class="key">Container runtime</span><span class="val">containerd / CRI-O runs containers</span></div>
+
+        <div class="note note-k8s">Desired state (in etcd) is continuously reconciled with actual state by controllers — this is the core control loop pattern.</div>
+      </div>
+    </div>
+
+    <!-- kubectl basics -->
+    <div class="card">
+      <div class="card-header"><div class="icon" style="background:var(--k8s-soft)">⌨️</div><h2>kubectl Basics</h2><span class="sub">Get · Describe · Logs</span></div>
+      <div class="card-body">
+        <div class="section-label">Inspect</div>
+        <code class="cmd">kubectl get pods -o wide</code>
+        <code class="cmd">kubectl get all -n mynamespace</code>
+        <code class="cmd">kubectl describe pod web-0</code>
+        <code class="cmd">kubectl logs -f web-0 -c app</code>
+        <code class="cmd">kubectl top pods / nodes</code>
+        <code class="cmd">kubectl explain pod.spec.containers</code>
+
+        <div class="section-label">Exec &amp; Debug</div>
+        <code class="cmd">kubectl exec -it web-0 -- sh</code>
+        <code class="cmd">kubectl port-forward svc/web 8080:80</code>
+        <code class="cmd">kubectl cp web-0:/app/log.txt ./log.txt</code>
+        <code class="cmd">kubectl debug web-0 -it --image=busybox</code>
+
+        <div class="section-label">Context &amp; Namespace</div>
+        <code class="cmd">kubectl config get-contexts</code>
+        <code class="cmd">kubectl config use-context prod</code>
+        <code class="cmd">kubectl config set-context --current --namespace=dev</code>
+      </div>
+    </div>
+
+    <!-- Apply / manage resources -->
+    <div class="card">
+      <div class="card-header"><div class="icon" style="background:var(--k8s-soft)">🔧</div><h2>Manage Resources</h2><span class="sub">Apply · Scale · Rollout</span></div>
+      <div class="card-body">
+        <div class="section-label">Create / Update</div>
+        <code class="cmd">kubectl apply -f deployment.yaml</code>
+        <code class="cmd">kubectl apply -f ./manifests/ --recursive</code>
+        <code class="cmd">kubectl create deployment web --image=nginx</code>
+        <code class="cmd">kubectl delete -f deployment.yaml</code>
+        <code class="cmd">kubectl diff -f deployment.yaml</code>
+
+        <div class="section-label">Scale &amp; Rollout</div>
+        <code class="cmd">kubectl scale deployment web --replicas=5</code>
+        <code class="cmd">kubectl rollout status deployment/web</code>
+        <code class="cmd">kubectl rollout undo deployment/web</code>
+        <code class="cmd">kubectl rollout history deployment/web</code>
+        <code class="cmd">kubectl set image deployment/web app=web:2.0</code>
+
+        <div class="section-label">Labels &amp; Annotations</div>
+        <code class="cmd">kubectl label pod web-0 tier=frontend</code>
+        <code class="cmd">kubectl get pods -l tier=frontend</code>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="grid grid-2">
+
+    <!-- Core Objects -->
+    <div class="card">
+      <div class="card-header"><div class="icon" style="background:var(--k8s-soft)">📦</div><h2>Core Objects</h2><span class="sub">Workloads · Networking · Config</span></div>
+      <div class="card-body">
+        <div class="section-label">Workloads</div>
+        <div class="row"><span class="key">Pod</span><span class="val">Smallest deployable unit, one+ containers</span></div>
+        <div class="row"><span class="key">Deployment</span><span class="val">Manages ReplicaSets, rolling updates</span></div>
+        <div class="row"><span class="key">ReplicaSet</span><span class="val">Ensures N pod replicas running</span></div>
+        <div class="row"><span class="key">StatefulSet</span><span class="val">Stable identity/storage per pod (DBs)</span></div>
+        <div class="row"><span class="key">DaemonSet</span><span class="val">One pod per node (log/monitoring agents)</span></div>
+        <div class="row"><span class="key">Job / CronJob</span><span class="val">Run-to-completion / scheduled tasks</span></div>
+
+        <div class="section-label">Networking</div>
+        <div class="row"><span class="key">Service (ClusterIP)</span><span class="val">Stable internal virtual IP for pods</span></div>
+        <div class="row"><span class="key">Service (NodePort)</span><span class="val">Exposes on each node's IP at static port</span></div>
+        <div class="row"><span class="key">Service (LoadBalancer)</span><span class="val">Cloud LB routes to nodes</span></div>
+        <div class="row"><span class="key">Ingress</span><span class="val">HTTP(S) routing, host/path based, TLS</span></div>
+        <div class="row"><span class="key">NetworkPolicy</span><span class="val">Firewall rules between pods</span></div>
+
+        <div class="section-label">Config &amp; Storage</div>
+        <div class="row"><span class="key">ConfigMap</span><span class="val">Non-sensitive key-value config</span></div>
+        <div class="row"><span class="key">Secret</span><span class="val">Base64-encoded sensitive data</span></div>
+        <div class="row"><span class="key">PersistentVolume (PV)</span><span class="val">Cluster storage resource</span></div>
+        <div class="row"><span class="key">PersistentVolumeClaim (PVC)</span><span class="val">Pod's request for storage</span></div>
+        <div class="row"><span class="key">StorageClass</span><span class="val">Dynamic PV provisioning profile</span></div>
+      </div>
+    </div>
+
+    <!-- Deployment + Service YAML -->
+    <div class="card">
+      <div class="card-header"><div class="icon" style="background:var(--k8s-soft)">📄</div><h2>Deployment + Service YAML</h2><span class="sub">Minimal Working Example</span></div>
+      <div class="card-body">
+        <code class="cmd">apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+spec:
+  replicas: 3
+  selector:
+    matchLabels: { app: web }
+  template:
+    metadata:
+      labels: { app: web }
+    spec:
+      containers:
+      - name: app
+        image: myrepo/web:1.0
+        ports: [{ containerPort: 8080 }]
+        resources:
+          requests: { cpu: "100m", memory: "128Mi" }
+          limits: { cpu: "500m", memory: "256Mi" }
+        livenessProbe:
+          httpGet: { path: /healthz, port: 8080 }
+        env:
+        - name: ENV
+          valueFrom:
+            configMapKeyRef: { name: app-config, key: env }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+spec:
+  selector: { app: web }
+  ports: [{ port: 80, targetPort: 8080 }]
+  type: ClusterIP</code>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="grid">
+
+    <!-- Probes & Resource Mgmt -->
+    <div class="card">
+      <div class="card-header"><div class="icon" style="background:var(--k8s-soft)">❤️</div><h2>Probes &amp; Resources</h2><span class="sub">Health · Requests/Limits</span></div>
+      <div class="card-body">
+        <div class="section-label">Probes</div>
+        <div class="row"><span class="key">livenessProbe</span><span class="val">Restarts container if it fails</span></div>
+        <div class="row"><span class="key">readinessProbe</span><span class="val">Removes pod from Service if it fails</span></div>
+        <div class="row"><span class="key">startupProbe</span><span class="val">Delays other probes for slow-starting apps</span></div>
+        <div class="row"><span class="key">Types</span><span class="val">httpGet, tcpSocket, exec</span></div>
+
+        <div class="section-label">Resources</div>
+        <div class="row"><span class="key">requests</span><span class="val">Guaranteed — used for scheduling</span></div>
+        <div class="row"><span class="key">limits</span><span class="val">Max allowed — CPU throttled, memory OOMKilled</span></div>
+        <div class="row"><span class="key">QoS: Guaranteed</span><span class="val">requests == limits for all resources</span></div>
+        <div class="row"><span class="key">QoS: Burstable</span><span class="val">requests &lt; limits</span></div>
+        <div class="row"><span class="key">QoS: BestEffort</span><span class="val">no requests/limits set</span></div>
+      </div>
+    </div>
+
+    <!-- Autoscaling & Scheduling -->
+    <div class="card">
+      <div class="card-header"><div class="icon" style="background:var(--k8s-soft)">📈</div><h2>Autoscaling &amp; Scheduling</h2><span class="sub">HPA · Affinity · Taints</span></div>
+      <div class="card-body">
+        <code class="cmd">kubectl autoscale deployment web --min=2 --max=10 --cpu-percent=70</code>
+        <div class="row"><span class="key">HPA</span><span class="val">Scales replicas on CPU/mem/custom metrics</span></div>
+        <div class="row"><span class="key">VPA</span><span class="val">Adjusts pod requests/limits automatically</span></div>
+        <div class="row"><span class="key">Cluster Autoscaler</span><span class="val">Adds/removes nodes based on demand</span></div>
+
+        <div class="section-label">Scheduling Controls</div>
+        <div class="row"><span class="key">nodeSelector</span><span class="val">Simple key-value node match</span></div>
+        <div class="row"><span class="key">nodeAffinity</span><span class="val">Expressive node matching rules</span></div>
+        <div class="row"><span class="key">podAffinity/AntiAffinity</span><span class="val">Co-locate or spread pods</span></div>
+        <div class="row"><span class="key">taints + tolerations</span><span class="val">Repel pods unless tolerated</span></div>
+      </div>
+    </div>
+
+    <!-- Secrets/ConfigMap + RBAC -->
+    <div class="card">
+      <div class="card-header"><div class="icon" style="background:var(--k8s-soft)">🔐</div><h2>Secrets, Config &amp; RBAC</h2><span class="sub">Auth · Access Control</span></div>
+      <div class="card-body">
+        <code class="cmd">kubectl create secret generic db-pass --from-literal=password=s3cr3t</code>
+        <code class="cmd">kubectl create configmap app-config --from-file=config.yaml</code>
+        <div class="row"><span class="key">Secret in env</span><span class="val">secretKeyRef in env.valueFrom</span></div>
+        <div class="row"><span class="key">Secret as volume</span><span class="val">Mounted as files in container</span></div>
+
+        <div class="section-label">RBAC</div>
+        <div class="row"><span class="key">Role / ClusterRole</span><span class="val">Defines permissions (verbs on resources)</span></div>
+        <div class="row"><span class="key">RoleBinding</span><span class="val">Binds Role to user/group in a namespace</span></div>
+        <div class="row"><span class="key">ClusterRoleBinding</span><span class="val">Cluster-wide binding</span></div>
+        <div class="row"><span class="key">ServiceAccount</span><span class="val">Identity for pods to call the API</span></div>
+        <div class="note note-k8s">Secrets are only base64-encoded, NOT encrypted by default — enable encryption at rest for etcd in production.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ================= TERRAFORM ================= -->
+  <div class="section-divider">
+    <div class="dot" style="background:var(--tf-soft)">🏗️</div>
+    <h2>Terraform</h2>
+    <div class="line"></div>
+  </div>
+
+  <div class="grid">
+
+    <!-- HCL Blocks -->
+    <div class="card">
+      <div class="card-header"><div class="icon" style="background:var(--tf-soft)">📝</div><h2>HCL Core Blocks</h2><span class="sub">Syntax Reference</span></div>
+      <div class="card-body">
+        <code class="cmd">terraform {
+  required_version = ">= 1.5"
+  required_providers {
+    aws = { source = "hashicorp/aws", version = "~> 5.0" }
+  }
+  backend "s3" {
+    bucket = "tf-state", key = "prod/terraform.tfstate"
+    region = "us-east-1", dynamodb_table = "tf-lock"
+  }
+}
+provider "aws" { region = "us-east-1" }
+
+resource "aws_instance" "web" {
+  ami           = var.ami_id
+  instance_type = "t3.micro"
+}
+variable "ami_id" { type = string }
+output  "ip"     { value = aws_instance.web.public_ip }
+locals  { name_prefix = "prod-app" }</code>
+        <div class="note note-tf">Reference: resource → type.name.attr | var → var.name | local → local.name | module → module.name.output</div>
+      </div>
+    </div>
+
+    <!-- Core Workflow -->
+    <div class="card">
+      <div class="card-header"><div class="icon" style="background:var(--tf-soft)">▶️</div><h2>Core Workflow</h2><span class="sub">init · plan · apply · destroy</span></div>
+      <div class="card-body">
+        <code class="cmd">terraform init</code>
+        <code class="cmd">terraform init -upgrade -reconfigure</code>
+        <code class="cmd">terraform validate</code>
+        <code class="cmd">terraform fmt -recursive</code>
+        <code class="cmd">terraform plan -var-file=prod.tfvars -out=plan.tfplan</code>
+        <code class="cmd">terraform apply plan.tfplan</code>
+        <code class="cmd">terraform apply -auto-approve -target=aws_instance.web</code>
+        <code class="cmd">terraform destroy -target=aws_instance.web</code>
+        <code class="cmd">terraform apply -replace=aws_instance.web</code>
+        <code class="cmd">terraform output / terraform show / terraform graph</code>
+      </div>
+    </div>
+
+    <!-- State & Modules -->
+    <div class="card">
+      <div class="card-header"><div class="icon" style="background:var(--tf-soft)">💾</div><h2>State &amp; Modules</h2><span class="sub">Backends · State CLI</span></div>
+      <div class="card-body">
+        <div class="section-label">State Commands</div>
+        <code class="cmd">terraform state list</code>
+        <code class="cmd">terraform state show aws_instance.web</code>
+        <code class="cmd">terraform state mv aws_instance.old aws_instance.new</code>
+        <code class="cmd">terraform state rm aws_instance.web</code>
+        <code class="cmd">terraform import aws_instance.web i-0abc123</code>
+
+        <div class="section-label">Modules</div>
+        <code class="cmd">module "vpc" {
+  source  = "terraform-aws-modules/vpc/aws"
+  version = "~> 5.0"
+  cidr    = "10.0.0.0/16"
+}</code>
+        <div class="row"><span class="key">Sources</span><span class="val">local path · registry · git · s3 · http</span></div>
+        <div class="row"><span class="key">Output ref</span><span class="val">module.vpc.vpc_id</span></div>
+
+        <div class="section-label">Workspaces</div>
+        <code class="cmd">terraform workspace new staging</code>
+        <code class="cmd">terraform workspace select prod</code>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="grid grid-2">
+
+    <!-- Meta-args & Expressions -->
+    <div class="card">
+      <div class="card-header"><div class="icon" style="background:var(--tf-soft)">⚙️</div><h2>Meta-Arguments &amp; Expressions</h2><span class="sub">count · for_each · lifecycle</span></div>
+      <div class="card-body">
+        <div class="section-label">count / for_each</div>
+        <code class="cmd">count    = 3
+name     = "server-${count.index}"</code>
+        <code class="cmd">for_each = var.instance_map
+name     = each.key</code>
+        <div class="row"><span class="key">count address</span><span class="val">aws_instance.web[0].id</span></div>
+        <div class="row"><span class="key">for_each address</span><span class="val">aws_instance.web["name"].id</span></div>
+
+        <div class="section-label">lifecycle</div>
+        <code class="cmd">lifecycle {
+  create_before_destroy = true
+  prevent_destroy        = true
+  ignore_changes         = [tags]
+}</code>
+
+        <div class="section-label">Key Expressions</div>
+        <div class="row"><span class="key">Ternary</span><span class="val">cond ? true_val : false_val</span></div>
+        <div class="row"><span class="key">For expr</span><span class="val">[ for x in list : x.id if x.active ]</span></div>
+        <div class="row"><span class="key">Splat</span><span class="val">aws_instance.web[*].id</span></div>
+      </div>
+    </div>
+
+    <!-- Variables & Functions -->
+    <div class="card">
+      <div class="card-header"><div class="icon" style="background:var(--tf-soft)">🔤</div><h2>Variables &amp; Built-in Functions</h2><span class="sub">Types · Precedence</span></div>
+      <div class="card-body">
+        <div class="section-label">Variable Types</div>
+        <div class="tags">
+          <span class="tag tag-tf">string</span><span class="tag tag-tf">number</span><span class="tag tag-tf">bool</span>
+          <span class="tag tag-tf">list(type)</span><span class="tag tag-tf">set(type)</span><span class="tag tag-tf">map(type)</span>
+          <span class="tag tag-tf">object({})</span><span class="tag tag-tf">tuple([])</span>
+        </div>
+
+        <div class="section-label">Precedence (high → low)</div>
+        <div class="row"><span class="key">1. -var flag</span><span class="val">CLI override</span></div>
+        <div class="row"><span class="key">2. -var-file</span><span class="val">Explicit tfvars file</span></div>
+        <div class="row"><span class="key">3. *.auto.tfvars</span><span class="val">Auto-loaded alphabetically</span></div>
+        <div class="row"><span class="key">4. terraform.tfvars</span><span class="val">Auto-loaded</span></div>
+        <div class="row"><span class="key">5. TF_VAR_name</span><span class="val">Environment variable</span></div>
+        <div class="row"><span class="key">6. default</span><span class="val">In variable block</span></div>
+
+        <div class="section-label">Common Functions</div>
+        <div class="tags">
+          <span class="tag tag-green">join</span><span class="tag tag-green">merge</span><span class="tag tag-green">lookup</span>
+          <span class="tag tag-green">length</span><span class="tag tag-green">jsonencode</span><span class="tag tag-green">templatefile</span>
+          <span class="tag tag-green">flatten</span><span class="tag tag-green">try</span><span class="tag tag-green">coalesce</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Cross-tool workflow -->
+  <div class="grid grid-2">
+    <div class="card">
+      <div class="card-header"><div class="icon" style="background:var(--green-soft)">🔗</div><h2>Putting It Together</h2><span class="sub">CI/CD Flow</span></div>
+      <div class="card-body">
+        <div class="row"><span class="key">1. Terraform</span><span class="val">Provision VPC, EKS/GKE cluster, IAM, registries</span></div>
+        <div class="row"><span class="key">2. Docker</span><span class="val">Build image, tag, push to ECR/GCR/Docker Hub</span></div>
+        <div class="row"><span class="key">3. Kubernetes</span><span class="val">kubectl apply / Helm to deploy image to cluster</span></div>
+        <div class="row"><span class="key">4. Terraform (again)</span><span class="val">Manage cluster add-ons via kubernetes/helm providers</span></div>
+        <div class="note note-green">Terraform's kubernetes and helm providers let you manage K8s objects declaratively alongside your cloud infra in the same state.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="icon" style="background:var(--orange-soft)">⚡</div><h2>Common Gotchas</h2><span class="sub">Cross-Tool Pitfalls</span></div>
+      <div class="card-body">
+        <div class="row"><span class="key">Docker</span><span class="val">Forgetting EXPOSE ≠ publishing (-p) a port</span></div>
+        <div class="row"><span class="key">Docker</span><span class="val">:latest tag causes non-reproducible builds</span></div>
+        <div class="row"><span class="key">Kubernetes</span><span class="val">No resource limits → node pressure / OOMKills</span></div>
+        <div class="row"><span class="key">Kubernetes</span><span class="val">Secrets are base64, not encrypted, by default</span></div>
+        <div class="row"><span class="key">Terraform</span><span class="val">Never commit terraform.tfstate to Git</span></div>
+        <div class="row"><span class="key">Terraform</span><span class="val">for_each preferred over count for stable resource identity</span></div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end .page -->
+</body>
+</html>
