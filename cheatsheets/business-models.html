@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Business Models — B2B, B2C &amp; Beyond — Full Cheat Sheet</title>
+<meta name="description" content="Business models cheat sheet for IT professionals and founders — B2B, B2C, B2B2C, D2C, revenue models, unit economics (CAC/LTV/churn), go-to-market strategy, platform/network effects, and startup glossary for interview and product prep.">
+<style>
+:root {
+  --bg:#F5F6F7; --surface:#FFFFFF; --border:#E2E4E8;
+  --navy:#0F1C2E; --navy2:#1A2E45;
+  --blue:#2563EB; --blue-soft:#EAF1FE;
+  --red:#DC2626; --red-soft:#FDECEA;
+  --yellow:#D97706; --yellow-soft:#FEF3E0;
+  --green:#16A34A; --green-soft:#E6F4EA;
+  --purple:#7C3AED; --purple-soft:#F5F0FF;
+  --text:#1C2333; --text2:#4A5568; --text3:#718096;
+  --mono:'Consolas','Courier New',monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+}
+body { font-family:var(--sans); font-size:11px; background:var(--bg); color:var(--text); line-height:1.5; }
+.page { max-width:1280px; margin:0 auto; padding:20px 16px; }
+.header { background:var(--navy); border-radius:10px; padding:20px 24px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+.header-left h1 { font-size:22px; font-weight:800; color:#fff; } .header-left h1 span { color:#FBBF24; }
+.header-left p { font-size:11px; color:#94A3B8; margin-top:3px; }
+.header-badges { display:flex; gap:8px; flex-wrap:wrap; }
+.badge { font-size:10px; font-weight:700; padding:4px 10px; border-radius:20px; letter-spacing:.5px; text-transform:uppercase; }
+.badge-blue { background:#2563EB; color:#fff; } .badge-red { background:#DC2626; color:#fff; } .badge-yellow { background:#D97706; color:#fff; } .badge-green { background:#16A34A; color:#fff; }
+.grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:12px; }
+.grid-2 { grid-template-columns:repeat(2,1fr); } .grid-4 { grid-template-columns:repeat(4,1fr); }
+.card { background:var(--surface); border-radius:8px; border:1px solid var(--border); overflow:hidden; }
+.card-header { padding:8px 12px; display:flex; align-items:center; gap:8px; border-bottom:1px solid var(--border); }
+.card-header .icon { width:24px; height:24px; border-radius:5px; display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; }
+.card-header h2 { font-size:11.5px; font-weight:800; color:var(--navy); }
+.card-header .sub { font-size:9px; color:var(--text3); margin-left:auto; }
+.card-body { padding:10px 12px; }
+.section-label { font-size:8.5px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--text3); margin-bottom:5px; margin-top:9px; }
+.section-label:first-child { margin-top:0; }
+.row { display:flex; justify-content:space-between; align-items:baseline; padding:2px 0; border-bottom:1px solid #F1F3F5; gap:8px; }
+.row:last-child { border-bottom:none; }
+.row .key { font-family:var(--mono); font-size:10px; font-weight:600; color:var(--navy); white-space:nowrap; flex-shrink:0; }
+.row .val { font-size:10px; color:var(--text2); text-align:right; }
+.tags { display:flex; flex-wrap:wrap; gap:4px; margin-top:2px; }
+.tag { font-size:9.5px; padding:2px 7px; border-radius:4px; font-weight:600; font-family:var(--mono); }
+.tag-blue { background:var(--blue-soft); color:#1A56C4; } .tag-red { background:var(--red-soft); color:#B3261E; }
+.tag-green { background:var(--green-soft); color:#166534; } .tag-yellow { background:var(--yellow-soft); color:#8A6100; } .tag-purple { background:var(--purple-soft); color:#6B21A8; }
+.tip-bar { background:var(--navy2); border-radius:8px; padding:10px 16px; margin-bottom:16px; display:flex; gap:24px; flex-wrap:wrap; }
+.tip-label { font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:#FBBF24; }
+.tip { font-size:10.5px; color:#CBD5E1; } .tip b { color:#fff; }
+.note { font-size:10px; color:var(--text2); padding:6px 8px; border-radius:4px; margin-top:4px; }
+.note-blue { background:var(--blue-soft); border-left:3px solid var(--blue); }
+.note-green { background:var(--green-soft); border-left:3px solid var(--green); }
+.note-yellow { background:var(--yellow-soft); border-left:3px solid var(--yellow); }
+.note-red { background:var(--red-soft); border-left:3px solid var(--red); }
+.col-span-2 { grid-column: span 2; }
+.col-span-3 { grid-column: span 3; }
+.col-span-4 { grid-column: span 4; }
+.domain-bar { display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap; }
+.domain-pill { display:flex; align-items:center; gap:6px; background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:5px 12px; }
+.domain-pill .pct { font-size:13px; font-weight:800; color:var(--blue); font-family:var(--mono); }
+.domain-pill .name { font-size:10px; color:var(--text2); font-weight:600; }
+.exam-meta { display:flex; gap:16px; flex-wrap:wrap; align-items:center; margin-bottom:12px; }
+.meta-item { display:flex; align-items:center; gap:6px; background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:5px 10px; }
+.meta-item .mlabel { font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; color:var(--text3); }
+.meta-item .mval { font-size:11px; font-weight:800; color:var(--navy); font-family:var(--mono); }
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.three-col { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; }
+.svc-block { margin-bottom:8px; }
+.svc-block:last-child { margin-bottom:0; }
+.svc-title { font-size:10px; font-weight:800; color:var(--navy); margin-bottom:3px; padding-bottom:2px; border-bottom:1px solid #F1F3F5; }
+.svc-row { display:flex; gap:6px; align-items:baseline; padding:1px 0; }
+.svc-row .sk { font-family:var(--mono); font-size:9.5px; font-weight:600; color:var(--blue); flex-shrink:0; }
+.svc-row .sv { font-size:9.5px; color:var(--text2); }
+.pill-row { display:flex; flex-wrap:wrap; gap:4px; margin-top:3px; }
+.sla-table { width:100%; border-collapse:collapse; margin-top:2px; }
+.sla-table th { font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; color:var(--text3); padding:3px 6px; text-align:left; border-bottom:1px solid var(--border); }
+.sla-table td { font-size:9.5px; padding:3px 6px; border-bottom:1px solid #F1F3F5; color:var(--text2); vertical-align:top; }
+.sla-table td:first-child { font-family:var(--mono); font-weight:600; color:var(--navy); white-space:nowrap; }
+.sla-table tr:last-child td { border-bottom:none; }
+.icon-blue { background:var(--blue-soft); }
+.icon-red { background:var(--red-soft); }
+.icon-yellow { background:var(--yellow-soft); }
+.icon-green { background:var(--green-soft); }
+.icon-purple { background:var(--purple-soft); }
+.icon-navy { background:#E8EDF4; }
+@media print { body{background:#fff} .page{padding:0} }
+@media (max-width:900px) { .grid { grid-template-columns:1fr 1fr; } .grid-4 { grid-template-columns:1fr 1fr; } }
+@media (max-width:600px) { .grid,.grid-2,.grid-4,.two-col,.three-col { grid-template-columns:1fr; } .col-span-2,.col-span-3,.col-span-4 { grid-column:span 1; } }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <h1>Business Models <span>B2B, B2C &amp; Beyond</span></h1>
+      <p>Who You Sell To, How You Charge, and How It Grows &nbsp;|&nbsp; Startup, Product &amp; Interview Prep</p>
+    </div>
+    <div class="header-badges">
+      <span class="badge badge-blue">Strategy</span>
+      <span class="badge badge-red">Startup</span>
+      <span class="badge badge-yellow">Product</span>
+      <span class="badge badge-green">GTM</span>
+    </div>
+  </div>
+
+  <!-- QUICK STATS -->
+  <div class="exam-meta">
+    <div class="meta-item"><span class="mlabel">Model Types</span><span class="mval">8</span></div>
+    <div class="meta-item"><span class="mlabel">Revenue Models</span><span class="mval">7</span></div>
+    <div class="meta-item"><span class="mlabel">Key Metrics</span><span class="mval">10</span></div>
+    <div class="meta-item"><span class="mlabel">GTM Motions</span><span class="mval">5</span></div>
+  </div>
+
+  <!-- TIP BAR -->
+  <div class="tip-bar">
+    <div>
+      <div class="tip-label">Interview Angle</div>
+      <div class="tip"><b>"Walk me through B2B vs B2C"</b> — lead with sales cycle length, who the buyer is vs. who the user is, and how pricing + retention differ. Give a real example of each (Salesforce vs. Netflix).</div>
+    </div>
+    <div>
+      <div class="tip-label">Founder Angle</div>
+      <div class="tip"><b>Pick the model that matches your distribution</b> — if you can reach buyers directly and cheaply, D2C/PLG wins; if the sale needs trust and customization, B2B sales-led wins even if it's slower.</div>
+    </div>
+  </div>
+
+  <!-- ROW 1: Core models + B2B vs B2C -->
+  <div class="grid grid-2" style="margin-bottom:12px;">
+
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-blue">&#127970;</div>
+        <h2>Core Business Models (Who You Sell To)</h2>
+        <span class="sub">Market Structure</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Primary Types</div>
+        <div class="row"><span class="key">B2B</span><span class="val">Business sells to businesses — Salesforce, AWS, SAP</span></div>
+        <div class="row"><span class="key">B2C</span><span class="val">Business sells to individual consumers — Netflix, Amazon retail</span></div>
+        <div class="row"><span class="key">B2B2C</span><span class="val">Business sells via another business to reach end consumers — Shopify (powers merchants' stores), Stripe</span></div>
+        <div class="row"><span class="key">D2C</span><span class="val">Brand sells directly to consumers, skipping retailers — Warby Parker, Dollar Shave Club</span></div>
+        <div class="row"><span class="key">C2C</span><span class="val">Platform connects consumers to consumers — eBay, OLX, Craigslist</span></div>
+        <div class="row"><span class="key">B2G</span><span class="val">Business sells to government agencies — Palantir, defense/civic tech</span></div>
+        <div class="row"><span class="key">C2B</span><span class="val">Consumers offer value businesses buy — freelance marketplaces, UGC platforms</span></div>
+        <div class="row"><span class="key">P2P</span><span class="val">Platform enables peer-to-peer exchange, takes a cut — Airbnb, Uber</span></div>
+        <div class="note note-blue" style="margin-top:4px;">Most real companies are hybrids: Uber is C2C/P2P for rides but B2B for Uber for Business accounts.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-green">&#9878;</div>
+        <h2>B2B vs B2C at a Glance</h2>
+        <span class="sub">Head-to-Head Comparison</span>
+      </div>
+      <div class="card-body">
+        <table class="sla-table">
+          <tr><th>Dimension</th><th>B2B</th><th>B2C</th></tr>
+          <tr><td>Buyer</td><td>Committee — user ≠ buyer ≠ budget holder</td><td>Individual — user = buyer, usually</td></tr>
+          <tr><td>Sales cycle</td><td>Weeks to 18+ months</td><td>Seconds to days</td></tr>
+          <tr><td>Deal size</td><td>Few to many $100Ks/year</td><td>Low, high volume</td></tr>
+          <tr><td>Decision driver</td><td>ROI, risk reduction, compliance</td><td>Emotion, convenience, price, trend</td></tr>
+          <tr><td>Marketing channel</td><td>Sales reps, events, LinkedIn, ABM</td><td>Social ads, SEO, influencers, app stores</td></tr>
+          <tr><td>Retention lever</td><td>Contracts, switching cost, support</td><td>Habit, brand loyalty, network effects</td></tr>
+          <tr><td>Pricing model</td><td>Negotiated, tiered/seat-based</td><td>Fixed, published, take-it-or-leave-it</td></tr>
+        </table>
+        <div class="note note-green" style="margin-top:4px;">B2B optimizes for <b>fewer, bigger, stickier</b> deals; B2C optimizes for <b>volume and velocity</b>.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ROW 2: Revenue models + Platform/network effects -->
+  <div class="grid grid-2" style="margin-bottom:12px;">
+
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-yellow">&#128176;</div>
+        <h2>Revenue Models (How You Charge)</h2>
+        <span class="sub">Monetization</span>
+      </div>
+      <div class="card-body">
+        <div class="row"><span class="key">Subscription / SaaS</span><span class="val">Recurring fee for ongoing access — predictable MRR</span></div>
+        <div class="row"><span class="key">Freemium</span><span class="val">Free core tier, paid upgrade for power features/limits</span></div>
+        <div class="row"><span class="key">Marketplace commission</span><span class="val">% cut of every transaction between two sides</span></div>
+        <div class="row"><span class="key">Usage-based</span><span class="val">Pay per API call / GB / seat-hour — scales with customer value</span></div>
+        <div class="row"><span class="key">Licensing</span><span class="val">One-time or per-seat fee for IP/software rights</span></div>
+        <div class="row"><span class="key">Advertising</span><span class="val">Free product, revenue from attention/data sold to advertisers</span></div>
+        <div class="row"><span class="key">Affiliate / referral</span><span class="val">Commission for driving a sale elsewhere</span></div>
+        <div class="note note-yellow" style="margin-top:4px;">Hybrid stacking is common: Amazon = D2C retail + marketplace commission + AWS SaaS/usage-based + Prime subscription.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-purple">&#128279;</div>
+        <h2>Platform &amp; Network Effects</h2>
+        <span class="sub">Why Some Businesses Compound</span>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Platform Types</div>
+        <div class="row"><span class="key">Two-sided marketplace</span><span class="val">Connects distinct supply + demand sides — Airbnb, Upwork</span></div>
+        <div class="row"><span class="key">Aggregator</span><span class="val">Owns the customer relationship, commoditizes suppliers — Google, Uber</span></div>
+        <div class="row"><span class="key">Platform (vs. product)</span><span class="val">Lets 3rd parties build on top — App Store, Shopify apps</span></div>
+        <div class="section-label">Network Effect Types</div>
+        <div class="row"><span class="key">Direct</span><span class="val">More users → more value for same-side users (WhatsApp)</span></div>
+        <div class="row"><span class="key">Indirect / cross-side</span><span class="val">More of one side → more value for the other side (riders/drivers)</span></div>
+        <div class="row"><span class="key">Data network effect</span><span class="val">More usage → better algorithm → better product (recommendation engines)</span></div>
+        <div class="note note-purple" style="margin-top:4px;background:var(--purple-soft);border-left:3px solid var(--purple)">Chicken-and-egg problem: marketplaces must bootstrap one side first (often subsidized) before network effects kick in.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ROW 3: Unit economics + GTM -->
+  <div class="grid grid-2" style="margin-bottom:12px;">
+
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-navy">&#128202;</div>
+        <h2>Unit Economics &amp; Key Metrics</h2>
+        <span class="sub">The Numbers That Matter</span>
+      </div>
+      <div class="card-body">
+        <div class="row"><span class="key">CAC</span><span class="val">Customer Acquisition Cost — total sales+marketing spend ÷ new customers</span></div>
+        <div class="row"><span class="key">LTV</span><span class="val">Lifetime Value — total gross margin a customer generates over their life</span></div>
+        <div class="row"><span class="key">LTV:CAC</span><span class="val">Target ≥ 3:1 — below that, growth is unprofitable</span></div>
+        <div class="row"><span class="key">Payback period</span><span class="val">Months to recover CAC from gross margin — under 12 is healthy for SaaS</span></div>
+        <div class="row"><span class="key">Churn rate</span><span class="val">% of customers/revenue lost per period — logo churn vs. revenue churn</span></div>
+        <div class="row"><span class="key">NRR</span><span class="val">Net Revenue Retention — expansion minus churn from existing customers; &gt;100% = grows without new sales</span></div>
+        <div class="row"><span class="key">MRR / ARR</span><span class="val">Monthly / Annual Recurring Revenue — the SaaS heartbeat metric</span></div>
+        <div class="row"><span class="key">Gross margin</span><span class="val">Revenue minus cost to serve — software ~80%+, marketplaces ~20-40%</span></div>
+        <div class="row"><span class="key">Burn multiple</span><span class="val">Net burn ÷ net new ARR — lower is more capital-efficient</span></div>
+        <div class="row"><span class="key">Conversion rate</span><span class="val">Free→paid or visitor→customer % — the funnel's core lever</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="icon icon-red">&#128640;</div>
+        <h2>Go-To-Market (GTM) Strategies</h2>
+        <span class="sub">How You Acquire Customers</span>
+      </div>
+      <div class="card-body">
+        <div class="row"><span class="key">Product-led (PLG)</span><span class="val">Free trial/freemium sells itself — Slack, Figma, Notion</span></div>
+        <div class="row"><span class="key">Sales-led</span><span class="val">Reps drive the deal — high-touch, works for big B2B ACV</span></div>
+        <div class="row"><span class="key">Marketing-led</span><span class="val">Content/SEO/ads generate inbound demand before sales engages</span></div>
+        <div class="row"><span class="key">Channel / partner-led</span><span class="val">Resellers or integrations distribute the product for you</span></div>
+        <div class="row"><span class="key">Community-led</span><span class="val">Organic advocacy &amp; word-of-mouth drive adoption — open source, dev tools</span></div>
+        <div class="note note-red" style="margin-top:4px;">Low price + low complexity → PLG. High price + high complexity/risk → sales-led. Most scaled companies blend motions over time.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ROW 4: Startup glossary, full width -->
+  <div class="grid" style="margin-bottom:0;">
+    <div class="card col-span-3">
+      <div class="card-header">
+        <div class="icon icon-blue">&#128214;</div>
+        <h2>Startup &amp; Fundraising Glossary</h2>
+        <span class="sub">Terms You'll Hear in Any Business Conversation</span>
+      </div>
+      <div class="card-body">
+        <div class="three-col">
+          <div>
+            <div class="svc-row"><span class="sk">MVP</span><span class="sv">Minimum Viable Product — smallest build that tests the core hypothesis</span></div>
+            <div class="svc-row"><span class="sk">PMF</span><span class="sv">Product-Market Fit — demand pulls the product faster than you can push it</span></div>
+            <div class="svc-row"><span class="sk">TAM/SAM/SOM</span><span class="sv">Total/Serviceable/Obtainable market size — sizing the opportunity</span></div>
+            <div class="svc-row"><span class="sk">Pivot</span><span class="sv">Fundamental change in strategy after learning the original bet was wrong</span></div>
+          </div>
+          <div>
+            <div class="svc-row"><span class="sk">Runway</span><span class="sv">Months of cash left at current burn rate before hitting zero</span></div>
+            <div class="svc-row"><span class="sk">Burn rate</span><span class="sv">Net cash spent per month</span></div>
+            <div class="svc-row"><span class="sk">Bootstrapping</span><span class="sv">Growing on revenue/savings, no outside investment</span></div>
+            <div class="svc-row"><span class="sk">Seed / Series A/B/C</span><span class="sv">Funding stages — increasing size, decreasing risk/dilution per $</span></div>
+          </div>
+          <div>
+            <div class="svc-row"><span class="sk">Cap table</span><span class="sv">Who owns what % of the company, across all rounds</span></div>
+            <div class="svc-row"><span class="sk">Term sheet</span><span class="sv">Non-binding summary of a proposed investment's terms</span></div>
+            <div class="svc-row"><span class="sk">Vesting</span><span class="sv">Equity earned over time (standard: 4-year vest, 1-year cliff)</span></div>
+            <div class="svc-row"><span class="sk">Dilution</span><span class="sv">Your ownership % shrinking as new shares are issued in later rounds</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
