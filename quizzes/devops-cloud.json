@@ -386,6 +386,94 @@
       ],
       "correct": 0,
       "explain": "'gcloud config list' shows the active configuration, including the authenticated account, default project, and region/zone settings."
+    },
+    {
+      "question": "What is the fundamental difference between traditional push-based CI/CD and GitOps?",
+      "options": [
+        "A. GitOps doesn't use Git at all",
+        "B. In GitOps, an in-cluster agent pulls and reconciles the desired state from Git, instead of an external CI system pushing changes into the cluster",
+        "C. Push-based CD is always faster than GitOps",
+        "D. There is no real difference, just different marketing"
+      ],
+      "correct": 1,
+      "explain": "GitOps flips the model: instead of CI holding cluster credentials and pushing changes, an in-cluster agent (like ArgoCD/Flux) pulls the desired state from Git and continuously reconciles the cluster to match it."
+    },
+    {
+      "question": "In ArgoCD, what does setting both `prune: true` and `selfHeal: true` in syncPolicy.automated achieve?",
+      "options": [
+        "A. It disables automatic syncing entirely",
+        "B. Resources removed from Git are deleted from the cluster, AND any manual cluster changes are automatically reverted to match Git",
+        "C. It only affects Helm-based applications",
+        "D. It encrypts secrets automatically"
+      ],
+      "correct": 1,
+      "explain": "prune deletes cluster resources no longer declared in Git; selfHeal reverts any manual/out-of-band cluster change back to the Git-declared state — together they make Git the sole source of truth."
+    },
+    {
+      "question": "What is the ArgoCD 'App-of-Apps' pattern used for?",
+      "options": [
+        "A. Running ArgoCD inside another ArgoCD instance",
+        "B. Managing many Application CRDs through a single parent Application that points at a folder of child Application manifests",
+        "C. A way to disable GitOps for a specific namespace",
+        "D. A naming convention with no functional effect"
+      ],
+      "correct": 1,
+      "explain": "App-of-Apps lets a single root Application sync an entire folder of other Application definitions, so you can manage dozens of microservice deployments by syncing one parent resource."
+    },
+    {
+      "question": "Why should secret values generally NOT be committed directly to a GitOps repository, even in encrypted form with something like SOPS?",
+      "options": [
+        "A. SOPS encryption is always broken and insecure",
+        "B. Git history is permanent — even if rotated, an old encrypted secret and its historical access remain auditable risk; many teams prefer External Secrets Operator so the value never touches Git at all",
+        "C. Kubernetes cannot read encrypted YAML",
+        "D. It is technically impossible to encrypt YAML files"
+      ],
+      "correct": 1,
+      "explain": "SOPS and Sealed Secrets are legitimate options, but since Git history is immutable and widely accessible, many teams prefer External Secrets Operator — which pulls secrets from a vault at runtime so no secret material, encrypted or not, is ever stored in Git."
+    },
+    {
+      "question": "What does it mean when an ArgoCD Application shows status 'OutOfSync'?",
+      "options": [
+        "A. The application has crashed",
+        "B. The live cluster state differs from what's declared in Git",
+        "C. ArgoCD itself is down",
+        "D. The Git repository is unreachable"
+      ],
+      "correct": 1,
+      "explain": "OutOfSync means ArgoCD's diff between the live cluster resources and the Git-declared manifests found a mismatch — the trigger for either an automated or manual sync."
+    },
+    {
+      "question": "In Flux, what is the role of a Kustomization resource?",
+      "options": [
+        "A. It defines a Docker image build",
+        "B. It applies a specific path from a watched GitRepository to the cluster, with pruning and health-check support",
+        "C. It only manages Helm charts, never raw YAML",
+        "D. It replaces the need for a GitRepository resource entirely"
+      ],
+      "correct": 1,
+      "explain": "A Flux Kustomization points at a path within a GitRepository source and applies those manifests to the cluster, optionally pruning removed resources and waiting for health checks."
+    },
+    {
+      "question": "What is the main practical difference between ArgoCD and Flux as GitOps tools?",
+      "options": [
+        "A. Flux cannot deploy Kubernetes applications",
+        "B. ArgoCD ships a rich built-in web UI and is application-centric; Flux is a more composable toolkit of controllers with built-in image automation but no default UI",
+        "C. ArgoCD doesn't support Helm",
+        "D. They are functionally identical with no differences"
+      ],
+      "correct": 1,
+      "explain": "Both are CNCF-graduated and implement the same GitOps principles, but ArgoCD centers on an Application CRD with a built-in UI, while Flux is a composable set of controllers (GitRepository/Kustomization/HelmRelease) with built-in image update automation."
+    },
+    {
+      "question": "What is 'progressive delivery' in the context of GitOps tools like Argo Rollouts or Flagger?",
+      "options": [
+        "A. Deploying to all users simultaneously as fast as possible",
+        "B. Gradually shifting traffic to a new version (e.g. 5% → 25% → 100%) while monitoring metrics, with automatic rollback if thresholds are breached",
+        "C. A method for encrypting rollout manifests",
+        "D. Manually approving every single pod restart"
+      ],
+      "correct": 1,
+      "explain": "Progressive delivery tools incrementally shift traffic to a new version while watching metrics like error rate and latency, automatically rolling back if the canary looks unhealthy — reducing blast radius versus an all-at-once deploy."
     }
   ]
 }

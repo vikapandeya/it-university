@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GitOps — ArgoCD, Flux & CD Patterns — Full Cheat Sheet</title>
+<meta name="description" content="Comprehensive GitOps cheat sheet — core principles, ArgoCD Application/ApplicationSet CRDs, Flux GitRepository/Kustomization/HelmRelease, repo structure patterns, secrets management, progressive delivery, troubleshooting, and interview prep.">
+<style>
+:root {
+  --bg:#F5F6F7; --surface:#FFFFFF; --border:#E2E4E8;
+  --navy:#0F1C2E; --navy2:#1A2E45;
+  --argo:#EF7B4D; --argo-soft:#FEF0E9;
+  --flux:#5468FF; --flux-soft:#ECEEFF;
+  --git:#F05032; --git-soft:#FDEBE8;
+  --green:#1B7A4A; --green-soft:#E8F7EF;
+  --red:#B91C1C; --red-soft:#FEF2F2;
+  --text:#1C2333; --text2:#4A5568; --text3:#718096;
+  --mono:'Consolas','Courier New',monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+}
+body{font-family:var(--sans);font-size:11px;background:var(--bg);color:var(--text);line-height:1.5;margin:0}
+.page{max-width:1280px;margin:0 auto;padding:20px 16px}
+.header{background:var(--navy);border-radius:10px;padding:20px 24px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.header-left h1{font-size:22px;font-weight:800;color:#fff}.header-left h1 span{color:#F3A683}
+.header-left p{font-size:11px;color:#94A3B8;margin-top:3px}
+.header-badges{display:flex;gap:8px;flex-wrap:wrap}
+.badge{font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:.5px;text-transform:uppercase}
+.badge-argo{background:var(--argo);color:#fff}.badge-flux{background:var(--flux);color:#fff}.badge-git{background:var(--git);color:#fff}.badge-green{background:#22C55E;color:#fff}
+.section-divider{display:flex;align-items:center;gap:10px;margin:22px 0 10px}
+.section-divider h2{font-size:16px;font-weight:800;color:var(--navy);white-space:nowrap}
+.section-divider .line{height:1px;background:var(--border);flex:1}
+.section-divider .dot{width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px}
+.grid-2{grid-template-columns:repeat(2,1fr)}.grid-4{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--surface);border-radius:8px;border:1px solid var(--border);overflow:hidden}
+.card-header{padding:8px 12px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border)}
+.card-header .icon{width:24px;height:24px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.card-header h2{font-size:11.5px;font-weight:800;color:var(--navy)}
+.card-header .sub{font-size:9px;color:var(--text3);margin-left:auto}
+.card-body{padding:10px 12px}
+.section-label{font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--text3);margin-bottom:5px;margin-top:9px}
+.section-label:first-child{margin-top:0}
+.row{display:flex;justify-content:space-between;align-items:baseline;padding:2px 0;border-bottom:1px solid #F1F3F5;gap:8px}
+.row:last-child{border-bottom:none}
+.row .key{font-family:var(--mono);font-size:10px;font-weight:600;color:var(--navy);white-space:nowrap;flex-shrink:0}
+.row .val{font-size:10px;color:var(--text2);text-align:right}
+.tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px}
+.tag{font-size:9.5px;padding:2px 7px;border-radius:4px;font-weight:600;font-family:var(--mono)}
+.tag-argo{background:var(--argo-soft);color:#B8451E}.tag-flux{background:var(--flux-soft);color:#3140C7}
+.tag-git{background:var(--git-soft);color:#B8321E}.tag-green{background:var(--green-soft);color:#166534}
+.tip-bar{background:var(--navy2);border-radius:8px;padding:10px 16px;margin-bottom:16px;display:flex;gap:24px;flex-wrap:wrap}
+.tip-label{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#F3A683}
+.tip{font-size:10.5px;color:#CBD5E1}.tip b{color:#fff}
+.note{font-size:10px;color:var(--text2);padding:6px 8px;border-radius:4px;margin-top:4px}
+.note-argo{background:var(--argo-soft);border-left:3px solid var(--argo)}
+.note-flux{background:var(--flux-soft);border-left:3px solid var(--flux)}
+.note-green{background:var(--green-soft);border-left:3px solid var(--green)}
+.note-red{background:var(--red-soft);border-left:3px solid var(--red)}
+.cmd{font-family:var(--mono);font-size:10px;background:#F1F3F5;padding:3px 7px;border-radius:4px;color:var(--navy);display:block;margin:2px 0;white-space:pre-wrap;word-break:break-word}
+.yaml{font-family:var(--mono);font-size:9.5px;background:#0F1C2E;color:#CBD5E1;padding:8px 10px;border-radius:6px;margin-top:4px;white-space:pre;overflow-x:auto;line-height:1.5}
+.sla-table{width:100%;border-collapse:collapse;margin-top:2px}
+.sla-table th{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);padding:3px 6px;text-align:left;border-bottom:1px solid var(--border)}
+.sla-table td{font-size:9.5px;padding:3px 6px;border-bottom:1px solid #F1F3F5;color:var(--text2);vertical-align:top}
+.sla-table td:first-child{font-family:var(--mono);font-weight:600;color:var(--navy);white-space:nowrap}
+.sla-table tr:last-child td{border-bottom:none}
+.svc-row{display:flex;gap:6px;align-items:baseline;padding:1px 0}
+.svc-row .sk{font-family:var(--mono);font-size:9.5px;font-weight:600;color:var(--argo);flex-shrink:0}
+.svc-row .sv{font-size:9.5px;color:var(--text2)}
+@media print{body{background:#fff}.page{padding:0}.card{break-inside:avoid}}
+@media (max-width:900px){.grid,.grid-2,.grid-4{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <h1>GitOps <span>ArgoCD, Flux &amp; CD Patterns</span></h1>
+      <p>Continuous Delivery Through Git — Principles, Tools &amp; Production Patterns</p>
+    </div>
+    <div class="header-badges">
+      <span class="badge badge-argo">ArgoCD</span>
+      <span class="badge badge-flux">Flux</span>
+      <span class="badge badge-git">Git</span>
+      <span class="badge badge-green">Print-Ready</span>
+    </div>
+  </div>
+
+  <!-- TIP BAR -->
+  <div class="tip-bar">
+    <div><div class="tip-label">Push vs Pull</div><div class="tip">Classic CI/CD <b>pushes</b> to the cluster; GitOps agents <b>pull</b> from Git and reconcile — no cluster credentials leave the cluster</div></div>
+    <div><div class="tip-label">Source of Truth</div><div class="tip">Git is the <b>single source of truth</b> — the cluster's live state should always be derivable from a commit</div></div>
+    <div><div class="tip-label">Drift</div><div class="tip">Any manual <code>kubectl edit</code> is "drift" — GitOps agents detect and can auto-revert it</div></div>
+    <div><div class="tip-label">Rollback</div><div class="tip">Rolling back = <code>git revert</code>, not a special tool command — the agent reconciles to the reverted state automatically</div></div>
+  </div>
+
+  <!-- ================= PRINCIPLES ================= -->
+  <div class="section-divider">
+    <div class="dot" style="background:var(--argo-soft)">📜</div>
+    <h2>GitOps Principles</h2>
+    <div class="line"></div>
+  </div>
+
+  <div class="grid grid-2" style="margin-bottom:12px">
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--argo-soft)">1️⃣</div>
+        <h2>The 4 GitOps Principles</h2>
+      </div>
+      <div class="card-body">
+        <div class="row"><span class="key">Declarative</span><span class="val">Entire system state described declaratively (YAML/Helm/Kustomize)</span></div>
+        <div class="row"><span class="key">Versioned &amp; Immutable</span><span class="val">Desired state stored in Git — full history, diff, and audit trail for free</span></div>
+        <div class="row"><span class="key">Pulled Automatically</span><span class="val">Software agents pull the desired state — no external system pushes into the cluster</span></div>
+        <div class="row"><span class="key">Continuously Reconciled</span><span class="val">Agents constantly compare actual vs. desired state and converge toward it</span></div>
+        <div class="note note-argo" style="margin-top:6px">This is the CNCF/OpenGitOps definition — any tool that satisfies all four is "doing GitOps," not just ArgoCD/Flux specifically.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--flux-soft)">🔀</div>
+        <h2>Push CD vs GitOps (Pull CD)</h2>
+      </div>
+      <div class="card-body">
+        <table class="sla-table">
+          <tr><th>Dimension</th><th>Push CD (Jenkins/GH Actions → cluster)</th><th>GitOps (Pull)</th></tr>
+          <tr><td>Credentials</td><td>CI system holds cluster admin creds</td><td>Only the in-cluster agent has cluster access</td></tr>
+          <tr><td>Drift detection</td><td>None — pipeline just runs once</td><td>Continuous — agent reconciles forever</td></tr>
+          <tr><td>Audit trail</td><td>CI job logs (often ephemeral)</td><td>Git history (permanent, reviewable)</td></tr>
+          <tr><td>Rollback</td><td>Re-run an old pipeline job</td><td><code>git revert</code>, agent auto-applies it</td></tr>
+          <tr><td>Multi-cluster</td><td>Pipeline must know every target</td><td>Each cluster's agent pulls its own config</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= ARGOCD ================= -->
+  <div class="section-divider">
+    <div class="dot" style="background:var(--argo-soft)">🐙</div>
+    <h2>ArgoCD</h2>
+    <div class="line"></div>
+  </div>
+
+  <div class="grid grid-2" style="margin-bottom:12px">
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--argo-soft)">📄</div>
+        <h2>Application CRD</h2>
+      </div>
+      <div class="card-body">
+        <div class="yaml">apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: myapp
+  namespace: argocd
+spec:
+  project: myproject
+  source:
+    repoURL: https://github.com/org/gitops-repo.git
+    targetRevision: main
+    path: apps/myapp/overlays/production
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: production
+  syncPolicy:
+    automated:
+      prune: true      # delete resources removed from Git
+      selfHeal: true   # revert manual cluster changes
+    syncOptions:
+    - CreateNamespace=true</div>
+        <div class="note note-argo" style="margin-top:6px"><code>prune: true</code> + <code>selfHeal: true</code> together give you full declarative enforcement — Git is the only way to change anything.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--argo-soft)">⌨️</div>
+        <h2>ArgoCD CLI</h2>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Core Commands</div>
+        <div class="cmd">argocd app list</div>
+        <div class="cmd">argocd app get myapp</div>
+        <div class="cmd">argocd app sync myapp</div>
+        <div class="cmd">argocd app diff myapp</div>
+        <div class="cmd">argocd app history myapp</div>
+        <div class="cmd">argocd app rollback myapp &lt;revision-id&gt;</div>
+        <div class="section-label">Sync States</div>
+        <div class="row"><span class="key">Synced</span><span class="val">Live state matches Git exactly</span></div>
+        <div class="row"><span class="key">OutOfSync</span><span class="val">Live state has drifted from Git</span></div>
+        <div class="row"><span class="key">Healthy</span><span class="val">Resources are up and passing health checks</span></div>
+        <div class="row"><span class="key">Degraded</span><span class="val">Resource exists but is failing (e.g. CrashLoopBackOff)</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid grid-2" style="margin-bottom:12px">
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--argo-soft)">🏗️</div>
+        <h2>App-of-Apps Pattern</h2>
+      </div>
+      <div class="card-body">
+        <p style="font-size:10px;color:var(--text2);margin-bottom:6px">A single "root" ArgoCD Application whose source is a folder of other Application manifests — lets you manage 50 microservice deployments by syncing one parent app.</p>
+        <div class="section-label">Typical Repo Layout</div>
+        <div class="cmd">gitops-repo/
+  root-app.yaml          ← points ArgoCD at apps/
+  apps/
+    service-a.yaml        ← Application CRD
+    service-b.yaml        ← Application CRD
+    service-c.yaml        ← Application CRD</div>
+        <div class="note note-argo" style="margin-top:6px"><b>ApplicationSet</b> generalizes this further — generate Applications dynamically from a cluster list, Git directories, or a pull-request generator.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--argo-soft)">🗂️</div>
+        <h2>Environment Promotion Patterns</h2>
+      </div>
+      <div class="card-body">
+        <div class="row"><span class="key">Branch-per-env</span><span class="val">main → staging → production branches; promote via merge/PR</span></div>
+        <div class="row"><span class="key">Folder-per-env</span><span class="val">One branch, <code>overlays/dev</code> / <code>overlays/prod</code> via Kustomize</span></div>
+        <div class="row"><span class="key">Repo-per-env</span><span class="val">Separate repos per environment — strongest isolation, more overhead</span></div>
+        <div class="note note-green" style="margin-top:6px">Folder-per-env (Kustomize overlays) is the most common pattern — one source of truth, explicit per-env diffs, easy to review in a single PR.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= FLUX ================= -->
+  <div class="section-divider">
+    <div class="dot" style="background:var(--flux-soft)">🌊</div>
+    <h2>Flux CD</h2>
+    <div class="line"></div>
+  </div>
+
+  <div class="grid grid-2" style="margin-bottom:12px">
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--flux-soft)">📦</div>
+        <h2>Core Flux CRDs</h2>
+      </div>
+      <div class="card-body">
+        <div class="row"><span class="key">GitRepository</span><span class="val">Points Flux at a Git repo + branch/tag to watch</span></div>
+        <div class="row"><span class="key">Kustomization</span><span class="val">Applies a path from that repo, with pruning and health checks</span></div>
+        <div class="row"><span class="key">HelmRepository</span><span class="val">Points Flux at a Helm chart repository</span></div>
+        <div class="row"><span class="key">HelmRelease</span><span class="val">Declares a Helm chart install/upgrade, reconciled continuously</span></div>
+        <div class="row"><span class="key">ImagePolicy</span><span class="val">Automates bumping an image tag in Git when a new image is pushed</span></div>
+        <div class="section-label">CLI</div>
+        <div class="cmd">flux get sources git
+flux get kustomizations
+flux reconcile kustomization myapp
+flux logs --follow</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--flux-soft)">⚖️</div>
+        <h2>ArgoCD vs Flux</h2>
+      </div>
+      <div class="card-body">
+        <table class="sla-table">
+          <tr><th>Dimension</th><th>ArgoCD</th><th>Flux</th></tr>
+          <tr><td>UI</td><td>Rich built-in web UI</td><td>No built-in UI (pairs with Weave GitOps/Flux UI)</td></tr>
+          <tr><td>Model</td><td>App-centric (Application CRD)</td><td>Source-centric (GitRepository + Kustomization)</td></tr>
+          <tr><td>Multi-tenancy</td><td>AppProjects with RBAC</td><td>Namespace-based tenant isolation</td></tr>
+          <tr><td>Image automation</td><td>Via ArgoCD Image Updater (separate)</td><td>Built-in (ImagePolicy/ImageUpdateAutomation)</td></tr>
+          <tr><td>Philosophy</td><td>Operator pulls + displays apps centrally</td><td>Toolkit of composable controllers</td></tr>
+        </table>
+        <div class="note note-flux" style="margin-top:6px">Both are CNCF graduated projects implementing the same 4 principles — pick based on whether you want a central UI (ArgoCD) or a lighter, more composable toolkit (Flux).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= SECRETS & DELIVERY ================= -->
+  <div class="section-divider">
+    <div class="dot" style="background:var(--argo-soft)">🔐</div>
+    <h2>Secrets &amp; Progressive Delivery</h2>
+    <div class="line"></div>
+  </div>
+
+  <div class="grid grid-2" style="margin-bottom:12px">
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--argo-soft)">🔑</div>
+        <h2>Secrets Management in GitOps</h2>
+        <span class="sub">You Can't Commit Plaintext Secrets</span>
+      </div>
+      <div class="card-body">
+        <div class="row"><span class="key">Sealed Secrets</span><span class="val">Bitnami controller — encrypt client-side, only the cluster's private key can decrypt</span></div>
+        <div class="row"><span class="key">SOPS</span><span class="val">Encrypt specific YAML/JSON values with KMS/PGP/age; decrypted at apply time</span></div>
+        <div class="row"><span class="key">External Secrets Operator</span><span class="val">Syncs secrets FROM Vault/AWS Secrets Manager/etc INTO the cluster — Git never stores secret values at all</span></div>
+        <div class="note note-red" style="margin-top:6px">External Secrets Operator is the strongest option — the secret value itself never touches Git, even encrypted.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--argo-soft)">📈</div>
+        <h2>Progressive Delivery</h2>
+      </div>
+      <div class="card-body">
+        <div class="row"><span class="key">Argo Rollouts</span><span class="val">Canary/blue-green CRD that replaces a Deployment, drives traffic shifting</span></div>
+        <div class="row"><span class="key">Flagger</span><span class="val">Flux's progressive delivery operator — automates canary analysis via metrics</span></div>
+        <div class="row"><span class="key">Canary analysis</span><span class="val">Shift 5% → 25% → 50% → 100% traffic while watching error-rate/latency metrics</span></div>
+        <div class="row"><span class="key">Auto-rollback</span><span class="val">If metrics breach a threshold mid-rollout, traffic reverts to the stable version automatically</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= TROUBLESHOOTING + INTERVIEW ================= -->
+  <div class="section-divider">
+    <div class="dot" style="background:var(--argo-soft)">🧰</div>
+    <h2>Troubleshooting &amp; Interview Prep</h2>
+    <div class="line"></div>
+  </div>
+
+  <div class="grid grid-2">
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--argo-soft)">🔍</div>
+        <h2>Common Sync Failures</h2>
+      </div>
+      <div class="card-body">
+        <div class="svc-row"><span class="sk">OutOfSync forever</span><span class="sv">A field is mutated by an admission webhook/defaulting after apply — add it to <code>ignoreDifferences</code></span></div>
+        <div class="svc-row"><span class="sk">Sync stuck "Progressing"</span><span class="sv">A resource's health check never passes — check Deployment readiness probes</span></div>
+        <div class="svc-row"><span class="sk">PruneLast / orphaned resources</span><span class="sv">A resource was removed from Git but <code>prune: false</code> — it's never deleted from the cluster</span></div>
+        <div class="svc-row"><span class="sk">selfHeal fighting an operator</span><span class="sv">Another controller (HPA, cert-manager) modifies a field GitOps also manages — scope ownership clearly or ignore that field</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--argo-soft)">💬</div>
+        <h2>Common Interview Questions</h2>
+      </div>
+      <div class="card-body">
+        <div class="svc-row"><span class="sk">Q</span><span class="sv"><b>"What's the difference between CI and GitOps/CD?"</b> — CI builds/tests and produces an artifact; GitOps is how that artifact's deployment is declared and reconciled via Git, decoupled from the CI pipeline.</span></div>
+        <div class="svc-row"><span class="sk">Q</span><span class="sv"><b>"How do you handle secrets in a GitOps repo?"</b> — never commit plaintext; use Sealed Secrets, SOPS, or (preferably) External Secrets Operator pulling from a vault.</span></div>
+        <div class="svc-row"><span class="sk">Q</span><span class="sv"><b>"How does ArgoCD detect drift?"</b> — it continuously diffs the live cluster state against the Git-declared manifests and marks the Application OutOfSync when they differ.</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Cheat Sheets — IT University</title>
-  <meta name="description" content="Free exam cheat sheets for 30 IT certifications and topics — AWS, Azure, GCP, Kubernetes, Linux, Security, Networking, Business Strategy, and more.">
+  <meta name="description" content="Free exam cheat sheets for 31 IT certifications and topics — AWS, Azure, GCP, Kubernetes, Linux, Security, Networking, Business Strategy, and more.">
   <meta property="og:title" content="IT Certification Cheat Sheets — IT University">
   <meta property="og:description" content="Dense, print-ready cheat sheets for AWS, Azure, Kubernetes, Linux, Security+, OSCP, CISSP and more.">
   <link rel="stylesheet" href="../assets/css/tokens.css">
@@ -38,6 +38,7 @@
     .badge-iac{background:rgba(109,40,217,.15);color:#7C3AED}
     .badge-gcp{background:rgba(66,133,244,.15);color:#4285F4}
     .badge-biz{background:rgba(217,119,6,.15);color:#D97706}
+    .badge-gitops{background:rgba(239,123,77,.15);color:#EF7B4D}
     .cs-card__link{display:inline-flex;align-items:center;gap:6px;font-size:var(--text-sm);font-weight:600;color:var(--accent);text-decoration:none;margin-top:auto;padding-top:4px}
     .cs-card__link:hover{text-decoration:underline}
     .cs-stats{display:flex;gap:var(--gap);flex-wrap:wrap;justify-content:center;margin-bottom:var(--gap-xl)}
@@ -54,12 +55,12 @@
 
   <div class="cs-hero">
     <h1>📋 Certification Cheat Sheets</h1>
-    <p>Dense, exam-ready reference sheets for 30 IT certifications and topics. Print them, bookmark them, study from them.</p>
+    <p>Dense, exam-ready reference sheets for 31 IT certifications and topics. Print them, bookmark them, study from them.</p>
     <a href="../certifications/index.html" class="btn btn--outline">🏆 Cert Tracker</a>
   </div>
 
   <div class="cs-stats">
-    <div class="cs-stat"><div class="cs-stat__num">30</div><div class="cs-stat__label">Cheat Sheets</div></div>
+    <div class="cs-stat"><div class="cs-stat__num">31</div><div class="cs-stat__label">Cheat Sheets</div></div>
     <div class="cs-stat"><div class="cs-stat__num">10</div><div class="cs-stat__label">Tracks</div></div>
     <div class="cs-stat"><div class="cs-stat__num">100%</div><div class="cs-stat__label">Free</div></div>
     <div class="cs-stat"><div class="cs-stat__num">🖨️</div><div class="cs-stat__label">Print-Ready</div></div>
@@ -174,13 +175,18 @@
     <div class="track-header">
       <span style="font-size:1.5rem">⚙️</span>
       <h2>DevOps / Kubernetes</h2>
-      <span class="track-count">5 sheets</span>
+      <span class="track-count">6 sheets</span>
     </div>
     <div class="cs-grid">
       <div class="cs-card">
         <div class="cs-card__top"><div class="cs-card__icon">🐳</div><div><div class="cs-card__title">Docker + Kubernetes + Terraform</div><div class="cs-card__code">Full DevOps Reference</div></div></div>
         <div class="cs-card__badges"><span class="cs-card__badge badge-k8s">Docker</span><span class="cs-card__badge badge-k8s">K8s</span><span class="cs-card__badge badge-iac">Terraform</span></div>
         <a href="docker-k8s-terraform.html" class="cs-card__link" target="_blank">Open Cheat Sheet →</a>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card__top"><div class="cs-card__icon">🐙</div><div><div class="cs-card__title">GitOps — ArgoCD &amp; Flux</div><div class="cs-card__code">CD Patterns · Secrets · Progressive Delivery</div></div></div>
+        <div class="cs-card__badges"><span class="cs-card__badge badge-gitops">ArgoCD</span><span class="cs-card__badge badge-gitops">Flux</span></div>
+        <a href="gitops.html" class="cs-card__link" target="_blank">Open Cheat Sheet →</a>
       </div>
       <div class="cs-card">
         <div class="cs-card__top"><div class="cs-card__icon">⎈</div><div><div class="cs-card__title">CKA</div><div class="cs-card__code">Kubernetes Admin · $395</div></div></div>
