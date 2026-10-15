@@ -452,6 +452,116 @@
       ],
       "correct": 0,
       "explain": "A CORS preflight OPTIONS request asks the server which methods and headers it will permit from that origin before the browser sends the actual cross-origin request."
+    },
+    {
+      "question": "A company sells accounting software directly to small business owners who both buy and use it themselves. What business model is this?",
+      "options": [
+        "A. B2B",
+        "B. B2C",
+        "C. C2C",
+        "D. B2G"
+      ],
+      "correct": 1,
+      "explain": "Even though it's software for businesses, the buyer and user is an individual making their own purchase decision — that's B2C, not B2B (B2B implies a committee/organizational buying process)."
+    },
+    {
+      "question": "Shopify sells subscriptions and payment processing to merchants, who then sell products to their own shoppers. What model best describes Shopify?",
+      "options": [
+        "A. C2C",
+        "B. D2C",
+        "C. B2B2C",
+        "D. B2G"
+      ],
+      "correct": 2,
+      "explain": "Shopify is B2B2C — it sells to businesses (merchants) who in turn reach the end consumer, with Shopify never directly selling to the shopper."
+    },
+    {
+      "question": "What is the primary difference between CAC and LTV?",
+      "options": [
+        "A. CAC is a one-time cost to acquire a customer; LTV is the total value that customer generates over their relationship with you",
+        "B. CAC and LTV measure the same thing in different currencies",
+        "C. LTV is always smaller than CAC in a healthy business",
+        "D. CAC applies only to B2C and LTV only to B2B"
+      ],
+      "correct": 0,
+      "explain": "CAC (Customer Acquisition Cost) is what you spend to win a customer; LTV (Lifetime Value) is what that customer is worth over time — a healthy business needs LTV well above CAC."
+    },
+    {
+      "question": "What does a freemium model rely on to be profitable?",
+      "options": [
+        "A. Charging every user the same flat fee",
+        "B. A large free user base where a smaller % converts to paid, subsidized by that paid tier's margin",
+        "C. Selling user data as the sole revenue source",
+        "D. Requiring payment before any usage"
+      ],
+      "correct": 1,
+      "explain": "Freemium works when the free tier's cost to serve is low enough that a modest conversion rate to the paid tier covers it and turns a profit overall."
+    },
+    {
+      "question": "In a two-sided marketplace like Airbnb, what is the 'chicken-and-egg problem'?",
+      "options": [
+        "A. Choosing which programming language to build the platform in",
+        "B. The difficulty of attracting buyers without sellers present, and sellers without buyers present, at launch",
+        "C. A legal dispute between a platform and a regulator",
+        "D. The cost of running two data centers for redundancy"
+      ],
+      "correct": 1,
+      "explain": "Two-sided marketplaces need both supply and demand to be useful, but neither side wants to join an empty platform — most solve this by manually bootstrapping one side first (often supply)."
+    },
+    {
+      "question": "Which go-to-market motion is Slack best known for using to grow inside companies?",
+      "options": [
+        "A. Pure outbound cold-calling sales",
+        "B. TV advertising",
+        "C. Product-led growth (PLG) — individuals/teams adopt for free, then it spreads bottom-up before converting to a paid company-wide contract",
+        "D. Government procurement contracts"
+      ],
+      "correct": 2,
+      "explain": "Slack is a textbook PLG example: teams start using it for free, usage spreads organically inside the org, and that bottom-up adoption converts into a company-wide paid seat deal."
+    },
+    {
+      "question": "What is a 'moat' in business strategy?",
+      "options": [
+        "A. A company's total funding raised",
+        "B. A sustainable competitive advantage that protects a business from being easily copied by rivals",
+        "C. A type of marketing campaign",
+        "D. The physical office perimeter security"
+      ],
+      "correct": 1,
+      "explain": "A moat is what keeps competitors from eating your market share — examples include network effects, switching costs, brand, scale economies, and proprietary data or IP."
+    },
+    {
+      "question": "What does TAM/SAM/SOM help a founder or analyst do?",
+      "options": [
+        "A. Calculate payroll taxes",
+        "B. Size the total addressable market, the serviceable portion, and the realistically obtainable share of it",
+        "C. Set the company's org chart",
+        "D. Choose a cloud hosting provider"
+      ],
+      "correct": 1,
+      "explain": "TAM (Total), SAM (Serviceable), SOM (Obtainable) is a funnel used to size a market opportunity from the broadest possible figure down to a realistic near-term target."
+    },
+    {
+      "question": "A startup is told it has '12 months of runway.' What does this mean?",
+      "options": [
+        "A. It has 12 months until its next product launch",
+        "B. At its current monthly burn rate, it has 12 months of cash left before running out",
+        "C. It must IPO within 12 months by law",
+        "D. Its lease expires in 12 months"
+      ],
+      "correct": 1,
+      "explain": "Runway is cash on hand divided by monthly burn rate — it tells a startup how long it can operate before needing more revenue or funding."
+    },
+    {
+      "question": "Why might a B2B sales cycle take months while a B2C purchase takes seconds?",
+      "options": [
+        "A. B2B products are always more expensive to build",
+        "B. B2B purchases usually involve multiple stakeholders, budget approval, and risk evaluation, unlike an individual consumer's impulse or habitual purchase",
+        "C. B2C companies are required by law to close deals quickly",
+        "D. There is no real difference in practice"
+      ],
+      "correct": 1,
+      "explain": "B2B buying usually involves a committee (end user, budget owner, IT/security, legal) evaluating ROI and risk, while a B2C purchase is typically a single person's fast, low-risk decision."
     }
   ]
 }
