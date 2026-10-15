@@ -37,6 +37,12 @@
         <a href="${b}/ai-prompt-engineering/index.html">🤖 AI</a>
         <a href="${b}/tools-ide/index.html">⚡ IDE</a>
         <a href="${b}/computer-basics/index.html">🖥️ Basics</a>
+        <a href="${b}/roadmaps/index.html">🗺️ Roadmaps</a>
+        <a href="${b}/interview-questions/index.html">💼 Interview</a>
+        <a href="${b}/labs/index.html">🔬 Labs</a>
+        <a href="${b}/certifications/index.html">🏆 Cert Tracker</a>
+        <a href="${b}/cheatsheets/index.html">📋 Cheat Sheets</a>
+        <a href="${b}/downloads/index.html">⬇️ Downloads</a>
       </nav>
       <div class="site-header__auth" id="auth-nav"></div>
       <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
@@ -48,22 +54,29 @@
   function buildFallbackFooter(base) {
     const b = base.replace(/\/$/, '') || '.';
     return `<footer class="site-footer">
-      <p>
-        <strong style="color:var(--accent)">IT University</strong> — Your complete IT learning platform.
-        &nbsp;&middot;&nbsp;<a href="${b}/index.html">Home</a>
-        &nbsp;&middot;&nbsp;<a href="${b}/ultimate-it/index.html">IT Encyclopedia</a>
-        &nbsp;&middot;&nbsp;<a href="${b}/devops-cloud/index.html">DevOps</a>
-        &nbsp;&middot;&nbsp;<a href="${b}/cybersecurity-vapt/index.html">CyberSec</a>
-        &nbsp;&middot;&nbsp;<a href="${b}/linux-administration/index.html">Linux</a>
-        &nbsp;&middot;&nbsp;<a href="${b}/aws-learning/index.html">AWS</a>
-        &nbsp;&middot;&nbsp;<a href="${b}/ai-prompt-engineering/index.html">AI</a>
-        &nbsp;&middot;&nbsp;<a href="${b}/tools-ide/index.html">IDE</a>
-        &nbsp;&middot;&nbsp;<a href="${b}/computer-basics/index.html">Basics</a>
-        &nbsp;&middot;&nbsp;<a href="${b}/interview-questions/index.html">Interview Hub</a>
-        &nbsp;&middot;&nbsp;<a href="${b}/roadmaps/index.html">Roadmaps</a>
-        &nbsp;&middot;&nbsp;<a href="${b}/labs/index.html">Labs</a>
-      </p>
-      <p style="margin-top:8px">&copy; IT University. All content for educational purposes.</p>
+      <nav aria-label="Footer navigation" style="margin-bottom:12px;display:flex;flex-wrap:wrap;gap:4px 16px;justify-content:center;font-size:var(--text-sm)">
+        <a href="${b}/index.html">Home</a>
+        <a href="${b}/ultimate-it/index.html">IT Encyclopedia</a>
+        <a href="${b}/devops-cloud/index.html">DevOps &amp; Cloud</a>
+        <a href="${b}/cybersecurity-vapt/index.html">Cybersecurity</a>
+        <a href="${b}/linux-administration/index.html">Linux Admin</a>
+        <a href="${b}/aws-learning/index.html">AWS</a>
+        <a href="${b}/ai-prompt-engineering/index.html">AI &amp; Prompting</a>
+        <a href="${b}/tools-ide/index.html">Online IDE</a>
+        <a href="${b}/computer-basics/index.html">Computer Basics</a>
+        <span style="color:var(--border)">|</span>
+        <a href="${b}/interview-questions/index.html">Interview Hub</a>
+        <a href="${b}/roadmaps/index.html">Roadmaps</a>
+        <a href="${b}/cheatsheets/index.html">Cheat Sheets</a>
+        <a href="${b}/certifications/index.html">Cert Tracker</a>
+        <a href="${b}/downloads/index.html">Downloads</a>
+        <a href="${b}/labs/index.html">Hands-on Labs</a>
+        <span style="color:var(--border)">|</span>
+        <a href="${b}/auth/login.html">Login</a>
+        <a href="${b}/auth/signup.html">Sign Up</a>
+      </nav>
+      <p>&copy; IT University &mdash; All content for educational purposes.</p>
+      <p style="margin-top:6px;font-size:var(--text-xs);color:var(--text-muted)">Built by <strong style="color:var(--accent)">Vikash Pandey</strong></p>
     </footer>`;
   }
 
