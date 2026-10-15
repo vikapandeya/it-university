@@ -10,7 +10,8 @@
         "C. Commits changes to a branch",
         "D. Merges two branches"
       ],
-      "correct": 0
+      "correct": 0,
+      "explain": "git stash temporarily shelves uncommitted changes so you get a clean working directory, and you can reapply them later with git stash pop."
     },
     {
       "question": "Which Git command shows the difference between the working directory and the last commit?",
@@ -20,7 +21,8 @@
         "C. git status",
         "D. git show"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "git diff compares the working directory against the last commit (or staged changes), showing exactly what has changed line by line."
     },
     {
       "question": "What regex pattern matches one or more digits?",
@@ -30,7 +32,8 @@
         "C. \\d+",
         "D. \\D+"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "The + quantifier means one or more occurrences, so \\d+ matches any sequence of one or more digits."
     },
     {
       "question": "Which keyboard shortcut typically opens the terminal in VS Code?",
@@ -40,7 +43,8 @@
         "C. Alt+F4",
         "D. Ctrl+`"
       ],
-      "correct": 3
+      "correct": 3,
+      "explain": "Ctrl+` (backtick) is the default VS Code shortcut to toggle the integrated terminal panel open or closed."
     },
     {
       "question": "What does 'git rebase -i HEAD~3' allow you to do?",
@@ -50,7 +54,8 @@
         "C. Reset to 3 commits ago",
         "D. Merge 3 branches"
       ],
-      "correct": 0
+      "correct": 0,
+      "explain": "The -i flag opens an interactive editor listing the last 3 commits, letting you reorder, squash, edit, or drop them before rewriting history."
     },
     {
       "question": "In Linux, which command finds files by name recursively?",
@@ -60,7 +65,8 @@
         "C. locate",
         "D. ls -R"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "The find command with -name searches a directory tree recursively for files matching a given name pattern."
     },
     {
       "question": "What does the regex anchor '^' mean?",
@@ -70,7 +76,8 @@
         "C. Start of string",
         "D. Word boundary"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "The caret (^) anchor matches the position at the start of a string or line, not an actual character."
     },
     {
       "question": "Which file permission allows execute for the owner only (numeric)?",
@@ -80,7 +87,8 @@
         "C. 777",
         "D. 700"
       ],
-      "correct": 3
+      "correct": 3,
+      "explain": "700 in octal permissions gives the owner full read, write, execute (7) while group and others get no access (0)."
     },
     {
       "question": "What does 'git cherry-pick <commit-hash>' do?",
@@ -90,7 +98,8 @@
         "C. Tags a commit",
         "D. Squashes commits"
       ],
-      "correct": 0
+      "correct": 0,
+      "explain": "git cherry-pick takes the changes introduced by one specific commit from another branch and reapplies them as a new commit on your current branch."
     },
     {
       "question": "What is the purpose of a .gitignore file?",
@@ -100,7 +109,8 @@
         "C. Stores commit messages",
         "D. Defines branch policies"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": ".gitignore lists file and directory patterns that Git should exclude from tracking, like build artifacts or dependency folders."
     },
     {
       "question": "Which Bash shortcut moves the cursor to the beginning of the line?",
@@ -110,7 +120,8 @@
         "C. Ctrl+A",
         "D. Ctrl+K"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "Ctrl+A in Bash's readline-based line editing moves the cursor to the beginning of the current line."
     },
     {
       "question": "In VS Code, what shortcut opens the Command Palette?",
@@ -120,7 +131,8 @@
         "C. Ctrl+G",
         "D. Ctrl+Shift+P"
       ],
-      "correct": 3
+      "correct": 3,
+      "explain": "Ctrl+Shift+P opens VS Code's Command Palette, giving quick keyboard access to every available command and action."
     },
     {
       "question": "What does the regex quantifier '{3,6}' mean?",
@@ -130,7 +142,8 @@
         "C. 3 or more repetitions",
         "D. Up to 6 repetitions"
       ],
-      "correct": 0
+      "correct": 0,
+      "explain": "The {min,max} quantifier syntax {3,6} matches the preceding element repeated between 3 and 6 times, inclusive."
     },
     {
       "question": "What does 'chmod 755 script.sh' set?",
@@ -140,7 +153,8 @@
         "C. Owner: r-x, Group: r-x, Others: r-x",
         "D. Owner: rw-, Group: r--, Others: r--"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "755 in octal breaks down as 7 (rwx) for owner, 5 (r-x) for group, and 5 (r-x) for others."
     },
     {
       "question": "Which Git workflow uses feature branches that merge into 'develop' before 'main'?",
@@ -150,7 +164,8 @@
         "C. Gitflow",
         "D. Ship/show/ask"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "Gitflow uses a develop branch for integrating feature branches, which are only merged into main when preparing a release."
     },
     {
       "question": "What command shows who last modified each line of a file in Git?",
@@ -160,7 +175,8 @@
         "C. git show-ref",
         "D. git blame"
       ],
-      "correct": 3
+      "correct": 3,
+      "explain": "git blame annotates each line of a file with the commit and author who last modified it, useful for tracing the history of a change."
     },
     {
       "question": "What does the Piston API (emkc.org) enable in a browser-based IDE?",
@@ -170,7 +186,8 @@
         "C. Database queries",
         "D. File system access"
       ],
-      "correct": 0
+      "correct": 0,
+      "explain": "Piston is a remote code execution engine that lets a browser-based IDE run code in many languages safely on a server, without needing local compilers."
     },
     {
       "question": "Which regex character class matches any whitespace?",
@@ -180,7 +197,8 @@
         "C. \\b",
         "D. \\W"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "\\s is the regex shorthand character class that matches any whitespace character, including spaces, tabs, and newlines."
     },
     {
       "question": "What does 'git fetch' do compared to 'git pull'?",
@@ -190,7 +208,8 @@
         "C. fetch downloads changes but does not merge; pull fetches and merges",
         "D. fetch only works with remote branches"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "git fetch only downloads remote commits and updates tracking branches without touching your working directory, while git pull also merges them in."
     },
     {
       "question": "In Bash, what does 'Ctrl+R' do?",
@@ -200,7 +219,8 @@
         "C. Repeats the current line",
         "D. Searches command history"
       ],
-      "correct": 3
+      "correct": 3,
+      "explain": "Ctrl+R triggers Bash's reverse incremental search, letting you type characters to find a matching command from your history."
     },
     {
       "question": "What does the regex '(?:...)' create?",
@@ -210,7 +230,8 @@
         "C. A lookahead",
         "D. A backreference"
       ],
-      "correct": 0
+      "correct": 0,
+      "explain": "The (?:...) syntax creates a non-capturing group, which groups a pattern for quantifiers or alternation without storing it as a backreference."
     },
     {
       "question": "Which Git command undoes the last commit but keeps the changes staged?",
@@ -220,7 +241,8 @@
         "C. git revert HEAD",
         "D. git checkout HEAD~1"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "git reset --soft HEAD~1 moves the branch pointer back one commit but leaves all changes staged, ready to be recommitted or edited."
     },
     {
       "question": "What is the purpose of an SSH config file (~/.ssh/config)?",
@@ -230,7 +252,8 @@
         "C. Defines per-host SSH settings like user, port, and identity file",
         "D. Generates SSH keys"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "The SSH config file lets you define per-host connection settings, such as HostName, User, Port, and IdentityFile, so you can skip typing them each time."
     },
     {
       "question": "Which shortcut in most terminals pastes from the clipboard on Linux?",
@@ -240,7 +263,8 @@
         "C. Shift+Insert",
         "D. Ctrl+Shift+V"
       ],
-      "correct": 3
+      "correct": 3,
+      "explain": "Most Linux terminal emulators reserve Ctrl+V for other functions, so Ctrl+Shift+V is used to paste from the clipboard instead."
     },
     {
       "question": "What does 'git tag -a v1.0 -m \"Release\"' do?",
@@ -250,7 +274,8 @@
         "C. Pushes a tag to remote",
         "D. Lists all tags matching v1.0"
       ],
-      "correct": 0
+      "correct": 0,
+      "explain": "The -a flag creates a full annotated tag object storing the tagger, date, and message, unlike a lightweight tag which is just a pointer."
     }
   ]
 }

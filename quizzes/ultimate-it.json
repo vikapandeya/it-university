@@ -10,7 +10,8 @@
         "C. HTTP pipelining with queued requests",
         "D. WebSocket upgrades for all requests"
       ],
-      "correct": 0
+      "correct": 0,
+      "explain": "HTTP/2 multiplexes many concurrent request/response streams over one TCP connection, avoiding head-of-line blocking from opening multiple connections."
     },
     {
       "question": "What is the key difference between TLS 1.3 and TLS 1.2 handshakes?",
@@ -20,7 +21,8 @@
         "C. TLS 1.2 is faster due to simpler cipher suites",
         "D. TLS 1.3 requires client certificates by default"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "TLS 1.3 simplifies the handshake to 1 round trip (0 on resumption), drops insecure legacy ciphers, and requires forward-secret key exchange."
     },
     {
       "question": "A Linux process is in 'D' (uninterruptible sleep) state. What does this indicate?",
@@ -30,7 +32,8 @@
         "C. The process is blocked on I/O — typically disk or network — and cannot be killed with SIGKILL",
         "D. The process is in debug mode and paused by a debugger"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "D state means the kernel is waiting on an uninterruptible I/O operation, so the process ignores signals, including SIGKILL, until the I/O completes."
     },
     {
       "question": "What Linux command shows which process has a file open and which process is listening on a port?",
@@ -40,7 +43,8 @@
         "C. strace -p PID -e trace=network",
         "D. lsof -i :80  or  lsof /path/to/file"
       ],
-      "correct": 3
+      "correct": 3,
+      "explain": "lsof lists open files, and since sockets are treated as files on Linux, lsof -i reveals which process owns a given network port."
     },
     {
       "question": "In Windows Server, which Event ID in the Security log indicates a successful logon?",
@@ -50,7 +54,8 @@
         "C. 4740",
         "D. 7045"
       ],
-      "correct": 0
+      "correct": 0,
+      "explain": "Event ID 4624 is logged whenever an account successfully logs on; 4625 is its failed-logon counterpart."
     },
     {
       "question": "What does Active Directory's Kerberos authentication issue a 'TGT' (Ticket Granting Ticket) for?",
@@ -60,7 +65,8 @@
         "C. Encrypting LDAP bind traffic between client and DC",
         "D. Granting admin rights on the user's workstation"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "A TGT lets a user prove their identity to the Key Distribution Center repeatedly, obtaining service tickets for resources without retyping a password each time."
     },
     {
       "question": "In Python, what is the difference between a list comprehension and a generator expression?",
@@ -70,7 +76,8 @@
         "C. List comprehensions produce the entire list in memory at once; generators are lazy — yielding one item at a time, saving memory",
         "D. Generators only work with numeric types; list comprehensions work with any type"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "A list comprehension builds the full list eagerly in memory, while a generator expression lazily yields items on demand, which is more memory-efficient for large sequences."
     },
     {
       "question": "In JavaScript, what is the output order of this code: console.log('A'); setTimeout(()=>console.log('B'),0); Promise.resolve().then(()=>console.log('C')); console.log('D');",
@@ -80,7 +87,8 @@
         "C. A, C, D, B",
         "D. A, D, C, B"
       ],
-      "correct": 3
+      "correct": 3,
+      "explain": "Synchronous code (A, D) runs first, then microtasks like Promise callbacks (C) run before macrotasks like setTimeout (B), giving A, D, C, B."
     },
     {
       "question": "In Go, what happens if you send on a closed channel?",
@@ -90,7 +98,8 @@
         "C. The value is silently discarded",
         "D. An error is returned to the caller"
       ],
-      "correct": 0
+      "correct": 0,
+      "explain": "Sending on a closed channel is a programming error in Go and causes an immediate runtime panic, unlike receiving which just returns the zero value."
     },
     {
       "question": "What does Go's 'defer' keyword guarantee about execution order when multiple defers exist in one function?",
@@ -100,7 +109,8 @@
         "C. All defers run in parallel via goroutines",
         "D. Order depends on whether defers are in if/else branches"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "Deferred calls are pushed onto a stack, so they execute in last-in-first-out order when the surrounding function returns."
     },
     {
       "question": "In CAP theorem, which guarantee must distributed systems always maintain (making it a choice between C and A)?",
@@ -110,7 +120,8 @@
         "C. Partition Tolerance — system continues despite network partitions",
         "D. Durability — committed writes survive failures"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "Network partitions are unavoidable in real distributed systems, so partition tolerance is non-negotiable, forcing a tradeoff only between consistency and availability."
     },
     {
       "question": "What is the difference between a MongoDB $lookup aggregation stage and a SQL LEFT JOIN?",
@@ -120,7 +131,8 @@
         "C. $lookup requires the same database; LEFT JOIN can span servers",
         "D. $lookup joins collections in memory (no foreign keys/indexes enforced by schema); LEFT JOIN can use indexed foreign keys with query planner optimization"
       ],
-      "correct": 3
+      "correct": 3,
+      "explain": "MongoDB has no schema-enforced foreign keys, so $lookup performs the join at query time, while a relational LEFT JOIN can exploit indexed foreign keys and a cost-based planner."
     },
     {
       "question": "A Redis ZADD leaderboard operation with the same member but a different score — what happens?",
@@ -130,7 +142,8 @@
         "C. Creates a duplicate entry with the new score",
         "D. The old score is kept; new score is ignored"
       ],
-      "correct": 0
+      "correct": 0,
+      "explain": "ZADD on an existing member updates that member's score and the sorted set automatically re-ranks it, which is exactly how Redis leaderboards stay current."
     },
     {
       "question": "In Terraform, what is the purpose of a 'data source' block?",
@@ -140,7 +153,8 @@
         "C. Stores sensitive values like passwords outside of state",
         "D. Declares a reusable module from the Terraform registry"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "A data source is read-only: it fetches attributes of infrastructure that already exists, whether created outside Terraform or by another configuration."
     },
     {
       "question": "What security risk does 'terraform state' expose if the state file is stored without encryption?",
@@ -150,7 +164,8 @@
         "C. Terraform state can contain plaintext secrets (DB passwords, private keys) written by providers",
         "D. The risk is only relevant if the state file is larger than 10MB"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "Terraform state stores full resource attributes, and many providers write sensitive values like passwords or keys into it in plaintext, so an unencrypted state file leaks secrets."
     },
     {
       "question": "In a Kubernetes Deployment, what is the effect of setting 'maxUnavailable: 0' and 'maxSurge: 1' in a rolling update?",
@@ -160,7 +175,8 @@
         "C. Updates are paused until manual approval",
         "D. One new pod is created first, then one old pod is removed — ensuring no reduction in capacity throughout the rollout"
       ],
-      "correct": 3
+      "correct": 3,
+      "explain": "maxUnavailable: 0 forbids dropping below the desired replica count, so Kubernetes must add one surge pod before removing an old one, keeping capacity constant."
     },
     {
       "question": "What is the difference between a Kubernetes ConfigMap and a Secret?",
@@ -170,7 +186,8 @@
         "C. Secrets are automatically encrypted at rest with AES-256; ConfigMaps are not",
         "D. ConfigMaps mount as volumes only; Secrets only as environment variables"
       ],
-      "correct": 0
+      "correct": 0,
+      "explain": "Both store key-value data similarly, but Secrets are only base64-encoded by default (not truly encrypted) and the API applies stricter RBAC and handling conventions."
     },
     {
       "question": "In a GitHub Actions workflow, what does setting 'id-token: write' permission enable?",
@@ -180,7 +197,8 @@
         "C. Grants write access to the repository via GITHUB_TOKEN",
         "D. Enables signing of commits and tags"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "id-token: write lets the job request a short-lived OIDC token from GitHub, which cloud providers can trust to grant credentials without storing long-lived secrets."
     },
     {
       "question": "What is the primary purpose of SLSA (Supply Chain Levels for Software Artifacts) provenance?",
@@ -190,7 +208,8 @@
         "C. Cryptographically verifiable metadata that documents how a software artifact was built — inputs, build system, outputs",
         "D. A dependency management system replacing npm/pip"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "SLSA provenance is signed metadata recording the build process, source, and inputs of an artifact so consumers can verify it wasn't tampered with."
     },
     {
       "question": "In Prometheus, what is the difference between a Counter and a Gauge metric type?",
@@ -200,7 +219,8 @@
         "C. There is no functional difference — naming convention only",
         "D. Counters only go up (reset on restart) — use rate(); Gauges can go up or down — use directly for current values"
       ],
-      "correct": 3
+      "correct": 3,
+      "explain": "A Counter is monotonically increasing and analyzed with rate(), while a Gauge represents a value that can rise or fall, like current memory usage or queue length."
     },
     {
       "question": "A Prometheus alert is in 'PENDING' state. What does this mean?",
@@ -210,7 +230,8 @@
         "C. The alert rule has a syntax error and is pending validation",
         "D. Alertmanager has received the alert but not yet routed it"
       ],
-      "correct": 0
+      "correct": 0,
+      "explain": "PENDING means the rule's expression is currently true, but Prometheus waits for the configured 'for' duration to elapse before transitioning it to FIRING."
     },
     {
       "question": "What does OWASP A01:2021 (Broken Access Control) cover that was not in the 2017 Top 10 top position?",
@@ -220,7 +241,8 @@
         "C. Broken authentication and session management",
         "D. Using components with known vulnerabilities"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "The 2021 OWASP Top 10 elevated Broken Access Control to the top spot, consolidating issues like IDOR, missing authorization checks, and CORS misconfiguration."
     },
     {
       "question": "What is SSRF (Server-Side Request Forgery) and why is it especially dangerous in cloud environments?",
@@ -230,7 +252,8 @@
         "C. Attacker tricks server into making HTTP requests to internal resources; in cloud it can reach the metadata endpoint (169.254.169.254) to steal IAM credentials",
         "D. Session fixation on the server side; dangerous because sessions persist longer in cloud"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "SSRF lets an attacker force the server to issue requests on their behalf, and in cloud environments this can reach the instance metadata service to steal IAM credentials."
     },
     {
       "question": "In DevSecOps, what is the difference between SAST and DAST?",
@@ -240,7 +263,8 @@
         "C. They test the same things — DAST is just faster",
         "D. SAST analyzes source code statically without executing it; DAST tests the running application by sending requests and observing responses"
       ],
-      "correct": 3
+      "correct": 3,
+      "explain": "SAST inspects source or binary code without running it to find flaws early, while DAST probes a running application from the outside, like a black-box attacker."
     },
     {
       "question": "What does a WAF (Web Application Firewall) protect against that a network firewall cannot?",
@@ -250,7 +274,8 @@
         "C. IP spoofing and ARP poisoning attacks",
         "D. Unauthorized port scanning of the server"
       ],
-      "correct": 0
+      "correct": 0,
+      "explain": "A WAF inspects HTTP payloads at the application layer to block attacks like SQL injection and XSS, which a network firewall operating on IP/port rules cannot see."
     },
     {
       "question": "What does Perfect Forward Secrecy (PFS) guarantee that standard RSA key exchange does not?",
@@ -260,7 +285,8 @@
         "C. Perfect encryption with no computational overhead",
         "D. Automatic certificate renewal before expiry"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "PFS uses ephemeral per-session keys (e.g. via Diffie-Hellman), so even if the server's long-term private key is later stolen, past recorded sessions remain undecryptable."
     },
     {
       "question": "In the STRIDE threat model, which threat category does 'an attacker replaying a captured authentication token' fall under?",
@@ -270,7 +296,8 @@
         "C. Spoofing",
         "D. Elevation of Privilege"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "Replaying a stolen token lets the attacker impersonate the legitimate user, which is Spoofing — falsely claiming another identity."
     },
     {
       "question": "What is the SRE concept of an 'error budget' and how does it influence product decisions?",
@@ -280,7 +307,8 @@
         "C. A percentage of test budget allocated to chaos engineering",
         "D. 100% minus the SLO target — the allowed downtime/errors. When exhausted, new features are frozen until reliability improves"
       ],
-      "correct": 3
+      "correct": 3,
+      "explain": "The error budget is the acceptable amount of unreliability implied by the SLO; once it's spent, teams prioritize reliability work over shipping new features."
     },
     {
       "question": "In PostgreSQL, what does EXPLAIN ANALYZE show that EXPLAIN alone does not?",
@@ -290,7 +318,8 @@
         "C. The index definitions used by the query",
         "D. The disk I/O cost of the query plan"
       ],
-      "correct": 0
+      "correct": 0,
+      "explain": "EXPLAIN only shows the planner's estimated plan, while EXPLAIN ANALYZE actually runs the query and reports real timings and row counts, exposing estimation errors."
     },
     {
       "question": "What is WireGuard's key architectural advantage over OpenVPN and IPsec?",
@@ -300,7 +329,8 @@
         "C. WireGuard is the only VPN protocol that supports IPv6",
         "D. WireGuard runs over HTTP/2, making it firewall-friendly"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "WireGuard's tiny, auditable codebase, fixed modern cryptographic choices, and in-kernel implementation give it a smaller attack surface and much better performance."
     },
     {
       "question": "In DNS security, what attack does DNSSEC prevent and how?",
@@ -310,7 +340,8 @@
         "C. DNS cache poisoning — by cryptographically signing DNS records so resolvers can verify authenticity",
         "D. DNS hijacking — by encrypting queries between client and resolver"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "DNSSEC adds digital signatures to DNS records, letting resolvers cryptographically verify responses are authentic and unmodified, preventing cache poisoning."
     },
     {
       "question": "What is the Kubernetes 'readinessProbe' used for, and how does it differ from 'livenessProbe'?",
@@ -320,7 +351,8 @@
         "C. readinessProbe runs once at startup; livenessProbe runs continuously",
         "D. readinessProbe controls whether traffic is sent to a pod; livenessProbe controls whether the container is restarted — a pod can be alive but not ready"
       ],
-      "correct": 3
+      "correct": 3,
+      "explain": "readinessProbe gates whether a pod receives traffic via the Service, while livenessProbe determines if the container is stuck and needs restarting; a pod can be running yet temporarily not ready."
     },
     {
       "question": "What is the purpose of 'topologySpreadConstraints' in a Kubernetes Pod spec?",
@@ -330,7 +362,8 @@
         "C. Restricts pods to specific node topologies based on hardware",
         "D. Configures network topology for service mesh routing"
       ],
-      "correct": 0
+      "correct": 0,
+      "explain": "topologySpreadConstraints tell the scheduler to distribute pods evenly across topology domains like zones or nodes, improving resilience against a single failure domain going down."
     },
     {
       "question": "In the OSI model, at which layer does TLS operate?",
@@ -340,7 +373,8 @@
         "C. Layer 4 — Transport",
         "D. Layer 7 — Application"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "TLS handles session establishment and data encryption/formatting between endpoints, functions that map to the Session and Presentation layers (5/6) of the OSI model."
     },
     {
       "question": "What is the binary representation of the decimal number 202?",
@@ -350,7 +384,8 @@
         "C. 11001010",
         "D. 10101010"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "202 = 128 + 64 + 8 + 2, which corresponds to the bit pattern 11001010 in binary."
     },
     {
       "question": "What AWS service would you use to get short-term IAM credentials for a Kubernetes pod without storing static access keys?",
@@ -360,7 +395,8 @@
         "C. AWS Systems Manager Parameter Store with IAM policy",
         "D. IRSA (IAM Roles for Service Accounts) — pod assumes IAM role via OIDC federation"
       ],
-      "correct": 3
+      "correct": 3,
+      "explain": "IRSA lets a Kubernetes service account federate with an IAM role via OIDC, so pods get scoped, automatically rotated temporary credentials without any static keys."
     },
     {
       "question": "What does the 'Shift Left' principle mean in DevSecOps?",
@@ -370,7 +406,8 @@
         "C. Shifting security team responsibilities left to the development team permanently",
         "D. Moving infrastructure from right (cloud) to left (on-premises)"
       ],
-      "correct": 0
+      "correct": 0,
+      "explain": "Shift Left means moving security checks earlier in the pipeline (IDE, pull request, CI) so vulnerabilities are caught and fixed cheaply before reaching production."
     },
     {
       "question": "In structured logging, why is JSON format preferred over plain text for production logs?",
@@ -380,7 +417,8 @@
         "C. JSON logs load faster in the browser console",
         "D. JSON is the only format supported by CloudWatch Logs"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "JSON gives logs a consistent structured schema, so fields like traceId or level can be indexed and queried directly in tools like Elasticsearch, rather than parsed from free text."
     },
     {
       "question": "What is 'supply chain attack' in software security, with a real-world example?",
@@ -390,7 +428,8 @@
         "C. Compromising a trusted third-party dependency or build system to inject malicious code into downstream software; example: the SolarWinds Orion backdoor or malicious npm packages",
         "D. Social engineering attacks against supply chain managers to steal credentials"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "A supply chain attack injects malicious code into a trusted dependency, build tool, or distribution channel so it propagates to every downstream consumer, as in the SolarWinds breach."
     },
     {
       "question": "In SQL, what is the execution order of clauses in a SELECT statement?",
@@ -400,7 +439,8 @@
         "C. FROM → SELECT → WHERE → GROUP BY → ORDER BY → HAVING",
         "D. FROM → JOIN → WHERE → GROUP BY → HAVING → SELECT → ORDER BY → LIMIT"
       ],
-      "correct": 3
+      "correct": 3,
+      "explain": "Despite SELECT appearing first textually, the engine logically resolves FROM/JOIN and WHERE first, then GROUP BY/HAVING, and only projects columns with SELECT before ORDER BY and LIMIT."
     },
     {
       "question": "What does the HTTP 'OPTIONS' method used in a CORS preflight request ask the server?",
@@ -410,7 +450,8 @@
         "C. To return all supported authentication methods",
         "D. Whether the endpoint supports HTTP/2"
       ],
-      "correct": 0
+      "correct": 0,
+      "explain": "A CORS preflight OPTIONS request asks the server which methods and headers it will permit from that origin before the browser sends the actual cross-origin request."
     }
   ]
 }

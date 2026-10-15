@@ -10,7 +10,8 @@
         "C. They are the same thing stored in different locations",
         "D. Image is stored in memory; container is stored on disk"
       ],
-      "correct": 0
+      "correct": 0,
+      "explain": "An image is the static, read-only template built from a Dockerfile; a container adds a writable layer on top and is a live, running instance of that image."
     },
     {
       "question": "In a multi-stage Dockerfile, what does the '--target build' flag accomplish?",
@@ -20,7 +21,8 @@
         "C. Enables parallel execution of all stages up to 'build'",
         "D. Copies only the 'build' stage artifacts to the host"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "--target lets you build only up to a named stage, which is useful for debugging an intermediate stage or producing a smaller image without the later stages."
     },
     {
       "question": "Which Docker run flag makes the container filesystem read-only, improving security posture?",
@@ -30,7 +32,8 @@
         "C. --read-only",
         "D. --ro-filesystem"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "--read-only mounts the container's root filesystem as read-only, preventing processes inside from writing to it and reducing the attack surface."
     },
     {
       "question": "In Kubernetes, what is the role of the 'etcd' component?",
@@ -40,7 +43,8 @@
         "C. Manages container lifecycle on each worker node",
         "D. Distributed key-value store — the single source of truth for all cluster state"
       ],
-      "correct": 3
+      "correct": 3,
+      "explain": "etcd is the distributed, consistent key-value store that persists all cluster state, so every other control plane component reads from and writes to it."
     },
     {
       "question": "What does a Kubernetes Deployment's 'maxUnavailable: 0, maxSurge: 1' rolling update strategy guarantee?",
@@ -50,7 +54,8 @@
         "C. Updates pause after each pod for manual approval",
         "D. Only one pod runs at any time during the update"
       ],
-      "correct": 0
+      "correct": 0,
+      "explain": "maxUnavailable: 0 forbids reducing capacity, so Kubernetes must surge one new pod up before terminating an old one, keeping full capacity throughout the rollout."
     },
     {
       "question": "What is the difference between a Kubernetes Service type 'ClusterIP' and 'LoadBalancer'?",
@@ -60,7 +65,8 @@
         "C. ClusterIP is for TCP; LoadBalancer is for HTTP only",
         "D. LoadBalancer auto-scales pods; ClusterIP does not"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "ClusterIP gives an internal-only virtual IP, while LoadBalancer asks the cloud provider to provision an external load balancer that routes internet traffic to the service."
     },
     {
       "question": "What Kubernetes object ensures exactly one pod instance runs on every node in the cluster?",
@@ -70,7 +76,8 @@
         "C. DaemonSet",
         "D. ReplicaSet"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "A DaemonSet automatically schedules one copy of a pod onto every (or selected) node, which is ideal for node-level agents like log collectors or monitoring daemons."
     },
     {
       "question": "In Terraform, what is stored in the '.terraform.lock.hcl' file?",
@@ -80,7 +87,8 @@
         "C. The plan output from the last 'terraform plan' run",
         "D. Provider version constraints and checksums — ensures reproducible provider installations across team members"
       ],
-      "correct": 3
+      "correct": 3,
+      "explain": "The lock file records exact provider versions and checksums so everyone on the team and in CI installs the identical, verified provider binaries."
     },
     {
       "question": "Which Terraform command imports an existing AWS S3 bucket into state management WITHOUT recreating it?",
@@ -90,7 +98,8 @@
         "C. terraform state add aws_s3_bucket.existing my-bucket-name",
         "D. terraform refresh -resource=aws_s3_bucket.existing"
       ],
-      "correct": 0
+      "correct": 0,
+      "explain": "terraform import binds an already-existing real-world resource to a resource address in state, letting Terraform manage it going forward without recreating it."
     },
     {
       "question": "What does 'terraform validate' check that 'terraform fmt' does not?",
@@ -100,7 +109,8 @@
         "C. They check identical things — validate is just slower",
         "D. validate compares state with cloud reality; fmt does not"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "terraform fmt only rewrites style and whitespace, while terraform validate checks that the configuration is internally consistent and syntactically correct."
     },
     {
       "question": "In GitOps with ArgoCD, what does 'self-heal: true' do?",
@@ -110,7 +120,8 @@
         "C. Reverts manual changes made directly to the cluster that drift from the Git-declared state",
         "D. Heals broken Git merge conflicts automatically"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "Self-heal makes ArgoCD continuously reconcile live cluster state back to what is declared in Git, automatically undoing manual out-of-band changes."
     },
     {
       "question": "In GitHub Actions, which permission is required to request an OIDC token for keyless cloud authentication?",
@@ -120,7 +131,8 @@
         "C. security-events: write",
         "D. id-token: write"
       ],
-      "correct": 3
+      "correct": 3,
+      "explain": "id-token: write allows the workflow to request a short-lived OIDC token from GitHub, which cloud providers trust instead of long-lived static credentials."
     },
     {
       "question": "What does pinning a GitHub Action by full SHA (e.g., uses: actions/checkout@abc1234...) protect against?",
@@ -130,7 +142,8 @@
         "C. Ensures the action only runs on Ubuntu runners",
         "D. Prevents breaking changes from newer action versions"
       ],
-      "correct": 0
+      "correct": 0,
+      "explain": "Tags like @v3 can be moved to point at different, potentially malicious code, but a commit SHA is immutable, guaranteeing you always run the exact reviewed code."
     },
     {
       "question": "What Prometheus function should you use on a counter metric to get requests per second?",
@@ -140,7 +153,8 @@
         "C. delta()",
         "D. avg_over_time()"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "rate() computes the per-second average rate of increase of a counter over a time window, which is exactly what is needed for requests-per-second."
     },
     {
       "question": "In the Google SRE Golden Signals framework, which signal is most directly tied to user experience?",
@@ -150,7 +164,8 @@
         "C. Latency — time to serve a request (the user waits for this)",
         "D. Errors — rate of failed requests"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "Latency is the time a user directly experiences while waiting for a response, making it the signal most tightly coupled to perceived service quality."
     },
     {
       "question": "What is the primary security benefit of using Workload Identity (GKE) or IRSA (EKS) instead of environment variable credentials in pods?",
@@ -160,7 +175,8 @@
         "C. Access is audited by the Kubernetes API server rather than CloudTrail",
         "D. No static long-lived credentials are stored anywhere — pods receive short-lived tokens via OIDC federation, reducing blast radius of credential theft"
       ],
-      "correct": 3
+      "correct": 3,
+      "explain": "Workload Identity and IRSA eliminate stored static secrets by issuing short-lived tokens via OIDC federation, so a leaked token has limited lifetime and impact."
     },
     {
       "question": "What does 'immutable infrastructure' mean in practice?",
@@ -170,7 +186,8 @@
         "C. Infrastructure that is permanently hosted and never decommissioned",
         "D. Containers that use read-only Docker images"
       ],
-      "correct": 0
+      "correct": 0,
+      "explain": "Instead of patching servers in place, immutable infrastructure replaces them wholesale with a new image on every change, which prevents configuration drift."
     },
     {
       "question": "In Kubernetes NetworkPolicy, what happens by default if no NetworkPolicy selects a pod?",
@@ -180,7 +197,8 @@
         "C. Ingress is blocked; egress is allowed by default",
         "D. The pod is automatically placed in a quarantine namespace"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "Kubernetes networking is unrestricted by default, so a pod not selected by any NetworkPolicy can send and receive traffic freely until a policy restricts it."
     },
     {
       "question": "What is the purpose of a Kubernetes PodDisruptionBudget (PDB)?",
@@ -190,7 +208,8 @@
         "C. Ensures a minimum number of pods remain available during voluntary disruptions like node drains or rolling updates",
         "D. Sets cost budgets for cloud resources consumed by pods"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "A PDB tells the cluster how many pods of an app must stay running during voluntary disruptions such as node drains, preventing accidental over-eviction."
     },
     {
       "question": "Which Helm command upgrades a release but rolls back automatically if the deployment fails?",
@@ -200,7 +219,8 @@
         "C. helm rollout upgrade myrelease ./chart",
         "D. helm upgrade --atomic myrelease ./chart"
       ],
-      "correct": 3
+      "correct": 3,
+      "explain": "The --atomic flag makes Helm wait for the upgrade to succeed and automatically roll back to the previous release if it fails, keeping the release in a working state."
     },
     {
       "question": "What AWS component allows private access to S3 from within a VPC without traffic traversing the internet?",
@@ -210,7 +230,8 @@
         "C. Transit Gateway",
         "D. PrivateLink Interface Endpoint"
       ],
-      "correct": 0
+      "correct": 0,
+      "explain": "A VPC Gateway Endpoint routes S3 traffic privately within AWS's network via route table entries, avoiding the public internet and NAT gateway costs entirely."
     },
     {
       "question": "In a CI/CD pipeline, what is a 'canary deployment' and what metric triggers rollback?",
@@ -220,7 +241,8 @@
         "C. Deploy to one availability zone first; rollback if health checks fail",
         "D. A blue/green deployment with a canary test user group"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "A canary deployment exposes the new version to a small slice of real traffic while monitoring error rate and latency, rolling back automatically if SLOs are breached."
     },
     {
       "question": "What is the purpose of an SBOM (Software Bill of Materials) in DevSecOps?",
@@ -230,7 +252,8 @@
         "C. A complete inventory of all software components, libraries, and their versions in an artifact — enables rapid CVE impact assessment",
         "D. A bill of Terraform resources to be provisioned"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "An SBOM lists every component and version bundled into a software artifact, so when a new CVE is disclosed, teams can instantly see which systems are affected."
     },
     {
       "question": "In Kubernetes, what does 'kubectl rollout undo deployment/api' roll back to?",
@@ -240,7 +263,8 @@
         "C. Clears all rollout history and resets to the chart default",
         "D. The previous revision — the last known-good ReplicaSet before the current one"
       ],
-      "correct": 3
+      "correct": 3,
+      "explain": "Without a --to-revision flag, rollout undo reverts the Deployment to the immediately preceding ReplicaSet revision, effectively undoing the last rollout."
     },
     {
       "question": "What does the Ansible 'handlers' section in a playbook do?",
@@ -250,7 +274,8 @@
         "C. Handles errors and provides fallback tasks for failures",
         "D. Manages inventory host groups and connection handlers"
       ],
-      "correct": 0
+      "correct": 0,
+      "explain": "Handlers only run when explicitly notified by a task that reported a change, and they run once at the end of the play, which is ideal for conditional service restarts."
     }
   ]
 }

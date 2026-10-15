@@ -10,7 +10,8 @@
         "C. An explicit Deny statement in any policy",
         "D. AWS managed policies"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "An explicit Deny always overrides any Allow in IAM policy evaluation, regardless of where it comes from."
     },
     {
       "question": "What is the difference between IAM roles and IAM users?",
@@ -20,7 +21,8 @@
         "C. Users can have multiple roles simultaneously; roles can only have one user",
         "D. Roles are global; users are region-specific"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "Roles are assumed for short-lived, auto-rotating credentials, while IAM users hold long-term access keys or passwords."
     },
     {
       "question": "An EC2 instance in a private subnet needs to download OS updates. What AWS resource enables this?",
@@ -30,7 +32,8 @@
         "C. NAT Gateway (in a public subnet)",
         "D. VPC Endpoint"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "A NAT Gateway in a public subnet lets private-subnet instances reach the internet outbound while staying unreachable from it."
     },
     {
       "question": "What does S3 'versioning' protect against?",
@@ -40,7 +43,8 @@
         "C. Cross-region data transfer costs",
         "D. Object size limits"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "Versioning keeps every prior copy of an object, so overwrites or deletes can be undone by restoring an earlier version."
     },
     {
       "question": "Which EC2 pricing model offers the greatest discount (up to 90%) but can be interrupted?",
@@ -50,7 +54,8 @@
         "C. Spot Instances",
         "D. Savings Plans"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "Spot Instances use spare AWS capacity at steep discounts but can be reclaimed with short notice, suiting fault-tolerant workloads."
     },
     {
       "question": "What is the difference between RDS Multi-AZ and Read Replicas?",
@@ -60,7 +65,8 @@
         "C. Multi-AZ uses asynchronous replication; Read Replicas use synchronous",
         "D. They are the same feature with different names"
       ],
-      "correct": 0
+      "correct": 0,
+      "explain": "Multi-AZ keeps a synchronous standby purely for failover, while Read Replicas use async replication to offload read traffic."
     },
     {
       "question": "What is a VPC endpoint used for?",
@@ -70,7 +76,8 @@
         "C. Establishing VPN connections to on-premises networks",
         "D. Exposing internal services to the internet"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "VPC endpoints let resources reach AWS services like S3 or DynamoDB over AWS's private network instead of the public internet."
     },
     {
       "question": "In AWS Lambda, what causes a 'cold start'?",
@@ -80,7 +87,8 @@
         "C. A Lambda function that takes more than 30 seconds to execute",
         "D. Exceeding the concurrent execution limit"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "A cold start happens when Lambda must provision and initialize a fresh execution environment rather than reuse a warm one."
     },
     {
       "question": "What is the maximum retention period for S3 Glacier Deep Archive?",
@@ -90,7 +98,8 @@
         "C. 7 years",
         "D. No maximum — you set the retention period"
       ],
-      "correct": 3
+      "correct": 3,
+      "explain": "S3 Glacier Deep Archive has no fixed maximum retention; you define storage duration based on your compliance or archival needs."
     },
     {
       "question": "Which DynamoDB feature allows reading data at its most recent state, even in a multi-writer scenario?",
@@ -100,7 +109,8 @@
         "C. Transactional reads",
         "D. DynamoDB Streams"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "Strongly consistent reads return the most up-to-date data reflecting all successful writes, unlike eventually consistent reads."
     },
     {
       "question": "What is AWS GuardDuty?",
@@ -110,7 +120,8 @@
         "C. A web application firewall (WAF)",
         "D. An identity governance service"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "GuardDuty continuously analyzes logs like VPC Flow Logs, DNS, and CloudTrail with ML and threat intel to detect malicious activity."
     },
     {
       "question": "In S3, what is the purpose of a presigned URL?",
@@ -120,7 +131,8 @@
         "C. Signs an S3 bucket policy cryptographically",
         "D. Creates a signed version of the S3 bucket name"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "A presigned URL embeds a signature granting temporary access to a specific object without the requester needing AWS credentials."
     },
     {
       "question": "What is the difference between an ALB and NLB?",
@@ -130,7 +142,8 @@
         "C. ALB supports WebSocket; NLB does not",
         "D. ALB can have static IPs; NLB cannot"
       ],
-      "correct": 0
+      "correct": 0,
+      "explain": "ALB works at the application layer for HTTP/HTTPS routing rules, while NLB works at the transport layer for extreme performance."
     },
     {
       "question": "What is AWS KMS envelope encryption?",
@@ -140,7 +153,8 @@
         "C. Wrapping encryption keys in an envelope for transit",
         "D. A method to encrypt KMS keys with other KMS keys"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "Envelope encryption uses a CMK to encrypt a data key that encrypts your data, so the CMK itself never leaves KMS."
     },
     {
       "question": "What is the purpose of an IAM permissions boundary?",
@@ -150,7 +164,8 @@
         "C. Defines minimum permissions required for an AWS account",
         "D. Restricts which regions an IAM user can access"
       ],
-      "correct": 0
+      "correct": 0,
+      "explain": "A permissions boundary caps the maximum permissions an entity can ever receive, even if its identity policies grant more."
     },
     {
       "question": "Which AWS service would you use to automatically rotate database credentials?",
@@ -160,7 +175,8 @@
         "C. AWS KMS",
         "D. AWS IAM"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "AWS Secrets Manager natively supports automatic, scheduled rotation of database credentials via Lambda rotation functions."
     },
     {
       "question": "What is DynamoDB's RCU consumption for 1 strongly consistent read of a 7KB item?",
@@ -170,7 +186,8 @@
         "C. 3.5 RCU",
         "D. 7 RCU"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "One strongly consistent read uses 1 RCU per 4KB, so a 7KB item rounds up to two 4KB units, consuming 2 RCU."
     },
     {
       "question": "What is the purpose of an SCP (Service Control Policy) in AWS Organizations?",
@@ -180,7 +197,8 @@
         "C. Manages service quotas across the organization",
         "D. Controls which AWS services are available per region"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "SCPs set organization-wide permission guardrails, denying actions for member accounts even when their own IAM policies allow them."
     },
     {
       "question": "Which Route 53 routing policy routes based on the health of your endpoints with an active-passive failover?",
@@ -190,7 +208,8 @@
         "C. Failover routing",
         "D. Geolocation routing"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "Failover routing sends traffic to a primary resource and switches to a standby only when health checks mark the primary unhealthy."
     },
     {
       "question": "What is IRSA (IAM Roles for Service Accounts) in EKS?",
@@ -200,7 +219,8 @@
         "C. Identity-based Resource Scheduling Algorithm",
         "D. An AWS service for managing Kubernetes RBAC"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "IRSA maps a Kubernetes service account to an IAM role via OIDC federation, giving pods fine-grained AWS permissions per workload."
     },
     {
       "question": "What is the purpose of CloudFront origin access control (OAC)?",
@@ -210,7 +230,8 @@
         "C. Provides access control for CloudFront admin console",
         "D. Controls edge location selection for caching"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "OAC lets only CloudFront sign requests to a private S3 bucket, preventing users from bypassing CloudFront via direct S3 URLs."
     },
     {
       "question": "In AWS, what is the Shared Responsibility Model for EC2 instances?",
@@ -220,7 +241,8 @@
         "C. Customer manages hardware; AWS manages software",
         "D. Both AWS and customer share equal responsibility for all layers"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "AWS secures the hardware and hypervisor layer, while the customer is responsible for the guest OS, patching, apps, and security groups."
     },
     {
       "question": "What does Aurora's 'cluster endpoint' route traffic to?",
@@ -230,7 +252,8 @@
         "C. The primary (writer) instance",
         "D. The instance with lowest latency from the client"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "The cluster endpoint always points to the current primary writer instance, ensuring writes go to the correct Aurora node."
     },
     {
       "question": "What is the primary benefit of using Spot Instances in an Auto Scaling group?",
@@ -240,7 +263,8 @@
         "C. Faster instance startup compared to On-Demand",
         "D. Free egress data transfer"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "Spot Instances in Auto Scaling groups cut compute costs up to 90% for workloads resilient to interruption, like batch processing."
     },
     {
       "question": "What AWS service provides a centralized view of security findings from GuardDuty, Inspector, Macie, and others?",
@@ -250,7 +274,8 @@
         "C. AWS Security Hub",
         "D. Amazon Detective"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "AWS Security Hub aggregates and prioritizes findings from GuardDuty, Inspector, Macie, and other services into one dashboard."
     }
   ]
 }

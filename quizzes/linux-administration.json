@@ -10,7 +10,8 @@
         "C. ls -lh",
         "D. stat /"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "'du -sh /*' summarizes disk usage per top-level directory in human-readable form, unlike df which reports filesystem-level usage."
     },
     {
       "question": "What does 'chmod 755 script.sh' set?",
@@ -20,7 +21,8 @@
         "C. Owner: rw-, Group: r--, Others: r--",
         "D. Owner: rwx, Group: r--, Others: ---"
       ],
-      "correct": 0
+      "correct": 0,
+      "explain": "755 in octal is 7=rwx for owner, 5=r-x for group, 5=r-x for others, since each digit sums read(4)+write(2)+execute(1)."
     },
     {
       "question": "In LVM, what is the correct order of creation?",
@@ -30,7 +32,8 @@
         "C. PV → VG → LV",
         "D. VG → PV → LV"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "Physical volumes (PV) are pooled into a volume group (VG), from which logical volumes (LV) are then carved out."
     },
     {
       "question": "Which command shows TCP listening ports with process names?",
@@ -40,7 +43,8 @@
         "C. ip addr show",
         "D. ping -c 4 localhost"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "'ss -tlnp' lists TCP (t) listening (l) sockets numerically (n) with the owning process (p), replacing the older netstat."
     },
     {
       "question": "What does 'set -euo pipefail' do in a bash script?",
@@ -50,7 +54,8 @@
         "C. Sets file permissions for the script",
         "D. Enables verbose debugging mode"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "-e exits on any command failure, -u errors on unset variables, and pipefail makes a pipeline fail if any stage fails, improving script safety."
     },
     {
       "question": "Which systemd command shows the last 50 lines of nginx service logs?",
@@ -60,7 +65,8 @@
         "C. tail -50 /var/log/nginx.log",
         "D. logctl -u nginx --tail 50"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "journalctl -u filters logs by systemd unit, and -n 50 limits output to the most recent 50 journal entries for that service."
     },
     {
       "question": "What does SUID bit do on an executable file?",
@@ -70,7 +76,8 @@
         "C. Prevents the file from being executed by others",
         "D. Sets the file as a system-critical binary"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "The Set User ID bit makes the process run with the privileges of the file's owner (e.g. root) rather than the invoking user."
     },
     {
       "question": "What command displays SELinux security contexts on files?",
@@ -80,7 +87,8 @@
         "C. getcon -f",
         "D. sestatus -v"
       ],
-      "correct": 0
+      "correct": 0,
+      "explain": "'ls -Z' adds the SELinux security context (user:role:type:level) to normal file listing output."
     },
     {
       "question": "How do you extend an ext4 logical volume online without unmounting?",
@@ -90,7 +98,8 @@
         "C. fdisk /dev/sdb && mkfs.ext4 /dev/sdb1",
         "D. umount + fsck + resize2fs + mount"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "lvextend grows the logical volume's size, then resize2fs grows the ext4 filesystem to fill it, both supported while mounted."
     },
     {
       "question": "What is RAID 5 minimum disk requirement and how many disk failures can it survive?",
@@ -100,7 +109,8 @@
         "C. 4 disks, 2 failures",
         "D. 2 disks, 0 failures"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "RAID 5 stripes data with distributed parity across a minimum of 3 disks, allowing the array to survive exactly one disk failure."
     },
     {
       "question": "Which SSH option creates a local port forward (access remote service locally)?",
@@ -110,7 +120,8 @@
         "C. ssh -L 8080:localhost:80 host",
         "D. ssh -T 8080 host"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "-L forwards a local port to a port on the remote side, letting you reach a remote-only service through your local machine."
     },
     {
       "question": "What does the sticky bit on /tmp prevent?",
@@ -120,7 +131,8 @@
         "C. Makes the directory read-only for everyone",
         "D. Prevents all executables in the directory from running"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "The sticky bit restricts deletion/renaming in a shared, world-writable directory to the file's owner or root, protecting other users' files."
     },
     {
       "question": "What does 'getenforce' return when SELinux is actively blocking violations?",
@@ -130,7 +142,8 @@
         "C. Enforcing",
         "D. 1"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "'Enforcing' means SELinux actively denies and logs policy violations, as opposed to 'Permissive' which only logs them."
     },
     {
       "question": "Which command shows the process tree with PIDs?",
@@ -140,7 +153,8 @@
         "C. top -b -n 1",
         "D. ps aux --forest"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "pstree displays processes as a hierarchical parent-child tree, and the -p flag adds each process's PID."
     },
     {
       "question": "What does 'kill -HUP PID' signal do to a running process?",
@@ -150,7 +164,8 @@
         "C. Sends SIGHUP — typically causes the process to reload its configuration",
         "D. Terminates the process gracefully (SIGTERM)"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "Many daemons intercept SIGHUP (signal 1) to re-read their config files without a full restart, a convention inherited from terminal hangups."
     },
     {
       "question": "In /etc/passwd, what does 'x' in the password field mean?",
@@ -160,7 +175,8 @@
         "C. The hashed password is stored in /etc/shadow",
         "D. No password is required"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "'x' is a placeholder indicating the real hashed password lives in /etc/shadow, which unlike /etc/passwd is not world-readable."
     },
     {
       "question": "What is the USE method for Linux performance analysis?",
@@ -170,7 +186,8 @@
         "C. User, System, Exit codes per process",
         "D. Usage, Speed, Efficiency metrics"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "The USE method (Brendan Gregg) systematically checks Utilization, Saturation, and Errors for every system resource to find bottlenecks."
     },
     {
       "question": "Which file defines filesystem mounts that persist across reboots?",
@@ -180,7 +197,8 @@
         "C. /etc/fstab",
         "D. /etc/filesystems"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "/etc/fstab lists filesystems, their mount points, and mount options that the system reads at boot to mount them automatically."
     },
     {
       "question": "What does 'chattr +i /etc/resolv.conf' do to the file?",
@@ -190,7 +208,8 @@
         "C. Sets the file as hidden from ls output",
         "D. Changes file to inherit parent directory's permissions"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "The immutable attribute blocks all modification, deletion, or renaming of the file at the filesystem level, overriding normal permissions."
     },
     {
       "question": "What does 'nginx -t' do?",
@@ -200,7 +219,8 @@
         "C. Validates nginx configuration file syntax without starting",
         "D. Shows nginx active connections and throughput"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "'-t' parses and checks the configuration files for syntax errors and reports the result without actually starting the server."
     },
     {
       "question": "Which cron expression runs a job every day at 3:30 AM?",
@@ -210,7 +230,8 @@
         "C. */30 3 * * *",
         "D. 0 3 30 * *"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "Cron fields are minute hour day month weekday, so '30 3 * * *' means minute 30 of hour 3, i.e. 3:30 AM every day."
     },
     {
       "question": "With default umask 022, what permissions do newly created files get?",
@@ -220,7 +241,8 @@
         "C. 644",
         "D. 600"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "Files start from a base of 666 (no execute); subtracting umask 022 removes write for group and others, yielding 644."
     },
     {
       "question": "How do you permanently allow port 8080 for Nginx in SELinux?",
@@ -230,7 +252,8 @@
         "C. semanage port -a -t http_port_t -p tcp 8080",
         "D. setsebool -P httpd_can_connect 8080"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "semanage port adds a TCP port to the http_port_t type's allowed list persistently, which SELinux policy requires httpd to bind to it."
     },
     {
       "question": "What does 'lvextend -l +100%FREE /dev/vg/lv' do?",
@@ -240,7 +263,8 @@
         "C. Extends the volume group by 100% of current size",
         "D. Creates a new logical volume using 100% of the disk"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "The -l flag with %FREE sizes the LV relative to available extents, so +100%FREE consumes all remaining free space in the VG."
     },
     {
       "question": "Which systemd unit type replaces traditional cron jobs?",
@@ -250,7 +274,8 @@
         "C. .mount unit",
         "D. .timer unit paired with a .service unit"
       ],
-      "correct": 3
+      "correct": 3,
+      "explain": "A .timer unit schedules activation and triggers a matching .service unit, giving systemd-native dependency and logging integration unlike cron."
     }
   ]
 }

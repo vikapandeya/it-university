@@ -90,6 +90,7 @@ const quiz = {
               ${escapeHtml(opt)}
             </button>`).join('')}
         </div>
+        <div id="quiz-explain-slot"></div>
         <div class="quiz-controls">
           <button class="btn btn--primary" id="next-btn" onclick="quiz.next()" style="display:none">Next →</button>
         </div>
@@ -134,6 +135,40 @@ const quiz = {
       if (i === q.correct) btn.classList.add('correct');
       else if (i === selected) btn.classList.add('wrong');
     });
+    quiz.renderExplain(q, selected);
+  },
+
+  renderExplain(q, selected) {
+    const slot = document.getElementById('quiz-explain-slot');
+    if (!slot) return;
+    const isCorrect = selected === q.correct;
+    const wrongNote = !isCorrect && q.wrong && q.wrong[String(selected)];
+
+    if (isCorrect) {
+      if (!q.explain) { slot.innerHTML = ''; return; }
+      slot.innerHTML = `
+        <div class="quiz-explain quiz-explain--correct">
+          <span class="quiz-explain__icon">✅</span>
+          <div>
+            <div class="quiz-explain__title">Correct — here's why</div>
+            <div class="quiz-explain__body">${escapeHtml(q.explain)}</div>
+          </div>
+        </div>`;
+      return;
+    }
+
+    const body = selected === -1
+      ? "Time's up! " + (q.explain || `The correct answer is "${q.options[q.correct]}".`)
+      : (wrongNote || q.explain || `The correct answer is "${q.options[q.correct]}".`);
+
+    slot.innerHTML = `
+      <div class="quiz-explain quiz-explain--wrong">
+        <span class="quiz-explain__icon">💡</span>
+        <div>
+          <div class="quiz-explain__title">${selected === -1 ? "Time's up" : 'Not quite — here\'s why'}</div>
+          <div class="quiz-explain__body">${escapeHtml(body)}</div>
+        </div>
+      </div>`;
   },
 
   next() {

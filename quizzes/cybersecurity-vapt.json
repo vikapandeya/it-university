@@ -10,7 +10,8 @@
         "C. CIA = Control, Identify, Analyze; ransomware violates Control",
         "D. CIA = Confidentiality, Integrity, Availability; ransomware only violates Integrity"
       ],
-      "correct": 0
+      "correct": 0,
+      "explain": "Ransomware encrypts files so legitimate users cannot access them, which is a direct attack on Availability, and often also threatens Confidentiality via data leaks."
     },
     {
       "question": "Which OWASP Top 10 (2021) category moved to position #1 and includes IDOR and missing function-level access control?",
@@ -20,7 +21,8 @@
         "C. A02 — Cryptographic Failures",
         "D. A05 — Security Misconfiguration"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "Broken Access Control became A01 in the 2021 list, covering flaws like IDOR where users can act on resources or functions they shouldn't be authorized for."
     },
     {
       "question": "What makes a parameterized query (prepared statement) prevent SQL injection?",
@@ -30,7 +32,8 @@
         "C. It separates SQL code from user data — the database driver ensures user data is never interpreted as SQL commands",
         "D. It runs queries in a sandboxed environment with no write permissions"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "Parameterized queries send the query structure and the data separately, so the database never parses user input as part of the SQL syntax."
     },
     {
       "question": "Which XSS type stores the malicious payload in the database, affecting every user who views that content?",
@@ -40,7 +43,8 @@
         "C. Blind XSS",
         "D. Stored (Persistent) XSS"
       ],
-      "correct": 3
+      "correct": 3,
+      "explain": "Stored XSS saves the payload server-side (e.g., in a comment or profile field), so it executes for every visitor who later loads that stored content."
     },
     {
       "question": "What is SSRF and why is it critical when targeting cloud infrastructure?",
@@ -50,7 +54,8 @@
         "C. Session-Stealing Request Forwarding — hijacks authenticated sessions",
         "D. Secure Socket Request Failure — bypasses TLS validation"
       ],
-      "correct": 0
+      "correct": 0,
+      "explain": "SSRF tricks the server into making requests on the attacker's behalf, and in cloud environments this can reach the instance metadata service to steal temporary IAM credentials."
     },
     {
       "question": "What does the Nmap '-sS' (SYN scan) flag do differently from a full TCP connect scan?",
@@ -60,7 +65,8 @@
         "C. Completes the full 3-way handshake, making it undetectable",
         "D. Scans all 65535 ports sequentially using SYN packets"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "A SYN scan never completes the handshake (it sends RST instead of ACK), so many applications never log a full connection, making it stealthier than a connect scan."
     },
     {
       "question": "In CVSS v3.1, a vulnerability with AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H scores 10.0. What does 'S:C' (Scope: Changed) mean?",
@@ -70,7 +76,8 @@
         "C. Exploiting the vulnerability impacts resources beyond the vulnerable component's authorization scope",
         "D. Scope changed means additional user interaction is required"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "Scope Changed means the exploited component can affect resources governed by a different security authority, such as breaking out of a container to the host."
     },
     {
       "question": "What is the difference between symmetric and asymmetric encryption, and why is TLS hybrid?",
@@ -80,7 +87,8 @@
         "C. They are identical in modern implementations — TLS uses whichever the server prefers",
         "D. Symmetric (same key, fast) encrypts bulk data; asymmetric (key pair, slow) is used in TLS handshake to establish a session key — TLS uses both"
       ],
-      "correct": 3
+      "correct": 3,
+      "explain": "TLS uses slow asymmetric cryptography only to securely exchange a session key, then switches to fast symmetric encryption for the actual bulk data transfer."
     },
     {
       "question": "A web app hashes passwords with unsalted MD5. What attack is most effective?",
@@ -90,7 +98,8 @@
         "C. MITM attack to intercept the plaintext password",
         "D. SQL injection to bypass the password check"
       ],
-      "correct": 0
+      "correct": 0,
+      "explain": "Without a unique salt per password, attackers can use precomputed rainbow tables to instantly reverse common MD5 hashes to their plaintext values."
     },
     {
       "question": "What does the Content-Security-Policy header 'default-src self; script-src self nonce-abc123' enforce?",
@@ -100,7 +109,8 @@
         "C. Scripts are scanned for malware before execution",
         "D. Only HTTPS scripts are allowed from any origin"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "CSP script-src restricts which scripts can run; here only same-origin scripts or those tagged with the matching nonce execute, blocking injected inline scripts and mitigating XSS."
     },
     {
       "question": "In Burp Suite Intruder, which attack type uses independent wordlists for each payload position, trying every combination?",
@@ -110,7 +120,8 @@
         "C. Cluster Bomb",
         "D. Battering Ram"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "Cluster Bomb assigns a separate payload set to each position and tests every possible combination between them, useful for brute-forcing username/password pairs."
     },
     {
       "question": "What is a CSRF attack and what is the most effective prevention mechanism?",
@@ -120,7 +131,8 @@
         "C. Client-side request faking via XSS; prevention: input sanitization",
         "D. Forging requests from an authenticated user's browser to a target site; prevention: synchronizer token pattern (CSRF token) or SameSite cookie attribute"
       ],
-      "correct": 3
+      "correct": 3,
+      "explain": "CSRF abuses the browser's automatic cookie sending to forge authenticated requests; unique per-session CSRF tokens or SameSite cookies prevent the forged request from being accepted."
     },
     {
       "question": "The 'alg: none' JWT vulnerability allows an attacker to do what?",
@@ -130,7 +142,8 @@
         "C. Use no algorithm to speed up JWT parsing on high-traffic APIs",
         "D. Disable JWT expiration checking on the server"
       ],
-      "correct": 0
+      "correct": 0,
+      "explain": "If the server trusts the alg header and accepts 'none', it skips signature verification entirely, letting an attacker craft tokens with any claims they want, such as admin rights."
     },
     {
       "question": "What does 'find / -perm -4000 -type f 2>/dev/null' find on a Linux system during privilege escalation enumeration?",
@@ -140,7 +153,8 @@
         "C. Files modified in the last 4000 seconds",
         "D. Executable files with 4000 bytes or more"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "Permission mode 4000 is the SUID bit, which makes a binary execute with its owner's privileges, often root, making misconfigured SUID binaries a classic escalation path."
     },
     {
       "question": "What does TLS Perfect Forward Secrecy (PFS) guarantee that standard RSA key exchange does NOT?",
@@ -150,7 +164,8 @@
         "C. Compromise of the server's long-term private key cannot decrypt previously captured session traffic — each session uses ephemeral keys",
         "D. Forward compatibility with future TLS versions"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "PFS uses ephemeral key exchange (like DHE/ECDHE) so each session's key is unique and discarded afterward, meaning a later leak of the server's private key cannot retroactively decrypt old sessions."
     },
     {
       "question": "In the Cyber Kill Chain, which stage involves creating the exploit-laden payload (malicious document, weaponized PDF)?",
@@ -160,7 +175,8 @@
         "C. Command & Control",
         "D. Weaponization"
       ],
-      "correct": 3
+      "correct": 3,
+      "explain": "Weaponization is the stage where the attacker couples an exploit with a backdoor into a deliverable payload, such as a malicious PDF, before it is ever sent to the victim."
     },
     {
       "question": "What is the MITRE ATT&CK framework and how is it used in practice?",
@@ -170,7 +186,8 @@
         "C. An automated penetration testing tool developed by MITRE",
         "D. A CVE scoring system alternative developed for nation-state attacks"
       ],
-      "correct": 0
+      "correct": 0,
+      "explain": "ATT&CK catalogs real-world adversary TTPs, letting defenders map detections to known attacker behavior and letting red/blue teams structure purple team exercises around it."
     },
     {
       "question": "What is a 'dangling DNS' record and what attack does it enable?",
@@ -180,7 +197,8 @@
         "C. A DNS record that points to an internal IP, exposed externally",
         "D. An MX record pointing to a non-existent mail server"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "When a CNAME still points to a deprovisioned cloud resource, an attacker can register that same resource and have it respond for the victim's subdomain, achieving subdomain takeover."
     },
     {
       "question": "What is the difference between black-box, grey-box, and white-box penetration testing?",
@@ -190,7 +208,8 @@
         "C. Black = no prior knowledge; grey = partial knowledge (e.g., credentials but no source); white = full knowledge (source code, architecture, credentials)",
         "D. The difference is only in the colour of the test report cover"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "The terms describe how much information the tester starts with: none for black-box, some (like credentials) for grey-box, and full internal knowledge such as source code for white-box."
     },
     {
       "question": "What does 'passive reconnaissance' involve that makes it harder to detect than active recon?",
@@ -200,7 +219,8 @@
         "C. Routing all traffic through Tor to hide the attacker's IP",
         "D. Gathering target intelligence from public sources (OSINT, Shodan, crt.sh, LinkedIn) without sending any traffic directly to the target"
       ],
-      "correct": 3
+      "correct": 3,
+      "explain": "Passive recon never sends packets to the target itself, relying only on publicly available sources, so there is no traffic for the target's logs or IDS to detect."
     },
     {
       "question": "What is Trivy used for in a DevSecOps pipeline?",
@@ -210,7 +230,8 @@
         "C. Static analysis of Python and JavaScript source code",
         "D. Network port scanning and service fingerprinting"
       ],
-      "correct": 0
+      "correct": 0,
+      "explain": "Trivy is a scanner that inspects container images, filesystems, and repositories for known CVEs, bad configurations, and leaked secrets, typically run as a CI/CD pipeline gate."
     },
     {
       "question": "In AWS, what security event would GuardDuty detect that CloudTrail alone cannot alert on?",
@@ -220,7 +241,8 @@
         "C. An S3 bucket policy being modified to allow public access",
         "D. Root account login from the AWS console"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "CloudTrail only records API calls, while GuardDuty applies machine learning and threat intelligence to traffic patterns, catching behavioral anomalies like crypto-mining that raw logs wouldn't flag."
     },
     {
       "question": "What is privilege escalation in penetration testing, and name a common Linux vector?",
@@ -230,7 +252,8 @@
         "C. Gaining higher authorization after initial access; common vector: sudo -l to find misconfigured sudo rights, SUID binaries, writable cron jobs, or kernel exploits",
         "D. Increasing Nmap scan speed with -T5; common vector: port 4444"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "Privilege escalation means moving from limited initial access to higher-level permissions, often via misconfigurations like overly permissive sudo rules, SUID binaries, or writable cron jobs on Linux."
     },
     {
       "question": "What does the OWASP A10:2021 (SSRF) vulnerability enable that makes it especially dangerous in microservice architectures?",
@@ -240,7 +263,8 @@
         "C. Allows stealing of session tokens from other users via the server",
         "D. Server fetches internal service URLs on the attacker's behalf — can pivot to internal APIs, cloud metadata, or other services not exposed externally"
       ],
-      "correct": 3
+      "correct": 3,
+      "explain": "In microservice environments, internal services often trust requests from within the network; SSRF lets an attacker use the vulnerable server as a proxy to reach those otherwise unexposed services."
     },
     {
       "question": "What does Argon2id's memory-hard design protect against compared to SHA-256 for password hashing?",
@@ -250,7 +274,8 @@
         "C. Argon2id hashes are shorter, reducing database storage needs",
         "D. SHA-256 is deprecated; Argon2id is just its replacement with identical security properties"
       ],
-      "correct": 0
+      "correct": 0,
+      "explain": "Argon2id deliberately requires large amounts of memory per hash computation, which limits how many hashes an attacker can compute in parallel on GPUs or ASICs, unlike fast general-purpose hashes like SHA-256."
     },
     {
       "question": "What is the purpose of Certificate Transparency (CT) logs, and how can defenders use them?",
@@ -260,7 +285,8 @@
         "C. CT logs enforce certificate revocation across all browsers globally",
         "D. CT logs encrypt certificate metadata to prevent MITM attacks"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "Because every publicly trusted certificate must be logged in CT, defenders can monitor these public logs to spot rogue or unauthorized certificates issued for their domains, and attackers can use them for recon too."
     }
   ]
 }

@@ -10,7 +10,8 @@
         "C. Core Processing Utility",
         "D. Central Program Unit"
       ],
-      "correct": 0
+      "correct": 0,
+      "explain": "CPU stands for Central Processing Unit, the chip that executes instructions and does the computer's core calculations."
     },
     {
       "question": "Which type of storage retains data without power (non-volatile)?",
@@ -20,7 +21,8 @@
         "C. Cache",
         "D. CPU Register"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "ROM, SSDs, and HDDs are non-volatile, meaning they keep stored data even after power is turned off, unlike RAM or cache."
     },
     {
       "question": "In Microsoft Excel, which function calculates the average of a range?",
@@ -30,7 +32,8 @@
         "C. AVERAGE()",
         "D. MEAN()"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "AVERAGE() adds up the values in a range and divides by how many there are, giving the arithmetic mean."
     },
     {
       "question": "What does HTTP stand for?",
@@ -40,7 +43,8 @@
         "C. Host Transfer and Tunneling Protocol",
         "D. HyperText Transfer Protocol"
       ],
-      "correct": 3
+      "correct": 3,
+      "explain": "HTTP (HyperText Transfer Protocol) is the standard protocol browsers use to request and receive web pages."
     },
     {
       "question": "What is the primary job of an Operating System?",
@@ -50,7 +54,8 @@
         "C. Process spreadsheets",
         "D. Encrypt network traffic"
       ],
-      "correct": 0
+      "correct": 0,
+      "explain": "An OS manages CPU, memory, storage, and devices, and provides a platform of services on which applications run."
     },
     {
       "question": "In Excel, which shortcut autofills a selected cell formula down a column?",
@@ -60,7 +65,8 @@
         "C. Ctrl+E",
         "D. Ctrl+Down"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "Ctrl+D fills the contents or formula of the top cell in a selection down into the cells below it."
     },
     {
       "question": "What is RAM used for?",
@@ -70,7 +76,8 @@
         "C. Temporary fast storage for actively running programs",
         "D. Storing BIOS firmware"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "RAM holds data and instructions that running programs need right now, offering fast access but losing contents when power is off."
     },
     {
       "question": "Which protocol secures web traffic by encrypting it?",
@@ -80,7 +87,8 @@
         "C. SMTP",
         "D. HTTPS (TLS)"
       ],
-      "correct": 3
+      "correct": 3,
+      "explain": "HTTPS wraps HTTP traffic in TLS encryption, protecting data from being read or tampered with in transit."
     },
     {
       "question": "In Python's pandas, what does df.head() return?",
@@ -90,7 +98,8 @@
         "C. The column headers only",
         "D. The data types of each column"
       ],
-      "correct": 0
+      "correct": 0,
+      "explain": "By default, df.head() previews a DataFrame by returning its first 5 rows."
     },
     {
       "question": "What is the function of a router on a network?",
@@ -100,7 +109,8 @@
         "C. Provide wireless signals only",
         "D. Assign domain names"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "A router examines IP addresses to forward data packets between different networks, such as a home LAN and the internet."
     },
     {
       "question": "In Word, which shortcut adds a page break?",
@@ -110,7 +120,8 @@
         "C. Ctrl+Enter",
         "D. Ctrl+Shift+Enter"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "Ctrl+Enter inserts a manual page break, pushing the following text onto a new page."
     },
     {
       "question": "What does SSD stand for?",
@@ -120,7 +131,8 @@
         "C. Sequential Sector Disk",
         "D. Solid State Drive"
       ],
-      "correct": 3
+      "correct": 3,
+      "explain": "SSD stands for Solid State Drive, which stores data on flash memory chips with no moving parts, making it fast and durable."
     },
     {
       "question": "What Python library is primarily used for numerical array computations?",
@@ -130,7 +142,8 @@
         "C. pandas",
         "D. seaborn"
       ],
-      "correct": 0
+      "correct": 0,
+      "explain": "NumPy provides fast, efficient multi-dimensional arrays and the core numerical operations many other data science libraries build on."
     },
     {
       "question": "In PowerPoint, what is a 'Slide Master'?",
@@ -140,7 +153,8 @@
         "C. The slide with the most content",
         "D. A locked slide that cannot be edited"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "The Slide Master defines the layout, fonts, and colors inherited by every slide, letting you update the whole presentation's design at once."
     },
     {
       "question": "What is an IP address?",
@@ -150,7 +164,8 @@
         "C. A numerical label assigned to each device on a network",
         "D. A web browser setting"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "An IP address is a numerical label that identifies and locates a device on a network so data can be routed to it."
     },
     {
       "question": "What does DNS resolve?",
@@ -160,7 +175,8 @@
         "C. HTTP requests to responses",
         "D. Domain names to IP addresses"
       ],
-      "correct": 3
+      "correct": 3,
+      "explain": "DNS (Domain Name System) translates human-readable domain names into the IP addresses computers use to find each other."
     },
     {
       "question": "Which Excel function looks up a value in a table by row?",
@@ -170,7 +186,8 @@
         "C. INDEX",
         "D. MATCH"
       ],
-      "correct": 0
+      "correct": 0,
+      "explain": "VLOOKUP searches the first column of a table vertically and returns a value from a specified column in that matching row."
     },
     {
       "question": "What is 'virtualization' in computing?",
@@ -180,7 +197,8 @@
         "C. Backing up data to the cloud",
         "D. Encrypting a hard drive"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "Virtualization uses software to create multiple isolated virtual machines that share the resources of one physical computer."
     },
     {
       "question": "In data science, what is a 'DataFrame' in pandas?",
@@ -190,7 +208,8 @@
         "C. A 2D tabular data structure with labeled axes",
         "D. A Python function for data cleaning"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "A DataFrame is pandas' core structure: a two-dimensional table with labeled rows and columns, similar to a spreadsheet."
     },
     {
       "question": "What does the 'motherboard' do in a computer?",
@@ -200,7 +219,8 @@
         "C. Manages internet connections only",
         "D. Connects and allows communication between all hardware components"
       ],
-      "correct": 3
+      "correct": 3,
+      "explain": "The motherboard is the main circuit board that physically connects the CPU, RAM, storage, and other components so they can communicate."
     },
     {
       "question": "In Word, 'Track Changes' is used to:",
@@ -210,7 +230,8 @@
         "C. Sync documents to the cloud automatically",
         "D. Change document theme colors"
       ],
-      "correct": 0
+      "correct": 0,
+      "explain": "Track Changes marks every insertion, deletion, and edit so reviewers can see who changed what and accept or reject it."
     },
     {
       "question": "What is a 'cookie' in web browsing?",
@@ -220,7 +241,8 @@
         "C. A browser extension",
         "D. A type of web server"
       ],
-      "correct": 1
+      "correct": 1,
+      "explain": "A cookie is a small piece of data a website asks the browser to store, used to remember logins, preferences, and session state."
     },
     {
       "question": "Which pandas method removes rows with missing values?",
@@ -230,7 +252,8 @@
         "C. df.dropna()",
         "D. df.fillna()"
       ],
-      "correct": 2
+      "correct": 2,
+      "explain": "df.dropna() removes rows (or columns) that contain missing (NaN) values, while fillna() would fill them in instead."
     },
     {
       "question": "What does 'cloud computing' mean?",
@@ -240,7 +263,8 @@
         "C. Using distributed DNS servers",
         "D. Delivering computing services (servers, storage, software) over the internet"
       ],
-      "correct": 3
+      "correct": 3,
+      "explain": "Cloud computing delivers servers, storage, databases, and software as on-demand services over the internet instead of local hardware."
     },
     {
       "question": "In Excel, what does the '$' symbol do in a cell reference like '$A$1'?",
@@ -250,7 +274,8 @@
         "C. Refers to a named range",
         "D. Calculates the sum of column A"
       ],
-      "correct": 0
+      "correct": 0,
+      "explain": "The $ locks the column and/or row of a reference, so it stays fixed on $A$1 instead of shifting when the formula is copied elsewhere."
     }
   ]
 }
