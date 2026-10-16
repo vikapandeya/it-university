@@ -171,6 +171,29 @@
 
     /* ── Section heading (used above bento) ─── */
     .bento-heading { text-align: center; margin-bottom: var(--gap-lg); }
+
+    /* ── Stats strip (credibility, right under hero) ─ */
+    .stats-strip {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 var(--gap-lg) var(--gap-xl);
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      flex-wrap: wrap;
+      gap: var(--gap-lg) 0;
+    }
+    .stats-strip__item {
+      text-align: center;
+      padding: 0 var(--gap-xl);
+      border-right: 1px solid var(--border);
+    }
+    .stats-strip__item:last-child { border-right: none; }
+    .stats-strip__value { font-size: var(--text-2xl); font-weight: 800; font-family: var(--font-mono); color: var(--accent); line-height: 1; }
+    .stats-strip__label { font-size: var(--text-xs); color: var(--text-muted); margin-top: 4px; }
+    @media (max-width: 760px) {
+      .stats-strip__item { padding: 0 var(--gap-lg); border-right: none; }
+    }
   </style>
 </head>
 <body class="page-body">
@@ -214,11 +237,20 @@
 
 <main id="main-content">
 
-<!-- Bento Explore Grid -->
+<!-- Credibility strip — proves scale before asking anyone to explore -->
+<div class="stats-strip">
+  <div class="stats-strip__item"><div class="stats-strip__value">8</div><div class="stats-strip__label">Learning Portals</div></div>
+  <div class="stats-strip__item"><div class="stats-strip__value">245</div><div class="stats-strip__label">Quizzes, Instantly Explained</div></div>
+  <div class="stats-strip__item"><div class="stats-strip__value">50</div><div class="stats-strip__label">Hands-on Labs</div></div>
+  <div class="stats-strip__item"><div class="stats-strip__value">31</div><div class="stats-strip__label">Cheat Sheets</div></div>
+  <div class="stats-strip__item"><div class="stats-strip__value">28</div><div class="stats-strip__label">Certs Tracked</div></div>
+</div>
+
+<!-- Bento Explore Grid — portals and resources only; stats live above -->
 <section class="bento-section" id="explore">
   <div class="bento-heading">
     <div class="section-title">Explore Everything</div>
-    <div class="section-subtitle">Eight learning portals, 245 quizzes, 31 cheat sheets, and every tool you need — all free.</div>
+    <div class="section-subtitle">Eight specialized learning portals, plus every tool and resource you need — all free.</div>
   </div>
 
   <div class="bento-grid">
@@ -232,6 +264,15 @@
       <div class="tile__arrow">Start Learning →</div>
     </a>
 
+    <!-- Ultimate IT — tall, the "start here" overview -->
+    <a href="ultimate-it/index.html" class="tile bento--h2" style="--accent:#00d4ff;--accent-dim:#0099bb;--accent-glow:rgba(0,212,255,0.15)">
+      <div class="tile__icon">🌐</div>
+      <div class="tile__title">Ultimate IT Encyclopedia</div>
+      <div class="tile__desc">Not sure where to start? Networking, OS, programming, databases, cloud, and security — a condensed overview that links out to every specialized portal.</div>
+      <div class="tile__meta"><span class="badge badge--accent">Foundations</span><span class="badge">Networking</span></div>
+      <div class="tile__arrow">Explore →</div>
+    </a>
+
     <!-- Cybersecurity -->
     <a href="cybersecurity-vapt/index.html" class="tile bento--w2" style="--accent:#ff4d6d;--accent-dim:#cc2244;--accent-glow:rgba(255,77,109,0.15)">
       <div class="tile__icon">🛡️</div>
@@ -240,11 +281,13 @@
       <div class="tile__arrow">Learn Security →</div>
     </a>
 
-    <!-- Stat: Quiz Qs -->
-    <div class="tile tile--stat">
-      <div class="tile__value">245</div>
-      <div class="tile__label">Quiz Questions<br>with instant explanations</div>
-    </div>
+    <!-- Feature: GitOps/Business spotlight — promoted near the top since it's new -->
+    <a href="cheatsheets/gitops.html" class="tile bento--w2" style="--accent:#ef7b4d;--accent-dim:#cc5a2e;--accent-glow:rgba(239,123,77,0.15)">
+      <div class="tile__icon">🆕</div>
+      <div class="tile__title">Just Added: GitOps &amp; Business Models</div>
+      <div class="tile__desc">New cheat sheets on ArgoCD/Flux patterns and B2B/B2C strategy — plus matching quiz questions.</div>
+      <div class="tile__arrow">See what's new →</div>
+    </a>
 
     <!-- AWS -->
     <a href="aws-learning/index.html" class="tile tile--compact" style="--accent:#ff9900;--accent-dim:#cc7700;--accent-glow:rgba(255,153,0,0.15)">
@@ -259,21 +302,6 @@
       <div class="tile__title">Linux Administration</div>
       <div class="tile__arrow">Master Linux →</div>
     </a>
-
-    <!-- Ultimate IT — tall -->
-    <a href="ultimate-it/index.html" class="tile bento--h2" style="--accent:#00d4ff;--accent-dim:#0099bb;--accent-glow:rgba(0,212,255,0.15)">
-      <div class="tile__icon">🌐</div>
-      <div class="tile__title">Ultimate IT Encyclopedia</div>
-      <div class="tile__desc">Networking, OS, programming, databases, cloud, and security — a condensed overview that links out to every specialized portal below.</div>
-      <div class="tile__meta"><span class="badge badge--accent">Foundations</span><span class="badge">Networking</span></div>
-      <div class="tile__arrow">Explore →</div>
-    </a>
-
-    <!-- Stat: Labs -->
-    <div class="tile tile--stat">
-      <div class="tile__value">50</div>
-      <div class="tile__label">Hands-on Labs</div>
-    </div>
 
     <!-- AI -->
     <a href="ai-prompt-engineering/index.html" class="tile tile--compact" style="--accent:#b57bee;--accent-dim:#8a50c8;--accent-glow:rgba(181,123,238,0.15)">
@@ -296,26 +324,6 @@
       <div class="tile__arrow">Start Basics →</div>
     </a>
 
-    <!-- Stat: Interview Qs -->
-    <div class="tile tile--stat">
-      <div class="tile__value">45+</div>
-      <div class="tile__label">Interview Q&amp;As</div>
-    </div>
-
-    <!-- Feature: GitOps/Business spotlight -->
-    <a href="cheatsheets/gitops.html" class="tile bento--w2" style="--accent:#ef7b4d;--accent-dim:#cc5a2e;--accent-glow:rgba(239,123,77,0.15)">
-      <div class="tile__icon">🆕</div>
-      <div class="tile__title">Just Added: GitOps &amp; Business Models</div>
-      <div class="tile__desc">New cheat sheets on ArgoCD/Flux patterns and B2B/B2C strategy — plus matching quiz questions.</div>
-      <div class="tile__arrow">See what's new →</div>
-    </a>
-
-    <!-- Stat: Cheat Sheets -->
-    <div class="tile tile--stat">
-      <div class="tile__value">31</div>
-      <div class="tile__label">Cheat Sheets</div>
-    </div>
-
     <!-- Feature: Cert Roadmaps -->
     <a href="roadmaps/index.html" class="tile tile--compact" style="--accent:#f59e0b;--accent-dim:#c97d08;--accent-glow:rgba(245,158,11,0.15)">
       <div class="tile__icon">🗺️</div>
@@ -323,18 +331,18 @@
       <div class="tile__arrow">28 certs tracked →</div>
     </a>
 
-    <!-- Feature: Progress Tracker -->
-    <a href="auth/dashboard.html" class="tile tile--compact" style="--accent:#4d9fff;--accent-dim:#2d7adb;--accent-glow:rgba(77,159,255,0.15)">
-      <div class="tile__icon">📊</div>
-      <div class="tile__title">Progress Tracker</div>
-      <div class="tile__arrow">Track your journey →</div>
-    </a>
-
     <!-- Feature: Interview Hub -->
     <a href="interview-questions/index.html" class="tile tile--compact" style="--accent:#b57bee;--accent-dim:#8a50c8;--accent-glow:rgba(181,123,238,0.15)">
       <div class="tile__icon">💼</div>
       <div class="tile__title">Interview Hub</div>
       <div class="tile__arrow">Prep for interviews →</div>
+    </a>
+
+    <!-- Feature: Progress Tracker (requires an account) -->
+    <a href="auth/signup.html" class="tile tile--compact" style="--accent:#4d9fff;--accent-dim:#2d7adb;--accent-glow:rgba(77,159,255,0.15)">
+      <div class="tile__icon">📊</div>
+      <div class="tile__title">Progress Tracker</div>
+      <div class="tile__arrow">Sign up to track →</div>
     </a>
 
     <!-- CTA -->
