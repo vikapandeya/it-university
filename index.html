@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en" data-depth="1">
 <head>
   <meta charset="UTF-8">
@@ -9,20 +9,21 @@
   <link rel="stylesheet" href="assets/css/layout.css">
   <link rel="stylesheet" href="assets/css/components.css">
   <style>
-    /* ── Hero ─────────────────────────────── */
+    /* ── Hero (asymmetric two-column) ───────── */
     .hero {
-      min-height: calc(100vh - var(--header-h));
-      display: flex;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: clamp(32px, 6vw, 72px) var(--gap-lg) clamp(24px, 4vw, 48px);
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: var(--gap-xl);
       align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: var(--gap-xl) var(--gap-lg);
       background:
-        radial-gradient(ellipse at 20% 50%, rgba(0,212,255,0.06) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 20%, rgba(181,123,238,0.06) 0%, transparent 50%),
-        radial-gradient(ellipse at 50% 100%, rgba(57,211,83,0.04) 0%, transparent 50%);
+        radial-gradient(ellipse at 10% 20%, rgba(0,212,255,0.08) 0%, transparent 45%),
+        radial-gradient(ellipse at 90% 60%, rgba(181,123,238,0.07) 0%, transparent 45%);
     }
-    .hero__inner { max-width: 800px; }
+    @media (max-width: 920px) { .hero { grid-template-columns: 1fr; text-align: center; } }
+
     .hero__eyebrow {
       display: inline-flex;
       align-items: center;
@@ -38,89 +39,138 @@
       font-family: var(--font-mono);
     }
     .hero__title {
-      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-size: clamp(2.25rem, 5vw, 3.75rem);
       font-weight: 900;
-      line-height: 1.1;
+      line-height: 1.08;
       margin-bottom: var(--gap-lg);
       letter-spacing: -0.02em;
     }
-    .hero__title .accent { color: var(--accent); }
+    .hero__title .accent {
+      background: linear-gradient(90deg, var(--accent), #b57bee);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
     .hero__subtitle {
-      font-size: var(--text-xl);
+      font-size: var(--text-lg);
       color: var(--text-dim);
-      max-width: 560px;
-      margin: 0 auto var(--gap-xl);
+      max-width: 520px;
+      margin: 0 0 var(--gap-xl);
       line-height: 1.7;
     }
-    .hero__actions { display: flex; gap: var(--gap); justify-content: center; flex-wrap: wrap; }
+    @media (max-width: 920px) { .hero__subtitle { margin: 0 auto var(--gap-xl); } }
+    .hero__actions { display: flex; gap: var(--gap); flex-wrap: wrap; }
+    @media (max-width: 920px) { .hero__actions { justify-content: center; } }
+    .hero__note { margin-top: var(--gap-lg); font-size: var(--text-xs); color: var(--text-muted); }
 
-    /* Typewriter cursor */
-    .typewriter::after {
-      content: '|';
+    /* Terminal visual */
+    .hero__terminal {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg), 0 0 48px rgba(0,212,255,0.08);
+      overflow: hidden;
+      transform: rotate(0.6deg);
+    }
+    .hero__terminal-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 14px;
+      background: var(--bg-elevated);
+      border-bottom: 1px solid var(--border);
+    }
+    .hero__terminal-bar span { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+    .hero__terminal-bar span:nth-child(1) { background: #ff5f57; }
+    .hero__terminal-bar span:nth-child(2) { background: #febc2e; }
+    .hero__terminal-bar span:nth-child(3) { background: #28c840; }
+    .hero__terminal-bar .path { margin-left: 8px; font-family: var(--font-mono); font-size: var(--text-xs); color: var(--text-muted); }
+    .hero__terminal-body { padding: 18px 18px 22px; font-family: var(--font-mono); font-size: 0.82rem; line-height: 1.85; min-height: 230px; }
+    .hero__terminal-body .prompt { color: var(--success); }
+    .hero__terminal-body .out { color: var(--text-dim); }
+    .hero__terminal-body .ok { color: var(--success); }
+    .hero__terminal-body .cur::after {
+      content: '▌';
       color: var(--accent);
       animation: blink 1s step-end infinite;
+      margin-left: 2px;
     }
     @keyframes blink { 50% { opacity: 0; } }
 
-    /* ── Stats Bar ────────────────────────── */
-    .stats-bar {
-      background: var(--bg-card);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      padding: var(--gap-lg) var(--gap-lg);
-      display: flex;
-      justify-content: center;
-      gap: var(--gap-xl);
-      flex-wrap: wrap;
-    }
-    .stats-bar__item { text-align: center; }
-    .stats-bar__value {
-      font-size: var(--text-3xl);
-      font-weight: 800;
-      color: var(--accent);
-      font-family: var(--font-mono);
-      line-height: 1;
-    }
-    .stats-bar__label { font-size: var(--text-sm); color: var(--text-muted); margin-top: 2px; }
-
-    /* ── Portals Grid ─────────────────────── */
-    .portals-section {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: var(--gap-xl) var(--gap-lg);
-    }
-    .portals-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--gap-lg);
-    }
-    @media (max-width: 900px) { .portals-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 560px) { .portals-grid { grid-template-columns: 1fr; } }
-
-    /* ── Features ─────────────────────────── */
-    .features-section {
-      background: var(--bg-card);
-      border-top: 1px solid var(--border);
-      padding: var(--gap-xl) var(--gap-lg);
-    }
-    .features-inner { max-width: 1100px; margin: 0 auto; }
-    .features-grid {
+    /* ── Bento Grid ──────────────────────────── */
+    .bento-section { max-width: 1280px; margin: 0 auto; padding: var(--gap-lg) var(--gap-lg) var(--gap-xl); }
+    .bento-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 176px;
+      grid-auto-flow: dense;
       gap: var(--gap-lg);
-      margin-top: var(--gap-xl);
     }
-    @media (max-width: 900px) { .features-grid { grid-template-columns: repeat(2,1fr); } }
-    @media (max-width: 560px) { .features-grid { grid-template-columns: 1fr; } }
-    .feature-card {
-      background: var(--bg-elevated);
+    .bento--w2 { grid-column: span 2; }
+    .bento--h2 { grid-row: span 2; }
+    @media (max-width: 1100px) {
+      .bento-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .bento-grid { grid-template-columns: 1fr; grid-auto-rows: auto; }
+      .bento--w2, .bento--h2 { grid-column: span 1; grid-row: span 1; }
+    }
+
+    .tile {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       padding: var(--gap-lg);
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
     }
-    .feature-card__icon { font-size: 2rem; margin-bottom: var(--gap); }
-    .feature-card__title { font-size: var(--text-lg); font-weight: 700; margin-bottom: var(--gap-sm); }
-    .feature-card__desc { color: var(--text-dim); font-size: var(--text-sm); }
+    .tile::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent, #00d4ff), var(--accent-dim, #0099bb));
+      opacity: 0.9;
+    }
+    .tile:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg), 0 0 32px var(--accent-glow, rgba(0,212,255,0.15));
+      border-color: var(--accent, var(--border-accent));
+    }
+    .tile__icon { font-size: 1.9rem; line-height: 1; margin-bottom: var(--gap-sm); }
+    .tile--h2 .tile__icon, .bento--h2 .tile__icon { font-size: 2.6rem; }
+    .tile__title { font-size: var(--text-lg); font-weight: 700; margin-bottom: 6px; }
+    .bento--h2 .tile__title, .bento--w2 .tile__title { font-size: var(--text-xl); }
+    .tile__desc { color: var(--text-dim); font-size: var(--text-sm); flex: 1; line-height: 1.5; }
+    .tile--compact .tile__desc { display: none; }
+    .tile__meta { display: flex; gap: 6px; flex-wrap: wrap; margin-top: var(--gap-sm); }
+    .tile__arrow { margin-top: auto; padding-top: var(--gap-sm); font-size: var(--text-sm); font-weight: 700; color: var(--accent); }
+
+    /* Stat tiles */
+    .tile--stat { align-items: center; justify-content: center; text-align: center; }
+    .tile--stat::before { display: none; }
+    .tile--stat .tile__value { font-size: var(--text-3xl); font-weight: 800; font-family: var(--font-mono); color: var(--accent); line-height: 1; }
+    .tile--stat .tile__label { font-size: var(--text-xs); color: var(--text-muted); margin-top: 6px; }
+
+    /* CTA tile */
+    .tile--cta {
+      background: linear-gradient(135deg, rgba(0,212,255,0.12), rgba(181,123,238,0.1));
+      border-color: var(--accent-dim);
+      align-items: flex-start;
+      justify-content: center;
+      gap: 6px;
+    }
+    .tile--cta::before { display: none; }
+    .tile--cta .tile__title { font-size: var(--text-2xl); }
+    .tile--cta .btn { margin-top: var(--gap-sm); }
+
+    /* ── Section heading (used above bento) ─── */
+    .bento-heading { text-align: center; margin-bottom: var(--gap-lg); }
   </style>
 </head>
 <body class="page-body">
@@ -129,230 +179,174 @@
 
 <!-- Hero -->
 <section class="hero">
-  <div class="hero__inner">
-    <div class="hero__eyebrow">🎓 Version 1.0 — Now Live</div>
+  <div>
+    <div class="hero__eyebrow">🎓 100% Free — No Credit Card, Ever</div>
     <h1 class="hero__title">
-      The <span class="accent typewriter" id="typewriter">Ultimate IT</span><br>
-      Learning Ecosystem
+      Master IT.<br>
+      <span class="accent">All of it.</span>
     </h1>
     <p class="hero__subtitle">
-      Master DevOps, Cloud, Cybersecurity, Linux, AWS, and AI — all in one place.
-      Structured roadmaps, hands-on labs, quizzes, and certification prep.
+      DevOps, Cloud, Cybersecurity, Linux, AWS, and AI — 8 learning portals, 245 quiz questions
+      with instant answer explanations, 31 cheat sheets, and 50 hands-on labs. One platform, zero cost.
     </p>
     <div class="hero__actions">
       <a href="auth/signup.html" class="btn btn--primary btn--lg">🚀 Start Learning Free</a>
-      <a href="#portals" class="btn btn--outline btn--lg">Explore Portals</a>
+      <a href="#explore" class="btn btn--outline btn--lg">Explore Everything ↓</a>
+    </div>
+    <div class="hero__note">No paywalls. No locked chapters. Every portal, lab, and cheat sheet is free.</div>
+  </div>
+
+  <div class="hero__terminal">
+    <div class="hero__terminal-bar"><span></span><span></span><span></span><span class="path">itu@learn:~</span></div>
+    <div class="hero__terminal-body">
+      <div><span class="prompt">$</span> whoami</div>
+      <div class="out">&gt; IT University — free forever</div>
+      <div>&nbsp;</div>
+      <div><span class="prompt">$</span> ls portals/</div>
+      <div class="out">devops-cloud&nbsp;&nbsp;aws-learning&nbsp;&nbsp;linux-admin</div>
+      <div class="out">cybersecurity&nbsp;ai-prompt-eng&nbsp;tools-ide</div>
+      <div class="out">computer-basics&nbsp;&nbsp;ultimate-it</div>
+      <div>&nbsp;</div>
+      <div><span class="prompt">$</span> <span id="hero-typed-text"></span><span class="cur"></span></div>
     </div>
   </div>
 </section>
 
 <main id="main-content">
-<!-- Stats -->
-<div class="stats-bar">
-  <div class="stats-bar__item"><div class="stats-bar__value">8</div><div class="stats-bar__label">Learning Portals</div></div>
-  <div class="stats-bar__item"><div class="stats-bar__value">200+</div><div class="stats-bar__label">Hands-on Labs</div></div>
-  <div class="stats-bar__item"><div class="stats-bar__value">1000+</div><div class="stats-bar__label">Interview Questions</div></div>
-  <div class="stats-bar__item"><div class="stats-bar__value">50+</div><div class="stats-bar__label">Certifications Covered</div></div>
-  <div class="stats-bar__item"><div class="stats-bar__value">∞</div><div class="stats-bar__label">Knowledge</div></div>
-</div>
 
-<!-- Portal Cards -->
-<section class="portals-section" id="portals">
-  <div style="text-align:center;margin-bottom:var(--gap-xl)">
-    <div class="section-title">Choose Your Learning Path</div>
-    <div class="section-subtitle">Eight specialized portals, each a complete learning journey.</div>
+<!-- Bento Explore Grid -->
+<section class="bento-section" id="explore">
+  <div class="bento-heading">
+    <div class="section-title">Explore Everything</div>
+    <div class="section-subtitle">Eight learning portals, 245 quizzes, 31 cheat sheets, and every tool you need — all free.</div>
   </div>
 
-  <div class="portals-grid">
-    <!-- Portal 1 -->
-    <a href="ultimate-it/index.html" class="portal-card" style="--accent:#00d4ff;--accent-dim:#0099bb;--accent-glow:rgba(0,212,255,0.15)">
-      <div class="portal-card__icon">🌐</div>
-      <div class="portal-card__title">Ultimate IT Encyclopedia</div>
-      <div class="portal-card__desc">Computer fundamentals, networking, OS, programming, databases, cloud, DevOps, and security — the complete IT knowledge base.</div>
-      <div class="portal-card__meta">
-        <span class="badge badge--accent">Foundations</span>
-        <span class="badge">Networking</span>
-        <span class="badge">Programming</span>
-      </div>
-      <span class="btn btn--primary btn--sm" style="margin-top:8px;width:100%;justify-content:center;display:flex">Explore →</span>
+  <div class="bento-grid">
+
+    <!-- DevOps & Cloud — flagship -->
+    <a href="devops-cloud/index.html" class="tile bento--w2 bento--h2" style="--accent:#4d9fff;--accent-dim:#2d7adb;--accent-glow:rgba(77,159,255,0.15)">
+      <div class="tile__icon">☁️</div>
+      <div class="tile__title">DevOps &amp; Cloud Mastery</div>
+      <div class="tile__desc">From Git basics to Kubernetes, Terraform, ArgoCD/GitOps, and platform engineering — plus 43 quiz questions covering AWS, GCP, and GitOps.</div>
+      <div class="tile__meta"><span class="badge badge--accent">Docker</span><span class="badge">Kubernetes</span><span class="badge">GitOps</span></div>
+      <div class="tile__arrow">Start Learning →</div>
     </a>
 
-    <!-- Portal 2 -->
-    <a href="devops-cloud/index.html" class="portal-card" style="--accent:#4d9fff;--accent-dim:#2d7adb;--accent-glow:rgba(77,159,255,0.15)">
-      <div class="portal-card__icon">☁️</div>
-      <div class="portal-card__title">DevOps & Cloud Mastery</div>
-      <div class="portal-card__desc">From Git basics to Kubernetes, Terraform, and platform engineering. CI/CD pipelines, Helm, ArgoCD, and service mesh.</div>
-      <div class="portal-card__meta">
-        <span class="badge badge--accent">Docker</span>
-        <span class="badge">Kubernetes</span>
-        <span class="badge">Terraform</span>
-      </div>
-      <span class="btn btn--primary btn--sm" style="margin-top:8px;width:100%;justify-content:center;display:flex">Start Learning →</span>
+    <!-- Cybersecurity -->
+    <a href="cybersecurity-vapt/index.html" class="tile bento--w2" style="--accent:#ff4d6d;--accent-dim:#cc2244;--accent-glow:rgba(255,77,109,0.15)">
+      <div class="tile__icon">🛡️</div>
+      <div class="tile__title">Cyber Security &amp; VAPT</div>
+      <div class="tile__desc">Penetration testing, SOC/SIEM, OWASP, and CEH/CISSP/OSCP exam prep.</div>
+      <div class="tile__arrow">Learn Security →</div>
     </a>
 
-    <!-- Portal 3 -->
-    <a href="cybersecurity-vapt/index.html" class="portal-card" style="--accent:#ff4d6d;--accent-dim:#cc2244;--accent-glow:rgba(255,77,109,0.15)">
-      <div class="portal-card__icon">🛡️</div>
-      <div class="portal-card__title">Cyber Security & VAPT</div>
-      <div class="portal-card__desc">Web security, penetration testing, VAPT methodology, tools (Burp Suite, Nmap, Nessus), SOC, SIEM, and cert prep (CEH, CISSP).</div>
-      <div class="portal-card__meta">
-        <span class="badge badge--accent">VAPT</span>
-        <span class="badge">OWASP</span>
-        <span class="badge">SOC</span>
-      </div>
-      <span class="btn btn--primary btn--sm" style="margin-top:8px;width:100%;justify-content:center;display:flex">Learn Security →</span>
-    </a>
-
-    <!-- Portal 4 -->
-    <a href="linux-administration/index.html" class="portal-card" style="--accent:#39d353;--accent-dim:#22a33a;--accent-glow:rgba(57,211,83,0.15)">
-      <div class="portal-card__icon">🐧</div>
-      <div class="portal-card__title">Linux Administration</div>
-      <div class="portal-card__desc">From installation to LVM, RAID, SELinux, Nginx, systemd, and monitoring with Nagios and Grafana. 200+ real-world labs.</div>
-      <div class="portal-card__meta">
-        <span class="badge badge--accent">RHCSA</span>
-        <span class="badge">Shell</span>
-        <span class="badge">200+ Labs</span>
-      </div>
-      <span class="btn btn--primary btn--sm" style="margin-top:8px;width:100%;justify-content:center;display:flex">Master Linux →</span>
-    </a>
-
-    <!-- Portal 5 -->
-    <a href="aws-learning/index.html" class="portal-card" style="--accent:#ff9900;--accent-dim:#cc7700;--accent-glow:rgba(255,153,0,0.15)">
-      <div class="portal-card__icon">🚀</div>
-      <div class="portal-card__title">AWS Complete Learning</div>
-      <div class="portal-card__desc">IAM, EC2, VPC, S3, Lambda, EKS — full AWS coverage. Architecture diagrams, Well-Architected Framework, and cert prep (SAA, SAP).</div>
-      <div class="portal-card__meta">
-        <span class="badge badge--accent">SAA</span>
-        <span class="badge">Serverless</span>
-        <span class="badge">EKS</span>
-      </div>
-      <span class="btn btn--primary btn--sm" style="margin-top:8px;width:100%;justify-content:center;display:flex">Learn AWS →</span>
-    </a>
-
-    <!-- Portal 6 -->
-    <a href="ai-prompt-engineering/index.html" class="portal-card" style="--accent:#b57bee;--accent-dim:#8a50c8;--accent-glow:rgba(181,123,238,0.15)">
-      <div class="portal-card__icon">🤖</div>
-      <div class="portal-card__title">AI & Prompt Engineering</div>
-      <div class="portal-card__desc">AI/ML fundamentals, LLMs (GPT, Claude, Gemini), prompt engineering from zero-shot to agent design, RAG, LangChain, and self-hosted AI.</div>
-      <div class="portal-card__meta">
-        <span class="badge badge--accent">LLMs</span>
-        <span class="badge">RAG</span>
-        <span class="badge">Agents</span>
-      </div>
-      <span class="btn btn--primary btn--sm" style="margin-top:8px;width:100%;justify-content:center;display:flex">Explore AI →</span>
-    </a>
-
-    <!-- Portal 7 -->
-    <a href="tools-ide/index.html" class="portal-card" style="--accent:#f0883e;--accent-dim:#c86a20;--accent-glow:rgba(240,136,62,0.15)">
-      <div class="portal-card__icon">⚡</div>
-      <div class="portal-card__title">Online IDE & Dev Tools</div>
-      <div class="portal-card__desc">Browser-based code editor supporting 10 languages (JS, Python, Java, C++, Go, Rust…), Git deep dive, keyboard shortcuts, regex reference, and file management.</div>
-      <div class="portal-card__meta">
-        <span class="badge badge--accent">Online IDE</span>
-        <span class="badge">Git</span>
-        <span class="badge">10 Languages</span>
-      </div>
-      <span class="btn btn--primary btn--sm" style="margin-top:8px;width:100%;justify-content:center;display:flex">Open IDE →</span>
-    </a>
-
-    <!-- Portal 8 -->
-    <a href="computer-basics/index.html" class="portal-card" style="--accent:#34d399;--accent-dim:#10a37a;--accent-glow:rgba(52,211,153,0.15)">
-      <div class="portal-card__icon">🖥️</div>
-      <div class="portal-card__title">Computer Basics & Office</div>
-      <div class="portal-card__desc">Hardware, OS, MS Office (Word/Excel/PowerPoint), internet fundamentals, data science with Pandas, web dev basics, glossary A–Z, and timed practice tests.</div>
-      <div class="portal-card__meta">
-        <span class="badge badge--accent">MS Office</span>
-        <span class="badge">Pandas</span>
-        <span class="badge">Practice Tests</span>
-      </div>
-      <span class="btn btn--primary btn--sm" style="margin-top:8px;width:100%;justify-content:center;display:flex">Start Basics →</span>
-    </a>
-  </div>
-</section>
-
-<!-- Features -->
-<section class="features-section">
-  <div class="features-inner">
-    <div style="text-align:center">
-      <div class="section-title">Everything You Need</div>
-      <div class="section-subtitle">Built-in tools to accelerate your learning.</div>
+    <!-- Stat: Quiz Qs -->
+    <div class="tile tile--stat">
+      <div class="tile__value">245</div>
+      <div class="tile__label">Quiz Questions<br>with instant explanations</div>
     </div>
-    <div class="features-grid">
-      <a href="devops-cloud/index.html" class="feature-card" style="text-decoration:none;color:inherit">
-        <div class="feature-card__icon">🔍</div>
-        <div class="feature-card__title">Global Search</div>
-        <div class="feature-card__desc">Search across all 8 portals instantly. Find any topic, command, or concept.</div>
-      </a>
-      <a href="auth/dashboard.html" class="feature-card" style="text-decoration:none;color:inherit">
-        <div class="feature-card__icon">📊</div>
-        <div class="feature-card__title">Progress Tracker</div>
-        <div class="feature-card__desc">Track lessons, labs, quiz scores, and certification readiness across all portals.</div>
-      </a>
-      <a href="devops-cloud/index.html#quiz-section" class="feature-card" style="text-decoration:none;color:inherit">
-        <div class="feature-card__icon">🧪</div>
-        <div class="feature-card__title">Quiz Engine</div>
-        <div class="feature-card__desc">Timed multiple-choice quizzes with instant scoring and a global leaderboard.</div>
-      </a>
-      <a href="roadmaps/index.html" class="feature-card" style="text-decoration:none;color:inherit">
-        <div class="feature-card__icon">🏆</div>
-        <div class="feature-card__title">Cert Roadmaps</div>
-        <div class="feature-card__desc">Structured paths for CEH, CISSP, AWS SAA, RHCSA, and more.</div>
-      </a>
-      <a href="downloads/index.html" class="feature-card" style="text-decoration:none;color:inherit">
-        <div class="feature-card__icon">💾</div>
-        <div class="feature-card__title">Download Center</div>
-        <div class="feature-card__desc">PDF notes, cheat sheets, architecture diagrams, and interview question packs.</div>
-      </a>
-      <a href="labs/index.html" class="feature-card" style="text-decoration:none;color:inherit">
-        <div class="feature-card__icon">🔬</div>
-        <div class="feature-card__title">Hands-on Labs</div>
-        <div class="feature-card__desc">Step-by-step labs for Docker, Kubernetes, Terraform, Linux, and VAPT.</div>
-      </a>
-      <a href="interview-questions/index.html" class="feature-card" style="text-decoration:none;color:inherit">
-        <div class="feature-card__icon">💼</div>
-        <div class="feature-card__title">Interview Hub</div>
-        <div class="feature-card__desc">1000+ interview questions organized by topic, difficulty, and portal.</div>
-      </a>
-      <a href="certifications/index.html" class="feature-card" style="text-decoration:none;color:inherit">
-        <div class="feature-card__icon">🌙</div>
-        <div class="feature-card__title">Dark Mode</div>
-        <div class="feature-card__desc">Easy on the eyes, always. Built-in dark theme across the entire platform.</div>
-      </a>
+
+    <!-- AWS -->
+    <a href="aws-learning/index.html" class="tile tile--compact" style="--accent:#ff9900;--accent-dim:#cc7700;--accent-glow:rgba(255,153,0,0.15)">
+      <div class="tile__icon">🚀</div>
+      <div class="tile__title">AWS Complete</div>
+      <div class="tile__arrow">Learn AWS →</div>
+    </a>
+
+    <!-- Linux -->
+    <a href="linux-administration/index.html" class="tile tile--compact" style="--accent:#39d353;--accent-dim:#22a33a;--accent-glow:rgba(57,211,83,0.15)">
+      <div class="tile__icon">🐧</div>
+      <div class="tile__title">Linux Administration</div>
+      <div class="tile__arrow">Master Linux →</div>
+    </a>
+
+    <!-- Ultimate IT — tall -->
+    <a href="ultimate-it/index.html" class="tile bento--h2" style="--accent:#00d4ff;--accent-dim:#0099bb;--accent-glow:rgba(0,212,255,0.15)">
+      <div class="tile__icon">🌐</div>
+      <div class="tile__title">Ultimate IT Encyclopedia</div>
+      <div class="tile__desc">Networking, OS, programming, databases, cloud, and security — a condensed overview that links out to every specialized portal below.</div>
+      <div class="tile__meta"><span class="badge badge--accent">Foundations</span><span class="badge">Networking</span></div>
+      <div class="tile__arrow">Explore →</div>
+    </a>
+
+    <!-- Stat: Labs -->
+    <div class="tile tile--stat">
+      <div class="tile__value">50</div>
+      <div class="tile__label">Hands-on Labs</div>
     </div>
+
+    <!-- AI -->
+    <a href="ai-prompt-engineering/index.html" class="tile tile--compact" style="--accent:#b57bee;--accent-dim:#8a50c8;--accent-glow:rgba(181,123,238,0.15)">
+      <div class="tile__icon">🤖</div>
+      <div class="tile__title">AI &amp; Prompt Engineering</div>
+      <div class="tile__arrow">Explore AI →</div>
+    </a>
+
+    <!-- Tools/IDE -->
+    <a href="tools-ide/index.html" class="tile tile--compact" style="--accent:#f0883e;--accent-dim:#c86a20;--accent-glow:rgba(240,136,62,0.15)">
+      <div class="tile__icon">⚡</div>
+      <div class="tile__title">Online IDE &amp; Dev Tools</div>
+      <div class="tile__arrow">Open IDE →</div>
+    </a>
+
+    <!-- Computer Basics -->
+    <a href="computer-basics/index.html" class="tile tile--compact" style="--accent:#34d399;--accent-dim:#10a37a;--accent-glow:rgba(52,211,153,0.15)">
+      <div class="tile__icon">🖥️</div>
+      <div class="tile__title">Computer Basics &amp; Office</div>
+      <div class="tile__arrow">Start Basics →</div>
+    </a>
+
+    <!-- Stat: Interview Qs -->
+    <div class="tile tile--stat">
+      <div class="tile__value">45+</div>
+      <div class="tile__label">Interview Q&amp;As</div>
+    </div>
+
+    <!-- Feature: GitOps/Business spotlight -->
+    <a href="cheatsheets/gitops.html" class="tile bento--w2" style="--accent:#ef7b4d;--accent-dim:#cc5a2e;--accent-glow:rgba(239,123,77,0.15)">
+      <div class="tile__icon">🆕</div>
+      <div class="tile__title">Just Added: GitOps &amp; Business Models</div>
+      <div class="tile__desc">New cheat sheets on ArgoCD/Flux patterns and B2B/B2C strategy — plus matching quiz questions.</div>
+      <div class="tile__arrow">See what's new →</div>
+    </a>
+
+    <!-- Stat: Cheat Sheets -->
+    <div class="tile tile--stat">
+      <div class="tile__value">31</div>
+      <div class="tile__label">Cheat Sheets</div>
+    </div>
+
+    <!-- Feature: Cert Roadmaps -->
+    <a href="roadmaps/index.html" class="tile tile--compact" style="--accent:#f59e0b;--accent-dim:#c97d08;--accent-glow:rgba(245,158,11,0.15)">
+      <div class="tile__icon">🗺️</div>
+      <div class="tile__title">Cert Roadmaps</div>
+      <div class="tile__arrow">28 certs tracked →</div>
+    </a>
+
+    <!-- Feature: Progress Tracker -->
+    <a href="auth/dashboard.html" class="tile tile--compact" style="--accent:#4d9fff;--accent-dim:#2d7adb;--accent-glow:rgba(77,159,255,0.15)">
+      <div class="tile__icon">📊</div>
+      <div class="tile__title">Progress Tracker</div>
+      <div class="tile__arrow">Track your journey →</div>
+    </a>
+
+    <!-- Feature: Interview Hub -->
+    <a href="interview-questions/index.html" class="tile tile--compact" style="--accent:#b57bee;--accent-dim:#8a50c8;--accent-glow:rgba(181,123,238,0.15)">
+      <div class="tile__icon">💼</div>
+      <div class="tile__title">Interview Hub</div>
+      <div class="tile__arrow">Prep for interviews →</div>
+    </a>
+
+    <!-- CTA -->
+    <a href="auth/signup.html" class="tile tile--cta bento--w2">
+      <div class="tile__title">Ready to start? It's free.</div>
+      <div class="tile__desc">No credit card, no trial limits — create an account and start tracking your progress today.</div>
+      <span class="btn btn--primary btn--lg">🚀 Sign Up Free</span>
+    </a>
+
   </div>
 </section>
 
-<!-- Hub Resources — these pages were previously orphaned from navigation -->
-<section class="features-section" style="padding-top:0">
-  <div class="features-inner">
-    <div style="text-align:center;margin-bottom:var(--gap-xl)">
-      <div class="section-title">Hub Resources</div>
-      <div class="section-subtitle">Interview prep, certification roadmaps, and hands-on labs — all in one place.</div>
-    </div>
-    <div class="features-grid" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr))">
-      <a href="interview-questions/index.html" class="feature-card" style="text-decoration:none;display:block">
-        <div class="feature-card__icon">💼</div>
-        <div class="feature-card__title">Interview Hub</div>
-        <div class="feature-card__desc">200+ interview questions by topic, difficulty, and portal — DevOps, Linux, AWS, Security, Python, and more.</div>
-      </a>
-      <a href="roadmaps/index.html" class="feature-card" style="text-decoration:none;display:block">
-        <div class="feature-card__icon">🗺️</div>
-        <div class="feature-card__title">Certification Roadmaps</div>
-        <div class="feature-card__desc">60+ certs across 10 tracks — CCNA, RHCSA, AWS SAA, CKA, OSCP, CISSP, GCP, Databricks and more.</div>
-      </a>
-      <a href="labs/index.html" class="feature-card" style="text-decoration:none;display:block">
-        <div class="feature-card__icon">🔬</div>
-        <div class="feature-card__title">Hands-on Labs</div>
-        <div class="feature-card__desc">50 practical labs — Linux, Docker, Kubernetes, Terraform, and AI/LLM exercises with step-by-step instructions.</div>
-      </a>
-      <a href="certifications/index.html" class="feature-card" style="text-decoration:none;display:block">
-        <div class="feature-card__icon">🏆</div>
-        <div class="feature-card__title">Cert Tracker</div>
-        <div class="feature-card__desc">Track your readiness for 28 certifications, log study sessions, and visualise your progress timeline.</div>
-      </a>
-    </div>
-  </div>
-</section>
 </main>
 
 <div id="footer-placeholder"></div>
@@ -363,22 +357,28 @@
 <script src="assets/js/search.js"></script>
 <script src="assets/js/partials.js"></script>
 <script>
-  // Typewriter effect
-  const words = ['Ultimate IT', 'DevOps', 'Cloud', 'Linux', 'AWS', 'AI'];
-  let wi = 0, ci = 0, deleting = false;
-  const tw = document.getElementById('typewriter');
-  function type() {
-    const word = words[wi];
+  // Hero terminal — cycles through a few sample commands
+  const terminalLines = [
+    './quiz.explain --last-answer',
+    'docker ps --filter status=learning',
+    'argocd app sync gitops-repo',
+    './roadmap --track=devops --eta'
+  ];
+  let li = 0, ci = 0, deleting = false;
+  const typedEl = document.getElementById('hero-typed-text');
+  function typeLoop() {
+    if (!typedEl) return;
+    const line = terminalLines[li];
     if (!deleting) {
-      tw.textContent = word.slice(0, ++ci);
-      if (ci === word.length) { deleting = true; setTimeout(type, 1800); return; }
+      typedEl.textContent = line.slice(0, ++ci);
+      if (ci === line.length) { deleting = true; setTimeout(typeLoop, 2000); return; }
     } else {
-      tw.textContent = word.slice(0, --ci);
-      if (ci === 0) { deleting = false; wi = (wi + 1) % words.length; }
+      typedEl.textContent = line.slice(0, --ci);
+      if (ci === 0) { deleting = false; li = (li + 1) % terminalLines.length; }
     }
-    setTimeout(type, deleting ? 60 : 100);
+    setTimeout(typeLoop, deleting ? 40 : 70);
   }
-  setTimeout(type, 800);
+  setTimeout(typeLoop, 1000);
 </script>
 </body>
 </html>
