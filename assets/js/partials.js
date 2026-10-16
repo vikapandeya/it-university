@@ -29,20 +29,25 @@
     return `<header class="site-header" id="site-header">
       <a href="${b}/index.html" class="site-header__logo"><span style="color:var(--accent)">IT</span><span>University</span></a>
       <nav class="site-header__nav" aria-label="Main navigation">
-        <a href="${b}/ultimate-it/index.html">🌐 IT Encyclopedia</a>
-        <a href="${b}/devops-cloud/index.html">☁️ DevOps</a>
-        <a href="${b}/cybersecurity-vapt/index.html">🛡️ CyberSec</a>
-        <a href="${b}/linux-administration/index.html">🐧 Linux</a>
-        <a href="${b}/aws-learning/index.html">🚀 AWS</a>
-        <a href="${b}/ai-prompt-engineering/index.html">🤖 AI</a>
-        <a href="${b}/tools-ide/index.html">⚡ IDE</a>
-        <a href="${b}/computer-basics/index.html">🖥️ Basics</a>
-        <a href="${b}/roadmaps/index.html">🗺️ Roadmaps</a>
-        <a href="${b}/interview-questions/index.html">💼 Interview</a>
-        <a href="${b}/labs/index.html">🔬 Labs</a>
-        <a href="${b}/certifications/index.html">🏆 Cert Tracker</a>
-        <a href="${b}/cheatsheets/index.html">📋 Cheat Sheets</a>
-        <a href="${b}/downloads/index.html">⬇️ Downloads</a>
+        <a href="${b}/ultimate-it/index.html" title="IT Encyclopedia" aria-label="IT Encyclopedia">🌐<span class="nav-label"> IT Encyclopedia</span></a>
+        <a href="${b}/devops-cloud/index.html" title="DevOps" aria-label="DevOps">☁️<span class="nav-label"> DevOps</span></a>
+        <a href="${b}/cybersecurity-vapt/index.html" title="CyberSec" aria-label="CyberSec">🛡️<span class="nav-label"> CyberSec</span></a>
+        <a href="${b}/linux-administration/index.html" title="Linux" aria-label="Linux">🐧<span class="nav-label"> Linux</span></a>
+        <a href="${b}/aws-learning/index.html" title="AWS" aria-label="AWS">🚀<span class="nav-label"> AWS</span></a>
+        <a href="${b}/ai-prompt-engineering/index.html" title="AI" aria-label="AI">🤖<span class="nav-label"> AI</span></a>
+        <a href="${b}/tools-ide/index.html" title="IDE" aria-label="IDE">⚡<span class="nav-label"> IDE</span></a>
+        <a href="${b}/computer-basics/index.html" title="Basics" aria-label="Basics">🖥️<span class="nav-label"> Basics</span></a>
+        <div class="nav-dropdown">
+          <button type="button" class="nav-dropdown__toggle" aria-haspopup="true" aria-expanded="false" title="Resources" aria-label="Resources">📚<span class="nav-label"> Resources</span> <span class="nav-dropdown__caret">▾</span></button>
+          <div class="nav-dropdown__menu">
+            <a href="${b}/roadmaps/index.html">🗺️ Roadmaps</a>
+            <a href="${b}/interview-questions/index.html">💼 Interview Hub</a>
+            <a href="${b}/labs/index.html">🔬 Hands-on Labs</a>
+            <a href="${b}/certifications/index.html">🏆 Cert Tracker</a>
+            <a href="${b}/cheatsheets/index.html">📋 Cheat Sheets</a>
+            <a href="${b}/downloads/index.html">⬇️ Downloads</a>
+          </div>
+        </div>
       </nav>
       <div class="site-header__auth" id="auth-nav"></div>
       <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
@@ -157,6 +162,29 @@
   }
 
   renderAuthNav();
+
+  // Resources nav dropdown — click to toggle, click outside / Escape to close
+  document.querySelectorAll('.nav-dropdown__toggle').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const wrap = btn.closest('.nav-dropdown');
+      const isOpen = wrap.classList.toggle('open');
+      btn.setAttribute('aria-expanded', String(isOpen));
+    });
+  });
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.nav-dropdown.open').forEach(d => {
+      d.classList.remove('open');
+      d.querySelector('.nav-dropdown__toggle')?.setAttribute('aria-expanded', 'false');
+    });
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    document.querySelectorAll('.nav-dropdown.open').forEach(d => {
+      d.classList.remove('open');
+      d.querySelector('.nav-dropdown__toggle')?.setAttribute('aria-expanded', 'false');
+    });
+  });
 
   // Back-to-top button
   const btt = document.createElement('button');
