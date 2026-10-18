@@ -287,6 +287,94 @@
       ],
       "correct": 1,
       "explain": "Because every publicly trusted certificate must be logged in CT, defenders can monitor these public logs to spot rogue or unauthorized certificates issued for their domains, and attackers can use them for recon too."
+    },
+    {
+      "question": "What is the key difference between a DoS and a DDoS attack?",
+      "options": [
+        "A. DoS targets networks; DDoS targets applications",
+        "B. DoS comes from a single source; DDoS comes from many distributed sources (often a botnet)",
+        "C. DoS is illegal; DDoS is legal in most countries",
+        "D. There is no real difference, just different names for the same thing"
+      ],
+      "correct": 1,
+      "explain": "DoS (Denial of Service) originates from one machine or connection, while DDoS (Distributed DoS) comes from many compromised machines at once, making it far harder to block by IP and far larger in scale."
+    },
+    {
+      "question": "Which layer does a SYN flood attack primarily target?",
+      "options": [
+        "A. Application layer — it overwhelms a web server's CPU",
+        "B. Protocol layer — it exhausts the server's half-open TCP connection table",
+        "C. Physical layer — it cuts network cables",
+        "D. Presentation layer — it corrupts TLS certificates"
+      ],
+      "correct": 1,
+      "explain": "A SYN flood sends many TCP SYN packets without completing the handshake, filling up the server's table of half-open connections — a protocol-layer attack, mitigated with SYN cookies."
+    },
+    {
+      "question": "Why is DNS amplification considered a 'volumetric' DDoS technique?",
+      "options": [
+        "A. It only works against DNS servers, nothing else",
+        "B. A small spoofed query to an open resolver triggers a much larger response sent to the victim, multiplying the attacker's bandwidth",
+        "C. It amplifies the attacker's own CPU usage, not network traffic",
+        "D. It requires the victim to run their own DNS server"
+      ],
+      "correct": 1,
+      "explain": "DNS amplification abuses open resolvers: a small spoofed query (with the victim's IP as the source) triggers a disproportionately large response sent straight to the victim, multiplying the attack's effective bandwidth."
+    },
+    {
+      "question": "What makes Slowloris an effective application-layer DoS attack despite needing very little bandwidth?",
+      "options": [
+        "A. It exploits a buffer overflow in the TCP stack",
+        "B. It opens many connections and sends HTTP headers extremely slowly, tying up the server's limited connection pool without ever completing requests",
+        "C. It floods the network with ICMP ping packets",
+        "D. It requires compromising the DNS server first"
+      ],
+      "correct": 1,
+      "explain": "Slowloris keeps many connections open by trickling partial HTTP headers just before timeout, exhausting the server's max-connection limit — a low-bandwidth attack that a weak device can sustain."
+    },
+    {
+      "question": "What is the most effective way to defend against CSRF attacks?",
+      "options": [
+        "A. Use HTTPS everywhere",
+        "B. Per-session CSRF tokens combined with the SameSite cookie attribute",
+        "C. Increase the session timeout duration",
+        "D. Rate limit all incoming requests"
+      ],
+      "correct": 1,
+      "explain": "CSRF tokens (unpredictable, per-session values an attacker's page can't read or guess) combined with SameSite cookies (which stop cookies being sent on cross-site requests) together close off the attack."
+    },
+    {
+      "question": "What is DNS cache poisoning?",
+      "options": [
+        "A. Overloading a DNS server with too many queries",
+        "B. Injecting a forged DNS response so a domain name resolves to an attacker-controlled IP address",
+        "C. Registering a misspelled version of a popular domain",
+        "D. Encrypting DNS traffic so it can't be inspected"
+      ],
+      "correct": 1,
+      "explain": "DNS cache poisoning injects a forged response into a resolver's cache, redirecting anyone who queries that domain to the attacker's IP — DNSSEC is the primary defense since it cryptographically signs responses."
+    },
+    {
+      "question": "What is 'whaling' in the context of social engineering?",
+      "options": [
+        "A. A DDoS attack that targets large organizations only",
+        "B. Spear phishing specifically targeted at high-value executives like a CEO or CFO",
+        "C. Mass phishing sent to as many random addresses as possible",
+        "D. A technique for cracking large password databases"
+      ],
+      "correct": 1,
+      "explain": "Whaling is spear phishing aimed at senior executives, often impersonating a vendor or another executive to request a fraudulent wire transfer or sensitive data."
+    },
+    {
+      "question": "What is 'double extortion' in modern ransomware attacks?",
+      "options": [
+        "A. Demanding payment twice from the same victim for the same decryption key",
+        "B. Exfiltrating sensitive data before encrypting it, then threatening to leak it publicly even if the victim restores from backup",
+        "C. Encrypting both the primary and backup servers simultaneously",
+        "D. Requiring payment in two different cryptocurrencies"
+      ],
+      "correct": 1,
+      "explain": "Double extortion means attackers steal data before encrypting it, so even a victim with clean backups still faces pressure to pay — otherwise the stolen data gets leaked publicly."
     }
   ]
 }

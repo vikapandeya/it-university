@@ -27,6 +27,7 @@
       <a href="#owasp" class="sidebar__link">🌐 OWASP Top 10</a>
       <a href="#xss" class="sidebar__link">💉 XSS Deep Dive</a>
       <a href="#sqli" class="sidebar__link">🗄️ SQL Injection</a>
+      <a href="#network-attacks" class="sidebar__link">💥 DoS/DDoS & Network Attacks</a>
     </div>
     <div class="sidebar__section">
       <div class="sidebar__heading">VAPT Methodology</div>
@@ -343,6 +344,152 @@ sqlmap -u "http://target.com/api?id=1" \
   --os-shell                              # get OS shell (if privilege allows)
 sqlmap -u "http://target.com/api?id=1" \
   --cookie "PHPSESSID=abc" --level=5 --risk=3  # authenticated, thorough</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== DOS/DDOS & NETWORK ATTACKS ===== -->
+    <section id="network-attacks">
+      <h2>💥 DoS/DDoS &amp; Other Network Attacks</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Denial of Service, CSRF, DNS Attacks, Social Engineering, Ransomware</div>
+          <button class="btn btn--outline btn--sm" data-lesson="cybersecurity-vapt:network-attacks">Mark Complete</button>
+        </div>
+
+        <h3>DoS vs DDoS</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th></th><th>DoS (Denial of Service)</th><th>DDoS (Distributed DoS)</th></tr></thead>
+            <tbody>
+              <tr><td>Source</td><td>Single machine/connection</td><td>Many machines (a botnet), often thousands</td></tr>
+              <tr><td>Traceability</td><td>Easier — one source IP to block</td><td>Hard — traffic from thousands of IPs worldwide</td></tr>
+              <tr><td>Scale</td><td>Limited by one attacker's bandwidth</td><td>Massive — aggregate bandwidth of entire botnet (Tbps-scale attacks recorded)</td></tr>
+              <tr><td>Typical goal</td><td>Crash a single service/app</td><td>Overwhelm infrastructure — ISP links, load balancers, DNS</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="color:var(--text-dim)">Both share the same goal: exhaust a target's <strong>availability</strong> (the "A" in the CIA triad) — not to steal data, but to make a system unusable for legitimate users.</p>
+
+        <h3>The 3 Layers of DDoS Attacks</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Layer</th><th>What it exhausts</th><th>Example attacks</th><th>Typical mitigation</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Volumetric</strong></td><td>Network bandwidth</td><td>UDP flood, ICMP flood, DNS/NTP amplification</td><td>Anycast, scrubbing centers, upstream ISP filtering</td></tr>
+              <tr><td><strong>Protocol</strong></td><td>Server/firewall connection tables</td><td>SYN flood, Ping of Death, Smurf attack</td><td>SYN cookies, firewall connection limits, rate limiting</td></tr>
+              <tr><td><strong>Application-layer (L7)</strong></td><td>Application/server resources (CPU, DB, sockets)</td><td>HTTP flood, Slowloris, large-file POST flood</td><td>WAF, CAPTCHA, rate limiting per IP/session, CDN caching</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>How a SYN Flood Works</h3>
+        <pre><code># Normal TCP handshake:
+#   Client → SYN        → Server
+#   Client ← SYN-ACK     ← Server   (server allocates a half-open connection slot)
+#   Client → ACK         → Server   (connection established)
+
+# SYN flood: attacker sends many SYNs, never completes the handshake
+#   Client → SYN (spoofed src IP) → Server
+#   Client ← SYN-ACK (goes to the spoofed/unreachable IP, no reply)
+#   → Server's half-open connection table fills up → legitimate clients can't connect
+
+# Mitigation: SYN cookies — server doesn't allocate state until the ACK arrives
+# Encodes connection info into the SYN-ACK sequence number itself instead</code></pre>
+
+        <h3>DNS Amplification (Volumetric Example)</h3>
+        <pre><code># Attacker spoofs the victim's IP as the source of a small DNS query
+# sent to many open DNS resolvers. Each resolver replies with a much
+# LARGER response — straight to the victim, not the attacker.
+
+# Amplification factor example: a 60-byte query can trigger a 3000+ byte
+# response (~50x amplification) — small attacker upload, massive victim download.
+
+dig ANY example.com @8.8.8.8          # a legitimate ANY query is already large
+                                        # attackers abuse open resolvers that
+                                        # don't validate the source IP (anti-spoofing)
+
+# Mitigation: BCP38 (ingress filtering to block spoofed source IPs),
+# disable open/recursive resolvers for untrusted networks, rate-limit DNS responses</code></pre>
+
+        <h3>Slowloris (Application-Layer Example)</h3>
+        <pre><code># Slowloris opens many connections and sends partial HTTP headers very
+# slowly, keeping each connection open just long enough to never finish —
+# exhausting the server's max-connections limit with minimal attacker bandwidth.
+
+GET / HTTP/1.1
+Host: target.com
+X-a: b                    # sent, then... nothing for a while
+                           # (repeat a trickle of headers just before timeout)
+
+# Low bandwidth needed — this is why a single weak device can take down
+# a server that would easily survive a much "bigger looking" flood.
+
+# Mitigation: reverse proxy (nginx) with low header-timeout values,
+# max concurrent connections per IP, request timeout enforcement</code></pre>
+
+        <h3>CSRF — Cross-Site Request Forgery</h3>
+        <pre><code>&lt;!-- Victim is logged into bank.com in one tab. Attacker's page auto-submits
+     a form to bank.com using the victim's own browser + session cookie. --&gt;
+&lt;form action="https://bank.com/transfer" method="POST" id="f"&gt;
+  &lt;input type="hidden" name="to" value="attacker-account"&gt;
+  &lt;input type="hidden" name="amount" value="5000"&gt;
+&lt;/form&gt;
+&lt;script&gt;document.getElementById('f').submit();&lt;/script&gt;
+
+# Works because the browser automatically attaches cookies to the request —
+# the server can't tell this apart from a request the user meant to send.
+
+# Defenses:
+# 1. CSRF tokens — a random, per-session token the form must include,
+#    which an attacker's page has no way to read or guess
+# 2. SameSite cookies — SameSite=Strict/Lax stops the cookie being sent
+#    on a cross-site request in the first place
+Set-Cookie: session=abc; SameSite=Strict; Secure; HttpOnly
+# 3. Re-check Origin/Referer headers on state-changing requests</code></pre>
+
+        <h3>DNS Attacks</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Attack</th><th>How it works</th><th>Mitigation</th></tr></thead>
+            <tbody>
+              <tr><td>DNS Spoofing / Cache Poisoning</td><td>Inject a forged DNS response so a domain resolves to the attacker's IP</td><td>DNSSEC (signs responses), validate transaction IDs</td></tr>
+              <tr><td>DNS Tunneling</td><td>Smuggle data (e.g. C2 traffic, exfiltration) inside DNS queries/responses, which often bypass firewalls</td><td>Monitor for abnormal query volume/length, DNS firewalls</td></tr>
+              <tr><td>Typosquatting</td><td>Register a misspelled domain (<code>gooogle.com</code>) to catch mistyped traffic or phish users</td><td>Brand monitoring, register common typo domains defensively</td></tr>
+              <tr><td>DNS Hijacking</td><td>Compromise the DNS registrar/resolver itself to redirect an entire domain</td><td>Registrar lock, MFA on registrar account, DNSSEC</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Social Engineering &amp; Phishing</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Technique</th><th>Description</th></tr></thead>
+            <tbody>
+              <tr><td>Phishing</td><td>Mass fraudulent email impersonating a trusted sender, pushing a malicious link/attachment</td></tr>
+              <tr><td>Spear Phishing</td><td>Phishing tailored to a specific person/org using researched, personal details</td></tr>
+              <tr><td>Whaling</td><td>Spear phishing targeted at executives (CEO/CFO) — often fake wire-transfer requests</td></tr>
+              <tr><td>Vishing / Smishing</td><td>Phishing via voice call or SMS instead of email</td></tr>
+              <tr><td>Pretexting</td><td>Attacker fabricates a false scenario (e.g. "IT support") to extract info or access</td></tr>
+              <tr><td>Baiting</td><td>Leaving an infected USB drive labeled "Payroll 2026" for someone to plug in</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="color:var(--text-dim)">The common defense across all of these is the same: user security-awareness training, email filtering/sandboxing, and MFA so a stolen password alone isn't enough to get in.</p>
+
+        <h3>Ransomware</h3>
+        <p>Malware that encrypts a victim's files (or locks the system) and demands payment — usually in cryptocurrency — for the decryption key. Modern ransomware groups add <strong>double extortion</strong>: exfiltrate data first, then threaten to leak it publicly even if the victim restores from backup, to pressure payment regardless.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Stage</th><th>What happens</th></tr></thead>
+            <tbody>
+              <tr><td>Initial access</td><td>Phishing email, exposed RDP, unpatched VPN appliance</td></tr>
+              <tr><td>Lateral movement</td><td>Attacker pivots through the network, often using stolen admin creds</td></tr>
+              <tr><td>Exfiltration</td><td>Sensitive data copied out before encryption (for double extortion)</td></tr>
+              <tr><td>Encryption + ransom note</td><td>Files encrypted, note demands payment for the decryption key</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="color:var(--text-dim)"><strong>Best defenses:</strong> offline/immutable backups tested via real restore drills, network segmentation to limit lateral movement, patching internet-facing systems promptly, and MFA on all remote access.</p>
       </div>
     </section>
 
@@ -899,7 +1046,7 @@ TA0040: Impact              — T1486 Data Encrypted for Impact (Ransomware)
       <h2>🎯 Cybersecurity Interview Questions</h2>
       <div class="lesson-block">
         <div class="lesson-block__header">
-          <div class="lesson-block__title">Top 15 Security Interview Q&A</div>
+          <div class="lesson-block__title">Top 9 Security Interview Q&A</div>
           <button class="btn btn--outline btn--sm" data-lesson="cybersecurity-vapt:interview">Mark Complete</button>
         </div>
 
@@ -926,6 +1073,9 @@ TA0040: Impact              — T1486 Data Encrypted for Impact (Ransomware)
 
         <h3>Q8: What is the difference between black box, white box, and grey box testing?</h3>
         <p><strong>Black box:</strong> No prior knowledge of target. Simulates external attacker. Realistic but may miss edge cases.<br><strong>White box:</strong> Full access (source code, architecture, creds). Most thorough. Less realistic.<br><strong>Grey box:</strong> Partial info (credentials, API docs, architecture diagram). Balances depth and realism.</p>
+
+        <h3>Q9: How would you mitigate a DDoS attack in progress?</h3>
+        <p>Layer the response: 1) <strong>Detect</strong> via traffic baselining/anomaly alerts, 2) <strong>Absorb/scrub</strong> — route traffic through a CDN or DDoS scrubbing service (Cloudflare, AWS Shield) that filters malicious traffic before it reaches origin, 3) <strong>Rate limit</strong> at the edge/WAF per IP or session, 4) <strong>Scale</strong> horizontally if the architecture allows it as a stopgap, 5) <strong>Upstream filtering</strong> — coordinate with your ISP to drop volumetric traffic before it saturates your link entirely. Prevention beats reaction: anycast DNS, CDN caching, and a tested incident response runbook before an attack happens.</p>
       </div>
     </section>
 
