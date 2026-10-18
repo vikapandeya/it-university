@@ -284,6 +284,19 @@ aws autoscaling put-scaling-policy \
     "ScaleOutCooldown": 60
   }'</code></pre>
 
+        <h3>Scaling Strategies</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Trigger type</th><th>How it works</th><th>Best for</th></tr></thead>
+            <tbody>
+              <tr><td>Target tracking</td><td>Keep a metric (e.g. CPU 70%) at a target — ASG adds/removes instances automatically to hold it there</td><td>Most workloads — "set it and forget it"</td></tr>
+              <tr><td>Step scaling</td><td>Different scale-out amounts for different alarm severity (e.g. +2 instances at 70% CPU, +5 at 90%)</td><td>Spiky traffic where response needs to be proportional to severity</td></tr>
+              <tr><td>Scheduled scaling</td><td>Scale at a known time (e.g. scale up before a 9am traffic surge, down overnight)</td><td>Predictable daily/weekly patterns</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="color:var(--text-dim)"><strong>Horizontal vs vertical:</strong> horizontal scaling (more instances) is almost always preferred in the cloud — it has no hard ceiling, survives instance failure, and matches how ASGs work natively. Vertical scaling (bigger instance) is simpler but has a ceiling and causes downtime to resize. Horizontal scaling requires the app to be <strong>stateless</strong> — session data belongs in Redis/DynamoDB, not instance memory, so any instance can serve any request.</p>
+
         <h3>EC2 Instance Metadata (IMDSv2)</h3>
         <pre><code># IMDSv2 — token-based, secure against SSRF
 TOKEN=$(curl -s -X PUT "http://169.254.169.254/latest/api/token" \
@@ -943,6 +956,88 @@ aws cloudwatch put-composite-alarm \
 
 # Benefits: scale to zero, loose coupling,
 # built-in retry with DLQ, no server management</code></pre>
+
+        <h3>Microservices vs. Monolith — Decision Framework</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Signal</th><th>Favor Monolith</th><th>Favor Microservices</th></tr></thead>
+            <tbody>
+              <tr><td>Team size</td><td>Single small team (&lt;10 engineers)</td><td>Multiple teams that need to ship independently</td></tr>
+              <tr><td>Domain clarity</td><td>Domain boundaries still unclear / early-stage product</td><td>Bounded contexts are well understood (DDD)</td></tr>
+              <tr><td>Scaling needs</td><td>Uniform load across the app</td><td>Different components need to scale independently (e.g. image processing vs. checkout)</td></tr>
+              <tr><td>Deploy risk</td><td>Acceptable to deploy the whole app together</td><td>Need to deploy/rollback services independently</td></tr>
+              <tr><td>Ops maturity</td><td>Limited DevOps/observability tooling in place</td><td>CI/CD, service mesh, distributed tracing already mature</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="color:var(--text-dim)"><strong>Strangler Fig pattern:</strong> don't rewrite a monolith in one shot — route new/refactored functionality through a facade (API Gateway or reverse proxy) to new microservices one piece at a time, while the monolith keeps serving everything else, until it's fully "strangled" and can be retired.</p>
+
+        <h3>CQRS &amp; Event Sourcing</h3>
+        <pre><code># CQRS (Command Query Responsibility Segregation):
+# separate the WRITE model from the READ model entirely.
+#
+#   Write path:  API → Command handler → Aurora (normalized, write-optimized)
+#                        → emits a domain event (e.g. OrderPlaced)
+#   Read path:   DynamoDB Streams / EventBridge → projector Lambda
+#                        → denormalized read model in DynamoDB/OpenSearch
+#                        → API reads from the FAST, query-shaped read model
+#
+# Why: write model stays simple/consistent; read model can be shaped
+# exactly for each query pattern (dashboards, search, reports) without
+# compromising the write side's schema.
+
+# Event Sourcing takes it further: instead of storing current STATE,
+# store the full sequence of events that led to it.
+#   OrderCreated → ItemAdded → ItemRemoved → OrderPlaced → OrderShipped
+# Current state = replay all events for that aggregate.
+# Benefits: full audit trail for free, can rebuild any past state,
+# can add new read projections later by replaying history.
+# Trade-off: more complex than CRUD — use it where audit trail / temporal
+# queries are genuinely valuable, not by default.</code></pre>
+
+        <h3>API Gateway Patterns</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Pattern</th><th>What it solves</th></tr></thead>
+            <tbody>
+              <tr><td>Rate limiting / throttling</td><td>Per-API-key request quotas (AWS API Gateway usage plans) protect backends from abuse and noisy-neighbor traffic</td></tr>
+              <tr><td>Backend-for-Frontend (BFF)</td><td>A dedicated API Gateway per client type (web, mobile) shaping/aggregating responses for that client's exact needs, instead of one generic API for everyone</td></tr>
+              <tr><td>API versioning</td><td>URI versioning (<code>/v1/</code>, <code>/v2/</code>) is simplest; header-based versioning keeps URLs stable but is harder to test/cache — pick one and be consistent</td></tr>
+              <tr><td>Request aggregation</td><td>Gateway fans a single client request out to multiple backend services and merges the response, reducing client round-trips</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Worked Example: Design a URL Shortener</h3>
+        <pre><code># A common system-design-interview prompt — walked through end to end.
+
+# 1. Requirements: shorten a long URL → short code; redirect short → long;
+#    ~100M new URLs/month, ~1B redirects/month (reads >> writes, ~10:1).
+
+# 2. Capacity estimate:
+#    100M writes/month ≈ 40 writes/sec average (spiky → design for 10x peak)
+#    1B reads/month ≈ 400 reads/sec average
+#    → read-heavy: cache aggressively, writes are comparatively rare
+
+# 3. Short code generation: base62 encode an auto-incrementing ID
+#    (DynamoDB atomic counter, or pre-generated key ranges per server
+#    to avoid a single counter becoming a bottleneck)
+
+# 4. Architecture:
+#   Client → CloudFront → API Gateway → Lambda
+#     Write path: Lambda → generate base62 code → DynamoDB (code → longURL)
+#     Read path:  Lambda → ElastiCache (cache-aside) → DynamoDB on miss
+#                 → 301/302 redirect to the original URL
+
+# 5. Key design decisions (the part interviewers actually care about):
+#    - 301 (permanent) vs 302 (temporary) redirect: 302 lets you track
+#      click analytics on every redirect; 301 lets browsers cache it
+#      and skip your server entirely on repeat visits — trade-off between
+#      analytics fidelity and server load.
+#    - Cache the hot 20% of URLs (Pareto) in ElastiCache — knocks most
+#      read traffic off DynamoDB entirely.
+#    - DynamoDB over RDS here: simple key-value access pattern (code →
+#      URL), needs to scale horizontally without manual sharding.</code></pre>
       </div>
     </section>
 
@@ -970,6 +1065,7 @@ aws cloudwatch put-composite-alarm \
             <tr><td>Use for</td><td>Web apps, microservices</td><td>Gaming, IoT, low-latency financial</td></tr>
           </tbody>
         </table></div>
+        <p>Underneath either, a load balancer picks a backend using an algorithm: <strong>round robin</strong> (cycle through targets evenly — simple, assumes uniform request cost), <strong>least connections</strong> (send to the target with the fewest active connections — better when request duration varies a lot), or <strong>consistent hashing</strong> (same client/key always routes to the same backend — needed for sticky sessions or cache locality, and minimizes redistribution when a node is added/removed). ALB defaults to round robin (or least outstanding requests when configured); application-level load balancers like those in service meshes often default to least connections.</p>
 
         <h3>Q4: How to design for 99.99% availability?</h3>
         <p>Multi-AZ (3 AZs) + Multi-region (Route53 failover with health checks). Stateless compute (session in Redis/DynamoDB). DB: RDS Multi-AZ or Aurora Global. CDN for static. Circuit breakers for cascades. Chaos testing to verify recovery. RTO/RPO targets define architecture choices.</p>

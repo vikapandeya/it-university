@@ -3324,6 +3324,51 @@ spec:
     - name: v2
       labels: {version: v2}</code></pre>
 
+        <h3>Blue-Green Deployment (vs Canary)</h3>
+        <p style="color:var(--text-dim)">Canary shifts a <em>percentage</em> of traffic gradually; blue-green keeps two full environments running and cuts over <strong>100% of traffic at once</strong> — simpler to reason about, instant rollback (just flip back), but requires 2x the infrastructure during the switch.</p>
+        <pre><code># Blue-Green with Kubernetes Service selector swap — simplest implementation.
+# "Green" (new version) is deployed and fully tested BEFORE it receives any
+# real traffic, unlike canary where it receives live traffic immediately.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-blue          # currently LIVE (v1)
+  labels: {app: myapp, version: blue}
+spec:
+  replicas: 5
+  selector: {matchLabels: {app: myapp, version: blue}}
+  template:
+    metadata: {labels: {app: myapp, version: blue}}
+    spec: {containers: [{name: app, image: myapp:v1}]}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-green         # new version, deployed but NOT receiving traffic yet
+  labels: {app: myapp, version: green}
+spec:
+  replicas: 5
+  selector: {matchLabels: {app: myapp, version: green}}
+  template:
+    metadata: {labels: {app: myapp, version: green}}
+    spec: {containers: [{name: app, image: myapp:v2}]}
+---
+# The Service selector is the switch — it currently points at "blue"
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-service
+spec:
+  selector: {app: myapp, version: blue}   # <- change to "green" to cut over
+  ports: [{port: 80, targetPort: 8080}]
+
+# Cutover: test green internally, then flip the switch instantly
+kubectl patch service app-service -p '{"spec":{"selector":{"version":"green"}}}'
+# Rollback (if anything looks wrong): flip right back, zero rebuild needed
+kubectl patch service app-service -p '{"spec":{"selector":{"version":"blue"}}}'
+# Once green is confirmed stable, scale down/delete the blue deployment</code></pre>
+
         <h3>Zero-Trust AuthorizationPolicy</h3>
         <pre><code># Allow only frontend → backend communication
 apiVersion: security.istio.io/v1beta1
@@ -3532,6 +3577,69 @@ checkov -d ./k8s --framework kubernetes \
 # CKV_K8S_14 — Pod spec has memory limits
 # CKV_K8S_16 — containers do not run as root
 # CKV_K8S_30 — NetworkPolicy exists for namespace</code></pre>
+
+        <h3>DAST — OWASP ZAP as a Real Pipeline Job</h3>
+        <pre><code># GitHub Actions job — runs an active DAST scan against staging
+# after deploy, and fails the pipeline on high-severity findings.
+jobs:
+  dast-scan:
+    needs: deploy-staging
+    runs-on: ubuntu-latest
+    steps:
+      - name: ZAP Baseline Scan (passive — safe to run on any target)
+        uses: zaproxy/action-baseline@v0.12.0
+        with:
+          target: 'https://staging.example.com'
+          rules_file_name: '.zap/rules.tsv'   # tune false positives here
+          cmd_options: '-a'                    # include alpha-quality rules
+
+      - name: ZAP Full Scan (active — staging/test ONLY, never prod)
+        uses: zaproxy/action-full-scan@v0.10.0
+        with:
+          target: 'https://staging.example.com'
+          fail_action: true                    # fail the build on findings
+
+      - name: Upload ZAP report
+        uses: actions/upload-artifact@v4
+        with:
+          name: zap-report
+          path: report_html.html
+
+# .zap/rules.tsv — suppress a known false positive by rule ID
+# 10021	IGNORE	(X-Content-Type-Options missing — handled by CDN)</code></pre>
+
+        <h3>Compliance as Code &amp; Drift Detection</h3>
+        <pre><code># InSpec — express compliance requirements (CIS, PCI-DSS, custom) as code,
+# run them against live infrastructure, not just at deploy time.
+control 'cis-aws-1.4' do
+  impact 1.0
+  title 'Ensure no root account access key exists'
+  describe aws_iam_root_user do
+    it { should_not have_access_key }
+  end
+end
+
+control 'custom-s3-encryption' do
+  impact 0.8
+  title 'All S3 buckets must have default encryption enabled'
+  aws_s3_buckets.bucket_names.each do |bucket|
+    describe aws_s3_bucket(bucket_name: bucket) do
+      its('server_side_encryption_configuration') { should_not be_empty }
+    end
+  end
+end
+
+# Run: inspec exec compliance-profile/ -t aws://
+# → pass/fail report per control, wired into CI like any other gate
+
+# driftctl — detect when live infra has drifted from Terraform state
+# (someone made a manual console change that Terraform doesn't know about)
+driftctl scan --from tfstate://terraform.tfstate
+# Output: ~ resources changed outside Terraform, + unmanaged resources found
+
+# Why this matters: IaC scanning (Checkov) checks your CODE before deploy;
+# compliance-as-code + drift detection check your LIVE environment
+# continuously — catching manual changes and config decay over time.</code></pre>
 
         <h3>OPA Gatekeeper — Policy as Code</h3>
         <pre><code># Constraint Template — require resource limits

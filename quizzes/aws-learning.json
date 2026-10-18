@@ -276,6 +276,83 @@
       ],
       "correct": 2,
       "explain": "AWS Security Hub aggregates and prioritizes findings from GuardDuty, Inspector, Macie, and other services into one dashboard."
+    },
+    {
+      "question": "What is the 'Strangler Fig' pattern used for when migrating a monolith to microservices?",
+      "options": [
+        "A. Rewriting the entire monolith from scratch before any migration begins",
+        "B. Gradually routing new/refactored functionality through a facade to new microservices while the monolith keeps serving everything else, until it's fully replaced",
+        "C. Running two completely separate monoliths in parallel forever",
+        "D. A database migration technique unrelated to application architecture"
+      ],
+      "correct": 1,
+      "explain": "The Strangler Fig pattern migrates incrementally — a facade (API Gateway/proxy) routes traffic to new microservices piece by piece while the monolith still handles everything else, avoiding a risky big-bang rewrite."
+    },
+    {
+      "question": "In CQRS (Command Query Responsibility Segregation), why are the write model and read model kept separate?",
+      "options": [
+        "A. To save on database licensing costs",
+        "B. So the write side can stay simple and consistent while the read side can be denormalized and shaped exactly for fast, query-specific access patterns",
+        "C. Because AWS requires separate databases for reads and writes",
+        "D. To make the application harder to test"
+      ],
+      "correct": 1,
+      "explain": "CQRS separates commands (writes) from queries (reads) so each side can be optimized independently — the write model stays normalized/consistent, while the read model can be denormalized for whatever query patterns (dashboards, search) actually need."
+    },
+    {
+      "question": "What does Event Sourcing store, as opposed to traditional CRUD?",
+      "options": [
+        "A. Only the current state of each record, like normal CRUD",
+        "B. The full sequence of events that led to the current state, so state can be reconstructed by replaying history",
+        "C. A compressed binary snapshot updated nightly",
+        "D. Only error events, not successful state changes"
+      ],
+      "correct": 1,
+      "explain": "Event Sourcing persists every event (OrderCreated, ItemAdded, etc.) rather than just current state — current state is derived by replaying the event log, which gives a full audit trail and the ability to rebuild any past state."
+    },
+    {
+      "question": "What problem does the Backend-for-Frontend (BFF) API Gateway pattern solve?",
+      "options": [
+        "A. It eliminates the need for authentication entirely",
+        "B. It provides a dedicated gateway per client type (web, mobile) that shapes/aggregates responses for that client's specific needs, instead of one generic API serving everyone",
+        "C. It automatically scales the database behind the API",
+        "D. It replaces the need for an API Gateway entirely"
+      ],
+      "correct": 1,
+      "explain": "BFF gives each client type (web, iOS, Android) its own tailored gateway/API shape, avoiding a one-size-fits-all API that over- or under-fetches data for different clients."
+    },
+    {
+      "question": "In the worked URL shortener design, why is read traffic cached aggressively with ElastiCache?",
+      "options": [
+        "A. Because writes are far more frequent than reads in this system",
+        "B. Because redirects (reads) vastly outnumber new short-URL creations (writes) — roughly 10:1 in the example — so caching the hot subset of URLs removes most load from the database",
+        "C. Caching is required by AWS for all DynamoDB tables",
+        "D. To avoid having to generate base62 codes"
+      ],
+      "correct": 1,
+      "explain": "URL shorteners are extremely read-heavy (redirects happen far more often than new links are created), so caching the popular subset of mappings in ElastiCache removes the vast majority of load from the database."
+    },
+    {
+      "question": "What is the key operational difference between target tracking, step scaling, and scheduled scaling in AWS Auto Scaling?",
+      "options": [
+        "A. They all do exactly the same thing with different names",
+        "B. Target tracking maintains a metric at a set value automatically, step scaling adds different capacity based on alarm severity, and scheduled scaling triggers scaling at known times regardless of current metrics",
+        "C. Scheduled scaling is the only one that can scale down",
+        "D. Step scaling only works with Spot Instances"
+      ],
+      "correct": 1,
+      "explain": "Target tracking is 'set and forget' (hold a metric near a target), step scaling applies proportionally larger responses to more severe alarm breaches, and scheduled scaling scales at predetermined times for predictable traffic patterns — each suits a different scenario."
+    },
+    {
+      "question": "Why does horizontal scaling require an application to be stateless?",
+      "options": [
+        "A. Stateless apps use less CPU per request",
+        "B. If session/state data lives in an individual instance's memory, requests routed to a different instance won't see that data — state must live in a shared store (Redis/DynamoDB) so any instance can serve any request",
+        "C. AWS Auto Scaling Groups only support stateless applications by license agreement",
+        "D. Stateless applications don't need load balancers"
+      ],
+      "correct": 1,
+      "explain": "Horizontal scaling adds/removes instances dynamically — if a user's session data were stored only in one instance's memory, a request landing on a different instance would lose that context, so state must be externalized to something all instances can reach."
     }
   ]
 }

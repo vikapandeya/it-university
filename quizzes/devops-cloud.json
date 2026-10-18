@@ -474,6 +474,50 @@
       ],
       "correct": 1,
       "explain": "Progressive delivery tools incrementally shift traffic to a new version while watching metrics like error rate and latency, automatically rolling back if the canary looks unhealthy — reducing blast radius versus an all-at-once deploy."
+    },
+    {
+      "question": "What is the key operational difference between blue-green and canary deployments?",
+      "options": [
+        "A. They are two names for the exact same deployment strategy",
+        "B. Canary shifts a percentage of traffic gradually to the new version; blue-green keeps two full environments and cuts over 100% of traffic at once, with instant rollback by flipping back",
+        "C. Blue-green only works with serverless functions, canary only with containers",
+        "D. Canary requires twice the infrastructure, blue-green requires none"
+      ],
+      "correct": 1,
+      "explain": "Canary gradually increases traffic to the new version (e.g. 10% then 50% then 100%), while blue-green keeps both full environments running and switches all traffic at once — simpler to reason about and instantly reversible, at the cost of running double the infrastructure during the switch."
+    },
+    {
+      "question": "What does a drift detection tool like driftctl actually check for?",
+      "options": [
+        "A. Whether Terraform code passes a linter",
+        "B. Whether the LIVE infrastructure still matches what's declared in Terraform state — catching manual console changes Terraform doesn't know about",
+        "C. Network latency drift between AWS regions",
+        "D. Whether Docker images have drifted from their base image"
+      ],
+      "correct": 1,
+      "explain": "Drift detection compares actual live infrastructure against the Terraform state file, flagging anything that changed outside of Terraform (like a manual console edit) — catching configuration decay that IaC scanning alone (which only checks code before deploy) would miss."
+    },
+    {
+      "question": "What's the difference between Checkov (IaC scanning) and InSpec (compliance as code) in a DevSecOps pipeline?",
+      "options": [
+        "A. They do the exact same thing and are interchangeable",
+        "B. Checkov scans your Terraform/Kubernetes CODE before deployment for misconfigurations; InSpec checks your LIVE, already-running infrastructure against compliance controls (e.g. CIS benchmarks) continuously",
+        "C. InSpec only works on AWS, Checkov only works on Azure",
+        "D. Checkov is a runtime security tool, InSpec is a static analysis tool"
+      ],
+      "correct": 1,
+      "explain": "Checkov is a pre-deploy, shift-left check against your IaC source code; InSpec/compliance-as-code tools validate the actual running environment against compliance requirements on an ongoing basis — they're complementary, not redundant."
+    },
+    {
+      "question": "In a GitHub Actions DAST job using OWASP ZAP, why would you run a 'baseline' scan before a 'full' active scan?",
+      "options": [
+        "A. Baseline scans are passive (safe for any environment including prod); full/active scans send real attack payloads and should only run against staging/test, never production",
+        "B. There's no functional difference, it's just a naming convention",
+        "C. Baseline scans take longer to run than full scans",
+        "D. Full scans can only run locally, never in CI"
+      ],
+      "correct": 0,
+      "explain": "ZAP's baseline scan is passive — it observes traffic without attacking — making it safe to run anywhere including production. A full/active scan actively sends attack payloads to find vulnerabilities, so it should only target non-production environments."
     }
   ]
 }
