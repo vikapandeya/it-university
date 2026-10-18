@@ -562,6 +562,43 @@ Get-Item file.txt | Select-Object *     # file properties
 Compress-Archive src -DestPath out.zip  # create zip
 Expand-Archive out.zip -DestPath ./     # extract zip</code></pre>
 
+        <h3>PowerShell Scripting &amp; Remote Administration</h3>
+        <pre><code># Variables, pipelines, and objects — PowerShell pipes OBJECTS, not text
+$procs = Get-Process | Where-Object { $_.CPU -gt 100 } | Sort-Object CPU -Descending
+$procs | Select-Object Name, CPU, Id | Format-Table -AutoSize
+
+# A basic script with a parameter and a function
+param(
+    [string]$ServerName = "localhost"
+)
+function Test-DiskSpace {
+    param([string]$Computer)
+    Get-PSDrive -PSProvider FileSystem |
+        Where-Object { $_.Free / $_.Used -lt 0.1 } |
+        ForEach-Object { Write-Warning "$($_.Name): low disk space on $Computer" }
+}
+Test-DiskSpace -Computer $ServerName
+
+# Common admin cmdlets
+Get-Service | Where-Object Status -eq 'Stopped'     # find stopped services
+Restart-Service -Name "Spooler"                      # restart the print spooler
+Get-EventLog -LogName System -Newest 20               # recent system events
+Get-LocalUser | Where-Object Enabled -eq $true        # list local accounts
+
+# Active Directory module (run on/with access to a Domain Controller)
+Get-ADUser -Filter {Enabled -eq $false}                       # find disabled accounts
+Get-ADGroupMember -Identity "IT-Admins"                        # who's in a security group
+New-ADUser -Name "Jane Doe" -Enabled $true -Path "OU=Sales,DC=corp,DC=contoso,DC=com"
+
+# Remoting — run commands on another machine entirely
+Enter-PSSession -ComputerName SRV01                            # interactive remote session
+Invoke-Command -ComputerName SRV01,SRV02 -ScriptBlock { Get-Service W32Time }
+
+# Modules — PowerShell's equivalent of installing a library
+Install-Module -Name Az -Scope CurrentUser                     # Azure cmdlets
+Import-Module ActiveDirectory                                  # load the AD module</code></pre>
+        <p style="color:var(--text-dim)">The core mental model that trips up Bash users: PowerShell pipelines pass full <strong>.NET objects</strong> between commands (with named properties you can filter/sort/select on), not plain text — that's why <code>Where-Object</code>/<code>Select-Object</code> feel more like SQL queries than text filters like <code>grep</code>/<code>awk</code>.</p>
+
         <h3>File Organization Best Practices</h3>
         <ul>
           <li><strong>Projects folder</strong> — keep all dev projects under <code>~/Projects/</code> or <code>C:\Dev\</code></li>

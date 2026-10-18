@@ -276,6 +276,83 @@
       ],
       "correct": 0,
       "explain": "The $ locks the column and/or row of a reference, so it stays fixed on $A$1 instead of shifting when the formula is copied elsewhere."
+    },
+    {
+      "question": "In Active Directory, what is a Domain Controller (DC)?",
+      "options": [
+        "A. A physical firewall appliance",
+        "B. A server that holds the Active Directory database and handles login authentication for the domain",
+        "C. A workstation used only by IT administrators",
+        "D. A type of network cable"
+      ],
+      "correct": 1,
+      "explain": "A Domain Controller runs Active Directory Domain Services and is what actually checks a username/password against the directory when a user logs into a domain-joined computer."
+    },
+    {
+      "question": "What is the purpose of a Group Policy Object (GPO) in Active Directory?",
+      "options": [
+        "A. It tracks hardware inventory only",
+        "B. It pushes configuration rules out to users/computers in an Organizational Unit, such as forcing a screen lock timeout or mapping a network drive",
+        "C. It is a type of antivirus software",
+        "D. It assigns IP addresses automatically"
+      ],
+      "correct": 1,
+      "explain": "GPOs let IT centrally enforce settings and restrictions across many computers or users at once, scoped to an Organizational Unit, instead of configuring each machine individually."
+    },
+    {
+      "question": "What does a VLAN accomplish that a single flat network cannot?",
+      "options": [
+        "A. It increases internet bandwidth automatically",
+        "B. It splits one physical network into multiple isolated logical networks, so e.g. Guest WiFi traffic can be kept separate from the Finance department's traffic without separate cabling",
+        "C. It encrypts all network traffic by default",
+        "D. It is required for any device to connect to WiFi"
+      ],
+      "correct": 1,
+      "explain": "VLANs create logical segmentation on shared physical network hardware — devices on different VLANs are isolated from each other even though they may share the same switches and cabling."
+    },
+    {
+      "question": "In ITIL, what is the difference between Incident Management and Problem Management?",
+      "options": [
+        "A. They are the same process with different names",
+        "B. Incident Management restores service quickly for an individual issue; Problem Management investigates and fixes the underlying root cause behind recurring incidents",
+        "C. Problem Management only applies to hardware, Incident Management only to software",
+        "D. Incident Management is only used in agile organizations"
+      ],
+      "correct": 1,
+      "explain": "Incident Management is reactive and fast — get the user working again. Problem Management is about finding why the same type of incident keeps happening and eliminating the root cause so it stops recurring."
+    },
+    {
+      "question": "What does RTO (Recovery Time Objective) measure in a disaster recovery plan?",
+      "options": [
+        "A. How much data the organization can afford to lose",
+        "B. How long a system can be down before it's considered a crisis — i.e. how fast it must be restored",
+        "C. The total cost of a disaster recovery plan",
+        "D. How often backups should be tested"
+      ],
+      "correct": 1,
+      "explain": "RTO defines the maximum acceptable downtime before recovery must be complete. RPO (a related but different metric) measures how much data loss is acceptable, based on backup frequency."
+    },
+    {
+      "question": "What does Mobile Device Management (MDM) allow IT to do that's especially important for lost or stolen devices?",
+      "options": [
+        "A. Automatically replace the device for free",
+        "B. Remotely wipe corporate data (or the entire device) to prevent unauthorized access to company information",
+        "C. Track the device's resale value",
+        "D. Prevent the device from ever being turned off"
+      ],
+      "correct": 1,
+      "explain": "Remote wipe is one of MDM's most important security capabilities — if a device is lost or stolen, IT can remove sensitive company data remotely (or wipe the whole device if company-owned), before someone else can access it."
+    },
+    {
+      "question": "Why do most companies now manage email through the Microsoft 365 Admin Center / Exchange Online instead of running their own mail server?",
+      "options": [
+        "A. It is required by law in most countries",
+        "B. It centralizes mailbox, licensing, and policy management in the cloud rather than requiring IT to maintain physical mail server infrastructure",
+        "C. It makes email slower but more secure",
+        "D. It eliminates the need for any IT administration at all"
+      ],
+      "correct": 1,
+      "explain": "Cloud-hosted email (Exchange Online via Microsoft 365) shifts server maintenance to Microsoft while giving IT a central admin console to manage users, licenses, mail flow rules, and security policy without maintaining on-prem mail servers."
     }
   ]
 }

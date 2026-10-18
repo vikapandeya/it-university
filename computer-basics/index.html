@@ -79,6 +79,7 @@
       <div class="sidebar__heading">Reference</div>
       <a href="#shortcuts" class="sidebar__link">⌨️ Shortcuts</a>
       <a href="#maintenance" class="sidebar__link">🔧 PC Maintenance</a>
+      <a href="#enterprise-it" class="sidebar__link">🏢 Enterprise IT Operations</a>
       <a href="#glossary" class="sidebar__link">📖 Glossary A–Z</a>
     </div>
     <div class="sidebar__section">
@@ -796,6 +797,101 @@ h1 { color: blue; font-size: 2rem; }
           <tr><td style="border:1px solid var(--border);padding:8px 12px">Overheating</td><td style="border:1px solid var(--border);padding:8px 12px">Dust, faulty fan, bad paste</td><td style="border:1px solid var(--border);padding:8px 12px">Clean vents, reapply thermal paste</td></tr>
           <tr><td style="border:1px solid var(--border);padding:8px 12px">App won't open</td><td style="border:1px solid var(--border);padding:8px 12px">Corrupt install, missing DLL</td><td style="border:1px solid var(--border);padding:8px 12px">Repair install via Add/Remove Programs</td></tr>
         </table>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="enterprise-it">
+      <h2>🏢 Enterprise IT Operations</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">How Corporate IT Departments Actually Run Things</div>
+          <button class="btn btn--outline btn--sm" data-lesson="computer-basics:enterprise-it">Mark Complete</button>
+        </div>
+        <p style="color:var(--text-dim)">Everything so far has been about using a computer. This section is about <strong>running IT for an organization</strong> — the systems, processes, and infrastructure that keep hundreds or thousands of employees' computers, accounts, and networks working together.</p>
+
+        <h3>Active Directory Fundamentals</h3>
+        <p>Active Directory (AD) is Microsoft's directory service — the central database of every user, computer, and group in a company, and the system that controls who can log into what.</p>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Concept</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">What it means</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><strong>Domain</strong></td><td style="border:1px solid var(--border);padding:8px 12px">A logical boundary of users/computers managed under one security policy (e.g. <code>corp.contoso.com</code>)</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><strong>Domain Controller (DC)</strong></td><td style="border:1px solid var(--border);padding:8px 12px">A server that holds the AD database and handles login authentication for the domain</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><strong>Organizational Unit (OU)</strong></td><td style="border:1px solid var(--border);padding:8px 12px">A folder-like container used to organize users/computers and apply different policies to different departments</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><strong>Group Policy (GPO)</strong></td><td style="border:1px solid var(--border);padding:8px 12px">Rules pushed out to computers/users in an OU — e.g. "force a screen lock after 5 minutes" or "map this network drive"</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><strong>Trust</strong></td><td style="border:1px solid var(--border);padding:8px 12px">A relationship letting users in one domain access resources in another (common after company mergers)</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><strong>LDAP</strong></td><td style="border:1px solid var(--border);padding:8px 12px">The protocol apps use to query AD — "is this username/password valid?", "what groups is this user in?"</td></tr>
+        </table>
+        <p style="color:var(--text-dim)">In practice: when an employee logs into their work laptop, it's a Domain Controller checking their credentials against AD. When IT disables an account on someone's last day, that's an AD change that instantly revokes access everywhere tied to that account.</p>
+
+        <h3>Windows Server Roles &amp; Administration</h3>
+        <p>A "role" is a function a Windows Server is configured to perform. One physical/virtual server often runs several roles.</p>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Role</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">What it does</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Active Directory Domain Services</td><td style="border:1px solid var(--border);padding:8px 12px">Turns the server into a Domain Controller</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">DNS Server</td><td style="border:1px solid var(--border);padding:8px 12px">Resolves internal hostnames (<code>fileserver01</code>) to IP addresses — AD depends on this working correctly</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">DHCP Server</td><td style="border:1px solid var(--border);padding:8px 12px">Automatically hands out IP addresses to devices joining the network</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">File &amp; Storage Services</td><td style="border:1px solid var(--border);padding:8px 12px">Shared network drives (e.g. the company's <code>\\fileserver\shared</code>)</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Print Services</td><td style="border:1px solid var(--border);padding:8px 12px">Centrally manages network printers and their drivers/queues for all users</td></tr>
+        </table>
+        <p style="color:var(--text-dim)"><strong>Server Manager</strong> is the main GUI for adding/removing roles and monitoring server health; most of this can also be scripted with PowerShell (see the Online IDE &amp; Dev Tools portal for PowerShell scripting basics).</p>
+
+        <h3>Enterprise Networking</h3>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Concept</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">What it solves</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><strong>VLAN</strong></td><td style="border:1px solid var(--border);padding:8px 12px">Splits one physical network into multiple isolated logical networks (e.g. "Finance VLAN" can't see "Guest WiFi VLAN") without needing separate cabling</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><strong>Routing (OSPF/BGP basics)</strong></td><td style="border:1px solid var(--border);padding:8px 12px">OSPF finds the best path for traffic <em>within</em> an organization's own network; BGP is the protocol that routes traffic <em>between</em> different networks across the internet</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><strong>Firewall</strong></td><td style="border:1px solid var(--border);padding:8px 12px">A standalone network appliance (not just a per-PC setting) that filters traffic between network zones — e.g. blocking the Guest WiFi VLAN from reaching internal servers entirely</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><strong>Load Balancer</strong></td><td style="border:1px solid var(--border);padding:8px 12px">Distributes incoming traffic across multiple servers so no single server gets overwhelmed and the service stays up if one server fails</td></tr>
+        </table>
+        <p style="color:var(--text-dim)">These are the building blocks behind "why can't I access the file server from the guest WiFi" or "why did the website go down when one server crashed but come right back."</p>
+
+        <h3>ITIL / ITSM — How IT Support Is Organized</h3>
+        <p>ITIL (IT Infrastructure Library) is the most widely used framework for running an IT service desk. It defines standard processes so that "someone's laptop is broken" and "we need to change the email server" are handled consistently instead of ad hoc.</p>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Process</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Purpose</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Example</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Incident Management</td><td style="border:1px solid var(--border);padding:8px 12px">Restore normal service ASAP</td><td style="border:1px solid var(--border);padding:8px 12px">"My laptop won't turn on" → ticket → fixed today</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Problem Management</td><td style="border:1px solid var(--border);padding:8px 12px">Find and fix the root cause behind recurring incidents</td><td style="border:1px solid var(--border);padding:8px 12px">20 laptops failed this month with the same issue → investigate the common cause</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Change Management</td><td style="border:1px solid var(--border);padding:8px 12px">Review and approve changes before they hit production systems</td><td style="border:1px solid var(--border);padding:8px 12px">"We want to upgrade the email server this weekend" → change request → approval → scheduled maintenance window</td></tr>
+        </table>
+        <p style="color:var(--text-dim)"><strong>Service desk tiers:</strong> Tier 1 (help desk) handles common requests like password resets; Tier 2 (desktop/network support) handles harder technical issues escalated from Tier 1; Tier 3 (specialists/engineers) handles the most complex problems, like a server outage.</p>
+
+        <h3>Microsoft 365 &amp; Exchange Online Administration</h3>
+        <p>Most companies no longer run their own email server — they use Microsoft 365, and an IT admin manages it centrally through the <strong>Microsoft 365 Admin Center</strong> instead of logging into individual machines.</p>
+        <ul>
+          <li><strong>User &amp; license management</strong> — create accounts, assign licenses (Business Basic, E3, E5), reset passwords centrally</li>
+          <li><strong>Exchange Online Admin Center</strong> — manage mailboxes, distribution lists, shared mailboxes, mail flow rules (e.g. block attachments over 25MB)</li>
+          <li><strong>Teams Admin Center</strong> — control who can create Teams, external guest access, meeting policies</li>
+          <li><strong>SharePoint/OneDrive admin</strong> — storage quotas, external sharing policies, retention/compliance rules</li>
+          <li><strong>Security &amp; Compliance Center</strong> — enforce MFA, data loss prevention (DLP) policies, audit logs for "who accessed this file"</li>
+        </ul>
+
+        <h3>MDM &amp; BYOD</h3>
+        <p>Mobile Device Management (MDM) lets IT manage phones/laptops remotely — enforcing security policy, pushing apps, and wiping a device if it's lost or stolen — whether the device is company-owned or an employee's personal device enrolled under a <strong>BYOD (Bring Your Own Device)</strong> policy.</p>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Capability</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Why it matters</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Enrollment</td><td style="border:1px solid var(--border);padding:8px 12px">A device must be registered with the MDM (e.g. Microsoft Intune, Jamf for Apple) before it gets corporate access</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Policy enforcement</td><td style="border:1px solid var(--border);padding:8px 12px">Require a PIN/biometric lock, disk encryption, minimum OS version before allowing email access</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Remote wipe</td><td style="border:1px solid var(--border);padding:8px 12px">If a device is lost/stolen, IT can wipe just the corporate data (BYOD) or the entire device (company-owned)</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">App management</td><td style="border:1px solid var(--border);padding:8px 12px">Push required apps automatically, block unauthorized ones (an "app allowlist")</td></tr>
+        </table>
+
+        <h3>Backup &amp; Disaster Recovery (Enterprise)</h3>
+        <p>The <a href="#maintenance">3-2-1 backup rule</a> covered earlier applies at home too — but at enterprise scale, IT also needs a formal <strong>disaster recovery plan</strong>: not just "do we have a backup" but "how fast can we actually be back up and running."</p>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Term</th><th style="border:1px solid var(--border);padding:8px 12px;background:var(--bg-elevated)">Meaning</th></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><strong>RTO</strong> (Recovery Time Objective)</td><td style="border:1px solid var(--border);padding:8px 12px">How long can the system be down before it's a crisis? (e.g. "4 hours")</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px"><strong>RPO</strong> (Recovery Point Objective)</td><td style="border:1px solid var(--border);padding:8px 12px">How much data can we afford to lose? (e.g. "1 hour" = backups must run at least hourly)</td></tr>
+          <tr><td style="border:1px solid var(--border);padding:8px 12px">Backup media</td><td style="border:1px solid var(--border);padding:8px 12px">Disk-based backups are fast to restore; tape is cheaper for long-term archival/compliance retention and is still common for the "offline, offsite" copy</td></tr>
+        </table>
+
+        <h3>IT Asset &amp; Peripheral Management</h3>
+        <p>Enterprise IT tracks every laptop, monitor, phone, and license the company owns — not for its own sake, but because it answers questions like "who has this laptop," "is this software license expired," and "what do we need to wipe when an employee leaves."</p>
+        <ul>
+          <li><strong>Asset tags &amp; inventory</strong> — every device gets a unique ID tracked in an asset management system (ServiceNow, Snipe-IT) tied to the employee who has it</li>
+          <li><strong>Software license management</strong> — tracking how many licenses are owned vs. in use, avoiding both overspending and compliance violations from unlicensed software</li>
+          <li><strong>Print server management</strong> — centrally deploying printer drivers and managing print queues so users don't install drivers individually on every machine</li>
+          <li><strong>Lifecycle management</strong> — procurement → deployment → maintenance → end-of-life wipe/disposal, often on a 3-4 year refresh cycle</li>
+        </ul>
       </div>
     </section>
 

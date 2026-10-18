@@ -276,6 +276,28 @@
       ],
       "correct": 0,
       "explain": "The -a flag creates a full annotated tag object storing the tagger, date, and message, unlike a lightweight tag which is just a pointer."
+    },
+    {
+      "question": "What is the key conceptual difference between PowerShell pipelines and Bash pipelines?",
+      "options": [
+        "A. PowerShell pipelines pass full .NET objects with named properties between commands; Bash pipelines pass plain text",
+        "B. There is no difference, they work identically",
+        "C. PowerShell cannot chain more than two commands together",
+        "D. Bash pipelines are faster because they use objects, not text"
+      ],
+      "correct": 0,
+      "explain": "PowerShell's pipeline passes structured objects (with properties you can filter and sort on directly, like Where-Object/Select-Object), while Bash pipes raw text that tools like grep/awk have to parse — this is why PowerShell commands often feel more like database queries."
+    },
+    {
+      "question": "What does the PowerShell cmdlet `Get-ADUser -Filter {Enabled -eq $false}` do?",
+      "options": [
+        "A. Creates a new disabled Active Directory user",
+        "B. Lists all Active Directory user accounts that are currently disabled",
+        "C. Deletes all disabled accounts permanently",
+        "D. Enables every disabled account in the domain"
+      ],
+      "correct": 1,
+      "explain": "Get-ADUser with a filter queries Active Directory and returns matching accounts — here, every account where the Enabled property is false, useful for auditing stale/disabled accounts."
     }
   ]
 }
