@@ -125,7 +125,7 @@
 
     function openPanel() {
       if (isNavPanel) {
-        panel.style.cssText = 'display:flex!important;flex-direction:column;position:fixed;top:var(--header-h);left:0;right:0;background:rgba(10,14,26,0.98);z-index:900;padding:8px 0 16px;border-bottom:1px solid var(--border);max-height:calc(100vh - var(--header-h));overflow-y:auto;';
+        panel.style.cssText = 'display:flex!important;flex-direction:column;position:fixed;top:var(--header-h);left:0;right:0;background:rgba(13,10,20,0.98);z-index:900;padding:8px 0 16px;border-bottom:1px solid var(--border);max-height:calc(100vh - var(--header-h));overflow-y:auto;';
         panel.querySelectorAll('a').forEach(a => { a.style.padding = '13px 24px'; a.style.fontSize = '1rem'; a.style.borderRadius = '0'; });
       }
       panel.classList.add('open');

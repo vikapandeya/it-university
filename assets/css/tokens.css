@@ -1,9 +1,9 @@
 :root {
   /* Background */
-  --bg:           #0a0e1a;
-  --bg-card:      #0f1629;
-  --bg-elevated:  #151d35;
-  --bg-overlay:   rgba(10, 14, 26, 0.92);
+  --bg:           #0d0a14;
+  --bg-card:      #15101f;
+  --bg-elevated:  #1d1730;
+  --bg-overlay:   rgba(13, 10, 20, 0.92);
 
   /* Text */
   --text:         #e2e8f0;
