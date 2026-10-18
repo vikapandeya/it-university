@@ -441,6 +441,72 @@
       ],
       "correct": 1,
       "explain": "BEC relies purely on impersonation and social engineering — tricking finance/accounting staff into redirecting a real payment to the attacker's account — often without any malware or technical exploit involved."
+    },
+    {
+      "question": "What is Broken Object Level Authorization (BOLA), the #1 risk in the OWASP API Security Top 10?",
+      "options": [
+        "A. An API that has no authentication at all",
+        "B. An API that fails to verify the authenticated user actually owns the specific object they're requesting, letting them access others' data by changing an ID in the request",
+        "C. A misconfigured load balancer in front of an API gateway",
+        "D. An API that only accepts HTTP, never HTTPS"
+      ],
+      "correct": 1,
+      "explain": "BOLA happens when an endpoint returns data for a requested object ID without checking that the authenticated user is actually authorized to see that specific object — so changing /orders/1002 to /orders/1003 can leak someone else's data."
+    },
+    {
+      "question": "Why is exposing the Docker socket (/var/run/docker.sock) inside a container a serious security risk?",
+      "options": [
+        "A. It only exposes container logs, which is a minor leak",
+        "B. It effectively grants full control over the host's Docker daemon, letting an attacker inside that container create a new privileged container to escape to the host",
+        "C. It just slows down container startup time",
+        "D. It is only a risk on Windows containers, not Linux"
+      ],
+      "correct": 1,
+      "explain": "Anyone with access to the Docker socket can control the entire Docker daemon — including spinning up a new privileged container with the host filesystem mounted, which is a straightforward path to full host compromise."
+    },
+    {
+      "question": "What does setting 'privileged: true' on a Kubernetes pod spec do, from a security standpoint?",
+      "options": [
+        "A. It gives the pod a static IP address",
+        "B. It disables all network policies for that pod",
+        "C. It removes most container isolation, giving the pod near-full access to the host's devices and kernel capabilities — a common pod-escape vector",
+        "D. It encrypts the pod's traffic automatically"
+      ],
+      "correct": 2,
+      "explain": "A privileged pod loses most of the isolation containers normally provide, gaining access to host devices and kernel capabilities — exactly what an attacker needs to escape the container and compromise the node."
+    },
+    {
+      "question": "What is a TOCTOU (Time-Of-Check to Time-Of-Use) race condition?",
+      "options": [
+        "A. A type of DDoS attack that targets time synchronization servers",
+        "B. A bug where a gap between checking a condition and acting on it lets an attacker slip in extra requests before the first one's effect is recorded, e.g. redeeming a one-time coupon multiple times",
+        "C. A vulnerability only found in single-threaded applications",
+        "D. An attack that only works against encrypted databases"
+      ],
+      "correct": 1,
+      "explain": "TOCTOU bugs occur when there's a window between checking a condition (e.g. 'has this coupon been used?') and updating it — firing many parallel requests can let several land in that window before the flag is set, bypassing the intended one-time limit."
+    },
+    {
+      "question": "Why is unpickling untrusted data in Python considered dangerous?",
+      "options": [
+        "A. Pickle files are always corrupted and crash the application",
+        "B. A crafted pickle payload can define a __reduce__ method that executes arbitrary code the moment it is deserialized",
+        "C. Pickle only works with trusted data by design, so this isn't actually a risk",
+        "D. It only exposes read access to files, never code execution"
+      ],
+      "correct": 1,
+      "explain": "Python's pickle format can embed a __reduce__ method that the deserializer calls automatically, letting a malicious payload run arbitrary code (like os.system) the instant pickle.loads() processes it — never unpickle untrusted data."
+    },
+    {
+      "question": "Which fix correctly prevents the coupon-redemption race condition described in the lesson?",
+      "options": [
+        "A. Adding a CAPTCHA to the redemption form",
+        "B. Using an atomic database operation that checks and updates the redeemed flag in a single statement, e.g. UPDATE ... WHERE redeemed = false",
+        "C. Increasing the API rate limit so more requests can be processed",
+        "D. Storing the coupon code in a cookie instead of the database"
+      ],
+      "correct": 1,
+      "explain": "An atomic check-and-set UPDATE (checking redeemed=false in the WHERE clause of the same statement that sets it to true) closes the race window entirely — only one of the concurrent requests can succeed, since the database guarantees row-level atomicity."
     }
   ]
 }
