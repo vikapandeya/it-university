@@ -375,6 +375,72 @@
       ],
       "correct": 1,
       "explain": "Double extortion means attackers steal data before encrypting it, so even a victim with clean backups still faces pressure to pay — otherwise the stolen data gets leaked publicly."
+    },
+    {
+      "question": "In a classic stack-based buffer overflow, what makes overwriting EIP/RIP (the return address) significant?",
+      "options": [
+        "A. It crashes the program permanently with no further effect",
+        "B. It lets the attacker control where the CPU jumps to next, enabling arbitrary code execution",
+        "C. It only affects the program's logging output",
+        "D. It automatically grants root/Administrator access"
+      ],
+      "correct": 1,
+      "explain": "The return address tells the CPU where to resume execution after a function returns — overwriting it with an attacker-controlled value lets the attacker redirect execution anywhere, including into injected shellcode."
+    },
+    {
+      "question": "What is the purpose of using msf-pattern_create and msf-pattern_offset during buffer overflow exploitation?",
+      "options": [
+        "A. To encrypt the shellcode so antivirus can't detect it",
+        "B. To generate a unique non-repeating pattern so the exact byte offset to EIP can be calculated from the crash",
+        "C. To scan the target for open ports",
+        "D. To automatically find a working exploit without any further analysis"
+      ],
+      "correct": 1,
+      "explain": "A unique pattern lets you look up the 4 bytes found in EIP after a crash and determine the EXACT offset where the return address begins, instead of guessing with trial and error."
+    },
+    {
+      "question": "Why must 'bad characters' be identified before generating shellcode for a buffer overflow exploit?",
+      "options": [
+        "A. Bad characters make the exploit run faster",
+        "B. Certain byte values (like \\x00, a null terminator) get mangled or truncate the buffer when processed by the vulnerable application, breaking the exploit if present in the shellcode",
+        "C. They are required by msfvenom to generate any payload",
+        "D. Bad characters are only a concern for Linux targets, never Windows"
+      ],
+      "correct": 1,
+      "explain": "Certain bytes (like \\x00, \\x0a, \\x0d) are interpreted specially by many applications/protocols and will corrupt or truncate the payload — shellcode must be generated excluding any bad characters discovered during testing."
+    },
+    {
+      "question": "In the stack buffer overflow methodology, what is a 'JMP ESP' instruction used for?",
+      "options": [
+        "A. It encrypts network traffic between attacker and target",
+        "B. It's a redirect target: EIP is overwritten with its address so execution jumps to ESP, landing in the attacker's buffer (NOP sled + shellcode)",
+        "C. It automatically escalates privileges to SYSTEM",
+        "D. It's used only to crash the target, not to gain code execution"
+      ],
+      "correct": 1,
+      "explain": "A JMP ESP instruction (found in a module without ASLR/DEP) is used as the new return address — when EIP jumps there, execution lands on the stack pointer, which is where the attacker's NOP sled and shellcode sit."
+    },
+    {
+      "question": "How does clickjacking trick a user, and what HTTP header is the primary defense?",
+      "options": [
+        "A. It floods the user's network; defended with rate limiting",
+        "B. It overlays an invisible iframe of a real page over a fake button, making the user unknowingly click something on the real site; defended with X-Frame-Options or a CSP frame-ancestors directive",
+        "C. It steals cookies via JavaScript; defended with HttpOnly",
+        "D. It exploits a SQL injection; defended with parameterized queries"
+      ],
+      "correct": 1,
+      "explain": "Clickjacking layers an invisible iframe of a legitimate page over deceptive content, so a user's real click lands on the hidden page. X-Frame-Options (or CSP's frame-ancestors) stops a page from being framed at all."
+    },
+    {
+      "question": "What distinguishes Business Email Compromise (BEC) from generic phishing?",
+      "options": [
+        "A. BEC always involves malware attachments, phishing never does",
+        "B. BEC specifically impersonates a trusted business contact (CEO, vendor) to redirect a legitimate-looking payment or wire transfer, usually with no malware involved at all",
+        "C. BEC only targets personal Gmail accounts",
+        "D. BEC is a technical exploit, not a social engineering technique"
+      ],
+      "correct": 1,
+      "explain": "BEC relies purely on impersonation and social engineering — tricking finance/accounting staff into redirecting a real payment to the attacker's account — often without any malware or technical exploit involved."
     }
   ]
 }

