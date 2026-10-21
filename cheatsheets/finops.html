@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FinOps — Cloud Financial Management (AWS &amp; GCP) — Full Cheat Sheet</title>
+<meta name="description" content="Comprehensive FinOps cheat sheet — the FinOps Foundation framework, cost allocation and tagging, financial forecasting and budgeting methodology, AWS cost tooling and purchasing options (RI/Savings Plans/Spot), GCP cost tooling and purchasing options (CUDs/Sustained Use/Spot), a side-by-side cloud comparison, unit economics, and interview prep.">
+<style>
+:root {
+  --bg:#F5F6F7; --surface:#FFFFFF; --border:#E2E4E8;
+  --navy:#0F1C2E; --navy2:#1A2E45;
+  --aws:#FF9900; --aws-soft:#FFF3E0;
+  --gcp:#4285F4; --gcp-soft:#EAF1FE;
+  --green:#16A34A; --green-soft:#E6F4EA;
+  --red:#DC2626; --red-soft:#FDECEA;
+  --purple:#7C3AED; --purple-soft:#F5F0FF;
+  --text:#1C2333; --text2:#4A5568; --text3:#718096;
+  --mono:'Consolas','Courier New',monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+}
+body{font-family:var(--sans);font-size:11px;background:var(--bg);color:var(--text);line-height:1.5;margin:0}
+.page{max-width:1280px;margin:0 auto;padding:20px 16px}
+.header{background:var(--navy);border-radius:10px;padding:20px 24px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.header-left h1{font-size:22px;font-weight:800;color:#fff}.header-left h1 span{color:#FDBA4A}
+.header-left p{font-size:11px;color:#94A3B8;margin-top:3px}
+.header-badges{display:flex;gap:8px;flex-wrap:wrap}
+.badge{font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:.5px;text-transform:uppercase}
+.badge-aws{background:var(--aws);color:#1C2333}.badge-gcp{background:var(--gcp);color:#fff}.badge-green{background:#22C55E;color:#fff}.badge-purple{background:var(--purple);color:#fff}
+.section-divider{display:flex;align-items:center;gap:10px;margin:22px 0 10px}
+.section-divider h2{font-size:16px;font-weight:800;color:var(--navy);white-space:nowrap}
+.section-divider .line{height:1px;background:var(--border);flex:1}
+.section-divider .dot{width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px}
+.grid-2{grid-template-columns:repeat(2,1fr)}.grid-4{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--surface);border-radius:8px;border:1px solid var(--border);overflow:hidden}
+.card-header{padding:8px 12px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border)}
+.card-header .icon{width:24px;height:24px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.card-header h2{font-size:11.5px;font-weight:800;color:var(--navy)}
+.card-header .sub{font-size:9px;color:var(--text3);margin-left:auto}
+.card-body{padding:10px 12px}
+.section-label{font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--text3);margin-bottom:5px;margin-top:9px}
+.section-label:first-child{margin-top:0}
+.row{display:flex;justify-content:space-between;align-items:baseline;padding:2px 0;border-bottom:1px solid #F1F3F5;gap:8px}
+.row:last-child{border-bottom:none}
+.row .key{font-family:var(--mono);font-size:10px;font-weight:600;color:var(--navy);white-space:nowrap;flex-shrink:0}
+.row .val{font-size:10px;color:var(--text2);text-align:right}
+.tip-bar{background:var(--navy2);border-radius:8px;padding:10px 16px;margin-bottom:16px;display:flex;gap:24px;flex-wrap:wrap}
+.tip-label{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#FDBA4A}
+.tip{font-size:10.5px;color:#CBD5E1}.tip b{color:#fff}
+.note{font-size:10px;color:var(--text2);padding:6px 8px;border-radius:4px;margin-top:4px}
+.note-aws{background:var(--aws-soft);border-left:3px solid var(--aws)}
+.note-gcp{background:var(--gcp-soft);border-left:3px solid var(--gcp)}
+.note-green{background:var(--green-soft);border-left:3px solid var(--green)}
+.note-purple{background:var(--purple-soft);border-left:3px solid var(--purple)}
+.cmd{font-family:var(--mono);font-size:10px;background:#F1F3F5;padding:3px 7px;border-radius:4px;color:var(--navy);display:block;margin:2px 0;white-space:pre-wrap;word-break:break-word}
+.yaml{font-family:var(--mono);font-size:9.5px;background:#0F1C2E;color:#CBD5E1;padding:8px 10px;border-radius:6px;margin-top:4px;white-space:pre;overflow-x:auto;line-height:1.5}
+.sla-table{width:100%;border-collapse:collapse;margin-top:2px}
+.sla-table th{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);padding:3px 6px;text-align:left;border-bottom:1px solid var(--border)}
+.sla-table td{font-size:9.5px;padding:3px 6px;border-bottom:1px solid #F1F3F5;color:var(--text2);vertical-align:top}
+.sla-table td:first-child{font-family:var(--mono);font-weight:600;color:var(--navy);white-space:nowrap}
+.sla-table tr:last-child td{border-bottom:none}
+.svc-row{display:flex;gap:6px;align-items:baseline;padding:1px 0}
+.svc-row .sk{font-family:var(--mono);font-size:9.5px;font-weight:600;color:var(--purple);flex-shrink:0}
+.svc-row .sv{font-size:9.5px;color:var(--text2)}
+@media print{body{background:#fff}.page{padding:0}.card{break-inside:avoid}}
+@media (max-width:900px){.grid,.grid-2,.grid-4{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <h1>FinOps <span>Cloud Financial Management</span></h1>
+      <p>The FinOps Framework, Forecasting &amp; Budgeting, AWS &amp; GCP Cost Mechanics Side-by-Side</p>
+    </div>
+    <div class="header-badges">
+      <span class="badge badge-purple">FinOps</span>
+      <span class="badge badge-aws">AWS</span>
+      <span class="badge badge-gcp">GCP</span>
+      <span class="badge badge-green">Print-Ready</span>
+    </div>
+  </div>
+
+  <!-- TIP BAR -->
+  <div class="tip-bar">
+    <div><div class="tip-label">Core Principle</div><div class="tip">Cloud cost is a <b>team sport</b> — engineering owns usage decisions, finance owns forecasting, FinOps connects the two in real time, not at month-end</div></div>
+    <div><div class="tip-label">Value &gt; Savings</div><div class="tip">The goal isn't "spend less" — it's <b>maximize business value per dollar</b>. Sometimes the right call is to spend MORE to hit a revenue target faster</div></div>
+    <div><div class="tip-label">Variable Cost Model</div><div class="tip">Cloud is <b>variable spend</b>, not a fixed budget line — forecasting must be continuous, not an annual exercise</div></div>
+    <div><div class="tip-label">AWS vs GCP</div><div class="tip">AWS discounts require an active commitment purchase (RI/SP); GCP's Sustained Use Discounts apply <b>automatically</b> — a fundamentally different default posture</div></div>
+  </div>
+
+  <!-- ================= FRAMEWORK ================= -->
+  <div class="section-divider">
+    <div class="dot" style="background:var(--purple-soft)">🔄</div>
+    <h2>The FinOps Framework</h2>
+    <div class="line"></div>
+  </div>
+
+  <div class="grid grid-2" style="margin-bottom:12px">
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--purple-soft)">🔁</div>
+        <h2>Inform → Optimize → Operate</h2>
+        <span class="sub">FinOps Foundation Lifecycle</span>
+      </div>
+      <div class="card-body">
+        <div class="row"><span class="key">Inform</span><span class="val">Give every team visibility into THEIR cost — allocation, budgets, benchmarking, forecasting</span></div>
+        <div class="row"><span class="key">Optimize</span><span class="val">Act on that visibility — rightsizing, commitment purchases, waste elimination, architecture changes</span></div>
+        <div class="row"><span class="key">Operate</span><span class="val">Make it continuous — automated policies, governance, tracking business metrics against cost over time</span></div>
+        <div class="note note-purple" style="margin-top:6px">This is a <b>loop</b>, not a project with an end date — teams cycle through all three phases continuously as usage and pricing evolve.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--purple-soft)">📈</div>
+        <h2>Maturity Model</h2>
+      </div>
+      <div class="card-body">
+        <div class="row"><span class="key">Crawl</span><span class="val">Basic tagging, manual monthly cost reviews, reactive to bill shock</span></div>
+        <div class="row"><span class="key">Walk</span><span class="val">Automated allocation, regular forecasting, RI/SP coverage targets, anomaly alerts</span></div>
+        <div class="row"><span class="key">Run</span><span class="val">Unit economics tied to KPIs, automated rightsizing, engineering owns cost as a design input like latency or security</span></div>
+        <div class="section-label">Who's Involved</div>
+        <div class="svc-row"><span class="sk">Engineering</span><span class="sv">Makes the usage decisions that actually drive cost</span></div>
+        <div class="svc-row"><span class="sk">Finance</span><span class="sv">Owns budgeting, forecasting accuracy, variance reporting</span></div>
+        <div class="svc-row"><span class="sk">FinOps Practitioner</span><span class="sv">Translates between the two — tooling, process, education</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= ALLOCATION ================= -->
+  <div class="section-divider">
+    <div class="dot" style="background:var(--purple-soft)">🏷️</div>
+    <h2>Cost Allocation &amp; Tagging Strategy</h2>
+    <div class="line"></div>
+  </div>
+
+  <div class="grid grid-2" style="margin-bottom:12px">
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--purple-soft)">🗂️</div>
+        <h2>Tagging Taxonomy</h2>
+      </div>
+      <div class="card-body">
+        <div class="row"><span class="key">cost-center</span><span class="val">Which budget line this resource bills to (required, enforced)</span></div>
+        <div class="row"><span class="key">environment</span><span class="val">prod / staging / dev — dev often gets auto-shutdown policies</span></div>
+        <div class="row"><span class="key">team / owner</span><span class="val">Who to ask when this resource looks abandoned or oversized</span></div>
+        <div class="row"><span class="key">project / application</span><span class="val">Groups resources into a logical product for showback reporting</span></div>
+        <div class="note note-purple" style="margin-top:6px">Untagged resources are the #1 cause of "mystery spend" — enforce tagging at creation time via Service Control Policies (AWS) or Organization Policies (GCP), not after the fact.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--purple-soft)">💳</div>
+        <h2>Showback vs Chargeback</h2>
+      </div>
+      <div class="card-body">
+        <div class="row"><span class="key">Showback</span><span class="val">Teams SEE their cost in a dashboard — raises awareness, no actual billing transfer</span></div>
+        <div class="row"><span class="key">Chargeback</span><span class="val">Teams are ACTUALLY billed internally for their usage — creates real financial accountability</span></div>
+        <div class="note note-green" style="margin-top:6px">Most orgs start with showback (low friction) and graduate to chargeback once tagging/allocation is reliable enough that teams trust the numbers.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= FORECASTING ================= -->
+  <div class="section-divider">
+    <div class="dot" style="background:var(--purple-soft)">🔮</div>
+    <h2>Financial Forecasting &amp; Budgeting</h2>
+    <div class="line"></div>
+  </div>
+
+  <div class="grid grid-2" style="margin-bottom:12px">
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--purple-soft)">📊</div>
+        <h2>Forecasting Methods</h2>
+      </div>
+      <div class="card-body">
+        <div class="row"><span class="key">Trend-based</span><span class="val">Project forward from historical spend (e.g. trailing 3-month average × growth rate) — simple, works when usage is stable</span></div>
+        <div class="row"><span class="key">Driver-based</span><span class="val">Tie forecast to a business metric (cost per 1,000 API calls × projected API call volume) — more accurate when usage scales with the business</span></div>
+        <div class="row"><span class="key">Commitment-based</span><span class="val">Known fixed cost from RI/Savings Plan/CUD commitments, plus a variable on-demand buffer on top</span></div>
+        <div class="note note-purple" style="margin-top:6px">Best practice: blend all three. Use driver-based for the variable portion, commitment-based for the known baseline, and trend-based as a sanity check against both.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--purple-soft)">🧮</div>
+        <h2>Worked Forecast Example</h2>
+      </div>
+      <div class="card-body">
+        <div class="cmd">Trailing 3-month actual spend: $82K, $88K, $95K
+Month-over-month growth rate: (95-82)/82 / 2 months ≈ 7.9%/mo
+
+Next month forecast = $95K × 1.079 ≈ $102.5K
+
+Driver-based cross-check:
+  Current: $95K / 50M requests = $0.0019 per 1K requests
+  Next month projected requests: 54M (+8%, matches product roadmap)
+  Forecast = 54M × $0.0019/1K ≈ $102.6K  ✓ consistent with trend method
+
+Variance alert threshold: flag if actual deviates &gt;10% from forecast
+→ triggers investigation, not automatic panic</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= AWS ================= -->
+  <div class="section-divider">
+    <div class="dot" style="background:var(--aws-soft)">🟧</div>
+    <h2>AWS Cost Management</h2>
+    <div class="line"></div>
+  </div>
+
+  <div class="grid grid-2" style="margin-bottom:12px">
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--aws-soft)">🧰</div>
+        <h2>AWS Cost Toolchain</h2>
+      </div>
+      <div class="card-body">
+        <div class="row"><span class="key">Cost Explorer</span><span class="val">Interactive UI — filter/group spend by service, tag, account; built-in forecast graph</span></div>
+        <div class="row"><span class="key">Cost &amp; Usage Report (CUR)</span><span class="val">The most granular raw data — every line item, hourly — land it in S3, query with Athena, visualize in QuickSight</span></div>
+        <div class="row"><span class="key">AWS Budgets</span><span class="val">Set a $ or usage threshold, get alerted (or trigger an action) when forecast/actual crosses it</span></div>
+        <div class="row"><span class="key">Compute Optimizer</span><span class="val">ML-based rightsizing recommendations for EC2/EBS/Lambda based on actual utilization</span></div>
+        <div class="row"><span class="key">Cost Anomaly Detection</span><span class="val">ML baseline of normal spend patterns, alerts on statistically unusual spikes automatically</span></div>
+        <div class="row"><span class="key">Trusted Advisor</span><span class="val">Flags idle/underutilized resources (unattached EBS volumes, idle load balancers, etc.)</span></div>
+        <div class="cmd">aws budgets create-budget --account-id 123456789012 \
+  --budget file://budget.json --notifications-with-subscribers file://notify.json
+
+aws ce get-cost-forecast --time-period Start=2026-11-01,End=2026-12-01 \
+  --metric UNBLENDED_COST --granularity MONTHLY</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--aws-soft)">💰</div>
+        <h2>AWS Purchasing Options</h2>
+      </div>
+      <div class="card-body">
+        <table class="sla-table">
+          <tr><th>Option</th><th>Commitment</th><th>Discount</th><th>Flexibility</th></tr>
+          <tr><td>On-Demand</td><td>None</td><td>0% (baseline)</td><td>Full — pay per second, cancel anytime</td></tr>
+          <tr><td>Savings Plans</td><td>1 or 3yr, $/hr spend commit</td><td>Up to ~72%</td><td>High — applies across instance families/regions automatically</td></tr>
+          <tr><td>Reserved Instances</td><td>1 or 3yr, specific instance</td><td>Up to ~72%</td><td>Low (Standard) / Medium (Convertible — can change instance type)</td></tr>
+          <tr><td>Spot Instances</td><td>None</td><td>Up to ~90%</td><td>Low — can be reclaimed with 2-min warning; needs fault-tolerant workloads</td></tr>
+        </table>
+        <div class="note note-aws" style="margin-top:6px"><b>Blended strategy:</b> cover your stable baseline load with Savings Plans (~70-80% of steady usage), let bursty/unpredictable load run On-Demand, and use Spot for anything fault-tolerant (batch jobs, CI runners, stateless workers).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= GCP ================= -->
+  <div class="section-divider">
+    <div class="dot" style="background:var(--gcp-soft)">🔵</div>
+    <h2>GCP Cost Management</h2>
+    <div class="line"></div>
+  </div>
+
+  <div class="grid grid-2" style="margin-bottom:12px">
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--gcp-soft)">🧰</div>
+        <h2>GCP Cost Toolchain</h2>
+      </div>
+      <div class="card-body">
+        <div class="row"><span class="key">Billing Reports</span><span class="val">Console-native cost visualization by project, SKU, label — similar role to AWS Cost Explorer</span></div>
+        <div class="row"><span class="key">BigQuery Billing Export</span><span class="val">The granular raw data — every billing line item exported to BigQuery for custom SQL analysis (GCP's equivalent of the CUR)</span></div>
+        <div class="row"><span class="key">Budgets &amp; Alerts</span><span class="val">Set a budget per project/billing account, alert at % thresholds (50%/90%/100%) via email or Pub/Sub for automation</span></div>
+        <div class="row"><span class="key">Recommender</span><span class="val">Rightsizing recommendations for VM machine types, idle resource detection, committed-use-discount purchase suggestions</span></div>
+        <div class="row"><span class="key">Cost Table / Pricing Calculator</span><span class="val">Pre-purchase cost estimation for planning new workloads</span></div>
+        <div class="cmd">gcloud billing budgets create \
+  --billing-account=XXXXXX-YYYYYY-ZZZZZZ \
+  --display-name="Monthly Prod Budget" \
+  --budget-amount=100000 \
+  --threshold-rule=percent=0.9
+
+bq query --use_legacy_sql=false \
+  'SELECT service.description, SUM(cost) FROM `project.dataset.gcp_billing_export_v1`
+   GROUP BY 1 ORDER BY 2 DESC'</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--gcp-soft)">💰</div>
+        <h2>GCP Purchasing Options</h2>
+      </div>
+      <div class="card-body">
+        <table class="sla-table">
+          <tr><th>Option</th><th>Commitment</th><th>Discount</th><th>Notes</th></tr>
+          <tr><td>On-Demand</td><td>None</td><td>0% (baseline)</td><td>Pay per second billing, 1-minute minimum</td></tr>
+          <tr><td>Sustained Use Discount</td><td><b>None — automatic</b></td><td>Up to ~30%</td><td>Applied automatically the longer a VM runs within a billing month — no purchase needed at all</td></tr>
+          <tr><td>Committed Use Discount</td><td>1 or 3yr, resource- or spend-based</td><td>Up to ~70%</td><td>Resource-based = specific vCPU/memory; spend-based (Flex CUDs) = $/hr commitment across any resource type</td></tr>
+          <tr><td>Spot VMs</td><td>None</td><td>Up to ~91%</td><td>GCP's preemptible-successor — can be reclaimed, same fault-tolerance requirement as AWS Spot</td></tr>
+        </table>
+        <div class="note note-gcp" style="margin-top:6px"><b>Key difference from AWS:</b> Sustained Use Discounts need zero action — GCP automatically discounts any VM the longer it runs in a month. CUDs are GCP's closer equivalent to AWS Reserved Instances/Savings Plans, for workloads where you want to lock in savings beyond what SUD alone gives you.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= COMPARISON + UNIT ECONOMICS ================= -->
+  <div class="section-divider">
+    <div class="dot" style="background:var(--purple-soft)">⚖️</div>
+    <h2>AWS vs GCP &amp; Unit Economics</h2>
+    <div class="line"></div>
+  </div>
+
+  <div class="grid grid-2">
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--purple-soft)">⚖️</div>
+        <h2>Cost Model: AWS vs GCP, Side by Side</h2>
+      </div>
+      <div class="card-body">
+        <table class="sla-table">
+          <tr><th>Dimension</th><th>AWS</th><th>GCP</th></tr>
+          <tr><td>Default discount</td><td>None — must actively purchase RI/SP</td><td>Automatic (Sustained Use) — rewards passive usage</td></tr>
+          <tr><td>Granular billing data</td><td>Cost &amp; Usage Report (CUR) → S3 → Athena</td><td>Billing Export → BigQuery natively</td></tr>
+          <tr><td>Commitment flexibility</td><td>Savings Plans apply broadly across families; RIs are narrower</td><td>Flex CUDs (spend-based) are broadly flexible; resource-based CUDs are narrower</td></tr>
+          <tr><td>Billing granularity</td><td>Per-second (most services)</td><td>Per-second, 1-minute minimum</td></tr>
+          <tr><td>Multi-account discount sharing</td><td>Consolidated Billing / AWS Organizations shares RI/SP discounts across accounts</td><td>Billing Account shares CUDs across linked projects automatically</td></tr>
+        </table>
+        <div class="note note-purple" style="margin-top:6px">Practical takeaway: AWS rewards proactive FinOps discipline (you must buy commitments); GCP's SUD gives you a baseline discount for free, so GCP FinOps work focuses more on CUDs for the <em>predictable core</em> and rightsizing/waste elimination.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="icon" style="background:var(--purple-soft)">📐</div>
+        <h2>Unit Economics</h2>
+      </div>
+      <div class="card-body">
+        <p style="font-size:10px;color:var(--text2);margin-bottom:6px">The most mature FinOps signal: don't just track total cloud spend — track cost <em>per unit of business value</em>, so spend can rise alongside growth without triggering false alarms.</p>
+        <div class="row"><span class="key">Cost per customer</span><span class="val">Total infra spend ÷ active customers — the north-star SaaS metric</span></div>
+        <div class="row"><span class="key">Cost per transaction</span><span class="val">Infra spend ÷ transactions processed — useful for fintech/e-commerce</span></div>
+        <div class="row"><span class="key">Cost per API call / request</span><span class="val">Granular enough to catch a single inefficient endpoint driving cost</span></div>
+        <div class="note note-green" style="margin-top:6px">A rising total bill alongside a <b>falling</b> cost-per-unit is success, not a problem — that's efficiency improving faster than growth. Total spend alone can't tell you that story.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= INTERVIEW ================= -->
+  <div class="section-divider">
+    <div class="dot" style="background:var(--purple-soft)">💬</div>
+    <h2>Interview Prep</h2>
+    <div class="line"></div>
+  </div>
+
+  <div class="grid">
+    <div class="card col-span-3" style="grid-column:1/-1">
+      <div class="card-header">
+        <div class="icon" style="background:var(--purple-soft)">💬</div>
+        <h2>Common FinOps Interview Questions</h2>
+      </div>
+      <div class="card-body">
+        <div class="svc-row"><span class="sk">Q</span><span class="sv"><b>"How would you forecast next quarter's cloud spend?"</b> — blend trend-based (historical growth rate) with driver-based (tie to a business metric like users/transactions), cross-check both, and separate the known commitment baseline from the variable portion.</span></div>
+        <div class="svc-row"><span class="sk">Q</span><span class="sv"><b>"A team's AWS bill tripled overnight — what do you do?"</b> — check Cost Anomaly Detection/Cost Explorer for the specific service and tag driving it, confirm it's not a runaway process (e.g. an infinite Lambda loop or an unintended Spot-to-On-Demand fallback), then decide fix vs. accept-as-growth.</span></div>
+        <div class="svc-row"><span class="sk">Q</span><span class="sv"><b>"Savings Plans vs Reserved Instances — when would you use which?"</b> — Savings Plans for flexibility (applies broadly across instance families/regions); RIs when you need a specific, predictable reservation and can tolerate less flexibility for a comparable discount.</span></div>
+        <div class="svc-row"><span class="sk">Q</span><span class="sv"><b>"Why would GCP's Sustained Use Discount matter for FinOps strategy?"</b> — it removes the "did we even buy a commitment" risk for baseline usage entirely; GCP FinOps work shifts toward CUDs for the stable core and rightsizing, rather than babysitting reservation coverage.</span></div>
+        <div class="svc-row"><span class="sk">Q</span><span class="sv"><b>"How do you justify a cloud cost increase to Finance?"</b> — show unit economics: if cost-per-customer or cost-per-transaction is flat or falling while total spend rises, the increase is funding growth, not waste — frame it in business terms, not raw dollars.</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

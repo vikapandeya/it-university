@@ -562,6 +562,50 @@
       ],
       "correct": 1,
       "explain": "B2B buying usually involves a committee (end user, budget owner, IT/security, legal) evaluating ROI and risk, while a B2C purchase is typically a single person's fast, low-risk decision."
+    },
+    {
+      "question": "What are the three phases of the FinOps Foundation lifecycle?",
+      "options": [
+        "A. Plan, Build, Deploy",
+        "B. Inform, Optimize, Operate",
+        "C. Budget, Spend, Report",
+        "D. Crawl, Walk, Run"
+      ],
+      "correct": 1,
+      "explain": "Inform (give teams visibility into their cost), Optimize (act on that visibility — rightsizing, commitments), and Operate (make it continuous through automation and governance) make up the core FinOps lifecycle — a continuous loop, not a one-time project."
+    },
+    {
+      "question": "What is the key architectural difference between AWS and GCP's default discount model?",
+      "options": [
+        "A. There is no difference — both require purchasing a reservation to get any discount",
+        "B. AWS requires actively purchasing a Reserved Instance or Savings Plan to get a discount; GCP automatically applies Sustained Use Discounts the longer a VM runs, with zero purchase required",
+        "C. GCP only offers discounts to enterprise customers with annual contracts",
+        "D. AWS automatically discounts all usage after 30 days"
+      ],
+      "correct": 1,
+      "explain": "This is a meaningful FinOps strategic difference: AWS rewards proactive commitment purchases (RI/Savings Plans), while GCP's Sustained Use Discount applies automatically based on how long a VM runs within a billing month — no purchase action needed for that baseline discount."
+    },
+    {
+      "question": "Why is 'cost per customer' or 'cost per transaction' (unit economics) considered a more mature FinOps metric than total cloud spend alone?",
+      "options": [
+        "A. It's not more mature, total spend is always the better metric",
+        "B. It ties cost to business value, so a rising total bill alongside a falling cost-per-unit signals efficiency improving faster than growth — information total spend alone can't convey",
+        "C. Unit economics are only relevant for e-commerce companies",
+        "D. It eliminates the need for any cost forecasting"
+      ],
+      "correct": 1,
+      "explain": "Total spend alone can't distinguish 'we're wasting money' from 'we're growing and spending proportionally more' — unit economics (cost per customer/transaction) reveals whether efficiency is actually improving even as absolute spend rises."
+    },
+    {
+      "question": "What's the difference between showback and chargeback in cost allocation?",
+      "options": [
+        "A. They are identical practices with different names",
+        "B. Showback gives teams visibility into their cost without an actual internal billing transfer; chargeback actually bills teams internally for their usage, creating real financial accountability",
+        "C. Chargeback only applies to GCP, showback only to AWS",
+        "D. Showback is required by law, chargeback is optional"
+      ],
+      "correct": 1,
+      "explain": "Showback is a lower-friction first step — teams simply see their cost in a dashboard to raise awareness. Chargeback goes further, actually transferring the cost internally, which most organizations only adopt once tagging and allocation accuracy is trustworthy."
     }
   ]
 }

@@ -353,6 +353,39 @@
       ],
       "correct": 1,
       "explain": "Horizontal scaling adds/removes instances dynamically — if a user's session data were stored only in one instance's memory, a request landing on a different instance would lose that context, so state must be externalized to something all instances can reach."
+    },
+    {
+      "question": "What is the key difference between AWS Savings Plans and Reserved Instances?",
+      "options": [
+        "A. They offer identical discounts and flexibility, just different names",
+        "B. Savings Plans commit to a $/hour spend and apply automatically across instance families/regions; Reserved Instances commit to a specific instance type/region, offering similar discounts with less flexibility",
+        "C. Reserved Instances only work for RDS, Savings Plans only work for EC2",
+        "D. Savings Plans require a 3-year minimum commitment"
+      ],
+      "correct": 1,
+      "explain": "Savings Plans commit to a dollar-per-hour spend level and apply broadly across instance families and regions automatically, while Reserved Instances lock in a specific instance configuration — similar discount depth, but Savings Plans trade a bit of discount ceiling for much more flexibility."
+    },
+    {
+      "question": "What does AWS Cost Anomaly Detection do?",
+      "options": [
+        "A. It automatically cancels any resource that costs more than $100",
+        "B. It builds an ML baseline of normal spend patterns per service/account and alerts when actual spend deviates unusually from that pattern",
+        "C. It only detects anomalies in EC2 CPU usage, not cost",
+        "D. It requires manually setting a fixed dollar threshold for every service"
+      ],
+      "correct": 1,
+      "explain": "Cost Anomaly Detection uses machine learning to learn what 'normal' spend looks like for your account/service and flags statistically unusual deviations automatically, without requiring a manually-tuned fixed threshold."
+    },
+    {
+      "question": "Where does the AWS Cost and Usage Report (CUR) land, and how is it typically queried for FinOps analysis?",
+      "options": [
+        "A. It only exists as a PDF emailed monthly to the billing contact",
+        "B. It lands in an S3 bucket as detailed line-item data, commonly queried with Athena and visualized in QuickSight",
+        "C. It's only accessible through AWS Support tickets",
+        "D. It's automatically deleted after 24 hours"
+      ],
+      "correct": 1,
+      "explain": "The CUR delivers the most granular billing data available (every line item, hourly) to an S3 bucket, which FinOps teams typically query with Athena (SQL over S3 data) and visualize in QuickSight or similar BI tools."
     }
   ]
 }
